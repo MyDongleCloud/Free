@@ -3,5 +3,6 @@
 
 //Function
 void uiLogic();
+void uiKey(int k);
 
 #endif

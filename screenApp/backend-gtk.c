@@ -135,6 +135,24 @@ void backendRun_() {
 void backendUpdate(int x, int y, int w, int h, unsigned char *colorp) {
 	for (int yy = 0; yy < h; yy++)
 		memcpy(fb_ + ((yy + y) * WIDTH + x) * DEPTH, fb + (yy * w) * DEPTH, w * DEPTH);
+#ifdef DEBUG
+	for (int yy = 0; yy < h; yy++) {
+		fb_[((yy + y) * WIDTH + x) * DEPTH + 0] = 255;
+		fb_[((yy + y) * WIDTH + x) * DEPTH + 1] = 255;
+		fb_[((yy + y) * WIDTH + x) * DEPTH + 2] = 255;
+		fb_[((yy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
+		fb_[((yy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
+		fb_[((yy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
+	}
+	for (int xx = 0; xx < w; xx++) {
+		fb_[(y * WIDTH + xx) * DEPTH + 0] = 255;
+		fb_[(y * WIDTH + xx) * DEPTH + 1] = 255;
+		fb_[(y * WIDTH + xx) * DEPTH + 2] = 255;
+		fb_[((y + h) * WIDTH + xx) * DEPTH + 0] = 255;
+		fb_[((y + h) * WIDTH + xx) * DEPTH + 1] = 255;
+		fb_[((y + h) * WIDTH + xx) * DEPTH + 2] = 255;
+	}
+#endif
 	gtk_image_set_from_pixbuf(GTK_IMAGE(outputImgW), pixBuf);
 }
 

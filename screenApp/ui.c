@@ -7,7 +7,9 @@
 #include "macro.h"
 #include "backend.h"
 
-lv_obj_t *btn;
+//Private variable
+static lv_obj_t *btn;
+
 //Functions
 static void btn_event_cb(lv_event_t *e) {
 	lv_event_code_t code = lv_event_get_code(e);
@@ -29,4 +31,9 @@ void uiLogic() {
     lv_obj_t *label = lv_label_create(btn);
     lv_label_set_text(label, "Button");
     lv_obj_center(label);
+}
+
+void uiKey(int k) {
+	if (k == LV_KEY_UP)
+		lv_obj_send_event(btn, LV_EVENT_CLICKED, NULL);
 }

@@ -39,15 +39,18 @@ void backendInit(int argc, char *argv[]) {
 
 void backendRun() {
 	int count = 0;
+	int keyLast = 0;
     while (1) {
 		lv_tick_inc(tickGet());
 		lv_timer_handler();
 		backendRun_();
 		if (count++ == 1)
 			uiLogic();
-		if (lv_indev_get_key(indevK) == LV_KEY_UP) {
-			extern lv_obj_t *btn;
-			lv_obj_send_event(btn, LV_EVENT_CLICKED, NULL);
+		int keyCur = lv_indev_get_key(indevK);
+		if (keyCur != keyLast) {
+			if (keyCur != 0)
+				uiKey(keyCur);
+			keyLast = keyCur;
 		}
-    }
+	}
 }
