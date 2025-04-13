@@ -12,13 +12,13 @@ DEBUG = -g
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 PRE = /tmp/_screenApp/
 
-OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)backend.o
-OBJs_DESKTOP = $(PRE)main_.o $(PRE)ui.o $(PRE)backend-gtk_.o
+OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)backend.o $(PRE)backend-spi.o
+OBJs_DESKTOP := $(PRE)main.o $(PRE)ui.o $(PRE)backend.o $(PRE)backend-gtk_.o
 
 MYCFLAGS = $(CFLAGS) -I ../build/lvgl
-MYLDFLAGS = -pthread -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg
+MYLDFLAGS = -pthread -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput
 
-MYCFLAGS_DESKTOP = $(MYCFLAGS) -DGTK `pkg-config --cflags gtk+-3.0`
+MYCFLAGS_DESKTOP = $(MYCFLAGS) `pkg-config --cflags gtk+-3.0`
 MYLDFLAGS_DESKTOP = $(MYLDFLAGS) `pkg-config --libs gtk+-3.0`
 
 .PHONY : clean

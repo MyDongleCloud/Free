@@ -32,7 +32,8 @@
 
 #define WIDTH 128
 #define HEIGHT 128
-#define SCREENBUFFERSIZE WIDTH * HEIGHT * 3
+#define DEPTH 3
+#define SCREENBUFFERSIZE WIDTH * HEIGHT * DEPTH
 
 struct st7735sPriv {
 	struct spi_device *spi;
@@ -194,10 +195,11 @@ static void update(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, ui
 	int xx, yy;
 	for (yy = 0; yy < h; yy++)
 		for (xx = 0; xx < w; xx++) {
-			int pos = 3 * ((yy + y) * WIDTH + xx + x);
-			unsigned int c = convert24to16(priv->framebuffer[pos + 0], priv->framebuffer[pos + 1], priv->framebuffer[pos + 2]);
-			priv->spiTx[2 * yy * w + 2 * xx] = c >> 8;
-			priv->spiTx[2 * yy * w + 2 * xx + 1] = c & 0xFF;
+			int posFb = DEPTH * (yy * w + xx);
+			int posTx = 2 * (yy * w + xx);
+			unsigned int c = convert24to16(priv->framebuffer[posFb + 0], priv->framebuffer[posFb + 1], priv->framebuffer[posFb + 2]);
+			priv->spiTx[posTx] = c >> 8;
+			priv->spiTx[posTx + 1] = c & 0xFF;
 		}
 	updateTx(priv, x, y, w, h);
 }

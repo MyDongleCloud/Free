@@ -1,67 +1,53 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <stdint.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <sys/mman.h>
+#include <pthread.h>
+#include "lvgl.h"
 #include "macro.h"
-#include "backend.h"
+#include "backend-plat.h"
+#include "ui.h"
 
-
-//Defines
-//#define NOMMAP
-#define _PATH "/sys/bus/spi/devices/spi0.0/%s"
-#define _DEV "/dev/st7735s"
-
-//Global variable
-unsigned char *fb;
+//Private variable
+static lv_indev_t *indevK;
 
 //Functions
-static void writeValue(const char *path, const char *v) {
-	int fd = open(path, O_WRONLY | O_CREAT, 0644);
-	if (fd >= 0) {
-		write(fd, v, strlen(v));
-		close(fd);
-	}
+static void flushCb(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
+	PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
+	backendUpdate(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, colorp);
+    lv_disp_flush_ready(disp_drv);
 }
 
-static void writeValueKey(const char *path, const char *key, const char *v) {
-	char fullpath[256];
-	sprintf(fullpath, path, key);
-	writeValue(fullpath, v);
+static uint32_t tickGet() {
+	static struct timespec start = {0};
+	if (start.tv_sec == 0)
+		clock_gettime(CLOCK_REALTIME, &start);
+	struct timespec now;
+	clock_gettime(CLOCK_REALTIME, &now);
+	return (now.tv_nsec - start.tv_nsec) / 1000 / 1000 + ((now.tv_sec - start.tv_sec) * 1000);
 }
 
-void backendInit() {
-#ifdef NOMMAP
-	fb = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-#else
-	int screenDev = open(_DEV, O_RDWR);
-	if (screenDev)
-		fb = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenDev, 0);
-#endif
-	writeValueKey(_PATH, "init", "1");
+void backendInit(int argc, char *argv[]) {
+	lv_init();
+	backendInit_(argc, argv);
+	lv_display_t * disp = lv_display_create(WIDTH, HEIGHT);
+	lv_display_set_buffers(disp, fb, 0, WIDTH * HEIGHT * 3, LV_DISPLAY_RENDER_MODE_PARTIAL);
+	lv_display_set_flush_cb(disp, flushCb);
+	backendInitPointer();
+	indevK = backendInitKeyboard();
 }
 
 void backendRun() {
-}
-
-static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned char b) {
-	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
-}
-
-void backendUpdate(int x, int y, int w, int h, unsigned char *colorp) {
-	char sz[64];
-#ifdef NOMMAP
-	int xx, yy;
-	for (yy = 0; yy < h; yy++)
-		for (xx = 0; xx < w; xx++) {
-			int pos = 3 * ((yy + y) * WIDTH + xx + x);
-			unsigned int c = convert24to16(fb[pos + 0], fb[pos + 1], fb[pos + 2]);
-			sprintf(sz, "%d %d %d %d %d", xx, yy, 1, 1, c);
-			writeValueKey(_PATH, "rect", sz);
+	int count = 0;
+    while (1) {
+		lv_tick_inc(tickGet());
+		lv_timer_handler();
+		backendRun_();
+		if (count++ == 1)
+			uiLogic();
+		if (lv_indev_get_key(indevK) == LV_KEY_UP) {
+			extern lv_obj_t *btn;
+			lv_obj_send_event(btn, LV_EVENT_CLICKED, NULL);
 		}
-#else
-	sprintf(sz, "%d %d %d %d", x, y, w, h);
-	writeValueKey(_PATH, "update", sz);
-#endif
+    }
 }

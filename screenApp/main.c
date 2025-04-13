@@ -2,18 +2,11 @@
 #include <stdio.h>
 #include <getopt.h>
 #include "macro.h"
-#ifdef GTK
-#include <gtk/gtk.h>
-#endif
 #include "backend.h"
-#include "ui.h"
 
 //Functions
 int main(int argc, char *argv[]) {
-#ifdef GTK
-	gtk_init(&argc, &argv);
-#endif
-	uiInit();
+	backendInit(argc, argv);
 
 	int option;
 	while ((option = getopt(argc, argv, "h")) != -1) {
@@ -29,6 +22,6 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	uiRun();
+	backendRun();
 	return 0;
 }
