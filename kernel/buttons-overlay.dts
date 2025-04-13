@@ -16,7 +16,7 @@
 				brcm,pull = <2>;
 			};
 			button_3: button_3 {
-				brcm,pins = <40>;
+				brcm,pins = <2>;
 				brcm,function = <0>;
 				brcm,pull = <2>;
 			};
@@ -36,25 +36,25 @@
 				pinctrl-names = "default";
 				pinctrl-0 = <&button_1 &button_2 &button_3 &button_4>;
 				status = "okay";
-				keyF6: keyF6 {
-					linux,code = <64>;
+				keyUp: keyUp {
+					linux,code = <103>;
 					gpios = <&gpio 23 1>;//17
-					label = "KEY_F6";
+					label = "KEY_UP";
 				};
-				keyF7: keyF7 {
-					linux,code = <65>;
+				keyDown: keyDown {
+					linux,code = <108>;
 					gpios = <&gpio 26 1>;//21
-					label = "KEY_F7";
+					label = "KEY_DOWN";
 				};
-				keyF8: keyF8 {
-					linux,code = <66>;
-					gpios = <&gpio 40 1>;
-					label = "KEY_F8";
+				keyLeft: keyLeft {
+					linux,code = <105>;
+					gpios = <&gpio 2 1>;
+					label = "KEY_LEFT";
 				};
-				keyF9: keyF9 {
-					linux,code = <67>;
+				keyRight: keyRight {
+					linux,code = <106>;
 					gpios = <&gpio 13 1>;
-					label = "KEY_F9";
+					label = "KEY_RIGHT";
 				};
 			};
 		};
