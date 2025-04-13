@@ -1,0 +1,62 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			button_1: button_1 {
+				brcm,pins = <23>;//17
+				brcm,function = <0>;
+				brcm,pull = <2>;
+			};
+			button_2: button_2 {
+				brcm,pins = <26>;//21
+				brcm,function = <0>;
+				brcm,pull = <2>;
+			};
+			button_3: button_3 {
+				brcm,pins = <40>;
+				brcm,function = <0>;
+				brcm,pull = <2>;
+			};
+			button_4: button_4 {
+				brcm,pins = <13>;
+				brcm,function = <0>;
+				brcm,pull = <2>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target-path = "/";
+		__overlay__ {
+			button: button@0 {
+				compatible = "gpio-keys";
+				pinctrl-names = "default";
+				pinctrl-0 = <&button_1 &button_2 &button_3 &button_4>;
+				status = "okay";
+				keyF6: keyF6 {
+					linux,code = <64>;
+					gpios = <&gpio 23 1>;//17
+					label = "KEY_F6";
+				};
+				keyF7: keyF7 {
+					linux,code = <65>;
+					gpios = <&gpio 26 1>;//21
+					label = "KEY_F7";
+				};
+				keyF8: keyF8 {
+					linux,code = <66>;
+					gpios = <&gpio 40 1>;
+					label = "KEY_F8";
+				};
+				keyF9: keyF9 {
+					linux,code = <67>;
+					gpios = <&gpio 13 1>;
+					label = "KEY_F9";
+				};
+			};
+		};
+	};
+};

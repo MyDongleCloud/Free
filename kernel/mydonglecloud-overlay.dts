@@ -1,0 +1,38 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+        target = <&gpio>;
+        __overlay__ {
+            pwm_buzzer: pwm_buzzer {
+				brcm,pins = <12>;
+				brcm,function = <4>;
+			};
+		};
+	};
+
+    fragment@1 {
+        target = <&pwm>;
+        __overlay__ {
+            pinctrl-names = "default";
+            pinctrl-0 = <&pwm_buzzer>;
+            status = "okay";
+        };
+    };
+
+	fragment@2 {
+		target-path = "/";
+		__overlay__ {
+			mydonglecloud {
+				compatible = "mydonglecloud";
+				status = "okay";
+				led1 = <5>;//26
+				led2 = <6>;//19
+				led3 = <16>;
+				led4 = <20>;//20
+                pwms = <&pwm 0 166000 322000>;
+			};
+		};
+	};
+};

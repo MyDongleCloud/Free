@@ -1,0 +1,22 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&spi0>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			st7735s: st7735s@0 {
+				compatible = "st7735s";
+				spi-max-frequency = <12000000>;
+				status = "okay";
+				reg = <0>;
+				backlight = <27>;
+				nrst = <17>;//6
+				wd = <25>;//5
+			};
+		};
+	};
+};
