@@ -197,7 +197,7 @@ static void update(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, ui
 		for (xx = 0; xx < w; xx++) {
 			int posFb = DEPTH * (yy * w + xx);
 			int posTx = 2 * (yy * w + xx);
-			unsigned int c = convert24to16(priv->framebuffer[posFb + 0], priv->framebuffer[posFb + 1], priv->framebuffer[posFb + 2]);
+			unsigned int c = convert24to16(priv->framebuffer[posFb + 2], priv->framebuffer[posFb + 1], priv->framebuffer[posFb + 0]);
 			priv->spiTx[posTx] = c >> 8;
 			priv->spiTx[posTx + 1] = c & 0xFF;
 		}

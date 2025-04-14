@@ -105,7 +105,7 @@ void backendInit_(int argc, char *argv[]) {
 	gtk_window_set_default_size(GTK_WINDOW(mainW), WIDTH, HEIGHT);
 	gtk_window_set_resizable (GTK_WINDOW(mainW), FALSE);
 
-	pixBuf = gdk_pixbuf_new_from_data(fb_, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * 3, NULL, NULL);
+	pixBuf = gdk_pixbuf_new_from_data(fb_, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * DEPTH, NULL, NULL);
 	outputImgW = gtk_image_new();
 	GtkWidget *event_box = gtk_event_box_new();
 	gtk_container_add(GTK_CONTAINER (event_box), outputImgW);
@@ -134,23 +134,27 @@ void backendRun_() {
 
 void backendUpdate(int x, int y, int w, int h, unsigned char *colorp) {
 	for (int yy = 0; yy < h; yy++)
-		memcpy(fb_ + ((yy + y) * WIDTH + x) * DEPTH, fb + (yy * w) * DEPTH, w * DEPTH);
-#ifdef DEBUG
-	for (int yy = 0; yy < h; yy++) {
-		fb_[((yy + y) * WIDTH + x) * DEPTH + 0] = 255;
-		fb_[((yy + y) * WIDTH + x) * DEPTH + 1] = 255;
-		fb_[((yy + y) * WIDTH + x) * DEPTH + 2] = 255;
-		fb_[((yy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
-		fb_[((yy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
-		fb_[((yy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
+		for (int xx = 0; xx < w; xx++) {
+			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fb[((yy + y) * w + xx + x) * DEPTH + 2];
+			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fb[((yy + y) * w + xx + x) * DEPTH + 1];
+			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fb[((yy + y) * w + xx + x) * DEPTH + 0];
+		}
+#ifdef DEBUG_REDRAW
+	for (int yyy = 0; yyy < h; yyy++) {
+		fb_[((yyy + y) * WIDTH + x) * DEPTH + 0] = 255;
+		fb_[((yyy + y) * WIDTH + x) * DEPTH + 1] = 255;
+		fb_[((yyy + y) * WIDTH + x) * DEPTH + 2] = 255;
+		fb_[((yyy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
+		fb_[((yyy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
+		fb_[((yyy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
 	}
-	for (int xx = 0; xx < w; xx++) {
-		fb_[(y * WIDTH + xx) * DEPTH + 0] = 255;
-		fb_[(y * WIDTH + xx) * DEPTH + 1] = 255;
-		fb_[(y * WIDTH + xx) * DEPTH + 2] = 255;
-		fb_[((y + h) * WIDTH + xx) * DEPTH + 0] = 255;
-		fb_[((y + h) * WIDTH + xx) * DEPTH + 1] = 255;
-		fb_[((y + h) * WIDTH + xx) * DEPTH + 2] = 255;
+	for (int xxx = 0; xxx < w; xxx++) {
+		fb_[(y * WIDTH + xxx) * DEPTH + 0] = 255;
+		fb_[(y * WIDTH + xxx) * DEPTH + 1] = 255;
+		fb_[(y * WIDTH + xxx) * DEPTH + 2] = 255;
+		fb_[((y + h) * WIDTH + xxx) * DEPTH + 0] = 255;
+		fb_[((y + h) * WIDTH + xxx) * DEPTH + 1] = 255;
+		fb_[((y + h) * WIDTH + xxx) * DEPTH + 2] = 255;
 	}
 #endif
 	gtk_image_set_from_pixbuf(GTK_IMAGE(outputImgW), pixBuf);
