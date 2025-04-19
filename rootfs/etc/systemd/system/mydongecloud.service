@@ -1,0 +1,13 @@
+[Unit]
+Description=MyDongle Cloud service
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=mdc
+ExecStart=/usr/bin/sudo /bin/sh /etc/mydonglecloud.sh
+
+[Install]
+WantedBy=multi-user.target
