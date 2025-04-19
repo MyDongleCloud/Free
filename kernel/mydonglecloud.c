@@ -188,7 +188,7 @@ static ssize_t write_debug(struct device *dev, struct device_attribute *attr, co
 static DEVICE_ATTR(debug, 0660, show_debug, write_debug);
 
 static ssize_t write_printk(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
-	printk("MyDongle: %s", buf);
+	printk("MyDongleCloud: %s", buf);
 	if (strlen(buf) > 0 && buf[strlen(buf) - 1] != '\n')
 		printk("\n");
 	return count;
@@ -230,7 +230,7 @@ static struct attribute_group mydongle_attr_group = {
 };
 
 static int mydongle_probe(struct platform_device *pdev) {
-	printk("MyDongle: Enter probe");
+	printk("MyDongleCloud: Enter probe");
 	int ret = 0;
 	struct device *dev = &pdev->dev;
 	struct mydonglePriv *ip = devm_kzalloc(dev, sizeof(struct mydonglePriv), GFP_KERNEL);
@@ -252,25 +252,25 @@ static int mydongle_probe(struct platform_device *pdev) {
 	ip->gpioLed4 += 571;
 
 	ip->hardwareVersion = 10;
-	printk("MyDongle: hardware_Version:%d\n", ip->hardwareVersion);
+	printk("MyDongleCloud: hardware_Version:%d\n", ip->hardwareVersion);
 
 	ret = gpio_request(ip->gpioLed1, "GPIO_LED1");
 	if (ret < 0) {
-		printk("MyDongle-Dongle: Failed to request GPIO %d for GPIO_LED1\n", ip->gpioLed1);
+		printk("MyDongleCloud-Dongle: Failed to request GPIO %d for GPIO_LED1\n", ip->gpioLed1);
 		//return 0;
 	}
 	gpio_direction_output(ip->gpioLed1, 0);
 
 	ret = gpio_request(ip->gpioLed2, "GPIO_LED2");
 	if (ret < 0) {
-		printk("MyDongle-Dongle: Failed to request GPIO %d for GPIO_LED2\n", ip->gpioLed2);
+		printk("MyDongleCloud-Dongle: Failed to request GPIO %d for GPIO_LED2\n", ip->gpioLed2);
 		//return 0;
 	}
 	gpio_direction_output(ip->gpioLed2, 0);
 
 	ret = gpio_request(ip->gpioLed3, "GPIO_LED3");
 	if (ret < 0) {
-		printk("MyDongle-Dongle: Failed to request GPIO %d for GPIO_LED3\n", ip->gpioLed3);
+		printk("MyDongleCloud-Dongle: Failed to request GPIO %d for GPIO_LED3\n", ip->gpioLed3);
 		//return 0;
 	}
 	gpio_direction_output(ip->gpioLed3, 0);
@@ -293,7 +293,7 @@ static int mydongle_probe(struct platform_device *pdev) {
 
 	timer_setup(&my_timer_buzzer, my_timer_buzzer_callback, 0);
 
-	printk("MyDongle: Exit probe");
+	printk("MyDongleCloud: Exit probe");
 	return sysfs_create_group(&dev->kobj, &mydongle_attr_group);
 }
 
