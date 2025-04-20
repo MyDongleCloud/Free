@@ -11,13 +11,13 @@ DEBUG = -g
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 PRE = /tmp/_app/
 
-OBJs := $(PRE)main.o $(PRE)common.o
+OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)common.o $(PRE)backend.o $(PRE)btlib.o
 
-OBJs_ := $(OBJs)
-OBJs_DESKTOP := $(OBJs)
+OBJs_ := $(OBJs) $(PRE)backend-spi.o
+OBJs_DESKTOP := $(OBJs) $(PRE)backend-gtk_.o
 
-MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations
-MYLDFLAGS = -pthread -lcrypto -lssl -lcurl
+MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -I ../build/lvgl
+MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput
 
 MYCFLAGS_DESKTOP = $(MYCFLAGS) -DDESKTOP `pkg-config --cflags gtk+-3.0`
 MYLDFLAGS_DESKTOP = $(MYLDFLAGS) `pkg-config --libs gtk+-3.0`

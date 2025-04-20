@@ -4,6 +4,7 @@
 #include <getopt.h>
 #include "macro.h"
 #include "common.h"
+#include "backend.h"
 
 //Functions
 int main(int argc, char *argv[]) {
@@ -25,6 +26,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	backendInit(argc, argv);
+
 	buzzer();
 	writeValueKey(MDC_PATH, "printk", "start app");
 
@@ -39,5 +42,6 @@ int main(int argc, char *argv[]) {
 	int debug = 0;
 	logInit(daemon, debug);
 
+	backendRun();
 	return 0;
 }
