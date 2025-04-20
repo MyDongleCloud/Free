@@ -11,10 +11,10 @@ DEBUG = -g
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 PRE = /tmp/_app/
 
-OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)common.o $(PRE)backend.o $(PRE)btlib.o
+OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)common.o $(PRE)backend.o $(PRE)ble.o $(PRE)bluetoothAddr.o $(PRE)btlib.o
 
 OBJs_ := $(OBJs) $(PRE)backend-spi.o
-OBJs_DESKTOP := $(OBJs) $(PRE)backend-gtk_.o
+OBJs_DESKTOP := $(OBJs:%.o=%_.o) $(PRE)backend-gtk_.o
 
 MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -I ../build/lvgl
 MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput

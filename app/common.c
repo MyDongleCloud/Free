@@ -290,10 +290,6 @@ void logInit(int daemon, int debug) {
 	pidLog = fork();
 	if (!pidLog) {
 		close(pipe_fd[1]);
-		if (fileExists(sz) && fileExists(MAIN_PATH "core") && !fileExists(MAIN_PATH "inout.core.log")) {
-			mkdir(MAIN_PATH "report/", 0775);
-			copyFile(sz, MAIN_PATH "report/core.inout.log", NULL);
-		}
 		FILE* logFile = fopen(sz, "a");
 		char *buf = "===========================\n";
 		fwrite(buf, strlen(buf), 1, logFile);
