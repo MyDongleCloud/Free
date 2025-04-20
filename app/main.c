@@ -5,6 +5,7 @@
 #include "macro.h"
 #include "common.h"
 #include "backend.h"
+#include "ble.h"
 
 //Functions
 int main(int argc, char *argv[]) {
@@ -41,6 +42,8 @@ int main(int argc, char *argv[]) {
 
 	int debug = 0;
 	logInit(daemon, debug);
+
+	bleStart();
 
 	backendRun();
 	return 0;
