@@ -117,7 +117,4 @@ if [ ! -d /tmp/config ]; then
 	fi
 	ls /sys/class/udc/ > $PATHg1/UDC
 	echo "Configuration done"
-	if [ $MTP = 1 ]; then
-		sleep infinity
-	fi
 fi

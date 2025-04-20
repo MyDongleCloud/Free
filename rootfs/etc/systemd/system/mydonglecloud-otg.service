@@ -1,0 +1,11 @@
+[Unit]
+Description=MyDongle Cloud OTG service
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/mydonglecloud-otg.sh
+
+[Install]
+WantedBy=sysinit.target
