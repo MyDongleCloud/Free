@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ "m`id -u`" != "m0" ]; then
+	echo "You need to be root"
+	exit 0
+fi
+
 ln -sf /sys/devices/platform/mydonglecloud /dev/mydonglecloud_platform
 chmod 222 /dev/mydonglecloud_platform/printk
 chmod 222 /dev/mydonglecloud_platform/buzzer
