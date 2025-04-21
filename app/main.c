@@ -26,26 +26,20 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 	}
-
 	if (killOtherPids("app")) {
 		fprintf(stderr, "Exiting because process already exists\n");
 		return 0;
 	}
-
-	backendInit(argc, argv);
-
-	writeValueKey(PLATFORM_PATH, "printk", "start app");
-
-	chdir("/home/mdc/app");
-	setenv("HOME", "/home/mdc", 1);
-
 	int debug = 0;
 	logInit(daemon, debug);
-
+	backendInit(argc, argv);
+#ifndef DESKTOP
+	writeValueKey(PLATFORM_PATH, "printk", "start app");
+	chdir("/home/mdc/app");
+	setenv("HOME", "/home/mdc", 1);
 	bleStart();
-
+#endif
 	jingle();
-
 	backendRun();
 	return 0;
 }
