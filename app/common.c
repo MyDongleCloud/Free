@@ -318,6 +318,7 @@ void touchClick() {
 }
 
 void jingle() {
+#ifndef DESKTOP
 #define _100MS 100 * 1000
 #define pwm(a, b) writeValueKeyInt(PLATFORM_PATH, "buzzerFreq", a);
 #define Task_sleep usleep
@@ -336,6 +337,7 @@ void jingle() {
 	pwm(1650, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 1.65kHz
 	Task_sleep(2 * _100MS);
 	pwm(2000, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 2kHz
+#endif
 }
 
 void touch(char *szPath) {
