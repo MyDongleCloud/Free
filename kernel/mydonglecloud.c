@@ -170,6 +170,12 @@ static ssize_t show_hardwareVersion(struct device *dev, struct device_attribute 
 
 static DEVICE_ATTR(hardwareVersion, 0440, show_hardwareVersion, NULL);
 
+static ssize_t show_serialNumber(struct device *dev, struct device_attribute *attr, char *buf) {
+	return sprintf(buf, "%s", "1234567890abcdef");
+}
+
+static DEVICE_ATTR(serialNumber, 0440, show_serialNumber, NULL);
+
 static ssize_t show_debug(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
 	return sprintf(buf, "%u\n", ip->debug);
@@ -219,6 +225,7 @@ static struct attribute *mydongle_attributes[] = {
 	&dev_attr_buzzer.attr,
 	&dev_attr_buzzerFreq.attr,
 	&dev_attr_hardwareVersion.attr,
+	&dev_attr_serialNumber.attr,
 	&dev_attr_debug.attr,
 	&dev_attr_printk.attr,
 	&dev_attr_buzzerClick.attr,

@@ -5,6 +5,8 @@ chmod 222 /dev/mydonglecloud_platform/printk
 chmod 222 /dev/mydonglecloud_platform/buzzer
 chmod 222 /dev/mydonglecloud_platform/buzzerClick
 chmod 666 /dev/mydonglecloud_platform/buzzerFreq
+chmod 444 /dev/mydonglecloud_platform/hardwareVersion
+chmod 444 /dev/mydonglecloud_platform/serialNumber
 
 ln -sf /sys/bus/spi/devices/spi0.0 /dev/mydonglecloud_screen
 chmod 666 /dev/mydonglecloud_screen/backlight

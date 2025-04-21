@@ -234,24 +234,9 @@ void generateUniqueId(char sz[17]) {
 
 void getSerialID() {
 #ifdef DESKTOP
-	strcpy(szSerial, "12345678");
+	strcpy(szSerial, "1234567890abcdef");
 #else
-#ifdef DIRECT
-#define ADDRESS_ID 0xC0067000
-	int fdMem = open("/dev/mem", O_RDWR | O_SYNC);
-	void *mapdieid, *virtdieid;
-	mapdieid = mmap(0, MAP4096_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fdMem, ADDRESS_ID & ~MAP4096_MASK);
-	virtdieid = mapdieid + (ADDRESS_ID & MAP4096_MASK);
-	sprintf(szSerial, "%08x", REG32(virtdieid + 0x04));
-	PRINTF("ECID: %08x%08x%08x%08x\n", REG32(virtdieid + 0x00), REG32(virtdieid + 0x04), REG32(virtdieid + 0x08), REG32(virtdieid + 0x0C));
-	PRINTF("GUID: %08x%08x%08x%08x\n", REG32(virtdieid + 0x44), REG32(virtdieid + 0x48), REG32(virtdieid + 0x4C), REG32(virtdieid + 0x50));
-	PRINTF("Name: %08x\n", REG32(virtdieid + 0x10));
-	munmap(mapdieid, MAP4096_SIZE);
-	if (fdMem)
-		close(fdMem);
-#else
-	readString(MDC_PATH, "serialnumber", szSerial, 16);
-#endif
+	readString(MDC_PATH, "serialNumber", szSerial, 16);
 #endif
 }
 
