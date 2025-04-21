@@ -4,7 +4,7 @@ ln -sf /sys/devices/platform/mydonglecloud /dev/mydonglecloud_platform
 chmod 222 /dev/mydonglecloud_platform/printk
 chmod 222 /dev/mydonglecloud_platform/buzzer
 chmod 222 /dev/mydonglecloud_platform/buzzerClick
-chmod 666 /dev/mydonglecloud_platform/buzzerFreq
+chmod 222 /dev/mydonglecloud_platform/buzzerFreq
 chmod 444 /dev/mydonglecloud_platform/hardwareVersion
 chmod 444 /dev/mydonglecloud_platform/serialNumber
 
