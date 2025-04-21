@@ -24,7 +24,9 @@
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
 
-#define MDC_PATH "/sys/devices/platform/mydonglecloud/%s"
+#define PLATFORM_PATH "/dev/mydonglecloud_platform/%s"
+#define SCREEN_PATH "/dev/mydonglecloud_screen/%s"
+#define SCREEN_FILE "/dev/mydonglecloud_screen_f"
 #define TEMPERATURE_PATH "/sys/class/thermal/thermal_zone0/%s"
 
 #define WIDTH 128

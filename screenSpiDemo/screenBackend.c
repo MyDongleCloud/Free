@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include "macro.h"
 
-#define PP "/sys/bus/spi/devices/spi0.0/%s"
+#define PP "/dev/mydonglecloud_screen/%s"
 
 //Functions
 static void writeValue(const char *path, const char *v) {

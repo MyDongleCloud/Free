@@ -436,7 +436,7 @@ static int st7735s_probe(struct spi_device *spi) {
 	error = sysfs_create_group(&dev->kobj, &st7735s_attr_group);
 
 #define VS10x3_MAJOR 200
-	error = register_chrdev(VS10x3_MAJOR, "st7735s", &st7735s_fops);
+	error = register_chrdev(VS10x3_MAJOR, "mydonglecloud_screen_f", &st7735s_fops);
 	if (error)
 		goto err0;
 
@@ -449,7 +449,7 @@ static int st7735s_probe(struct spi_device *spi) {
 	cdev_init(&priv->cdev, &st7735s_fops);
 	priv->cdev.owner = THIS_MODULE;
 	priv->cdev.ops = &st7735s_fops;
-	priv->dev = device_create(priv->cls, NULL, MKDEV(VS10x3_MAJOR, 0 /* minor */), NULL, "st7735s");
+	priv->dev = device_create(priv->cls, NULL, MKDEV(VS10x3_MAJOR, 0 /* minor */), NULL, "mydonglecloud_screen_f");
 	cdev_add(&priv->cdev, MKDEV(VS10x3_MAJOR, 0), 1);
 
 	struct device_node *node = of_find_compatible_node(NULL, NULL, "st7735s");

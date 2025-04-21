@@ -10,8 +10,8 @@
 
 //Defines
 //#define NOMMAP
-#define _PATH "/sys/bus/spi/devices/spi0.0/%s"
-#define _DEV "/dev/st7735s"
+#define _PATH "/dev/mydonglecloud_screen/%s"
+#define _DEV "/dev/mydonglecloud_screen_f"
 
 //Global variable
 unsigned char *fb;
@@ -35,9 +35,9 @@ void backendInit_(int argc, char *argv[]) {
 #ifdef NOMMAP
 	fb = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
 #else
-	int screenDev = open(_DEV, O_RDWR);
-	if (screenDev)
-		fb = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenDev, 0);
+	int screenFile = open(_DEV, O_RDWR);
+	if (screenFile)
+		fb = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenFile, 0);
 #endif
 	writeValueKey(_PATH, "init", "1");
 }

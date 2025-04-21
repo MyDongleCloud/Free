@@ -29,8 +29,7 @@ int main(int argc, char *argv[]) {
 
 	backendInit(argc, argv);
 
-	buzzer();
-	writeValueKey(MDC_PATH, "printk", "start app");
+	writeValueKey(PLATFORM_PATH, "printk", "start app");
 
 	chdir("/home/mdc/app");
 	setenv("HOME", "/home/mdc", 1);

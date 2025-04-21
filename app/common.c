@@ -324,12 +324,12 @@ void logUninit() {
 
 void buzzer() {
 #ifndef DESKTOP
-	writeValueKey(MDC_PATH, "buzzer", "1");
+	writeValueKey(PLATFORM_PATH, "buzzer", "1");
 #endif
 }
 
 void touchClick() {
-	writeValueKey(MDC_PATH, "buzzerClick", "1");
+	writeValueKey(PLATFORM_PATH, "buzzerClick", "1");
 }
 
 void touch(char *szPath) {
@@ -344,7 +344,7 @@ int hardwareVersion() {
 	rv = 30;
 #else
 	if (rv == -1)
-		rv = readValue(MDC_PATH, "hardwareVersion");
+		rv = readValue(PLATFORM_PATH, "hardwareVersion");
 #endif
 	return rv;
 }

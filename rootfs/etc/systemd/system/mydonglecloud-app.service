@@ -6,10 +6,10 @@ After=systemd-modules-load.service
 
 [Service]
 Type=simple
-Restart=always
+Restart=oneshot
 RestartSec=1
 User=mdc
-ExecStart=/usr/bin/mydonglecloud-app
+ExecStart=/home/mdc/app/app
 
 [Install]
 WantedBy=multi-user.target

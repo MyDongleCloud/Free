@@ -5,7 +5,7 @@ After=systemd-modules-load.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/bin/mydonglecloud-otg.sh
+ExecStart=/usr/bin/mydonglecloud-init.sh
 
 [Install]
 WantedBy=sysinit.target
