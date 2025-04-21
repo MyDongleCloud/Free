@@ -329,7 +329,7 @@ void buzzer() {
 }
 
 void touchClick() {
-	writeValueKey(MDC_PATH, "buzzerclick", "1");
+	writeValueKey(MDC_PATH, "buzzerClick", "1");
 }
 
 void touch(char *szPath) {

@@ -209,7 +209,7 @@ static ssize_t write_buzzerClick(struct device *dev, struct device_attribute *at
 	return count;
 }
 
-static DEVICE_ATTR(buzzerclick, 0220, NULL, write_buzzerClick);
+static DEVICE_ATTR(buzzerClick, 0220, NULL, write_buzzerClick);
 
 static struct attribute *mydongle_attributes[] = {
 	&dev_attr_led1.attr,
@@ -221,7 +221,7 @@ static struct attribute *mydongle_attributes[] = {
 	&dev_attr_hardwareVersion.attr,
 	&dev_attr_debug.attr,
 	&dev_attr_printk.attr,
-	&dev_attr_buzzerclick.attr,
+	&dev_attr_buzzerClick.attr,
 	NULL,
 };
 
