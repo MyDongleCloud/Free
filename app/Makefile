@@ -36,6 +36,7 @@ app_exec: $(OBJs_)
 ifeq ($(DEBUG),)
 	@strip app
 endif
+	@sudo setcap 'cap_net_raw,cap_net_admin=+eip' app
 
 desktop_exec: $(OBJs_DESKTOP)
 	$(MYLINKPP) $(DEBUG) $(OBJs_DESKTOP) $(MYLDFLAGS_DESKTOP) -o appD

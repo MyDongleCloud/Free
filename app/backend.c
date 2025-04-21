@@ -45,7 +45,7 @@ void backendRun() {
 		lv_timer_handler();
 		backendRun_();
 		if (count++ == 1)
-			uiLogic();
+			uiUpdate();
 		int keyCur = lv_indev_get_key(indevK);
 		if (keyCur != keyLast) {
 			if (keyCur != 0)
