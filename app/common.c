@@ -236,7 +236,7 @@ void getSerialID() {
 #ifdef DESKTOP
 	strcpy(szSerial, "1234567890abcdef");
 #else
-	readString(MDC_PATH, "serialNumber", szSerial, 16);
+	readString(PLATFORM_PATH, "serialNumber", szSerial, 16);
 #endif
 }
 
