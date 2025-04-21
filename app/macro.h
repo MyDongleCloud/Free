@@ -28,6 +28,7 @@
 #define SCREEN_PATH "/dev/mydonglecloud_screen/%s"
 #define SCREEN_FILE "/dev/mydonglecloud_screen_f"
 #define TEMPERATURE_PATH "/sys/class/thermal/thermal_zone0/%s"
+#define OATH_PATH "/etc/users.oath"
 
 #define WIDTH 128
 #define HEIGHT 128

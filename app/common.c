@@ -20,7 +20,9 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <openssl/md5.h>
+#include <liboath/oath.h>
 #include "macro.h"
+#include "common.h"
 
 //Global variables
 char szSerial[32];
@@ -230,6 +232,54 @@ void generateUniqueId(char sz[17]) {
 		sprintf(ss, "%02x", rand_() % 256);
 		strcat(sz, ss);
 	}
+	sz[16] = '\0';
+}
+
+void generateRandomHexString(char sz[33]) {
+	sz[0] = '\0';
+	char buffer[16];
+	int fd = open("/dev/urandom", O_RDONLY);
+	read(fd, buffer, 16);
+	close(fd);
+	char ss[3];
+	int i;
+	for (i = 0; i < 16; i++) {
+		sprintf(ss, "%02x", buffer[i]);
+		strcat(sz, ss);
+	}
+	sz[32] = '\0';
+}
+
+int oathGenerate() {
+	int ret = 0;
+	char secret[33];
+	generateRandomHexString(secret);
+
+	FILE *pf = fopen(OATH_PATH, "w");
+	if (pf) {
+		char sz2[64];
+		sprintf(sz2, "HOTP mdc - %s", secret);
+		fwrite(sz2, strlen(sz2), 1, pf);
+		fclose(pf);
+		system("chown root:root " OATH_PATH ";chmod 400 " OATH_PATH);
+	}
+	oath_init();
+	char otp[8];
+	oath_hotp_generate(secret, strlen(secret), 0, 6, 0, OATH_HOTP_DYNAMIC_TRUNCATION, otp);
+	oath_done();
+	sscanf(otp, "%d", &ret);
+	return ret;
+}
+
+int oathValidate(char *secret, int OTP) {
+	if (OTP < 0 || OTP > 999999)
+		return 0;
+	char otp[8];
+	sprintf(otp, "%d", OTP);
+	oath_init();
+	int ret = oath_hotp_validate(secret, strlen(secret), 0, 20, otp);
+	oath_done();
+	return ret;
 }
 
 void getSerialID() {
