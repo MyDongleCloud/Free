@@ -35,7 +35,7 @@ static int le_callback(int clientnode, int operation, int cticn) {
 static void *bleStart_t(void *arg) {
 #ifndef DESKTOP
 	bluetoothAddr(bluetoothClassicAddr, 0);
-	FILE *pf = fopen(MAIN_PATH "bluetooth2ServerCfg.txt", "w");
+	FILE *pf = fopen(MAIN_PATH "bleCfg.txt", "w");
 	if (pf) {
 		char sz[1024];
 		char nn[128];
@@ -50,7 +50,7 @@ static void *bleStart_t(void *arg) {
 			fwrite(szTplt[i], strlen(szTplt[i]), 1, pf);
 		fclose(pf);
 	}
-	int ret = init_blue(MAIN_PATH "bluetooth2ServerCfg.txt");
+	int ret = init_blue(MAIN_PATH "bleCfg.txt");
 	if (ret != 1) {
 		PRINTF("ERROR: 2. No btferret started\n");
 		return 0;
