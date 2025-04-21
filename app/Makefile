@@ -11,7 +11,7 @@ DEBUG = -g
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 PRE = /tmp/_app/
 
-OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)common.o $(PRE)backend.o $(PRE)ble.o $(PRE)bluetoothAddr.o $(PRE)btlib.o
+OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)logic.o $(PRE)common.o $(PRE)backend.o $(PRE)ble.o $(PRE)bluetoothAddr.o $(PRE)btlib.o
 
 OBJs_ := $(OBJs) $(PRE)backend-spi.o
 OBJs_DESKTOP := $(OBJs:%.o=%_.o) $(PRE)backend-gtk_.o
@@ -36,7 +36,6 @@ app_exec: $(OBJs_)
 ifeq ($(DEBUG),)
 	@strip app
 endif
-	@sudo setcap 'cap_net_raw,cap_net_admin=+eip' app
 
 desktop_exec: $(OBJs_DESKTOP)
 	$(MYLINKPP) $(DEBUG) $(OBJs_DESKTOP) $(MYLDFLAGS_DESKTOP) -o appD

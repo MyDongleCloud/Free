@@ -250,19 +250,9 @@ void generateRandomHexString(char sz[33]) {
 	sz[32] = '\0';
 }
 
-int oathGenerate() {
+int oathGenerate(char secret[33]) {
 	int ret = 0;
-	char secret[33];
 	generateRandomHexString(secret);
-
-	FILE *pf = fopen(OATH_PATH, "w");
-	if (pf) {
-		char sz2[64];
-		sprintf(sz2, "HOTP mdc - %s", secret);
-		fwrite(sz2, strlen(sz2), 1, pf);
-		fclose(pf);
-		system("chown root:root " OATH_PATH ";chmod 400 " OATH_PATH);
-	}
 	oath_init();
 	char otp[8];
 	oath_hotp_generate(secret, strlen(secret), 0, 6, 0, OATH_HOTP_DYNAMIC_TRUNCATION, otp);
@@ -271,7 +261,7 @@ int oathGenerate() {
 	return ret;
 }
 
-int oathValidate(char *secret, int OTP) {
+int oathValidate(char secret[33], int OTP) {
 	if (OTP < 0 || OTP > 999999)
 		return 0;
 	char otp[8];
