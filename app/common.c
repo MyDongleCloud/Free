@@ -284,7 +284,7 @@ int fileExists(char *st) {
 
 void logInit(int daemon, int debug) {
 	char sz[256];
-	strcpy(sz, debug ? MAIN_PATH "mdc.log" : MAIN_PATH "tmp/mdc.log");
+	strcpy(sz, debug ? MAIN_PATH "app.log" : MAIN_PATH "tmp/app.log");
 	int pipe_fd[2];
 	pipe(pipe_fd);
 	pidLog = fork();
