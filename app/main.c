@@ -27,6 +27,11 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	if (killOtherPids("app")) {
+		fprintf(stderr, "Exiting because process already exists\n");
+		return 0;
+	}
+
 	backendInit(argc, argv);
 
 	writeValueKey(PLATFORM_PATH, "printk", "start app");
@@ -34,15 +39,12 @@ int main(int argc, char *argv[]) {
 	chdir("/home/mdc/app");
 	setenv("HOME", "/home/mdc", 1);
 
-	if (killOtherPids("app")) {
-		fprintf(stderr, "Exiting because process already exists\n");
-		return 0;
-	}
-
 	int debug = 0;
 	logInit(daemon, debug);
 
 	bleStart();
+
+	jingle();
 
 	backendRun();
 	return 0;

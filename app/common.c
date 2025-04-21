@@ -332,6 +332,27 @@ void touchClick() {
 	writeValueKey(PLATFORM_PATH, "buzzerClick", "1");
 }
 
+void jingle() {
+#define _100MS 100 * 1000
+#define pwm(a, b) writeValueKeyInt(PLATFORM_PATH, "buzzerFreq", a);
+#define Task_sleep usleep
+	pwm(2000, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 2kHz
+	Task_sleep(2 * _100MS);
+	pwm(4000, 1); Task_sleep(1 * _100MS); pwm(0, 0); //100ms 4kHz
+	Task_sleep(1 * _100MS);
+	pwm(4000, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 4kHz
+	Task_sleep(2 * _100MS);
+	pwm(1650, 1); Task_sleep(1 * _100MS); pwm(0, 0); //100ms 1.65kHz
+	Task_sleep(1 * _100MS);
+	pwm(1850, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 1.85kHz
+	Task_sleep(2 * _100MS);
+	pwm(1550, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 1.55kHz
+	Task_sleep(2 * _100MS);
+	pwm(1650, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 1.65kHz
+	Task_sleep(2 * _100MS);
+	pwm(2000, 1); Task_sleep(2 * _100MS); pwm(0, 0); //200ms 2kHz
+}
+
 void touch(char *szPath) {
 	FILE *pf = fopen(szPath, "w+");
 	if (pf)

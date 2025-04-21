@@ -30,6 +30,7 @@ void logUninit();
 void logUninit();
 void buzzer();
 void touchClick();
+void jingle();
 void touch(char *szPath);
 int hardwareVersion();
 int downloadURLFile(char *szURL, char *szFile, int (*progresscallback)(void *, double,  double,  double,  double));
