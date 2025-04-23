@@ -1,5 +1,7 @@
 #!/bin/sh
 
+PW=`pwd`
+mkdir -p ../build
 cd ../build
 rm -rf lvgl
 git clone https://github.com/lvgl/lvgl
@@ -10,3 +12,4 @@ mkdir build
 cd build
 cmake ..
 make -j
+cd $PW
