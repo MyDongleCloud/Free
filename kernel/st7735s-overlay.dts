@@ -13,9 +13,9 @@
 				spi-max-frequency = <12000000>;
 				status = "okay";
 				reg = <0>;
-				backlight = <27>;
-				nrst = <17>;//6
-				wd = <25>;//5
+				backlight = <6>;
+				nrst = <27>;
+				wd = <22>;
 			};
 		};
 	};

@@ -27,10 +27,8 @@
 			mydonglecloud {
 				compatible = "mydonglecloud";
 				status = "okay";
-				led1 = <5>;//26
-				led2 = <6>;//19
-				led3 = <16>;
-				led4 = <20>;//20
+				led1 = <26>;
+				led2 = <19>;
                 pwms = <&pwm 0 166000 322000>;
 			};
 		};
