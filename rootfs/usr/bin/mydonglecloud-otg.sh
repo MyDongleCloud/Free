@@ -87,7 +87,7 @@ if [ ! -d /tmp/config ]; then
 	echo 0x200 > $PATHg1/bcdUSB
 	mkdir $PATHg1/strings/0x409
 	echo "MyDongleCloud" > $PATHg1/strings/0x409/manufacturer
-	echo "Dongle" > $PATHg1/strings/0x409/product
+	echo "MyDongleCloud" > $PATHg1/strings/0x409/product
 	echo "1234567890" > $PATHg1/strings/0x409/serialnumber
 	echo 0x1 > $PATHg1/bDeviceProtocol
 	echo 0x1 > $PATHg1/bDeviceSubClass
