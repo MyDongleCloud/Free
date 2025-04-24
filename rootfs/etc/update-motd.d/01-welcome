@@ -2,3 +2,4 @@
 
 cat /etc/issue.net
 
+sh /usr/share/landscape/landscape-sysinfo.wrapper
