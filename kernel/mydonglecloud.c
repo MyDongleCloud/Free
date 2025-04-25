@@ -170,10 +170,9 @@ static int mydongle_probe(struct platform_device *pdev) {
 		return -ENOMEM;
 
 	platform_set_drvdata(pdev, ip);
-
-	ip->debug = 0;
-
 	myip = (struct mydonglePriv *)ip;
+	ip->debug = 0;
+	ip->hardwareVersion = 10;
 	ip->buzzerCount = 0;
 	INIT_WORK(&ip->workBuzzer, mydongle_workBuzzer);
 
