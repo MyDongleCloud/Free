@@ -9,6 +9,7 @@ exit 0
 }
 
 PROD=0
+UBUNTU=1
 while getopts hp opt; do
 	case "$opt" in
 		h) helper;;
@@ -21,7 +22,7 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
-sed -i -e 's|/root|/home/mydonglecloud|' /etc/passwd
+sed -i -e 's|/root|/home/mdc|' /etc/passwd
 rm -rf /root
 sed -i -e 's|# "\\e\[5~": history-search-backward|"\\e\[5~": history-search-backward|' /etc/inputrc
 sed -i -e 's|# "\\e\[6~": history-search-forward|"\\e\[6~": history-search-forward|' /etc/inputrc
@@ -34,13 +35,26 @@ ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysini
 ln -sf pcpp-python /usr/bin/pcpp
 echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
 echo -e "dtoverlay=dwc2\ndtoverlay=mydonglecloud\ndtoverlay=st7735s\ndtoverlay=buttons\ndtoverlay=leds\ndtparam=uart0=on\ndtparam=spi=on" >> /boot/firmware/config.txt
+adduser --comment Administrator --disabled-password admin
 apt-get update
 apt-get -y upgrade
-snap remove snapd
-apt-get -y purge snapd
-adduser admin
-apt-get -y install bzip2 net-tools wireless-tools libpam-oath oathtool liboath-dev qrencode apache2 mysql-server php php-mysql libapache2-mod-php sqlite3 postfix procmail dos2unix composer lrzsz imagemagick squashfs-tools spamassassin spamc build-essential evtest cmake python3-pcpp libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
-apt-get -y install linux-headers-6.8.0-1018-raspi
+apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
+if [ $UBUNTU = 1 ]; then
+	snap remove snapd
+	apt-get -y purge snapd
+	apt-get -y install bzip2 evtest gpiod net-tools wireless-tools qrencode dos2unix composer lrzsz imagemagick squashfs-tools libpam-oath oathtool
+	apt-get -y install build-essential cmake python3-pcpp
+	apt-get -y install linux-headers-raspi linux-image-raspi
+	apt-get -y install composer apache2 mysql-server php php-mysql libapache2-mod-php sqlite3 postfix procmail spamassassin spamc
+else
+	apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool
+	apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail spamassassin spamc
+	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
+	tar -xpvf pcpp-1.30.tar.gz
+	cd pcpp-1.30
+	python setup.py install
+fi
+#apache enable modules
 chmod a-x /etc/update-motd.d/*
 apt-get -y autoremove
 rm /var/cache/apt/archives/*.deb
@@ -48,6 +62,7 @@ cd /home/mdc
 tar -xjpvf /tmp/a.tbz2
 cd kernel && make && make install && cd ..
 cd app && ./lvgl.sh && make && cd ..
+chown -R root:root rootfs
 cp -a rootfs/* /
 rm -rf rootfs
 
