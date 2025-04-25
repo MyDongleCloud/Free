@@ -17,8 +17,6 @@
 struct mydonglePriv {
 	int debug;
 
-	int gpioLedRed;
-
 	int buzzerCount;
 	struct pwm_device *buzzerS;
 	int buzzerON;
@@ -92,23 +90,6 @@ static ssize_t write_buzzerFreq(struct device *dev, struct device_attribute *att
 
 static DEVICE_ATTR(buzzerFreq, 0220, NULL, write_buzzerFreq);
 
-static ssize_t show_ledRed(struct device *dev, struct device_attribute *attr, char *buf) {
-	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	return sprintf(buf, "%u\n", !gpio_get_value(ip->gpioLedRed));
-}
-
-static ssize_t write_ledRed(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
-	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	unsigned long i;
-        if (kstrtoul(buf, 10, &i))
-		return -EINVAL;
-
-	gpio_set_value(ip->gpioLedRed, !i);
-	return count;
-}
-
-static DEVICE_ATTR(ledRed, 0660, show_ledRed, write_ledRed);
-
 static ssize_t show_hardwareVersion(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
 	return sprintf(buf, "%u\n", ip->hardwareVersion);
@@ -164,7 +145,6 @@ static ssize_t write_buzzerClick(struct device *dev, struct device_attribute *at
 static DEVICE_ATTR(buzzerClick, 0220, NULL, write_buzzerClick);
 
 static struct attribute *mydongle_attributes[] = {
-	&dev_attr_ledRed.attr,
 	&dev_attr_buzzer.attr,
 	&dev_attr_buzzerFreq.attr,
 	&dev_attr_hardwareVersion.attr,
@@ -181,7 +161,6 @@ static struct attribute_group mydongle_attr_group = {
 
 static int mydongle_probe(struct platform_device *pdev) {
 	printk("MyDongleCloud: Enter probe");
-	int ret = 0;
 	struct device *dev = &pdev->dev;
 	struct mydonglePriv *ip = devm_kzalloc(dev, sizeof(struct mydonglePriv), GFP_KERNEL);
 	if (!ip)
@@ -191,22 +170,7 @@ static int mydongle_probe(struct platform_device *pdev) {
 
 	ip->debug = 0;
 
-	struct device_node *node = of_find_compatible_node(NULL, NULL, "mydonglecloud");
-	of_property_read_u32(node, "ledred", &ip->gpioLedRed);
-	ip->gpioLedRed += 569;
-
-	ip->hardwareVersion = 10;
-	printk("MyDongleCloud: hardware_Version:%d\n", ip->hardwareVersion);
-
-	ret = gpio_request(ip->gpioLedRed, "GPIO_LEDRED");
-	if (ret < 0) {
-		printk("MyDongleCloud-Dongle: Failed to request GPIO %d for GPIO_LEDRED\n", ip->gpioLedRed);
-		//return 0;
-	}
-	gpio_direction_output(ip->gpioLedRed, 1);
-
 	myip = (struct mydonglePriv *)ip;
-
 	ip->buzzerCount = 0;
 	INIT_WORK(&ip->workBuzzer, mydongle_workBuzzer);
 

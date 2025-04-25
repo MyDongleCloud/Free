@@ -11,6 +11,11 @@
 				brcm,function = <0>;
 				brcm,pull = <2>;
 			};
+			led_Red: led_Red {
+				brcm,pins = <19>;
+				brcm,function = <0>;
+				brcm,pull = <2>;
+			};
 		};
 	};
 
@@ -23,6 +28,11 @@
 				label = "LED_GREEN";
 				gpios = <&gpio 26 0>;
 				linux,default-trigger = "heartbeat";
+			};
+			ledRed: ledRed {
+				label = "LED_RED";
+				gpios = <&gpio 19 0>;
+				linux,default-trigger = "timer";
 			};
 		};
 	};
