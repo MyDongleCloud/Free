@@ -5,10 +5,17 @@
 	fragment@0 {
         target = <&gpio>;
         __overlay__ {
-            pwm_buzzer: pwm_buzzer {
+            pwm_Buzzer: pwm_Buzzer {
 				brcm,pins = <12>;
 				brcm,function = <4>;
 			};
+/*
+			led_Red: led_Red {
+				brcm,pins = <19>;
+				brcm,function = <0>;
+				brcm,pull = <2>;
+			};
+*/
 		};
 	};
 
@@ -16,7 +23,7 @@
         target = <&pwm>;
         __overlay__ {
             pinctrl-names = "default";
-            pinctrl-0 = <&pwm_buzzer>;
+            pinctrl-0 = <&pwm_Buzzer>;
             status = "okay";
         };
     };
@@ -27,8 +34,7 @@
 			mydonglecloud {
 				compatible = "mydonglecloud";
 				status = "okay";
-				led1 = <26>;
-				led2 = <19>;
+				ledred = <19>;
                 pwms = <&pwm 0 166000 322000>;
 			};
 		};

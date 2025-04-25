@@ -17,8 +17,7 @@
 struct mydonglePriv {
 	int debug;
 
-	int gpioLed1;
-	int gpioLed2;
+	int gpioLedRed;
 
 	int buzzerCount;
 	struct pwm_device *buzzerS;
@@ -93,39 +92,22 @@ static ssize_t write_buzzerFreq(struct device *dev, struct device_attribute *att
 
 static DEVICE_ATTR(buzzerFreq, 0220, NULL, write_buzzerFreq);
 
-static ssize_t show_led1(struct device *dev, struct device_attribute *attr, char *buf) {
+static ssize_t show_ledRed(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	return sprintf(buf, "%u\n", gpio_get_value(ip->gpioLed1));
+	return sprintf(buf, "%u\n", !gpio_get_value(ip->gpioLedRed));
 }
 
-static ssize_t write_led1(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
-	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	unsigned long i;
-        if (kstrtoul(buf, 10, &i))
-		return -EINVAL;
-
-	gpio_set_value(ip->gpioLed1, i);
-	return count;
-}
-
-static DEVICE_ATTR(led1, 0660, show_led1, write_led1);
-
-static ssize_t show_led2(struct device *dev, struct device_attribute *attr, char *buf) {
-	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	return sprintf(buf, "%u\n", gpio_get_value(ip->gpioLed2));
-}
-
-static ssize_t write_led2(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
+static ssize_t write_ledRed(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
 	unsigned long i;
         if (kstrtoul(buf, 10, &i))
 		return -EINVAL;
 
-	gpio_set_value(ip->gpioLed2, i);
+	gpio_set_value(ip->gpioLedRed, !i);
 	return count;
 }
 
-static DEVICE_ATTR(led2, 0660, show_led2, write_led2);
+static DEVICE_ATTR(ledRed, 0660, show_ledRed, write_ledRed);
 
 static ssize_t show_hardwareVersion(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
@@ -182,8 +164,7 @@ static ssize_t write_buzzerClick(struct device *dev, struct device_attribute *at
 static DEVICE_ATTR(buzzerClick, 0220, NULL, write_buzzerClick);
 
 static struct attribute *mydongle_attributes[] = {
-	&dev_attr_led1.attr,
-	&dev_attr_led2.attr,
+	&dev_attr_ledRed.attr,
 	&dev_attr_buzzer.attr,
 	&dev_attr_buzzerFreq.attr,
 	&dev_attr_hardwareVersion.attr,
@@ -211,27 +192,18 @@ static int mydongle_probe(struct platform_device *pdev) {
 	ip->debug = 0;
 
 	struct device_node *node = of_find_compatible_node(NULL, NULL, "mydonglecloud");
-	of_property_read_u32(node, "led1", &ip->gpioLed1);
-	ip->gpioLed1 += 571;
-	of_property_read_u32(node, "led2", &ip->gpioLed2);
-	ip->gpioLed2 += 571;
+	of_property_read_u32(node, "ledred", &ip->gpioLedRed);
+	ip->gpioLedRed += 569;
 
 	ip->hardwareVersion = 10;
 	printk("MyDongleCloud: hardware_Version:%d\n", ip->hardwareVersion);
 
-	ret = gpio_request(ip->gpioLed1, "GPIO_LED1");
+	ret = gpio_request(ip->gpioLedRed, "GPIO_LEDRED");
 	if (ret < 0) {
-		printk("MyDongleCloud-Dongle: Failed to request GPIO %d for GPIO_LED1\n", ip->gpioLed1);
+		printk("MyDongleCloud-Dongle: Failed to request GPIO %d for GPIO_LEDRED\n", ip->gpioLedRed);
 		//return 0;
 	}
-	gpio_direction_output(ip->gpioLed1, 0);
-
-	ret = gpio_request(ip->gpioLed2, "GPIO_LED2");
-	if (ret < 0) {
-		printk("MyDongleCloud-Dongle: Failed to request GPIO %d for GPIO_LED2\n", ip->gpioLed2);
-		//return 0;
-	}
-	gpio_direction_output(ip->gpioLed2, 0);
+	gpio_direction_output(ip->gpioLedRed, 1);
 
 	myip = (struct mydonglePriv *)ip;
 

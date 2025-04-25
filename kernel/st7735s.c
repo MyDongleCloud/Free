@@ -453,8 +453,8 @@ static int st7735s_probe(struct spi_device *spi) {
 	cdev_add(&priv->cdev, MKDEV(VS10x3_MAJOR, 0), 1);
 
 	struct device_node *node = of_find_compatible_node(NULL, NULL, "st7735s");
-	of_property_read_u32(node, "backlight", &priv->backlight);
-	priv->backlight += 571;
+	of_property_read_u32(node, "bcklit", &priv->backlight);
+	priv->backlight += 569;
 	ret = gpio_request(priv->backlight, "BACKLIGHT");
 	if (ret < 0) {
 		printk("MyDongle-ST7735S: Failed to request GPIO %d for BACKLIGHT\n", priv->backlight);
@@ -463,7 +463,7 @@ static int st7735s_probe(struct spi_device *spi) {
 	gpio_direction_output(priv->backlight, 1);
 
 	of_property_read_u32(node, "wd", &priv->wd);
-	priv->wd += 571;
+	priv->wd += 569;
 	ret = gpio_request(priv->wd, "WD");
 	if (ret < 0) {
 		printk("MyDongle-ST7735S: Failed to request GPIO %d for WD\n", priv->wd);
@@ -472,7 +472,7 @@ static int st7735s_probe(struct spi_device *spi) {
 	gpio_direction_output(priv->wd, 1);
 
 	of_property_read_u32(node, "nrst", &priv->nrst);
-	priv->nrst += 571;
+	priv->nrst += 569;
 	ret = gpio_request(priv->nrst, "NRST");
 	if (ret < 0) {
 		printk("MyDongle-ST7735S: Failed to request GPIO %d for NRST\n", priv->nrst);
