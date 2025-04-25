@@ -3,9 +3,9 @@
 
 / {
 	fragment@0 {
-        target = <&gpio>;
-        __overlay__ {
-            pwm_Buzzer: pwm_Buzzer {
+		target = <&gpio>;
+		__overlay__ {
+			pwm_Buzzer: pwm_Buzzer {
 				brcm,pins = <12>;
 				brcm,function = <4>;
 			};
@@ -19,14 +19,14 @@
 		};
 	};
 
-    fragment@1 {
-        target = <&pwm>;
-        __overlay__ {
-            pinctrl-names = "default";
-            pinctrl-0 = <&pwm_Buzzer>;
-            status = "okay";
-        };
-    };
+	fragment@1 {
+		target = <&pwm>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&pwm_Buzzer>;
+			status = "okay";
+		};
+	};
 
 	fragment@2 {
 		target-path = "/";
@@ -35,7 +35,7 @@
 				compatible = "mydonglecloud";
 				status = "okay";
 				ledred = <19>;
-                pwms = <&pwm 0 166000 322000>;
+				pwms = <&pwm 0 166000 322000>;
 			};
 		};
 	};

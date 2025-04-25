@@ -4,8 +4,8 @@
 / {
 	fragment@0 {
 /*
-        target = <&gpio>;
-        __overlay__ {
+		target = <&gpio>;
+		__overlay__ {
 			led_Green: led_Green {
 				brcm,pins = <26>;
 				brcm,function = <0>;
