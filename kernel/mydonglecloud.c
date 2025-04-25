@@ -98,7 +98,10 @@ static ssize_t show_hardwareVersion(struct device *dev, struct device_attribute 
 static DEVICE_ATTR(hardwareVersion, 0440, show_hardwareVersion, NULL);
 
 static ssize_t show_serialNumber(struct device *dev, struct device_attribute *attr, char *buf) {
-	return sprintf(buf, "%s", "1234567890abcdef");
+	const char *sz = NULL;
+	struct device_node *node = of_root;
+	of_property_read_string(node, "serial-number", &sz);
+	return sprintf(buf, "%s", sz);
 }
 
 static DEVICE_ATTR(serialNumber, 0440, show_serialNumber, NULL);
