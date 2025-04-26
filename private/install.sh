@@ -42,7 +42,7 @@ apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev lib
 if [ $OS = "ubuntu" ]; then
 	snap remove snapd
 	apt-get -y purge snapd
-	apt-get -y install bzip2 evtest gpiod net-tools wireless-tools qrencode dos2unix composer lrzsz imagemagick squashfs-tools libpam-oath oathtool
+	apt-get -y install bzip2 zip evtest gpiod net-tools wireless-tools qrencode dos2unix composer lrzsz imagemagick squashfs-tools libpam-oath oathtool
 	apt-get -y install build-essential cmake python3-pcpp
 	ln -sf pcpp-python /usr/bin/pcpp
 	apt-get -y install linux-headers-raspi linux-image-raspi
