@@ -3,6 +3,9 @@
 
 //Functions
 void backendInit(int argc, char *argv[]);
-void backendRun();
+void cleanExit(int todo);
+void processInput(char c);
+void backendWork();
+void backendLoop(int daemon);
 
 #endif

@@ -40,6 +40,6 @@ int main(int argc, char *argv[]) {
 	bleStart();
 #endif
 	jingle();
-	backendRun();
+	backendLoop(daemon);
 	return 0;
 }

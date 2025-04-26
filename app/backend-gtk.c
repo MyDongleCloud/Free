@@ -4,6 +4,7 @@
 #include <gdk/gdkx.h>
 #include "macro.h"
 #include "lvgl.h"
+#include "backend.h"
 
 //Global variable
 unsigned char *fb;
@@ -20,7 +21,7 @@ static lv_indev_state_t last_key_state;
 
 //Functions
 static void delete_event_cb(GtkWidget *widget, GdkEvent *event, void *data) {
-	exit(0);
+	processInput('x');
 }
 
 static gboolean mouse_pressed(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
@@ -40,11 +41,6 @@ static gboolean mouse_motion(GtkWidget *widget, GdkEventMotion *event, gpointer 
 }
 
 static gboolean keyboard_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
-	if (event->keyval == 'x' || event->keyval == 'X') {
-		exit(0);
-		return TRUE;
-	}
-
 	uint32_t ascii_key = event->keyval;
 	switch(event->keyval) {
 	case GDK_KEY_rightarrow:
@@ -63,25 +59,8 @@ static gboolean keyboard_press(GtkWidget *widget, GdkEventKey *event, gpointer u
 	case GDK_KEY_Down:
 		ascii_key = LV_KEY_DOWN;
 		break;
-	case GDK_KEY_Escape:
-		ascii_key = LV_KEY_ESC;
-		break;
-	case GDK_KEY_BackSpace:
-		ascii_key = LV_KEY_BACKSPACE;
-		break;
-	case GDK_KEY_Delete:
-		ascii_key = LV_KEY_DEL;
-		break;
-	case GDK_KEY_Tab:
-		ascii_key = LV_KEY_NEXT;
-		break;
-	case GDK_KEY_KP_Enter:
-	case GDK_KEY_Return:
-	case '\r':
-		ascii_key = LV_KEY_ENTER;
-		break;
-
-		default:
+	default:
+		processInput(event->keyval);
 		break;
 	}
 	last_key = ascii_key;
@@ -127,17 +106,23 @@ void backendInit_(int argc, char *argv[]) {
 	gtk_window_set_position(GTK_WINDOW(mainW), GTK_WIN_POS_CENTER);
 }
 
-
-void backendRun_() {
-	gtk_main_iteration_do(FALSE);
+static void *backendWork_t(void *arg) {
+	backendWork();
+	return 0;
 }
 
-void backendUpdate(int x, int y, int w, int h, unsigned char *colorp) {
+void backendLoop_() {
+	pthread_t pth;
+	pthread_create(&pth, NULL, backendWork_t, NULL);
+	gtk_main();
+}
+
+void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 	for (int yy = 0; yy < h; yy++)
 		for (int xx = 0; xx < w; xx++) {
-			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fb[((yy + y) * w + xx + x) * DEPTH + 2];
-			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fb[((yy + y) * w + xx + x) * DEPTH + 1];
-			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fb[((yy + y) * w + xx + x) * DEPTH + 0];
+			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fb[(yy * w + xx) * DEPTH + 2];
+			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fb[(yy * w + xx) * DEPTH + 1];
+			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fb[(yy * w + xx) * DEPTH + 0];
 		}
 #ifdef DEBUG_REDRAW
 	for (int yyy = 0; yyy < h; yyy++) {
@@ -149,15 +134,19 @@ void backendUpdate(int x, int y, int w, int h, unsigned char *colorp) {
 		fb_[((yyy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
 	}
 	for (int xxx = 0; xxx < w; xxx++) {
-		fb_[(y * WIDTH + xxx) * DEPTH + 0] = 255;
-		fb_[(y * WIDTH + xxx) * DEPTH + 1] = 255;
-		fb_[(y * WIDTH + xxx) * DEPTH + 2] = 255;
-		fb_[((y + h) * WIDTH + xxx) * DEPTH + 0] = 255;
-		fb_[((y + h) * WIDTH + xxx) * DEPTH + 1] = 255;
-		fb_[((y + h) * WIDTH + xxx) * DEPTH + 2] = 255;
+		fb_[(y * WIDTH + x + xxx) * DEPTH + 0] = 255;
+		fb_[(y * WIDTH + x + xxx) * DEPTH + 1] = 255;
+		fb_[(y * WIDTH + x + xxx) * DEPTH + 2] = 255;
+		fb_[((y + h) * WIDTH + x + xxx) * DEPTH + 0] = 255;
+		fb_[((y + h) * WIDTH + x + xxx) * DEPTH + 1] = 255;
+		fb_[((y + h) * WIDTH + x + xxx) * DEPTH + 2] = 255;
 	}
 #endif
 	gtk_image_set_from_pixbuf(GTK_IMAGE(outputImgW), pixBuf);
+}
+
+void backendUninit_() {
+	exit(0);
 }
 
 static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {

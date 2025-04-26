@@ -7,6 +7,7 @@
 #include "macro.h"
 #include "lvgl.h"
 #include "src/drivers/libinput/lv_libinput.h"
+#include "backend.h"
 
 //Define
 //#define NOMMAP
@@ -40,14 +41,15 @@ void backendInit_(int argc, char *argv[]) {
 	writeValueKey(SCREEN_PATH, "init", "1");
 }
 
-void backendRun_() {
+void backendLoop_() {
+	backendWork();
 }
 
 static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned char b) {
 	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
 }
 
-void backendUpdate(int x, int y, int w, int h, unsigned char *colorp) {
+void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 	char sz[64];
 #ifdef NOMMAP
 	int xx, yy;
@@ -62,6 +64,9 @@ void backendUpdate(int x, int y, int w, int h, unsigned char *colorp) {
 	sprintf(sz, "%d %d %d %d", x, y, w, h);
 	writeValueKey(SCREEN_PATH, "update", sz);
 #endif
+}
+
+void backendUninit_() {
 }
 
 lv_indev_t * backendInitPointer() {

@@ -6,8 +6,9 @@ extern unsigned char *fb;
 
 //Global functions
 void backendInit_(int argc, char *argv[]);
-void backendRun_();
-void backendUpdate(int x, int y, int w, int h, unsigned char *colorp);
+void backendLoop_();
+void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp);
+void backendUninit_();
 lv_indev_t *backendInitPointer();
 lv_indev_t *backendInitKeyboard();
 
