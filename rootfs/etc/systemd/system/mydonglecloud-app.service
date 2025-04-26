@@ -9,7 +9,7 @@ Type=simple
 Restart=oneshot
 RestartSec=1
 User=mdc
-ExecStart=/home/mdc/app/app
+ExecStart=sudo /home/mdc/app/app -d
 
 [Install]
 WantedBy=multi-user.target
