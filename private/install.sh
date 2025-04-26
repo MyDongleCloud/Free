@@ -9,7 +9,8 @@ exit 0
 }
 
 PROD=0
-UBUNTU=1
+OS="pios"
+OS="ubuntu"
 while getopts hp opt; do
 	case "$opt" in
 		h) helper;;
@@ -32,21 +33,21 @@ sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/mdc/.bashrc
 ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.target.wants/serial-getty@ttyGS0.service
 ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
 ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
-ln -sf pcpp-python /usr/bin/pcpp
 echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
 echo -e "dtoverlay=dwc2\ndtoverlay=mydonglecloud\ndtoverlay=st7735s\ndtoverlay=buttons\ndtoverlay=leds\ndtparam=uart0=on\ndtparam=spi=on" >> /boot/firmware/config.txt
 adduser --comment Administrator --disabled-password admin
 apt-get update
 apt-get -y upgrade
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
-if [ $UBUNTU = 1 ]; then
+if [ $OS = "ubuntu" ]; then
 	snap remove snapd
 	apt-get -y purge snapd
 	apt-get -y install bzip2 evtest gpiod net-tools wireless-tools qrencode dos2unix composer lrzsz imagemagick squashfs-tools libpam-oath oathtool
 	apt-get -y install build-essential cmake python3-pcpp
+	ln -sf pcpp-python /usr/bin/pcpp
 	apt-get -y install linux-headers-raspi linux-image-raspi
 	apt-get -y install composer apache2 mysql-server php php-mysql libapache2-mod-php sqlite3 postfix procmail spamassassin spamc
-else
+elif [ $OS = "pios" ]; then
 	apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool
 	apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail spamassassin spamc
 	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
