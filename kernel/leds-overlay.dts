@@ -27,12 +27,12 @@
 			ledGreen: ledGreen {
 				label = "LED_GREEN";
 				gpios = <&gpio 26 0>;
-				linux,default-trigger = "heartbeat";
+				linux,default-trigger = "none";
 			};
 			ledRed: ledRed {
 				label = "LED_RED";
 				gpios = <&gpio 19 0>;
-				linux,default-trigger = "timer";
+				linux,default-trigger = "none";
 			};
 		};
 	};
