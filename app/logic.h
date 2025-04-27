@@ -17,7 +17,6 @@ enum LOGIC_SCREEN {
 //Public variables
 extern int passcode;
 extern int logicCur;
-extern int rotationCur;
 
 //Functions
 int logicIsSetup();

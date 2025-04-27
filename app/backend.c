@@ -12,6 +12,9 @@
 #include "ui.h"
 #include "logic.h"
 
+//Public variable
+int rotationCur = 0;
+
 //Private variables
 static lv_indev_t *indevK;
 static int doLoop = 0;
@@ -64,8 +67,28 @@ void cleanExit(int todo) {
 #endif
 }
 
+static int rotateKey(int k) {
+	int ret = 0;
+	switch (k) {
+	case KEY_LEFT:
+		ret = LV_KEY_LEFT;
+		break;
+	case KEY_RIGHT:
+		ret = LV_KEY_RIGHT;
+		break;
+	case KEY_UP:
+		ret = LV_KEY_UP;
+		break;
+	case KEY_DOWN:
+		ret = LV_KEY_DOWN;
+		break;
+	}
+	ret = LV_KEY_UP + ((ret - LV_KEY_UP + rotationCur) % 4);
+	return ret;
+}
+
 void processButton(int b) {
-	logicKey(b);
+	logicKey(rotateKey(b));
 }
 
 //UP, DOWN, RIGHT, LEFT

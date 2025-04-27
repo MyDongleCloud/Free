@@ -6,10 +6,10 @@
 #include "macro.h"
 #include "common.h"
 #include "logic.h"
+#include "backend.h"
 #include "ui.h"
 
 //Public variables
-int rotationCur = 0;
 int logicCur;
 int passcode;
 
