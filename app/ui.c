@@ -82,6 +82,7 @@ static void uiBar() {
 	lv_obj_set_style_bg_color(my_rect, lv_color_hex(0x1a65eb), LV_PART_MAIN);
 	lv_obj_set_style_radius(my_rect, 0, LV_PART_MAIN);
 	lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+	lv_obj_remove_flag(my_rect, LV_OBJ_FLAG_SCROLLABLE);
 
     lv_obj_t * imgBar1 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgBar1, "img/wifi-ok.png");
@@ -101,6 +102,7 @@ static void uiBar() {
 	strftime(sz, 26, "%H:%M:%S\n%d %b", tm_info);
 	lv_label_set_text(label1, sz);
 	lv_obj_set_pos(label1, 75, 1);
+	lv_obj_set_size(label1 , 50, 24);
 	static lv_style_t label_style1;
 	lv_style_init(&label_style1);
 	lv_style_set_text_font(&label_style1, &lv_font_montserrat_10);
