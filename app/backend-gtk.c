@@ -17,8 +17,6 @@ static GtkWidget *darea;
 static lv_coord_t mouse_x;
 static lv_coord_t mouse_y;
 static lv_indev_state_t mouse_btn = LV_INDEV_STATE_REL;
-static lv_key_t last_key;
-static lv_indev_state_t last_key_state;
 
 //Functions
 static void delete_event_cb(GtkWidget *widget, GdkEvent *event, void *data) {
@@ -42,36 +40,32 @@ static gboolean mouse_motion(GtkWidget *widget, GdkEventMotion *event, gpointer 
 }
 
 static gboolean keyboard_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
-	uint32_t ascii_key = event->keyval;
-	switch(event->keyval) {
-	case GDK_KEY_rightarrow:
-	case GDK_KEY_Right:
-		ascii_key = LV_KEY_RIGHT;
-		break;
-	case GDK_KEY_leftarrow:
-	case GDK_KEY_Left:
-		ascii_key = LV_KEY_LEFT;
-		break;
-	case GDK_KEY_uparrow:
-	case GDK_KEY_Up:
-		ascii_key = LV_KEY_UP;
-		break;
-	case GDK_KEY_downarrow:
-	case GDK_KEY_Down:
-		ascii_key = LV_KEY_DOWN;
-		break;
-	default:
-		processInput(event->keyval);
-		break;
-	}
-	last_key = ascii_key;
-	last_key_state = LV_INDEV_STATE_PRESSED;
 	return TRUE;
 }
 
 static gboolean keyboard_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
-	last_key = 0;
-	last_key_state = LV_INDEV_STATE_RELEASED;
+	uint32_t ascii_key = event->keyval;
+	switch(event->keyval) {
+	case GDK_KEY_rightarrow:
+	case GDK_KEY_Right:
+		ascii_key = 67;
+		break;
+	case GDK_KEY_leftarrow:
+	case GDK_KEY_Left:
+		ascii_key = 68;
+		break;
+	case GDK_KEY_uparrow:
+	case GDK_KEY_Up:
+		ascii_key = 65;
+		break;
+	case GDK_KEY_downarrow:
+	case GDK_KEY_Down:
+		ascii_key = 66;
+		break;
+	default:
+		break;
+	}
+	processInput(ascii_key);
 	return TRUE;
 }
 
@@ -171,21 +165,8 @@ static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
 	data->state = mouse_btn;
 }
 
-lv_indev_t *backendInitPointer() {
+void backendInitPointer() {
 	lv_indev_t *indevP = lv_indev_create();
 	lv_indev_set_type(indevP, LV_INDEV_TYPE_POINTER);
 	lv_indev_set_read_cb(indevP, backendPointer);
-	return indevP;
-}
-
-static void backendKeyboard(lv_indev_t *indev, lv_indev_data_t *data) {
-	data->key = last_key;
-	data->state = last_key_state;
-}
-
-lv_indev_t *backendInitKeyboard() {
-	lv_indev_t *indevK = lv_indev_create();
-	lv_indev_set_type(indevK, LV_INDEV_TYPE_KEYPAD);
-	lv_indev_set_read_cb(indevK, backendKeyboard);
-	return indevK;
 }

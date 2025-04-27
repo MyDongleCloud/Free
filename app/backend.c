@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <fcntl.h>
+#include <linux/input.h>
 #include "lvgl.h"
 #include "macro.h"
 #include "common.h"
@@ -39,7 +41,6 @@ void backendInit(int argc, char *argv[]) {
 	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
 	lv_display_set_flush_cb(disp, backendUpdate);
 	backendInitPointer();
-	indevK = backendInitKeyboard();
 	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_BACKGROUND), LV_PART_MAIN);
 	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_TEXT), LV_PART_MAIN);
 }
@@ -63,11 +64,31 @@ void cleanExit(int todo) {
 #endif
 }
 
+void processButton(int b) {
+	logicKey(b);
+}
+
+//UP, DOWN, RIGHT, LEFT
+//keyboard: 65, 66, 67, 68
+//KEY_: 103, 108, 106, 105
+//LV_KEY_: 17, 18, 19, 20
 void processInput(char c) {
 	struct timeval tv;
 	char szz[128];
-	PRINTF("processInput %c\n", c);
+	PRINTF("processInput %d\n", c);
 	switch (c) {
+	case 65:
+		processButton(KEY_UP);
+		break;
+	case 66:
+		processButton(KEY_DOWN);
+		break;
+	case 67:
+		processButton(KEY_RIGHT);
+		break;
+	case 68:
+		processButton(KEY_LEFT);
+		break;
 	case 'h':
 		PRINTF("*******************************************************\n");
 		PRINTF("Usage for keyboard input:\n");
@@ -97,14 +118,20 @@ void backendWork(int daemon) {
 	int count = 0;
 	int keyLast = 0;
 	int fdStdin = -1;
+	int fdButton = -1;
 	doLoop = 1;
 	if (!daemon) {
 		enterInputMode();
 		fdStdin = fileno(stdin);
 	}
-	struct pollfd pollfd[1];
+#ifndef DESKTOP
+	fdButton = open(BUTTON_PATH, O_RDONLY);
+#endif
+	struct pollfd pollfd[2];
 	pollfd[0].fd = fdStdin;
 	pollfd[0].events = POLLIN;
+	pollfd[1].fd = fdButton;
+	pollfd[1].events = POLLIN;
 	logicWait();
     while (doLoop != 0) {
 		lv_tick_inc(tickGet());
@@ -112,28 +139,32 @@ void backendWork(int daemon) {
 		//PRINTF("Timer: %dms\n", time_till_next);
 		if (time_till_next == LV_NO_TIMER_READY)
 			time_till_next = LV_DEF_REFR_PERIOD;
-		int ret = poll(pollfd, 1, time_till_next);
+		int ret = poll(pollfd, 2, time_till_next);
 		if (doLoop == 0)
 			break;
-		int keyCur = 0;
 		if (pollfd[0].revents & POLLIN) {
 			char c[2];
 			read(pollfd[0].fd, &c, 1);
-			c[1] = '\0';
-			if (c[0] >= 65 && c[0] <= 68)
-				keyCur = c[0] - 48;
-			else if (c[0] != 27 && c[0] != 91)
+			if (c[0] != 27 && c[0] != 91)
 				processInput(c[0]);
+		}
+		if (pollfd[1].revents & POLLIN) {
+			struct input_event ev[64];
+			int rd = read(pollfd[1].fd, ev, sizeof(ev));
+			int i;
+			for (i = 0; i < rd / sizeof(struct input_event); i++)
+				if (ev[i].type == EV_KEY) {
+					static int longPress = 0;
+					if (ev[i].value == 1)
+						longPress = 0;
+					else if (ev[i].value == 2 && longPress == 0)
+						longPress = 1;
+					else if (ev[i].value == 0)// && longPress == 0)
+						processButton(ev[i].code);
+				}
 		}
 		if (count++ % 30 == 0)
 			uiUpdate();
-		if (keyCur == 0)
-			keyCur = lv_indev_get_key(indevK);
-		if (keyCur != keyLast) {
-			if (keyCur != 0)
-				logicKey(keyCur);
-			keyLast = keyCur;
-		}
 	}
 	PRINTF("End of doLoop\n");
 	if (!daemon)

@@ -66,14 +66,6 @@ void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 #endif
 }
 
-void backendUninit_() {
-}
+void backendUninit_() {}
 
-lv_indev_t *backendInitPointer() {
-	return NULL;
-}
-
-lv_indev_t *backendInitKeyboard() {
-	lv_indev_t *indevK = lv_libinput_create(LV_INDEV_TYPE_KEYPAD, "/dev/input/event0");
-	return indevK;
-}
+void backendInitPointer() {}

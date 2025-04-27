@@ -9,7 +9,6 @@ void backendInit_(int argc, char *argv[]);
 void backendLoop_();
 void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp);
 void backendUninit_();
-lv_indev_t *backendInitPointer();
-lv_indev_t *backendInitKeyboard();
+void backendInitPointer();
 
 #endif
