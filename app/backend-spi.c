@@ -13,7 +13,7 @@
 //#define NOMMAP
 
 //Global variable
-unsigned char *fb;
+unsigned char *fbPublic;
 
 //Functions
 static void writeValue(const char *path, const char *v) {
@@ -32,11 +32,11 @@ static void writeValueKey(const char *path, const char *key, const char *v) {
 
 void backendInit_(int argc, char *argv[]) {
 #ifdef NOMMAP
-	fb = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
+	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
 #else
 	int screenFile = open(SCREEN_FILE, O_RDWR);
 	if (screenFile)
-		fb = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenFile, 0);
+		fbPublic = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenFile, 0);
 #endif
 	writeValueKey(SCREEN_PATH, "init", "1");
 }
@@ -69,12 +69,11 @@ void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 void backendUninit_() {
 }
 
-lv_indev_t * backendInitPointer() {
+lv_indev_t *backendInitPointer() {
 	return NULL;
 }
 
-lv_indev_t * backendInitKeyboard() {
-	lv_indev_t *indevK = lv_libinput_create(LV_INDEV_TYPE_POINTER, "/dev/input/event0");
-	lv_indev_set_type(indevK, LV_INDEV_TYPE_KEYPAD);
+lv_indev_t *backendInitKeyboard() {
+	lv_indev_t *indevK = lv_libinput_create(LV_INDEV_TYPE_KEYPAD, "/dev/input/event0");
 	return indevK;
 }

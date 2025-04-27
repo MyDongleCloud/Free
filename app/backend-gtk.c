@@ -7,12 +7,13 @@
 #include "backend.h"
 
 //Global variable
-unsigned char *fb;
+unsigned char *fbPublic;
 
 //Private variables
-static unsigned char *fb_;
-static GtkWidget *outputImgW;
-static GdkPixbuf *pixBuf;
+static unsigned char *fbPrivate;
+static GdkPixbuf *pixPrivate;
+static GdkPixbuf *pixPrivateScaled;
+static GtkWidget *darea;
 static lv_coord_t mouse_x;
 static lv_coord_t mouse_y;
 static lv_indev_state_t mouse_btn = LV_INDEV_STATE_REL;
@@ -74,20 +75,34 @@ static gboolean keyboard_release(GtkWidget *widget, GdkEventKey *event, gpointer
 	return TRUE;
 }
 
+static void pixmap_destroy_notify(guchar *pixels, gpointer data) {
+}
+
+#define FACTOR 3
+static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, gpointer user_data) {
+	gdk_pixbuf_scale(pixPrivate, pixPrivateScaled, 0, 0, FACTOR * WIDTH, FACTOR * HEIGHT, 0, 0, FACTOR, FACTOR, GDK_INTERP_BILINEAR);
+	gdk_cairo_set_source_pixbuf(cr, pixPrivateScaled, 0, 0);
+	cairo_paint (cr);
+	return FALSE;
+}
+
 void backendInit_(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 
-	fb_ = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-	fb = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
+	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
+	fbPrivate = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
+	pixPrivate = gdk_pixbuf_new_from_data(fbPrivate, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * DEPTH, pixmap_destroy_notify, NULL);
+	pixPrivateScaled = gdk_pixbuf_new(GDK_COLORSPACE_RGB, 0, 8, FACTOR * WIDTH, FACTOR * HEIGHT);
 
 	GtkWidget *mainW = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size(GTK_WINDOW(mainW), WIDTH, HEIGHT);
+	gtk_window_set_default_size(GTK_WINDOW(mainW), FACTOR * WIDTH, FACTOR * HEIGHT);
 	gtk_window_set_resizable (GTK_WINDOW(mainW), FALSE);
 
-	pixBuf = gdk_pixbuf_new_from_data(fb_, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * DEPTH, NULL, NULL);
-	outputImgW = gtk_image_new();
+	darea = gtk_drawing_area_new();
+	gtk_widget_set_size_request(darea, WIDTH, HEIGHT);
+	g_signal_connect(darea, "draw", G_CALLBACK(draw_cb), NULL);
 	GtkWidget *event_box = gtk_event_box_new();
-	gtk_container_add(GTK_CONTAINER (event_box), outputImgW);
+	gtk_container_add(GTK_CONTAINER (event_box), darea);
 	gtk_container_add(GTK_CONTAINER (mainW), event_box);
 
 	gtk_widget_add_events(event_box, GDK_BUTTON_PRESS_MASK);
@@ -120,29 +135,30 @@ void backendLoop_() {
 void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 	for (int yy = 0; yy < h; yy++)
 		for (int xx = 0; xx < w; xx++) {
-			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fb[(yy * w + xx) * DEPTH + 2];
-			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fb[(yy * w + xx) * DEPTH + 1];
-			fb_[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fb[(yy * w + xx) * DEPTH + 0];
+			fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
+			fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
+			fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
 		}
 #ifdef DEBUG_REDRAW
 	for (int yyy = 0; yyy < h; yyy++) {
-		fb_[((yyy + y) * WIDTH + x) * DEPTH + 0] = 255;
-		fb_[((yyy + y) * WIDTH + x) * DEPTH + 1] = 255;
-		fb_[((yyy + y) * WIDTH + x) * DEPTH + 2] = 255;
-		fb_[((yyy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
-		fb_[((yyy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
-		fb_[((yyy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
+		fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 0] = 255;
+		fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 1] = 255;
+		fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 2] = 255;
+		fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
+		fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
+		fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
 	}
 	for (int xxx = 0; xxx < w; xxx++) {
-		fb_[(y * WIDTH + x + xxx) * DEPTH + 0] = 255;
-		fb_[(y * WIDTH + x + xxx) * DEPTH + 1] = 255;
-		fb_[(y * WIDTH + x + xxx) * DEPTH + 2] = 255;
-		fb_[((y + h) * WIDTH + x + xxx) * DEPTH + 0] = 255;
-		fb_[((y + h) * WIDTH + x + xxx) * DEPTH + 1] = 255;
-		fb_[((y + h) * WIDTH + x + xxx) * DEPTH + 2] = 255;
+		fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 0] = 255;
+		fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 1] = 255;
+		fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 2] = 255;
+		fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 0] = 255;
+		fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 1] = 255;
+		fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 2] = 255;
 	}
 #endif
-	gtk_image_set_from_pixbuf(GTK_IMAGE(outputImgW), pixBuf);
+	if (darea)
+		gtk_widget_queue_draw(darea);
 }
 
 void backendUninit_() {
@@ -150,8 +166,8 @@ void backendUninit_() {
 }
 
 static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
-	data->point.x = mouse_x <= 8 ? 0 : mouse_x >= 136 ? 127 : (mouse_x - 8);
-	data->point.y = mouse_y;
+	data->point.x = mouse_x / FACTOR;
+	data->point.y = mouse_y / FACTOR;
 	data->state = mouse_btn;
 }
 

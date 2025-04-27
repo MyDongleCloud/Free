@@ -8,6 +8,7 @@
 #include "common.h"
 #include "backend-plat.h"
 #include "ui.h"
+#include "logic.h"
 
 //Private variables
 static lv_indev_t *indevK;
@@ -34,11 +35,13 @@ start = now;
 void backendInit(int argc, char *argv[]) {
 	lv_init();
 	backendInit_(argc, argv);
-	lv_display_t * disp = lv_display_create(WIDTH, HEIGHT);
-	lv_display_set_buffers(disp, fb, 0, WIDTH * HEIGHT * 3, LV_DISPLAY_RENDER_MODE_PARTIAL);
+	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
+	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
 	lv_display_set_flush_cb(disp, backendUpdate);
 	backendInitPointer();
 	indevK = backendInitKeyboard();
+	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_BACKGROUND), LV_PART_MAIN);
+	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_TEXT), LV_PART_MAIN);
 }
 
 void cleanExit(int todo) {
@@ -102,6 +105,7 @@ void backendWork(int daemon) {
 	struct pollfd pollfd[1];
 	pollfd[0].fd = fdStdin;
 	pollfd[0].events = POLLIN;
+	logicWait();
     while (doLoop != 0) {
 		lv_tick_inc(tickGet());
 		uint32_t time_till_next = lv_timer_handler();
@@ -116,18 +120,18 @@ void backendWork(int daemon) {
 			char c[2];
 			read(pollfd[0].fd, &c, 1);
 			c[1] = '\0';
-			if (c[0] >= 65 || c[0] <= 68)
+			if (c[0] >= 65 && c[0] <= 68)
 				keyCur = c[0] - 48;
-			else if (c[0] != 27 || c[0] != 91)
+			else if (c[0] != 27 && c[0] != 91)
 				processInput(c[0]);
 		}
-		if (count++ == 1)
+		if (count++ % 30 == 0)
 			uiUpdate();
 		if (keyCur == 0)
 			keyCur = lv_indev_get_key(indevK);
 		if (keyCur != keyLast) {
 			if (keyCur != 0)
-				uiKey(keyCur);
+				logicKey(keyCur);
 			keyLast = keyCur;
 		}
 	}

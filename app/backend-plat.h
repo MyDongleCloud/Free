@@ -2,7 +2,7 @@
 #define BACKEND_H
 
 //Global variable
-extern unsigned char *fb;
+extern unsigned char *fbPublic;
 
 //Global functions
 void backendInit_(int argc, char *argv[]);

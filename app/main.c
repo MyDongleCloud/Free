@@ -39,7 +39,8 @@ int main(int argc, char *argv[]) {
 	setenv("HOME", "/home/mdc", 1);
 	bleStart();
 #endif
-	jingle();
+	if (daemon)
+		jingle();
 	backendLoop(daemon);
 	return 0;
 }

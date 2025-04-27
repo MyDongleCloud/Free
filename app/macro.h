@@ -31,6 +31,9 @@
 #define OATH_PATH "/etc/users.oath"
 #define SPACESNAME_PATH "/etc/mydonglecloud-spaces.txt"
 
+#define COLOR_BACKGROUND 0x0054e9
+#define COLOR_TEXT 0xffffff
+
 #define WIDTH 128
 #define HEIGHT 128
 #define DEPTH 3
