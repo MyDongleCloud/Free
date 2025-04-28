@@ -197,12 +197,23 @@ static void update(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, ui
 	for (yy = 0; yy < h; yy++)
 		for (xx = 0; xx < w; xx++) {
 			int posFb = DEPTH * (yy * w + xx);
-			int posTx = 2 * (yy * w + xx);
+			int posTx;
+			if (priv->rotation == 0)
+				posTx = (yy * w + xx) * 2;
+			else if (priv->rotation == 1)
+				posTx = ((w - 1 - xx) * h + yy) * 2;
+			else if (priv->rotation == 2)
+				posTx = ((h - 1 - yy) * w + w - 1 - xx) * 2;
+			else if (priv->rotation == 3)
+				posTx = (xx * h + h - 1 - yy) * 2;
 			unsigned int c = convert24to16(priv->framebuffer[posFb + 2], priv->framebuffer[posFb + 1], priv->framebuffer[posFb + 0]);
 			priv->spiTx[posTx] = c >> 8;
 			priv->spiTx[posTx + 1] = c & 0xFF;
 		}
-	updateTx(priv, x, y, w, h);
+	if (priv->rotation % 2)
+		updateTx(priv, y, x, h, w);
+	else
+		updateTx(priv, x, y, w, h);
 }
 
 static void rect(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint16_t color) {
