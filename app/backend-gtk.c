@@ -135,11 +135,11 @@ void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 			if (rotationCur == 0)
 				posTx = ((yy + y) * WIDTH + xx + x) * 3;
 			else if (rotationCur == 1)
-				posTx = ((HEIGHT - xx + x) * WIDTH + yy + y) * 3;
+				posTx = ((WIDTH - 1 - xx + x) * HEIGHT + yy + y) * 3;
 			else if (rotationCur == 2)
-				posTx = ((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * 3;
+				posTx = ((HEIGHT - 1 - yy + y) * WIDTH + WIDTH - 1 - xx + x) * 3;
 			else if (rotationCur == 3)
-				posTx = ((xx + x) * WIDTH + WIDTH - yy + y) * 3;
+				posTx = ((xx + x) * HEIGHT + HEIGHT - 1 - yy + y) * 3;
 			int posFb = (yy * w + xx) * DEPTH;
 			fbPrivate[posTx + 0] = fbPublic[posFb + 2];
 			fbPrivate[posTx + 1] = fbPublic[posFb + 1];
