@@ -11,14 +11,20 @@
 int main(int argc, char *argv[]) {
 	int option;
 	int daemon = 0;
-	while ((option = getopt(argc, argv, "dh")) != -1) {
+	int ble = 1;
+	while ((option = getopt(argc, argv, "bdh")) != -1) {
 		switch (option) {
+		case 'b':
+			ble = 0;
+			break;
 		case 'd':
 			daemon = 1;
 			break;
 		case 'h':
 			PRINTF("*******************************************************\n");
-			PRINTF("Usage for app [-h]\n");
+			PRINTF("Usage for app [-b -d -h]\n");
+			PRINTF("b:		Don't start ble\n");
+			PRINTF("d:		Set daemon mode\n");
 			PRINTF("h:		Print this usage and exit\n");
 			exit(0);
 			break;
@@ -37,7 +43,8 @@ int main(int argc, char *argv[]) {
 	writeValueKey(PLATFORM_PATH, "printk", "start app");
 	chdir("/home/mdc/app");
 	setenv("HOME", "/home/mdc", 1);
-	bleStart();
+	if (ble)
+		bleStart();
 #endif
 	if (daemon)
 		jingle();
