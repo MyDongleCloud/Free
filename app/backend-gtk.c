@@ -115,6 +115,8 @@ void backendInit_(int argc, char *argv[]) {
 	gtk_window_set_position(GTK_WINDOW(mainW), GTK_WIN_POS_CENTER);
 }
 
+void backendRotate_() {}
+
 static void *backendWork_t(void *arg) {
 	backendWork();
 	return 0;
@@ -127,28 +129,53 @@ void backendLoop_() {
 }
 
 void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
-	for (int yy = 0; yy < h; yy++)
-		for (int xx = 0; xx < w; xx++) {
-			fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
-			fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
-			fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
-		}
-#ifdef DEBUG_REDRAW
-	for (int yyy = 0; yyy < h; yyy++) {
-		fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 0] = 255;
-		fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 1] = 255;
-		fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 2] = 255;
-		fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
-		fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
-		fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
+	if (rotationCur == 0) {
+		for (int yy = 0; yy < h; yy++)
+			for (int xx = 0; xx < w; xx++) {
+				fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
+				fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
+				fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
+			}
+	} else if (rotationCur == 1) {
+		for (int yy = 0; yy < h; yy++)
+			for (int xx = 0; xx < w; xx++) {
+				fbPrivate[((HEIGHT - xx + x) * WIDTH + yy + y) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
+				fbPrivate[((HEIGHT - xx + x) * WIDTH + yy + y) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
+				fbPrivate[((HEIGHT - xx + x) * WIDTH + yy + y) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
+			}
+	} else if (rotationCur == 2) {
+		for (int yy = 0; yy < h; yy++)
+			for (int xx = 0; xx < w; xx++) {
+				fbPrivate[((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
+				fbPrivate[((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
+				fbPrivate[((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
+			}
+	} else if (rotationCur == 3) {
+		for (int yy = 0; yy < h; yy++)
+			for (int xx = 0; xx < w; xx++) {
+				fbPrivate[((xx + x) * WIDTH + WIDTH - yy + y) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
+				fbPrivate[((xx + x) * WIDTH + WIDTH - yy + y) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
+				fbPrivate[((xx + x) * WIDTH + WIDTH - yy + y) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
+			}
 	}
-	for (int xxx = 0; xxx < w; xxx++) {
-		fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 0] = 255;
-		fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 1] = 255;
-		fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 2] = 255;
-		fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 0] = 255;
-		fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 1] = 255;
-		fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 2] = 255;
+#ifdef DEBUG_REDRAW
+	if (rotationCur == 0) {
+		for (int yyy = 0; yyy < h; yyy++) {
+			fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 0] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 1] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 2] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
+		}
+		for (int xxx = 0; xxx < w; xxx++) {
+			fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 0] = 255;
+			fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 1] = 255;
+			fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 2] = 255;
+			fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 0] = 255;
+			fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 1] = 255;
+			fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 2] = 255;
+		}
 	}
 #endif
 	if (darea)

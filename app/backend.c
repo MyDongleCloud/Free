@@ -48,6 +48,11 @@ void backendInit(int argc, char *argv[]) {
 	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_TEXT), LV_PART_MAIN);
 }
 
+void backendRotate() {
+	rotationCur = (rotationCur + 1) % 4;
+	backendRotate_();
+}
+
 void cleanExit(int todo) {
 	PRINTF("cleanExit mode:%d\n", todo);
 	doLoop = 0;
@@ -83,7 +88,10 @@ static int rotateKey(int k) {
 		ret = LV_KEY_DOWN;
 		break;
 	}
+#ifndef DESKTOP
 	ret = LV_KEY_UP + ((ret - LV_KEY_UP + rotationCur) % 4);
+#endif
+	PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": "");
 	return ret;
 }
 
@@ -98,7 +106,7 @@ void processButton(int b) {
 void processInput(char c) {
 	struct timeval tv;
 	char szz[128];
-	PRINTF("processInput %d\n", c);
+	//PRINTF("processInput %d\n", c);
 	switch (c) {
 	case 65:
 		processButton(KEY_UP);

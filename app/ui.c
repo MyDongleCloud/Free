@@ -125,7 +125,9 @@ void uiScreenRotate() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, "Rotate");
+	char sz[16];
+	sprintf(sz, "Rotate %d\n", rotationCur);
+	lv_label_set_text(label1, sz);
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
 	button(LV_KEY_LEFT, "Rotate");

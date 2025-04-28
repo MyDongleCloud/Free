@@ -8,6 +8,7 @@
 #include "lvgl.h"
 #include "src/drivers/libinput/lv_libinput.h"
 #include "backend.h"
+#include "common.h"
 
 //Define
 //#define NOMMAP
@@ -16,20 +17,6 @@
 unsigned char *fbPublic;
 
 //Functions
-static void writeValue(const char *path, const char *v) {
-	int fd = open(path, O_WRONLY | O_CREAT, 0644);
-	if (fd >= 0) {
-		write(fd, v, strlen(v));
-		close(fd);
-	}
-}
-
-static void writeValueKey(const char *path, const char *key, const char *v) {
-	char fullpath[256];
-	sprintf(fullpath, path, key);
-	writeValue(fullpath, v);
-}
-
 void backendInit_(int argc, char *argv[]) {
 #ifdef NOMMAP
 	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
@@ -39,6 +26,10 @@ void backendInit_(int argc, char *argv[]) {
 		fbPublic = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenFile, 0);
 #endif
 	writeValueKey(SCREEN_PATH, "init", "1");
+}
+
+void backendRotate_() {
+	writeValueKeyInt(SCREEN_PATH, "rotation", rotationCur);
 }
 
 void backendLoop_() {

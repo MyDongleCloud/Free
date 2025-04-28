@@ -61,7 +61,7 @@ void logicKey(int k) {
 	}
 
 	if (logicCur == LOGIC_WAIT)
-		logicHome();
+		logicRotate();
 	else if (logicCur == LOGIC_QUIET) {
 #ifndef DESKTOP
 		system("/usr/bin/mydonglecloud-leds.sh -b 1 -l normal");
@@ -69,7 +69,7 @@ void logicKey(int k) {
 		logicHome();
 	} else if (logicCur == LOGIC_ROTATE) {
 		if (k == LV_KEY_LEFT) {
-			rotationCur = (rotationCur + 1) % 4;
+			backendRotate();
 			logicRotate();
 		} else if (k == LV_KEY_RIGHT)
 			logicHome();

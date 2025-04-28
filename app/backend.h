@@ -6,6 +6,7 @@ extern int rotationCur;
 
 //Functions
 void backendInit(int argc, char *argv[]);
+void backendRotate();
 void cleanExit(int todo);
 void processInput(char c);
 void backendWork();
