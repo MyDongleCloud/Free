@@ -1,7 +1,3 @@
-ifneq ($(shell uname -r | egrep "6.12"),)
-EXTRA_CFLAGS= -DKERNEL612
-endif
-
 obj-m := st7735s.o mydonglecloud.o
 
 all:
@@ -14,4 +10,4 @@ install:
 	echo "Install"
 	cp *.ko /lib/modules/$(shell uname -r)
 	depmod -a
-	sh dtbo.sh
+	sh dtb-pro.sh

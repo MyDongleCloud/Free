@@ -1,0 +1,590 @@
+/*
+ * Copyright (C) 2016  Nexell Co., Ltd.
+ * Author:Youngbok, Park <ybpark@nexell.co.kr>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/dts-v1/;
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/input/input.h>
+#include "s5p6818-artik710.dtsi"
+
+#define PMIC_PDATA_INIT(_id, _rname, _minuv,	\
+			_maxuv, _init_uv, _init_enable,		\
+			_set_init_uV, _slp_slots)	\
+		regulator-name = _rname;		\
+		regulator-min-microvolt = <_minuv>;	\
+		regulator-max-microvolt = <_maxuv>;	\
+		nx,id = <_id>;				\
+		nx,init_enable = <_init_enable>;	\
+		nx,init_uV = <_init_uv>;		\
+		nx,set_init_uV = <_set_init_uV>;	\
+		nx,sleep_slots = <_slp_slots>;
+
+/ {
+	model = "MyDongle Cloud Std";
+	version = "10";
+	compatible = "mydonglecloud,artik710-mydonglecloud", "samsung,artik710",
+		   "nexell,s5p6818";
+
+	aliases {
+		i2c7 = &i2c_gpio7;//HDMI
+		i2c10 = &i2c_gpio10;//PMIC
+	};
+
+	nx-v4l2 {
+		status = "okay";
+	};
+
+	nx-devfreq {
+		pll = <0>;
+		status = "okay";
+	};
+
+	soc {
+
+		clocks {
+			vip0:vip@c00c1000 { clock-frequency = <300000000>;};
+			sdhc0:sdhc@c00c5000 {
+			      clk-input = <(I_PLL2 | I_GATE_PCLK)>;
+			};
+			sdhc1:sdhc@c00cc000 {
+			      clk-input = <(I_PLL2 | I_GATE_PCLK)>;
+			};
+			sdhc2:sdhc@c00cd000 {
+			      clk-input = <(I_PLL2 | I_GATE_PCLK)>;
+			};
+			timer0:timer@c00b9000 {
+			      clk-input = <I_PLL2>;
+			};
+			timer1:timer@c00bb000 {
+			      clk-input = <I_PLL2>;
+			};
+			pwm0:pwm0@c00ba000 {
+			      clk-input = <I_PLL2>;
+			};
+			pwm2:pwm2@c00be000 {
+			      clk-input = <I_PLL2>; clock-frequency = <100000000>;
+			};
+			pwm3:pwm3@c00be000 {
+			      clk-input = <I_PLL2>; clock-frequency = <100000000>;
+			};
+		};
+
+		timer@c0017000 {
+			clocks =  <&timer0>, <&timer1>;
+			clock-names = "timer0", "timer1";
+		};
+
+		pwm:pwm@c0018000 {
+			clocks =  <&pwm0>, <&pwm2>, <&pwm3>;
+			clock-names = "pwm-tclk0", "pwm-tclk1", "pwm-tclk2";
+			#pwm-cells = <3>;
+			pinctrl-0 = <&pwm0_pin &pwm2_pin &pwm3_pin>;
+			samsung,pwm-outputs = <0>, <2>, <3>;
+		};
+
+
+		serial3:serial@c00a3000 {
+			status ="okay";
+		};
+
+		serial5:serial@c006f000 {
+			status ="okay";
+		};
+
+		dw_mmc_0:dw_mmc@c0062000 {
+			num-slots = <1>;
+			bus-width = <4>;
+			cap-sd-highspeed;
+			clock-frequency = <100000000>;
+			card-detect-delay = <200>;
+			disable-wp;
+			cd-gpios = <&gpio_b 16 1>;
+			//cd-inverted;
+			pinctrl-0 = <&sdmmc0_cclk &sdmmc0_cmd &sdmmc0_bus4 &sdcard_cd>;
+			nexell,drive_dly = <0x0>;
+			nexell,drive_shift = <0x02>;
+			nexell,sample_dly = <0x00>;
+			nexell,sample_shift = <0x01>;
+			status = "okay";
+		};
+
+		nexell_usbphy:nexell-usbphy@c0012000 {
+			status = "okay";
+		};
+
+		ehci@c0030000 {
+			samsung,vbus-gpio = <&gpio_a 16 0>;
+			status = "okay";
+			port@0 {
+				status = "okay";
+			};
+			port@1 {
+				status = "okay";
+			};
+		};
+
+		ohci@c0020000 {
+			status = "okay";
+			port@0 {
+				status = "okay";
+			};
+		};
+
+		dwc2otg@c0040000 {
+			gpios = <&gpio_a 15 0>;
+			status = "okay";
+		};
+
+		adc:adc@c0053000 {
+			status = "okay";
+		};
+
+		watchdog@c0019000 {
+			status = "okay";
+		};
+
+		pinctrl@C0010000 {
+			key_pwr:key_pwr {
+				nexell,pins = "alive-0";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			key_wakeup:key_wakeup {
+				nexell,pins = "alive-2";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			key_home:key_home {
+				nexell,pins = "gpiob-4";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			led_red:led_red {
+				nexell,pins = "gpioa-25";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <0>;
+				nexell,pin-strength = <0>;
+			};
+
+			led_green:led_green {
+				nexell,pins = "alive-1";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <0>;
+				nexell,pin-strength = <0>;
+			};
+
+			led_blue:led_blue {
+				nexell,pins = "gpioa-0";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <0>;
+				nexell,pin-strength = <0>;
+			};
+
+			pmic_irq:pmic_irq{
+				nexell,pins = "alive-5";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			accel_irq:accel_irq {
+				nexell,pins = "gpioa-26";
+				nexell,pin-function = <1>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			led:led {
+				nexell,pins = "gpioa-22";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <0>;
+				nexell,pin-strength = <2>;
+			};
+
+			mygpio:mygpio {
+				nexell,pins = "gpioa-13";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <0>;
+				nexell,pin-strength = <0>;
+			};
+
+			mp:mp {
+				nexell,pins = "gpioa-12";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <0>;
+				nexell,pin-strength = <2>;
+			};
+
+			pwm3_pin:pwm3 {
+				nexell,pins = "gpiod-0";
+				nexell,pin-function = <2>;
+				nexell,pin-pull = <2>;
+				nexell,pin-strength = <0>;
+			};
+
+			cc_reset:cc_reset {
+				nexell,pins = "gpioe-0";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			camera_reset:camera_reset {
+				nexell,pins = "gpioa-14";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			cameraa_pwdn:cameraa_pwdn {
+				nexell,pins = "gpioa-17";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			camerab_pwdn:camerab_pwdn {
+				nexell,pins = "gpioa-3";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			sdcard_cd:sdcard_cd {
+				nexell,pins = "gpiob-16";
+				nexell,pin-function = <2>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <3>;
+			};
+
+			i2s1_lrclk:i2s1_lrclk {
+				nexell,pins = "gpiob-0";
+				nexell,pin-function = <3>;
+				nexell,pin-pull = <2>;
+				nexell,pin-strength = <0>;
+			};
+
+			i2s1_bclk:i2s1_bclk {
+				nexell,pins = "gpioa-30";
+				nexell,pin-function = <3>;
+				nexell,pin-pull = <2>;
+				nexell,pin-strength = <0>;
+			};
+
+			i2s1_din:i2s1_din {
+				nexell,pins = "gpiob-9";
+				nexell,pin-function = <3>;
+				nexell,pin-pull = <0>;
+				nexell,pin-strength = <3>;
+			};
+
+/*
+			serial5_pin:serial5 {
+				nexell,pin-pull = <1>;
+			};
+*/
+
+		};
+
+		video-codec@c0080000 {
+			status = "okay";
+			sram = <0 0>;
+		};
+
+		i2s_1:i2s@c0056000 {
+			#sound-dai-cells = <1>;
+			master-mode = <1>;
+			mclk-in = <0>;
+			trans-mode = <0>;
+			frame-bit = <48>;
+			sample-rate = <48000>;
+			pre-supply-mclk = <1>;
+			status = "okay";
+		};
+
+		vip_0:vip@c0063000 {
+			status = "okay";
+		};
+
+		i2c_0:i2c@c00a4000 {
+			samsung,i2c-max-bus-freq = <400000>;
+			status = "okay";
+		};
+
+		i2c_1:i2c@c00a5000 {
+			samsung,i2c-max-bus-freq = <400000>;
+			status = "okay";
+		};
+
+/*		i2c_2:i2c@c00a6000 {
+			samsung,i2c-sda-delay = <1>;
+			samsung,i2c-max-bus-freq = <100000>;
+			status = "okay";
+		};*/
+
+		mipi_csi:mipi_csi@c00d0000 {
+			data_lane = <4>;
+			pllval = <1000>;
+			hssettle = <14>;
+			status = "okay";
+		};
+
+		clipper_0:clipper0@c0063000 {
+			interface_type = <NX_CAPTURE_INTERFACE_MIPI_CSI>;
+			//pwms = <&pwm 2 52 0>;
+			gpios = <&gpio_a 14 0 &gpio_a 17 0>;
+			data_order = <NX_VIN_Y0CBY1CR>;
+			status = "okay";
+			sensor {
+				type = <NX_CAPTURE_SENSOR_I2C>;
+				i2c_name = "ov4689";
+				i2c_adapter = <0>;
+				addr = <0x10>;
+
+				compatible = "omnivision,ov4689";
+				gpios = <&gpio_a 14 0 &gpio_a 17 0>;
+				frequency = <24>;
+			};
+		};
+
+		scaler@c0066000 {
+			status = "okay";
+		};
+	};	/*** soc ***/
+
+	i2c_gpio7:i2c@7 {//HDMI
+		compatible = "i2c-gpio";
+		gpios = <&gpio_a 24 0 /* sda */
+			&gpio_a 23 0 /* scl */
+			>;
+		i2c-gpio,delay-us = <1>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+	};
+
+	gpio_key:gpio_keys {
+		compatible = "gpio-keys";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&key_pwr>, <&key_home>;
+		autorepeat;
+
+		power {
+			label = "Power";
+			gpios = <&alive_0 0 1>;
+			linux,code = <KEY_POWER>;
+			gpio-key,wakeup;
+		};
+
+		home {
+			label = "Home";
+			gpios = <&gpio_b 4 1>;
+			linux,code = <KEY_HOME>;
+			gpio-key,wakeup;
+		};
+	};
+
+	i2c_gpio10:i2c@10 {//PMIC
+		compatible = "i2c-gpio";
+		gpios = <&gpio_c 16 0	/* sda */
+			&gpio_c 15 0	/* scl */
+			>;
+
+		i2c-gpio,delay-us = <1>;	/* ~100kHz */
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		nxe2000@32 {
+			compatible = "nexell,nxe2000";
+			reg = <0x32>;
+			interrupt-parent = <&alive_0>;
+			interrupts = <0x5 IRQ_TYPE_EDGE_FALLING>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&pmic_irq>;
+		};
+	};
+
+	regulators {
+		VCC_DCDC0:
+			dcdc1	{ PMIC_PDATA_INIT( 0,
+				"nxe2000_dcdc1",
+				900000, 1500000,
+				1100000, 1, 0, 0x4)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_DCDC1:
+			dcdc2	{ PMIC_PDATA_INIT( 1,
+				"nxe2000_dcdc2",
+				1000000, 1500000,
+				1200000, 1, 0, 0x4)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_DCDC2:
+			dcdc3	{ PMIC_PDATA_INIT( 2,
+				"nxe2000_dcdc3",
+				1000000, 3500000,
+				3300000, 1, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_DCDC3:
+			dcdc4	{ PMIC_PDATA_INIT( 3,
+				"nxe2000_dcdc4",
+				1000000, 2000000,
+				1500000, 1, 0, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_DCDC4:
+			dcdc5	{ PMIC_PDATA_INIT( 4,
+				"nxe2000_dcdc5",
+				1000000, 2000000,
+				1500000, 1, 0, 0x4)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO0:
+			ldo1	{ PMIC_PDATA_INIT( 5,
+				"nxe2000_ldo1",
+				1000000, 3500000,
+				1300000, 0, 1, 0x0)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO1:
+			ldo2	{ PMIC_PDATA_INIT( 6,
+				"nxe2000_ldo2",
+				1000000, 3500000,
+				1300000, 0, 1, 0x0)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO2:
+			ldo3	{ PMIC_PDATA_INIT( 7,
+				"nxe2000_ldo3",
+				1000000, 3500000,
+				1800000, 1, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO3:
+			ldo4	{ PMIC_PDATA_INIT( 8,
+				"nxe2000_ldo4",
+				1000000, 3500000,
+				1700000, 1, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO4:
+			ldo5	{ PMIC_PDATA_INIT( 9,
+				"nxe2000_ldo5",
+				1000000, 3500000,
+				2800000, 1, 1, 0xF)
+				regulator-boot-on;};
+		VCC_LDO5:
+			ldo6	{ PMIC_PDATA_INIT(10,
+				"nxe2000_ldo6",
+				1000000, 3500000,
+				3300000, 1, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO6:
+			ldo7	{ PMIC_PDATA_INIT(11,
+				"nxe2000_ldo7",
+				1000000, 3500000,
+				3300000, 0, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO7:
+			ldo8	{ PMIC_PDATA_INIT(12,
+				"nxe2000_ldo8",
+				1000000, 3500000,
+				3400000, 0, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO8:
+			ldo9	{ PMIC_PDATA_INIT(13,
+				"nxe2000_ldo9",
+				1000000, 3500000,
+				2800000, 0, 1, 0x4)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_LDO9:
+			ldo10	{ PMIC_PDATA_INIT(14,
+				"nxe2000_ldo10",
+				1000000, 3500000,
+				1300000, 0, 1, 0x4)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_RTC0:
+			ldortc1	{ PMIC_PDATA_INIT(15,
+				"nxe2000_rtc1",
+				1700000, 3500000,
+				1800000, 1, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+		VCC_RTC1:
+			ldortc2	{ PMIC_PDATA_INIT(16,
+				"nxe2000_rtc2",
+				1000000, 3500000,
+				1000000, 1, 1, 0xF)
+				regulator-always-on;
+				regulator-boot-on;};
+	}; /* regulators */
+
+	mydonglecloud {
+		compatible = "mydonglecloud,mydonglecoud";
+		gpios = <&gpio_a 25 0 &alive_0 1 0 &gpio_a 0 0 &gpio_a 22 0 &gpio_e 0 0 &gpio_a 12 0 &gpio_a 13 0>;//LED_RED, LED_GREEN, LED_BLUE, LED, CCRESET, M+, MYGPIO
+		pwm_buzzer = <0>;
+		pwm_motor = <2>;
+		pwm_fan = <3>;
+ 	};
+};
+
+&pwm {
+	status = "okay";
+};
+
+&dp_drm {
+        status = "okay";
+        ports {
+                port@0 {
+                        reg = <0>;
+                        back_color = < 0x0 >;
+                        color_key = < 0x0 >;
+			plane-names = "video", "primary", "rgb";
+		};
+                port@1 {
+                        reg = <1>;
+                        back_color = < 0x0 >;
+                        color_key = < 0x0 >;
+			plane-names = "video", "primary";
+		};
+       };
+};
+
+&dp_drm_hdmi {
+	ddc-i2c-bus = <&i2c_gpio7>;
+	enable-gpios = <&gpio_a 21 0>;
+	status = "ok";
+	q_range = <0>;
+};
+
+&decimator_0 {
+	status = "okay";
+};

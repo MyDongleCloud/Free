@@ -29,6 +29,7 @@
 #include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/cdev.h>
+#include <linux/version.h>
 
 #define WIDTH 128
 #define HEIGHT 128
@@ -254,9 +255,9 @@ static int st7735s_open(struct inode *inode, struct file *filp) {
 
 static ssize_t st7735s_read(struct file *filp, char *buf, size_t count, loff_t *f_pos) {
 	struct st7735sPriv *priv = (struct st7735sPriv *)filp->private_data;
+	int ret = copy_to_user(buf, priv->framebuffer, count);
 	if (priv->debug >= 1)
 		printk("MyDongle-ST7735S: read %lu\n", count);
-	int ret = copy_to_user(buf, priv->framebuffer, count);
 	if (ret != 0)
 		printk("MyDongle-ST7735S: copy_to_user %d\n", ret);
 	//memcpy(buf, priv->framebuffer, count);
@@ -265,9 +266,9 @@ static ssize_t st7735s_read(struct file *filp, char *buf, size_t count, loff_t *
 
 static ssize_t st7735s_write(struct file *filp, const char *buf, size_t count, loff_t *f_pos) {
 	struct st7735sPriv *priv = (struct st7735sPriv *)filp->private_data;
+	int ret = copy_from_user(priv->framebuffer, buf, count);
 	if (priv->debug >= 1)
 		printk("MyDongle-ST7735S: write %lu\n", count);
-	int ret = copy_from_user(priv->framebuffer, buf, count);
 	if (ret != 0)
 		printk("MyDongle-ST7735S: copy_from_user %d\n", ret);
 	//memcpy(priv->framebuffer, buf, count);
@@ -407,14 +408,14 @@ static struct attribute_group st7735s_attr_group = {
 	.attrs = st7735s_attributes,
 };
 
-int put159Up = 0;
 static int st7735s_probe(struct spi_device *spi) {
-	printk("MyDongle-ST7735S: Enter probe");
 	struct st7735sPriv *priv;
 	int error;
 	int ret;
 	struct device *dev = &spi->dev;
+	struct device_node *node = of_find_compatible_node(NULL, NULL, "st7735s");
 
+	printk("MyDongle-ST7735S: Enter probe");
 	spi->bits_per_word = 8;
 	spi->mode = SPI_MODE_3;
 	error = spi_setup(spi);
@@ -440,7 +441,11 @@ static int st7735s_probe(struct spi_device *spi) {
 	if (error)
 		goto err0;
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+	priv->cls = class_create(THIS_MODULE, "st7735s");
+#else
 	priv->cls = class_create("st7735s");
+#endif
 	if (IS_ERR(priv->cls)) {
 		error = PTR_ERR(priv->cls);
 		goto err0;
@@ -452,7 +457,6 @@ static int st7735s_probe(struct spi_device *spi) {
 	priv->dev = device_create(priv->cls, NULL, MKDEV(VS10x3_MAJOR, 0 /* minor */), NULL, "mydonglecloud_screen_f");
 	cdev_add(&priv->cdev, MKDEV(VS10x3_MAJOR, 0), 1);
 
-	struct device_node *node = of_find_compatible_node(NULL, NULL, "st7735s");
 	of_property_read_u32(node, "bcklit", &priv->backlight);
 	priv->backlight += 569;
 	ret = gpio_request(priv->backlight, "BACKLIGHT");
@@ -488,7 +492,11 @@ static int st7735s_probe(struct spi_device *spi) {
 	return error;
 }
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+static int st7735s_remove(struct spi_device *spi) {
+#else
 static void st7735s_remove(struct spi_device *spi) {
+#endif
 	struct st7735sPriv *priv = spi_get_drvdata(spi);
 	struct device *dev = &spi->dev;
 
@@ -497,6 +505,9 @@ static void st7735s_remove(struct spi_device *spi) {
 	sysfs_remove_group(&dev->kobj, &st7735s_attr_group);
 
 	dev_set_drvdata(dev, NULL);
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+	return 0;
+#endif
 }
 
 static const struct spi_device_id st7735s_id[] = {

@@ -9,6 +9,7 @@
 #include <linux/delay.h>
 #include <linux/syscalls.h>
 #include <linux/kernel_stat.h>
+#include <linux/version.h>
 
 #define LOG_ERROR 1
 #define LOG_INFO 2
@@ -16,14 +17,12 @@
 
 struct mydonglePriv {
 	int debug;
-
 	int buzzerCount;
 	struct pwm_device *buzzerS;
 	int buzzerON;
 	int buzzerFreq;
 	struct work_struct workBuzzer;
-
-
+	char model[8];
 	int hardwareVersion;
 };
 
@@ -90,6 +89,13 @@ static ssize_t write_buzzerFreq(struct device *dev, struct device_attribute *att
 
 static DEVICE_ATTR(buzzerFreq, 0220, NULL, write_buzzerFreq);
 
+static ssize_t show_model(struct device *dev, struct device_attribute *attr, char *buf) {
+	struct mydonglePriv *ip = dev_get_drvdata(dev);
+	return sprintf(buf, "%s\n", ip->model);
+}
+
+static DEVICE_ATTR(model, 0440, show_model, NULL);
+
 static ssize_t show_hardwareVersion(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
 	return sprintf(buf, "%u\n", ip->hardwareVersion);
@@ -98,10 +104,20 @@ static ssize_t show_hardwareVersion(struct device *dev, struct device_attribute 
 static DEVICE_ATTR(hardwareVersion, 0440, show_hardwareVersion, NULL);
 
 static ssize_t show_serialNumber(struct device *dev, struct device_attribute *attr, char *buf) {
-	const char *sz = NULL;
-	struct device_node *node = of_root;
-	of_property_read_string(node, "serial-number", &sz);
-	return sprintf(buf, "%s", sz);
+	struct mydonglePriv *ip = dev_get_drvdata(dev);
+	if (strcmp(ip->model, "Pro") == 0) {
+		const char *sz = NULL;
+		of_property_read_string(of_root, "serial-number", &sz);
+		return sprintf(buf, "%s", sz);
+	} else if (strcmp(ip->model, "Std") == 0) {
+#define ADDRESS_ID 0xC0067000
+		void __iomem *regs = ioremap(ADDRESS_ID + 0x04, 4);
+		char szSerial[17];
+		sprintf(szSerial, "%08x", readl(regs));
+		iounmap(regs);
+		return sprintf(buf, "%s", szSerial);
+	} else
+		return sprintf(buf, "1234567890abcdef");
 }
 
 static DEVICE_ATTR(serialNumber, 0440, show_serialNumber, NULL);
@@ -150,6 +166,7 @@ static DEVICE_ATTR(buzzerClick, 0220, NULL, write_buzzerClick);
 static struct attribute *mydongle_attributes[] = {
 	&dev_attr_buzzer.attr,
 	&dev_attr_buzzerFreq.attr,
+	&dev_attr_model.attr,
 	&dev_attr_hardwareVersion.attr,
 	&dev_attr_serialNumber.attr,
 	&dev_attr_debug.attr,
@@ -172,6 +189,9 @@ static int mydongle_probe(struct platform_device *pdev) {
 	platform_set_drvdata(pdev, ip);
 	myip = (struct mydonglePriv *)ip;
 	ip->debug = 0;
+	const char *mm;
+	of_property_read_string(of_root, "model", &mm);
+	strcpy(ip->model, strstr(mm, "Raspberry Pi") != NULL ? "Pro" : "Std");
 	ip->hardwareVersion = 10;
 	ip->buzzerCount = 0;
 	INIT_WORK(&ip->workBuzzer, mydongle_workBuzzer);
@@ -186,10 +206,10 @@ static int mydongle_probe(struct platform_device *pdev) {
 	return sysfs_create_group(&dev->kobj, &mydongle_attr_group);
 }
 
-#ifdef KERNEL612
-static void mydongle_remove(struct platform_device *pdev) {
-#else
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,12,0)
 static int mydongle_remove(struct platform_device *pdev) {
+#else
+static void mydongle_remove(struct platform_device *pdev) {
 #endif
 	int ret;
 
@@ -198,7 +218,7 @@ static int mydongle_remove(struct platform_device *pdev) {
 		printk("MyDongle-Dongle: Timer buzzer still in use\n");
 
 	sysfs_remove_group(NULL, &mydongle_attr_group);
-#ifndef KERNEL612
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,12,0)
 	return 0;
 #endif
 }
