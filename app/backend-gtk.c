@@ -84,8 +84,8 @@ void backendInit_(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 
 	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-	fbPrivate = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-	pixPrivate = gdk_pixbuf_new_from_data(fbPrivate, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * DEPTH, pixmap_destroy_notify, NULL);
+	fbPrivate = (unsigned char *)malloc(WIDTH * HEIGHT * 3);
+	pixPrivate = gdk_pixbuf_new_from_data(fbPrivate, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * 3, pixmap_destroy_notify, NULL);
 	pixPrivateScaled = gdk_pixbuf_new(GDK_COLORSPACE_RGB, 0, 8, FACTOR * WIDTH, FACTOR * HEIGHT);
 
 	GtkWidget *mainW = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -129,52 +129,39 @@ void backendLoop_() {
 }
 
 void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
-	if (rotationCur == 0) {
-		for (int yy = 0; yy < h; yy++)
-			for (int xx = 0; xx < w; xx++) {
-				fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
-				fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
-				fbPrivate[((yy + y) * WIDTH + xx + x) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
-			}
-	} else if (rotationCur == 1) {
-		for (int yy = 0; yy < h; yy++)
-			for (int xx = 0; xx < w; xx++) {
-				fbPrivate[((HEIGHT - xx + x) * WIDTH + yy + y) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
-				fbPrivate[((HEIGHT - xx + x) * WIDTH + yy + y) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
-				fbPrivate[((HEIGHT - xx + x) * WIDTH + yy + y) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
-			}
-	} else if (rotationCur == 2) {
-		for (int yy = 0; yy < h; yy++)
-			for (int xx = 0; xx < w; xx++) {
-				fbPrivate[((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
-				fbPrivate[((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
-				fbPrivate[((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
-			}
-	} else if (rotationCur == 3) {
-		for (int yy = 0; yy < h; yy++)
-			for (int xx = 0; xx < w; xx++) {
-				fbPrivate[((xx + x) * WIDTH + WIDTH - yy + y) * DEPTH + 0] = fbPublic[(yy * w + xx) * DEPTH + 2];
-				fbPrivate[((xx + x) * WIDTH + WIDTH - yy + y) * DEPTH + 1] = fbPublic[(yy * w + xx) * DEPTH + 1];
-				fbPrivate[((xx + x) * WIDTH + WIDTH - yy + y) * DEPTH + 2] = fbPublic[(yy * w + xx) * DEPTH + 0];
-			}
-	}
+	for (int yy = 0; yy < h; yy++)
+		for (int xx = 0; xx < w; xx++) {
+			int posTx;
+			if (rotationCur == 0)
+				posTx = ((yy + y) * WIDTH + xx + x) * 3;
+			else if (rotationCur == 1)
+				posTx = ((HEIGHT - xx + x) * WIDTH + yy + y) * 3;
+			else if (rotationCur == 2)
+				posTx = ((HEIGHT - yy + y) * WIDTH + WIDTH - xx + x) * 3;
+			else if (rotationCur == 3)
+				posTx = ((xx + x) * WIDTH + WIDTH - yy + y) * 3;
+			int posFb = (yy * w + xx) * DEPTH;
+			fbPrivate[posTx + 0] = fbPublic[posFb + 2];
+			fbPrivate[posTx + 1] = fbPublic[posFb + 1];
+			fbPrivate[posTx + 2] = fbPublic[posFb + 0];
+		}
 #ifdef DEBUG_REDRAW
 	if (rotationCur == 0) {
 		for (int yyy = 0; yyy < h; yyy++) {
-			fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 0] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 1] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x) * DEPTH + 2] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 0] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 1] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x + w) * DEPTH + 2] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 0] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 1] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 2] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x + w) * 3 + 0] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x + w) * 3 + 1] = 255;
+			fbPrivate[((yyy + y) * WIDTH + x + w) * 3 + 2] = 255;
 		}
 		for (int xxx = 0; xxx < w; xxx++) {
-			fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 0] = 255;
-			fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 1] = 255;
-			fbPrivate[(y * WIDTH + x + xxx) * DEPTH + 2] = 255;
-			fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 0] = 255;
-			fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 1] = 255;
-			fbPrivate[((y + h) * WIDTH + x + xxx) * DEPTH + 2] = 255;
+			fbPrivate[(y * WIDTH + x + xxx) * 3 + 0] = 255;
+			fbPrivate[(y * WIDTH + x + xxx) * 3 + 1] = 255;
+			fbPrivate[(y * WIDTH + x + xxx) * 3 + 2] = 255;
+			fbPrivate[((y + h) * WIDTH + x + xxx) * 3 + 0] = 255;
+			fbPrivate[((y + h) * WIDTH + x + xxx) * 3 + 1] = 255;
+			fbPrivate[((y + h) * WIDTH + x + xxx) * 3 + 2] = 255;
 		}
 	}
 #endif
