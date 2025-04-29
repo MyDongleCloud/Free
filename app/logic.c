@@ -50,16 +50,6 @@ void logicSetup(char *name, char *email) {
 }
 
 void logicKey(int k) {
-	if (k == LV_KEY_LEFT) {
-		PRINTF("Key: Left\n");
-	} else if (k == LV_KEY_RIGHT) {
-		PRINTF("Key: Right\n");
-	} else if (k == LV_KEY_DOWN) {
-		PRINTF("Key: Down\n");
-	} else if (k == LV_KEY_UP) {
-		PRINTF("Key: Up\n");
-	}
-
 	if (logicCur == LOGIC_WAIT)
 		logicRotate();
 	else if (logicCur == LOGIC_QUIET) {
