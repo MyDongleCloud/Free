@@ -44,8 +44,6 @@ void backendInit(int argc, char *argv[]) {
 	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
 	lv_display_set_flush_cb(disp, backendUpdate);
 	backendInitPointer();
-	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_BACKGROUND), LV_PART_MAIN);
-	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_TEXT), LV_PART_MAIN);
 }
 
 void backendRotate() {

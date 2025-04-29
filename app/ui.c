@@ -7,6 +7,14 @@
 #include "logic.h"
 #include "ui.h"
 
+//Defines color
+#define COLOR_BACKGROUND 0xdfdfdf
+#define COLOR_TEXT 0x000000
+#define COLOR_BAR 0xf2184f
+#define COLOR_BAR_TEXT 0xffffff
+#define COLOR_BUTTON 0xf2184f
+#define COLOR_BUTTON_TEXT 0xffffff
+
 //Functions
 static void set_angle(void * obj, int32_t v) {
 	lv_arc_set_value((lv_obj_t *)obj, v);
@@ -15,9 +23,10 @@ static void set_angle(void * obj, int32_t v) {
 static void arc() {
 	lv_obj_t *arc = lv_arc_create(lv_screen_active());
 	lv_arc_set_bg_angles(arc, 0, 360);
-	lv_arc_set_value(arc, 10);
+	lv_obj_set_size(arc , WIDTH, HEIGHT);
 	lv_obj_remove_style(arc, NULL, LV_PART_KNOB);
 	lv_obj_remove_flag(arc, LV_OBJ_FLAG_CLICKABLE);
+	lv_obj_set_style_arc_color(arc, lv_color_hex(COLOR_BUTTON), LV_PART_INDICATOR);
 	lv_obj_center(arc);
 	lv_anim_t a;
 	lv_anim_init(&a);
@@ -33,7 +42,7 @@ static void arc() {
 static void circulaText(char *sz) {
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
 	lv_label_set_long_mode(label1, LV_LABEL_LONG_MODE_SCROLL_CIRCULAR);
-	lv_obj_set_width(label1, 90);
+	lv_obj_set_width(label1, 100);
 	lv_label_set_text(label1, sz);
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
@@ -62,11 +71,17 @@ static void button(int pos, char *sz) {
     lv_obj_t *btn1 = lv_button_create(lv_screen_active());
     lv_obj_set_pos(btn1, posx, posy);
     lv_obj_set_size(btn1, 56, 18);
+	static lv_style_t style_btn;
+	lv_style_init(&style_btn);
+	lv_style_set_bg_color(&style_btn, lv_color_hex(COLOR_BUTTON));
+    lv_obj_add_style(btn1, &style_btn, 0);
+
     lv_obj_t *labelBtn1 = lv_label_create(btn1);
     lv_label_set_text(labelBtn1, sz);
 	static lv_style_t label_styleBtn1;
 	lv_style_init(&label_styleBtn1);
 	lv_style_set_text_font(&label_styleBtn1, &lv_font_montserrat_12);
+	lv_style_set_text_color(&label_styleBtn1, lv_color_hex(COLOR_BUTTON_TEXT));
 	lv_obj_add_style(labelBtn1, &label_styleBtn1, LV_STATE_DEFAULT);
 	lv_obj_align_to(labelBtn1, btn1, LV_ALIGN_BOTTOM_MID, 0, 7);
 
@@ -79,7 +94,7 @@ static void uiBar() {
 	lv_obj_t * my_rect = lv_obj_create(lv_screen_active());
 	lv_obj_set_size(my_rect , 128, 24);
 	lv_obj_set_pos(my_rect , 0, 0);
-	lv_obj_set_style_bg_color(my_rect, lv_color_hex(0x1a65eb), LV_PART_MAIN);
+	lv_obj_set_style_bg_color(my_rect, lv_color_hex(COLOR_BAR), LV_PART_MAIN);
 	lv_obj_set_style_radius(my_rect, 0, LV_PART_MAIN);
 	lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_remove_flag(my_rect, LV_OBJ_FLAG_SCROLLABLE);
@@ -106,12 +121,16 @@ static void uiBar() {
 	static lv_style_t label_style1;
 	lv_style_init(&label_style1);
 	lv_style_set_text_font(&label_style1, &lv_font_montserrat_10);
+	lv_style_set_text_color(&label_style1, lv_color_hex(COLOR_BAR_TEXT));
 	lv_obj_add_style(label1, &label_style1, LV_STATE_DEFAULT);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
 }
 
 void uiScreenWait() {
 	lv_obj_clean(lv_screen_active());
+
+	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_BACKGROUND), LV_PART_MAIN);
+	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_TEXT), LV_PART_MAIN);
 
 	arc();
 	circulaText("Press a key to start...");
@@ -209,14 +228,13 @@ void uiScreenPasscode(int expiration) {
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, -52);
 	static lv_style_t label_style1;
 	lv_style_init(&label_style1);
-	lv_style_set_text_font(&label_style1, &lv_font_montserrat_18);
 	lv_obj_add_style(label1, &label_style1, LV_STATE_DEFAULT);
 
 	lv_obj_t * label2 = lv_label_create(lv_screen_active());
 	char sz2[16];
 	sprintf(sz2, "%02d %02d %02d", (passcode / 100 / 100) % 100, (passcode / 100) % 100, passcode % 100);
 	lv_label_set_text(label2, sz2);
-	lv_obj_align(label2, LV_ALIGN_CENTER, 0, -24);
+	lv_obj_align(label2, LV_ALIGN_CENTER, 0, -26);
 	static lv_style_t label_style2;
 	lv_style_init(&label_style2);
 	lv_style_set_text_font(&label_style2, &lv_font_montserrat_30);
