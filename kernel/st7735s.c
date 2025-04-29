@@ -386,6 +386,25 @@ static ssize_t write_wd(struct device *dev, struct device_attribute *attr, const
 
 static DEVICE_ATTR(wd, 0660, show_wd, write_wd);
 
+#define hex2Int(a) (a >= '0' && a <= '9' ? (a - '0') : ( a - 'a' + 10))
+static ssize_t write_spi(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
+	struct st7735sPriv *priv = dev_get_drvdata(dev);
+	int len = strlen(buf) / 2;
+	int i;
+	for (i = 0; i < len; i++)
+		priv->spiTx[i] = hex2Int(buf[2 * i]) * 16 + hex2Int(buf[2 * i + 1]);
+	memset(&priv->spi_message, 0, sizeof(struct spi_message));
+	memset(&priv->spi_transfer, 0, sizeof(struct spi_transfer));
+	priv->spi_transfer.tx_buf = priv->spiTx;
+	priv->spi_transfer.len = len;
+	spi_message_init(&priv->spi_message);
+	spi_message_add_tail(&priv->spi_transfer, &priv->spi_message);
+	spi_sync(priv->spi, &priv->spi_message);
+	return count;
+}
+
+static DEVICE_ATTR(spi, 0220, NULL, write_spi);
+
 static ssize_t show_reset(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct st7735sPriv *priv = dev_get_drvdata(dev);
 	return sprintf(buf, "%u\n", !gpio_get_value(priv->nrst));
@@ -411,6 +430,7 @@ static struct attribute *st7735s_attributes[] = {
 	&dev_attr_rotation.attr,
 	&dev_attr_backlight.attr,
 	&dev_attr_wd.attr,
+	&dev_attr_spi.attr,
 	&dev_attr_reset.attr,
 	NULL,
 };
