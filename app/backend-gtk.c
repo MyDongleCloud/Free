@@ -165,6 +165,7 @@ void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 		}
 	}
 #endif
+	//gdk_pixbuf_save (pixPrivate, "/tmp/a.png", "png", NULL, NULL, NULL, NULL);
 	if (darea)
 		gtk_widget_queue_draw(darea);
 }
