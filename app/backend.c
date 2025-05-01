@@ -70,7 +70,7 @@ void cleanExit(int todo) {
 #endif
 }
 
-static int rotateKey(int k) {
+static int rotateKey(int k, int ignore) {
 	int ret = 0;
 	switch (k) {
 	case KEY_LEFT:
@@ -87,14 +87,15 @@ static int rotateKey(int k) {
 		break;
 	}
 #ifndef DESKTOP
-	ret = LV_KEY_UP + ((ret - LV_KEY_UP + rotationCur) % 4);
+	if (ignore == 0)
+		ret = LV_KEY_UP + ((ret - LV_KEY_UP + rotationCur) % 4);
 #endif
 	//PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": "");
 	return ret;
 }
 
-void processButton(int b) {
-	logicKey(rotateKey(b));
+void processButton(int b, int ignore) {
+	logicKey(rotateKey(b, ignore));
 }
 
 //UP, DOWN, RIGHT, LEFT
@@ -107,16 +108,16 @@ void processInput(char c) {
 	//PRINTF("processInput %d\n", c);
 	switch (c) {
 	case 65:
-		processButton(KEY_UP);
+		processButton(KEY_UP, 1);
 		break;
 	case 66:
-		processButton(KEY_DOWN);
+		processButton(KEY_DOWN, 1);
 		break;
 	case 67:
-		processButton(KEY_RIGHT);
+		processButton(KEY_RIGHT, 1);
 		break;
 	case 68:
-		processButton(KEY_LEFT);
+		processButton(KEY_LEFT, 1);
 		break;
 	case 'h':
 		PRINTF("*******************************************************\n");
@@ -189,7 +190,7 @@ void backendWork(int daemon) {
 					else if (ev[i].value == 2 && longPress == 0)
 						longPress = 1;
 					else if (ev[i].value == 0)// && longPress == 0)
-						processButton(ev[i].code);
+						processButton(ev[i].code, 0);
 				}
 		}
 		if (count++ % 30 == 0)
