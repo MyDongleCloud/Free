@@ -6,6 +6,7 @@
 #include "backend.h"
 #include "logic.h"
 #include "ui.h"
+#include "language.h"
 
 //Defines color
 #define COLOR_BACKGROUND 0xdfdfdf
@@ -133,7 +134,7 @@ void uiScreenWait() {
 	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_TEXT), LV_PART_MAIN);
 
 	arc();
-	circulaText("Press a key to start...");
+	circulaText(L("Welcome! press a button to start..."));
 }
 
 void uiScreenQuiet() {
@@ -145,12 +146,12 @@ void uiScreenRotate() {
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
 	char sz[16];
-	sprintf(sz, "Rotate %d\n", rotationCur);
+	sprintf(sz, L("Rotate %d"), rotationCur);
 	lv_label_set_text(label1, sz);
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
-	button(LV_KEY_LEFT, "Rotate");
-	button(LV_KEY_RIGHT, "OK");
+	button(LV_KEY_LEFT, L("Rotate"));
+	button(LV_KEY_RIGHT, L("OK"));
 }
 
 void uiScreenHome() {
@@ -158,55 +159,55 @@ void uiScreenHome() {
 	uiBar();
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, "Home");
+	lv_label_set_text(label1, L("Home"));
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
-	button(LV_KEY_LEFT, "Action");
-	button(LV_KEY_RIGHT, "Report");
+	button(LV_KEY_LEFT, L("Action"));
+	button(LV_KEY_RIGHT, L("Report"));
 }
 
 void uiScreenReport() {
 	lv_obj_clean(lv_screen_active());
 	uiBar();
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, "Report");
+	lv_label_set_text(label1, L("Report"));
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
-	button(LV_KEY_LEFT, "Back");
+	button(LV_KEY_LEFT, L("Back"));
 }
 
 void uiScreenAction() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, "Action");
+	lv_label_set_text(label1, L("Action"));
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
-	button(LV_KEY_UP, "Back");
-	button(LV_KEY_DOWN, "Rotate");
-	button(LV_KEY_LEFT, "Quiet");
-	button(LV_KEY_RIGHT, "OFF");
+	button(LV_KEY_UP, L("Back"));
+	button(LV_KEY_DOWN, L("Rotate"));
+	button(LV_KEY_LEFT, L("Quiet"));
+	button(LV_KEY_RIGHT, L("OFF"));
 }
 
 void uiScreenConfirmation() {//Cancel, OK or //Yes, No
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, "Confirmation");
+	lv_label_set_text(label1, L("Confirmation"));
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
-	button(LV_KEY_LEFT, "Cancel");
-	button(LV_KEY_RIGHT, "OK");
+	button(LV_KEY_LEFT, L("Cancel"));
+	button(LV_KEY_RIGHT, L("OK"));
 }
 
 void uiScreenMessage() {//OK
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, "Message");
+	lv_label_set_text(label1, L("Message"));
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 
-	button(LV_KEY_RIGHT, "OK");
+	button(LV_KEY_RIGHT, L("OK"));
 }
 
 void uiScreenPasscode(int expiration) {
@@ -224,7 +225,7 @@ void uiScreenPasscode(int expiration) {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, "Your code is:");
+	lv_label_set_text(label1, L("Your code is:"));
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, -52);
 	static lv_style_t label_style1;
 	lv_style_init(&label_style1);
@@ -243,9 +244,9 @@ void uiScreenPasscode(int expiration) {
 	lv_obj_t * label3 = lv_label_create(lv_screen_active());
 	char sz3[256];
 	if (counter > 60)
-		sprintf(sz3, "You can cancel the\nauthorization.\nExpires in %dm %2ds", counter / 60, counter % 60);
+		sprintf(sz3, L("Cancel the code\nif you didn't request.\nExpires in %dm %2ds"), counter / 60, counter % 60);
 	else
-		sprintf(sz3, "You can cancel the\nauthorization.\nExpires in %2ds", counter % 60);
+		sprintf(sz3, L("Cancel the code\nif you didn't request.\nExpires in %2ds"), counter % 60);
 	lv_label_set_text(label3, sz3);
 	lv_obj_set_width(label3, 128);
 	lv_obj_set_style_text_align(label3, LV_TEXT_ALIGN_CENTER, 0);
@@ -255,8 +256,8 @@ void uiScreenPasscode(int expiration) {
 	lv_style_set_text_font(&label_style3, &lv_font_montserrat_12);
 	lv_obj_add_style(label3, &label_style3, LV_STATE_DEFAULT);
 
-	button(LV_KEY_LEFT, "Cancel");
-	button(LV_KEY_RIGHT, "Hide");
+	button(LV_KEY_LEFT, L("Cancel"));
+	button(LV_KEY_RIGHT, L("Hide"));
 }
 
 void uiUpdate() {

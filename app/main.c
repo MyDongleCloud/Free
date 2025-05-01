@@ -5,6 +5,8 @@
 #include "macro.h"
 #include "common.h"
 #include "backend.h"
+#include "settings.h"
+#include "language.h"
 #include "ble.h"
 
 //Functions
@@ -38,6 +40,10 @@ int main(int argc, char *argv[]) {
 	}
 	int debug = 0;
 	logInit(daemon, debug);
+	settingsLoad();
+#ifdef DESKTOP
+	languageTest();
+#endif
 	backendInit(argc, argv);
 #ifndef DESKTOP
 	writeValueKey(PLATFORM_PATH, "printk", "start app");

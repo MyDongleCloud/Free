@@ -11,7 +11,7 @@ DEBUG = -g
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 PRE = /tmp/_app/
 
-OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)settings.o $(PRE)logic.o $(PRE)common.o $(PRE)backend.o $(PRE)ble.o $(PRE)bluetoothAddr.o $(PRE)btlib.o
+OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)settings.o $(PRE)language.o $(PRE)logic.o $(PRE)common.o $(PRE)backend.o $(PRE)ble.o $(PRE)bluetoothAddr.o $(PRE)btlib.o
 
 OBJs_ := $(OBJs) $(PRE)backend-spi.o
 OBJs_DESKTOP := $(OBJs:%.o=%_.o) $(PRE)backend-gtk_.o
