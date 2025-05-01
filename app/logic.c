@@ -8,6 +8,7 @@
 #include "logic.h"
 #include "backend.h"
 #include "ui.h"
+#include "settings.h"
 
 //Public variables
 int logicCur;
@@ -114,7 +115,7 @@ void logicQuiet() {
 }
 
 void logicRotate() {
-	PRINTF("Logic: Rotate %d\n", rotationCur);
+	PRINTF("Logic: Rotate %d\n", sio.rotation);
 	logicCur = LOGIC_ROTATE;
 	uiScreenRotate();
 }

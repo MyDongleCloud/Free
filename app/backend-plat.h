@@ -6,9 +6,9 @@ extern unsigned char *fbPublic;
 
 //Global functions
 void backendInit_(int argc, char *argv[]);
-void backendRotate_();
+void backendRotate_(int rot);
 void backendLoop_();
-void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp);
+void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot);
 void backendUninit_();
 void backendInitPointer();
 

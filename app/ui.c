@@ -7,6 +7,7 @@
 #include "logic.h"
 #include "ui.h"
 #include "language.h"
+#include "settings.h"
 
 //Defines color
 #define COLOR_BACKGROUND 0xdfdfdf
@@ -146,7 +147,7 @@ void uiScreenRotate() {
 
 	lv_obj_t * label1 = lv_label_create(lv_screen_active());
 	char sz[16];
-	sprintf(sz, L("Rotate %d"), rotationCur);
+	sprintf(sz, L("Rotate %d"), sio.rotation);
 	lv_label_set_text(label1, sz);
 	lv_obj_align(label1, LV_ALIGN_CENTER, 0, 0);
 

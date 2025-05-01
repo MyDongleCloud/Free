@@ -1,9 +1,6 @@
 #ifndef BACKEND_H
 #define BACKEND_H
 
-//Public variable
-extern int rotationCur;
-
 //Functions
 void backendInit(int argc, char *argv[]);
 void backendRotate();

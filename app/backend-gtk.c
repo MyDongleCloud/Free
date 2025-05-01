@@ -115,7 +115,7 @@ void backendInit_(int argc, char *argv[]) {
 	gtk_window_set_position(GTK_WINDOW(mainW), GTK_WIN_POS_CENTER);
 }
 
-void backendRotate_() {}
+void backendRotate_(int rot) {}
 
 static void *backendWork_t(void *arg) {
 	backendWork();
@@ -128,17 +128,17 @@ void backendLoop_() {
 	gtk_main();
 }
 
-void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
+void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot) {
 	for (int yy = 0; yy < h; yy++)
 		for (int xx = 0; xx < w; xx++) {
 			int posTx;
-			if (rotationCur == 0)
+			if (rot == 0)
 				posTx = ((yy + y) * WIDTH + xx + x) * 3;
-			else if (rotationCur == 1)
+			else if (rot == 1)
 				posTx = ((WIDTH - 1 - xx + x) * HEIGHT + yy + y) * 3;
-			else if (rotationCur == 2)
+			else if (rot == 2)
 				posTx = ((HEIGHT - 1 - yy + y) * WIDTH + WIDTH - 1 - xx + x) * 3;
-			else if (rotationCur == 3)
+			else if (rot == 3)
 				posTx = ((xx + x) * HEIGHT + HEIGHT - 1 - yy + y) * 3;
 			int posFb = (yy * w + xx) * DEPTH;
 			fbPrivate[posTx + 0] = fbPublic[posFb + 2];
@@ -146,7 +146,7 @@ void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
 			fbPrivate[posTx + 2] = fbPublic[posFb + 0];
 		}
 #ifdef DEBUG_REDRAW
-	if (rotationCur == 0) {
+	if (rot == 0) {
 		for (int yyy = 0; yyy < h; yyy++) {
 			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 0] = 255;
 			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 1] = 255;

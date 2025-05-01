@@ -11,9 +11,7 @@
 #include "backend-plat.h"
 #include "ui.h"
 #include "logic.h"
-
-//Public variable
-int rotationCur = 0;
+#include "settings.h"
 
 //Private variables
 static lv_indev_t *indevK;
@@ -22,7 +20,7 @@ static int doLoop = 0;
 //Functions
 static void backendUpdate(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
 	//PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
-	backendUpdate_(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, colorp);
+	backendUpdate_(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, colorp, sio.rotation);
     lv_disp_flush_ready(disp_drv);
 }
 
@@ -44,11 +42,13 @@ void backendInit(int argc, char *argv[]) {
 	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
 	lv_display_set_flush_cb(disp, backendUpdate);
 	backendInitPointer();
+	backendRotate_(sio.rotation);
 }
 
 void backendRotate() {
-	rotationCur = (rotationCur + 1) % 4;
-	backendRotate_();
+	sio.rotation = (sio.rotation + 1) % 4;
+	settingsSave();
+	backendRotate_(sio.rotation);
 }
 
 void cleanExit(int todo) {
@@ -88,7 +88,7 @@ static int rotateKey(int k, int ignore) {
 	}
 #ifndef DESKTOP
 	if (ignore == 0)
-		ret = LV_KEY_UP + ((ret - LV_KEY_UP + rotationCur) % 4);
+		ret = LV_KEY_UP + ((ret - LV_KEY_UP + sio.rotation) % 4);
 #endif
 	//PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": "");
 	return ret;

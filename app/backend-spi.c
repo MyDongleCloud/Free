@@ -28,8 +28,8 @@ void backendInit_(int argc, char *argv[]) {
 	writeValueKey(SCREEN_PATH, "init", "1");
 }
 
-void backendRotate_() {
-	writeValueKeyInt(SCREEN_PATH, "rotation", rotationCur);
+void backendRotate_(int rot) {
+	writeValueKeyInt(SCREEN_PATH, "rotation", rot);
 }
 
 void backendLoop_() {
@@ -40,7 +40,7 @@ static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned cha
 	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
 }
 
-void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp) {
+void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot) {
 	char sz[64];
 #ifdef NOMMAP
 	int xx, yy;
