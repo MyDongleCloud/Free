@@ -23,6 +23,7 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
+mkdir /home/mdc/build
 sed -i -e 's|/root|/home/mdc|' /etc/passwd
 rm -rf /root
 sed -i -e 's|# "\\e\[5~": history-search-backward|"\\e\[5~": history-search-backward|' /etc/inputrc
@@ -50,11 +51,17 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install python3-pcpp
 	ln -sf pcpp-python /usr/bin/pcpp
 elif [ $OS = "pios" ]; then
+	cd /home/mdc/build
 	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
 	tar -xpvf pcpp-1.30.tar.gz
 	cd pcpp-1.30
 	python setup.py install
 fi
+cd /home/mdc/build
+git clone https://github.com/mraardvark/pyupdi
+cd pyupdi
+python setup.py install
+cd ../..
 #apache enable modules
 chmod a-x /etc/update-motd.d/*
 apt-get -y autoremove
