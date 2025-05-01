@@ -36,6 +36,7 @@
 #define HEIGHT 128
 #define DEPTH 3
 #define VERSION "2025-01-01"
+#define SETTINGS_VERSION 1
 
 #define UUID_VERSION 0xfff1
 
