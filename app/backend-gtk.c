@@ -70,6 +70,7 @@ static gboolean keyboard_release(GtkWidget *widget, GdkEventKey *event, gpointer
 }
 
 static void pixmap_destroy_notify(guchar *pixels, gpointer data) {
+	PRINTF("ERROR: pixmap_destroy_notify called\n");
 }
 
 #define FACTOR 3

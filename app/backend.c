@@ -45,8 +45,8 @@ void backendInit(int argc, char *argv[]) {
 	backendRotate_(sio.rotation);
 }
 
-void backendRotate() {
-	sio.rotation = (sio.rotation + 1) % 4;
+void backendRotate(int incr) {
+	sio.rotation = (sio.rotation + 4 + incr) % 4;
 	settingsSave();
 	backendRotate_(sio.rotation);
 }
@@ -94,8 +94,8 @@ static int rotateKey(int k, int ignore) {
 	return ret;
 }
 
-void processButton(int b, int ignore) {
-	logicKey(rotateKey(b, ignore));
+static void processButton(int b, int ignore, int longPress) {
+	logicKey(rotateKey(b, ignore), longPress);
 }
 
 //UP, DOWN, RIGHT, LEFT
@@ -108,16 +108,16 @@ void processInput(char c) {
 	//PRINTF("processInput %d\n", c);
 	switch (c) {
 	case 65:
-		processButton(KEY_UP, 1);
+		processButton(KEY_UP, 1, 0);
 		break;
 	case 66:
-		processButton(KEY_DOWN, 1);
+		processButton(KEY_DOWN, 1, 0);
 		break;
 	case 67:
-		processButton(KEY_RIGHT, 1);
+		processButton(KEY_RIGHT, 1, 0);
 		break;
 	case 68:
-		processButton(KEY_LEFT, 1);
+		processButton(KEY_LEFT, 1, 0);
 		break;
 	case 'h':
 		PRINTF("*******************************************************\n");
@@ -162,7 +162,7 @@ void backendWork(int daemon) {
 	pollfd[0].events = POLLIN;
 	pollfd[1].fd = fdButton;
 	pollfd[1].events = POLLIN;
-	logicWait();
+	logicWelcome();
     while (doLoop != 0) {
 		lv_tick_inc(tickGet());
 		uint32_t time_till_next = lv_timer_handler();
@@ -184,13 +184,14 @@ void backendWork(int daemon) {
 			int i;
 			for (i = 0; i < rd / sizeof(struct input_event); i++)
 				if (ev[i].type == EV_KEY) {
-					static int longPress = 0;
+					static int longPressDone = 0;
 					if (ev[i].value == 1)
-						longPress = 0;
-					else if (ev[i].value == 2 && longPress == 0)
-						longPress = 1;
-					else if (ev[i].value == 0)// && longPress == 0)
-						processButton(ev[i].code, 0);
+						longPressDone = 0;
+					else if (ev[i].value == 2 && longPressDone == 0) {
+						processButton(ev[i].code, 0, 1);
+						longPressDone = 1;
+					} else if (ev[i].value == 0 && longPressDone == 0)
+						processButton(ev[i].code, 0, 0);
 				}
 		}
 		if (count++ % 30 == 0)

@@ -16,6 +16,13 @@ int passcode;
 
 //Private variable
 static int logicPrev;
+static char *szTips[6] = {
+"Press the top right button to access the Setup qrcode. Communication will be over Bluetooth.",
+"It's recommended to properly shutdown the device with a long press on the top right button.",
+"Tip #3",
+"Tip #4",
+"Tip #5",
+"Tip #6" };
 
 //Functions
 static int logicOath() {
@@ -40,7 +47,7 @@ int logicIsSetup() {
 	return stat(SPACESNAME_PATH, &statTest) == 0;
 }
 
-void logicSetup(char *name, char *email) {
+void logicSetupName(char *name, char *email) {
 	FILE *pf = fopen(SPACESNAME_PATH, "w");
 	if (pf) {
 		char sz2[64];
@@ -50,104 +57,130 @@ void logicSetup(char *name, char *email) {
 	}
 }
 
-void logicKey(int k) {
-	if (logicCur == LOGIC_WAIT)
-		logicRotate();
-	else if (logicCur == LOGIC_QUIET) {
+void logicKey(int k, int longPress) {
+	if (logicCur == LOGIC_WELCOME) {//Rotations, OK
+		if (longPress && k == LV_KEY_UP)
+			logicSleep();
+		else if (longPress && k == LV_KEY_DOWN)
+			logicShutdown();
+		else if (k == LV_KEY_UP) {
+			backendRotate(1);
+			logicWelcome();
+		} else if (k == LV_KEY_DOWN) {
+			backendRotate(-1);
+			logicWelcome();
+		} else if (k == LV_KEY_LEFT) {
+			backendRotate(-1);
+			logicWelcome();
+		} else if (k == LV_KEY_RIGHT)
+			logicHome(0, 0);
+	} else if (logicCur == LOGIC_SLEEP) {
 #ifndef DESKTOP
 		system("/usr/bin/mydonglecloud-leds.sh -b 1 -l normal");
 #endif
-		logicHome();
-	} else if (logicCur == LOGIC_ROTATE) {
-		if (k == LV_KEY_LEFT) {
-			backendRotate();
-			logicRotate();
+		logicHome(-1, 0);
+	} else if (logicCur == LOGIC_HOME) {//Rotations, Tips, Next
+		if (longPress && k == LV_KEY_UP)
+			logicSleep();
+		else if (longPress && k == LV_KEY_DOWN)
+			logicShutdown();
+		else if (k == LV_KEY_UP) {
+			backendRotate(1);
+			logicHome(-1, 0);
+		} else if (k == LV_KEY_DOWN) {
+			backendRotate(-1);
+			logicHome(-1, 0);
+		} else if (k == LV_KEY_LEFT) {
+			if (sio.setupDone)
+				logicTips(0, 0);
+			else
+				logicSetup();
 		} else if (k == LV_KEY_RIGHT)
-			logicHome();
-	} else if (logicCur == LOGIC_HOME) {//Action, Report
-		if (k == LV_KEY_LEFT)
-			logicAction();
-		else if (k == LV_KEY_RIGHT)
-			logicReport();
-	} else if (logicCur == LOGIC_REPORT) {//Back
-		if (k == LV_KEY_LEFT)
-			logicHome();
-		else if (k == LV_KEY_RIGHT)
-			logicPasscode();
-	} else if (logicCur == LOGIC_ACTION) {//Back, Rotate, Quiet, OFF
+			logicHome(-1, 1);
+	} else if (logicCur == LOGIC_SETUP) {//Done
+		/*if (k == LV_KEY_UP) {
+			backendRotate(1);
+			logicSetup();
+		} else if (k == LV_KEY_DOWN) {
+			backendRotate(-1);
+			logicSetup();
+		} else if (k == LV_KEY_LEFT) {
+			backendRotate(1);
+			logicSetup();
+		} else */if (k == LV_KEY_RIGHT) {
+			sio.setupDone = 1;
+			logicHome(0, 0);
+		}
+	} else if (logicCur == LOGIC_TIPS) {//Back, Setup, Previous, Next
 		if (k == LV_KEY_UP)
-			logicHome();
+			logicHome(-1, 0);
 		else if (k == LV_KEY_DOWN)
-			logicRotate();
-		else if (k == LV_KEY_LEFT) {
-			logicQuiet();
-		} else if (k == LV_KEY_RIGHT)
-			logicConfirmation();//"Shutdown");
+			logicSetup();
+		else if (k == LV_KEY_LEFT)
+			logicTips(-1, -1);
+		else if (k == LV_KEY_RIGHT)
+			logicTips(-1, 1);
 	} else if (logicCur == LOGIC_PASSCODE) {//Cancel, Hide
 		if (k == LV_KEY_LEFT)
-			logicHome();
+			logicHome(0, 0);
 		else if (k == LV_KEY_RIGHT)
-			logicHome();
-	} else if (logicCur == LOGIC_CONFIRMATION) {//Cancel, OK or //Yes, No
+			logicHome(0, 0);
+	} else if (logicCur == LOGIC_SHUTDOWN) {//Cancel, OK or //Yes, No
 		if (k == LV_KEY_LEFT)
-			logicHome();
+			logicHome(0, 0);
 		else if (k == LV_KEY_RIGHT)
-			logicHome();
-	} else if (logicCur == LOGIC_MESSAGE) {//OK
-		if (k == LV_KEY_LEFT || k == LV_KEY_RIGHT || k == LV_KEY_UP || k == LV_KEY_DOWN)
-			logicHome();
+			logicHome(0, 0);
 	}
 }
 
-void logicWait() {
-	PRINTF("Logic: Wait\n");
-	logicCur = LOGIC_WAIT;
-	uiScreenWait();
+void logicWelcome() {
+	PRINTF("Logic: Welcome rot:%d\n", sio.rotation);
+	logicCur = LOGIC_WELCOME;
+	uiScreenWelcome();
 }
 
-void logicQuiet() {
-	PRINTF("Logic: Quiet\n");
-	logicCur = LOGIC_QUIET;
+void logicSleep() {
+	PRINTF("Logic: Sleep\n");
+	logicCur = LOGIC_SLEEP;
 #ifndef DESKTOP
 		system("/usr/bin/mydonglecloud-leds.sh -b 0 -l off");
 #endif
-	uiScreenQuiet();
+	uiScreenSleep();
 }
 
-void logicRotate() {
-	PRINTF("Logic: Rotate %d\n", sio.rotation);
-	logicCur = LOGIC_ROTATE;
-	uiScreenRotate();
-}
-
-void logicHome() {
-	PRINTF("Logic: Home\n");
+void logicHome(int force, int incr) {
+	static int pos = 0;
+	if (force != -1)
+		pos = force;
+	else
+		pos = (pos + 4 + incr) % 4;
+	PRINTF("Logic: Home #%d rot:%d\n", pos, sio.rotation);
 	logicCur = LOGIC_HOME;
-	uiScreenHome();
+	uiScreenHome(pos);
 }
 
-void logicReport() {
-	PRINTF("Logic: Report\n");
-	logicCur = LOGIC_REPORT;
-	uiScreenReport();
+void logicSetup() {
+	PRINTF("Logic: Setup\n");
+	logicCur = LOGIC_SETUP;
+	uiScreenSetup();
 }
 
-void logicAction() {
-	PRINTF("Logic: Action\n");
-	logicCur = LOGIC_ACTION;
-	uiScreenAction();
+void logicTips(int force, int incr) {
+	int size = sizeof(szTips)/sizeof(szTips[0]);
+	static int pos = 0;
+	if (force != -1)
+		pos = force;
+	else
+		pos = (pos + size + incr) % size;
+	PRINTF("Logic: Tips #%d/%d\n", pos + 1, size);
+	logicCur = LOGIC_TIPS;
+	uiScreenTips(szTips[pos], pos == 0 ? "Setup" : NULL, pos, size);
 }
 
-void logicConfirmation() {
-	PRINTF("Logic: Confirmation\n");
-	logicCur = LOGIC_CONFIRMATION;
-	uiScreenConfirmation();
-}
-
-void logicMessage() {
-	PRINTF("Logic: Message\n");
-	logicCur = LOGIC_MESSAGE;
-	uiScreenMessage();
+void logicShutdown() {
+	PRINTF("Logic: Shutdown\n");
+	logicCur = LOGIC_SHUTDOWN;
+	uiScreenShutdown();
 }
 
 void logicPasscode() {
@@ -160,5 +193,5 @@ void logicPasscode() {
 void logicPasscodeFinished() {
 	PRINTF("Logic: Passcode finished\n");
 	passcode = 0;
-	logicHome();
+	logicHome(0, 0);
 }

@@ -3,14 +3,12 @@
 
 //Define
 enum LOGIC_SCREEN {
-	LOGIC_WAIT,
-	LOGIC_QUIET,
-	LOGIC_ROTATE,
+	LOGIC_WELCOME,
+	LOGIC_SLEEP,
 	LOGIC_HOME,
-	LOGIC_REPORT,
-	LOGIC_ACTION,
-	LOGIC_CONFIRMATION,
-	LOGIC_MESSAGE,
+	LOGIC_SETUP,
+	LOGIC_TIPS,
+	LOGIC_SHUTDOWN,
 	LOGIC_PASSCODE
 };
 
@@ -20,16 +18,14 @@ extern int logicCur;
 
 //Functions
 int logicIsSetup();
-void logicSetup(char *name, char *email);
-void logicKey(int k);
-void logicWait();
-void logicQuiet();
-void logicRotate();
-void logicHome();
-void logicReport();
-void logicAction();
-void logicConfirmation();
-void logicMessage();
+void logicSetupName(char *name, char *email);
+void logicKey(int k, int longPress);
+void logicWelcome();
+void logicSleep();
+void logicHome(int force, int incr);
+void logicSetup();
+void logicTips(int force, int incr);
+void logicShutdown();
 void logicPasscode();
 void logicPasscodeFinished();
 
