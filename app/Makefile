@@ -22,14 +22,16 @@ OBJs := $(PRE)backend.o \
 	$(PRE)settings.o \
 	$(PRE)ui.o
 
-OBJs_ := $(OBJs) $(PRE)backend-spi.o
+MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations
+MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -loath
+
+OBJs_APP := $(OBJs) $(PRE)backend-spi.o
+MYCFLAGS_APP = $(MYCFLAGS) -I ../build/lvgl/
+MYLDFLAGS_APP = $(MYLDFLAGS) -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput
+
 OBJs_DESKTOP := $(OBJs:%.o=%_.o) $(PRE)backend-gtk_.o
-
-MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -I ../build/lvgl
-MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -loath -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput
-
-MYCFLAGS_DESKTOP = $(MYCFLAGS) -DDESKTOP `pkg-config --cflags gtk+-3.0`
-MYLDFLAGS_DESKTOP = $(MYLDFLAGS) `pkg-config --libs gtk+-3.0`
+MYCFLAGS_DESKTOP = $(MYCFLAGS_APP) -DDESKTOP `pkg-config --cflags gtk+-3.0`
+MYLDFLAGS_DESKTOP = $(MYLDFLAGS_APP) `pkg-config --libs gtk+-3.0`
 
 .PHONY : clean
 
@@ -40,8 +42,8 @@ all: app_exec desktop_exec
 endif
 clean: cleanup
 
-app_exec: $(OBJs_)
-	$(MYLINKPP) $(DEBUG) $(OBJs_) $(MYLDFLAGS) -o app
+app_exec: $(OBJs_APP)
+	$(MYLINKPP) $(DEBUG) $(OBJs_APP) $(MYLDFLAGS_APP) -o app
 ifeq ($(DEBUG),)
 	@strip app
 endif
@@ -54,11 +56,10 @@ endif
 
 $(PRE)%.o : %.c
 	@mkdir -p $(PRE)
-	$(MYCC) $(DEBUG) $< -o $@ -c $(MYCFLAGS)
+	$(MYCC) $(DEBUG) $< -o $@ -c $(MYCFLAGS_APP)
 
 $(PRE)%_.o : %.c
-	@mkdir -p $(PRE)
 	$(MYCC) $(DEBUG) $< -o $@ -c $(MYCFLAGS_DESKTOP)
 
 cleanup:
-	@rm -f $(OBJs_) $(OBJs_DESKTOP) app appD
+	@rm -f $(OBJs_APP) $(OBJs_DESKTOP) app appD
