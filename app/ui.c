@@ -226,19 +226,19 @@ static void uiBar() {
 	lv_obj_set_style_border_width(rect, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_remove_flag(rect, LV_OBJ_FLAG_SCROLLABLE);
 
-	buttonImg(LV_KEY_UP, "img/icon-left.png");
-	buttonImg(LV_KEY_DOWN, "img/icon-right.png");
-	buttonImg(LV_KEY_ESC, "img/icon-sleep.png");
-	buttonImg(LV_KEY_DEL, "img/icon-shutdown.png");
+	buttonImg(LV_KEY_UP, "img/icon_left.png");
+	buttonImg(LV_KEY_DOWN, "img/icon_right.png");
+	buttonImg(LV_KEY_ESC, "img/icon_sleep.png");
+	buttonImg(LV_KEY_DEL, "img/icon_shutdown.png");
 
     lv_obj_t *imgBar0 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgBar0, "img/wifi-ok.png");
+	lv_img_set_src(imgBar0, "img/wifi_ok.png");
 	lv_obj_set_pos(imgBar0, 14, 2);
     lv_obj_t *imgBar1 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgBar1, "img/cloud-ok.png");
+	lv_img_set_src(imgBar1, "img/cloud_ok.png");
 	lv_obj_set_pos(imgBar1, 34, 2);
     lv_obj_t *imgBar2 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgBar2, "img/temperature-ok.png");
+	lv_img_set_src(imgBar2, "img/temperature_ok.png");
 	lv_obj_set_pos(imgBar2, 52, 2);
 
 	labelTime = lv_label_create(lv_screen_active());
@@ -287,7 +287,7 @@ void uiScreenWelcome() {
 	lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
 	lv_obj_align(label2, LV_ALIGN_TOP_LEFT, 0, 73);
 
-	button(LV_KEY_LEFT, L("Rot"), "img/icon-right2.png");
+	button(LV_KEY_LEFT, L("Rot"), "img/icon_right2.png");
 	button(LV_KEY_RIGHT, L("OK"), NULL);
 }
 
@@ -404,13 +404,13 @@ void uiScreenSetup() {
 	lv_obj_clean(lv_screen_active());
 
     lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav0, "img/qrcode-scanme.png");
+	lv_img_set_src(imgNav0, "img/qrcode_scanme.png");
 	lv_obj_set_pos(imgNav0, 2, 2);
     lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav1, "img/qrcode-download.png");
+	lv_img_set_src(imgNav1, "img/qrcode_download.png");
 	lv_obj_set_pos(imgNav1, 39, 14);
 
-	//button(LV_KEY_LEFT, L("Rot"), "img/icon-right2.png");
+	//button(LV_KEY_LEFT, L("Rot"), "img/icon_right2.png");
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
