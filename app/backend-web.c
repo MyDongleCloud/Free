@@ -18,7 +18,7 @@
 unsigned char *fbPublic;
 
 //Functions
-void backendInit_(int argc, char *argv[]) {
+void backendInit_plat(int argc, char *argv[]) {
 	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
 
 	lv_init();
@@ -29,17 +29,17 @@ void backendInit_(int argc, char *argv[]) {
 	lv_indev_t *indevP = lv_sdl_mouse_create();
 }
 
-void backendRotate_(int rot) {}
+void backendRotate_plat(int rot) {}
 
 static void looping(void *arg) {
 	backendLoop();
 }
 
-void backendRun_() {
+void backendRun_plat() {
 	emscripten_set_main_loop_arg(looping, NULL, -1, true);
 	PRINTF("End of doLoop\n");
 }
 
-void backendUninit_() {
+void backendUninit_plat() {
 	lv_deinit();
 }

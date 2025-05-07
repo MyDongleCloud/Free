@@ -18,7 +18,7 @@
 unsigned char *fbPublic;
 
 //Functions
-static void backendUpdate_(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
+static void backendUpdate_plat(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
 	//PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
 	int x = area->x1;
 	int y = area->y1;
@@ -44,11 +44,11 @@ static void backendUpdate_(lv_disp_t *disp_drv, const lv_area_t *area, unsigned 
     lv_disp_flush_ready(disp_drv);
 }
 
-void backendRotate_(int rot) {
+void backendRotate_plat(int rot) {
 	writeValueKeyInt(SCREEN_PATH, "rotation", rot);
 }
 
-void backendInit_(int argc, char *argv[]) {
+void backendInit_plat(int argc, char *argv[]) {
 	lv_init();
 #ifdef NOMMAP
 	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
@@ -61,12 +61,12 @@ void backendInit_(int argc, char *argv[]) {
 
 	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
 	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
-	lv_display_set_flush_cb(disp, backendUpdate_);
+	lv_display_set_flush_cb(disp, backendUpdate_plat);
 
-	backendRotate_(sio.rotation);
+	backendRotate_plat(sio.rotation);
 }
 
-void backendRun_() {
+void backendRun_plat() {
 	while (doLoop)
 		backendLoop();
 	PRINTF("End of doLoop\n");
@@ -76,6 +76,6 @@ static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned cha
 	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
 }
 
-void backendUninit_() {
+void backendUninit_plat() {
 	lv_deinit();
 }

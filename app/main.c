@@ -57,10 +57,10 @@ int main(int argc, char *argv[]) {
 	if (daemon)
 		jingle();
 #endif
-	backendInit_(argc, argv);
+	backendInit_plat(argc, argv);
 	backendInit(daemon);
-	backendRun_();
+	backendRun_plat();
 	backendUninit(daemon);
-	backendUninit_();
+	backendUninit_plat();
 	return 0;
 }

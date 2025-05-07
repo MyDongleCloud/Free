@@ -41,7 +41,7 @@ int backendRotate(int incr) {
 #endif
 	sio.rotation = (sio.rotation + 4 + incr) % 4;
 	settingsSave();
-	backendRotate_(sio.rotation);
+	backendRotate_plat(sio.rotation);
 	return 0;
 }
 

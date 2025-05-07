@@ -99,13 +99,13 @@ static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
 	data->state = mouse_btn;
 }
 
-void backendInitPointer_() {
+void backendInitPointer_plat() {
 	lv_indev_t *indevP = lv_indev_create();
 	lv_indev_set_type(indevP, LV_INDEV_TYPE_POINTER);
 	lv_indev_set_read_cb(indevP, backendPointer);
 }
 
-static void backendUpdate_(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
+static void backendUpdate_plat(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
 	//PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
 	int x = area->x1;
 	int y = area->y1;
@@ -156,9 +156,9 @@ static void backendUpdate_(lv_disp_t *disp_drv, const lv_area_t *area, unsigned 
     lv_disp_flush_ready(disp_drv);
 }
 
-void backendRotate_(int rot) {}
+void backendRotate_plat(int rot) {}
 
-void backendInit_(int argc, char *argv[]) {
+void backendInit_plat(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 
 	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
@@ -195,12 +195,12 @@ void backendInit_(int argc, char *argv[]) {
 	lv_init();
 	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
 	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
-	lv_display_set_flush_cb(disp, backendUpdate_);
+	lv_display_set_flush_cb(disp, backendUpdate_plat);
 
-	backendInitPointer_();
+	backendInitPointer_plat();
 }
 
-void backendRun_() {
+void backendRun_plat() {
 	while (doLoop) {
 		gtk_main_iteration_do(FALSE);
 		backendLoop();
@@ -208,6 +208,6 @@ void backendRun_() {
 	PRINTF("End of doLoop\n");
 }
 
-void backendUninit_() {
+void backendUninit_plat() {
 	lv_deinit();
 }
