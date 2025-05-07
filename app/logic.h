@@ -9,6 +9,8 @@ enum LOGIC_SCREEN {
 	LOGIC_SETUP,
 	LOGIC_TIPS,
 	LOGIC_SHUTDOWN,
+	LOGIC_BYE,
+	LOGIC_MESSAGE,
 	LOGIC_PASSCODE
 };
 
@@ -26,6 +28,8 @@ void logicHome(int force, int incr);
 void logicSetup();
 void logicTips(int force, int incr);
 void logicShutdown();
+void logicBye();
+void logicMessage();
 void logicPasscode();
 void logicPasscodeFinished();
 

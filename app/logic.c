@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
 #include "lvgl.h"
@@ -122,8 +123,10 @@ void logicKey(int k) {
 		if (k == LV_KEY_LEFT)
 			logicHome(0, 0);
 		else if (k == LV_KEY_RIGHT)
-			logicHome(0, 0);
-	}
+			logicBye();
+	} else if (logicCur == LOGIC_BYE) {
+	} else if (logicCur == LOGIC_MESSAGE)
+		logicHome(0, 0);
 }
 
 void logicWelcome() {
@@ -174,6 +177,32 @@ void logicShutdown() {
 	PRINTF("Logic: Shutdown\n");
 	logicCur = LOGIC_SHUTDOWN;
 	uiScreenShutdown();
+}
+
+static void *bye_t(void *arg) {
+	usleep(1000 * 1000);
+#ifdef DESKTOP
+			cleanExit(0);
+#else
+			cleanExit(1);
+#endif
+	return 0;
+}
+
+void logicBye() {
+	PRINTF("Logic: Bye\n");
+	logicCur = LOGIC_BYE;
+	uiScreenBye();
+#ifndef WEB
+	pthread_t pth;
+	pthread_create(&pth, NULL, bye_t, NULL);
+#endif
+}
+
+void logicMessage() {
+	PRINTF("Logic: Message\n");
+	logicCur = LOGIC_MESSAGE;
+	uiScreenMessage(0);
 }
 
 void logicPasscode() {

@@ -10,6 +10,8 @@ void uiScreenHome(int pos);
 void uiScreenSetup();
 void uiScreenTips(int pos);
 void uiScreenShutdown();
+void uiScreenBye();
+void uiScreenMessage(int m);
 void uiScreenPasscode(int expiration);
 void uiUpdate();
 

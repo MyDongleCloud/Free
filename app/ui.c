@@ -24,6 +24,9 @@ static char *szTips[6] = {
 "Tip #5",
 "Tip #6" };
 
+static char *szMessages[1] = {
+"Rotation is not supported on the web demo." };
+
 //Functions
 static void set_angle(void *obj, int32_t v) {
 	lv_arc_set_value((lv_obj_t *)obj, v);
@@ -449,10 +452,34 @@ void uiScreenShutdown() {
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
 	lv_label_set_text(label0, L("Are you sure to shutdown the dongle?"));
+	lv_obj_set_width(label0, 128);
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_center(label0);
 
 	button(LV_KEY_LEFT, L("No"), NULL);
 	button(LV_KEY_RIGHT, L("Yes"), NULL);
+}
+
+void uiScreenBye() {
+	lv_obj_clean(lv_screen_active());
+
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, L("Bye now!"));
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_set_width(label0, 128);
+	lv_obj_center(label0);
+}
+
+void uiScreenMessage(int m) {
+	lv_obj_clean(lv_screen_active());
+
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, L(szMessages[m]));
+	lv_obj_set_width(label0, 128);
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_center(label0);
+
+	button(LV_KEY_RIGHT, L("OK"), NULL);
 }
 
 void uiScreenPasscode(int expiration) {
