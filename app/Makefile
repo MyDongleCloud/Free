@@ -68,6 +68,9 @@ endif
 web_exec: $(OBJs_WEB)
 	@echo "{{{ SCRIPT }}}" > /tmp/a.js
 	$(MYLINKPP_WEB) $(DEBUG) $(OBJs_WEB) $(MYLDFLAGS_WEB) -o app.js
+ifeq ($(DEBUG),)
+	@cp app.js ../www/js/
+endif
 
 $(PRE)%.o : %.c
 	@mkdir -p $(PRE)
