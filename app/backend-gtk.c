@@ -87,14 +87,14 @@ static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
 		data->point.x = mouse_x / FACTOR;
 		data->point.y = mouse_y / FACTOR;
 	} else if (sio.rotation == 1) {
-		data->point.x = HEIGHT - mouse_y / FACTOR;
+		data->point.x = HEIGHT - 1 - mouse_y / FACTOR;
 		data->point.y = mouse_x / FACTOR;
 	} else if (sio.rotation == 2) {
-		data->point.x = WIDTH - mouse_x / FACTOR;
-		data->point.y = HEIGHT - mouse_y / FACTOR;
+		data->point.x = WIDTH - 1 - mouse_x / FACTOR;
+		data->point.y = HEIGHT - 1 - mouse_y / FACTOR;
 	} else if (sio.rotation == 3) {
 		data->point.x = mouse_y / FACTOR;
-		data->point.y = WIDTH - mouse_x / FACTOR;
+		data->point.y = WIDTH - 1 - mouse_x / FACTOR;
 	}
 	data->state = mouse_btn;
 }
