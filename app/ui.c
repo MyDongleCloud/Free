@@ -196,15 +196,12 @@ static void uiBar() {
     lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgNav0, "img/icon-left.png");
 	lv_obj_set_pos(imgNav0, 1, 1);
-
     lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgNav1, "img/icon-sleep.png");
 	lv_obj_set_pos(imgNav1, 1, 12);
-
     lv_obj_t *imgNav2 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgNav2, "img/icon-right.png");
 	lv_obj_set_pos(imgNav2, 117, 1);
-
     lv_obj_t *imgNav3 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgNav3, "img/icon-shutdown.png");
 	lv_obj_set_pos(imgNav3, 117, 12);
@@ -311,15 +308,6 @@ static void doubleText(char *sz, char *sz2, int y, int x2) {
 }
 
 static void progressBar(int w, int y, char *sz, char *sz2, int p) {
-#if 0
-	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, sz);
-	static lv_style_t labelStyle0;
-	lv_style_init(&labelStyle0);
-	lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_10);
-	lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
-	lv_obj_set_pos(label0, (128 - w) / 2, y);
-#endif
 	doubleText(sz, sz2, y, 35);
 
 	static lv_style_t style_bg;
