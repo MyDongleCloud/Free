@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include <unistd.h>
 #include <getopt.h>
 #include "macro.h"
 #include "common.h"
 #include "backend.h"
+#include "backend-plat.h"
 #include "settings.h"
 #include "language.h"
 #include "ble.h"
@@ -34,26 +36,31 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 	}
+	int debug = 0;
+#ifndef WEB
 	if (killOtherPids("app")) {
 		fprintf(stderr, "Exiting because process already exists\n");
 		return 0;
 	}
-	int debug = 0;
 	logInit(daemon, debug);
 	settingsLoad();
+#endif
 #ifdef DESKTOP
 	languageTest();
 #endif
-	backendInit(argc, argv);
-#ifndef DESKTOP
+#if !defined(DESKTOP) && !defined(WEB)
 	writeValueKey(PLATFORM_PATH, "printk", "start app");
 	chdir("/home/mdc/app");
 	setenv("HOME", "/home/mdc", 1);
 	if (ble)
 		bleStart();
-#endif
 	if (daemon)
 		jingle();
-	backendLoop(daemon);
+#endif
+	backendInit_(argc, argv);
+	backendInit(daemon);
+	backendRun_();
+	backendUninit(daemon);
+	backendUninit_();
 	return 0;
 }

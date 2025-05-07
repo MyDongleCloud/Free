@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <time.h>
 #include "lvgl.h"
 #include "macro.h"
-#include "backend.h"
 #include "logic.h"
 #include "ui.h"
 #include "language.h"
@@ -52,6 +52,15 @@ static void circulaText(char *sz) {
 	lv_obj_add_style(label0, &labelStyle, LV_STATE_DEFAULT);
 }
 
+static void event_handler(lv_event_t *e) {
+	lv_event_code_t code = lv_event_get_code(e);
+	if(code == LV_EVENT_CLICKED) {
+		lv_obj_t *btn = lv_event_get_current_target(e);
+		int key = (int)(unsigned long)lv_obj_get_user_data(btn);
+		logicKey(key, 0);
+	}
+}
+
 static void button(int pos, char *sz, char *szImg) {
 	int posx, posy;
 	if (pos == LV_KEY_LEFT) {
@@ -69,6 +78,7 @@ static void button(int pos, char *sz, char *szImg) {
 	}
 
     lv_obj_t *btn0 = lv_button_create(lv_screen_active());
+	lv_obj_set_user_data(btn0, (void *)(unsigned long)pos);
     lv_obj_set_pos(btn0, posx, posy);
     lv_obj_set_size(btn0, 49, 14);
 	static lv_style_t btnStyle;
@@ -76,6 +86,7 @@ static void button(int pos, char *sz, char *szImg) {
 	lv_style_set_bg_color(&btnStyle, lv_color_hex(COLOR_DARK));
 	lv_style_set_radius(&btnStyle, 4);
     lv_obj_add_style(btn0, &btnStyle, 0);
+    lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
 
     lv_obj_t *labelBtn0 = lv_label_create(btn0);
     lv_label_set_text(labelBtn0, sz);

@@ -1,5 +1,5 @@
-#ifndef BACKEND_H
-#define BACKEND_H
+#ifndef BACKENDPLAT_H
+#define BACKENDPLAT_H
 
 //Global variable
 extern unsigned char *fbPublic;
@@ -7,9 +7,7 @@ extern unsigned char *fbPublic;
 //Global functions
 void backendInit_(int argc, char *argv[]);
 void backendRotate_(int rot);
-void backendLoop_();
-void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot);
+void backendRun_();
 void backendUninit_();
-void backendInitPointer();
 
 #endif

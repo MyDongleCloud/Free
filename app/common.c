@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <string.h>
 #include <fcntl.h>
-#include <zlib.h>
 #include <termios.h>
 #include <dirent.h>
 #include <signal.h>
@@ -15,12 +14,14 @@
 #include <sys/stat.h>
 #include <sys/statvfs.h>
 #include <sys/mman.h>
+#ifndef WEB
 #include <arpa/inet.h>
 #include <linux/wireless.h>
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <openssl/md5.h>
 #include <liboath/oath.h>
+#endif
 #include "macro.h"
 #include "common.h"
 
@@ -250,6 +251,7 @@ void generateRandomHexString(char sz[33]) {
 	sz[32] = '\0';
 }
 
+#ifndef WEB
 int oathGenerate(char secret[33]) {
 	int ret = 0;
 	generateRandomHexString(secret);
@@ -271,6 +273,7 @@ int oathValidate(char secret[33], int OTP) {
 	oath_done();
 	return ret;
 }
+#endif
 
 void getSerialID() {
 #ifdef DESKTOP
@@ -280,6 +283,7 @@ void getSerialID() {
 #endif
 }
 
+#ifndef WEB
 int killOtherPids(char *sz) {
 	int ret = 0;
 	char line_[1024];
@@ -342,6 +346,7 @@ void logInit(int daemon, int debug) {
 		close(pipe_fd[1]);
 	}
 }
+#endif
 
 void logUninit() {
 	doLog = 0;

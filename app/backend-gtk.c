@@ -5,6 +5,7 @@
 #include "macro.h"
 #include "lvgl.h"
 #include "backend.h"
+#include "settings.h"
 
 //Global variable
 unsigned char *fbPublic;
@@ -81,55 +82,26 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, gpointer user_data) {
 	return FALSE;
 }
 
-void backendInit_(int argc, char *argv[]) {
-	gtk_init(&argc, &argv);
-
-	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-	fbPrivate = (unsigned char *)malloc(WIDTH * HEIGHT * 3);
-	pixPrivate = gdk_pixbuf_new_from_data(fbPrivate, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * 3, pixmap_destroy_notify, NULL);
-	pixPrivateScaled = gdk_pixbuf_new(GDK_COLORSPACE_RGB, 0, 8, FACTOR * WIDTH, FACTOR * HEIGHT);
-
-	GtkWidget *mainW = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size(GTK_WINDOW(mainW), FACTOR * WIDTH, FACTOR * HEIGHT);
-	gtk_window_set_resizable (GTK_WINDOW(mainW), FALSE);
-
-	darea = gtk_drawing_area_new();
-	gtk_widget_set_size_request(darea, WIDTH, HEIGHT);
-	g_signal_connect(darea, "draw", G_CALLBACK(draw_cb), NULL);
-	GtkWidget *event_box = gtk_event_box_new();
-	gtk_container_add(GTK_CONTAINER (event_box), darea);
-	gtk_container_add(GTK_CONTAINER (mainW), event_box);
-
-	gtk_widget_add_events(event_box, GDK_BUTTON_PRESS_MASK);
-	gtk_widget_add_events(event_box, GDK_SCROLL_MASK);
-	gtk_widget_add_events(event_box, GDK_POINTER_MOTION_MASK);
-	gtk_widget_add_events(mainW, GDK_KEY_PRESS_MASK);
-
-	g_signal_connect(event_box, "button-press-event", G_CALLBACK(mouse_pressed), NULL);
-	g_signal_connect(event_box, "button-release-event", G_CALLBACK(mouse_released), NULL);
-	g_signal_connect(event_box, "motion-notify-event", G_CALLBACK(mouse_motion), NULL);
-	g_signal_connect(mainW, "key_press_event", G_CALLBACK(keyboard_press), NULL);
-	g_signal_connect(mainW, "key_release_event", G_CALLBACK(keyboard_release), NULL);
-	g_signal_connect(mainW, "delete-event", G_CALLBACK(delete_event_cb), NULL);
-
-	gtk_widget_show_all(mainW);
-	gtk_window_set_position(GTK_WINDOW(mainW), GTK_WIN_POS_CENTER);
+static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
+	data->point.x = mouse_x / FACTOR;
+	data->point.y = mouse_y / FACTOR;
+	data->state = mouse_btn;
 }
 
-void backendRotate_(int rot) {}
-
-static void *backendWork_t(void *arg) {
-	backendWork();
-	return 0;
+void backendInitPointer_() {
+	lv_indev_t *indevP = lv_indev_create();
+	lv_indev_set_type(indevP, LV_INDEV_TYPE_POINTER);
+	lv_indev_set_read_cb(indevP, backendPointer);
 }
 
-void backendLoop_() {
-	pthread_t pth;
-	pthread_create(&pth, NULL, backendWork_t, NULL);
-	gtk_main();
-}
+static void backendUpdate_(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
+	//PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
+	int x = area->x1;
+	int y = area->y1;
+	int w = area->x2 - area->x1 + 1;
+	int h = area->y2 - area->y1 + 1;
+	int rot = sio.rotation;
 
-void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot) {
 	for (int yy = 0; yy < h; yy++)
 		for (int xx = 0; xx < w; xx++) {
 			int posTx;
@@ -169,20 +141,62 @@ void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot) 
 	//gdk_pixbuf_save (pixPrivate, "/tmp/a.png", "png", NULL, NULL, NULL, NULL);
 	if (darea)
 		gtk_widget_queue_draw(darea);
+
+    lv_disp_flush_ready(disp_drv);
+}
+
+void backendRotate_(int rot) {}
+
+void backendInit_(int argc, char *argv[]) {
+	gtk_init(&argc, &argv);
+
+	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
+	fbPrivate = (unsigned char *)malloc(WIDTH * HEIGHT * 3);
+	pixPrivate = gdk_pixbuf_new_from_data(fbPrivate, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * 3, pixmap_destroy_notify, NULL);
+	pixPrivateScaled = gdk_pixbuf_new(GDK_COLORSPACE_RGB, 0, 8, FACTOR * WIDTH, FACTOR * HEIGHT);
+
+	GtkWidget *mainW = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_default_size(GTK_WINDOW(mainW), FACTOR * WIDTH, FACTOR * HEIGHT);
+	gtk_window_set_resizable (GTK_WINDOW(mainW), FALSE);
+
+	darea = gtk_drawing_area_new();
+	gtk_widget_set_size_request(darea, WIDTH, HEIGHT);
+	g_signal_connect(darea, "draw", G_CALLBACK(draw_cb), NULL);
+	GtkWidget *event_box = gtk_event_box_new();
+	gtk_container_add(GTK_CONTAINER (event_box), darea);
+	gtk_container_add(GTK_CONTAINER (mainW), event_box);
+
+	gtk_widget_add_events(event_box, GDK_BUTTON_PRESS_MASK);
+	gtk_widget_add_events(event_box, GDK_SCROLL_MASK);
+	gtk_widget_add_events(event_box, GDK_POINTER_MOTION_MASK);
+	gtk_widget_add_events(mainW, GDK_KEY_PRESS_MASK);
+
+	g_signal_connect(event_box, "button-press-event", G_CALLBACK(mouse_pressed), NULL);
+	g_signal_connect(event_box, "button-release-event", G_CALLBACK(mouse_released), NULL);
+	g_signal_connect(event_box, "motion-notify-event", G_CALLBACK(mouse_motion), NULL);
+	g_signal_connect(mainW, "key_press_event", G_CALLBACK(keyboard_press), NULL);
+	g_signal_connect(mainW, "key_release_event", G_CALLBACK(keyboard_release), NULL);
+	g_signal_connect(mainW, "delete-event", G_CALLBACK(delete_event_cb), NULL);
+
+	gtk_widget_show_all(mainW);
+	gtk_window_set_position(GTK_WINDOW(mainW), GTK_WIN_POS_CENTER);
+
+	lv_init();
+	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
+	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
+	lv_display_set_flush_cb(disp, backendUpdate_);
+
+	backendInitPointer_();
+}
+
+void backendRun_() {
+	while (doLoop) {
+		gtk_main_iteration_do(FALSE);
+		backendLoop();
+	}
+	PRINTF("End of doLoop\n");
 }
 
 void backendUninit_() {
-	exit(0);
-}
-
-static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
-	data->point.x = mouse_x / FACTOR;
-	data->point.y = mouse_y / FACTOR;
-	data->state = mouse_btn;
-}
-
-void backendInitPointer() {
-	lv_indev_t *indevP = lv_indev_create();
-	lv_indev_set_type(indevP, LV_INDEV_TYPE_POINTER);
-	lv_indev_set_read_cb(indevP, backendPointer);
+	lv_deinit();
 }

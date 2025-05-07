@@ -1,0 +1,11 @@
+<canvas id="canvas" width=128 height=128 style="width:512px; height:512px;"></canvas>
+<script>
+var canvas = document.getElementById('canvas');
+var Module = {
+	print: function(text) { console.log(text); },
+	canvas: (function() { return canvas; })(),
+	arguments: []
+};
+window.addEventListener("click", () => window.focus());
+</script>
+<script src="app.js"></script>

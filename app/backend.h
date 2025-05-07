@@ -1,12 +1,15 @@
 #ifndef BACKEND_H
 #define BACKEND_H
 
+//Global variable
+extern int doLoop;
+
 //Functions
-void backendInit(int argc, char *argv[]);
 void backendRotate(int incr);
 void cleanExit(int todo);
 void processInput(char c);
-void backendWork();
-void backendLoop(int daemon);
+void backendInit(int daemon);
+void backendLoop();
+void backendUninit(int daemon);
 
 #endif

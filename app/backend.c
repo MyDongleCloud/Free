@@ -4,7 +4,9 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <fcntl.h>
+#ifndef WEB
 #include <linux/input.h>
+#endif
 #include "lvgl.h"
 #include "macro.h"
 #include "common.h"
@@ -13,38 +15,23 @@
 #include "logic.h"
 #include "settings.h"
 
+//Defines
+//from linux/input.h
+#define KEY_UP			103
+#define KEY_LEFT		105
+#define KEY_RIGHT		106
+#define KEY_DOWN		108
+
+//Public variable
+int doLoop = 0;
+
 //Private variables
 static lv_indev_t *indevK;
-static int doLoop = 0;
+#ifndef WEB
+static struct pollfd pollfd[2];
+#endif
 
 //Functions
-static void backendUpdate(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
-	//PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
-	backendUpdate_(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, colorp, sio.rotation);
-    lv_disp_flush_ready(disp_drv);
-}
-
-static uint32_t tickGet() {
-	static struct timespec start = {0};
-	if (start.tv_sec == 0)
-		clock_gettime(CLOCK_REALTIME, &start);
-	struct timespec now;
-	clock_gettime(CLOCK_REALTIME, &now);
-	int ret = (now.tv_nsec - start.tv_nsec) / 1000 / 1000 + ((now.tv_sec - start.tv_sec) * 1000);
-start = now;
-	return ret;
-}
-
-void backendInit(int argc, char *argv[]) {
-	lv_init();
-	backendInit_(argc, argv);
-	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
-	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
-	lv_display_set_flush_cb(disp, backendUpdate);
-	backendInitPointer();
-	backendRotate_(sio.rotation);
-}
-
 void backendRotate(int incr) {
 	sio.rotation = (sio.rotation + 4 + incr) % 4;
 	settingsSave();
@@ -103,7 +90,6 @@ static void processButton(int b, int ignore, int longPress) {
 //KEY_: 103, 108, 106, 105
 //LV_KEY_: 17, 18, 19, 20
 void processInput(char c) {
-	struct timeval tv;
 	char szz[128];
 	//PRINTF("processInput %d\n", c);
 	switch (c) {
@@ -144,12 +130,12 @@ void processInput(char c) {
 	}
 }
 
-void backendWork(int daemon) {
-	int count = 0;
-	int keyLast = 0;
+void backendInit(int daemon) {
+	doLoop = 1;
+	logicWelcome();
+#ifndef WEB
 	int fdStdin = -1;
 	int fdButton = -1;
-	doLoop = 1;
 	if (!daemon) {
 		enterInputMode();
 		fdStdin = fileno(stdin);
@@ -157,53 +143,67 @@ void backendWork(int daemon) {
 #ifndef DESKTOP
 	fdButton = open(BUTTON_PATH, O_RDONLY);
 #endif
-	struct pollfd pollfd[2];
 	pollfd[0].fd = fdStdin;
 	pollfd[0].events = POLLIN;
 	pollfd[1].fd = fdButton;
 	pollfd[1].events = POLLIN;
-	logicWelcome();
-    while (doLoop != 0) {
-		lv_tick_inc(tickGet());
-		uint32_t time_till_next = lv_timer_handler();
-		//PRINTF("Timer: %dms\n", time_till_next);
-		if (time_till_next == LV_NO_TIMER_READY)
-			time_till_next = LV_DEF_REFR_PERIOD;
-		int ret = poll(pollfd, 2, time_till_next);
-		if (doLoop == 0)
-			break;
-		if (pollfd[0].revents & POLLIN) {
-			char c[2];
-			read(pollfd[0].fd, &c, 1);
-			if (c[0] != 27 && c[0] != 91)
-				processInput(c[0]);
-		}
-		if (pollfd[1].revents & POLLIN) {
-			struct input_event ev[64];
-			int rd = read(pollfd[1].fd, ev, sizeof(ev));
-			int i;
-			for (i = 0; i < rd / sizeof(struct input_event); i++)
-				if (ev[i].type == EV_KEY) {
-					static int longPressDone = 0;
-					if (ev[i].value == 1)
-						longPressDone = 0;
-					else if (ev[i].value == 2 && longPressDone == 0) {
-						processButton(ev[i].code, 0, 1);
-						longPressDone = 1;
-					} else if (ev[i].value == 0 && longPressDone == 0)
-						processButton(ev[i].code, 0, 0);
-				}
-		}
-		if (count++ % 30 == 0)
-			uiUpdate();
-	}
-	PRINTF("End of doLoop\n");
-	if (!daemon)
-		leaveInputMode();
-	lv_deinit();
-	backendUninit_();
+#endif
+}
+
+static uint32_t tickGet() {
+	static struct timespec start = {0};
+	if (start.tv_sec == 0)
+		clock_gettime(CLOCK_REALTIME, &start);
+	struct timespec now;
+	clock_gettime(CLOCK_REALTIME, &now);
+	int ret = (now.tv_nsec - start.tv_nsec) / 1000 / 1000 + ((now.tv_sec - start.tv_sec) * 1000);
+start = now;
+	return ret;
 }
 
 void backendLoop() {
-	backendLoop_();
+	lv_tick_inc(tickGet());
+	uint32_t time_till_next = lv_timer_handler();
+	//PRINTF("Timer: %dms\n", time_till_next);
+	if (time_till_next == LV_NO_TIMER_READY)
+		time_till_next = LV_DEF_REFR_PERIOD;
+#ifdef WEB
+	usleep(1000 * time_till_next);
+#else
+	int ret = poll(pollfd, 2, time_till_next);
+	if (doLoop == 0)
+		return;
+	if (pollfd[0].revents & POLLIN) {
+		char c[2];
+		read(pollfd[0].fd, &c, 1);
+		if (c[0] != 27 && c[0] != 91)
+			processInput(c[0]);
+	}
+	if (pollfd[1].revents & POLLIN) {
+		struct input_event ev[64];
+		int rd = read(pollfd[1].fd, ev, sizeof(ev));
+		int i;
+		for (i = 0; i < rd / sizeof(struct input_event); i++)
+			if (ev[i].type == EV_KEY) {
+				static int longPressDone = 0;
+				if (ev[i].value == 1)
+					longPressDone = 0;
+				else if (ev[i].value == 2 && longPressDone == 0) {
+					processButton(ev[i].code, 0, 1);
+					longPressDone = 1;
+				} else if (ev[i].value == 0 && longPressDone == 0)
+					processButton(ev[i].code, 0, 0);
+			}
+	}
+#endif
+	static int count = 0;
+	if (count++ % 30 == 0)
+		uiUpdate();
+}
+
+void backendUninit(int daemon) {
+#ifndef WEB
+	if (!daemon)
+		leaveInputMode();
+#endif
 }

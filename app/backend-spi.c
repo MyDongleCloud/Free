@@ -8,6 +8,7 @@
 #include "lvgl.h"
 #include "src/drivers/libinput/lv_libinput.h"
 #include "backend.h"
+#include "settings.h"
 #include "common.h"
 
 //Define
@@ -17,30 +18,14 @@
 unsigned char *fbPublic;
 
 //Functions
-void backendInit_(int argc, char *argv[]) {
-#ifdef NOMMAP
-	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-#else
-	int screenFile = open(SCREEN_FILE, O_RDWR);
-	if (screenFile)
-		fbPublic = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenFile, 0);
-#endif
-	writeValueKey(SCREEN_PATH, "init", "1");
-}
+static void backendUpdate_(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
+	//PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
+	int x = area->x1;
+	int y = area->y1;
+	int w = area->x2 - area->x1 + 1;
+	int h = area->y2 - area->y1 + 1;
+	int rot = sio.rotation;
 
-void backendRotate_(int rot) {
-	writeValueKeyInt(SCREEN_PATH, "rotation", rot);
-}
-
-void backendLoop_() {
-	backendWork();
-}
-
-static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned char b) {
-	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
-}
-
-void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot) {
 	char sz[64];
 #ifdef NOMMAP
 	int xx, yy;
@@ -55,8 +40,42 @@ void backendUpdate_(int x, int y, int w, int h, unsigned char *colorp, int rot) 
 	sprintf(sz, "%d %d %d %d", x, y, w, h);
 	writeValueKey(SCREEN_PATH, "update", sz);
 #endif
+
+    lv_disp_flush_ready(disp_drv);
 }
 
-void backendUninit_() {}
+void backendRotate_(int rot) {
+	writeValueKeyInt(SCREEN_PATH, "rotation", rot);
+}
 
-void backendInitPointer() {}
+void backendInit_(int argc, char *argv[]) {
+	lv_init();
+#ifdef NOMMAP
+	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
+#else
+	int screenFile = open(SCREEN_FILE, O_RDWR);
+	if (screenFile)
+		fbPublic = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenFile, 0);
+#endif
+	writeValueKey(SCREEN_PATH, "init", "1");
+
+	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
+	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
+	lv_display_set_flush_cb(disp, backendUpdate_);
+
+	backendRotate_(sio.rotation);
+}
+
+void backendRun_() {
+	while (doLoop)
+		backendLoop();
+	PRINTF("End of doLoop\n");
+}
+
+static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned char b) {
+	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
+}
+
+void backendUninit_() {
+	lv_deinit();
+}
