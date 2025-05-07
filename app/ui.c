@@ -28,6 +28,51 @@ static char *szMessages[1] = {
 "Rotation is not supported on the web demo." };
 
 //Functions
+//#define USE_IMG_FILE
+#ifdef USE_IMG_FILE
+#define img_cloud_error "img/cloud_error.png"
+#define img_cloud_ok "img/cloud_ok.png"
+#define img_icon_help "img/icon_help.png"
+#define img_icon_left "img/icon_left.png"
+#define img_icon_right "img/icon_right.png"
+#define img_icon_right2 "img/icon_right2.png"
+#define img_icon_shutdown "img/icon_shutdown.png"
+#define img_icon_sleep "img/icon_sleep.png"
+#define img_next "img/next.png"
+#define img_ok "img/ok.png"
+#define img_qrcode_download "img/qrcode_download.png"
+#define img_qrcode_scanme "img/qrcode_scanme.png"
+#define img_reset "img/reset.png"
+#define img_rotate "img/rotate.png"
+#define img_temperature_error "img/temperature_error.png"
+#define img_temperature_ok "img/temperature_ok.png"
+#define img_temperature_warning "img/temperature_warning.png"
+#define img_wait "img/wait.png"
+#define img_wifi_error "img/wifi_error.png"
+#define img_wifi_ok "img/wifi_ok.png"
+#else
+#include "img_cloud_error.h"
+#include "img_cloud_ok.h"
+#include "img_icon_help.h"
+#include "img_icon_left.h"
+#include "img_icon_right.h"
+#include "img_icon_right2.h"
+#include "img_icon_shutdown.h"
+#include "img_icon_sleep.h"
+#include "img_next.h"
+#include "img_ok.h"
+#include "img_qrcode_download.h"
+#include "img_qrcode_scanme.h"
+#include "img_reset.h"
+#include "img_rotate.h"
+#include "img_temperature_error.h"
+#include "img_temperature_ok.h"
+#include "img_temperature_warning.h"
+#include "img_wait.h"
+#include "img_wifi_error.h"
+#include "img_wifi_ok.h"
+#endif
+
 static void set_angle(void *obj, int32_t v) {
 	lv_arc_set_value((lv_obj_t *)obj, v);
 }
@@ -73,7 +118,7 @@ static void event_handler(lv_event_t *e) {
 	}
 }
 
-static void buttonImg(int pos, char *szImg) {
+static void buttonImg(int pos, const void *arg) {
 	int posx, posy;
 	if (pos == LV_KEY_UP) {
 		posx = 1;
@@ -90,7 +135,7 @@ static void buttonImg(int pos, char *szImg) {
 	}
 
 	lv_obj_t *btn0 = lv_imgbtn_create(lv_screen_active());
-	lv_imgbtn_set_src(btn0, LV_IMGBTN_STATE_RELEASED, NULL, szImg, NULL);
+	lv_imgbtn_set_src(btn0, LV_IMGBTN_STATE_RELEASED, NULL, arg, NULL);
 	lv_obj_set_user_data(btn0, (void *)(unsigned long)pos);
 	lv_obj_set_pos(btn0, posx, posy);
 
@@ -103,7 +148,7 @@ static void buttonImg(int pos, char *szImg) {
 	lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
 }
 
-static void button(int pos, char *sz, char *szImg) {
+static void button(int pos, char *sz, const void *arg) {
 	int posx, posy;
 	if (pos == LV_KEY_LEFT) {
 		posx = 1;
@@ -137,11 +182,11 @@ static void button(int pos, char *sz, char *szImg) {
 	lv_style_set_text_font(&labelStyleBtn0, &lv_font_montserrat_12);
 	lv_style_set_text_color(&labelStyleBtn0, lv_color_hex(COLOR_WHITE));
 	lv_obj_add_style(labelBtn0, &labelStyleBtn0, LV_STATE_DEFAULT);
-	lv_obj_align_to(labelBtn0, btn0, LV_ALIGN_BOTTOM_MID, szImg ? 6 : 0, 8);
+	lv_obj_align_to(labelBtn0, btn0, LV_ALIGN_BOTTOM_MID, arg != NULL ? 6 : 0, 8);
 
-	if (szImg) {
+	if (arg) {
 		lv_obj_t *imgBtn0 = lv_image_create(lv_screen_active());
-		lv_img_set_src(imgBtn0, szImg);
+		lv_img_set_src(imgBtn0, arg);
 		lv_obj_set_pos(imgBtn0, posx + 5, posy + 2);
 	}
 }
@@ -226,19 +271,19 @@ static void uiBar() {
 	lv_obj_set_style_border_width(rect, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_remove_flag(rect, LV_OBJ_FLAG_SCROLLABLE);
 
-	buttonImg(LV_KEY_UP, "img/icon_left.png");
-	buttonImg(LV_KEY_DOWN, "img/icon_right.png");
-	buttonImg(LV_KEY_ESC, "img/icon_sleep.png");
-	buttonImg(LV_KEY_DEL, "img/icon_shutdown.png");
+	buttonImg(LV_KEY_UP, &img_icon_left);
+	buttonImg(LV_KEY_DOWN, &img_icon_right);
+	buttonImg(LV_KEY_ESC, &img_icon_sleep);
+	buttonImg(LV_KEY_DEL, &img_icon_shutdown);
 
 	lv_obj_t *imgBar0 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgBar0, "img/wifi_ok.png");
+	lv_img_set_src(imgBar0, &img_wifi_ok);
 	lv_obj_set_pos(imgBar0, 14, 2);
 	lv_obj_t *imgBar1 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgBar1, "img/cloud_ok.png");
+	lv_img_set_src(imgBar1, &img_cloud_ok);
 	lv_obj_set_pos(imgBar1, 34, 2);
 	lv_obj_t *imgBar2 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgBar2, "img/temperature_ok.png");
+	lv_img_set_src(imgBar2, &img_temperature_ok);
 	lv_obj_set_pos(imgBar2, 52, 2);
 
 	labelTime = lv_label_create(lv_screen_active());
@@ -287,7 +332,7 @@ void uiScreenWelcome() {
 	lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
 	lv_obj_align(label2, LV_ALIGN_TOP_LEFT, 0, 73);
 
-	button(LV_KEY_LEFT, L("Rot"), "img/icon_right2.png");
+	button(LV_KEY_LEFT, L("Rot"), &img_icon_right2);
 	button(LV_KEY_RIGHT, L("OK"), NULL);
 }
 
@@ -404,13 +449,13 @@ void uiScreenSetup() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav0, "img/qrcode_scanme.png");
+	lv_img_set_src(imgNav0, &img_qrcode_scanme);
 	lv_obj_set_pos(imgNav0, 2, 2);
 	lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav1, "img/qrcode_download.png");
+	lv_img_set_src(imgNav1, &img_qrcode_download);
 	lv_obj_set_pos(imgNav1, 39, 14);
 
-	//button(LV_KEY_LEFT, L("Rot"), "img/icon_right2.png");
+	//button(LV_KEY_LEFT, L("Rot"), &img_icon_right2);
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
