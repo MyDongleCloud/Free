@@ -50,11 +50,11 @@ void logicSetupName(char *name, char *email) {
 	}
 }
 
-void logicKey(int k, int longPress) {
+void logicKey(int k) {
 	if (logicCur == LOGIC_WELCOME) {//Rotations, OK
-		if (longPress && k == LV_KEY_UP)
+		if (k == LV_KEY_ESC)
 			logicSleep();
-		else if (longPress && k == LV_KEY_DOWN)
+		else if (k == LV_KEY_DEL)
 			logicShutdown();
 		else if (k == LV_KEY_UP) {
 			backendRotate(1);
@@ -73,9 +73,9 @@ void logicKey(int k, int longPress) {
 #endif
 		logicHome(-1, 0);
 	} else if (logicCur == LOGIC_HOME) {//Rotations, Tips, Next
-		if (longPress && k == LV_KEY_UP)
+		if (k == LV_KEY_ESC)
 			logicSleep();
-		else if (longPress && k == LV_KEY_DOWN)
+		else if (k == LV_KEY_DEL)
 			logicShutdown();
 		else if (k == LV_KEY_UP) {
 			backendRotate(1);

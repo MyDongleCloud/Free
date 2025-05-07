@@ -66,7 +66,7 @@ static void event_handler(lv_event_t *e) {
 	if(code == LV_EVENT_CLICKED) {
 		lv_obj_t *btn = lv_event_get_current_target(e);
 		int key = (int)(unsigned long)lv_obj_get_user_data(btn);
-		logicKey(key, 0);
+		logicKey(key);
 	}
 }
 
