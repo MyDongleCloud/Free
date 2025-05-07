@@ -83,8 +83,19 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, gpointer user_data) {
 }
 
 static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
-	data->point.x = mouse_x / FACTOR;
-	data->point.y = mouse_y / FACTOR;
+	if (sio.rotation == 0) {
+		data->point.x = mouse_x / FACTOR;
+		data->point.y = mouse_y / FACTOR;
+	} else if (sio.rotation == 1) {
+		data->point.x = HEIGHT - mouse_y / FACTOR;
+		data->point.y = mouse_x / FACTOR;
+	} else if (sio.rotation == 2) {
+		data->point.x = WIDTH - mouse_x / FACTOR;
+		data->point.y = HEIGHT - mouse_y / FACTOR;
+	} else if (sio.rotation == 3) {
+		data->point.x = mouse_y / FACTOR;
+		data->point.y = WIDTH - mouse_x / FACTOR;
+	}
 	data->state = mouse_btn;
 }
 
