@@ -58,14 +58,14 @@ void logicKey(int k) {
 		else if (k == LV_KEY_DEL)
 			logicShutdown();
 		else if (k == LV_KEY_UP) {
-			backendRotate(1);
-			logicWelcome();
+			if (backendRotate(1) == 0)
+				logicWelcome();
 		} else if (k == LV_KEY_DOWN) {
-			backendRotate(-1);
-			logicWelcome();
+			if (backendRotate(-1) == 0)
+				logicWelcome();
 		} else if (k == LV_KEY_LEFT) {
-			backendRotate(-1);
-			logicWelcome();
+			if (backendRotate(-1) == 0)
+				logicWelcome();
 		} else if (k == LV_KEY_RIGHT)
 			logicHome(0, 0);
 	} else if (logicCur == LOGIC_SLEEP) {
@@ -79,11 +79,11 @@ void logicKey(int k) {
 		else if (k == LV_KEY_DEL)
 			logicShutdown();
 		else if (k == LV_KEY_UP) {
-			backendRotate(1);
-			logicHome(-1, 0);
+			if (backendRotate(1) == 0)
+				logicHome(-1, 0);
 		} else if (k == LV_KEY_DOWN) {
-			backendRotate(-1);
-			logicHome(-1, 0);
+			if (backendRotate(-1) == 0)
+				logicHome(-1, 0);
 		} else if (k == LV_KEY_LEFT) {
 			if (sio.setupDone)
 				logicTips(0, 0);
@@ -92,16 +92,7 @@ void logicKey(int k) {
 		} else if (k == LV_KEY_RIGHT)
 			logicHome(-1, 1);
 	} else if (logicCur == LOGIC_SETUP) {//Done
-		/*if (k == LV_KEY_UP) {
-			backendRotate(1);
-			logicSetup();
-		} else if (k == LV_KEY_DOWN) {
-			backendRotate(-1);
-			logicSetup();
-		} else if (k == LV_KEY_LEFT) {
-			backendRotate(1);
-			logicSetup();
-		} else */if (k == LV_KEY_RIGHT) {
+		if (k == LV_KEY_RIGHT) {
 			sio.setupDone = 1;
 			logicHome(0, 0);
 		}
@@ -119,7 +110,7 @@ void logicKey(int k) {
 			logicHome(0, 0);
 		else if (k == LV_KEY_RIGHT)
 			logicHome(0, 0);
-	} else if (logicCur == LOGIC_SHUTDOWN) {//Cancel, OK or //Yes, No
+	} else if (logicCur == LOGIC_SHUTDOWN) {//Yes, No
 		if (k == LV_KEY_LEFT)
 			logicHome(0, 0);
 		else if (k == LV_KEY_RIGHT)
@@ -199,10 +190,10 @@ void logicBye() {
 #endif
 }
 
-void logicMessage() {
+void logicMessage(int m) {
 	PRINTF("Logic: Message\n");
 	logicCur = LOGIC_MESSAGE;
-	uiScreenMessage(0);
+	uiScreenMessage(m);
 }
 
 void logicPasscode() {

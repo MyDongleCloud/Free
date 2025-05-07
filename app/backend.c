@@ -34,10 +34,15 @@ static struct pollfd pollfd[2];
 #endif
 
 //Functions
-void backendRotate(int incr) {
+int backendRotate(int incr) {
+#ifdef WEB
+	logicMessage(0);
+	return -1;
+#endif
 	sio.rotation = (sio.rotation + 4 + incr) % 4;
 	settingsSave();
 	backendRotate_(sio.rotation);
+	return 0;
 }
 
 void cleanExit(int todo) {

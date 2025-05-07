@@ -5,7 +5,7 @@
 extern int doLoop;
 
 //Functions
-void backendRotate(int incr);
+int backendRotate(int incr);
 void cleanExit(int todo);
 void processInput(char c);
 void backendInit(int daemon);

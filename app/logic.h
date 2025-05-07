@@ -29,7 +29,7 @@ void logicSetup();
 void logicTips(int force, int incr);
 void logicShutdown();
 void logicBye();
-void logicMessage();
+void logicMessage(int m);
 void logicPasscode();
 void logicPasscodeFinished();
 
