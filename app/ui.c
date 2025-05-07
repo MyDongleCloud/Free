@@ -15,6 +15,15 @@
 #define COLOR_DARK 0x013d7b
 #define COLOR_WHITE 0xffffff
 
+//Private variable
+static char *szTips[6] = {
+"Press the top right button to access the Setup qrcode. Communication will be over Bluetooth.",
+"It's recommended to properly shutdown the device with a long press on the top right button.",
+"Tip #3",
+"Tip #4",
+"Tip #5",
+"Tip #6" };
+
 //Functions
 static void set_angle(void *obj, int32_t v) {
 	lv_arc_set_value((lv_obj_t *)obj, v);
@@ -392,11 +401,11 @@ void uiScreenSetup() {
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
-void uiScreenTips(char *sz, char *szButton, int pos, int total) {
+void uiScreenTips(int pos) {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, sz);
+	lv_label_set_text(label0, szTips[pos]);
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	static lv_style_t labelStyle0;
@@ -407,6 +416,7 @@ void uiScreenTips(char *sz, char *szButton, int pos, int total) {
 
 	lv_obj_t *label1 = lv_label_create(lv_screen_active());
 	char sz2[16];
+	int total = sizeof(szTips)/sizeof(szTips[0]);
 	sprintf(sz2, "%d/%d", pos + 1, total);
 	lv_label_set_text(label1, sz2);
 	lv_obj_set_width(label1, 128);
@@ -418,8 +428,8 @@ void uiScreenTips(char *sz, char *szButton, int pos, int total) {
 	lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
 	button(LV_KEY_UP, L("Back"), NULL);
-	if (szButton)
-		button(LV_KEY_DOWN, L(szButton), NULL);
+	if (pos == 0)
+		button(LV_KEY_DOWN, L("Setup"), NULL);
 	button(LV_KEY_LEFT, L("Prev."), NULL);
 	button(LV_KEY_RIGHT, L("Next"), NULL);
 }

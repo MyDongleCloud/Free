@@ -16,13 +16,6 @@ int passcode;
 
 //Private variable
 static int logicPrev;
-static char *szTips[6] = {
-"Press the top right button to access the Setup qrcode. Communication will be over Bluetooth.",
-"It's recommended to properly shutdown the device with a long press on the top right button.",
-"Tip #3",
-"Tip #4",
-"Tip #5",
-"Tip #6" };
 
 //Functions
 static int logicOath() {
@@ -166,15 +159,15 @@ void logicSetup() {
 }
 
 void logicTips(int force, int incr) {
-	int size = sizeof(szTips)/sizeof(szTips[0]);
 	static int pos = 0;
+	int size = 6;//FIXME coming from sizeof(szTips)/sizeof(szTips[0])
 	if (force != -1)
 		pos = force;
 	else
 		pos = (pos + size + incr) % size;
-	PRINTF("Logic: Tips #%d/%d\n", pos + 1, size);
+	PRINTF("Logic: Tips #%d\n", pos + 1);
 	logicCur = LOGIC_TIPS;
-	uiScreenTips(szTips[pos], pos == 0 ? "Setup" : NULL, pos, size);
+	uiScreenTips(pos);
 }
 
 void logicShutdown() {

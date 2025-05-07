@@ -8,7 +8,7 @@ void uiScreenWelcome();
 void uiScreenSleep();
 void uiScreenHome(int pos);
 void uiScreenSetup();
-void uiScreenTips(char *sz, char *szButton, int pos, int total);
+void uiScreenTips(int pos);
 void uiScreenShutdown();
 void uiScreenPasscode(int expiration);
 void uiUpdate();
