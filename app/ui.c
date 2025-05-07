@@ -89,18 +89,18 @@ static void buttonImg(int pos, char *szImg) {
 		posy = 12;
 	}
 
-    lv_obj_t *btn0 = lv_imgbtn_create(lv_screen_active());
-    lv_imgbtn_set_src(btn0, LV_IMGBTN_STATE_RELEASED, NULL, szImg, NULL);
+	lv_obj_t *btn0 = lv_imgbtn_create(lv_screen_active());
+	lv_imgbtn_set_src(btn0, LV_IMGBTN_STATE_RELEASED, NULL, szImg, NULL);
 	lv_obj_set_user_data(btn0, (void *)(unsigned long)pos);
-    lv_obj_set_pos(btn0, posx, posy);
+	lv_obj_set_pos(btn0, posx, posy);
 
-    static lv_style_t btn0StylePressed;
-    lv_style_init(&btn0StylePressed);
-    lv_style_set_img_recolor_opa(&btn0StylePressed, LV_OPA_30);
-    lv_style_set_img_recolor(&btn0StylePressed, lv_color_black());
-    lv_obj_add_style(btn0, &btn0StylePressed, LV_STATE_PRESSED);
+	static lv_style_t btn0StylePressed;
+	lv_style_init(&btn0StylePressed);
+	lv_style_set_img_recolor_opa(&btn0StylePressed, LV_OPA_30);
+	lv_style_set_img_recolor(&btn0StylePressed, lv_color_black());
+	lv_obj_add_style(btn0, &btn0StylePressed, LV_STATE_PRESSED);
 
-    lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
+	lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
 }
 
 static void button(int pos, char *sz, char *szImg) {
@@ -119,19 +119,19 @@ static void button(int pos, char *sz, char *szImg) {
 		posy = 2;
 	}
 
-    lv_obj_t *btn0 = lv_button_create(lv_screen_active());
+	lv_obj_t *btn0 = lv_button_create(lv_screen_active());
 	lv_obj_set_user_data(btn0, (void *)(unsigned long)pos);
-    lv_obj_set_pos(btn0, posx, posy);
-    lv_obj_set_size(btn0, 49, 14);
+	lv_obj_set_pos(btn0, posx, posy);
+	lv_obj_set_size(btn0, 49, 14);
 	static lv_style_t btnStyle;
 	lv_style_init(&btnStyle);
 	lv_style_set_bg_color(&btnStyle, lv_color_hex(COLOR_DARK));
 	lv_style_set_radius(&btnStyle, 4);
-    lv_obj_add_style(btn0, &btnStyle, 0);
-    lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
+	lv_obj_add_style(btn0, &btnStyle, 0);
+	lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
 
-    lv_obj_t *labelBtn0 = lv_label_create(btn0);
-    lv_label_set_text(labelBtn0, sz);
+	lv_obj_t *labelBtn0 = lv_label_create(btn0);
+	lv_label_set_text(labelBtn0, sz);
 	static lv_style_t labelStyleBtn0;
 	lv_style_init(&labelStyleBtn0);
 	lv_style_set_text_font(&labelStyleBtn0, &lv_font_montserrat_12);
@@ -161,10 +161,10 @@ static void advancement(int pos) {
 		x -= 1;
 		y -= 2;
 	}
-    lv_obj_t *btn0 = lv_button_create(lv_screen_active());
-    lv_obj_set_pos(btn0, x, y);
-    lv_obj_set_size(btn0, s, s);
-    lv_obj_add_style(btn0, &btnStyle, 0);
+	lv_obj_t *btn0 = lv_button_create(lv_screen_active());
+	lv_obj_set_pos(btn0, x, y);
+	lv_obj_set_size(btn0, s, s);
+	lv_obj_add_style(btn0, &btnStyle, 0);
 
 	x = 59;
 	y = 118;
@@ -174,10 +174,10 @@ static void advancement(int pos) {
 		x -= 1;
 		y -= 2;
 	}
-    lv_obj_t *btn1 = lv_button_create(lv_screen_active());
-    lv_obj_set_pos(btn1, x, y);
-    lv_obj_set_size(btn1, s, s);
-    lv_obj_add_style(btn1, &btnStyle, 0);
+	lv_obj_t *btn1 = lv_button_create(lv_screen_active());
+	lv_obj_set_pos(btn1, x, y);
+	lv_obj_set_size(btn1, s, s);
+	lv_obj_add_style(btn1, &btnStyle, 0);
 
 	x = 65;
 	y = 118;
@@ -187,10 +187,10 @@ static void advancement(int pos) {
 		x -= 1;
 		y -= 2;
 	}
-    lv_obj_t *btn2 = lv_button_create(lv_screen_active());
-    lv_obj_set_pos(btn2, x, y);
-    lv_obj_set_size(btn2, s, s);
-    lv_obj_add_style(btn2, &btnStyle, 0);
+	lv_obj_t *btn2 = lv_button_create(lv_screen_active());
+	lv_obj_set_pos(btn2, x, y);
+	lv_obj_set_size(btn2, s, s);
+	lv_obj_add_style(btn2, &btnStyle, 0);
 
 	x = 71;
 	y = 118;
@@ -200,10 +200,10 @@ static void advancement(int pos) {
 		x -= 1;
 		y -= 2;
 	}
-    lv_obj_t *btn3 = lv_button_create(lv_screen_active());
-    lv_obj_set_pos(btn3, x, y);
-    lv_obj_set_size(btn3, s, s);
-    lv_obj_add_style(btn3, &btnStyle, 0);
+	lv_obj_t *btn3 = lv_button_create(lv_screen_active());
+	lv_obj_set_pos(btn3, x, y);
+	lv_obj_set_size(btn3, s, s);
+	lv_obj_add_style(btn3, &btnStyle, 0);
 
 }
 
@@ -231,13 +231,13 @@ static void uiBar() {
 	buttonImg(LV_KEY_ESC, "img/icon_sleep.png");
 	buttonImg(LV_KEY_DEL, "img/icon_shutdown.png");
 
-    lv_obj_t *imgBar0 = lv_image_create(lv_screen_active());
+	lv_obj_t *imgBar0 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgBar0, "img/wifi_ok.png");
 	lv_obj_set_pos(imgBar0, 14, 2);
-    lv_obj_t *imgBar1 = lv_image_create(lv_screen_active());
+	lv_obj_t *imgBar1 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgBar1, "img/cloud_ok.png");
 	lv_obj_set_pos(imgBar1, 34, 2);
-    lv_obj_t *imgBar2 = lv_image_create(lv_screen_active());
+	lv_obj_t *imgBar2 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgBar2, "img/temperature_ok.png");
 	lv_obj_set_pos(imgBar2, 52, 2);
 
@@ -344,7 +344,7 @@ static void progressBar(int w, int y, char *sz, char *sz2, int p) {
 	static lv_style_t style_indic;
 	lv_style_init(&style_indic);
 	lv_style_set_bg_opa(&style_indic, LV_OPA_COVER);
-    lv_style_set_bg_color(&style_indic, lv_color_hex(COLOR_LIGHT));
+	lv_style_set_bg_color(&style_indic, lv_color_hex(COLOR_LIGHT));
 	lv_style_set_bg_grad_color(&style_indic, lv_palette_main(LV_PALETTE_RED));
 	lv_style_set_bg_grad_dir(&style_indic, LV_GRAD_DIR_HOR);
 	lv_style_set_radius(&style_indic, 2);
@@ -403,10 +403,10 @@ void uiScreenHome(int pos) {
 void uiScreenSetup() {
 	lv_obj_clean(lv_screen_active());
 
-    lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
+	lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgNav0, "img/qrcode_scanme.png");
 	lv_obj_set_pos(imgNav0, 2, 2);
-    lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
+	lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgNav1, "img/qrcode_download.png");
 	lv_obj_set_pos(imgNav1, 39, 14);
 
