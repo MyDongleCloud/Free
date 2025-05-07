@@ -70,6 +70,36 @@ static void event_handler(lv_event_t *e) {
 	}
 }
 
+static void buttonImg(int pos, char *szImg) {
+	int posx, posy;
+	if (pos == LV_KEY_UP) {
+		posx = 1;
+		posy = 1;
+	} else if (pos == LV_KEY_DOWN) {
+		posx = 117;
+		posy = 1;
+	} else if (pos == LV_KEY_ESC) {
+		posx = 1;
+		posy = 12;
+	} else if (pos == LV_KEY_DEL) {
+		posx = 117;
+		posy = 12;
+	}
+
+    lv_obj_t *btn0 = lv_imgbtn_create(lv_screen_active());
+    lv_imgbtn_set_src(btn0, LV_IMGBTN_STATE_RELEASED, NULL, szImg, NULL);
+	lv_obj_set_user_data(btn0, (void *)(unsigned long)pos);
+    lv_obj_set_pos(btn0, posx, posy);
+
+    static lv_style_t btn0StylePressed;
+    lv_style_init(&btn0StylePressed);
+    lv_style_set_img_recolor_opa(&btn0StylePressed, LV_OPA_30);
+    lv_style_set_img_recolor(&btn0StylePressed, lv_color_black());
+    lv_obj_add_style(btn0, &btn0StylePressed, LV_STATE_PRESSED);
+
+    lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
+}
+
 static void button(int pos, char *sz, char *szImg) {
 	int posx, posy;
 	if (pos == LV_KEY_LEFT) {
@@ -193,18 +223,10 @@ static void uiBar() {
 	lv_obj_set_style_border_width(rect, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_remove_flag(rect, LV_OBJ_FLAG_SCROLLABLE);
 
-    lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav0, "img/icon-left.png");
-	lv_obj_set_pos(imgNav0, 1, 1);
-    lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav1, "img/icon-sleep.png");
-	lv_obj_set_pos(imgNav1, 1, 12);
-    lv_obj_t *imgNav2 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav2, "img/icon-right.png");
-	lv_obj_set_pos(imgNav2, 117, 1);
-    lv_obj_t *imgNav3 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav3, "img/icon-shutdown.png");
-	lv_obj_set_pos(imgNav3, 117, 12);
+	buttonImg(LV_KEY_UP, "img/icon-left.png");
+	buttonImg(LV_KEY_DOWN, "img/icon-right.png");
+	buttonImg(LV_KEY_ESC, "img/icon-sleep.png");
+	buttonImg(LV_KEY_DEL, "img/icon-shutdown.png");
 
     lv_obj_t *imgBar0 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgBar0, "img/wifi-ok.png");
