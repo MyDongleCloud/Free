@@ -53,9 +53,9 @@ void logicSetupName(char *name, char *email) {
 
 void logicKey(int k) {
 	if (logicCur == LOGIC_WELCOME) {//Rotations, OK
-		if (k == LV_KEY_ESC)
+		if (k == LV_KEY_HOME)
 			logicSleep();
-		else if (k == LV_KEY_DEL)
+		else if (k == LV_KEY_END)
 			logicShutdown();
 		else if (k == LV_KEY_UP) {
 			if (backendRotate(1) == 0)
@@ -74,9 +74,9 @@ void logicKey(int k) {
 #endif
 		logicHome(-1, 0);
 	} else if (logicCur == LOGIC_HOME) {//Rotations, Tips, Next
-		if (k == LV_KEY_ESC)
+		if (k == LV_KEY_HOME)
 			logicSleep();
-		else if (k == LV_KEY_DEL)
+		else if (k == LV_KEY_END)
 			logicShutdown();
 		else if (k == LV_KEY_UP) {
 			if (backendRotate(1) == 0)

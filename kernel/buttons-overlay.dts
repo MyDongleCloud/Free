@@ -28,6 +28,7 @@
 		__overlay__ {
 			pwr_button {
 				pinctrl-0 = <&button_Up &pwr_button_pins &button_Left &button_Right>;
+				autorepeat;
 				buttonUp: buttonUp {
 					linux,code = <103>;
 					gpios = <&gpio 21 1>;

@@ -21,8 +21,8 @@
 #define KEY_LEFT	105
 #define KEY_RIGHT	106
 #define KEY_DOWN	108
-#define KEY_ESC		1
-#define KEY_DELETE	111
+#define KEY_HOME	102
+#define KEY_END		107
 
 //Public variable
 int doLoop = 0;
@@ -79,18 +79,18 @@ static int rotateKey(int k, int ignore) {
 	case KEY_DOWN:
 		ret = LV_KEY_DOWN;
 		break;
-	case KEY_ESC:
-		ret = LV_KEY_ESC;
+	case KEY_HOME:
+		ret = LV_KEY_HOME;
 		break;
-	case KEY_DELETE:
-		ret = LV_KEY_DEL;
+	case KEY_END:
+		ret = LV_KEY_END;
 		break;
 	}
 #ifndef DESKTOP
 	if (ignore == 0)
 		ret = LV_KEY_UP + ((ret - LV_KEY_UP + sio.rotation) % 4);
 #endif
-	//PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : k == KEY_ESC ? "KEY_ESC": k == KEY_DELETE ? "KEY_DELETE": "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": ret == LV_KEY_ESC ? "LV_KEY_ESC": ret == LV_KEY_DEL ? "LV_KEY_DEL": "");
+	//PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : k == KEY_HOME ? "KEY_HOME": k == KEY_END ? "KEY_END": "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": ret == LV_KEY_HOME ? "LV_KEY_HOME": ret == LV_KEY_DEL ? "LV_KEY_DEL": "");
 	return ret;
 }
 
@@ -99,18 +99,15 @@ static void processButton(int b, int ignore) {
 }
 
 //UP, DOWN
-//ESC, DEL (long press)
+//HOME, END (long press)
 //RIGHT, LEFT
-//keyboard: 65, 66, 27, 255, 67, 68
-//KEY_: 103, 108, 1, 111, 106, 105
-//LV_KEY_: 17, 18, 27, 127, 19, 20
+//keyboard: 65, 66, 72, 70, 67, 68
+//KEY_: 103, 108, 102, 107, 106, 105
+//LV_KEY_: 17, 18, 2, 3, 19, 20
 void processInput(unsigned char c) {
 	char szz[128];
-	PRINTF("processInput %d\n", c);
+	//PRINTF("processInput %d\n", c);
 	switch (c) {
-	case 27:
-		processButton(KEY_ESC, 1);
-		break;
 	case 65:
 		processButton(KEY_UP, 1);
 		break;
@@ -123,8 +120,11 @@ void processInput(unsigned char c) {
 	case 68:
 		processButton(KEY_LEFT, 1);
 		break;
-	case 255:
-		processButton(KEY_DELETE, 1);
+	case 70:
+		processButton(KEY_END, 1);
+		break;
+	case 72:
+		processButton(KEY_HOME, 1);
 		break;
 	case 'h':
 		PRINTF("*******************************************************\n");
@@ -211,9 +211,9 @@ void backendLoop() {
 					longPressDone = 0;
 				else if (ev[i].value == 2 && longPressDone == 0) {
 					if (ev[i].code == KEY_UP)
-						ev[i].code = KEY_ESC;
+						ev[i].code = KEY_HOME;
 					if (ev[i].code == KEY_DOWN)
-						ev[i].code = KEY_DELETE;
+						ev[i].code = KEY_END;
 					processButton(ev[i].code, 0);
 					longPressDone = 1;
 				} else if (ev[i].value == 0 && longPressDone == 0)

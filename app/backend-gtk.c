@@ -63,6 +63,12 @@ static gboolean keyboard_release(GtkWidget *widget, GdkEventKey *event, gpointer
 	case GDK_KEY_Down:
 		ascii_key = 66;
 		break;
+	case GDK_KEY_Home:
+		ascii_key = 72;
+		break;
+	case GDK_KEY_End:
+		ascii_key = 70;
+		break;
 	default:
 		break;
 	}
