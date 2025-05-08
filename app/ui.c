@@ -23,10 +23,10 @@
 static char *szTips[6] = {
 "Press the top right button to access the Setup qrcode. Communication will be over Bluetooth.",
 "It's recommended to properly shutdown the device with a long press on the top right button.",
-"Tip #3",
-"Tip #4",
-"Tip #5",
-"Tip #6" };
+"A long press on the top left button will sleep the screen and the led. The dongle will still function.",
+"New module are constantly added. Check on the app regularly.",
+"You can recover a bricked dongle with the recovery tool (available on Windows, Linux and Mac).",
+"Press both bottom buttons at the same time for 10 seconds to reset and delete all the dongle data." };
 
 static char *szMessages[1] = {
 "Rotation is not supported on the web demo." };
@@ -81,35 +81,30 @@ static void set_angle(void *obj, int32_t v) {
 	lv_arc_set_value((lv_obj_t *)obj, v);
 }
 
-static void arc() {
+static void arc(int x, int y, int s, int p) {
 	lv_obj_t *arc = lv_arc_create(lv_screen_active());
-	lv_arc_set_bg_angles(arc, 0, 360);
-	lv_obj_set_size(arc , WIDTH, HEIGHT);
+	lv_arc_set_bg_angles(arc, 271, 270);
+	lv_arc_set_value(arc, p);
+	lv_obj_set_size(arc, s, s);
+	lv_obj_set_pos(arc, x, y);
 	lv_obj_remove_style(arc, NULL, LV_PART_KNOB);
 	lv_obj_remove_flag(arc, LV_OBJ_FLAG_CLICKABLE);
 	lv_obj_set_style_arc_color(arc, lv_color_hex(COLOR_DARK), LV_PART_INDICATOR);
-	lv_obj_center(arc);
-	lv_anim_t a;
-	lv_anim_init(&a);
-	lv_anim_set_var(&a, arc);
-	lv_anim_set_exec_cb(&a, set_angle);
-	lv_anim_set_duration(&a, 2000);
-	lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
-	lv_anim_set_repeat_delay(&a, 0);
-	lv_anim_set_values(&a, 0, 100);
-	lv_anim_start(&a);
+	lv_obj_set_style_arc_width(arc, 5, LV_PART_MAIN);
+	lv_obj_set_style_arc_width(arc, 5, LV_PART_INDICATOR);
 }
 
-static void circulaText(char *sz) {
+static void circulaText(char *sz, int x, int y, int s) {
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
 	lv_label_set_long_mode(label0, LV_LABEL_LONG_MODE_SCROLL_CIRCULAR);
-	lv_obj_set_width(label0, 100);
+	lv_obj_set_pos(label0 , x, y);
+	lv_obj_set_width(label0, s);
 	lv_label_set_text(label0, sz);
-	lv_obj_center(label0);
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 
 	static lv_style_t labelStyle;
 	lv_style_init(&labelStyle);
-	lv_style_set_text_font(&labelStyle, &lv_font_montserrat_20);
+	lv_style_set_text_font(&labelStyle, &lv_font_montserrat_12);
 	lv_obj_add_style(label0, &labelStyle, LV_STATE_DEFAULT);
 }
 
@@ -317,7 +312,7 @@ void uiScreenWelcome() {
 	lv_obj_align(label0, LV_ALIGN_TOP_LEFT, 0, 27);
 
 	lv_obj_t *label1 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label1, L("Use the three buttons to rotate the screen."));
+	lv_label_set_text(label1, L("Use the buttons (except OK) to rotate the screen."));
 	lv_obj_set_width(label1, 128);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
 	static lv_style_t labelStyle1;
@@ -413,7 +408,78 @@ void uiScreenHome(int pos) {
 	lv_obj_clean(lv_screen_active());
 	uiBar();
 
-	if (pos_ == 1) {
+	if (pos_ == 0) {
+		char sz[32];
+
+		lv_obj_t *label0 = lv_label_create(lv_screen_active());
+		lv_label_set_text(label0, L("Storage"));
+		lv_obj_set_width(label0, 60);
+		lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_set_pos(label0, 2, 26);
+		static lv_style_t labelStyle0;
+		lv_style_init(&labelStyle0);
+		lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_14);
+		lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
+
+		arc(10, 46, 44, 41 * 100 / 128);
+
+		sprintf(sz, L("%d%%"), 41 * 100 / 128);
+		lv_obj_t *label1 = lv_label_create(lv_screen_active());
+		lv_label_set_text(label1, sz);
+		lv_obj_set_width(label1, 40);
+		lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_set_pos(label1, 12, 60);
+		static lv_style_t labelStyle1;
+		lv_style_init(&labelStyle1);
+		lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_14);
+		lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
+
+		sprintf(sz, L("%d/%d GB"), 41, 128);
+//		circulaText(sz, 2, 95, 60);
+		lv_obj_t *label2 = lv_label_create(lv_screen_active());
+		lv_label_set_text(label2, sz);
+		lv_obj_set_width(label2, 60);
+		lv_obj_set_style_text_align(label2, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_set_pos(label2, 2, 95);
+		static lv_style_t labelStyle2;
+		lv_style_init(&labelStyle2);
+		lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_10);
+		lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
+
+		lv_obj_t *label3 = lv_label_create(lv_screen_active());
+		lv_label_set_text(label3, L("Health"));
+		lv_obj_set_width(label3, 60);
+		lv_obj_set_style_text_align(label3, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_set_pos(label3, 66, 26);
+		static lv_style_t labelStyle3;
+		lv_style_init(&labelStyle3);
+		lv_style_set_text_font(&labelStyle3, &lv_font_montserrat_14);
+		lv_obj_add_style(label3, &labelStyle3, LV_STATE_DEFAULT);
+
+		arc(74, 46, 44, 80);
+
+		sprintf(sz, L("%d%%"), 90);
+		lv_obj_t *label4 = lv_label_create(lv_screen_active());
+		lv_label_set_text(label4, sz);
+		lv_obj_set_width(label4, 40);
+		lv_obj_set_style_text_align(label4, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_set_pos(label4, 76, 60);
+		static lv_style_t labelStyle4;
+		lv_style_init(&labelStyle4);
+		lv_style_set_text_font(&labelStyle4, &lv_font_montserrat_14);
+		lv_obj_add_style(label4, &labelStyle4, LV_STATE_DEFAULT);
+
+		sprintf(sz, L("%d warnings"), 2);
+		lv_obj_t *label5 = lv_label_create(lv_screen_active());
+		lv_label_set_text(label5, sz);
+		lv_obj_set_width(label5, 60);
+		lv_obj_set_style_text_align(label5, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_set_pos(label5, 66, 95);
+		static lv_style_t labelStyle5;
+		lv_style_init(&labelStyle5);
+		lv_style_set_text_font(&labelStyle5, &lv_font_montserrat_10);
+		lv_obj_add_style(label5, &labelStyle5, LV_STATE_DEFAULT);
+	} else if (pos_ == 1) {
 		doubleText("Name", "Dongle-cat", 28, 40);
 		doubleText(NULL, "https://gregoiregentil.mydongle.cloud", 42, 40);
 		doubleText(NULL, "https://g2.myd.cd", 56, 40);
@@ -436,12 +502,6 @@ void uiScreenHome(int pos) {
 		doubleText("Port pop3s (995)", "OK", 56, 100);
 		doubleText("Port imaps (993)", "OK", 70, 100);
 		doubleText("Port smtps (465)", "OK", 84, 100);
-	} else {
-		char sz[8];
-		sprintf(sz, L("Home %d"), pos_ + 1);
-		lv_obj_t *label0 = lv_label_create(lv_screen_active());
-		lv_label_set_text(label0, sz);
-		lv_obj_center(label0);
 	}
 
 	button(LV_KEY_LEFT, sio.setupDone ? L("Tips") : L("Setup"), NULL);
