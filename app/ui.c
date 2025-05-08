@@ -10,8 +10,12 @@
 #include "settings.h"
 
 //Defines color
-#define COLOR_GREY 0xffffff
+#define COLOR_BACKGROUND 0xffffff
+#if defined(WEB) || defined(DESKTOP)
 #define COLOR_LIGHT 0x0092ce
+#else
+#define COLOR_LIGHT 0x013d7b
+#endif
 #define COLOR_DARK 0x013d7b
 #define COLOR_WHITE 0xffffff
 
@@ -300,7 +304,7 @@ static void uiBar() {
 }
 
 void uiScreenWelcome() {
-	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_GREY), LV_PART_MAIN);
+	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_BACKGROUND), LV_PART_MAIN);
 	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_DARK), LV_PART_MAIN);
 
 	lv_obj_clean(lv_screen_active());
