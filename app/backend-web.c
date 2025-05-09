@@ -4,15 +4,12 @@
 #include <time.h>
 #include <unistd.h>
 #include <pthread.h>
-
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #include <emscripten.h>
-
 #include "macro.h"
 #include "lvgl.h"
 #include "backend.h"
-#include "common.h"
 
 //Global variable
 unsigned char *fbPublic;
@@ -33,6 +30,10 @@ void backendRotate_plat(int rot) {}
 
 static void looping(void *arg) {
 	backendLoop();
+}
+
+void injectInput(char c) {
+	processInput(c);
 }
 
 void backendRun_plat() {

@@ -7,5 +7,13 @@ var Module = {
 	arguments: []
 };
 window.addEventListener("click", () => window.focus());
+
+function button(key) {
+	Module._injectInput(key);
+}
 </script>
+<button onclick="button(68);">Left</button>
+<button onclick="button(67);">Right</button>
+<button onclick="button(65);">Up</button>
+<button onclick="button(66);">Down</button>
 <script src="app.js"></script>

@@ -45,10 +45,8 @@ int backendRotate(int incr) {
 
 void cleanExit(int todo) {
 	PRINTF("cleanExit mode:%d\n", todo);
+#ifndef WEB
 	doLoop = 0;
-	if (todo == 3) {
-		PRINTF("cleanExit called for application restart\n");
-	}
 	logUninit();
 #ifndef DESKTOP
 	if (todo == 3) {
@@ -59,6 +57,7 @@ void cleanExit(int todo) {
 		system("sync && /usr/bin/mydonglecloud-leds.sh -b 0 -l off && sleep 0.1 && reboot &");
 	else if (todo == 1)
 		system("sync && /usr/bin/mydonglecloud-leds.sh -b 0 -l off && sleep 0.1 && shutdown -h now &");
+#endif
 #endif
 }
 
