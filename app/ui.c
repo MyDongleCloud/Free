@@ -338,6 +338,14 @@ void uiScreenWelcome() {
 
 void uiScreenSleep() {
 	lv_obj_clean(lv_screen_active());
+
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, L("Sleeping..."));
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_set_width(label0, 128);
+	lv_obj_center(label0);
+
+	button(LV_KEY_RIGHT, L("Exit"), NULL);
 }
 
 static void doubleText(char *sz, char *sz2, int y, int x2) {
