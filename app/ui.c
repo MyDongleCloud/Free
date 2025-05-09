@@ -89,6 +89,7 @@ static void arc(int x, int y, int s, int p) {
 	lv_obj_set_pos(arc, x, y);
 	lv_obj_remove_style(arc, NULL, LV_PART_KNOB);
 	lv_obj_remove_flag(arc, LV_OBJ_FLAG_CLICKABLE);
+	lv_obj_set_style_arc_color(arc, lv_color_hex(COLOR_LIGHT), LV_PART_MAIN);
 	lv_obj_set_style_arc_color(arc, lv_color_hex(COLOR_DARK), LV_PART_INDICATOR);
 	lv_obj_set_style_arc_width(arc, 5, LV_PART_MAIN);
 	lv_obj_set_style_arc_width(arc, 5, LV_PART_INDICATOR);
