@@ -14,8 +14,8 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
-LEDS=""
-BACKLIGHT=-1
+LEDS="normal"
+BACKLIGHT=1
 while getopts b:hl: opt
 do
 	case "$opt" in
