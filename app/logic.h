@@ -21,7 +21,7 @@ extern int logicCur;
 //Functions
 int logicIsSetup();
 void logicSetupName(char *name, char *email);
-void logicKey(int k);
+void logicKey(int key, int longPress);
 void logicWelcome();
 void logicSleep();
 void logicHome(int force, int incr);

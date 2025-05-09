@@ -21,8 +21,6 @@
 #define KEY_LEFT	105
 #define KEY_RIGHT	106
 #define KEY_DOWN	108
-#define KEY_HOME	102
-#define KEY_END		107
 
 //Public variable
 int doLoop = 0;
@@ -58,13 +56,13 @@ void cleanExit(int todo) {
 		if (pf)
 			fclose(pf);
 	} else if (todo == 2)
-		system("sync || /usr/bin/mydonglecloud-leds.sh -b 0 -l off || sleep 0.1 || reboot &");
+		system("sync && /usr/bin/mydonglecloud-leds.sh -b 0 -l off && sleep 0.1 && reboot &");
 	else if (todo == 1)
-		system("sync || /usr/bin/mydonglecloud-leds.sh -b 0 -l off || sleep 0.1 || shutdown -h now &");
+		system("sync && /usr/bin/mydonglecloud-leds.sh -b 0 -l off && sleep 0.1 && shutdown -h now &");
 #endif
 }
 
-static int rotateKey(int k, int ignore) {
+static int rotateKey(int k, int ignoreRotation) {
 	int ret = 0;
 	switch (k) {
 	case KEY_LEFT:
@@ -79,52 +77,43 @@ static int rotateKey(int k, int ignore) {
 	case KEY_DOWN:
 		ret = LV_KEY_DOWN;
 		break;
-	case KEY_HOME:
-		ret = LV_KEY_HOME;
-		break;
-	case KEY_END:
-		ret = LV_KEY_END;
-		break;
 	}
-#ifndef DESKTOP
-	if (ignore == 0)
+	if (ignoreRotation == 0)
 		ret = LV_KEY_UP + ((ret - LV_KEY_UP + sio.rotation) % 4);
-#endif
-	//PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : k == KEY_HOME ? "KEY_HOME": k == KEY_END ? "KEY_END": "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": ret == LV_KEY_HOME ? "LV_KEY_HOME": ret == LV_KEY_DEL ? "LV_KEY_DEL": "");
+	//PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": "");
 	return ret;
 }
 
-static void processButton(int b, int ignore) {
-	logicKey(rotateKey(b, ignore));
+static void processButton(int b, int ignoreRotation, int longPress) {
+	logicKey(rotateKey(b, ignoreRotation), longPress);
 }
 
 //UP, DOWN
-//HOME, END (long press)
 //RIGHT, LEFT
-//keyboard: 65, 66, 72, 70, 67, 68
-//KEY_: 103, 108, 102, 107, 106, 105
-//LV_KEY_: 17, 18, 2, 3, 19, 20
+//keyboard: 65, 66, 67, 68
+//KEY_: 103, 108, 106, 105
+//LV_KEY_: 17, 18, 19, 20
 void processInput(unsigned char c) {
 	char szz[128];
 	//PRINTF("processInput %d\n", c);
 	switch (c) {
 	case 65:
-		processButton(KEY_UP, 1);
+		processButton(KEY_UP, 1, 0);
 		break;
 	case 66:
-		processButton(KEY_DOWN, 1);
+		processButton(KEY_DOWN, 1, 0);
 		break;
 	case 67:
-		processButton(KEY_RIGHT, 1);
+		processButton(KEY_RIGHT, 1, 0);
 		break;
 	case 68:
-		processButton(KEY_LEFT, 1);
+		processButton(KEY_LEFT, 1, 0);
 		break;
 	case 70:
-		processButton(KEY_END, 1);
+		processButton(KEY_DOWN, 1, 1);
 		break;
 	case 72:
-		processButton(KEY_HOME, 1);
+		processButton(KEY_UP, 1, 1);
 		break;
 	case 'h':
 		PRINTF("*******************************************************\n");
@@ -210,14 +199,10 @@ void backendLoop() {
 				if (ev[i].value == 1)
 					longPressDone = 0;
 				else if (ev[i].value == 2 && longPressDone == 0) {
-					if (ev[i].code == KEY_UP)
-						ev[i].code = KEY_HOME;
-					if (ev[i].code == KEY_DOWN)
-						ev[i].code = KEY_END;
-					processButton(ev[i].code, 0);
+					processButton(ev[i].code, 0, 1);
 					longPressDone = 1;
 				} else if (ev[i].value == 0 && longPressDone == 0)
-					processButton(ev[i].code, 0);
+					processButton(ev[i].code, 0, 0);
 			}
 	}
 #endif

@@ -51,22 +51,22 @@ void logicSetupName(char *name, char *email) {
 	}
 }
 
-void logicKey(int k) {
+void logicKey(int key, int longPress) {
 	if (logicCur == LOGIC_WELCOME) {//Rotations, OK
-		if (k == LV_KEY_HOME)
+		if (longPress && key == LV_KEY_UP)
 			logicSleep();
-		else if (k == LV_KEY_END)
+		else if (longPress && key == LV_KEY_DOWN)
 			logicShutdown();
-		else if (k == LV_KEY_UP) {
+		else if (key == LV_KEY_UP) {
 			if (backendRotate(1) == 0)
 				logicWelcome();
-		} else if (k == LV_KEY_DOWN) {
+		} else if (key == LV_KEY_DOWN) {
 			if (backendRotate(-1) == 0)
 				logicWelcome();
-		} else if (k == LV_KEY_LEFT) {
+		} else if (key == LV_KEY_LEFT) {
 			if (backendRotate(-1) == 0)
 				logicWelcome();
-		} else if (k == LV_KEY_RIGHT)
+		} else if (key == LV_KEY_RIGHT)
 			logicHome(0, 0);
 	} else if (logicCur == LOGIC_SLEEP) {
 #ifndef DESKTOP
@@ -74,46 +74,46 @@ void logicKey(int k) {
 #endif
 		logicHome(-1, 0);
 	} else if (logicCur == LOGIC_HOME) {//Rotations, Tips, Next
-		if (k == LV_KEY_HOME)
+		if (longPress && key == LV_KEY_UP)
 			logicSleep();
-		else if (k == LV_KEY_END)
+		else if (longPress && key == LV_KEY_DOWN)
 			logicShutdown();
-		else if (k == LV_KEY_UP) {
+		else if (key == LV_KEY_UP) {
 			if (backendRotate(1) == 0)
 				logicHome(-1, 0);
-		} else if (k == LV_KEY_DOWN) {
+		} else if (key == LV_KEY_DOWN) {
 			if (backendRotate(-1) == 0)
 				logicHome(-1, 0);
-		} else if (k == LV_KEY_LEFT) {
+		} else if (key == LV_KEY_LEFT) {
 			if (sio.setupDone)
 				logicTips(0, 0);
 			else
 				logicSetup();
-		} else if (k == LV_KEY_RIGHT)
+		} else if (key == LV_KEY_RIGHT)
 			logicHome(-1, 1);
 	} else if (logicCur == LOGIC_SETUP) {//Done
-		if (k == LV_KEY_RIGHT) {
+		if (key == LV_KEY_RIGHT) {
 			sio.setupDone = 1;
 			logicHome(0, 0);
 		}
 	} else if (logicCur == LOGIC_TIPS) {//Back, Setup, Previous, Next
-		if (k == LV_KEY_UP)
+		if (key == LV_KEY_UP)
 			logicHome(-1, 0);
-		else if (k == LV_KEY_DOWN)
+		else if (key == LV_KEY_DOWN)
 			logicSetup();
-		else if (k == LV_KEY_LEFT)
+		else if (key == LV_KEY_LEFT)
 			logicTips(-1, -1);
-		else if (k == LV_KEY_RIGHT)
+		else if (key == LV_KEY_RIGHT)
 			logicTips(-1, 1);
 	} else if (logicCur == LOGIC_PASSCODE) {//Cancel, Hide
-		if (k == LV_KEY_LEFT)
+		if (key == LV_KEY_LEFT)
 			logicHome(0, 0);
-		else if (k == LV_KEY_RIGHT)
+		else if (key == LV_KEY_RIGHT)
 			logicHome(0, 0);
 	} else if (logicCur == LOGIC_SHUTDOWN) {//Yes, No
-		if (k == LV_KEY_LEFT)
+		if (key == LV_KEY_LEFT)
 			logicHome(0, 0);
-		else if (k == LV_KEY_RIGHT)
+		else if (key == LV_KEY_RIGHT)
 			logicBye();
 	} else if (logicCur == LOGIC_BYE) {
 	} else if (logicCur == LOGIC_MESSAGE)

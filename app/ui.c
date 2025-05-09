@@ -108,34 +108,35 @@ static void circulaText(char *sz, int x, int y, int s) {
 	lv_obj_add_style(label0, &labelStyle, LV_STATE_DEFAULT);
 }
 
-static void event_handler(lv_event_t *e) {
+static void eventHandler(lv_event_t *e) {
 	lv_event_code_t code = lv_event_get_code(e);
 	if(code == LV_EVENT_CLICKED) {
 		lv_obj_t *btn = lv_event_get_current_target(e);
 		int key = (int)(unsigned long)lv_obj_get_user_data(btn);
-		logicKey(key);
+		int longPress = lv_obj_get_y(btn) == 12;
+		logicKey(key, longPress);
 	}
 }
 
-static void buttonImg(int pos, const void *arg) {
+static void buttonImg(int key, int longPress, const void *arg) {
 	int posx, posy;
-	if (pos == LV_KEY_UP) {
-		posx = 1;
-		posy = 1;
-	} else if (pos == LV_KEY_DOWN) {
-		posx = 117;
-		posy = 1;
-	} else if (pos == LV_KEY_ESC) {
+	if (longPress && key == LV_KEY_UP) {
 		posx = 1;
 		posy = 12;
-	} else if (pos == LV_KEY_DEL) {
+	} else if (longPress && key == LV_KEY_DOWN) {
 		posx = 117;
 		posy = 12;
+	} else if (key == LV_KEY_UP) {
+		posx = 1;
+		posy = 1;
+	} else if (key == LV_KEY_DOWN) {
+		posx = 117;
+		posy = 1;
 	}
 
 	lv_obj_t *btn0 = lv_imgbtn_create(lv_screen_active());
 	lv_imgbtn_set_src(btn0, LV_IMGBTN_STATE_RELEASED, NULL, arg, NULL);
-	lv_obj_set_user_data(btn0, (void *)(unsigned long)pos);
+	lv_obj_set_user_data(btn0, (void *)(unsigned long)key);
 	lv_obj_set_pos(btn0, posx, posy);
 
 	static lv_style_t btn0StylePressed;
@@ -144,7 +145,7 @@ static void buttonImg(int pos, const void *arg) {
 	lv_style_set_img_recolor(&btn0StylePressed, lv_color_black());
 	lv_obj_add_style(btn0, &btn0StylePressed, LV_STATE_PRESSED);
 
-	lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
+	lv_obj_add_event_cb(btn0, eventHandler, LV_EVENT_ALL, NULL);
 }
 
 static void button(int pos, char *sz, const void *arg) {
@@ -172,7 +173,7 @@ static void button(int pos, char *sz, const void *arg) {
 	lv_style_set_bg_color(&btnStyle, lv_color_hex(COLOR_DARK));
 	lv_style_set_radius(&btnStyle, 4);
 	lv_obj_add_style(btn0, &btnStyle, 0);
-	lv_obj_add_event_cb(btn0, event_handler, LV_EVENT_ALL, NULL);
+	lv_obj_add_event_cb(btn0, eventHandler, LV_EVENT_ALL, NULL);
 
 	lv_obj_t *labelBtn0 = lv_label_create(btn0);
 	lv_label_set_text(labelBtn0, sz);
@@ -270,10 +271,10 @@ static void uiBar() {
 	lv_obj_set_style_border_width(rect, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_remove_flag(rect, LV_OBJ_FLAG_SCROLLABLE);
 
-	buttonImg(LV_KEY_UP, &img_icon_left);
-	buttonImg(LV_KEY_DOWN, &img_icon_right);
-	buttonImg(LV_KEY_ESC, &img_icon_sleep);
-	buttonImg(LV_KEY_DEL, &img_icon_shutdown);
+	buttonImg(LV_KEY_UP, 0, &img_icon_left);
+	buttonImg(LV_KEY_DOWN, 0, &img_icon_right);
+	buttonImg(LV_KEY_UP, 1, &img_icon_sleep);
+	buttonImg(LV_KEY_DOWN, 1, &img_icon_shutdown);
 
 	lv_obj_t *imgBar0 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgBar0, &img_wifi_ok);

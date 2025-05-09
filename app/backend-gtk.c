@@ -200,7 +200,7 @@ void backendInit_plat(int argc, char *argv[]) {
 
 	lv_init();
 	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
-	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
+	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_FULL);
 	lv_display_set_flush_cb(disp, backendUpdate_plat);
 
 	backendInitPointer_plat();
