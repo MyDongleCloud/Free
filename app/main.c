@@ -16,7 +16,8 @@ int main(int argc, char *argv[]) {
 	int option;
 	int daemon = 0;
 	int ble = 1;
-	while ((option = getopt(argc, argv, "bdh")) != -1) {
+	int forceRotation = -1;
+	while ((option = getopt(argc, argv, "bdhr:")) != -1) {
 		switch (option) {
 		case 'b':
 			ble = 0;
@@ -32,6 +33,9 @@ int main(int argc, char *argv[]) {
 			PRINTF("h:		Print this usage and exit\n");
 			exit(0);
 			break;
+		case 'r':
+			sscanf(optarg, "%d", &forceRotation);
+			break;
 		default:
 			break;
 		}
@@ -44,6 +48,10 @@ int main(int argc, char *argv[]) {
 	}
 	logInit(daemon, debug);
 	settingsLoad();
+	if (forceRotation != -1) {
+		sio.rotation = forceRotation;
+		settingsSave();
+	}
 #endif
 #ifdef DESKTOP
 	languageTest();
