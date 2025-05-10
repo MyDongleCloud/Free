@@ -9,6 +9,7 @@
 #include <signal.h>
 #include <pthread.h>
 #include <netdb.h>
+#include <stdarg.h>
 #include <ifaddrs.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
