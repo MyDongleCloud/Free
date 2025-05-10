@@ -210,10 +210,14 @@ static void update(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, ui
 			priv->spiTx[posTx] = c >> 8;
 			priv->spiTx[posTx + 1] = c & 0xFF;
 		}
-	if (priv->rotation % 2)
-		updateTx(priv, y, x, h, w);
-	else
+	if (priv->rotation == 0)
 		updateTx(priv, x, y, w, h);
+	else if (priv->rotation == 1)
+		updateTx(priv, y, WIDTH - w - x, h, w);
+	else if (priv->rotation == 2)
+		updateTx(priv, WIDTH - w - x, HEIGHT - h - y, w, h);
+	else if (priv->rotation == 3)
+		updateTx(priv, HEIGHT - h - y, x, h, w);
 }
 
 static void rect(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint16_t color) {
