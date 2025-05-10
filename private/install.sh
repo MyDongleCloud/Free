@@ -40,7 +40,7 @@ adduser --comment Administrator --disabled-password admin
 apt-get update
 apt-get -y upgrade
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
-apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail spamassassin spamc dovecot-pop3d dovecot-imapd
+apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail rspamd dovecot-pop3d dovecot-imapd
 apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool
 if [ $OS = "ubuntu" ]; then
 	snap remove snapd
