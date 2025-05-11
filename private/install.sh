@@ -159,6 +159,7 @@ echo "Jitsi"
 echo "################################"
 curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
 echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
+apt-get update
 apt-get -y install jitsi-meet
 
 echo "################################"
