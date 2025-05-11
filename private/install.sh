@@ -58,7 +58,7 @@ echo "################################"
 echo "Basic"
 echo "################################"
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
-apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail rspamd dovecot-pop3d dovecot-imapd
+apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail rspamd dovecot-pop3d dovecot-imapd certbot python3-certbot-apache
 apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
@@ -113,11 +113,10 @@ fi
 echo "################################"
 echo "Docker"
 echo "################################"
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 if [ $OS = "ubuntu" ]; then
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
 elif [ $OS = "pios" ]; then
-	curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list
 fi
 apt-get update
@@ -152,12 +151,20 @@ echo "################################"
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install linux-headers-raspi linux-image-raspi
 elif [ $OS = "pios" ]; then
-	apt-get -y install
+	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712
 fi
 
 echo "################################"
-echo "Cleanup"
+echo "Jitsi"
 echo "################################"
+curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
+echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
+apt-get -y install jitsi-meet
+
+echo "################################"
+echo "Upgrade and cleanup"
+echo "################################"
+apt-get -y upgrade
 apt-get -y autoremove
 rm /var/cache/apt/archives/*.deb
 
