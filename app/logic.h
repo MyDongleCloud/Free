@@ -23,7 +23,7 @@ int logicIsSetup();
 void logicSetupName(char *name, char *email);
 void logicKey(int key, int longPress);
 void logicWelcome();
-void logicSleep();
+void logicSleep(int autoSleep);
 void logicHome(int force, int incr);
 void logicSetup();
 void logicTips(int force, int incr);

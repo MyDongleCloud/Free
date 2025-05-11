@@ -27,7 +27,10 @@ int doLoop = 0;
 
 //Private variables
 static lv_indev_t *indevK;
+#ifndef WEB
 static struct pollfd pollfd[2];
+#endif
+static int autoSleep = -1;
 
 //Functions
 int backendRotate(int incr) {
@@ -206,6 +209,10 @@ void backendLoop() {
 	static int count = 0;
 	if (count++ % 30 == 0)
 		uiUpdate();
+	if (autoSleep >= 0) {
+		if (autoSleep-- == 0)
+			logicSleep(1);
+	}
 }
 
 void backendUninit(int daemon) {

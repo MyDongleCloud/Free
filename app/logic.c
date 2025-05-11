@@ -56,7 +56,7 @@ void logicSetupName(char *name, char *email) {
 void logicKey(int key, int longPress) {
 	if (logicCur == LOGIC_WELCOME) {//Rotations, OK
 		if (longPress && key == LV_KEY_UP)
-			logicSleep();
+			logicSleep(0);
 		else if (longPress && key == LV_KEY_DOWN)
 			logicShutdown();
 		else if (key == LV_KEY_UP) {
@@ -77,7 +77,7 @@ void logicKey(int key, int longPress) {
 		logicHome(-1, 0);
 	} else if (logicCur == LOGIC_HOME) {//Rotations, Tips, Next
 		if (longPress && key == LV_KEY_UP)
-			logicSleep();
+			logicSleep(0);
 		else if (longPress && key == LV_KEY_DOWN)
 			logicShutdown();
 		else if (key == LV_KEY_UP) {
@@ -128,10 +128,13 @@ void logicWelcome() {
 	uiScreenWelcome();
 }
 
-void logicSleep() {
-	PRINTF("Logic: Sleep\n");
+void logicSleep(int autoSleep) {
+	PRINTF("Logic: Sleep from %s\n", autoSleep ? "auto" : "user");
 	logicCur = LOGIC_SLEEP;
 #ifndef DESKTOP
+	if (sio.sleepKeepLed)
+		system("/usr/bin/mydonglecloud-leds.sh -b 0 -l normal");
+	else
 		system("/usr/bin/mydonglecloud-leds.sh -b 0 -l off");
 #endif
 	uiScreenSleep();

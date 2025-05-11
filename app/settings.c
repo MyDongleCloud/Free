@@ -27,6 +27,7 @@ void settingsDefault() {
 	sio.language = 0;
 	sio.rotation = 0;
 	sio.noBuzzer = 0;
+	sio.sleepKeepLed = 0;
 	sio.setupDone = 0;
 }
 
@@ -34,6 +35,7 @@ void settingsDump() {
 	PRINTF("Settings language: %d\n", sio.language);
 	PRINTF("Settings rotation: %d\n", sio.rotation);
 	PRINTF("Settings noBuzzer: %d\n", sio.noBuzzer);
+	PRINTF("Settings sleepKeepLed: %d\n", sio.sleepKeepLed);
 	PRINTF("Settings setupDone: %d\n", sio.setupDone);
 }
 

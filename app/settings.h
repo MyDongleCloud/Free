@@ -7,6 +7,7 @@ typedef struct settings {
 	int language;
 	int rotation;
 	int noBuzzer;
+	int sleepKeepLed;
 	int setupDone;
 } settings;
 
