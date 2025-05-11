@@ -10,6 +10,7 @@
 #include "macro.h"
 #include "lvgl.h"
 #include "backend.h"
+#include "logic.h"
 
 //Global variable
 unsigned char *fbPublic;
@@ -34,6 +35,10 @@ static void looping(void *arg) {
 
 void injectInput(char c) {
 	processInput(c);
+}
+
+void requestPasscode(int p) {
+	logicPasscode(p);
 }
 
 void backendRun_plat() {

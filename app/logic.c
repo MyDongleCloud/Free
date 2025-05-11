@@ -20,11 +20,12 @@ static int logicPrev;
 
 //Functions
 static int logicOath() {
-#ifdef DESKTOP
-	return 484170;
+#ifdef WEB
+	return rand() % 999999;
 #endif
 	char secret[33];
 	int  otp = oathGenerate(secret);
+#ifndef DESKTOP
 	FILE *pf = fopen(OATH_PATH, "w");
 	if (pf) {
 		char sz2[64];
@@ -33,6 +34,7 @@ static int logicOath() {
 		fclose(pf);
 		system("chown root:root " OATH_PATH ";chmod 400 " OATH_PATH);
 	}
+#endif
 	return otp;
 }
 
@@ -196,10 +198,13 @@ void logicMessage(int m) {
 	uiScreenMessage(m);
 }
 
-void logicPasscode() {
+void logicPasscode(int forcePasscode) {
 	PRINTF("Logic: Passcode\n");
 	logicCur = LOGIC_PASSCODE;
-	passcode = logicOath();
+	if (forcePasscode != -1)
+		passcode = forcePasscode;
+	else
+		passcode = logicOath();
 	uiScreenPasscode(90);
 }
 

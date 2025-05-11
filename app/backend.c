@@ -27,9 +27,7 @@ int doLoop = 0;
 
 //Private variables
 static lv_indev_t *indevK;
-#ifndef WEB
 static struct pollfd pollfd[2];
-#endif
 
 //Functions
 int backendRotate(int incr) {

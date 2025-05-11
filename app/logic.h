@@ -30,7 +30,7 @@ void logicTips(int force, int incr);
 void logicShutdown();
 void logicBye();
 void logicMessage(int m);
-void logicPasscode();
+void logicPasscode(int forcePasscode);
 void logicPasscodeFinished();
 
 #endif
