@@ -163,6 +163,23 @@ apt-get update
 apt-get -y install jitsi-meet
 
 echo "################################"
+echo "CyberChef"
+echo "################################"
+cd /home/mdc/build
+git clone https://github.com/gchq/CyberChef.git
+cd CyberChef
+npm install
+npm run build
+
+echo "################################"
+echo "QRCode"
+echo "################################"
+cd /home/mdc/build
+git clone https://code.antopie.org/miraty/libreqr.git
+git clone https://github.com/bizzycola/qrcode-generator
+git clone https://github.com/mebjas/html5-qrcode
+
+echo "################################"
 echo "Upgrade and cleanup"
 echo "################################"
 apt-get -y upgrade
