@@ -432,9 +432,9 @@ void uiScreenHome(int pos) {
 		lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_14);
 		lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
 
-		arc(10, 46, 44, 41 * 100 / 128);
+		arc(10, 46, 44, 241 * 100 / 1024);
 
-		sprintf(sz, L("%d%%"), 41 * 100 / 128);
+		sprintf(sz, L("%d%%"), 241 * 100 / 1024);
 		lv_obj_t *label1 = lv_label_create(lv_screen_active());
 		lv_label_set_text(label1, sz);
 		lv_obj_set_width(label1, 40);
@@ -445,7 +445,7 @@ void uiScreenHome(int pos) {
 		lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_14);
 		lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
-		sprintf(sz, L("%d/%d GB"), 41, 128);
+		sprintf(sz, L("%dGB/%dTB"), 241, 1);
 //		circulaText(sz, 2, 95, 60);
 		lv_obj_t *label2 = lv_label_create(lv_screen_active());
 		lv_label_set_text(label2, sz);
@@ -499,14 +499,14 @@ void uiScreenHome(int pos) {
 		doubleText("Ext", "166.23.45.165", 98, 40);
 	} else if (pos_ == 2) {
 		char sz[32];
-		sprintf(sz, L("%d%% (%d°C)"), 3, 45);
+		sprintf(sz, L("%d%% (%d°C)"), 3, 55);
 		progressBar(120, 28, L("CPU"), sz, 3);
 
 		sprintf(sz, L("%d%% (%d proc)"), 10, 145);
 		progressBar(120, 54, L("Mem"), sz, 10);
 
-		sprintf(sz, L("%d%% (%d/%d GB)"), 120 * 100 / 128, 120, 128);
-		progressBar(120, 82, L("Disk"), sz, 120 * 100 / 128);
+		sprintf(sz, L("%d%% (%dGB/%dTB)"), 241 * 100 / 1024, 241, 1);
+		progressBar(120, 82, L("Disk"), sz, 241 * 100 / 1024);
 	} else if (pos_ == 3) {
 		doubleText("Port https (443)", "OK", 28, 100);
 		doubleText("Port mail (25)", "OK", 42, 100);
