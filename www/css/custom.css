@@ -1,0 +1,182 @@
+
+:root {
+/*
+Red: f43866
+Darker Red: f2184f
+Dark blue: 013d7b
+Light blue: 0092ce
+*/
+	--colorDark: #013d7b;
+	--colorLight: #0092ce;
+	--colorCritical: #f2184f;
+}
+
+
+
+
+.top-header .navbar .navbar-collapse ul li a:hover,
+.top-header .navbar .navbar-collapse ul li a:focus {
+	color: var(--colorLight);
+}
+.theme_color {
+	color: var(--colorLight);
+}
+.slide_text p {
+	display:inherit !important;
+}
+.slide_text p {
+	color: var(--colorDark);
+}
+.contact_bt {
+	background: #f2184f;
+}
+.icon-b {
+	background: #f2184f;
+}
+.submit-button .btn-common {
+	background-color: #f2184f;
+}
+.team_member_img img {
+    border: solid #dddddd 20px;
+}
+p.section_count {
+    color: #dddddd;
+}
+
+
+
+
+
+.navbar-toggler {
+	border: 2px solid #f43866;
+}
+.navbar-toggler span {
+	background: #f43866;
+}
+.navbar-toggler:hover {
+	border: 2px solid #f43866;
+}
+.navbar-toggler:hover span {
+	background: #f43866;
+}
+.hvr-radial-out::before {
+	background: var(--colorLight);
+}
+h2.timer.count-title.count-number {
+	color: var(--colorLight);
+}
+p.count-text {
+	color: var(--colorLight);
+}
+.carousel a.carousel-control-prev {
+	background: #f43866;
+}
+.carousel a.carousel-control-next {
+	background: #f43866;
+}
+.newsletter_form button {
+	background: var(--colorLight);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--colorDark);
+}
+
+.top-header .navbar .navbar-collapse ul li a {
+	color: var(--colorDark);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+}
+h2.count-static {
+	color: var(--colorLight);
+	font-size: 60px;
+	font-weight: 600;
+	margin: 0;
+	padding: 0;
+	line-height: 60px;
+}
+.top-header #navbar-wd {
+	padding-right: 0px;
+}
+
+
+
+.equivalent {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-15deg);
+	color: var(--colorCritical);
+	text-align: center;
+	font-weight: bold;
+	font-size: larger;
+	margin-top: 25px;
+	background: #ffffff00;
+}
+
+.colorLight {
+	color: var(--colorLight);
+}
+.colorDark {
+	color: var(--colorDark);
+}
+.colorCritical {
+	color:var(--colorCritical) !important;
+}
+.whiteImage {
+	filter:brightness(0) invert(1);
+}
+
+.myButton {
+	padding: 15px 15px;
+	color: white !important;
+	border-radius: 5px;
+	background: var(--colorLight);
+}
+.myButtonDark {
+	background: var(--colorDark);
+}
+
+#flip {
+	height: 105px;
+	overflow: hidden;
+}
+#flip > div > div {
+	height: 100px;
+	margin-bottom: 100px;
+	display: inline-block;
+}
+#flip div:first-child {
+	animation: show 20s linear infinite;
+}
+#flip {
+	--empty: -350px;
+	--line3: -255px;
+	--line2: -100px;
+	--line1: 5px;
+}
+@keyframes show {
+	0% {margin-top: var(--empty);}
+	1% {margin-top: var(--line3);}
+	33% {margin-top: var(--line3);}
+	34% {margin-top: var(--line2);}
+	66% {margin-top: var(--line2);}
+	67% {margin-top: var(--line1);}
+	99.99% {margin-top: var(--line1);}
+	100% {margin-top: var(--empty);}
+}
