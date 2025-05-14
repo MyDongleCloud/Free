@@ -42,6 +42,9 @@ void requestPasscode(int p) {
 }
 
 void backendRun_plat() {
+	SDL_EventState(SDL_TEXTINPUT, SDL_DISABLE);
+	SDL_EventState(SDL_KEYDOWN, SDL_DISABLE);
+	SDL_EventState(SDL_KEYUP, SDL_DISABLE);
 	emscripten_set_main_loop_arg(looping, NULL, -1, true);
 	PRINTF("End of doLoop\n");
 }
