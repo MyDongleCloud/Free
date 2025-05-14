@@ -13,10 +13,12 @@ exit 0
 BUILD=0
 LOCAL=0
 SETUP=0
-while getopts bhls opt; do
+CLEAN=0
+while getopts bchls opt; do
 	case "$opt" in
 		h) helper;;
 		b) LOCAL=1;BUILD=1;;
+		c) CLEAN=1;;
 		l) LOCAL=1;;
 		s) SETUP=1;;
 	esac
@@ -75,5 +77,17 @@ if [ $BUILD = 1 ]; then
 	cd cmbuild
 	emcmake cmake ..
 	emmake make -j
+	cd $PW
+fi
+
+if [ $CLEAN = 1 ]; then
+	echo "#####################################"
+	echo "CLEAN"
+	echo "#####################################"
+	cd ../build
+	find lvgl-web \( -name "*.h" -o -name "*.a" \) -print0 | tar -cjpvf a.tbz2 --null -T -
+	rm -rf lvgl-web
+	tar -xjpvf a.tbz2
+	rm a.tbz2
 	cd $PW
 fi

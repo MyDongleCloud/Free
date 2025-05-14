@@ -2,17 +2,20 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for pip.sh [-b -h]"
+echo "Usage for pip.sh [-b -c -h]"
+echo "b:	do build"
+echo "c:	Do clean"
 echo "h:	Print this usage and exit"
-echo "v:	Set version"
 exit 0
 }
 
 BUILD=0
-while getopts bh opt; do
+CLEAN=0
+while getopts bch opt; do
 	case "$opt" in
-		h) helper;;
 		b) BUILD=1;;
+		c) CLEAN=1;;
+		h) helper;;
 	esac
 done
 PW=`pwd`
@@ -32,5 +35,17 @@ if [ $BUILD = 1 ]; then
 	cd build
 	cmake ..
 	make -j
+	cd $PW
+fi
+
+if [ $CLEAN = 1 ]; then
+	echo "#####################################"
+	echo "CLEAN"
+	echo "#####################################"
+	cd ../build
+	find lvgl \( -name "*.h" -o -name "*.a" \) -print0 | tar -cjpvf a.tbz2 --null -T -
+	rm -rf lvgl
+	tar -xjpvf a.tbz2
+	rm a.tbz2
 	cd $PW
 fi
