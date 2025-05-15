@@ -634,7 +634,7 @@ void uiScreenPasscode(int expiration) {
 	lv_obj_align(label1, LV_ALIGN_TOP_LEFT, 0, 22);
 	static lv_style_t labelStyle2;
 	lv_style_init(&labelStyle2);
-	lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_30);
+	lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_28);
 	lv_obj_add_style(label1, &labelStyle2, LV_STATE_DEFAULT);
 
 	lv_obj_t *label2 = lv_label_create(lv_screen_active());

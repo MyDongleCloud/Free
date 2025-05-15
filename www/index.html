@@ -443,18 +443,14 @@ var Module = {
 	arguments: []
 };
 
-//window.parent.postMessage({ type:"requestPasscode", data:452913 });//, "https://mydongle.cloud");
 window.addEventListener("message", (event) => {
-//	if (event.origin === "https://mydongle.cloud") {
-		console.log("Message received:", event.data);
-		if (event.data.type === "requestPasscode")
-			Module._requestPasscode(event.data.data);
-//	}
+	if (event.data.type === "requestPasscode")
+		Module._requestPasscode(event.data.data);
 });
 </script>
 <script src="js/app.js"></script>
 							<div style="border:40px solid #000000; border-width:55px 7px; border-radius:40px; margin:50px 0px; width:514px;">
-								<iframe src="app/" style="border:0; width:500px; height:700px;"></iframe>
+								<iframe src="app/index.html" style="border:0; width:500px; height:700px;"></iframe>
 							</div>
 						</div>
 					</div>
