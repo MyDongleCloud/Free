@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+include "track.inc"
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -8,12 +10,14 @@
 <meta name="keywords" content="">
 <meta name=Description" content="">
 <meta name="author" content="MyDongle Cloud">
-<link rel="shortcut icon" href="#" type="image/x-icon" />
-<link rel="apple-touch-icon" href="#" />
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/responsive.css" />
-<link rel="stylesheet" href="css/custom.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/custom.css">
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -22,7 +26,7 @@
 <body id="home">
 <div id="preloader">
 	<div class="loader">
-		<img src="images/loader.gif" alt="#" />
+		<img src="images/loader.gif" alt="MyDongle Loader">
 	</div>
 </div>
 <header class="top-header">
@@ -64,7 +68,7 @@
 				</div>
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 order-lg-1" style="display:flex; align-items:flex-end; padding:0px;">
-				<img src="images/dongle-hand-1.png" style="width:100%; margin-bottom:0px; border:0px solid black;" alt="MyDongle.Cloud">
+				<img src="images/dongle-hand-1.png" style="width:100%; margin-bottom:0px; border:0px solid black;" alt="Dongle">
 			</div>
 		</div>
 	</div>
@@ -92,7 +96,7 @@
 		<div class="row margin-top_30">
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-conference.png"  style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#"><!--style="filter:invert(42%) sepia(42%) saturate(4322%) hue-rotate(171deg) brightness(93%) contrast(102%);" alt="#">-->
+					<img src="images/icon-conference.png"  style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Video Conference"><!--style="filter:invert(42%) sepia(42%) saturate(4322%) hue-rotate(171deg) brightness(93%) contrast(102%);"-->
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-zoom.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -105,7 +109,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-suite.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-suite.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Office Suite">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-word.png"><span class="equivalent">Equivalent</span></span><!--<span style="position:relative; margin-left:25px;"><img style="width:75px; height:75px;" src="images/replacement-excel.png"><span class="equivalent">Equivalent</span>--></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -118,7 +122,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-mail.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-mail.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Mail">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-gmail.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -131,7 +135,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-chatbot.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-chatbot.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle AI Chatbot">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-chatgpt.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -144,7 +148,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-hosting.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-hosting.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Hosting">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-wordpress.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -157,7 +161,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-photos.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-photos.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Photos">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-gphotos.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -170,7 +174,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-exchange.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-exchange.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Files Exchange">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-wetransfer.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -183,7 +187,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-survey.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-survey.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Survey">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-surveymonkey.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -196,7 +200,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-emailing.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-emailing.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Emailing">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-mailchimp.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -209,7 +213,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-forums.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-forums.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Forums">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-zohodesk.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -222,7 +226,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-ecommerce.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-ecommerce.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle E-Commerce">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-shopify.png"><span class="equivalent">Equivalent</span></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -235,7 +239,7 @@
 			</div></div>
 			<div class="col-sm-6 col-md-4"><div class="service_blog">
 				<div class="service_icons">
-					<img src="images/icon-more.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="#">
+					<img src="images/icon-more.png" style="width:75px; height:75px; filter:invert(17%) sepia(34%) saturate(4935%) hue-rotate(196deg) brightness(89%) contrast(103%);" alt="MyDongle Open Source">
 					<span style="position:relative; margin-left:50px;"><img style="width:75px; height:75px;" src="images/replacement-somuchmore.png" alt="$0/month"></span>
 					<!--<img style="width:75px; height:75px; margin-left:25px;" src="images/cost.png" class="cost" alt="$0/month">-->
 				</div>
@@ -276,14 +280,16 @@
 <div class="section dark_bg">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-9 col-md-12 text_align_center padding_0">
+			<div class="col-sm-6 col-md-4 text_align_center padding_0">
 				<div class="full">
-					<img class="img-responsive" src="images/opensource.png" style="margin:25px 0px;" alt="#" />
+					<img class="img-responsive" src="images/easytouse.jpg" style="width:100%" alt="MyDongle Easy-to-use">
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-12 white_fonts layout_padding padding_left_right">
-				<h3 class="small_heading">Open source enpowers data control with great features</h3>
-				<p>Technically, MyDongle.Cloud is a <span class="colorLight">Debian server OS</span> fitted inside a <span class="colorLight">dongle</span> with all the <span class="colorLight">Open source Github-high-star services</span> that you can image, all pre-installed, all pre-configured and all ready-to-go.</p>
+			<div class="col-sm-6 col-md-8 white_fonts layout_padding padding_left_right">
+				<h3 class="small_heading">Free software enpowers data control</h3>
+				<p>Technically, MyDongle.Cloud is a <span class="colorLight">Debian server OS</span> fitted inside a <span class="colorLight">dongle</span> with all the <span class="colorLight">Open source Github-high-star services</span> that you can image.</p>
+				<h3 class="small_heading">Open source brings ease-of-use</h3>
+				<p>All Open source MyDongle.Cloud modules are all <span class="colorLight">carefully selected</span>, all <span class="colorLight">pre-installed</span>, all <span class="colorLight">pre-configured</span> and all <span class="colorLight">ready-to-go</span>.</p>
 			</div>
 		</div>
 	</div>
@@ -315,9 +321,9 @@
 					<div class="col-lg-4 col-md-4 col-sm-12">
 						<div class="full">
 							<div class="full team_member_img text_align_center">
-								<img src="images/plug-router.jpg" alt="Plug in a router" />
+								<img src="images/plug-router.jpg" alt="MyDongle in a router">
 							</div>
-							<div class="full text_align_center">
+							<div class="full text_align_center" style="margin-top:25px;">
 								<h3>In the back of a router</h3>
 							</div>
 							<div class="full text_align_center">
@@ -328,22 +334,22 @@
 					<div class="col-lg-4 col-md-4 col-sm-12">
 						<div class="full">
 							<div class="full team_member_img text_align_center">
-								<img src="images/plug-outlet.jpg" alt="Plug in an outlet" />
+								<img src="images/plug-outlet.jpg" alt="MyDongle in an outlet">
 							</div>
-							<div class="full text_align_center">
+							<div class="full text_align_center" style="margin-top:25px;">
 								<h3>In a power plug</h3>
 							</div>
 							<div class="full text_align_center">
-								<p>Only 2 sAmp are needed</p>
+								<p>Only 5V-2A is needed</p>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-12">
 						<div class="full">
 							<div class="full team_member_img text_align_center">
-								<img src="images/plug-laptop.jpg" alt="Plug in a laptop" />
+								<img src="images/plug-laptop.jpg" alt="MyDongle in a laptop">
 							</div>
-							<div class="full text_align_center">
+							<div class="full text_align_center" style="margin-top:25px;">
 								<h3>In a PC or laptop</h3>
 							</div>
 							<div class="full text_align_center">
@@ -417,18 +423,18 @@
 							<p style="margin-bottom:5px;"><img src="images/logo.png" style="height:50px;" alt="MyDongle.Cloud"></p>
 							<!--<p style="font-weight:bold; font-size:24px; margin-bottom:5px;"><span class="colorDark">My</span><span class="colorLight">Dongle.</span><span class="colorDark">Cloud</span></p>-->
 							<h2>DEMO <span class="colorLight">TIME!</span></h2>
-							<p class="large">Use the space name demo.mydongle.cloud and the email demo@mydongle.cloud.</p>
-<br><br>
-<div style="position:relative;">
-	<img src="images/dongle.png" style="width:640px;" usemap="#buttonsMap">
-	<map name="buttonsMap">
-		<area shape="rect" coords="240,460,280,490" alt="Left" href="javascript:Module._injectInput(68);">
-		<area shape="rect" coords="460,460,500,490" alt="Right" href="javascript:Module._injectInput(67);">
-		<area shape="rect" coords="240,20,280,50" alt="Up" href="javascript:Module._injectInput(65);">
-		<area shape="rect" coords="460,20,500,50" alt="Down" href="javascript:Module._injectInput(66);">
-	</map>
-	<canvas id="canvas" width=128 height=128 style="border:solid black 0px; width:300px; height:300px; position:absolute; left:246px; top:102px;"></canvas>
-</div>
+							<p class="large">Press the buttons of the dongle below. Use the space name <i>demo.mydongle.cloud</i> and the email <i>demo@mydongle.cloud</i> in the web app.</p>
+							<br><br>
+							<div style="position:relative;">
+								<img src="images/dongle.png" style="width:640px; margin-left:-12px;" alt="MyDongle dongle" usemap="#buttonsMap">
+								<map name="buttonsMap">
+									<area shape="rect" coords="240,460,280,490" alt="Left" href="javascript:Module._injectInput(68);">
+									<area shape="rect" coords="460,460,500,490" alt="Right" href="javascript:Module._injectInput(67);">
+									<area shape="rect" coords="240,20,280,50" alt="Up" href="javascript:Module._injectInput(65);">
+									<area shape="rect" coords="460,20,500,50" alt="Down" href="javascript:Module._injectInput(66);">
+								</map>
+								<canvas id="canvas" width=128 height=128 style="border:solid black 0px; width:300px; height:300px; position:absolute; left:234px; top:102px;"></canvas>
+							</div>
 <script>
 var canvas = document.getElementById("canvas");
 var Module = {
@@ -447,9 +453,9 @@ window.addEventListener("message", (event) => {
 });
 </script>
 <script src="js/app.js"></script>
-<center><div style="border:40px solid #000000; border-width:55px 7px; border-radius:40px; margin:50px auto; width:514px;">
-	<iframe src="app/" style="border:0; width:500px; height:700px;"></iframe>
-</div></center>
+							<div style="border:40px solid #000000; border-width:55px 7px; border-radius:40px; margin:50px 0px; width:514px;">
+								<iframe src="app/" style="border:0; width:500px; height:700px;"></iframe>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -468,7 +474,7 @@ window.addEventListener("message", (event) => {
 		<div class="row">
 			<div class="col-md-12 margin-bottom_30">
 				<a href="#home" class="hvr-radial-out" style="background:transparent; width:20px; margin-right:15px;"><i class="fa fa-angle-up"></i></a>
-				<a  href="#home"><img src="images/logo.png" class="whiteImage" style="height:50px;" alt="#" /></a>
+				<a  href="#home"><img src="images/logo.png" class="whiteImage" style="height:50px;"alt="MyDongle.Cloud"></a>
 			</div>
 			<div class="col-xl-6 white_fonts">
 				<div class="row">
@@ -530,9 +536,9 @@ window.addEventListener("message", (event) => {
 						<div class="footer_blog full">
 							<h3>Newsletter, Info, Discount</h3>
 							<div class="newsletter_form">
-								<form action="index.html">
-									<input type="email" placeholder="Your Email" name="#" required />
-									<button>Submit</button>
+								<form method="post" action="registered.html">
+									<input type="email" placeholder="Your Email" name="email" required>
+									<button>Register</button>
 								</form>
 							</div>
 						</div>

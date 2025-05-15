@@ -34,7 +34,7 @@ Light blue: 0092ce
 	background: #f2184f;
 }
 .submit-button .btn-common {
-	background-color: #f2184f;
+	background-color: var(--colorDark);
 }
 .team_member_img img {
     border: solid #dddddd 20px;
@@ -48,16 +48,16 @@ p.section_count {
 
 
 .navbar-toggler {
-	border: 2px solid #f43866;
+	border: 2px solid var(--colorDark);
 }
 .navbar-toggler span {
-	background: #f43866;
+	background: var(--colorDark);
 }
 .navbar-toggler:hover {
-	border: 2px solid #f43866;
+	border: 2px solid var(--colorDark);
 }
 .navbar-toggler:hover span {
-	background: #f43866;
+	background: var(--colorDark);
 }
 .hvr-radial-out::before {
 	background: var(--colorLight);
@@ -135,6 +135,12 @@ h2.count-static {
 .colorDark {
 	color: var(--colorDark);
 }
+.colorBlack {
+	color: #000000;
+}
+.colorWhite {
+	color: #FFFFFF;
+}
 .colorCritical {
 	color:var(--colorCritical) !important;
 }
@@ -162,7 +168,7 @@ h2.count-static {
 	display: inline-block;
 }
 #flip div:first-child {
-	animation: show 20s linear infinite;
+	animation: show 10s linear infinite;
 }
 #flip {
 	--empty: -350px;
