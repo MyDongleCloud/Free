@@ -27,6 +27,12 @@ if [ ! -b ${DISK}1 ]; then
 	exit 0
 fi
 
+HEADER=`dirname $0`/../kernel/password.h
+SALT=`cat $HEADER | grep SALT | cut -d '"' -f 2`
+PASSPHRASE=`cat $HEADER | grep PASSPHRASE | cut -d '"' -f 2`
+#echo "Passphrase is $PASSPHRASE"
+#e4crypt add_key -S 0x$SALT /tmp/2/fs
+
 rm -f /tmp/boot /tmp/img
 cd /tmp
 umount ${DISK}*
