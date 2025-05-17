@@ -179,6 +179,7 @@ static struct attribute_group mydongle_attr_group = {
 	.attrs = mydongle_attributes,
 };
 
+int isMydonglecloud = 0;
 static int mydongle_probe(struct platform_device *pdev) {
 	printk("MyDongleCloud: Enter probe");
 	struct device *dev = &pdev->dev;
@@ -186,6 +187,7 @@ static int mydongle_probe(struct platform_device *pdev) {
 	if (!ip)
 		return -ENOMEM;
 
+	isMydonglecloud = 1;
 	platform_set_drvdata(pdev, ip);
 	myip = (struct mydonglePriv *)ip;
 	ip->debug = 0;
@@ -200,6 +202,9 @@ static int mydongle_probe(struct platform_device *pdev) {
 	if (IS_ERR(ip->buzzerS))
 		printk("MyDongle-Dongle: Requesting PWM failed");
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,14,0)
+#define timer_setup setup_timer
+#endif
 	timer_setup(&my_timer_buzzer, my_timer_buzzer_callback, 0);
 
 	printk("MyDongleCloud: Exit probe");

@@ -31,10 +31,10 @@ rm -f /tmp/boot /tmp/img
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*
-dd if=${DISK}0 of=/tmp/boot bs=1M count=520 status=progress
+#dd if=${DISK}0 of=/tmp/boot bs=1M count=520 status=progress
 mount ${DISK}2 /tmp/2
 cd /tmp/2
-mksquashfs . /tmp/img
+mksquashfs . /tmp/mdc.img
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*

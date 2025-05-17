@@ -1,3 +1,4 @@
 build
 private/img
 www/js/app.js
+kernel/password.h

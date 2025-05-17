@@ -4,7 +4,7 @@ ifeq ($(Q)$(q), 0)
 QUIET = 
 QUIETLINK =
 endif
-MYCC = $(QUIET)gcc
+MYCC = $(QUIET)gcc -DPREFIX="\"$(PREFIX)\""
 MYLINKPP = $(QUIETLINK)gcc
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 PRE = /tmp/_init/
