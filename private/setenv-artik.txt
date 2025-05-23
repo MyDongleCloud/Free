@@ -1,0 +1,40 @@
+setenv load_fdt fatload mmc \$rootdev:\$bootpart \$fdtaddr mydonglecd.dtb
+setenv hwtest_recoveryboot
+setenv hwtestboot
+setenv ramfsboot
+setenv sdrecovery
+setenv recovery_cmd
+setenv recoveryboot
+setenv ota
+setenv lcd1_0
+setenv lcd2_0
+setenv lcd_panel
+setenv boot_cmd_initrd
+setenv load_initrd
+setenv ramdisk
+setenv ramdiskaddr
+setenv factory_save
+setenv factory_set
+setenv modulespart
+setenv consoleoff
+setenv consoleon
+setenv ethprime
+setenv factory_set_ethaddr
+setenv ramdisk_file
+setenv opts loglevel=7 rootdelay=1
+setenv bootcmd run load_args\; run boot_cmd_
+setenv boot_cmd_ run load_fdt\; run load_kernel\; booti \$kerneladdr - \$fdtaddr
+setenv load_args run factory_load\; setenv bootargs $\{console\} root=/dev/mmcblk\$\{rootdev\}p\$\{rootpart\} \$\{root_rw\} rootfstype=\$\{rootfs_type\} \$\{opts\}
+setenv rootdev 1
+setenv rootpart 2
+setenv bootpart 1
+setenv bootdelay 1
+setenv console console=ttySAC3,115200n8
+setenv boot_cmd_fit
+setenv boot_cmd_mmcboot
+setenv boot_cmd_sdboot
+setenv configure_fit
+setenv load_fit
+setenv mmcboot
+setenv recoveryvboot
+setenv load_kernel fatload mmc \$rootdev:\$bootpart $kerneladdr Image
