@@ -38,9 +38,9 @@ int backendRotate(int incr) {
 	logicMessage(0);
 	return -1;
 #endif
-	sio.rotation = (sio.rotation + 4 + incr) % 4;
+	smdc.rotation = (smdc.rotation + 4 + incr) % 4;
 	settingsSave();
-	backendRotate_plat(sio.rotation);
+	backendRotate_plat(smdc.rotation);
 	return 0;
 }
 
@@ -79,7 +79,7 @@ static int rotateKey(int k, int ignoreRotation) {
 		break;
 	}
 	if (ignoreRotation == 0)
-		ret = LV_KEY_UP + ((ret - LV_KEY_UP + sio.rotation) % 4);
+		ret = LV_KEY_UP + ((ret - LV_KEY_UP + smdc.rotation) % 4);
 	//PRINTF("Real:%s -> Virtual:%s\n", k == KEY_LEFT ? "KEY_LEFT": k == KEY_RIGHT ? "KEY_RIGHT": k == KEY_UP ? "KEY_UP": k == KEY_DOWN ? "KEY_DOWN" : "", ret == LV_KEY_LEFT ? "LV_KEY_LEFT": ret == LV_KEY_RIGHT ? "LV_KEY_RIGHT": ret == LV_KEY_UP ? "LV_KEY_UP": ret == LV_KEY_DOWN ? "LV_KEY_DOWN": "");
 	return ret;
 }

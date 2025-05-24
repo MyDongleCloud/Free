@@ -87,7 +87,7 @@ void logicKey(int key, int longPress) {
 			if (backendRotate(-1) == 0)
 				logicHome(-1, 0);
 		} else if (key == LV_KEY_LEFT) {
-			if (sio.setupDone)
+			if (smdc.setupDone)
 				logicTips(0, 0);
 			else
 				logicSetup();
@@ -95,7 +95,7 @@ void logicKey(int key, int longPress) {
 			logicHome(-1, 1);
 	} else if (logicCur == LOGIC_SETUP) {//Done
 		if (key == LV_KEY_RIGHT) {
-			sio.setupDone = 1;
+			smdc.setupDone = 1;
 			logicHome(0, 0);
 		}
 	} else if (logicCur == LOGIC_TIPS) {//Back, Setup, Previous, Next
@@ -123,7 +123,7 @@ void logicKey(int key, int longPress) {
 }
 
 void logicWelcome() {
-	PRINTF("Logic: Welcome rot:%d\n", sio.rotation);
+	PRINTF("Logic: Welcome rot:%d\n", smdc.rotation);
 	logicCur = LOGIC_WELCOME;
 	uiScreenWelcome();
 }
@@ -132,7 +132,7 @@ void logicSleep(int autoSleep) {
 	PRINTF("Logic: Sleep from %s\n", autoSleep ? "auto" : "user");
 	logicCur = LOGIC_SLEEP;
 #ifndef DESKTOP
-	if (sio.sleepKeepLed)
+	if (smdc.sleepKeepLed)
 		system("/usr/bin/mydonglecloud-leds.sh -b 0 -l normal");
 	else
 		system("/usr/bin/mydonglecloud-leds.sh -b 0 -l off");
@@ -146,7 +146,7 @@ void logicHome(int force, int incr) {
 		pos = force;
 	else
 		pos = (pos + 4 + incr) % 4;
-	PRINTF("Logic: Home #%d rot:%d\n", pos, sio.rotation);
+	PRINTF("Logic: Home #%d rot:%d\n", pos, smdc.rotation);
 	logicCur = LOGIC_HOME;
 	uiScreenHome(pos);
 }

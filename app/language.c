@@ -42,10 +42,10 @@ unsigned char *LL(unsigned char *a, int b) {
 }
 
 unsigned char *L(unsigned char *a) {
-	if (sio.language == 0 || sio.language >= NB_LANG)
+	if (smdc.language == 0 || smdc.language >= NB_LANG)
 		return a;
 	else
-		return LL(a, sio.language);
+		return LL(a, smdc.language);
 }
 
 void languageTest() {

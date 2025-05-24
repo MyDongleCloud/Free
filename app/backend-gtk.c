@@ -89,16 +89,16 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, gpointer user_data) {
 }
 
 static void backendPointer(lv_indev_t *indev, lv_indev_data_t *data) {
-	if (sio.rotation == 0) {
+	if (smdc.rotation == 0) {
 		data->point.x = mouse_x / FACTOR;
 		data->point.y = mouse_y / FACTOR;
-	} else if (sio.rotation == 1) {
+	} else if (smdc.rotation == 1) {
 		data->point.x = HEIGHT - 1 - mouse_y / FACTOR;
 		data->point.y = mouse_x / FACTOR;
-	} else if (sio.rotation == 2) {
+	} else if (smdc.rotation == 2) {
 		data->point.x = WIDTH - 1 - mouse_x / FACTOR;
 		data->point.y = HEIGHT - 1 - mouse_y / FACTOR;
-	} else if (sio.rotation == 3) {
+	} else if (smdc.rotation == 3) {
 		data->point.x = mouse_y / FACTOR;
 		data->point.y = WIDTH - 1 - mouse_x / FACTOR;
 	}
@@ -117,7 +117,7 @@ static void backendUpdate_plat(lv_disp_t *disp_drv, const lv_area_t *area, unsig
 	int y = area->y1;
 	int w = area->x2 - area->x1 + 1;
 	int h = area->y2 - area->y1 + 1;
-	int rot = sio.rotation;
+	int rot = smdc.rotation;
 
 	for (int yy = 0; yy < h; yy++)
 		for (int xx = 0; xx < w; xx++) {

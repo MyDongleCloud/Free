@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 	logInit(daemon, debug);
 	settingsLoad();
 	if (forceRotation != -1) {
-		sio.rotation = forceRotation;
+		smdc.rotation = forceRotation;
 		settingsSave();
 	}
 #endif

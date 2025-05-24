@@ -515,7 +515,7 @@ void uiScreenHome(int pos) {
 		doubleText("Port smtps (465)", "OK", 84, 100);
 	}
 
-	button(LV_KEY_LEFT, sio.setupDone ? L("Tips") : L("Setup"), NULL);
+	button(LV_KEY_LEFT, smdc.setupDone ? L("Tips") : L("Setup"), NULL);
 	button(LV_KEY_RIGHT, L("Next"), NULL);
 	advancement(pos_);
 }

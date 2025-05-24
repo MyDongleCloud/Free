@@ -1,7 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-//Structs
+//Struct
 typedef struct settings {
 	int version;
 	int language;
@@ -12,7 +12,7 @@ typedef struct settings {
 } settings;
 
 //Global variables
-extern settings sio;
+extern settings smdc;
 extern int nameId;
 
 //Global functions

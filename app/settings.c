@@ -5,7 +5,7 @@
 #include "settings.h"
 
 //Global variables
-settings sio;
+settings smdc;
 int nameId;
 
 //Functions
@@ -23,20 +23,20 @@ static void nameIdLoad() {
 }
 
 void settingsDefault() {
-	sio.version = SETTINGS_VERSION;
-	sio.language = 0;
-	sio.rotation = 0;
-	sio.noBuzzer = 0;
-	sio.sleepKeepLed = 0;
-	sio.setupDone = 0;
+	smdc.version = SETTINGS_VERSION;
+	smdc.language = 0;
+	smdc.rotation = 0;
+	smdc.noBuzzer = 0;
+	smdc.sleepKeepLed = 0;
+	smdc.setupDone = 0;
 }
 
 void settingsDump() {
-	PRINTF("Settings language: %d\n", sio.language);
-	PRINTF("Settings rotation: %d\n", sio.rotation);
-	PRINTF("Settings noBuzzer: %d\n", sio.noBuzzer);
-	PRINTF("Settings sleepKeepLed: %d\n", sio.sleepKeepLed);
-	PRINTF("Settings setupDone: %d\n", sio.setupDone);
+	PRINTF("Settings language: %d\n", smdc.language);
+	PRINTF("Settings rotation: %d\n", smdc.rotation);
+	PRINTF("Settings noBuzzer: %d\n", smdc.noBuzzer);
+	PRINTF("Settings sleepKeepLed: %d\n", smdc.sleepKeepLed);
+	PRINTF("Settings setupDone: %d\n", smdc.setupDone);
 }
 
 void settingsLoad() {
@@ -45,18 +45,18 @@ void settingsLoad() {
 	if (stat(MAIN_PATH "settings", &statTest) == -1)
 		 mkdir(MAIN_PATH "settings", 0775);
 	settingsDefault();
-	FILE *f = fopen(MAIN_PATH "settings/sio", "rb");
+	FILE *f = fopen(MAIN_PATH "settings/smdc", "rb");
 	if (f) {
-		fread(&sio, sizeof(sio), 1, f);
+		fread(&smdc, sizeof(smdc), 1, f);
 		fclose(f);
 	}
 }
 
 void settingsSave() {
 #ifndef DESKTOP
-	FILE *f = fopen(MAIN_PATH "settings/sio", "wb+");
+	FILE *f = fopen(MAIN_PATH "settings/smdc", "wb+");
 	if (f) {
-		fwrite(&sio, sizeof(sio), 1, f);
+		fwrite(&smdc, sizeof(smdc), 1, f);
 		fclose(f);
 	}
 #endif
