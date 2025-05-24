@@ -58,6 +58,7 @@ app_exec: $(OBJs_APP)
 	$(MYLINKPP) $(DEBUG) $(OBJs_APP) $(MYLDFLAGS_APP) -o app
 ifeq ($(DEBUG),)
 	@strip app
+	@cp app /usr/bin/mydonglecloud-app
 endif
 
 desktop_exec: $(OBJs_DESKTOP)
