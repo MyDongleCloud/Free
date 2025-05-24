@@ -34,7 +34,7 @@ if [ ! -b ${DISK}1 ]; then
 	exit 0
 fi
 
-rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /tmp/mdc.zip /tmp/mdc.img
+rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.{zip,img}
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*
@@ -46,18 +46,15 @@ tar -xjpvf /work/ai.inout/private/img/modules.tbz2 -C /tmp/2/lib/modules/
 cd /tmp/1
 zip -r /tmp/mdc.zip *
 cd /tmp/2
-mksquashfs . /tmp/mdc.img
+mksquashfs . /tmp/mdc.img -ef /work/ai.mydonglecloud/private/squashfs-exclude.txt
 cd /tmp
 sync
 umount ${DISK}*
 umount ${DISK}*
-mv /tmp/mdc.zip /work/ai.mydonglecloud/private/img/mdc.zip
-mv /tmp/mdc.img /work/ai.mydonglecloud/private/img/mdc.img
 
-#4+2044=2048MB=4+64+remaining
 rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
 dd if=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024
-dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$((2044 * 1024)) seek=$((4 * 1024)) conv=notrunc
+dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$((1400 * 1024)) seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
 8192,131072,c
@@ -83,21 +80,19 @@ sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 mount ${LOSETUP}p1 /tmp/1
-unzip -d /tmp/1/ /work/ai.mydonglecloud/private/img/mdc.zip
+unzip -d /tmp/1/ /tmp/mdc.zip
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
 mkdir -p /tmp/2/fs/upper/ /tmp/2/fs_/lower/ /tmp/2/fs_/overlay/ /tmp/2/fs_/work/
-cp /work/ai.mydonglecloud/private/img/mdc.img /tmp/2/fs/
+cp /tmp/mdc.img /tmp/2/fs/
 sync
 sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 losetup -d ${LOSETUP}
+zip -P `cat /work/ai.mydonglecloud/private/password-upgrade.bin.txt` -j /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc.img
 
 if [ $FINAL = 1 ]; then
-	rm -f /work/ai.mydonglecloud/private/img/firmware.bin
-	zip -P MyDongleCloud.MyD0ngleCl0ud -j /work/ai.mydonglecloud/private/img/firmware.bin /work/ai.mydonglecloud/private/img/mdc.zip /work/ai.mydonglecloud/private/img/mdc.img
-
 	cd /work/ai.mydonglecloud/client
 	ionic build --prod
 	ionic cap sync android --prod
@@ -107,29 +102,29 @@ if [ $FINAL = 1 ]; then
 	echo "cd /work/ai.mydonglecloud/client"
 	echo "tar -cjpf a.tbz2 app && scp a.tbz2 gregoire@server:/home/gregoire/ && rm -f a.tbz2"
 	echo "cd /work/ai.mydonglecloud/private/img"
-	echo "scp firmware.bin flasher-final.img gregoire@server:/home/gregoire"
+	echo "scp upgrade.bin flasher-m-final-s.img gregoire@server:/home/gregoire"
 	echo -n "\e[m"
 	echo "*******************************************************"
 	echo -n "\e[31m"
 	cat <<EOF
-cd /var/www/mydongle
+cd /var/www/mydonglecloud
 rm -rf app && tar -xjpf ~/a.tbz2 && rm ~/a.tbz2
 sed -i -e 's|<base href="/"|<base href="/app/"|' app/index.html
 
 RELEASE=`date +'%Y-%m-%m'`
-cd /var/www/mydongle/firmware
+cd /var/www/mydonglecloud/firmware
 mkdir -p \$RELEASE
 cd \$RELEASE
-mv ~/flasher-final.img flasher-1.x-\$RELEASE.img
+mv ~/flasher-m-final-s.img flasher-\$RELEASE.img
 touch -t \${RELEASE//\-/}1048 f* .f* .l*
 
 cd ..
-ln -sf \$RELEASE/firmware-\$RELEASE.bin firmware.bin
-ln -sf \$RELEASE/.firmware-\$RELEASE.md5sum firmware.md5sum
+ln -sf \$RELEASE/upgrade-\$RELEASE.bin upgrade.bin
+ln -sf \$RELEASE/.upgrade-\$RELEASE.md5sum upgrade.md5sum
 ln -sf \$RELEASE/flasher-\$RELEASE.img flasher.img
 ln -sf \$RELEASE/.flasher-\$RELEASE.md5sum flasher.md5sum
 
-echo "release: \"\$RELEASE\"" > /var/www/mydongle-support/user/config/data.yaml
+echo "release: \"\$RELEASE\"" > /var/www/mydonglecloud-support/user/config/data.yaml
 
 chown -R www-data:www-data /var/www/
 
@@ -139,3 +134,4 @@ EOF
 	echo -n "\e[m"
 	echo "*******************************************************"
 fi
+rm -f /tmp/mdc.{zip,img}

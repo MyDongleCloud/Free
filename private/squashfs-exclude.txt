@@ -1,0 +1,8 @@
+./boot/
+./fs/
+./fs_/
+./home/mdc/app/
+./home/mdc/build/
+./home/mdc/kernel/
+./var/cache/apt/
+./var/log/

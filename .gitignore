@@ -1,4 +1,5 @@
 build
-private/img
-www/js/app.js
 kernel/password.h
+private/img
+private/password-upgrade.bin.txt
+www/js/app.js
