@@ -58,6 +58,8 @@ app_exec: $(OBJs_APP)
 	$(MYLINKPP) $(DEBUG) $(OBJs_APP) $(MYLDFLAGS_APP) -o app
 ifeq ($(DEBUG),)
 	@strip app
+endif
+ifeq ($(shell uname -m), aarch64)
 	@cp app /usr/bin/mydonglecloud-app
 endif
 
