@@ -27,10 +27,11 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'h':
 			PRINTF("*******************************************************\n");
-			PRINTF("Usage for app [-b -d -h]\n");
-			PRINTF("b:		Don't start ble\n");
-			PRINTF("d:		Set daemon mode\n");
-			PRINTF("h:		Print this usage and exit\n");
+			PRINTF("Usage for app [-b -d -r rot]\n");
+			PRINTF("b:	Don't start ble\n");
+			PRINTF("d:	Set daemon mode\n");
+			PRINTF("h:	Print this usage and exit\n");
+			PRINTF("r:	Force rotation\n");
 			exit(0);
 			break;
 		case 'r':
