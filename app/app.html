@@ -1,19 +1,49 @@
-<canvas id="canvas" width=128 height=128 style="width:512px; height:512px;"></canvas>
+<table>
+<tr><td><button onclick="buttonKey(65);" style="font-size:larger;">Up</button></td><td align="right"><button onclick="buttonKey(66);" style="font-size:larger;">Down</button></td></tr>
+<tr><td colspan="2"><canvas id="canvas" width=128 height=128 style="width:512px; height:512px; margin:15px 0px;"></canvas></td></tr>
+<tr><td><button onclick="buttonKey(68);" style="font-size:larger;">Left</button></td><td align="right"><button onclick="buttonKey(67);" style="font-size:larger;">Right</button></td></tr>
+</table>
+<br>
+<br>
+<button onclick="requestPasscode(123456);" style="font-size:larger;">Passcode</button>
+<br>
+<br>
+<button onclick="serverReceive('test', 1);" style="font-size:larger;">Notification serverReceive</button>
 <script>
-var canvas = document.getElementById('canvas');
 var Module = {
 	print: function(text) { console.log(text); },
-	canvas: (function() { return canvas; })(),
+	canvas: (function() { return document.getElementById("canvas"); })(),
 	arguments: []
 };
-window.addEventListener("click", () => window.focus());
 
-function button(key) {
-	Module._injectInput(key);
+function buttonKey(key) {
+	Module._buttonKey(key);
+}
+
+function requestPasscode(p) {
+	Module._requestPasscode(p);
+}
+
+function serverWriteData(data, isB64) {
+	var st;
+	if (isB64)
+		st = atob(data);
+	else
+		st = data;
+	console.log("JS serverWriteData: #" + st + "#");
+}
+
+function serverReceive(data, doB64) {
+	var st;
+	if (doB64)
+		st = btoa(data);
+	else
+		st = data;
+	var size = lengthBytesUTF8(st) + 1;
+	var ptr = Module._malloc(size);
+	stringToUTF8(st, ptr, size);
+	Module._serverReceive(ptr, doB64);
+	Module._free(ptr);
 }
 </script>
-<button onclick="button(68);">Left</button>
-<button onclick="button(67);">Right</button>
-<button onclick="button(65);">Up</button>
-<button onclick="button(66);">Down</button>
 <script src="app.js"></script>
