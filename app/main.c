@@ -8,6 +8,7 @@
 #include "backend.h"
 #include "backend-plat.h"
 #include "settings.h"
+#include "logic.h"
 #include "language.h"
 #include "ble.h"
 
@@ -17,7 +18,7 @@ int main(int argc, char *argv[]) {
 	int daemon = 0;
 	int ble = 1;
 	int forceRotation = -1;
-	while ((option = getopt(argc, argv, "bdhr:")) != -1) {
+	while ((option = getopt(argc, argv, "bdhr:s")) != -1) {
 		switch (option) {
 		case 'b':
 			ble = 0;
@@ -27,15 +28,19 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'h':
 			PRINTF("*******************************************************\n");
-			PRINTF("Usage for app [-b -d -r rot]\n");
+			PRINTF("Usage for app [-b -d -r rot -s]\n");
 			PRINTF("b:	Don't start ble\n");
 			PRINTF("d:	Set daemon mode\n");
 			PRINTF("h:	Print this usage and exit\n");
 			PRINTF("r:	Force rotation\n");
+			PRINTF("s:	Put in slave mode\n");
 			exit(0);
 			break;
 		case 'r':
 			sscanf(optarg, "%d", &forceRotation);
+			break;
+		case 's':
+			slaveMode =  1;
 			break;
 		default:
 			break;

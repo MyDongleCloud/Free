@@ -412,14 +412,11 @@ static void progressBar(int w, int y, char *sz, char *sz2, int p) {
 	lv_obj_set_pos(bar, (128 - w) / 2, y + 13);
 }
 
-void uiScreenHome(int pos) {
-	static int pos_;
-	if (pos != -1)
-		pos_ = pos;
+void uiScreenHome() {
 	lv_obj_clean(lv_screen_active());
 	uiBar();
 
-	if (pos_ == 0) {
+	if (lmdc.homePos == 0) {
 		char sz[32];
 
 		lv_obj_t *label0 = lv_label_create(lv_screen_active());
@@ -490,14 +487,14 @@ void uiScreenHome(int pos) {
 		lv_style_init(&labelStyle5);
 		lv_style_set_text_font(&labelStyle5, &lv_font_montserrat_10);
 		lv_obj_add_style(label5, &labelStyle5, LV_STATE_DEFAULT);
-	} else if (pos_ == 1) {
+	} else if (lmdc.homePos == 1) {
 		doubleText("Name", "Dongle-cat", 28, 40);
 		doubleText(NULL, "https://gregoiregentil.mydongle.cloud", 42, 40);
 		doubleText(NULL, "https://g2.myd.cd", 56, 40);
 		doubleText("Wi-Fi", "Gregoire", 70, 40);
 		doubleText("Local", "192.168.10.21", 84, 40);
 		doubleText("Ext", "166.23.45.165", 98, 40);
-	} else if (pos_ == 2) {
+	} else if (lmdc.homePos == 2) {
 		char sz[32];
 		sprintf(sz, L("%d%% (%d°C)"), 3, 55);
 		progressBar(120, 28, L("CPU"), sz, 3);
@@ -507,7 +504,7 @@ void uiScreenHome(int pos) {
 
 		sprintf(sz, L("%d%% (%dGB/%dTB)"), 241 * 100 / 1024, 241, 1);
 		progressBar(120, 82, L("Disk"), sz, 241 * 100 / 1024);
-	} else if (pos_ == 3) {
+	} else if (lmdc.homePos == 3) {
 		doubleText("Port https (443)", "OK", 28, 100);
 		doubleText("Port mail (25)", "OK", 42, 100);
 		doubleText("Port pop3s (995)", "OK", 56, 100);
@@ -517,7 +514,7 @@ void uiScreenHome(int pos) {
 
 	button(LV_KEY_LEFT, smdc.setupDone ? L("Tips") : L("Setup"), NULL);
 	button(LV_KEY_RIGHT, L("Next"), NULL);
-	advancement(pos_);
+	advancement(lmdc.homePos);
 }
 
 void uiScreenSetup() {
@@ -534,11 +531,11 @@ void uiScreenSetup() {
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
-void uiScreenTips(int pos) {
+void uiScreenTips() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, szTips[pos]);
+	lv_label_set_text(label0, szTips[lmdc.tipsPos]);
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	static lv_style_t labelStyle0;
@@ -550,7 +547,7 @@ void uiScreenTips(int pos) {
 	lv_obj_t *label1 = lv_label_create(lv_screen_active());
 	char sz2[16];
 	int total = sizeof(szTips)/sizeof(szTips[0]);
-	sprintf(sz2, "%d/%d", pos + 1, total);
+	sprintf(sz2, "%d/%d", lmdc.tipsPos + 1, total);
 	lv_label_set_text(label1, sz2);
 	lv_obj_set_width(label1, 128);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
@@ -561,7 +558,7 @@ void uiScreenTips(int pos) {
 	lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
 	button(LV_KEY_UP, L("Back"), NULL);
-	if (pos == 0)
+	if (lmdc.tipsPos == 0)
 		button(LV_KEY_DOWN, L("Setup"), NULL);
 	button(LV_KEY_LEFT, L("Prev."), NULL);
 	button(LV_KEY_RIGHT, L("Next"), NULL);
@@ -590,11 +587,11 @@ void uiScreenBye() {
 	lv_obj_center(label0);
 }
 
-void uiScreenMessage(int m) {
+void uiScreenMessage() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, L(szMessages[m]));
+	lv_label_set_text(label0, L(szMessages[lmdc.messageM]));
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_center(label0);
@@ -627,7 +624,7 @@ void uiScreenPasscode(int expiration) {
 
 	lv_obj_t *label1 = lv_label_create(lv_screen_active());
 	char sz2[16];
-	sprintf(sz2, "%02d %02d %02d", (passcode / 100 / 100) % 100, (passcode / 100) % 100, passcode % 100);
+	sprintf(sz2, "%02d %02d %02d", (lmdc.passcode / 100 / 100) % 100, (lmdc.passcode / 100) % 100, lmdc.passcode % 100);
 	lv_label_set_text(label1, sz2);
 	lv_obj_set_width(label1, 128);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
@@ -657,8 +654,8 @@ void uiScreenPasscode(int expiration) {
 }
 
 void uiUpdate() {
-	if (logicCur == LOGIC_WELCOME || logicCur == LOGIC_HOME)
+	if (lmdc.current == LOGIC_WELCOME || lmdc.current == LOGIC_HOME)
 		uiBarTime();
-	else if (logicCur == LOGIC_PASSCODE)
+	else if (lmdc.current == LOGIC_PASSCODE)
 		uiScreenPasscode(-1);
 }

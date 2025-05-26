@@ -6,12 +6,12 @@ void uiUpdate();
 void uiKey(int k);
 void uiScreenWelcome();
 void uiScreenSleep();
-void uiScreenHome(int pos);
+void uiScreenHome();
 void uiScreenSetup();
-void uiScreenTips(int pos);
+void uiScreenTips();
 void uiScreenShutdown();
 void uiScreenBye();
-void uiScreenMessage(int m);
+void uiScreenMessage();
 void uiScreenPasscode(int expiration);
 void uiUpdate();
 

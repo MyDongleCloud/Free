@@ -1,7 +1,19 @@
 #ifndef LOGIC_H
 #define LOGIC_H
 
-//Define
+//Struct
+//#pragma pack(push, 1)
+typedef struct logics {
+	int current;
+	int previous;
+	int homePos;
+	int tipsPos;
+	int messageM;
+	int passcode;
+} logics;
+//#pragma pack(pop)
+
+//Enum
 enum LOGIC_SCREEN {
 	LOGIC_WELCOME,
 	LOGIC_SLEEP,
@@ -15,12 +27,13 @@ enum LOGIC_SCREEN {
 };
 
 //Public variables
-extern int passcode;
-extern int logicCur;
+extern logics lmdc;
+extern int slaveMode;
 
 //Functions
 int logicIsSetup();
 void logicSetupName(char *name, char *email);
+void logicUpdate();
 void logicKey(int key, int longPress);
 void logicWelcome();
 void logicSleep(int autoSleep);
