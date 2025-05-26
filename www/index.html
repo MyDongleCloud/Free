@@ -411,35 +411,67 @@ include "header.inc"
 							<div style="position:relative;">
 								<img src="images/dongle.png" style="width:640px; margin-left:-12px;" alt="MyDongle dongle" usemap="#buttonsMap">
 								<map name="buttonsMap">
-									<area shape="rect" coords="240,460,280,490" alt="Left" href="javascript:buttonKey(68);">
-									<area shape="rect" coords="460,460,500,490" alt="Right" href="javascript:buttonKey(67);">
-									<area shape="rect" coords="240,20,280,50" alt="Up" href="javascript:buttonKey(65);">
-									<area shape="rect" coords="460,20,500,50" alt="Down" href="javascript:buttonKey(66);">
+									<area shape="rect" coords="240,460,280,490" alt="Left" href="javascript:appButton(68);">
+									<area shape="rect" coords="460,460,500,490" alt="Right" href="javascript:appButton(67);">
+									<area shape="rect" coords="240,20,280,50" alt="Up" href="javascript:appButton(65);">
+									<area shape="rect" coords="460,20,500,50" alt="Down" href="javascript:appButton(66);">
 								</map>
 								<canvas id="canvas" width=128 height=128 style="border:solid black 0px; width:300px; height:300px; position:absolute; left:234px; top:102px;"></canvas>
 							</div>
 <script>
-var canvas = document.getElementById("canvas");
-var Module = {
-	print: function(text) { console.log(text); },
-	canvas: (function() { return canvas; })(),
-	arguments: []
-};
+var Module;
 
-function buttonKey(key) {
+function appInit() {
+	Module = {
+		print: function(text) { console.log(text); },
+		canvas: (function() { return document.getElementById("canvas"); })(),
+//		argument: ["-s"]
+	};
+
+	const script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src = "js/app.js";
+	document.body.appendChild(script);
+}
+
+function appButton(key) {
 	Module._buttonKey(key);
 }
 
-function requestPasscode(p) {
+function appRequestPasscode(p) {
 	Module._requestPasscode(p);
+}
+
+function serverWriteData(data, isB64) {
+	var st;
+	if (isB64)
+		st = atob(data);
+	else
+		st = data;
+	console.log("JS serverWriteData: #" + st + "#");
+}
+
+function appServerReceive(data, doB64) {
+	var st;
+	if (doB64)
+		st = btoa(data);
+	else
+		st = data;
+	var size = lengthBytesUTF8(st) + 1;
+	var ptr = Module._malloc(size);
+	stringToUTF8(st, ptr, size);
+	Module._serverReceive(ptr, doB64);
+	Module._free(ptr);
 }
 
 window.addEventListener("message", (event) => {
 	if (event.data.type === "requestPasscode")
-		requestPasscode(event.data.data);
+		appRequestPasscode(event.data.data);
 });
 </script>
-<script src="js/app.js"></script>
+<script>
+appInit();
+</script>
 							<div style="border:40px solid #000000; border-width:55px 7px; border-radius:40px; margin:50px 0px; width:514px;">
 								<iframe src="app/index.html" style="border:0; width:500px; height:700px;"></iframe>
 							</div>
