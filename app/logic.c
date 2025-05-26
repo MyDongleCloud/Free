@@ -10,6 +10,7 @@
 #include "backend.h"
 #include "ui.h"
 #include "settings.h"
+#include "communication.h"
 
 //Public variables
 logics lmdc;
@@ -51,6 +52,13 @@ void logicSetupName(char *name, char *email) {
 }
 
 void logicKey(int key, int longPress) {
+	if (slaveMode) {
+		char sz[16];
+		sprintf(sz, "key %d,%d", key, longPress);
+		communicationText(sz);
+		return;
+	}
+
 	if (lmdc.current == LOGIC_WELCOME) {//Rotations, OK
 		if (longPress && key == LV_KEY_UP)
 			logicSleep(0);
@@ -138,6 +146,9 @@ void logicUpdate() {
 		uiScreenMessage();
 	else if (lmdc.current == LOGIC_PASSCODE)
 		uiScreenPasscode(90);
+
+	if (!slaveMode && communicationConnectedBLE)
+		communicationBinary((unsigned char *)&lmdc, sizeof(lmdc));
 }
 
 void logicWelcome() {

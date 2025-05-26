@@ -16,6 +16,7 @@ OBJs := $(PRE)backend.o \
 	$(PRE)bluetoothAddr.o \
 	$(PRE)btlib.o \
 	$(PRE)common.o \
+	$(PRE)communication.o \
 	$(PRE)language.o \
 	$(PRE)logic.o \
 	$(PRE)main.o \
@@ -35,6 +36,7 @@ MYLDFLAGS_DESKTOP = $(MYLDFLAGS_APP) `pkg-config --libs gtk+-3.0`
 
 OBJs_WEB := $(PRE)backend__.o \
 	$(PRE)backend-web__.o \
+	$(PRE)communication__.o \
 	$(PRE)language__.o \
 	$(PRE)logic__.o \
 	$(PRE)main__.o \
