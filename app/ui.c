@@ -301,10 +301,12 @@ static void uiBar() {
 	uiBarTime();
 }
 
-void uiScreenWelcome() {
+void uiScreenInit() {
 	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_BACKGROUND), LV_PART_MAIN);
 	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_DARK), LV_PART_MAIN);
+}
 
+void uiScreenWelcome() {
 	lv_obj_clean(lv_screen_active());
 	uiBar();
 
@@ -651,6 +653,16 @@ void uiScreenPasscode(int expiration) {
 
 	button(LV_KEY_LEFT, L("Cancel"), NULL);
 	button(LV_KEY_RIGHT, L("Hide"), NULL);
+}
+
+void uiScreenSlaveNotConnected() {
+	lv_obj_clean(lv_screen_active());
+
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, L("Not connected"));
+	lv_obj_set_width(label0, 128);
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_center(label0);
 }
 
 void uiUpdate() {

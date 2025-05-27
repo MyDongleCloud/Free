@@ -123,11 +123,17 @@ void logicKey(int key, int longPress) {
 		else if (key == LV_KEY_RIGHT)
 			logicBye();
 	} else if (lmdc.current == LOGIC_BYE) {
+	} else if (lmdc.current == LOGIC_SLAVENOTCONNECTED) {
 	} else if (lmdc.current == LOGIC_MESSAGE)
 		logicHome(0, 0);
 }
 
 void logicUpdate() {
+	static int first = 1;
+	if (first) {
+		uiScreenInit();
+		first = 0;
+	}
 	if (lmdc.current == LOGIC_WELCOME)
 		uiScreenWelcome();
 	else if (lmdc.current == LOGIC_SLEEP)
@@ -146,6 +152,8 @@ void logicUpdate() {
 		uiScreenMessage();
 	else if (lmdc.current == LOGIC_PASSCODE)
 		uiScreenPasscode(90);
+	else if (lmdc.current == LOGIC_SLAVENOTCONNECTED)
+		uiScreenSlaveNotConnected();
 
 	if (!slaveMode && communicationConnectedBLE)
 		communicationBinary((unsigned char *)&lmdc, sizeof(lmdc));
@@ -243,4 +251,11 @@ void logicPasscodeFinished() {
 	PRINTF("Logic: Passcode finished\n");
 	lmdc.passcode = 0;
 	logicHome(0, 0);
+}
+
+
+void logicSlaveNotConnected() {
+	PRINTF("Logic: Slave not connected\n");
+	lmdc.current = LOGIC_SLAVENOTCONNECTED;
+	logicUpdate();
 }

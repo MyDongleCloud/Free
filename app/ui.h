@@ -2,8 +2,7 @@
 #define UI_H
 
 //Functions
-void uiUpdate();
-void uiKey(int k);
+void uiScreenInit();
 void uiScreenWelcome();
 void uiScreenSleep();
 void uiScreenHome();
@@ -13,6 +12,7 @@ void uiScreenShutdown();
 void uiScreenBye();
 void uiScreenMessage();
 void uiScreenPasscode(int expiration);
+void uiScreenSlaveNotConnected();
 void uiUpdate();
 
 #endif

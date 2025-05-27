@@ -23,7 +23,8 @@ enum LOGIC_SCREEN {
 	LOGIC_SHUTDOWN,
 	LOGIC_BYE,
 	LOGIC_MESSAGE,
-	LOGIC_PASSCODE
+	LOGIC_PASSCODE,
+	LOGIC_SLAVENOTCONNECTED
 };
 
 //Public variables
@@ -45,5 +46,6 @@ void logicBye();
 void logicMessage(int m);
 void logicPasscode(int forcePasscode);
 void logicPasscodeFinished();
+void logicSlaveNotConnected();
 
 #endif
