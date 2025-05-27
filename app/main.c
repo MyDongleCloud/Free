@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 	if (ble)
 		bleStart();
 	if (daemon)
-		jingle();
+		buzzer(1);
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);
