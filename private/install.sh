@@ -126,14 +126,12 @@ usermod -aG docker admin
 echo "################################"
 echo "Qdrant"
 echo "################################"
-if [ 0 = 1 ]; then
-	cd /tmp
-	wget https://github.com/qdrant/qdrant/releases/download/v1.13.6/qdrant-aarch64-unknown-linux-musl.tar.gz
-	tar -xpvf qdrant-aarch64-unknown-linux-musl.tar.gz
-	rm -f qdrant-aarch64-unknown-linux-musl.tar.gz
-	mv qdrant /usr/bin
-	chmod a+x /usr/bin/qdrant
-fi
+cd /tmp
+wget https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
+tar -xpvf qdrant-aarch64-unknown-linux-musl.tar.gz
+rm -f qdrant-aarch64-unknown-linux-musl.tar.gz
+mv qdrant /usr/bin
+chmod a+x /usr/bin/qdrant
 
 echo "################################"
 echo "uMTP"
