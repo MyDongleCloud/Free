@@ -59,7 +59,7 @@ static void *bleStart_t(void *arg) {
 	if (pf) {
 		char sz[1024];
 		char nn[128];
-		sprintf(nn, "MyDongleCloud-%s", "1234567890");
+		sprintf(nn, "MyDongle-%s", "1234567890");
 		sprintf(sz, "DEVICE=%s type=mesh node=2 address=%s\n", nn, bluetoothClassicAddr);
 		fwrite(sz, strlen(sz), 1, pf);
 		char *szTplt[] = {
