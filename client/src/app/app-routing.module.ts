@@ -16,6 +16,10 @@ const routes: Routes = [
 		loadChildren: () => import('./help/help.module').then( m => m.HelpModule)
 	},
 	{
+		path: 'selection',
+		loadChildren: () => import('./selection/selection.module').then( m => m.SelectionModule)
+	},
+	{
 		path: 'splash',
 		loadChildren: () => import('./splash/splash.module').then( m => m.SplashModule)
 	},

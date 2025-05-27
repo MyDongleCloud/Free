@@ -34,7 +34,7 @@ async forwardWhenReady() {
 			}
 		}
 	} catch(e) { console.log("forwardWhenReady: " + e); }
-	this.global.openPage("about", false);
+	this.global.openPage("selection", false);
 }
 
 openUpgrade() {
