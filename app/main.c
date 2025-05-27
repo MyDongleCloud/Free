@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 	}
 	int debug = 0;
 #ifndef WEB
-	if (killOtherPids("app")) {
+	if (killOtherPids("mydonglecloud-app")) {
 		fprintf(stderr, "Exiting because process already exists\n");
 		return 0;
 	}
