@@ -1,8 +1,9 @@
 #ifndef BACKEND_H
 #define BACKEND_H
 
-//Global variable
+//Global variables
 extern int doLoop;
+extern int eventFdBle;
 
 //Functions
 int backendRotate(int incr);

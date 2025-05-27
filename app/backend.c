@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <fcntl.h>
 #ifndef WEB
+#include <sys/eventfd.h>
 #include <linux/input.h>
 #endif
 #include "lvgl.h"
@@ -24,11 +25,12 @@
 
 //Public variable
 int doLoop = 0;
+int eventFdBle;
 
 //Private variables
 static lv_indev_t *indevK;
 #ifndef WEB
-static struct pollfd pollfd[2];
+static struct pollfd pollfd[3];
 #endif
 static int autoSleep = -1;
 
@@ -84,7 +86,7 @@ static int rotateKey(int k, int ignoreRotation) {
 	return ret;
 }
 
-static void processButton(int b, int ignoreRotation, int longPress) {
+void processButton(int b, int ignoreRotation, int longPress) {
 	logicKey(rotateKey(b, ignoreRotation), longPress);
 }
 
@@ -142,7 +144,11 @@ void processInput(unsigned char c) {
 
 void backendInit(int daemon) {
 	doLoop = 1;
-	logicWelcome();
+	if (slaveMode) {
+		PRINTF("In SlaveMode\n");
+		logicSlaveNotConnected();
+	} else
+		logicWelcome();
 #ifndef WEB
 	int fdStdin = -1;
 	int fdButton = -1;
@@ -150,6 +156,7 @@ void backendInit(int daemon) {
 		enterInputMode();
 		fdStdin = fileno(stdin);
 	}
+	eventFdBle = eventfd(0, 0);
 #ifndef DESKTOP
 	fdButton = open(BUTTON_PATH, O_RDONLY);
 #endif
@@ -157,6 +164,8 @@ void backendInit(int daemon) {
 	pollfd[0].events = POLLIN;
 	pollfd[1].fd = fdButton;
 	pollfd[1].events = POLLIN;
+	pollfd[2].fd = eventFdBle;
+	pollfd[2].events = POLLIN;
 #endif
 }
 
@@ -180,7 +189,7 @@ void backendLoop() {
 #ifdef WEB
 	usleep(1000 * time_till_next);
 #else
-	int ret = poll(pollfd, 2, time_till_next);
+	int ret = poll(pollfd, 3, time_till_next);
 	if (doLoop == 0)
 		return;
 	if (pollfd[0].revents & POLLIN) {
@@ -204,6 +213,11 @@ void backendLoop() {
 				} else if (ev[i].value == 0 && longPressDone == 0)
 					processButton(ev[i].code, 0, 0);
 			}
+	}
+	if (pollfd[2].revents & POLLIN) {
+		uint64_t value;
+		read(pollfd[2].fd, &value, sizeof(value));
+		logicKey(value >> 8, value & 0xff);
 	}
 #endif
 	static int count = 0;
