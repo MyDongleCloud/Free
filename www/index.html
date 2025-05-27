@@ -411,10 +411,10 @@ include "header.inc"
 							<div style="position:relative;">
 								<img src="images/dongle.png" style="width:640px; margin-left:-12px;" alt="MyDongle dongle" usemap="#buttonsMap">
 								<map name="buttonsMap">
-									<area shape="rect" coords="240,460,280,490" alt="Left" href="javascript:appButton(68);">
-									<area shape="rect" coords="460,460,500,490" alt="Right" href="javascript:appButton(67);">
-									<area shape="rect" coords="240,20,280,50" alt="Up" href="javascript:appButton(65);">
-									<area shape="rect" coords="460,20,500,50" alt="Down" href="javascript:appButton(66);">
+									<area shape="rect" coords="240,460,280,490" alt="Left" href="javascript:appButton(105);">
+									<area shape="rect" coords="460,460,500,490" alt="Right" href="javascript:appButton(106);">
+									<area shape="rect" coords="240,20,280,50" alt="Up" href="javascript:appButton(103);">
+									<area shape="rect" coords="460,20,500,50" alt="Down" href="javascript:appButton(108);">
 								</map>
 								<canvas id="canvas" width=128 height=128 style="border:solid black 0px; width:300px; height:300px; position:absolute; left:234px; top:102px;"></canvas>
 							</div>
@@ -434,8 +434,8 @@ function appInit() {
 	document.body.appendChild(script);
 }
 
-function appButton(key) {
-	Module._buttonKey(key);
+function appButton(b) {
+	Module._button(b);
 }
 
 function appRequestPasscode(p) {

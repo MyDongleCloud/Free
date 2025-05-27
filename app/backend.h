@@ -8,6 +8,7 @@ extern int eventFdBle;
 //Functions
 int backendRotate(int incr);
 void cleanExit(int todo);
+void processButton(int b, int ignoreRotation, int longPress);
 void processInput(char c);
 void backendInit(int daemon);
 void backendLoop();

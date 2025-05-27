@@ -1,7 +1,7 @@
 <table>
-<tr><td><button onclick="appButton(65);" style="font-size:larger;">Up</button></td><td align="right"><button onclick="appButton(66);" style="font-size:larger;">Down</button></td></tr>
+<tr><td><button onclick="appButton(103);" style="font-size:larger;">Up</button></td><td align="right"><button onclick="appButton(108);" style="font-size:larger;">Down</button></td></tr>
 <tr><td colspan="2"><canvas id="canvas" width=128 height=128 style="width:512px; height:512px; margin:15px 0px;"></canvas></td></tr>
-<tr><td><button onclick="appButton(68);" style="font-size:larger;">Left</button></td><td align="right"><button onclick="appButton(67);" style="font-size:larger;">Right</button></td></tr>
+<tr><td><button onclick="appButton(105);" style="font-size:larger;">Left</button></td><td align="right"><button onclick="appButton(106);" style="font-size:larger;">Right</button></td></tr>
 </table>
 <br>
 <br>
@@ -25,21 +25,25 @@ function appInit() {
 	document.body.appendChild(script);
 }
 
-function appButton(key) {
-	Module._buttonKey(key);
+function appButton(b) {
+	Module._button(b);
 }
 
 function appRequestPasscode(p) {
 	Module._requestPasscode(p);
 }
 
-function serverWriteData(data, isB64) {
+function appCommunicationStatus(s) {
+	Module._communicationStatus(s);
+}
+
+function appServerWriteData(data, isB64) {
 	var st;
 	if (isB64)
 		st = atob(data);
 	else
 		st = data;
-	console.log("JS serverWriteData: #" + st + "#");
+	console.log("(JS) serverWriteData: #" + st + "#B64:" + isB64);
 }
 
 function appServerReceive(data, doB64) {

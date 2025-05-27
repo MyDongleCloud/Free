@@ -37,8 +37,8 @@ static void looping(void *arg) {
 }
 
 //HTML -> C
-void buttonKey(char c) {
-	processInput(c);
+void button(int b, int l) {
+	processButton(b, 1, l);
 }
 
 //HTML -> C
