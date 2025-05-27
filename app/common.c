@@ -353,9 +353,9 @@ void logUninit() {
 	doLog = 0;
 }
 
-void buzzer() {
+void buzzer(int n) {
 #ifndef DESKTOP
-	writeValueKey(PLATFORM_PATH, "buzzer", "1");
+	writeValueKeyInt(PLATFORM_PATH, "buzzer", n);
 #endif
 }
 

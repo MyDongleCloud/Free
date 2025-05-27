@@ -31,7 +31,7 @@ int fileExists(char *st);
 void logInit(int daemon, int debug);
 void logUninit();
 void logUninit();
-void buzzer();
+void buzzer(int n);
 void touchClick();
 void jingle();
 void touch(char *szPath);
