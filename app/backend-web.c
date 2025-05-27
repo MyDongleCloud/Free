@@ -43,18 +43,21 @@ void buttonKey(char c) {
 
 //HTML -> C
 void requestPasscode(int p) {
-	logicPasscode(p);
+	if (slaveMode)
+		;
+	else
+		logicPasscode(p);
 }
 
 //C -> HTML
-int serverWriteDataEx(unsigned char *data, int size, int doB64) {
+static int serverWriteDataEx(unsigned char *data, int size, int doB64) {
 	char *st;
 	if (doB64)
 		st = b64_encode(data, size);
 	else
 		st = data;
 	EM_ASM({
-		serverWriteData(UTF8ToString($0), $1);
+		appServerWriteData(UTF8ToString($0), $1);
 	}, st, doB64);
 	return size;
 }
@@ -64,7 +67,13 @@ int serverWriteData(unsigned char *data, int size) {
 }
 
 //HTML -> C
+void communicationStatus(int s) {
+	communicationConnection(s);
+}
+
+//HTML -> C
 void serverReceive(char *st, int isB64) {
+	communicationConnection(1);
 	size_t size;
 	unsigned char *data;
 	if (isB64)
@@ -74,12 +83,12 @@ void serverReceive(char *st, int isB64) {
 		data = st;
 	}
 	communicationReceive(data, size);
-serverWriteDataEx(data, size, isB64);
 	if (isB64)
 		free(data);
 }
 
 void backendRun_plat() {
+	communicationConnection(0);
 	SDL_EventState(SDL_TEXTINPUT, SDL_DISABLE);
 	SDL_EventState(SDL_KEYDOWN, SDL_DISABLE);
 	SDL_EventState(SDL_KEYUP, SDL_DISABLE);

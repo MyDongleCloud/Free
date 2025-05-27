@@ -155,8 +155,8 @@ void logicUpdate() {
 	else if (lmdc.current == LOGIC_SLAVENOTCONNECTED)
 		uiScreenSlaveNotConnected();
 
-	if (!slaveMode && communicationConnectedBLE)
-		communicationBinary((unsigned char *)&lmdc, sizeof(lmdc));
+	if (!slaveMode && communicationConnected)
+		communicationState();
 }
 
 void logicWelcome() {

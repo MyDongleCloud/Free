@@ -2,12 +2,13 @@
 #define COMMUNICATION_H
 
 //Public variable
-extern int communicationConnectedBLE;
+extern int communicationConnected;
 
 //Functions
-void communicationConnectionBLE(int s);
+void communicationConnection(int s);
 int communicationBinary(unsigned char *data, int size);
 int communicationText(char *sz);
+int communicationState();
 void communicationReceive(unsigned char *data, int size);
 
 #endif

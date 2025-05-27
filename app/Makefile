@@ -45,7 +45,7 @@ OBJs_WEB := $(PRE)backend__.o \
 #OBJs_WEB := $(PRE)demo-web__.o
 
 MYCFLAGS_WEB = $(MYCFLAGS) -I ../build/lvgl-web/ -DWEB -Wno-pointer-sign -s USE_SDL=2
-MYLDFLAGS_WEB = -L ../build/lvgl-web/cmbuild/lib/ -llvgl -llvgl_thorvg -llvgl_demos -lSDL2 --shell-file /tmp/a.js -s SINGLE_FILE=1 -s INITIAL_MEMORY=33554432 -s EXPORTED_FUNCTIONS='["_main", "_buttonKey", "_requestPasscode", "_serverReceive", "_malloc", "_free"]'
+MYLDFLAGS_WEB = -L ../build/lvgl-web/cmbuild/lib/ -llvgl -llvgl_thorvg -llvgl_demos -lSDL2 --shell-file /tmp/a.js -s SINGLE_FILE=1 -s INITIAL_MEMORY=33554432 -s EXPORTED_FUNCTIONS='["_main", "_button", "_requestPasscode", "_serverReceive", "_communicationStatus", "_malloc", "_free"]'
 
 .PHONY : clean
 
