@@ -421,9 +421,9 @@ include "header.inc"
 <script>
 var Module;
 
-function appInit() {
+function appInit(log) {
 	Module = {
-		print: function(text) { console.log(text); },
+		print: function(text) { if (log) console.log(text); },
 		canvas: (function() { return document.getElementById("canvas"); })(),
 //		argument: ["-s"]
 	};
@@ -470,7 +470,7 @@ window.addEventListener("message", (event) => {
 });
 </script>
 <script>
-appInit();
+appInit(0);
 </script>
 							<div style="border:40px solid #000000; border-width:55px 7px; border-radius:40px; margin:50px 0px; width:514px;">
 								<iframe src="app/index.html" style="border:0; width:500px; height:700px;"></iframe>

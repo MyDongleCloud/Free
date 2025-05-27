@@ -12,9 +12,9 @@
 <script>
 var Module;
 
-function appInit() {
+function appInit(log) {
 	Module = {
-		print: function(text) { console.log(text); },
+		print: function(text) { if (log) console.log(text); },
 		canvas: (function() { return document.getElementById("canvas"); })(),
 //		argument: ["-s"]
 	};
@@ -60,5 +60,5 @@ function appServerReceive(data, doB64) {
 }
 	</script>
 <script>
-appInit();
+appInit(1);
 </script>
