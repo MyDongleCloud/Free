@@ -134,6 +134,14 @@ mv qdrant /usr/bin
 chmod a+x /usr/bin/qdrant
 
 echo "################################"
+echo "RethinkDB"
+echo "################################"
+cd /tmp
+apt-get -y install libprotobuf32
+wget https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
+dpkg -i rethinkdb*.deb
+
+echo "################################"
 echo "uMTP"
 echo "################################"
 cd /home/mdc/build
