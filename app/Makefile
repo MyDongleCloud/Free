@@ -76,6 +76,7 @@ web_exec: $(OBJs_WEB)
 	$(MYLINKPP_WEB) $(DEBUG) $(OBJs_WEB) $(MYLDFLAGS_WEB) -o app.js
 ifeq ($(DEBUG),)
 	@cp app.js ../www/js/
+	@cp app.js ../client/src/assets/
 endif
 
 $(PRE)%.o : %.c

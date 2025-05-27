@@ -8,6 +8,10 @@ const routes: Routes = [
 		loadChildren: () => import('./about/about.module').then( m => m.AboutModule)
 	},
 	{
+		path: 'dongle',
+		loadChildren: () => import('./dongle/dongle.module').then( m => m.DongleModule)
+	},
+	{
 		path: 'help',
 		loadChildren: () => import('./help/help.module').then( m => m.HelpModule)
 	},

@@ -3,6 +3,14 @@
 		"Help": "",
 		"About": ""
 	},
+	"dongle": {
+		"Dongle": "",
+		"Connected": "",
+		"Searching": "",
+		"Connect": "",
+		"Shutdown": "",
+		"Device version:": ""
+	},
 	"splash": {
 		"Upgrade needed. A new version is available at": ""
 	},
