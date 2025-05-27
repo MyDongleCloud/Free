@@ -1,0 +1,14 @@
+<ion-app>
+	<ion-router-outlet id="menuContent"></ion-router-outlet>
+</ion-app>
+<ion-fab vertical="top" horizontal="end" slot="fixed" style="background-color:rgba(255, 255, 255, 0.5);">
+	<ion-menu-button autoHide="false" id="click-mymenu" color="primary"></ion-menu-button>
+</ion-fab>
+<ion-popover trigger="click-mymenu" triggerAction="click">
+	<ng-template>
+		<ion-list>
+			<ion-item (click)="global.openPage('help', true);" lines="none"><div style="height:100%; width:100%; display:flex; align-items:center; cursor:pointer;"><ion-icon name="help-outline" style="width:32px; zoom:1.5"></ion-icon>{{global.mytranslateP("rightMenu", "Help")}}</div></ion-item>
+			<ion-item (click)="global.openPage('about', true);" lines="none"><div style="height:100%; width:100%; display:flex; align-items:center; cursor:pointer;"><ion-icon name="information-circle-outline" style="width:32px; zoom:1.5"></ion-icon>{{global.mytranslateP("rightMenu", "About")}}</div></ion-item>
+		</ion-list>
+	</ng-template>
+</ion-popover>

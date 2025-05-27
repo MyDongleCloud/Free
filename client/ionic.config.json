@@ -1,0 +1,7 @@
+{
+  "name": "MyDongle Cloud",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

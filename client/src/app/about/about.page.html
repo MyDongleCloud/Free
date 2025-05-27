@@ -1,0 +1,26 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{global.mytranslate("About MyDongle.Cloud")}}</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content style="width:100%; height:100%;font-weight:bold;font-size:large;">
+<center>
+<br><br>
+<div style="width:80%;" long-press (press)="longCopyright()">&copy; {{global.mytranslate("Copyright")}} MyDongle.Cloud 2025.</div>
+<br><br>
+<div style="width:80%;">{{global.mytranslate("App Version:")}} {{global.VERSION}} {{global.mytranslate(global.getMonth(global.VERSION))}}</div>
+<br>
+<div style="width:80%;">{{global.mytranslate("Device Version:")}} {{ble.firmwareDeviceVersion}} {{global.mytranslate(global.getMonth(ble.firmwareDeviceVersion))}}</div>
+<br>
+<div>{{global.mytranslate("Languages:")}} <ion-button (click)="changeLanguageAndRefresh('fr');" [disabled]="global.settings.language=='fr'">FR</ion-button><ion-button (click)="changeLanguageAndRefresh('en');" [disabled]="global.settings.language=='en'">EN</ion-button></div>
+<br>
+<div style="width:80%;"><br><br>{{global.mytranslate("ADVANCED USER MODE")}}<br>{{global.mytranslate("(dangerous, use with cautious)")}}<br><br>
+<ion-checkbox slot="start" labelPlacement="end" justify="start" [(ngModel)]="global.settings.powerUser"> {{global.mytranslate("Power User Mode")}}</ion-checkbox></div>
+<br><div *ngIf="global.settings.isDev != 0" style="width:80%;"><ion-checkbox slot="start" labelPlacement="end" justify="start" (ionChange)="isDevChange()" [(ngModel)]="isDevCheckbox"> {{global.mytranslate("Development Mode")}}</ion-checkbox></div>
+<div>
+</div>
+</center>
+</ion-content>

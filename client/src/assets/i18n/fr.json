@@ -1,0 +1,43 @@
+{
+	"rightMenu": {
+		"Help": "",
+		"About": ""
+	},
+	"splash": {
+		"Upgrade needed. A new version is available at": ""
+	},
+	"about": {
+		"About MyDongle.Cloud": "",
+		"Copyright": "",
+		"App Version:": "",
+		"Device Version:": "",
+		"ADVANCED USER MODE": "",
+		"(dangerous, use with cautious)": "",
+		"Power User Mode": "",
+		"Development Mode": "",
+		"Platform:": "",
+		"Languages:": "",
+		"January": "",
+		"February": "",
+		"March": "",
+		"April": "",
+		"May": "",
+		"June": "",
+		"July": "",
+		"August": "",
+		"September": "",
+		"October": "",
+		"November": "",
+		"December": "",
+		"": ""
+	},
+	"help": {
+		"Help": "",
+		"The support website has useful information. Perhaps your question is already answered there:": "",
+		"Open the support website": "",
+		"If you own a device, you can open a helpdesk ticket:": "",
+		"Open a helpdesk ticket": "",
+		"You can post in the forum/community website and start a new discussion there:": "",
+		"Open the forum website": ""
+	}
+}

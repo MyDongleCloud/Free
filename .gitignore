@@ -3,3 +3,7 @@ kernel/password.h
 private/img
 private/password-upgrade.bin.txt
 www/js/app.js
+client/.angular/
+client/app/
+client/node_modules/
+client/src/assets/app.js
