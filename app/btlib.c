@@ -2529,6 +2529,7 @@ void addname(int flag)
     leadv = leadvertx;
     }
     
+count = 0;
   maxm = 27 - count;
     
   if(maxm < 2)  // no room for name
