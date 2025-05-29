@@ -68,8 +68,7 @@ int main(int argc, char *argv[]) {
 	setenv("HOME", "/home/mdc", 1);
 	if (ble)
 		bleStart();
-	if (daemon)
-		buzzer(1);
+	buzzer(1);
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);
