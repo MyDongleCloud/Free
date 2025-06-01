@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for otg.sh [-h]"
+echo "Usage for mydonglecloud-init.sh [-h]"
 echo "h:		Print this usage and exit"
 exit 0
 }
@@ -19,6 +19,7 @@ do
 	esac
 done
 
+MODEL="`/sys/devices/platform/mydonglecloud/model`"
 /usr/bin/mydonglecloud-leds.sh -l "normal"
 
 ln -sf /sys/devices/platform/mydonglecloud /dev/mydonglecloud_platform
@@ -38,6 +39,11 @@ chmod 222 /dev/mydonglecloud_screen/rect
 chmod 222 /dev/mydonglecloud_screen/update
 chmod 666 /dev/mydonglecloud_screen_f
 
+if [ $MODEL = "std" ]; then
+	modprobe -r dhd
+	modprobe dhd nvram_path=/etc/wifi/nvram.txt firmware_path=/etc/wifi/fw.bin
+	/usr/bin/mydonglecloud-init-std-bluetooth.sh &
+fi
 /usr/bin/mydonglecloud-otg.sh
 
 echo "Init done"

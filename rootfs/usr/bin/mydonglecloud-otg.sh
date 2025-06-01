@@ -15,7 +15,9 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
+MODEL="`/sys/devices/platform/mydonglecloud/model`"
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
+FFS="ffs.mtp"
 STOP=0
 SERIAL=0
 MTP=0
@@ -33,8 +35,13 @@ if [ $OPTIND = 1 ]; then
 	MTP=1
 fi
 
+if [ $MODEL = "std" ]; then
+	PATHg1=/tmp/config/usb_gadget/g1
+	FFS="ffs.usb0"
+fi
+
 if [ $STOP = 1 ]; then
-	if [ ! -d /tmp/config ]; then
+	if [ $MODEL = "std" -a ! -d /tmp/config ]; then
 		echo "configfs is not mounted. Exiting"
 		exit 0
 	fi
@@ -43,7 +50,7 @@ if [ $STOP = 1 ]; then
 	if [ -d $PATHg1/configs/c.1/acm.usb0 ]; then
 		SERIAL=1
 	fi
-	if [ -d $PATHg1/configs/c.1/ffs.mtp ]; then
+	if [ -d $PATHg1/configs/c.1/$FFS ]; then
 		MTP=1
 	fi
 	if [ $SERIAL = 1 ]; then
@@ -60,7 +67,7 @@ if [ $STOP = 1 ]; then
 		rm -f $PATHg1/configs/c.1/acm.usb0
 	fi
 	if [ $MTP = 1 ]; then
-		rm -f $PATHg1/configs/c.1/ffs.mtp
+		rm -f $PATHg1/configs/c.1/$FFS
 	fi
 	rm $PATHg1/os_desc/c.1
 	rmdir $PATHg1/configs/c.1/strings/0x409
@@ -71,50 +78,55 @@ if [ $STOP = 1 ]; then
 		rmdir $PATHg1/functions/acm.usb0
 	fi
 	if [ $MTP = 1 ]; then
-		rmdir $PATHg1/functions/ffs.mtp
+		rmdir $PATHg1/functions/$FFS
 	fi
 	rmdir $PATHg1/strings/0x409
 	rmdir $PATHg1
-	umount /tmp/config
-	rmdir /tmp/config
+	if [ $MODEL = "std" ]; then
+		umount /tmp/config
+		rmdir /tmp/config
+	fi
 	exit 0
 fi
 
 if [ ! -d /tmp/config ]; then
-	mkdir $PATHg1
-	cd $PATHg1
-	echo 0x100 > $PATHg1/bcdDevice
-	echo 0x200 > $PATHg1/bcdUSB
-	mkdir $PATHg1/strings/0x409
-	echo "MyDongleCloud" > $PATHg1/strings/0x409/manufacturer
-	echo "MyDongleCloud" > $PATHg1/strings/0x409/product
-	echo "1234567890" > $PATHg1/strings/0x409/serialnumber
-	echo 0x1 > $PATHg1/bDeviceProtocol
-	echo 0x1 > $PATHg1/bDeviceSubClass
-	echo 0x6 > $PATHg1/bDeviceClass
-	mkdir -p $PATHg1/configs/c.1/strings/0x409
-	echo "Config 1: Mass Storage" > $PATHg1/configs/c.1/strings/0x409/configuration
-	echo 250 > $PATHg1/configs/c.1/MaxPower
-	echo 1 > $PATHg1/os_desc/b_vendor_code
-	echo "MSFT100" > $PATHg1/os_desc/qw_sign
-	ln -s configs/c.1 os_desc
-	echo 1 > $PATHg1/os_desc/use
-	if [ $SERIAL = 1 ]; then
-		echo "0x0525" > $PATHg1/idVendor
-		echo "0xa4a7" > $PATHg1/idProduct
-		mkdir $PATHg1/functions/acm.usb0
-		ln -s functions/acm.usb0 configs/c.1/
-	fi
-	if [ $MTP = 1 ]; then
-		echo "0x18d1" > $PATHg1/idVendor
-		echo "0x4ee1" > $PATHg1/idProduct
-		mkdir $PATHg1/functions/ffs.mtp
-		ln -s functions/ffs.mtp configs/c.1/
-		mkdir /dev/ffs-mtp
-		mount -t functionfs mtp /dev/ffs-mtp
-		/usr/bin/umtprd &
-		sleep 1
-	fi
-	ls /sys/class/udc/ > $PATHg1/UDC
-	echo "Configuration done"
+	mkdir /tmp/config
+	mount -t configfs none /tmp/config
 fi
+
+mkdir $PATHg1
+cd $PATHg1
+echo 0x100 > $PATHg1/bcdDevice
+echo 0x200 > $PATHg1/bcdUSB
+mkdir $PATHg1/strings/0x409
+echo "MyDongleCloud" > $PATHg1/strings/0x409/manufacturer
+echo "MyDongleCloud" > $PATHg1/strings/0x409/product
+echo "1234567890" > $PATHg1/strings/0x409/serialnumber
+echo 0x1 > $PATHg1/bDeviceProtocol
+echo 0x1 > $PATHg1/bDeviceSubClass
+echo 0x6 > $PATHg1/bDeviceClass
+mkdir -p $PATHg1/configs/c.1/strings/0x409
+echo "Config 1: Mass Storage" > $PATHg1/configs/c.1/strings/0x409/configuration
+echo 250 > $PATHg1/configs/c.1/MaxPower
+echo 1 > $PATHg1/os_desc/b_vendor_code
+echo "MSFT100" > $PATHg1/os_desc/qw_sign
+ln -s configs/c.1 os_desc
+echo 1 > $PATHg1/os_desc/use
+if [ $SERIAL = 1 ]; then
+	echo "0x0525" > $PATHg1/idVendor
+	echo "0xa4a7" > $PATHg1/idProduct
+	mkdir $PATHg1/functions/acm.usb0
+	ln -s functions/acm.usb0 configs/c.1/
+fi
+if [ $MTP = 1 ]; then
+	echo "0x18d1" > $PATHg1/idVendor
+	echo "0x4ee1" > $PATHg1/idProduct
+	mkdir $PATHg1/functions/$FFS
+	ln -s functions/$FFS configs/c.1/
+	mkdir /dev/ffs-mtp
+	mount -t functionfs mtp /dev/ffs-mtp
+	/usr/bin/umtprd &
+	sleep 1
+fi
+ls /sys/class/udc/ > $PATHg1/UDC
+echo "Configuration OTG done"
