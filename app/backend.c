@@ -57,9 +57,9 @@ void cleanExit(int todo) {
 		if (pf)
 			fclose(pf);
 	} else if (todo == 2)
-		system("sync && /usr/bin/mydonglecloud-leds.sh -b 0 -l off && sleep 0.1 && reboot &");
+		system("sync && sleep 0.1 && reboot &");
 	else if (todo == 1)
-		system("sync && /usr/bin/mydonglecloud-leds.sh -b 0 -l off && sleep 0.1 && shutdown -h now &");
+		system("sync && sleep 0.1 && shutdown -h now &");
 #endif
 #endif
 }
