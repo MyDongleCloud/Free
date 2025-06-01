@@ -6,17 +6,17 @@
 		target = <&gpio>;
 		__overlay__ {
 			button_Up: button_Up {
-				brcm,pins = <13>;
+				brcm,pins = <21>;
 				brcm,function = <1>;
 				brcm,pull = <2>;
 			};
 			button_Left: button_Left {
-				brcm,pins = <17>;
+				brcm,pins = <6>;
 				brcm,function = <1>;
 				brcm,pull = <2>;
 			};
 			button_Right: button_Right {
-				brcm,pins = <21>;
+				brcm,pins = <17>;
 				brcm,function = <1>;
 				brcm,pull = <2>;
 			};
@@ -36,7 +36,7 @@
 				};
 				buttonLeft: buttonLeft {
 					linux,code = <105>;
-					gpios = <&gpio 13 1>;
+					gpios = <&gpio 6 1>;
 					label = "BUTTON_LEFT";
 				};
 				buttonRight: buttonRight {
