@@ -450,10 +450,11 @@ static int st7735s_probe(struct spi_device *spi) {
 	struct device *dev = &spi->dev;
 	struct device_node *node = of_find_compatible_node(NULL, NULL, "st7735s");
 
-	printk("MyDongle-ST7735S: Enter probe");
+	printk("MyDongle-ST7735S: Enter probe\n");
 	spi->bits_per_word = 8;
 	spi->mode = SPI_MODE_3;
 	error = spi_setup(spi);
+	printk("MyDongle-ST7735S: spi_setup:%d\n", error);
 	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
 	if (!priv) {
 		dev_err(dev, "failed to allocate driver private data\n");
@@ -492,8 +493,12 @@ static int st7735s_probe(struct spi_device *spi) {
 	priv->dev = device_create(priv->cls, NULL, MKDEV(VS10x3_MAJOR, 0 /* minor */), NULL, "mydonglecloud_screen_f");
 	cdev_add(&priv->cdev, MKDEV(VS10x3_MAJOR, 0), 1);
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+	priv->backlight = of_get_gpio(dev->of_node, 0);
+#else
 	of_property_read_u32(node, "bcklit", &priv->backlight);
 	priv->backlight += 569;
+#endif
 	ret = gpio_request(priv->backlight, "BACKLIGHT");
 	if (ret < 0) {
 		printk("MyDongle-ST7735S: Failed to request GPIO %d for BACKLIGHT\n", priv->backlight);
@@ -501,8 +506,12 @@ static int st7735s_probe(struct spi_device *spi) {
 	}
 	gpio_direction_output(priv->backlight, 1);
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+	priv->wd = of_get_gpio(dev->of_node, 1);
+#else
 	of_property_read_u32(node, "wd", &priv->wd);
 	priv->wd += 569;
+#endif
 	ret = gpio_request(priv->wd, "WD");
 	if (ret < 0) {
 		printk("MyDongle-ST7735S: Failed to request GPIO %d for WD\n", priv->wd);
@@ -510,8 +519,12 @@ static int st7735s_probe(struct spi_device *spi) {
 	}
 	gpio_direction_output(priv->wd, 1);
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+	priv->nrst = of_get_gpio(dev->of_node, 2);
+#else
 	of_property_read_u32(node, "nrst", &priv->nrst);
 	priv->nrst += 569;
+#endif
 	ret = gpio_request(priv->nrst, "NRST");
 	if (ret < 0) {
 		printk("MyDongle-ST7735S: Failed to request GPIO %d for NRST\n", priv->nrst);
@@ -519,7 +532,7 @@ static int st7735s_probe(struct spi_device *spi) {
 	}
 	gpio_direction_output(priv->nrst, 1);
 
-	printk("MyDongle-ST7735S: Exit probe");
+	printk("MyDongle-ST7735S: Exit probe\n");
 	return 0;
 
  err0:
