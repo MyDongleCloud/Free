@@ -58,28 +58,22 @@
 		clocks {
 			vip0:vip@c00c1000 { clock-frequency = <300000000>;};
 			sdhc0:sdhc@c00c5000 {
-			      clk-input = <(I_PLL2 | I_GATE_PCLK)>;
+				  clk-input = <(I_PLL2 | I_GATE_PCLK)>;
 			};
 			sdhc1:sdhc@c00cc000 {
-			      clk-input = <(I_PLL2 | I_GATE_PCLK)>;
+				  clk-input = <(I_PLL2 | I_GATE_PCLK)>;
 			};
 			sdhc2:sdhc@c00cd000 {
-			      clk-input = <(I_PLL2 | I_GATE_PCLK)>;
+				  clk-input = <(I_PLL2 | I_GATE_PCLK)>;
 			};
 			timer0:timer@c00b9000 {
-			      clk-input = <I_PLL2>;
+				  clk-input = <I_PLL2>;
 			};
 			timer1:timer@c00bb000 {
-			      clk-input = <I_PLL2>;
+				  clk-input = <I_PLL2>;
 			};
 			pwm0:pwm0@c00ba000 {
-			      clk-input = <I_PLL2>;
-			};
-			pwm2:pwm2@c00be000 {
-			      clk-input = <I_PLL2>; clock-frequency = <100000000>;
-			};
-			pwm3:pwm3@c00be000 {
-			      clk-input = <I_PLL2>; clock-frequency = <100000000>;
+				  clk-input = <I_PLL2>;
 			};
 		};
 
@@ -89,11 +83,11 @@
 		};
 
 		pwm:pwm@c0018000 {
-			clocks =  <&pwm0>, <&pwm2>, <&pwm3>;
-			clock-names = "pwm-tclk0", "pwm-tclk1", "pwm-tclk2";
+			clocks =  <&pwm0>;
+			clock-names = "pwm-tclk0";
 			#pwm-cells = <3>;
-			pinctrl-0 = <&pwm0_pin &pwm2_pin &pwm3_pin>;
-			samsung,pwm-outputs = <0>, <2>, <3>;
+			pinctrl-0 = <&pwm0_pin>;
+			samsung,pwm-outputs = <0>;
 		};
 
 
@@ -172,99 +166,65 @@
 				nexell,pin-strength = <0>;
 			};
 
-			key_home:key_home {
+			button_Up:button_Up {
 				nexell,pins = "gpiob-4";
 				nexell,pin-function = <0>;
 				nexell,pin-pull = <1>;
 				nexell,pin-strength = <0>;
 			};
-
-			led_red:led_red {
-				nexell,pins = "gpioa-25";
-				nexell,pin-function = <0>;
-				nexell,pin-pull = <0>;
-				nexell,pin-strength = <0>;
-			};
-
-			led_green:led_green {
-				nexell,pins = "alive-1";
-				nexell,pin-function = <0>;
-				nexell,pin-pull = <0>;
-				nexell,pin-strength = <0>;
-			};
-
-			led_blue:led_blue {
-				nexell,pins = "gpioa-0";
-				nexell,pin-function = <0>;
-				nexell,pin-pull = <0>;
-				nexell,pin-strength = <0>;
-			};
-
-			pmic_irq:pmic_irq{
-				nexell,pins = "alive-5";
+			button_Down:button_Down {
+				nexell,pins = "gpiob-13";
 				nexell,pin-function = <0>;
 				nexell,pin-pull = <1>;
 				nexell,pin-strength = <0>;
 			};
-
-			accel_irq:accel_irq {
-				nexell,pins = "gpioa-26";
-				nexell,pin-function = <1>;
-				nexell,pin-pull = <1>;
-				nexell,pin-strength = <0>;
-			};
-
-			led:led {
-				nexell,pins = "gpioa-22";
-				nexell,pin-function = <0>;
-				nexell,pin-pull = <0>;
-				nexell,pin-strength = <2>;
-			};
-
-			mygpio:mygpio {
-				nexell,pins = "gpioa-13";
-				nexell,pin-function = <0>;
-				nexell,pin-pull = <0>;
-				nexell,pin-strength = <0>;
-			};
-
-			mp:mp {
-				nexell,pins = "gpioa-12";
-				nexell,pin-function = <0>;
-				nexell,pin-pull = <0>;
-				nexell,pin-strength = <2>;
-			};
-
-			pwm3_pin:pwm3 {
-				nexell,pins = "gpiod-0";
-				nexell,pin-function = <2>;
-				nexell,pin-pull = <2>;
-				nexell,pin-strength = <0>;
-			};
-
-			cc_reset:cc_reset {
-				nexell,pins = "gpioe-0";
-				nexell,pin-function = <0>;
-				nexell,pin-pull = <1>;
-				nexell,pin-strength = <0>;
-			};
-
-			camera_reset:camera_reset {
+			button_Left:button_Left {
 				nexell,pins = "gpioa-14";
 				nexell,pin-function = <0>;
 				nexell,pin-pull = <1>;
 				nexell,pin-strength = <0>;
 			};
-
-			cameraa_pwdn:cameraa_pwdn {
-				nexell,pins = "gpioa-17";
+			button_Right:button_Right {
+				nexell,pins = "gpioa-13";
 				nexell,pin-function = <0>;
 				nexell,pin-pull = <1>;
 				nexell,pin-strength = <0>;
 			};
 
-			camerab_pwdn:camerab_pwdn {
-				nexell,pins = "gpioa-3";
+			led_Green:led_Green {
+				nexell,pins = "gpioa-9";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+			led_Red:led_Red {
+				nexell,pins = "gpioa-15";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			lcdspi_Bcklit:lcdspi_Bcklit {
+				nexell,pins = "gpioc-17";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+			lcdspi_Wd:lcdspi_Wd {
+				nexell,pins = "gpioc-0";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+			lcdspi_Nrst:lcdspi_Nrst {
+				nexell,pins = "gpiob-14";
+				nexell,pin-function = <0>;
+				nexell,pin-pull = <1>;
+				nexell,pin-strength = <0>;
+			};
+
+			pmic_irq:pmic_irq{
+				nexell,pins = "alive-5";
 				nexell,pin-function = <0>;
 				nexell,pin-pull = <1>;
 				nexell,pin-strength = <0>;
@@ -277,33 +237,6 @@
 				nexell,pin-strength = <3>;
 			};
 
-			i2s1_lrclk:i2s1_lrclk {
-				nexell,pins = "gpiob-0";
-				nexell,pin-function = <3>;
-				nexell,pin-pull = <2>;
-				nexell,pin-strength = <0>;
-			};
-
-			i2s1_bclk:i2s1_bclk {
-				nexell,pins = "gpioa-30";
-				nexell,pin-function = <3>;
-				nexell,pin-pull = <2>;
-				nexell,pin-strength = <0>;
-			};
-
-			i2s1_din:i2s1_din {
-				nexell,pins = "gpiob-9";
-				nexell,pin-function = <3>;
-				nexell,pin-pull = <0>;
-				nexell,pin-strength = <3>;
-			};
-
-/*
-			serial5_pin:serial5 {
-				nexell,pin-pull = <1>;
-			};
-*/
-
 		};
 
 		video-codec@c0080000 {
@@ -311,60 +244,8 @@
 			sram = <0 0>;
 		};
 
-		i2s_1:i2s@c0056000 {
-			#sound-dai-cells = <1>;
-			master-mode = <1>;
-			mclk-in = <0>;
-			trans-mode = <0>;
-			frame-bit = <48>;
-			sample-rate = <48000>;
-			pre-supply-mclk = <1>;
-			status = "okay";
-		};
-
 		vip_0:vip@c0063000 {
 			status = "okay";
-		};
-
-		i2c_0:i2c@c00a4000 {
-			samsung,i2c-max-bus-freq = <400000>;
-			status = "okay";
-		};
-
-		i2c_1:i2c@c00a5000 {
-			samsung,i2c-max-bus-freq = <400000>;
-			status = "okay";
-		};
-
-/*		i2c_2:i2c@c00a6000 {
-			samsung,i2c-sda-delay = <1>;
-			samsung,i2c-max-bus-freq = <100000>;
-			status = "okay";
-		};*/
-
-		mipi_csi:mipi_csi@c00d0000 {
-			data_lane = <4>;
-			pllval = <1000>;
-			hssettle = <14>;
-			status = "okay";
-		};
-
-		clipper_0:clipper0@c0063000 {
-			interface_type = <NX_CAPTURE_INTERFACE_MIPI_CSI>;
-			//pwms = <&pwm 2 52 0>;
-			gpios = <&gpio_a 14 0 &gpio_a 17 0>;
-			data_order = <NX_VIN_Y0CBY1CR>;
-			status = "okay";
-			sensor {
-				type = <NX_CAPTURE_SENSOR_I2C>;
-				i2c_name = "ov4689";
-				i2c_adapter = <0>;
-				addr = <0x10>;
-
-				compatible = "omnivision,ov4689";
-				gpios = <&gpio_a 14 0 &gpio_a 17 0>;
-				frequency = <24>;
-			};
 		};
 
 		scaler@c0066000 {
@@ -387,22 +268,37 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 		pinctrl-names = "default";
-		pinctrl-0 = <&key_pwr>, <&key_home>;
+		pinctrl-0 = <&button_Up>, <&button_Down>, <&button_Left>, <&button_Right>;
 		autorepeat;
 
-		power {
-			label = "Power";
-			gpios = <&alive_0 0 1>;
-			linux,code = <KEY_POWER>;
-			gpio-key,wakeup;
+		buttonUp:buttonUp {
+			label = "BUTTON_UP";
+			gpios = <&gpio_b 4 1>;
+			linux,code = <103>;
+			gpio-key;
 		};
 
-		home {
-			label = "Home";
-			gpios = <&gpio_b 4 1>;
-			linux,code = <KEY_HOME>;
-			gpio-key,wakeup;
+		buttonleft:buttonLeft {
+			label = "BUTTON_LEFT";
+			gpios = <&gpio_a 14 1>;
+			linux,code = <105>;
+			gpio-key;
 		};
+
+		buttonRight:buttonRight {
+			label = "BUTTON_RIGHT";
+			gpios = <&gpio_a 13 1>;
+			linux,code = <106>;
+			gpio-key;
+		};
+
+		buttonDown:buttonDown {
+			label = "BUTTON_DOWN";
+			gpios = <&gpio_b 13 1>;
+			linux,code = <108>;
+			gpio-key;
+		};
+
 	};
 
 	i2c_gpio10:i2c@10 {//PMIC
@@ -548,12 +444,24 @@
 	}; /* regulators */
 
 	mydonglecloud {
-		compatible = "mydonglecloud,mydonglecoud";
-		gpios = <&gpio_a 25 0 &alive_0 1 0 &gpio_a 0 0 &gpio_a 22 0 &gpio_e 0 0 &gpio_a 12 0 &gpio_a 13 0>;//LED_RED, LED_GREEN, LED_BLUE, LED, CCRESET, M+, MYGPIO
+		compatible = "mydonglecloud,mydonglecloud";
 		pwm_buzzer = <0>;
-		pwm_motor = <2>;
-		pwm_fan = <3>;
- 	};
+	};
+};
+
+&spi_0 {
+	status = "okay";
+	hierarchy = <0>;
+	cs-gpios = <&gpio_c 30 0>;
+	lcdspi:lcdspi@0 {
+		compatible = "mydonglecloud,st7735s";
+		reg = <0>;
+		gpios = <&gpio_c 17 0 &gpio_c 0 0 &gpio_b 14 0>;//BCKLIT, WD, NRST
+		spi-max-frequency = <12000000>;
+		controller-data {
+			samsung,spi-feedback-delay = <0>;
+		};
+	};
 };
 
 &pwm {
@@ -561,21 +469,21 @@
 };
 
 &dp_drm {
-        status = "okay";
-        ports {
-                port@0 {
-                        reg = <0>;
-                        back_color = < 0x0 >;
-                        color_key = < 0x0 >;
+		status = "okay";
+		ports {
+				port@0 {
+						reg = <0>;
+						back_color = < 0x0 >;
+						color_key = < 0x0 >;
 			plane-names = "video", "primary", "rgb";
 		};
-                port@1 {
-                        reg = <1>;
-                        back_color = < 0x0 >;
-                        color_key = < 0x0 >;
+				port@1 {
+						reg = <1>;
+						back_color = < 0x0 >;
+						color_key = < 0x0 >;
 			plane-names = "video", "primary";
 		};
-       };
+	   };
 };
 
 &dp_drm_hdmi {
