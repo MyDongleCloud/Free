@@ -13,7 +13,7 @@
 				spi-max-frequency = <12000000>;
 				status = "okay";
 				reg = <0>;
-				bcklit = <6>;
+				bcklit = <13>;
 				nrst = <27>;
 				wd = <22>;
 			};
