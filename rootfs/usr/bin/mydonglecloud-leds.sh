@@ -6,6 +6,12 @@ echo "Usage for otg.sh [b backlight -h -l mode]"
 echo "b:		Turn on off screen backlight"
 echo "h:		Print this usage and exit"
 echo "l:		Set mode for leds"
+echo "		normal: G:heartbeat R:off"
+echo "		warning: G:flash R:flash"
+echo "		warning-fast: G:flash-fast R:flash-fast"
+echo "		error: G:off R:flash"
+echo "		error-fast: G:off R:flash-fast"
+echo "		off: G:off R:off"
 exit 0
 }
 
