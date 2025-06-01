@@ -230,6 +230,17 @@ static void rect(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, uint
 	updateTx(priv, x, y, w, h);
 }
 
+#include "screenWait.h"
+
+static void startup(struct st7735sPriv *priv) {
+	gpio_set_value(priv->nrst, 0);
+	msleep(50);
+	gpio_set_value(priv->nrst, 1);
+	init_(priv);
+	memcpy(priv->framebuffer, screenWait, SCREENBUFFERSIZE);
+	update(priv, 0, 0, WIDTH, HEIGHT);
+}
+
 static ssize_t write_init(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
 	struct st7735sPriv *priv = dev_get_drvdata(dev);
 	init_(priv);
@@ -532,6 +543,7 @@ static int st7735s_probe(struct spi_device *spi) {
 	}
 	gpio_direction_output(priv->nrst, 1);
 
+	startup(priv);
 	printk("MyDongle-ST7735S: Exit probe\n");
 	return 0;
 
