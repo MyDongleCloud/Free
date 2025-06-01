@@ -46,7 +46,11 @@ static void buzzer_(struct mydonglePriv *ip, int enable) {
 	schedule_work(&ip->workBuzzer);
 }
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,14,0)
+static void my_timer_buzzer_callback(unsigned long data) {
+#else
 static void my_timer_buzzer_callback(struct timer_list *tl) {
+#endif
 	struct mydonglePriv *ip = myip;
 	if (ip->buzzerCount >= 0)
 		ip->buzzerCount--;
@@ -91,7 +95,7 @@ static DEVICE_ATTR(buzzerFreq, 0220, NULL, write_buzzerFreq);
 
 static ssize_t show_model(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	return sprintf(buf, "%s\n", ip->model);
+	return sprintf(buf, "%s", ip->model);
 }
 
 static DEVICE_ATTR(model, 0440, show_model, NULL);
@@ -105,11 +109,11 @@ static DEVICE_ATTR(hardwareVersion, 0440, show_hardwareVersion, NULL);
 
 static ssize_t show_serialNumber(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	if (strcmp(ip->model, "Pro") == 0) {
+	if (strcmp(ip->model, "pro") == 0) {
 		const char *sz = NULL;
 		of_property_read_string(of_root, "serial-number", &sz);
 		return sprintf(buf, "%s", sz);
-	} else if (strcmp(ip->model, "Std") == 0) {
+	} else if (strcmp(ip->model, "std") == 0) {
 #define ADDRESS_ID 0xC0067000
 		void __iomem *regs = ioremap(ADDRESS_ID + 0x04, 4);
 		char szSerial[17];
@@ -181,7 +185,7 @@ static struct attribute_group mydongle_attr_group = {
 
 int isMydonglecloud = 0;
 static int mydongle_probe(struct platform_device *pdev) {
-	printk("MyDongleCloud: Enter probe");
+	printk("MyDongleCloud: Enter probe\n");
 	struct device *dev = &pdev->dev;
 	struct mydonglePriv *ip = devm_kzalloc(dev, sizeof(struct mydonglePriv), GFP_KERNEL);
 	if (!ip)
@@ -193,21 +197,30 @@ static int mydongle_probe(struct platform_device *pdev) {
 	ip->debug = 0;
 	const char *mm;
 	of_property_read_string(of_root, "model", &mm);
-	strcpy(ip->model, strstr(mm, "Raspberry Pi") != NULL ? "Pro" : "Std");
+	strcpy(ip->model, strstr(mm, "Raspberry Pi") != NULL ? "pro" : "std");
 	ip->hardwareVersion = 10;
 	ip->buzzerCount = 0;
 	INIT_WORK(&ip->workBuzzer, mydongle_workBuzzer);
 
-	ip->buzzerS = pwm_get(&pdev->dev, NULL);
+	if (strcmp(ip->model, "pro") == 0)
+		ip->buzzerS = pwm_get(&pdev->dev, NULL);
+	else {
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,14,0)
+		int pwmBuzzer;
+		of_property_read_u32(dev->of_node, "pwm_buzzer", &pwmBuzzer);
+		ip->buzzerS = pwm_request(pwmBuzzer, "PWM_BUZZER");
+		pwm_config(ip->buzzerS, 166000, 322000);
+#endif
+	}
 	if (IS_ERR(ip->buzzerS))
-		printk("MyDongle-Dongle: Requesting PWM failed");
+		printk("MyDongle-Dongle: Requesting PWM failed\n");
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4,14,0)
 #define timer_setup setup_timer
 #endif
 	timer_setup(&my_timer_buzzer, my_timer_buzzer_callback, 0);
 
-	printk("MyDongleCloud: Exit probe");
+	printk("MyDongleCloud: Exit probe\n");
 	return sysfs_create_group(&dev->kobj, &mydongle_attr_group);
 }
 
