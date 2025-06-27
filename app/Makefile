@@ -9,7 +9,7 @@ MYCC_WEB = $(QUIET)/opt/emsdk/upstream/emscripten/emcc
 MYLINKPP = $(QUIETLINK)g++
 MYLINKPP_WEB = $(QUIETLINK)/opt/emsdk/upstream/emscripten/em++
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
-PRE = /tmp/_app/
+PRE = ../build/_app/
 
 OBJs := $(PRE)backend.o \
 	$(PRE)ble.o \
