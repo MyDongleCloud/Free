@@ -48,6 +48,7 @@ struct st7735sPriv {
 	int debug;
 	int backlight;
 	int wd;
+	int at;
 	int nrst;
 	int rotation;
 	unsigned char *framebuffer;
@@ -232,10 +233,18 @@ static void rect(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, uint
 
 #include "screenWait.h"
 
-static void startup(struct st7735sPriv *priv) {
+static void reset_(struct st7735sPriv *priv) {
+	//Temporary for version 1.0d
+	gpio_direction_output(priv->backlight, 0);
 	gpio_set_value(priv->nrst, 0);
 	msleep(50);
+	//Temporary for version 1.0d
+	gpio_direction_output(priv->backlight, 1);
 	gpio_set_value(priv->nrst, 1);
+}
+
+static void startup_(struct st7735sPriv *priv) {
+	reset_(priv);
 	init_(priv);
 	memcpy(priv->framebuffer, screenWait, SCREENBUFFERSIZE);
 	update(priv, 0, 0, WIDTH, HEIGHT);
@@ -248,6 +257,14 @@ static ssize_t write_init(struct device *dev, struct device_attribute *attr, con
 }
 
 static DEVICE_ATTR(init, 0220, NULL, write_init);
+
+static ssize_t write_reset(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
+	struct st7735sPriv *priv = dev_get_drvdata(dev);
+	reset_(priv);
+	return count;
+}
+
+static DEVICE_ATTR(reset, 0220, NULL, write_reset);
 
 static ssize_t write_rect(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
 	struct st7735sPriv *priv = dev_get_drvdata(dev);
@@ -401,6 +418,23 @@ static ssize_t write_wd(struct device *dev, struct device_attribute *attr, const
 
 static DEVICE_ATTR(wd, 0660, show_wd, write_wd);
 
+static ssize_t show_at(struct device *dev, struct device_attribute *attr, char *buf) {
+	struct st7735sPriv *priv = dev_get_drvdata(dev);
+	return sprintf(buf, "%u\n", gpio_get_value(priv->at));
+}
+
+static ssize_t write_at(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
+	struct st7735sPriv *priv = dev_get_drvdata(dev);
+	unsigned long i;
+		if (kstrtoul(buf, 10, &i))
+		return -EINVAL;
+
+	gpio_set_value(priv->at, i);
+	return count;
+}
+
+static DEVICE_ATTR(at, 0660, show_at, write_at);
+
 #define hex2Int(a) (a >= '0' && a <= '9' ? (a - '0') : ( a - 'a' + 10))
 static ssize_t write_spi(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
 	struct st7735sPriv *priv = dev_get_drvdata(dev);
@@ -420,12 +454,12 @@ static ssize_t write_spi(struct device *dev, struct device_attribute *attr, cons
 
 static DEVICE_ATTR(spi, 0220, NULL, write_spi);
 
-static ssize_t show_reset(struct device *dev, struct device_attribute *attr, char *buf) {
+static ssize_t show_rst(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct st7735sPriv *priv = dev_get_drvdata(dev);
 	return sprintf(buf, "%u\n", !gpio_get_value(priv->nrst));
 }
 
-static ssize_t write_reset(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
+static ssize_t write_rst(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
 	struct st7735sPriv *priv = dev_get_drvdata(dev);
 	unsigned long i;
 		if (kstrtoul(buf, 10, &i))
@@ -435,9 +469,10 @@ static ssize_t write_reset(struct device *dev, struct device_attribute *attr, co
 	return count;
 }
 
-static DEVICE_ATTR(reset, 0660, show_reset, write_reset);
+static DEVICE_ATTR(rst, 0660, show_rst, write_rst);
 
 static struct attribute *st7735s_attributes[] = {
+	&dev_attr_reset.attr,
 	&dev_attr_init.attr,
 	&dev_attr_rect.attr,
 	&dev_attr_update.attr,
@@ -445,8 +480,9 @@ static struct attribute *st7735s_attributes[] = {
 	&dev_attr_rotation.attr,
 	&dev_attr_backlight.attr,
 	&dev_attr_wd.attr,
+	&dev_attr_at.attr,
 	&dev_attr_spi.attr,
-	&dev_attr_reset.attr,
+	&dev_attr_rst.attr,
 	NULL,
 };
 
@@ -543,7 +579,20 @@ static int st7735s_probe(struct spi_device *spi) {
 	}
 	gpio_direction_output(priv->nrst, 1);
 
-	startup(priv);
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+	priv->at = of_get_gpio(dev->of_node, 3);
+#else
+	of_property_read_u32(node, "at", &priv->at);
+	priv->at += 569;
+#endif
+	ret = gpio_request(priv->at, "AT");
+	if (ret < 0) {
+		printk("MyDongle-ST7735S: Failed to request GPIO %d for AT\n", priv->at);
+		//return 0;
+	}
+	gpio_direction_output(priv->at, 1);
+
+	startup_(priv);
 	printk("MyDongle-ST7735S: Exit probe\n");
 	return 0;
 
