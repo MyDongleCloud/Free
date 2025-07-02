@@ -11,6 +11,11 @@ exit 0
 }
 
 PP=/dev/ttyUSB0
+BASE=/tmp/test
+if [ -f /dev/ttyAMA0 ]; then
+	BASE=/home/mdc/build
+	PP=/dev/ttyAMA0
+fi
 MCU=attiny202
 MEDIUM=uart
 ACTION=0
@@ -26,11 +31,11 @@ done
 
 if [ $SETUP = 1 ]; then
 	~/Executables/pip.sh -s
-	PATH=/tmp/test/bin:$PATH
+	PATH=$BASE/bin:$PATH
 	pip install pymcuprog
 	exit 0
 fi
-PATH=/tmp/test/bin:$PATH
+PATH=$BASE/bin:$PATH
 
 if [ $ACTION = 0 ]; then
 	pymcuprog ping -t $MEDIUM -u $PP -d $MCU
