@@ -1,8 +1,8 @@
 /*
      VDD 1|‾‾‾‾‾‾‾|8 GND
 WD   PA6 2|      |7 PA3 CLK
-CS   PA7 3|      |6 PA0 NRST/UPDI/CS
-MOSI PA1 4|______|5 PA2 MISO // WD
+CS   PA7 3|      |6 PA0 NRST/UPDI
+MOSI PA1 4|______|5 PA2 MISO
 */
 
 #include <avr/io.h>
@@ -16,6 +16,8 @@ MOSI PA1 4|______|5 PA2 MISO // WD
 #define PA6_WD PIN6_bm
 #define PA7_CS PIN7_bm
 
+uint8_t loop = 1;
+
 void GPIOWD(int v) {
 	if (v)
 		PORTA.OUTSET = PA6_WD;
@@ -26,10 +28,14 @@ void GPIOWD(int v) {
 void SPI(uint8_t l, uint8_t a, uint8_t b) {
 	PORTA.OUTCLR = PA7_CS;
 	SPI0.DATA = a;
-	while ((SPI0.INTFLAGS & SPI_RXCIF_bm) == 0) ;
+	while ((SPI0.INTFLAGS & SPI_RXCIF_bm) == 0)
+		;
+	if (SPI0.DATA == 0x0)
+		loop = 0;
 	if (l == 2) {
 		SPI0.DATA = b;
-		while ((SPI0.INTFLAGS & SPI_RXCIF_bm) == 0) ;
+		while ((SPI0.INTFLAGS & SPI_RXCIF_bm) == 0)
+			;
 	}
 	PORTA.OUTSET = PA7_CS;
 }
@@ -40,7 +46,39 @@ void WAIT_100MS() {
 
 #include "screenSimple.h"
 
-uint8_t loop = 1;
+void progressBar() {
+	uint8_t w = 92 + 4;
+	uint8_t h = 8 + 4;
+	uint8_t x = (128 - w) / 2;
+	uint8_t y = (128 - h) / 2;
+	uint8_t xx, yy;
+	for (xx = 0; xx < w; xx++) {
+		screenPixel_(x + xx, y, 0xffff);
+		screenPixel_(x + xx, y + h, 0xffff);
+	}
+	for (yy = 0; yy < h; yy++) {
+		screenPixel_(x, y + yy, 0xffff);
+		screenPixel_(x + w - 1, y + yy, 0xffff);
+	}
+	w -= 4;
+	h -= 4;
+	x += 2;
+	y += 2;
+	uint8_t pos;
+	while (1)
+		for (pos = 0; pos < w; pos++) {
+			for (yy = 0; yy <= h; yy++) {
+				screenPixel_((x + pos), y + yy, 0x0);
+				uint8_t ppos = (pos + 32) % w;
+				screenPixel_(x + ppos, y + yy, 0xffff);
+				if (loop == 0)
+					goto end;
+			}
+			_delay_ms(25);
+		}
+end:
+	return;
+}
 
 int main() {
 	PORTA.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
@@ -57,23 +95,11 @@ int main() {
 	SPI0.CTRLA |= SPI_ENABLE_bm; // Enable SPI
 	SPI0.CTRLB |= SPI_SSD_bm; // Disable slave select
 
-#if 0
-	int i = 100;
-	while (i-- != 1) {
-		GPIOWD(1);
-		PORTA.OUTSET = PA7_CS;
-		_delay_ms(10);
-		GPIOWD(0);
-		PORTA.OUTCLR = PA7_CS;
-		_delay_ms(10);
-	}
-#endif
-
-	_delay_ms(5000);
+	_delay_ms(1000);
 	screenInit_();
-
-	int count = 0;
-	while (loop)
-		screenRect_(0, 0, 128, 128, (count++ % 2) ? 64938 : 0);
+	screenRect_(0, 0, 128, 128, 0);
+	progressBar();
+	SPI0.CTRLA = 0;
+	PORTA.DIR = 0;
 	return 0;
 }
