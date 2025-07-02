@@ -39,5 +39,6 @@ if [ $ACTION = 1 ]; then
 	pymcuprog erase -t $MEDIUM -u $PP -d $MCU
 fi
 if [ $ACTION = 2 ]; then
+	make
 	pymcuprog write -t $MEDIUM -u $PP -d $MCU -f main.hex --erase
 fi
