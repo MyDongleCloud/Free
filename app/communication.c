@@ -8,6 +8,7 @@
 #include "ble.h"
 #include "logic.h"
 #include "backend.h"
+#include "settings.h"
 
 //Public variable
 int communicationConnected = 0;
@@ -30,6 +31,18 @@ int communicationBinary(unsigned char *data, int size) {
 	return ret;
 }
 
+static int communicationBinary2(unsigned char *data, int size, unsigned char *data2, int size2) {
+	if (!communicationConnected)
+		return 0;
+	unsigned char *data_ = malloc(size + size2 + 1);
+	data_[0] = '-';
+	memcpy(data_ + 1, data, size);
+	memcpy(data_ + 1 + size, data2, size2);
+	int ret = serverWriteData(data_, size + size2 + 1);
+	free(data_);
+	return ret;
+}
+
 int communicationText(char *sz) {
 	if (!communicationConnected)
 		return 0;
@@ -42,13 +55,14 @@ int communicationText(char *sz) {
 }
 
 int communicationState() {
-	return communicationBinary((unsigned char *)&lmdc, sizeof(lmdc));
+	return communicationBinary2((unsigned char *)&smdc, sizeof(smdc), (unsigned char *)&lmdc, sizeof(lmdc));
 }
 
 void communicationReceive(unsigned char *data, int size) {
 	PRINTF("communicationReceive: (%d)#%s#\n", size, data[0] == '_' ? (char *)(data + 1) : "binary");
-	if (size == sizeof(lmdc) + 1 && data[0] == '-') {
-		memcpy(&lmdc, data + 1, sizeof(lmdc));
+	if (size == sizeof(smdc) + sizeof(lmdc) + 1 && data[0] == '-') {
+		memcpy(&smdc, data + 1, sizeof(smdc));
+		memcpy(&lmdc, data + 1 + sizeof(smdc), sizeof(lmdc));
 		logicUpdate();
 	} else if (data[0] == '_' && strncmp(data + 1, "key ", 4) == 0) {
 		int k, l;
