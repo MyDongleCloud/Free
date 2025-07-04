@@ -91,8 +91,7 @@ function openMail(email) {
 function fillForm(id, account, from, to, expiration) {
 	document.getElementById("formId").value = id;
 	document.getElementById("formAccount").value = account;
-	from = from.replace(/@.*/, "");
-	document.getElementById("formFrom").value = from;
+	document.getElementById("formFrom").value = from.replace(/@.*/, "");
 	document.getElementById("formTo0").checked = from != to;
 	document.getElementById("formTo1").checked = from == to;
 	if (from != to)
@@ -139,6 +138,7 @@ function sendForm() {
 
 function copyEmail(e) {
 	navigator.clipboard.writeText(e);
+	showToast("Copied!");
 }
 
 var cc = 0;
@@ -177,7 +177,7 @@ function onStart() {
 </head>
 <body onload="onStart();">
 <form action="#" method="post" id="formForm">
-Id: <input type="text" id="formId" name="formId" readonly value="new"><br><br>
+Id: <input type="text" id="formId" name="formId" readonly value="new" style="color:gray;"><br><br>
 Account: <input type="text" id="formAccount" name="formAccount" value="gregoiregentil"><br><br>
 From: <input type="text" id="formFrom" name="formFrom">@<?=$domain;?> (<a href="javascript:void();" onclick="randomEmail();">random</a>)<br><br>
 To: <input type="radio" name="formTo" id="formTo0" onchange="formToSelect(0);"> Redirect to <input type="email" id="formRedirect" name="formRedirect"> or <input type="radio" name="formTo" id="formTo1" onchange="formToSelect(1);" checked> Local<br><br>
