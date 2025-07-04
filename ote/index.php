@@ -53,6 +53,18 @@ tr:nth-child(odd) td { background-color: #EEEEEE; }
 tr:first-child td { background-color: #DDDDDD; }
 </style>
 <script>
+function showToast(message) {
+	document.getElementById("toastID").style.display = "flex";
+    document.getElementById("toastContentID").innerText = message;
+	document.getElementById("toastContentID").style.opacity = "1";
+    setTimeout(() => {
+		document.getElementById("toastContentID").style.opacity = "0";
+    }, 2000);
+    setTimeout(() => {
+		document.getElementById("toastID").style.display = "none";
+    }, 3000);
+}
+
 function fillDateTime(inD) {
 	let date;
 	if (inD == 0)
@@ -248,4 +260,5 @@ for ($i = 0; $i < count($content_); $i++) {
 fclose($handle);
 ?>
 </table>
+<div id="toastID" style="position:fixed; top:20px; width:100%; background:transparent; display:none; justify-content:center;"><div id="toastContentID" style="color:white; border-radius: 15px; background:gray; padding:10px; opacity:1; transition:opacity 0.5s ease-in-out;"></div></div>
 </body></html>
