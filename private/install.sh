@@ -45,7 +45,7 @@ ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.targe
 ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
 ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
 echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
-echo -e "dtoverlay=dwc2\ndtoverlay=mydonglecloud\ndtoverlay=st7735s\ndtoverlay=buttons\ndtoverlay=leds\ndtparam=uart0=on\ndtparam=spi=on" >> /boot/firmware/config.txt
+echo -e "dtoverlay=dwc2\ndtoverlay=mydonglecloud\ndtoverlay=st7735s\ndtoverlay=buttons\ndtoverlay=leds\ndtparam=uart0=on\ndtparam=uart2=on\ndtparam=spi=on" >> /boot/firmware/config.txt
 adduser --comment Administrator --disabled-password admin
 
 echo "################################"
@@ -58,13 +58,13 @@ echo "################################"
 echo "Basic"
 echo "################################"
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
-apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail rspamd dovecot-pop3d dovecot-imapd certbot python3-certbot-apache transgui
-apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin
+apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail rspamd dovecot-pop3d dovecot-imapd certbot python3-certbot-apache transgui python3-setuptools python3-attr
+apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
 	snap remove snapd
 	apt-get -y purge snapd
-	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential cmake
+	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential
 fi
 
 echo "################################"
@@ -73,7 +73,6 @@ echo "################################"
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install python3-pcpp
 	ln -sf pcpp-python /usr/bin/pcpp
-fi
 elif [ $OS = "pios" ]; then
 	cd /home/mdc/build
 	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
@@ -106,8 +105,7 @@ elif [ $OS = "pios" ]; then
 	wget http://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
 	wget http://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
 	dpkg -i libicu70* libprotobuf-lite23* mysql-common*
-	dpkg -i mysql-client*
-	dpkg -i mysql-server*
+	dpkg -i mysql-client* mysql-server*
 fi
 
 echo "################################"
@@ -142,6 +140,20 @@ wget https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/
 dpkg -i rethinkdb*.deb
 
 echo "################################"
+echo "postfix-parser"
+echo "################################"
+apt-get -y install python3-dotenv python3-pytzdata
+cd /home/mdc/build
+git clone https://github.com/Privex/python-loghelper
+cd python-loghelper
+python3 setup.py install
+cd ..
+git clone https://github.com/Privex/python-helpers
+cd python-helpers
+python3 setup.py install
+cd ../..
+
+echo "################################"
 echo "uMTP"
 echo "################################"
 cd /home/mdc/build
@@ -157,7 +169,8 @@ echo "################################"
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install linux-headers-raspi linux-image-raspi
 elif [ $OS = "pios" ]; then
-	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712
+	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 raspi-utils-core raspi-utils-dt
+	apt-get -y purge linux-headers-rpi-v8 linux-image-rpi-v8
 fi
 
 echo "################################"
@@ -169,13 +182,28 @@ apt-get update
 apt-get -y install jitsi-meet
 
 echo "################################"
-echo "CyberChef"
+echo "Node.js"
 echo "################################"
 cd /home/mdc/build
-git clone https://github.com/gchq/CyberChef.git
-cd CyberChef
-npm install
-npm run build
+wget https://nodejs.org/dist/latest-v22.x/node-v22.17.0-linux-arm64.tar.xz
+tar -xJpvf node-v*
+cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local/
+
+echo "################################"
+echo "Better-auth"
+echo "################################"
+cd /home/mdc/build
+mkdir better-auth
+cd better-auth
+npm install better-auth
+
+echo "################################"
+echo "Zigbee"
+echo "################################"
+cd /home/mdc/build
+mkdir zigbee2mqtt
+cd zigbee2mqtt
+npm install zigbee2mqtt
 
 echo "################################"
 echo "QRCode"
