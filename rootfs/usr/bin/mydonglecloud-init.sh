@@ -40,6 +40,12 @@ chmod 222 /dev/mydonglecloud_screen/update
 chmod 666 /dev/mydonglecloud_screen_f
 
 if [ $MODEL = "std" ]; then
+	ln -s /dev/tty_SAC5 /dev/tty_zigbee
+else
+	ln -s /dev/tty_AMA2 /dev/tty_zigbee
+fi
+
+if [ $MODEL = "std" ]; then
 	modprobe -r dhd
 	modprobe dhd nvram_path=/etc/wifi/nvram.txt firmware_path=/etc/wifi/fw.bin
 	/usr/bin/mydonglecloud-init-std-bluetooth.sh &

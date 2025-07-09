@@ -32,6 +32,9 @@
 #define OATH_PATH "/etc/users.oath"
 #define SPACESNAME_PATH "/etc/mydonglecloud-spaces.txt"
 
+#define ZIGBEE_DEV "/dev/tty_zigbee"
+#define ZIGBEE_FIRMWARE "/usr/bin/CC2652R7_coordinator.bin"
+
 #define WIDTH 128	
 #define HEIGHT 128
 #define DEPTH 3

@@ -20,6 +20,8 @@ OBJs := $(PRE)backend.o \
 	$(PRE)language.o \
 	$(PRE)logic.o \
 	$(PRE)main.o \
+	$(PRE)sbl.o \
+	$(PRE)sbl2.o \
 	$(PRE)settings.o \
 	$(PRE)ui.o
 
@@ -44,15 +46,20 @@ OBJs_WEB := $(PRE)backend__.o \
 	$(PRE)ui__.o
 #OBJs_WEB := $(PRE)demo-web__.o
 
+
+OBJs_ZIGBEE := $(PRE)sbl.o \
+	$(PRE)sbl2.o \
+	$(PRE)main_zigbee.o
+
 MYCFLAGS_WEB = $(MYCFLAGS) -I ../build/lvgl-web/ -DWEB -Wno-pointer-sign -s USE_SDL=2
 MYLDFLAGS_WEB = -L ../build/lvgl-web/cmbuild/lib/ -llvgl -llvgl_thorvg -llvgl_demos -lSDL2 --shell-file /tmp/a.js -s SINGLE_FILE=1 -s INITIAL_MEMORY=33554432 -s EXPORTED_FUNCTIONS='["_main", "_button", "_requestPasscode", "_serverReceive", "_communicationStatus", "_malloc", "_free"]'
 
 .PHONY : clean
 
 ifeq ($(shell uname -m), aarch64)
-all: app_exec
+all: app_exec zigbee_exec
 else
-all: app_exec desktop_exec web_exec
+all: app_exec desktop_exec zigbee_exec web_exec
 endif
 clean: cleanup
 
@@ -69,6 +76,12 @@ desktop_exec: $(OBJs_DESKTOP)
 	$(MYLINKPP) $(DEBUG) $(OBJs_DESKTOP) $(MYLDFLAGS_DESKTOP) -o appD
 ifeq ($(DEBUG),)
 	@strip appD
+endif
+
+zigbee_exec: $(OBJs_ZIGBEE)
+	$(MYLINKPP) $(DEBUG) $(OBJs_ZIGBEE) $(MYLDFLAGS) -o zigbeeFlasher
+ifeq ($(DEBUG),)
+	@strip zigbeeFlasher
 endif
 
 web_exec: $(OBJs_WEB)
@@ -90,4 +103,4 @@ $(PRE)%__.o : %.c
 	$(MYCC_WEB) $(DEBUG) $< -o $@ -c $(MYCFLAGS_WEB)
 
 cleanup:
-	@rm -f $(OBJs_APP) $(OBJs_DESKTOP) $(OBJs_WEB) app appD app.js
+	@rm -f $(OBJs_APP) $(OBJs_DESKTOP) $(OBJs_ZIGBEE) $(OBJs_WEB) app appD app.js zigbeeFlasher
