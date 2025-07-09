@@ -45,6 +45,7 @@ void WAIT_100MS() {
 }
 
 #include "screenSimple.h"
+#define SCREENPIXEL_(a, b, c) screenPixel_(b, a, c)
 
 void progressBar() {
 	uint8_t w = 92 + 4;
@@ -53,12 +54,12 @@ void progressBar() {
 	uint8_t y = (128 - h) / 2;
 	uint8_t xx, yy;
 	for (xx = 0; xx < w; xx++) {
-		screenPixel_(x + xx, y, 0xffff);
-		screenPixel_(x + xx, y + h, 0xffff);
+		SCREENPIXEL_(x + xx, y, 0xffff);
+		SCREENPIXEL_(x + xx, y + h, 0xffff);
 	}
 	for (yy = 0; yy < h; yy++) {
-		screenPixel_(x, y + yy, 0xffff);
-		screenPixel_(x + w - 1, y + yy, 0xffff);
+		SCREENPIXEL_(x, y + yy, 0xffff);
+		SCREENPIXEL_(x + w - 1, y + yy, 0xffff);
 	}
 	w -= 4;
 	h -= 4;
@@ -68,9 +69,9 @@ void progressBar() {
 	while (1)
 		for (pos = 0; pos < w; pos++) {
 			for (yy = 0; yy <= h; yy++) {
-				screenPixel_((x + pos), y + yy, 0x0);
+				SCREENPIXEL_((x + pos), y + yy, 0x0);
 				uint8_t ppos = (pos + 32) % w;
-				screenPixel_(x + ppos, y + yy, 0xffff);
+				SCREENPIXEL_(x + ppos, y + yy, 0xffff);
 				if (loop == 0)
 					goto end;
 			}
