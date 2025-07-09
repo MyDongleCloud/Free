@@ -15,7 +15,7 @@ function doProcess() {
 	$oteMaps = "";
 	$otePassword = "";
 	for ($i = 0; $i < count($content_); $i++) {
-		$ar = explode(";", $content_[$i]);
+		$ar = explode("|", $content_[$i]);
 		$id = intval($ar[0]);
 		$account = $ar[1];
 		$from = $ar[2];

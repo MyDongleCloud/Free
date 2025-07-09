@@ -21,12 +21,12 @@ if (isset($_POST["formId"])) {
 	else
 		$to = "";
 	if ($_POST["formId"] == "new") {
-		$content .= "\n" . (count($content_) + 1) . ";" . $_POST["formAccount"] . ";" . $_POST["formFrom"] . "@" . $domain . ";" . $to . ";" . $expiration . "\n";
+		$content .= "\n" . (count($content_) + 1) . "|" . $_POST["formAccount"] . "|" . $_POST["formFrom"] . "@" . $domain . "|" . $to . "|" . $expiration . "|" . str_replace("|", "", str_replace("\n", "", $_POST["formUsedFor"])) . "|" . str_replace("|", "", str_replace("\n", "", $_POST["formComment"])) . "\n";
 	} else {
 		for ($i = 0; $i < count($content_); $i++) {
-			$ar = explode(";", $content_[$i]);
+			$ar = explode("|", $content_[$i]);
 			if ($ar[0] == $_POST["formId"]) {
-				$content_[$i] = $ar[0] . ";" . $_POST["formAccount"] . ";" . $_POST["formFrom"] . "@" . $domain . ";" . $to . ";" . $expiration . "\n";
+				$content_[$i] = $ar[0] . "|" . $_POST["formAccount"] . "|" . $_POST["formFrom"] . "@" . $domain . "|" . $to . "|" . $expiration . "|" . str_replace("|", "", str_replace("\n", "", $_POST["formUsedFor"])) . "|" . str_replace("|", "", str_replace("\n", "", $_POST["formComment"])) . "\n";
 				break;
 			}
 		}
@@ -49,7 +49,7 @@ if (isset($_POST["formId"])) {
 <style type="text/css">
 td { border:1px black solid; }
 tr:nth-child(even) td { background-color: #FFFFFF; }
-tr:nth-child(odd) td { background-color: #EEEEEE; }
+tr:nth-child(odd) td { background-color: #FFFFFF; }
 tr:first-child td { background-color: #DDDDDD; }
 </style>
 <script>
@@ -100,7 +100,7 @@ function openMail(email) {
 	setTimeout(() => { form.remove(); }, 100);
 }
 
-function fillForm(id, account, from, to, expiration) {
+function fillForm(id, account, from, to, expiration, usedFor, comment) {
 	document.getElementById("formId").value = id;
 	document.getElementById("formAccount").value = account;
 	document.getElementById("formFrom").value = from.replace(/@.*/, "");
@@ -119,6 +119,8 @@ function fillForm(id, account, from, to, expiration) {
 //	document.getElementById("formExpiration").value = expiration;
 	formToSelect(from == to);
 	formExpirationSelect(expiration > 0);
+	document.getElementById("formUsedFor").value = usedFor;
+	document.getElementById("formComment").value = comment;
 }
 
 function fillFormNew() {
@@ -143,7 +145,8 @@ function sendForm() {
 	var formData = new FormData();
 	for (let i = 0; i < formForm.length; i++) {
 		const element = formForm[i];
-		formData.append(element.name, element.value);
+		if(element.disabled !== true)
+			formData.append(element.name, element.value);
 	}
 	xhr.send(formData);
 }
@@ -199,11 +202,13 @@ Expiration: <input type="radio" name="formExpiration" id="formExpiration0" oncha
 <option value="1440">1 day</option>
 <option value="0">Never</option>
 </select> or <input type="radio" name="formExpiration" id="formExpiration1" onchange="formExpirationSelect(1);"> On <input type="date" id="formDate" name="formDate"> at <input type="time" id="formTime" name="formTime" disabled> (<a href="javascript:void();" onclick="fillDateTime(0);">now</a>) <br><br>
+Used for: <input type="text" id="formUsedFor" name="formUsedFor"><br><br>
+Comment: <input type="text" id="formComment" name="formComment"><br><br>
 <button id="formSubmit" name="formSubmit" onclick="sendForm(); return false;">Create</button>
 </form>
 <br><br><br>
 <table border="0">
-<tr><td nowrap><span class="material-icons">list_alt</span></td><td>Id</td><td>Account</td><td>From</td><td>To</td><td>Status</td><td>Expires in</td></tr>
+<tr><td nowrap><span class="material-icons">list_alt</span></td><td>Id</td><td>Account</td><td>From</td><td>To</td><td>Status</td><td>Expires in</td><td>Used for</td><td>Comment</td></tr>
 <?php
 function isLocal($email) {
 	global $baseDir;
@@ -234,7 +239,7 @@ if (strlen($content) == 0)
 	exit;
 $content_ = array_reverse(explode("\n", $content));
 for ($i = 0; $i < count($content_); $i++) {
-	$ar = explode(";", $content_[$i]);
+	$ar = explode("|", $content_[$i]);
 	$id = $ar[0];
 	$account = $ar[1];
 	$from = $ar[2];
@@ -247,14 +252,18 @@ for ($i = 0; $i < count($content_); $i++) {
 		$active = false;
 	if ($accountCur != "" && $accountCur != $account)
 		continue;
+	$usedFor = $ar[5];
+	$comment = $ar[6];
 	echo "<tr id='tr" . $id . "'>\n";
-	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap><span class='material-icons' style='cursor:pointer;' onclick='fillForm(" . $id . ", \"" . $account . "\", \"" . $from . "\", \"" . $to . "\", " . $expiration . ");'>list_alt</span></td>\n";
+	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap><span class='material-icons' style='cursor:pointer;' onclick='fillForm(" . $id . ", \"" . $account . "\", \"" . $from . "\", \"" . $to . "\", " . $expiration . ", \"" . $usedFor . "\", \"" . $comment . "\");'>list_alt</span></td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $id . "</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $account . "</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $from . " (<a href='javascript:void();' onclick='copyEmail(\"" . $from . "\");'>copy</a>)</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . (isLocal($to) ? "<button onclick='openMail(\"". $to . "\");'>". $to . "</button>" : $to) . "</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . ($active ? "Active" : "Inactive") . "</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . ($expiration > 1 ? (getTimeDifference($expiration) . " (" . epochToString($expiration) . ")") : "") . "</td>\n";
+	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $usedFor . "</td>\n";
+	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $comment . "</td>\n";
 	echo "</tr>";
 }
 fclose($handle);
