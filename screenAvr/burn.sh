@@ -12,8 +12,8 @@ exit 0
 
 PP=/dev/ttyUSB0
 BASE=/tmp/test
-if [ -f /dev/ttyAMA0 ]; then
-	BASE=/home/mdc/build
+if [ -e /dev/ttyAMA0 ]; then
+	BASE=/home/mdc/build/py
 	PP=/dev/ttyAMA0
 fi
 MCU=attiny202
@@ -30,7 +30,7 @@ while getopts efhs opt; do
 done
 
 if [ $SETUP = 1 ]; then
-	~/Executables/pip.sh -s
+	./pip.sh -s
 	PATH=$BASE/bin:$PATH
 	pip install pymcuprog
 	exit 0
