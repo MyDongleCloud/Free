@@ -25,4 +25,4 @@ $(PRE)%.o : %.c
 
 cleanup:
 	@rm -f $(OBJs)
-	@rm -f main.elf main.hex main.lss main.map
+	@rm -f main.elf main.lss main.map
