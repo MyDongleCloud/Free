@@ -4,7 +4,7 @@ helper() {
 echo "*******************************************************"
 echo "Usage for burn.sh [-d disk -i img -h]"
 echo "d disk:	set /dev/disk"
-echo "d disk:	set image to burn"
+echo "i img:	set image to burn"
 echo "h:		Print this usage and exit"
 exit 0
 }
