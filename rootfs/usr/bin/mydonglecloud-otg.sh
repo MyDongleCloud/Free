@@ -15,6 +15,9 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
+PRODUCT="MyDongleCloud"
+MANUFACTURER="MyDongleCloud"
+SERIAL="`cat /dev/mydonglecloud_platform/serialNumber`"
 MODEL="`/sys/devices/platform/mydonglecloud/model`"
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
 FFS="ffs.mtp"
@@ -99,9 +102,15 @@ cd $PATHg1
 echo 0x100 > $PATHg1/bcdDevice
 echo 0x200 > $PATHg1/bcdUSB
 mkdir $PATHg1/strings/0x409
-echo "MyDongleCloud" > $PATHg1/strings/0x409/manufacturer
-echo "MyDongleCloud" > $PATHg1/strings/0x409/product
-echo "1234567890" > $PATHg1/strings/0x409/serialnumber
+sed -i -e 's/serial.*/serial "`cat /dev/mydonglecloud_platform/serialNumber`"/' /etc/umtprd/umtprd.conf
+
+
+echo -n $MANUFACTURER > $PATHg1/strings/0x409/manufacturer
+echo -n $PRODUCT > $PATHg1/strings/0x409/product
+echo -n $SERIAL > $PATHg1/strings/0x409/serialnumber
+sed -i -e "s/manufacturer.*/manufacturer \"${MANUFACTURER}\"/" /etc/umtprd/umtprd.conf
+sed -i -e "s/product.*/product \"${PRODUCT}\"/" /etc/umtprd/umtprd.conf
+sed -i -e "s/serial.*/serial \"${SERIAL}\"/" /etc/umtprd/umtprd.conf
 echo 0x1 > $PATHg1/bDeviceProtocol
 echo 0x1 > $PATHg1/bDeviceSubClass
 echo 0x6 > $PATHg1/bDeviceClass
