@@ -12,10 +12,7 @@ if (isset($_POST["formId"])) {
 	$content = trim(fread($handle, filesize($dbPath)));
 	$content_ = explode("\n", $content);
 	fclose($handle);
-	if (isset($_POST["formDelay"]))
-		$expiration = time() + intval($_POST["formDelay"]) * 60;
-	else
-		$expiration = strtotime($_POST["formDate"] . " " . $_POST["formTime"]);
+	$expiration = $_POST["formExpiration_"];
 	if (isset($_POST["formRedirect"]))
 		$to = $_POST["formRedirect"];
 	else
@@ -63,6 +60,11 @@ function showToast(message) {
     setTimeout(() => {
 		document.getElementById("toastID").style.display = "none";
     }, 3000);
+}
+
+function epochToLocalString(epoch, id) {
+	const dateObject = new Date(epoch * 1000);
+	document.getElementById("sp" + id + "Time").innerHTML = dateObject.toLocaleString();
 }
 
 function fillDateTime(inD) {
@@ -116,7 +118,6 @@ function fillForm(id, account, from, to, expiration, usedFor, comment) {
 	fillDateTime(expiration);
 	document.getElementById("formExpiration1").checked = expiration > 0;
 	document.getElementById("formSubmit").innerHTML = "Save";
-//	document.getElementById("formExpiration").value = expiration;
 	formToSelect(from == to);
 	formExpirationSelect(expiration > 0);
 	document.getElementById("formUsedFor").value = usedFor;
@@ -148,6 +149,13 @@ function sendForm() {
 		if(element.disabled !== true)
 			formData.append(element.name, element.value);
 	}
+	let expiration;
+	if (document.getElementById("formDelay").disabled == true) {
+		const localDate = new Date("" + document.getElementById("formDate").value + " " + document.getElementById("formTime").value);
+		expiration = localDate.getTime() / 1000;
+	} else
+		expiration = Math.floor(Date.now() / 1000) + 60 * document.getElementById("formDelay").value;
+	formData.append("formExpiration_", expiration);
 	xhr.send(formData);
 }
 
@@ -217,13 +225,6 @@ function isLocal($email) {
 	return is_dir($dirPath);
 }
 
-function epochToString($e) {
-	$date = new DateTime("@$e");
-	$newTimezone = new DateTimeZone("America/Los_Angeles");
-	$date->setTimezone($newTimezone);
-	return $date->format("Y-m-d H:i:s T");
-}
-
 function getTimeDifference($epochTime) {
 	$difference = $epochTime - time();
 	$hours = floor($difference / 3600);
@@ -261,7 +262,7 @@ for ($i = 0; $i < count($content_); $i++) {
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $from . " (<a href='javascript:void();' onclick='copyEmail(\"" . $from . "\");'>copy</a>)</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . (isLocal($to) ? "<button onclick='openMail(\"". $to . "\");'>". $to . "</button>" : $to) . "</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . ($active ? "Active" : "Inactive") . "</td>\n";
-	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . ($expiration > 1 ? (getTimeDifference($expiration) . " (" . epochToString($expiration) . ")") : "") . "</td>\n";
+	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . ($expiration > 1 ? (getTimeDifference($expiration) . " (<span id='sp" . $id . "Time'></span><script>epochToLocalString(" . $expiration .", " . $id . ");</script>)") : "") . "</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $usedFor . "</td>\n";
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $comment . "</td>\n";
 	echo "</tr>";
