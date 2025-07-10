@@ -45,7 +45,30 @@ ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.targe
 ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
 ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
 echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
-echo -e "dtoverlay=dwc2\ndtoverlay=mydonglecloud\ndtoverlay=st7735s\ndtoverlay=buttons\ndtoverlay=leds\ndtparam=uart0=on\ndtparam=uart2=on\ndtparam=spi=on" >> /boot/firmware/config.txt
+cat > /boot/firmware/config.txt <<EOF
+auto_initramfs=1
+arm_64bit=1
+arm_boost=1
+
+[all]
+dtoverlay=dwc2
+dtoverlay=mydonglecloud
+dtoverlay=st7735s
+dtoverlay=buttons
+dtoverlay=leds
+dtparam=uart0=on
+dtparam=uart2=on
+dtparam=spi=on
+dtparam=pciex1=1
+dtparam=nvme
+EOF
+cat > /etc/fstab <<EOF
+proc            /proc           proc    defaults          0       0
+LABEL=bootfs  /boot/firmware  vfat    defaults          0       2
+LABEL=rootfs  /               ext4    defaults,noatime  0       1
+EOF
+fatlabel /dev/mmcblk0p1 bootfs
+e2label /dev/mmcblk0p2 rootfs
 adduser --comment Administrator --disabled-password admin
 
 echo "################################"
@@ -171,6 +194,8 @@ if [ $OS = "ubuntu" ]; then
 elif [ $OS = "pios" ]; then
 	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 raspi-utils-core raspi-utils-dt
 	apt-get -y purge linux-headers-rpi-v8 linux-image-rpi-v8
+	rm -rf /lib/modules/6.12.25+rpt-rpi-* /lib/modules/6.12.34+rpt-rpi-v8/
+	rm -f /boot/firmware/bcm2710* /boot/firmware/bcm2711* /boot/firmware/kernel8.img /boot/firmware/initramfs8 /boot/firmware/LICENCE.broadcom /boot/firmware/issue.txt
 fi
 
 echo "################################"
@@ -214,13 +239,6 @@ git clone https://github.com/bizzycola/qrcode-generator
 git clone https://github.com/mebjas/html5-qrcode
 
 echo "################################"
-echo "Upgrade and cleanup"
-echo "################################"
-apt-get -y upgrade
-apt-get -y autoremove
-rm /var/cache/apt/archives/*.deb
-
-echo "################################"
 echo "App and rootfs"
 echo "################################"
 cd /home/mdc
@@ -230,6 +248,15 @@ cd app && ./lvgl.sh && make && cd ..
 chown -R root:root rootfs
 cp -a rootfs/* /
 rm -rf rootfs
+
+echo "################################"
+echo "Upgrade and cleanup"
+echo "################################"
+apt-get -y upgrade
+apt-get -y autoremove
+rm -f /var/cache/apt/archives/*.deb
+rm -f /home/mdc/*.deb
+rm -rf /root
 
 if [ $PROD = 1 ]; then
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow
