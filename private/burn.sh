@@ -9,7 +9,7 @@ echo "h:		Print this usage and exit"
 exit 0
 }
 
-DISK=/dev/sdcard
+DISK=/dev/sda
 IMG=/work/ai.mydonglecloud/private/img/flasher-m-s.img
 while getopts d:i:h opt; do
 	case "$opt" in
@@ -21,11 +21,19 @@ done
 
 umount ${DISK}*
 umount ${DISK}*
-dd if=${IMG} of=${DISK} bs=31M status=progress
+if [ -b ${DISK}0 ]; then
+	OFF=${DISK}0
+elif [ ! -b ${DISK} -a ${DISK} = "/dev/mmcblk0p" ]; then
+		OFF=/dev/mmcblk0
+else
+	OFF=${DISK}
+fi
+dd if=${IMG} of=${OFF} bs=31M status=progress
+sfdisk --disk-id ${OFF} 0xc5b98d14
 sync
 umount ${DISK}*
 umount ${DISK}*
-growpart ${DISK}0 2
+growpart ${OFF} 2
 e2fsck -f -p ${DISK}2
 resize2fs ${DISK}2
 e2fsck -f -p ${DISK}2

@@ -34,15 +34,12 @@ if [ ! -b ${DISK}1 ]; then
 	exit 0
 fi
 
-rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.{zip,img}
+rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc.img
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
-cp /work/ai.inout/build/linux-artik/arch/arm64/boot/Image /tmp/1/
-cp /work/ai.inout/build/linux-artik/arch/arm64/boot/dts/nexell/mydonglecd.dtb /tmp/1/
-tar -xjpvf /work/ai.inout/private/img/modules.tbz2 -C /tmp/2/lib/modules/
 cd /tmp/1
 zip -r /tmp/mdc.zip *
 cd /tmp/2
@@ -52,7 +49,6 @@ sync
 umount ${DISK}*
 umount ${DISK}*
 
-rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
 dd if=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024
 dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$((1400 * 1024)) seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
@@ -134,4 +130,4 @@ EOF
 	echo -n "\e[m"
 	echo "*******************************************************"
 fi
-rm -f /tmp/mdc.{zip,img}
+rm -f /tmp/mdc.zip /tmp/mdc.img
