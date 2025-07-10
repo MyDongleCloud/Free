@@ -45,6 +45,7 @@ ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.targe
 ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
 ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
 echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
+sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
 cat > /boot/firmware/config.txt <<EOF
 auto_initramfs=1
 arm_64bit=1

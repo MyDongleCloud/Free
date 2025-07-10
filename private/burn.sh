@@ -29,7 +29,6 @@ else
 	OFF=${DISK}
 fi
 dd if=${IMG} of=${OFF} bs=31M status=progress
-sfdisk --disk-id ${OFF} 0xc5b98d14
 sync
 umount ${DISK}*
 umount ${DISK}*
