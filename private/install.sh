@@ -57,8 +57,8 @@ dtoverlay=mydonglecloud
 dtoverlay=st7735s
 dtoverlay=buttons
 dtoverlay=leds
+dtoverlay=uart2
 dtparam=uart0=on
-dtparam=uart2=on
 dtparam=spi=on
 dtparam=pciex1=1
 dtparam=nvme

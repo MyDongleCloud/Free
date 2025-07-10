@@ -42,7 +42,7 @@ chmod 666 /dev/mydonglecloud_screen_f
 if [ $MODEL = "std" ]; then
 	ln -s /dev/tty_SAC5 /dev/tty_zigbee
 else
-	ln -s /dev/tty_AMA10 /dev/tty_zigbee
+	ln -s /dev/tty_AMA2 /dev/tty_zigbee
 fi
 
 if [ $MODEL = "std" ]; then
