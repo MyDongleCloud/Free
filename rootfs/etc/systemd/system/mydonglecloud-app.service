@@ -5,8 +5,7 @@ After=systemd-modules-load.service
 #StartLimitIntervalSec=0
 
 [Service]
-Type=simple
-Restart=oneshot
+Type=oneshot
 RestartSec=1
 User=mdc
 ExecStart=sudo /usr/bin/mydonglecloud-app -d
