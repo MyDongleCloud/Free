@@ -77,6 +77,7 @@ umount ${LOSETUP}*
 umount ${LOSETUP}*
 mount ${LOSETUP}p1 /tmp/1
 unzip -d /tmp/1/ /tmp/mdc.zip
+cp /work/ai.mydonglecloud/private/img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
 mkdir -p /tmp/2/fs/upper/ /tmp/2/fs_/lower/ /tmp/2/fs_/overlay/ /tmp/2/fs_/work/

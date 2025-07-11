@@ -55,13 +55,10 @@ if [ $UBOOT = 1 ]; then
 EOF
 	sync
 	sleep 1
-	mkfs.fat -F 32 ${DISK}1
-	fatlabel ${DISK}1 bootfs
 fi
 mount ${DISK}1 /tmp/1
 cp /work/ai.inout/build/linux-artik/arch/arm64/boot/Image /tmp/1
 cp /work/ai.inout/build/linux-artik/arch/arm64/boot/dts/nexell/mydonglecd.dtb /tmp/1
-unzip /work/ai.mydonglecloud/private/img/part1-rpi.zip -d /tmp/1
 umount ${DISK}*
 umount ${DISK}*
 sync

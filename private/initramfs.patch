@@ -1,0 +1,33 @@
+--- a/init	2025-07-10 22:57:57.810764118 -0700
++++ b/init	2025-07-11 12:28:39.069368881 -0700
+@@ -6,6 +6,7 @@
+ 
+ [ -d /dev ] || mkdir -m 0755 /dev
+ [ -d /root ] || mkdir -m 0700 /root
++[ -d /root_ ] || mkdir -m 0700 /root_
+ [ -d /sys ] || mkdir /sys
+ [ -d /proc ] || mkdir /proc
+ [ -d /tmp ] || mkdir /tmp
+@@ -64,7 +65,7 @@
+ export break=
+ export init=/sbin/init
+ export readonly=y
+-export rootmnt=/root
++export rootmnt=/root_
+ export debug=
+ export panic=
+ export blacklist=
+@@ -251,6 +252,13 @@
+ mountroot
+ log_end_msg
+ 
++insmod /usr/lib/modules/*/kernel/fs/squashfs/squashfs.ko
++insmod /usr/lib/modules/*/kernel/fs/overlayfs/overlay.ko
++mount -o remount,rw /root_
++mount -t squashfs -o loop /root_/fs/mdc.img /root_/fs_/lower
++mount -t overlay -o lowerdir=/root_/fs_/lower,upperdir=/root_/fs/upper,workdir=/root_/fs_/work none /root
++export rootmnt=/root
++
+ if read_fstab_entry /usr; then
+ 	log_begin_msg "Mounting /usr file system"
+ 	mountfs /usr
