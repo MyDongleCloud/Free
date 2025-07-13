@@ -19,7 +19,7 @@ do
 	esac
 done
 
-MODEL="`/sys/devices/platform/mydonglecloud/model`"
+MODEL="cat `/sys/devices/platform/mydonglecloud/model`"
 /usr/bin/mydonglecloud-leds.sh -l "normal"
 
 ln -sf /sys/devices/platform/mydonglecloud /dev/mydonglecloud_platform
