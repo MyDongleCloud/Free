@@ -2,25 +2,26 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for burn.sh [-d disk -e -i img -h]"
-echo "d disk:	set /dev/disk"
-echo "e:	extract image"
-echo "i img:	set image to burn"
+echo "Usage for burn.sh [-d disk -e -f -h]"
+echo "d disk:	Set /dev/disk (default: /dev/sda)"
+echo "e:	Extract image"
+echo "f:	Use final image"
 echo "h:		Print this usage and exit"
 exit 0
 }
 
 DISK=/dev/sda
-IMG=/work/ai.mydonglecloud/private/img/flasher-m-s.img
+POSTNAME=""
 EXTRACT=0
-while getopts d:ei:h opt; do
+while getopts d:e:fh opt; do
 	case "$opt" in
 		d) DISK="/dev/${OPTARG}";;
 		e) EXTRACT=1;;
-		i) IMG="${OPTARG}";;
+		f) POSTNAME="-final";;
 		h) helper;;
 	esac
 done
+IMG=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
 
 umount ${DISK}*
 umount ${DISK}*

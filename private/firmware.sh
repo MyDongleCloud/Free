@@ -3,18 +3,21 @@
 helper() {
 echo "*******************************************************"
 echo "Usage for firmware [-f -h -l NB]"
-echo "f:		Create final binaries"
-echo "h:		Print this usage and exit"
-echo "l:		Set loop number"
+echo "c:	Clean build"
+echo "f:	Create final binaries"
+echo "h:	Print this usage and exit"
+echo "l:	Set loop number"
 exit 0
 }
 
 DISK=/dev/sdcard
-LOSETUP=/dev/loop0
+LOSETUP=/dev/loop3
 POSTNAME=""
 FINAL=0
-while getopts fhl: opt; do
+CLEAN=0
+while getopts cfhl: opt; do
 	case "$opt" in
+		c) CLEAN=1;;
 		f) POSTNAME="-final";FINAL=1;;
 		h) helper;;
 		l) LOSETUP=/dev/loop${OPTARG};;
@@ -34,23 +37,39 @@ if [ ! -b ${DISK}1 ]; then
 	exit 0
 fi
 
-rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc.img
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*
-mount ${DISK}1 /tmp/1
-mount ${DISK}2 /tmp/2
-cd /tmp/1
-zip -r /tmp/mdc.zip *
-cd /tmp/2
-mksquashfs . /tmp/mdc.img -ef /work/ai.mydonglecloud/private/squashfs-exclude.txt
-cd /tmp
-sync
-umount ${DISK}*
-umount ${DISK}*
+rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin
+if [ $CLEAN = 1 ]; then
+	rm -f /tmp/mdc.zip /tmp/mdc.img
+fi
+if [ -f /tmp/mdc.zip -a -f /tmp/mdc.img ]; then
+	echo "No creation as /tmp/mdc.zip and /tmp/mdc.img already exist"
+else
+	mount ${DISK}1 /tmp/1
+	mount ${DISK}2 /tmp/2
+	cd /tmp/1
+	zip -r /tmp/mdc.zip *
+	cd /tmp/2
+	if [ $FINAL = 1 ]; then
+		mksquashfs . /tmp/mdc.img -ef /work/ai.mydonglecloud/private/squashfs-exclude.txt
+	else
+		mksquashfs . /tmp/mdc.img
+	fi
+	cd /tmp
+	sync
+	umount ${DISK}*
+	umount ${DISK}*
+fi
 
 dd if=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024
-dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$((1400 * 1024)) seek=$((4 * 1024)) conv=notrunc
+if [ $FINAL = 1 ]; then
+	SIZE=1400
+else
+	SIZE=2200
+fi
+dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$((2200 * 1024)) seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
 8192,131072,c
@@ -131,4 +150,3 @@ EOF
 	echo -n "\e[m"
 	echo "*******************************************************"
 fi
-rm -f /tmp/mdc.zip /tmp/mdc.img
