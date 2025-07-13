@@ -15,10 +15,10 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
-PRODUCT="MyDongleCloud"
-MANUFACTURER="MyDongleCloud"
+MANUFACTURER="MyDongle.Cloud"
+PRODUCT="MyDongle.Cloud `cat /dev/mydonglecloud_platform/model | sed 's/./\U&/'`"
 SERIALNUMBER="`cat /dev/mydonglecloud_platform/serialNumber`"
-MODEL="`/sys/devices/platform/mydonglecloud/model`"
+MODEL="`cat /dev/mydonglecloud_platform/model`"
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
 FFS="ffs.mtp"
 STOP=0
@@ -106,7 +106,7 @@ mkdir $PATHg1/strings/0x409
 
 echo -n $MANUFACTURER > $PATHg1/strings/0x409/manufacturer
 echo -n $PRODUCT > $PATHg1/strings/0x409/product
-echo -n $SERIAL > $PATHg1/strings/0x409/serialnumber
+echo -n $SERIALNUMBER > $PATHg1/strings/0x409/serialnumber
 sed -i -e "s/manufacturer.*/manufacturer \"${MANUFACTURER}\"/" /etc/umtprd/umtprd.conf
 sed -i -e "s/product.*/product \"${PRODUCT}\"/" /etc/umtprd/umtprd.conf
 sed -i -e "s/serial.*/serial \"${SERIALNUMBER}\"/" /etc/umtprd/umtprd.conf
