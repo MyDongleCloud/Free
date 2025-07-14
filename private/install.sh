@@ -67,10 +67,12 @@ cat > /etc/fstab <<EOF
 proc            /proc           proc    defaults          0       0
 LABEL=bootfs  /boot/firmware  vfat    defaults          0       2
 LABEL=rootfs  /               ext4    defaults,noatime  0       1
+LABEL=rootfs  /disk           ext4    defaults,noatime  0       1
 EOF
 fatlabel /dev/mmcblk0p1 bootfs
 e2label /dev/mmcblk0p2 rootfs
 adduser --comment Administrator --disabled-password admin
+mkdir /disk
 
 echo "################################"
 echo "Upgrade"
