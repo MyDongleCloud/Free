@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for firmware [-f -h -l NB]"
+echo "Usage for firmware [-c -f -h -l NB]"
 echo "c:	Clean build"
 echo "f:	Create final binaries"
 echo "h:	Print this usage and exit"
@@ -40,28 +40,28 @@ fi
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*
-rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin
+rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip
+mount ${DISK}1 /tmp/1
+mount ${DISK}2 /tmp/2
+cd /tmp/1
+zip -r /tmp/mdc.zip *
 if [ $CLEAN = 1 ]; then
-	rm -f /tmp/mdc.zip /tmp/mdc.img
+	rm -f /tmp/mdc.img
 fi
-if [ -f /tmp/mdc.zip -a -f /tmp/mdc.img ]; then
-	echo "No creation as /tmp/mdc.zip and /tmp/mdc.img already exist"
+if [ -f /tmp/mdc.img ]; then
+	echo "No creation as /tmp/mdc.img already exists"
 else
-	mount ${DISK}1 /tmp/1
-	mount ${DISK}2 /tmp/2
-	cd /tmp/1
-	zip -r /tmp/mdc.zip *
 	cd /tmp/2
 	if [ $FINAL = 1 ]; then
 		mksquashfs . /tmp/mdc.img -ef /work/ai.mydonglecloud/private/squashfs-exclude.txt
 	else
 		mksquashfs . /tmp/mdc.img
 	fi
-	cd /tmp
-	sync
-	umount ${DISK}*
-	umount ${DISK}*
 fi
+cd /tmp
+sync
+umount ${DISK}*
+umount ${DISK}*
 
 dd if=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024
 if [ $FINAL = 1 ]; then
@@ -150,3 +150,4 @@ EOF
 	echo -n "\e[m"
 	echo "*******************************************************"
 fi
+rm -f /tmp/mdc.zip
