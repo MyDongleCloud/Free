@@ -47,6 +47,7 @@ if [ $EXTRACT = 1 ]; then
 	rm -rf /tmp/2/fs*
 	cp /work/ai.mydonglecloud/private/img/initramfs_2712.orig /tmp/1/initramfs_2712
 fi
+rm -rf /tmp/2/lost+found/
 sync
 umount ${DISK}*
 umount ${DISK}*
