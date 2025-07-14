@@ -65,7 +65,6 @@ dtparam=nvme
 EOF
 cat > /etc/fstab <<EOF
 proc            /proc           proc    defaults          0       0
-LABEL=bootfs  /boot/firmware  vfat    defaults          0       2
 LABEL=rootfs  /               ext4    defaults,noatime  0       1
 LABEL=rootfs  /disk           ext4    defaults,noatime  0       1
 EOF
