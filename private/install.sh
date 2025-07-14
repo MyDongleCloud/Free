@@ -84,7 +84,7 @@ echo "Basic"
 echo "################################"
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
 apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail rspamd dovecot-pop3d dovecot-imapd certbot python3-certbot-apache transgui python3-setuptools python3-attr python3-wheel python3-wheel-whl python3-intelhex
-apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof
+apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
 	snap remove snapd
