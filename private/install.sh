@@ -259,7 +259,8 @@ apt-get -y upgrade
 apt-get -y autoremove
 rm -f /var/cache/apt/archives/*.deb
 rm -f /home/mdc/*.deb
-rm -rf /root
+rm -rf /root/
+rm -rf /lost+found/
 
 if [ $PROD = 1 ]; then
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow
