@@ -1,1 +1,19 @@
-<html><head><meta http-equiv="refresh" content="0; url=/app"/></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<script>
+async function onStart() {
+	let en = false;
+	if ("bluetooth" in navigator)
+		en = await navigator.bluetooth.getAvailability();
+	if (en)
+		document.location.href = "/app";
+	else
+		document.body.style.display = "block";
+}
+onStart();
+</script>
+</head>
+<body style="display:hidden";>Download the app</body>
+</html>
