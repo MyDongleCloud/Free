@@ -99,7 +99,7 @@ unzip -d /tmp/1/ /tmp/mdc.zip
 cp /work/ai.mydonglecloud/private/img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
-mkdir -p /tmp/2/fs/upper/ /tmp/2/fs_/lower/ /tmp/2/fs_/overlay/ /tmp/2/fs_/work/
+mkdir -p /tmp/2/fs/upper/ /tmp/2/fs/lower/ /tmp/2/fs/overlay/ /tmp/2/fs/work/
 cp /tmp/mdc.img /tmp/2/fs/
 sync
 sync

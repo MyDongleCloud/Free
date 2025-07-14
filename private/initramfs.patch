@@ -24,8 +24,8 @@
 +insmod /usr/lib/modules/*/kernel/fs/squashfs/squashfs.ko
 +insmod /usr/lib/modules/*/kernel/fs/overlayfs/overlay.ko
 +mount -o remount,rw /root_
-+mount -t squashfs -o loop /root_/fs/mdc.img /root_/fs_/lower
-+mount -t overlay -o lowerdir=/root_/fs_/lower,upperdir=/root_/fs/upper,workdir=/root_/fs_/work none /root
++mount -t squashfs -o loop /root_/fs/mdc.img /root_/fs/lower
++mount -t overlay -o lowerdir=/root_/fs/lower,upperdir=/root_/fs/upper,workdir=/root_/fs/work none /root
 +export rootmnt=/root
 +
  if read_fstab_entry /usr; then
