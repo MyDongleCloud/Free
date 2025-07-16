@@ -234,12 +234,8 @@ static void rect(struct st7735sPriv *priv, uint8_t x, uint8_t y, uint8_t w, uint
 #include "screenWait.h"
 
 static void reset_(struct st7735sPriv *priv) {
-	//Temporary for version 1.0d
-	gpio_direction_output(priv->backlight, 0);
 	gpio_set_value(priv->nrst, 0);
 	msleep(50);
-	//Temporary for version 1.0d
-	gpio_direction_output(priv->backlight, 1);
 	gpio_set_value(priv->nrst, 1);
 }
 

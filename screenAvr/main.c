@@ -30,7 +30,7 @@ void SPI(uint8_t l, uint8_t a, uint8_t b) {
 	SPI0.DATA = a;
 	while ((SPI0.INTFLAGS & SPI_RXCIF_bm) == 0)
 		;
-	if (SPI0.DATA == 0x0)
+	if (SPI0.DATA == 0xff)
 		loop = 0;
 	if (l == 2) {
 		SPI0.DATA = b;
