@@ -25,7 +25,7 @@ static void nameIdLoad() {
 void settingsDefault() {
 	smdc.version = SETTINGS_VERSION;
 	smdc.language = 0;
-	smdc.rotation = 0;
+	smdc.rotation = 3;
 	smdc.noBuzzer = 0;
 	smdc.sleepKeepLed = 0;
 	smdc.setupDone = 0;
