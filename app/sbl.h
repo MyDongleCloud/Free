@@ -10,6 +10,7 @@ extern int noRxCCext;
 extern int CCflashInProgress;
 
 //Global functions
+int openUART(char *sz, int speed);
 bool CCinitCommunication(char *szUart, int resetViaGPIO);
 void CCuninitCommunication();
 bool CCFlash(char *szUart, char *szFirmware, char *szFirmware3, int resetViaGPIO);

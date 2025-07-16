@@ -142,32 +142,56 @@ int main(int argc, char **argv) {
 	int option;
 	int automatic = 0;
 	int nosound = 0;
+	int dotest = 0;
 
 	strcpy(szUart, ZIGBEE_DEV);
 	strcpy(szFirmware, ZIGBEE_FIRMWARE);
 
-	while ((option = getopt(argc, argv, "aho:s")) != -1) {
+	while ((option = getopt(argc, argv, "aho:pst")) != -1) {
 		switch (option) {
 		case 'a':
 			automatic = 1;
 			break;
 		case 'h':
 			PRINTF("*******************************************************\n");
-			PRINTF("Usage for zigbee [-a -h -o firmware -s]\n");
-			PRINTF("a:		Automatic mode\n");
-			PRINTF("h:		Print this usage and exit\n");
-			PRINTF("o:		Set path of firmware\n");
-			PRINTF("s:		No sound\n");
+			PRINTF("Usage for zigbee [-a -h -o firmware -p -s -t]\n");
+			PRINTF("a:	Automatic mode\n");
+			PRINTF("h:	Print this usage and exit\n");
+			PRINTF("o:	Set path of firmware\n");
+			PRINTF("p:	Do on PC\n");
+			PRINTF("s:	No sound\n");
+			PRINTF("t:	Do test presence Zigbee\n");
 			return 0;
 		case 'o':
 			strcpy(szFirmware, optarg);
 			break;
+		case 'p':
+			strcpy(szUart, "/dev/ttyUSB0");
+			strcpy(szFirmware, "../rootfs/usr/bin/CC2652R7_coordinator.bin");
+			break;
 		case 's':
 			nosound = 1;
+			break;
+		case 't':
+			dotest = 1;
 			break;
 		default:
 			break;
 		}
+	}
+
+	if (dotest) {
+		int fd = openUART(szUart, B115200);
+		unsigned char data[128];
+		data[0] = 0xfe; data[1] = 0x00; data[2] = 0x21; data[3] = 0x02; data[4] = 0x23;
+		write(fd, data, 5);
+		int ret = read(fd, data, 128);
+		PRINTF("Data(%d): ", ret);
+		for (int i = 0; i < ret; i++)
+			PRINTF_("0x%x ", data[i]);
+		PRINTF_("\n");
+		PRINTF("Version: maintrel:%d majorrel:%d minorrel:%d product:%d revision:%d transportrev:%d type:%d\n", data[5], data[6], data[7], data[8], (data[9] << 0) + (data[10] << 8) + (data[11] << 16) + (data[12] << 24), data[4], data[13]);
+		return 0;
 	}
 
 	if (automatic) {

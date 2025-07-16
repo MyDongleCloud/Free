@@ -56,20 +56,20 @@ static int set_interface_attribs_(int fd, int speed) {
 	return 0;
 }
 
-static int openUART(char *sz) {
+int openUART(char *sz, int speed) {
 	int fd = open(sz, O_RDWR | O_NOCTTY | O_SYNC);
 	if (fd <= 0) {
 		PRINTF("Error opening UART %s\n", sz);
 	} else {
 		tcgetattr(fd, &ttyOrig);
-		set_interface_attribs_(fd, B1500000);
-		//PRINTF("UART %s opened at B1500000\n", sz);
+		set_interface_attribs_(fd, speed);
+		//PRINTF("UART %s opened at %d\n", sz, speed);
 	}
 	return fd;
 }
 
 static void sblInit_(char *sz) {
-	fdUART = openUART(sz);
+	fdUART = openUART(sz, B1500000);
 }
 
 static void writeValue(const char *path, const char *v) {
