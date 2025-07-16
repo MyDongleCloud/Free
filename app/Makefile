@@ -79,9 +79,9 @@ ifeq ($(DEBUG),)
 endif
 
 zigbee_exec: $(OBJs_ZIGBEE)
-	$(MYLINKPP) $(DEBUG) $(OBJs_ZIGBEE) $(MYLDFLAGS) -o zigbeeFlasher
+	$(MYLINKPP) $(DEBUG) $(OBJs_ZIGBEE) $(MYLDFLAGS) -o zigbee
 ifeq ($(DEBUG),)
-	@strip zigbeeFlasher
+	@strip zigbee
 endif
 
 web_exec: $(OBJs_WEB)
@@ -103,4 +103,4 @@ $(PRE)%__.o : %.c
 	$(MYCC_WEB) $(DEBUG) $< -o $@ -c $(MYCFLAGS_WEB)
 
 cleanup:
-	@rm -f $(OBJs_APP) $(OBJs_DESKTOP) $(OBJs_ZIGBEE) $(OBJs_WEB) app appD app.js zigbeeFlasher
+	@rm -f $(OBJs_APP) $(OBJs_DESKTOP) $(OBJs_ZIGBEE) $(OBJs_WEB) app appD app.js zigbee
