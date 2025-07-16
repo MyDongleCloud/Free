@@ -258,7 +258,10 @@ int oathGenerate(char secret[33]) {
 	generateRandomHexString(secret);
 	oath_init();
 	char otp[8];
-	oath_hotp_generate(secret, strlen(secret), 0, 6, 0, OATH_HOTP_DYNAMIC_TRUNCATION, otp);
+	char secretbin[17];
+	size_t secretbinlen = 16;
+	oath_hex2bin(secret, secretbin, &secretbinlen);
+	oath_hotp_generate(secretbin, secretbinlen, 0, 6, 0, OATH_HOTP_DYNAMIC_TRUNCATION, otp);
 	oath_done();
 	sscanf(otp, "%d", &ret);
 	return ret;
