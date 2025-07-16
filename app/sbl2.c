@@ -1,11 +1,8 @@
-#ifdef DeviceFamily_CC13X2
-#include <ti/sysbios/knl/Task.h>
-#include <ti/sysbios/knl/Clock.h>
-#endif
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
 #include <time.h>
 #include "macro.h"
 #include "sbl.h"
@@ -15,7 +12,7 @@
 #define SBL_DEFAULT_RETRY_COUNT 1
 #define SBL_DEFAULT_READ_TIMEOUT 100 // in ms
 #define SBL_DEFAULT_WRITE_TIMEOUT 200 // in ms
-#define SBL_CC2650_PAGE_ERASE_SIZE (isM4 ? 8192 : 4096)
+#define SBL_CC2650_PAGE_ERASE_SIZE 8192
 #define SBL_CC2650_FLASH_START_ADDRESS 0x00000000
 #define SBL_CC2650_RAM_START_ADDRESS 0x20000000
 #define SBL_CC2650_ACCESS_WIDTH_32B 1
@@ -28,19 +25,12 @@
 #define SBL_CC2650_MAX_MEMREAD_WORDS		63
 #define SBL_CC2650_FLASH_SIZE_CFG 0x4003002C
 #define SBL_CC2650_RAM_SIZE_CFG 0x40082250
-#define SBL_CC2650_BL_CONFIG_PAGE_OFFSET (isM4 ? 0x1FDB : 0xFDB)
+#define SBL_CC2650_BL_CONFIG_PAGE_OFFSET 0x1FDB
 #define SBL_CC2650_BL_CONFIG_ENABLED_BM 0xC5
 #define SBL_CC2650_BL_WORK_MEMORY_START		0x20000000
 #define SBL_CC2650_BL_WORK_MEMORY_END		0x2000016F
 #define SBL_CC2650_BL_STACK_MEMORY_START	0x20000FC0
 #define SBL_CC2650_BL_STACK_MEMORY_END		0x20000FFF
-
-static int isM4 = -1;
-
-void selectM4(int i) {
-	isM4 = i;
-	PRINTF("Configured for %s chip\n", isM4 == -1 ? "Unknown" : isM4 == 1 ? "M4" : "M3");
-}
 
 typedef enum {
 	SBL_SUCCESS = 0,
@@ -115,14 +105,10 @@ static void setProgress(uint32_t ui32Progress) {
 }
 
 static uint32_t getFlashSize() {
-	if (noRxCCext)
-		return isM4 ? 1024 * 352 : 1024 * 128;
 	return m_flashSize;
 }
 
 static uint32_t getRamSize() {
-	if (noRxCCext)
-		return isM4 ? 1024 * 80 : 1024 * 2;
 	return m_ramSize;
 }
 
@@ -465,11 +451,11 @@ static uint32_t readRamSize(uint32_t *pui32RamSize) {
 	//
 	value &= 0x03;
 	switch(value) {
-	case 3: *pui32RamSize = isM4 ? 0x14000 : 0x5000; break;	// 80~20 KB
-	case 2: *pui32RamSize = isM4 ? 0x10000 : 0x4000; break;	// 64~16 KB
-	case 1: *pui32RamSize = isM4 ? 0xC000 : 0x2800; break;	// 48~10 KB
+	case 3: *pui32RamSize = 0x14000; break;
+	case 2: *pui32RamSize = 0x10000; break;
+	case 1: *pui32RamSize = 0xC000; break;
 	case 0:
-	default:*pui32RamSize = isM4 ? 0x8000 : 0x1000; break;	// 32~4 KB
+	default:*pui32RamSize = 0x8000; break;
 	}
 
 	//
@@ -751,9 +737,7 @@ static uint32_t calculateCrc32(uint32_t ui32StartAddress, uint32_t ui32ByteCount
 		return retCode;
 	}
 
-#ifdef DeviceFamily_CC13X2
-    Task_sleep(2 * _100MS);
-#endif
+	usleep(2 * 1000 * 1000);
 	//
 	// Receive command response (ACK/NAK)
 	//
@@ -1042,13 +1026,6 @@ static bool addressInFlash(uint32_t ui32StartAddress, uint32_t ui32ByteCount/* =
 	return true;
 }
 
-static void CCautoSelect() {
-	uint32_t a;
-	readDeviceId(&a);
-	isM4 = a == 0x30828000 || a == 0x30029000;//0x20018000 for cc1310, 0x30828000 for CC1312R, 0x00828000 for CC1312R7, 0x30029000 for CC2642R
-	PRINTF("Autoselect isM4:%d\n", isM4);
-}
-
 int calcCrcLikeChip(const unsigned char *pData, unsigned long ulByteCount) {
     unsigned long d, ind;
     unsigned long acc = 0xFFFFFFFF;
@@ -1073,8 +1050,6 @@ int calcCrcLikeChip(const unsigned char *pData, unsigned long ulByteCount) {
 }
 
 void CCdumpMetadata() {
-	if (isM4 == -1)
-		CCautoSelect();
 	uint32_t a;
 	readDeviceId(&a);
 	PRINTF("ID: 0x%08x\n", a);
@@ -1087,67 +1062,22 @@ void CCdumpMetadata() {
 }
 
 uint32_t CCeraseFlashAll() {
-	if (isM4 == -1)
-		CCautoSelect();
 	PRINTF("Erasing size %ukiB\n", m_flashSize / 1024);
 	if (m_flashSize != 0)
 		return CCeraseFlashRange(0, m_flashSize);
     uint32_t a;
 	if (readFlashSize(&a) == SBL_SUCCESS)
 		return CCeraseFlashRange(0, m_flashSize);
-	return CCeraseFlashRange(0, isM4 ? 1024 * 352 : 1024 * 128);
+	return 0;
 }
 
-#ifdef DeviceFamily_CC13X2
-#include <ti/drivers/NVS.h>
-extern NVS_Handle nvsHandle;
-unsigned char ss[8192];
-#endif
 uint32_t CCwriteFirmware(char *path, char *path3, int notAll, void (*progresscallback)(int percent)) {
-#ifdef DeviceFamily_CC13X2
-    if (isM4 == -1)
-        CCautoSelect();
-
-    uint32_t a;
-    if (readDeviceId(&a) != SBL_SUCCESS) return 1;
-    if (readFlashSize(&a) != SBL_SUCCESS) return 1;
-    if (readRamSize(&a) != SBL_SUCCESS) return 1;
-    if (CCeraseFlashAll() != SBL_SUCCESS) return 1;
-    PRINTF("Erase done\n");
-    int size = isM4 ? 1024 * 352 : 1024 * 128;
-    NVS_read(nvsHandle, 0, ss, 512);
-
-    int todo = size / 252 - 1;
-    todo *= 252;
-    if (writeFlashRange(todo, size - todo, ss + 4, NULL) != SBL_SUCCESS) return 1;
-    todo = ss[3] + (ss[2] << 8) + (ss[1] << 16) + (ss[0] << 24);
-
-    int done = 0;
-    int nvspage = 1;
-    while (done < todo) {
-        NVS_read(nvsHandle, nvspage * 8192, ss, 8192);
-        nvspage++;
-        int tt = MIN2(8192, todo - done);
-        if (writeFlashRange(done, tt, ss, NULL) != SBL_SUCCESS) return 1;
-        done += tt;
-        progresscallback(done * 100 / todo);
-    }
-    PRINTF("Write done\n");
-
-    calculateCrc32(0, size, &a);
-    PRINTF("CRC %x==%x\n", a, CRCLINE);
-    return a != CRCLINE;
-#else
-	if (isM4 == -1)
-		CCautoSelect();
-	PRINTF("Writing firmware %s\n", isM4 ? path3 : path);
-	if (strlen(path3) != 0 && notAll && isM4 == 0)
-		notAll = 0;
-	FILE *fp = fopen(isM4 ? path3 : path, "rb");
+	PRINTF("Writing firmware %s\n", path3);
+	FILE *fp = fopen(path3, "rb");
 	if (fp) {
-		int size = isM4 ? 1024 * 352 : 1024 * 128;
-		int todo = isM4 ? 1024 * 352 : 1024 * 128;
-		int end = isM4 ? 0x4A000 : 0x1FF00;
+		int size = 1024 * 704;
+		int todo = 1024 * 704;
+		int end = 1024 * 700;
 		unsigned char *pucData = malloc(size);
 		fread(pucData, size, 1, fp);
 		fclose(fp);
@@ -1167,11 +1097,9 @@ uint32_t CCwriteFirmware(char *path, char *path3, int notAll, void (*progresscal
 			}
 		}
 		uint32_t a;
-		if (!noRxCCext) {
-			if (readDeviceId(&a) != SBL_SUCCESS) return 1;
-			if (readFlashSize(&a) != SBL_SUCCESS) return 1;
-			if (readRamSize(&a) != SBL_SUCCESS) return 1;
-		}
+		if (readDeviceId(&a) != SBL_SUCCESS) return 1;
+		if (readFlashSize(&a) != SBL_SUCCESS) return 1;
+		if (readRamSize(&a) != SBL_SUCCESS) return 1;
 		if (CCeraseFlashAll() != SBL_SUCCESS) return 1;
 		PRINTF("Erase done\n");
 
@@ -1187,21 +1115,16 @@ uint32_t CCwriteFirmware(char *path, char *path3, int notAll, void (*progresscal
 			todo *= 252;
 			if (writeFlashRange(todo + m_flashSize - size, size - todo, pucData + todo, NULL) != SBL_SUCCESS) return 1;
 		}
-		if (!noRxCCext) {
-			calculateCrc32(0, m_flashSize, &a);
-			PRINTF("CRC %x==%x\n", a, calcCrcLikeChip(pucData, size));
-			if (a != calcCrcLikeChip(pucData, size) && m_flashSize == size) return 1;
-		}
+		calculateCrc32(0, m_flashSize, &a);
+		PRINTF("CRC %x==%x\n", a, calcCrcLikeChip(pucData, size));
+		if (a != calcCrcLikeChip(pucData, size) && m_flashSize == size) return 1;
 		free(pucData);
 	}
 	return 0;
-#endif
 }
 
 char *st[] = { "EXT_LF_CLK", "MODE_CONF_1", "SIZE_AND_DIS_FLAGS", "MODE_CONF", "VOLT_LOAD_0", "VOLT_LOAD_1", "RTC_OFFSET", "FREQ_OFFSET", "IEEE_MAC_0", "IEEE_MAC_1", "IEEE_BLE_0", "IEEE_BLE_1", "BL_CONFIG", "ERASE_CONF", "CCFG_TI_OPTIONS", "CCFG_TAP_DAP_0", "CCFG_TAP_DAP_1", "IMAGE_VALID_CONF", "CCFG_PROT_31_0", "CCFG_PROT_63_32", "CCFG_PROT_95_64", "CCFG_PROT_127_96", ""};
 void CCreadMemory() {
-	if (isM4 == -1)
-		CCautoSelect();
 	uint32_t a;
 	readDeviceId(&a);
 	readFlashSize(&a);
@@ -1214,21 +1137,19 @@ void CCreadMemory() {
 
 	memset(pui32Data, 0, 32 * 4);
 	uint32_t s = 0xFA8;
-	readMemory32((isM4 ? 0x57000 : 0x1F000) + s, 22, pui32Data);
+	readMemory32(0xAF000 + s, 22, pui32Data);
 	for (a = 0; a < 22; a++)
 		PRINTF("0x%x (%s): %02x %02x %02x %02x\n", s + a * 4, st[a], (pui32Data[a] >> 24) & 0xFF, (pui32Data[a] >> 16) & 0xFF, (pui32Data[a] >> 8) & 0xFF, (pui32Data[a] >> 0) & 0xFF);
 	free(pui32Data);
 }
 
 void CCreadMemoryFromFile(char *path) {
-	if (isM4 == -1)
-		CCautoSelect();
 	FILE *fp = fopen(path, "rb");
 	if (fp) {
 		uint32_t *pui32Data = malloc(32 * 4);
 		memset(pui32Data, 0, 32 * 4);
 		uint32_t s = 0xFA8;
-		fseek(fp, (isM4 ? 0x57000 : 0x1F000) + s, SEEK_SET);
+		fseek(fp, 0xAF000 + s, SEEK_SET);
 		fread(pui32Data, 22 * 4, 1, fp);
 		int a;
 		for (a = 0; a < 22; a++)

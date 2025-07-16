@@ -22,7 +22,6 @@
 #define COMMAND_GET_ID 0x28
 
 //Global variable
-int noRxCCext = 0;
 int CCflashInProgress = 0;
 
 //Private variables
@@ -152,12 +151,6 @@ bool CCinitCommunication(char *szUart, int resetViaGPIO) {
 	bool bAck;
 	uint32_t ret = getCmdResponse(&bAck, MAXRETRIES, false);
 	PRINTF("%s\n", ret == 1 ? "Nothing" : bAck ? "OK" : "Error");
-#ifndef DESKTOP
-	if (ret == 0 && bAck == false) {
-		noRxCCext = 1;
-		bAck = true;
-	}
-#endif
 	return bAck;
 }
 
@@ -183,10 +176,6 @@ bool CCFlash(char *szUart, char *szFirmware, char *szFirmware3, int resetViaGPIO
 }
 
 uint32_t getCmdResponse(bool *bAck, uint32_t ui32MaxRetries, bool bQuiet) {
-	if (noRxCCext) {
-		*bAck = true;
-		return 0;
-	}
 	*bAck = false;
 	unsigned char *a = malloc(2);
 	if (sblRead_(a, 2))
@@ -205,15 +194,6 @@ uint32_t sendCmdResponse(bool bAck) {
 }
 
 uint32_t getResponseData(unsigned char *pcData, uint32_t ui32MaxLen, uint32_t ui32MaxRetries) {
-	if (noRxCCext) {
-		usleep(100);
-		if (ui32MaxLen == 1)
-			*pcData = 0x40;
-		else {
-			PRINTF("NORX: PROBLEM in getResponseData length (%d)\n", ui32MaxLen);
-		}
-		return 0;
-	}
 	unsigned char *res = malloc(2 + ui32MaxLen);
 	if (sblRead_(res, 2 + ui32MaxLen))
 		return 1;
@@ -236,7 +216,5 @@ uint32_t sendcmd(uint32_t ui32Cmd, unsigned char *pcSendData, uint32_t ui32SendL
 		memcpy(b + 3, pcSendData, ui32SendLen);
 	sblWrite_(b, b[0]);
 	free(b);
-	if (noRxCCext)
-		usleep(10 * 1000);
 	return 0;
 }
