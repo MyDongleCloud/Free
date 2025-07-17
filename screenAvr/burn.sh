@@ -10,8 +10,8 @@ exit 0
 }
 
 BASE=/home/mdc/build/py
-PP=/dev/ttyAMA0
-if [ ! -e /dev/ttyAMA0 ]; then
+PP=/dev/tty_attiny
+if [ ! -e /dev/tty_attiny ]; then
 	PP=/dev/ttyUSB0
 	BASE=/tmp/test
 fi
