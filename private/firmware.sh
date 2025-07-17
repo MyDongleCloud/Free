@@ -62,7 +62,11 @@ else
 	cat >> /tmp/squashfs-exclude.txt <<EOF
 ./disk/
 EOF
+	sed -i -e 's|#LABEL=rootfs  /disk|LABEL=rootfs  /disk|' /tmp/2/etc/fstab
+	echo "######## WARNING ########"
+	echo "/tmp/2/etc/fstab has been modified. It will be reverted once squashfs is finished"
 	mksquashfs . /tmp/mdc.img -ef /tmp/squashfs-exclude.txt
+	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' /tmp/2/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
 fi
 cd /tmp/2/disk/
