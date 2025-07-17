@@ -65,9 +65,9 @@ umount ${DISK}*
 
 dd if=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024
 if [ $FINAL = 1 ]; then
-	SIZE=1400
+	SIZE=2500
 else
-	SIZE=2400
+	SIZE=2500
 fi
 dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$((SIZE * 1024)) seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
