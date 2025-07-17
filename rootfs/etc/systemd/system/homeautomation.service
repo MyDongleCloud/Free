@@ -1,0 +1,17 @@
+[Unit]
+Description=homeautomation
+After=network.target
+
+[Service]
+Environment=PATH=/usr/local/homeautomation/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Type=simple
+ExecStart=/usr/local/homeautomation/bin/hass
+WorkingDirectory=/admin
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=10s
+User=admin
+
+[Install]
+WantedBy=multi-user.target
