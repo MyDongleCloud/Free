@@ -11,7 +11,7 @@ echo "u:		Do uboot"
 exit 0
 }
 
-DISK=/dev/sdcard
+DISK=/dev/mmcblk0p
 SECONDPART=1
 BOOTDELAY=0
 UBOOT=0
@@ -51,7 +51,7 @@ if [ $UBOOT = 1 ]; then
 	dd if=$IFF of=$OFF
 	sfdisk -f $OFF << EOF
 16384,1048576,c
-1064960,14884864,83
+1064960,30051328,83
 EOF
 	sync
 	sleep 1

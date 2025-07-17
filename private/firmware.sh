@@ -10,7 +10,7 @@ echo "l:	Set loop number"
 exit 0
 }
 
-DISK=/dev/sdcard
+DISK=/dev/mmcblk0p
 LOSETUP=/dev/loop3
 POSTNAME=""
 FINAL=0
