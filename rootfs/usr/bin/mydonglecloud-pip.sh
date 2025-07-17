@@ -32,7 +32,6 @@ if [ $SETUP = 1 ]; then
 	echo "#####################################"
 	rm -rf $FOLDER
 	$PYTHON -m venv $FOLDER
-	LOCAL=1
 fi
 
 if [ $LOCAL = 1 ]; then
