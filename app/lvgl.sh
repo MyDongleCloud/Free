@@ -34,7 +34,7 @@ if [ $BUILD = 1 ]; then
 	mkdir build
 	cd build
 	cmake ..
-	make -j
+	make
 	cd $PW
 fi
 
