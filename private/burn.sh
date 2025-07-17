@@ -32,6 +32,7 @@ elif [ ! -b ${DISK} -a ${DISK} = "/dev/mmcblk0p" ]; then
 else
 	OFF=${DISK}
 fi
+echo 3 > /proc/sys/vm/drop_caches
 dd if=${IMG} of=${OFF} bs=31M status=progress
 sync
 umount ${DISK}*
