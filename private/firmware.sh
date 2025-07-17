@@ -44,7 +44,7 @@ rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.myd
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
 cd /tmp/1
-zip -r /tmp/mdc.zip *
+zip -q -r /tmp/mdc.zip *
 if [ $CLEAN = 1 ]; then
 	rm -f /tmp/mdc.img
 fi
@@ -95,7 +95,7 @@ sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 mount ${LOSETUP}p1 /tmp/1
-unzip -d /tmp/1/ /tmp/mdc.zip
+unzip -q -d /tmp/1/ /tmp/mdc.zip
 cp /work/ai.mydonglecloud/private/img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
