@@ -69,6 +69,8 @@ EOF
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' /tmp/2/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
 fi
+rm -f /work/ai.mydonglecloud/private/img/mdc.tbz2
+rm -rf /tmp/2/disk/admin/zigbee2mqtt/data/log/ /tmp/2/disk/admin/zigbee2mqtt/data/state.json /tmp/2/disk/admin/.cache/
 cd /tmp/2/disk/
 tar -cjpf /work/ai.mydonglecloud/private/img/mdc.tbz2 admin
 cd /tmp
