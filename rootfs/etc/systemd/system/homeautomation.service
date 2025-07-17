@@ -6,7 +6,7 @@ After=network.target
 Environment=PATH=/usr/local/homeautomation/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Type=simple
 ExecStart=/usr/local/homeautomation/bin/hass
-WorkingDirectory=/admin
+WorkingDirectory=/disk/admin
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
