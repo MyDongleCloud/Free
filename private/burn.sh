@@ -49,7 +49,7 @@ if [ $EXTRACT = 1 ]; then
 	cp /work/ai.mydonglecloud/private/img/initramfs_2712.orig /tmp/1/initramfs_2712
 fi
 rm -rf /tmp/2/lost+found/
-mkdir /tmp/2/admin
+tar -xjpvf /work/ai.mydonglecloud/private/img/mdc.tbz2 -C /tmp/2/
 sync
 umount ${DISK}*
 umount ${DISK}*

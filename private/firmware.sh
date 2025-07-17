@@ -52,12 +52,21 @@ if [ -f /tmp/mdc.img ]; then
 	echo "No creation as /tmp/mdc.img already exists"
 else
 	cd /tmp/2
+	rm -f /tmp/squashfs-exclude.txt
 	if [ $FINAL = 1 ]; then
-		mksquashfs . /tmp/mdc.img -ef /work/ai.mydonglecloud/private/squashfs-exclude.txt
+		cp /work/ai.mydonglecloud/private/squashfs-exclude.txt /tmp/squashfs-exclude.txt
 	else
-		mksquashfs . /tmp/mdc.img
+		rm -f /tmp/squashfs-exclude.txt
+		touch /tmp/squashfs-exclude.txt
 	fi
+	cat >> /tmp/squashfs-exclude.txt <<EOF
+./disk/
+EOF
+	mksquashfs . /tmp/mdc.img -ef /tmp/squashfs-exclude.txt
+	rm -f /tmp/squashfs-exclude.txt
 fi
+cd /tmp/2/disk/
+tar -cjpf /work/ai.mydonglecloud/private/img/mdc.tbz2 admin
 cd /tmp
 sync
 umount ${DISK}*
