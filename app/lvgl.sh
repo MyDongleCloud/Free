@@ -43,9 +43,9 @@ if [ $CLEAN = 1 ]; then
 	echo "CLEAN"
 	echo "#####################################"
 	cd ../build
-	find lvgl \( -name "*.h" -o -name "*.a" \) -print0 | tar -cjpvf a.tbz2 --null -T -
+	find lvgl \( -name "*.h" -o -name "*.a" \) -print0 | tar -cjpf a.tbz2 --null -T -
 	rm -rf lvgl
-	tar -xjpvf a.tbz2
+	tar -xjpf a.tbz2
 	rm a.tbz2
 	cd $PW
 fi
