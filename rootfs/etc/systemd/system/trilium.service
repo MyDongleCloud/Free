@@ -1,0 +1,16 @@
+[Unit]
+Description=trilium
+After=network.target
+
+[Service]
+Environment=TRILIUM_DATA_DIR=/disk/admin/.trilium
+Environment=TRILIUM_LOG_DIR=/tmp/trilium_log
+Type=simple
+ExecStart=/usr/local/bin/node main.cjs
+WorkingDirectory=/usr/local/trilium
+Restart=always
+RestartSec=10s
+User=admin
+
+[Install]
+WantedBy=multi-user.target
