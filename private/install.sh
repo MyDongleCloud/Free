@@ -78,12 +78,13 @@ EOF
 cat > /etc/fstab <<EOF
 proc            /proc           proc    defaults          0       0
 LABEL=rootfs  /               ext4    defaults,noatime  0       1
-LABEL=rootfs  /disk           ext4    defaults,noatime  0       1
+#LABEL=rootfs  /disk           ext4    defaults,noatime  0       1
 EOF
 fatlabel /dev/mmcblk0p1 bootfs
 e2label /dev/mmcblk0p2 rootfs
-adduser --comment Administrator --disabled-password admin
 mkdir /disk
+adduser --comment Administrator --home /disk/admin --disabled-password admin
+usermod -a -G dialout admin
 
 echo "################################"
 echo "Fix locale"
@@ -406,6 +407,8 @@ cd /home/mdc
 chown -R root:root rootfs
 cp -a rootfs/* /
 rm -rf rootfs
+chown -R root:root /usr/local/
+chown -R admin:admin /disk/admin/
 
 echo "################################"
 echo "Upgrade and cleanup"
