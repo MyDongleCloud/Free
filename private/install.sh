@@ -21,6 +21,12 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
+#On PC
+#tar -cjpvf a.tbz2 app/ kernel/ rootfs/ screenAvr/ private/install.sh
+#scp a.tbz2 mdc@192.168.10.41:/tmp
+#On device
+#tar -xjpvf /tmp/a.tbz2
+
 lsb_release -a | grep bookworm
 if [ $? = 0 ]; then
 	OS="pios"
@@ -31,11 +37,17 @@ if [ $? = 0 ]; then
 fi
 
 echo "################################"
-echo "Starter"
+echo "Start"
 echo "################################"
+date
+
+echo "################################"
+echo "Initial"
+echo "################################"
+cd /home/mdc
 mkdir /home/mdc/build
 sed -i -e 's|/root|/home/mdc|' /etc/passwd
-rm -rf /root
+rm -rf /root/
 sed -i -e 's|# "\\e\[5~": history-search-backward|"\\e\[5~": history-search-backward|' /etc/inputrc
 sed -i -e 's|# "\\e\[6~": history-search-forward|"\\e\[6~": history-search-forward|' /etc/inputrc
 sed -i -e 's|%sudo	ALL=(ALL:ALL) ALL|%sudo	ALL=(ALL:ALL) NOPASSWD:ALL|' /etc/sudoers
@@ -101,7 +113,7 @@ if [ $OS = "ubuntu" ]; then
 elif [ $OS = "pios" ]; then
 	cd /home/mdc/build
 	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
-	tar -xpvf pcpp-1.30.tar.gz
+	tar -xpf pcpp-1.30.tar.gz
 	cd pcpp-1.30
 	python setup.py install
 fi
@@ -150,20 +162,21 @@ usermod -aG docker admin
 echo "################################"
 echo "Qdrant"
 echo "################################"
-cd /tmp
+cd /home/mdc/build
 wget https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
-tar -xpvf qdrant-aarch64-unknown-linux-musl.tar.gz
-rm -f qdrant-aarch64-unknown-linux-musl.tar.gz
+tar -xpf qdrant-aarch64-unknown-linux-musl.tar.gz
 mv qdrant /usr/bin
 chmod a+x /usr/bin/qdrant
+cd ..
 
 echo "################################"
 echo "RethinkDB"
 echo "################################"
-cd /tmp
+cd /home/mdc/build
 apt-get -y install libprotobuf32
 wget https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
 dpkg -i rethinkdb*.deb
+cd ..
 
 echo "################################"
 echo "postfix-parser"
@@ -213,9 +226,10 @@ echo "################################"
 echo "Node.js"
 echo "################################"
 cd /home/mdc/build
-wget https://nodejs.org/dist/latest-v22.x/node-v22.17.0-linux-arm64.tar.xz
-tar -xJpvf node-v*
+wget https://nodejs.org/dist/latest-v22.x/node-v22.17.1-linux-arm64.tar.xz
+tar -xJpf node-v*
 cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local/
+cd ..
 
 echo "################################"
 echo "Better-auth"
@@ -224,6 +238,7 @@ cd /home/mdc/build
 mkdir better-auth
 cd better-auth
 npm install better-auth
+cd ..
 
 echo "################################"
 echo "Zigbee"
@@ -232,6 +247,7 @@ cd /home/mdc/build
 mkdir zigbee2mqtt
 cd zigbee2mqtt
 npm install zigbee2mqtt
+cd ..
 
 echo "################################"
 echo "QRCode"
@@ -240,6 +256,7 @@ cd /home/mdc/build
 git clone https://code.antopie.org/miraty/libreqr.git
 git clone https://github.com/bizzycola/qrcode-generator
 git clone https://github.com/mebjas/html5-qrcode
+cd ..
 
 echo "################################"
 echo "App and rootfs"
@@ -261,6 +278,13 @@ rm -f /var/cache/apt/archives/*.deb
 rm -f /home/mdc/*.deb
 rm -rf /root/
 rm -rf /lost+found/
+
+sync
+sync
+echo "################################"
+echo "Finish"
+echo "################################"
+date
 
 if [ $PROD = 1 ]; then
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow
