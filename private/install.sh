@@ -353,6 +353,36 @@ echo "PATH restored: $PATH"
 ln -sf /etc/systemd/system/homeautomation.service /etc/systemd/system/multi-user.target.wants/homeautomation.service
 
 echo "################################"
+echo "Tubearchivist"
+echo "################################"
+/home/mdc/rootfs/usr/bin/mydonglecloud-pip.sh -f /usr/local/tubearchivist -s
+echo "PATH before any modif: $PATH"
+PATHOLD=$PATH
+PATH=/usr/local/tubearchivist/bin:$PATHOLD
+export PATH=/usr/local/tubearchivist/bin:$PATHOLD
+echo "PATH new: $PATH python: `python --version`"
+pip install apprise==1.9.3
+pip install celery==5.5.3
+pip install django-auth-ldap==5.2.0
+pip install django-celery-beat==2.8.1
+pip install django-cors-headers==4.7.0
+pip install Django==5.2.4
+pip install djangorestframework==3.16.0
+pip install drf-spectacular==0.28.0
+pip install Pillow==11.3.0
+pip install redis==6.2.0
+pip install requests==2.32.4
+pip install ryd-client==0.0.6
+pip install uvicorn==0.35.0
+pip install whitenoise==6.9.0
+pip install yt-dlp[default]==2025.6.30
+cd /usr/local/tubearchivist
+git clone https://github.com/tubearchivist/tubearchivist
+PATH=$PATHOLD
+export PATH=$PATHOLD
+echo "PATH restored: $PATH"
+
+echo "################################"
 echo "QRCode"
 echo "################################"
 cd /home/mdc/build
