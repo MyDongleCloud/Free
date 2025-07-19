@@ -86,6 +86,12 @@ adduser --comment Administrator --disabled-password admin
 mkdir /disk
 
 echo "################################"
+echo "Fix locale"
+echo "################################"
+sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+locale-gen
+
+echo "################################"
 echo "Upgrade"
 echo "################################"
 apt-get update
