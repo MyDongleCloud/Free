@@ -396,10 +396,13 @@ cd ..
 echo "################################"
 echo "App and rootfs"
 echo "################################"
+cd /home/mdc/kernel
+make
+make install
+cd /home/mdc/app
+./lvgl.sh -b -c
+make
 cd /home/mdc
-tar -xjpvf /tmp/a.tbz2
-cd kernel && make && make install && cd ..
-cd app && ./lvgl.sh && make && cd ..
 chown -R root:root rootfs
 cp -a rootfs/* /
 rm -rf rootfs
