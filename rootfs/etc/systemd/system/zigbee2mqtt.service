@@ -5,7 +5,6 @@ After=network.target
 [Service]
 Environment=NODE_ENV=production
 Environment=ZIGBEE2MQTT_DATA=/disk/admin/.zigbee2mqtt
-Environment=ZIGBEE2MQTT_LOG=/tmp/zigbee2mqtt_log
 Type=simple
 ExecStart=/usr/local/bin/node index.js
 WorkingDirectory=/usr/local/zigbee2mqtt/node_modules/zigbee2mqtt
