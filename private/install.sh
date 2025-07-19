@@ -264,6 +264,15 @@ npm install better-auth
 cd ..
 
 echo "################################"
+echo "cc2538-prog"
+echo "################################"
+cd /home/mdc/build
+git clone https://github.com/1248/cc2538-prog/
+cd cc2538-prog
+make
+cd ../..
+
+echo "################################"
 echo "Zigbee"
 echo "################################"
 cd /home/mdc/build
