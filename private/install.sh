@@ -298,6 +298,61 @@ npm install zigbee2mqtt
 cd ..
 
 echo "################################"
+echo "Homeassistant"
+echo "################################"
+/home/mdc/rootfs/usr/bin/mydonglecloud-pip.sh -f /usr/local/homeautomation -v 3.12 -s
+echo "PATH before any modif: $PATH"
+PATHOLD=$PATH
+PATH=/usr/local/homeautomation/bin:$PATHOLD
+export PATH=/usr/local/homeautomation/bin:$PATHOLD
+echo "PATH new: $PATH python: `python --version`"
+pip install homeassistant
+pip install aiodhcpwatcher==1.0.2
+pip install aiodiscover==2.1.0
+pip install async-upnp-client==0.42.0
+pip install av==13.1.0
+pip install bleak-retry-connector==3.6.0
+pip install bluetooth-auto-recovery==1.4.2
+pip install cached-ipaddress==0.8.0
+pip install go2rtc-client==0.1.2
+pip install habluetooth==3.7.0
+pip install ha-ffmpeg==3.2.2
+pip install hassil==2.1.0
+pip install home-assistant-frontend==20250109.2
+pip install home-assistant-intents==2025.1.1
+pip install mutagen==1.47.0
+pip install pymicro-vad==1.0.1
+pip install PyNaCl==1.5.0
+pip install pyotp==2.8.0
+pip install PyQRCode==1.2.1
+pip install pyserial==3.5
+pip install pyspeex-noise==1.0.2
+pip install python-matter-server==6.6.0
+pip install PyTurboJPEG==1.7.5
+pip install pyudev==0.24.1
+pip install zeroconf==0.136.2
+pip install bluetooth-data-tools==1.20.0
+pip install bluetooth-adapters==0.20.2
+pip install numpy==2.2.0
+pip install bleak==0.22.3
+
+pip install dbus-fast==2.24.3
+pip install gTTS==2.2.4
+pip install PyMetno==0.13.0
+pip install radios==0.3.2
+pip install aioruuvigateway==0.1.0
+pip install aioshelly==12.2.0
+pip install aioesphomeapi==28.0.0
+pip install esphome-dashboard-api==1.2.3
+pip install bleak-esphome==2.0.0
+pip install paho-mqtt==1.6.1
+pip install ibeacon-ble==1.2.0
+PATH=$PATHOLD
+export PATH=$PATHOLD
+echo "PATH restored: $PATH"
+ln -sf /etc/systemd/system/homeautomation.service /etc/systemd/system/multi-user.target.wants/homeautomation.service
+
+echo "################################"
 echo "QRCode"
 echo "################################"
 cd /home/mdc/build
