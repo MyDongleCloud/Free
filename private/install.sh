@@ -289,13 +289,15 @@ fi
 apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
 
 echo "################################"
-echo "Zigbee"
+echo "Zigbee+mosquitto"
 echo "################################"
-cd /home/mdc/build
-mkdir zigbee2mqtt
-cd zigbee2mqtt
+apt-get -y install mosquitto
+mkdir /usr/local/zigbee2mqtt
+cd /usr/local/zigbee2mqtt
 npm install zigbee2mqtt
-cd ..
+rm -rf /usr/local/zigbee2mqtt/node_modules/zigbee2mqtt/data/
+mkdir /disk/admin/.zigbee2mqtt/
+ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
 
 echo "################################"
 echo "Homeassistant"
