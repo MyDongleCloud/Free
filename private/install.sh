@@ -145,15 +145,17 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install mysql-server
 elif [ $OS = "pios" ]; then
 	apt-get -y install libaio1 libevent-pthreads-2.1-7 libmecab2
-	wget http://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
-	wget http://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.2_arm64.deb
-	wget http://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.0.8_all.deb
-	wget http://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
-	wget http://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
-	wget http://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
-	wget http://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
+	cd /home/mdc/build
+	wget https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.0.8_all.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
 	dpkg -i libicu70* libprotobuf-lite23* mysql-common*
 	dpkg -i mysql-client* mysql-server*
+	cd ..
 fi
 
 echo "################################"
