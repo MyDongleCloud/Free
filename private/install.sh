@@ -273,6 +273,22 @@ make
 cd ../..
 
 echo "################################"
+echo "Python3.12"
+echo "################################"
+if [ $OS = "pios" ]; then
+	wget -qO- https://pascalroeleven.nl/deb-pascalroeleven.gpg | sudo tee /etc/apt/keyrings/deb-pascalroeleven.gpg
+	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
+	Types: deb
+	URIs: http://deb.pascalroeleven.nl/python3.12
+	Suites: bookworm-backports
+	Components: main
+	Signed-By: /etc/apt/keyrings/deb-pascalroeleven.gpg
+	EOF
+	apt-get update
+fi
+apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
+
+echo "################################"
 echo "Zigbee"
 echo "################################"
 cd /home/mdc/build
