@@ -189,6 +189,17 @@ dpkg -i rethinkdb*.deb
 cd ..
 
 echo "################################"
+echo "Trilium Notes"
+echo "################################"
+cd /home/mdc/build
+wget https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
+tar -xJpf TriliumNextNotes-Server*
+mv TriliumNextNotes-Server-0.*/ /usr/local/trilium
+rm -rf /usr/local/trilium/node/
+mkdir /disk/admin/.trilium/
+ln -sf /etc/systemd/system/trilium.service /etc/systemd/system/multi-user.target.wants/trilium.service
+
+echo "################################"
 echo "postfix-parser"
 echo "################################"
 apt-get -y install python3-dotenv python3-pytzdata
