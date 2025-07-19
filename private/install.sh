@@ -130,7 +130,11 @@ echo "################################"
 cd /home/mdc/build
 git clone https://github.com/microchip-pic-avr-tools/pymcuprog
 cd pymcuprog
-echo -e "from setuptools import setup\nif __name__ == '__main__':\n    setup()" > setup.py
+cat > setup.py <<EOF
+from setuptools import setup
+if __name__ == '__main__':
+    setup()
+EOF
 python setup.py install
 cd ../..
 
