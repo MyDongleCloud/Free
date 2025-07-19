@@ -101,9 +101,10 @@ apt-get -y upgrade
 echo "################################"
 echo "Basic"
 echo "################################"
-apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev
-apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 postfix procmail rspamd dovecot-pop3d dovecot-imapd certbot python3-certbot-apache transgui python3-setuptools python3-attr python3-wheel python3-wheel-whl python3-intelhex
-apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt
+apt-get -y install libprotobuf32 liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libjpeg62-turbo-dev libturbojpeg0-dev
+apt-get -y install python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
+apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 certbot transgui procmail rspamd dovecot-pop3d dovecot-imapd
+apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt hdparm ffmpeg screen figlet toilet
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
 	snap remove snapd
@@ -186,7 +187,6 @@ echo "################################"
 echo "RethinkDB"
 echo "################################"
 cd /home/mdc/build
-apt-get -y install libprotobuf32
 wget https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
 dpkg -i rethinkdb*.deb
 cd ..
@@ -205,7 +205,6 @@ ln -sf /etc/systemd/system/trilium.service /etc/systemd/system/multi-user.target
 echo "################################"
 echo "postfix-parser"
 echo "################################"
-apt-get -y install python3-dotenv python3-pytzdata
 cd /home/mdc/build
 git clone https://github.com/Privex/python-loghelper
 cd python-loghelper
@@ -244,7 +243,6 @@ echo "################################"
 curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
 echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
 apt-get update
-apt-get -y install jitsi-meet
 
 echo "################################"
 echo "Node.js"
@@ -262,7 +260,7 @@ cd /home/mdc/build
 mkdir better-auth
 cd better-auth
 npm install better-auth
-cd ..
+cd ../..
 
 echo "################################"
 echo "cc2538-prog"
@@ -279,12 +277,12 @@ echo "################################"
 if [ $OS = "pios" ]; then
 	wget -qO- https://pascalroeleven.nl/deb-pascalroeleven.gpg | sudo tee /etc/apt/keyrings/deb-pascalroeleven.gpg
 	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
-	Types: deb
-	URIs: http://deb.pascalroeleven.nl/python3.12
-	Suites: bookworm-backports
-	Components: main
-	Signed-By: /etc/apt/keyrings/deb-pascalroeleven.gpg
-	EOF
+Types: deb
+URIs: http://deb.pascalroeleven.nl/python3.12
+Suites: bookworm-backports
+Components: main
+Signed-By: /etc/apt/keyrings/deb-pascalroeleven.gpg
+EOF
 	apt-get update
 fi
 apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
@@ -411,14 +409,21 @@ chown -R root:root /usr/local/
 chown -R admin:admin /disk/admin/
 
 echo "################################"
-echo "Upgrade and cleanup"
+echo "Cleanup"
 echo "################################"
-apt-get -y upgrade
 apt-get -y autoremove
 rm -f /var/cache/apt/archives/*.deb
-rm -f /home/mdc/*.deb
+rm -f /home/mdc/build/*.deb /home/mdc/build/*.xz
+rm -rf /home/mdc/.cache/pip/
 rm -rf /root/
 rm -rf /lost+found/
+rmdir /usr/local/games/
+rm -rf /opt/containerd/ /opt/pigpio/
+
+echo "################################"
+echo "Package with interaction"
+echo "################################"
+apt-get -y install postfix jitsi-meet
 
 sync
 sync
