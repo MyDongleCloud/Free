@@ -139,7 +139,7 @@
 		};
 
 		dwc2otg@c0040000 {
-			gpios = <&gpio_a 15 0>;
+			gpios = <&gpio_a 18 0>;
 			status = "okay";
 		};
 
@@ -261,6 +261,26 @@
 		i2c-gpio,delay-us = <1>;
 		#address-cells = <1>;
 		#size-cells = <0>;
+	};
+
+	gpio_led:gpio_leds {
+		compatible = "gpio-leds";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&led_Green>, <&led_Red>;
+		status = "okay";
+
+		ledGreen: ledGreen {
+			label = "LED_GREEN";
+			gpios = <&gpio_a 9 0>;
+			linux,default-trigger = "none";
+		};
+		ledRed: ledRed {
+			label = "LED_RED";
+			gpios = <&gpio_a 15 0>;
+			linux,default-trigger = "none";
+		};
 	};
 
 	gpio_key:gpio_keys {
