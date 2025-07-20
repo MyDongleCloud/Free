@@ -47,7 +47,7 @@ echo "################################"
 cd /home/mdc
 mkdir /home/mdc/build
 sed -i -e 's|/root|/home/mdc|' /etc/passwd
-rm -rf /root/
+rm -rf /root
 sed -i -e 's|# "\\e\[5~": history-search-backward|"\\e\[5~": history-search-backward|' /etc/inputrc
 sed -i -e 's|# "\\e\[6~": history-search-forward|"\\e\[6~": history-search-forward|' /etc/inputrc
 sed -i -e 's|%sudo	ALL=(ALL:ALL) ALL|%sudo	ALL=(ALL:ALL) NOPASSWD:ALL|' /etc/sudoers
@@ -85,6 +85,7 @@ e2label /dev/mmcblk0p2 rootfs
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G dialout admin
+mkdir -p /usr/local/modules/mydonglecloud
 
 echo "################################"
 echo "Fix locale"
@@ -179,8 +180,9 @@ echo "################################"
 cd /home/mdc/build
 wget https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
 tar -xpf qdrant-aarch64-unknown-linux-musl.tar.gz
-mv qdrant /usr/bin
-chmod a+x /usr/bin/qdrant
+chmod a+x qdrant
+mkdir /usr/local/modules/qdrant
+mv qdrant /usr/local/modules/qdrant
 cd ..
 
 echo "################################"
@@ -197,9 +199,8 @@ echo "################################"
 cd /home/mdc/build
 wget https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
 tar -xJpf TriliumNextNotes-Server*
-mv TriliumNextNotes-Server-0.*/ /usr/local/trilium
-rm -rf /usr/local/trilium/node/
-mkdir /disk/admin/.trilium/
+mv TriliumNextNotes-Server-0.*/ /usr/local/modules/trilium
+rm -rf /usr/local/modules/trilium/node
 ln -sf /etc/systemd/system/trilium.service /etc/systemd/system/multi-user.target.wants/trilium.service
 
 echo "################################"
@@ -222,7 +223,8 @@ cd /home/mdc/build
 git clone https://github.com/viveris/uMTP-Responder
 cd uMTP-Responder
 make
-cp umtprd /usr/bin
+mkdir /usr/local/modules/MTP
+mv umtprd /usr/local/modules/MTP
 cd ../..
 
 echo "################################"
@@ -233,7 +235,7 @@ if [ $OS = "ubuntu" ]; then
 elif [ $OS = "pios" ]; then
 	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 raspi-utils-core raspi-utils-dt
 	apt-get -y purge linux-headers-rpi-v8 linux-image-rpi-v8
-	rm -rf /lib/modules/6.12.25+rpt-rpi-* /lib/modules/6.12.34+rpt-rpi-v8/
+	rm -rf /lib/modules/6.12.25+rpt-rpi-* /lib/modules/6.12.34+rpt-rpi-v8
 	rm -f /boot/firmware/bcm2710* /boot/firmware/bcm2711* /boot/firmware/kernel8.img /boot/firmware/initramfs8 /boot/firmware/LICENCE.broadcom /boot/firmware/issue.txt
 fi
 
@@ -250,7 +252,7 @@ echo "################################"
 cd /home/mdc/build
 wget https://nodejs.org/dist/latest-v22.x/node-v22.17.1-linux-arm64.tar.xz
 tar -xJpf node-v*
-cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local/
+cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local
 cd ..
 
 echo "################################"
@@ -266,7 +268,7 @@ echo "################################"
 echo "cc2538-prog"
 echo "################################"
 cd /home/mdc/build
-git clone https://github.com/1248/cc2538-prog/
+git clone https://github.com/1248/cc2538-prog
 cd cc2538-prog
 make
 cd ../..
@@ -275,7 +277,7 @@ echo "################################"
 echo "Python3.12"
 echo "################################"
 if [ $OS = "pios" ]; then
-	wget -qO- https://pascalroeleven.nl/deb-pascalroeleven.gpg | sudo tee /etc/apt/keyrings/deb-pascalroeleven.gpg
+	wget https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
 	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
 Types: deb
 URIs: http://deb.pascalroeleven.nl/python3.12
@@ -291,21 +293,20 @@ echo "################################"
 echo "Zigbee+mosquitto"
 echo "################################"
 apt-get -y install mosquitto
-mkdir /usr/local/zigbee2mqtt
-cd /usr/local/zigbee2mqtt
+mkdir /usr/local/modules/zigbee2mqtt
+cd /usr/local/modules/zigbee2mqtt
 npm install zigbee2mqtt
-rm -rf /usr/local/zigbee2mqtt/node_modules/zigbee2mqtt/data/
-mkdir /disk/admin/.zigbee2mqtt/
+rm -rf /usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt/data
 ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
 
 echo "################################"
 echo "Homeassistant"
 echo "################################"
-/home/mdc/rootfs/usr/bin/mydonglecloud-pip.sh -f /usr/local/homeautomation -v 3.12 -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeautomation -v 3.12 -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/homeautomation/bin:$PATHOLD
-export PATH=/usr/local/homeautomation/bin:$PATHOLD
+PATH=/usr/local/modules/homeautomation/bin:$PATHOLD
+export PATH=/usr/local/modules/homeautomation/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install homeassistant
 pip install aiodhcpwatcher==1.0.2
@@ -356,11 +357,11 @@ ln -sf /etc/systemd/system/homeautomation.service /etc/systemd/system/multi-user
 echo "################################"
 echo "Tubearchivist"
 echo "################################"
-/home/mdc/rootfs/usr/bin/mydonglecloud-pip.sh -f /usr/local/tubearchivist -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubearchivist -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/tubearchivist/bin:$PATHOLD
-export PATH=/usr/local/tubearchivist/bin:$PATHOLD
+PATH=/usr/local/modules/tubearchivist/bin:$PATHOLD
+export PATH=/usr/local/modules/tubearchivist/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install apprise==1.9.3
 pip install celery==5.5.3
@@ -377,7 +378,7 @@ pip install ryd-client==0.0.6
 pip install uvicorn==0.35.0
 pip install whitenoise==6.9.0
 pip install yt-dlp[default]==2025.6.30
-cd /usr/local/tubearchivist
+cd /usr/local/modules/tubearchivist
 git clone https://github.com/tubearchivist/tubearchivist
 PATH=$PATHOLD
 export PATH=$PATHOLD
@@ -405,8 +406,8 @@ cd /home/mdc
 chown -R root:root rootfs
 cp -a rootfs/* /
 rm -rf rootfs
-chown -R root:root /usr/local/
-chown -R admin:admin /disk/admin/
+chown -R root:root /usr/local
+chown -R admin:admin /disk/admin
 
 echo "################################"
 echo "Cleanup"
@@ -414,11 +415,11 @@ echo "################################"
 apt-get -y autoremove
 rm -f /var/cache/apt/archives/*.deb
 rm -f /home/mdc/build/*.deb /home/mdc/build/*.xz
-rm -rf /home/mdc/.cache/pip/
-rm -rf /root/
-rm -rf /lost+found/
-rmdir /usr/local/games/
-rm -rf /opt/containerd/ /opt/pigpio/
+rm -rf /home/mdc/.cache/pip
+rm -rf /root
+rm -rf /lost+found
+rmdir /usr/local/games
+rm -rf /opt/containerd /opt/pigpio
 
 echo "################################"
 echo "Package with interaction"

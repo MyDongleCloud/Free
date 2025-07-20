@@ -69,7 +69,7 @@ ifeq ($(DEBUG),)
 	@strip app
 endif
 ifeq ($(shell uname -m), aarch64)
-	@cp app /usr/bin/mydonglecloud-app
+	@cp app /usr/local/modules/mydonglecloud/app
 endif
 
 desktop_exec: $(OBJs_DESKTOP)

@@ -8,7 +8,7 @@ After=systemd-modules-load.service
 Type=oneshot
 RestartSec=1
 User=mdc
-ExecStart=sudo /usr/bin/mydonglecloud-app -d
+ExecStart=sudo /usr/local/modules/mydonglecloud/app -d
 
 [Install]
 WantedBy=multi-user.target

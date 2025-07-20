@@ -133,7 +133,7 @@ if [ $MTP = 1 ]; then
 	ln -s functions/$FFS configs/c.1/
 	mkdir /dev/ffs-mtp
 	mount -t functionfs mtp /dev/ffs-mtp
-	/usr/bin/umtprd &
+	/usr/local/modules/MTP/umtprd &
 	sleep 1
 fi
 ls /sys/class/udc/ > $PATHg1/UDC

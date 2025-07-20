@@ -20,7 +20,7 @@ do
 done
 
 MODEL="cat `/sys/devices/platform/mydonglecloud/model`"
-/usr/bin/mydonglecloud-leds.sh -l "normal"
+/usr/local/modules/mydonglecloud/leds.sh -l "normal"
 
 ln -sf /sys/devices/platform/mydonglecloud /dev/mydonglecloud_platform
 chmod 222 /dev/mydonglecloud_platform/printk
@@ -51,8 +51,8 @@ fi
 if [ $MODEL = "std" ]; then
 	modprobe -r dhd
 	modprobe dhd nvram_path=/etc/wifi/nvram.txt firmware_path=/etc/wifi/fw.bin
-	/usr/bin/mydonglecloud-init-std-bluetooth.sh &
+	/usr/local/modules/mydonglecloud/init-std-bluetooth.sh &
 fi
-/usr/bin/mydonglecloud-otg.sh
+/usr/local/modules/mydonglecloud/otg.sh
 
 echo "Init done"

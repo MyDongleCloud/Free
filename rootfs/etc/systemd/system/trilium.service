@@ -7,7 +7,7 @@ Environment=TRILIUM_DATA_DIR=/disk/admin/.trilium
 Environment=TRILIUM_LOG_DIR=/tmp/trilium_log
 Type=simple
 ExecStart=/usr/local/bin/node main.cjs
-WorkingDirectory=/usr/local/trilium
+WorkingDirectory=/usr/local/modules/trilium
 Restart=always
 RestartSec=10s
 User=admin

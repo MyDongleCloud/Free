@@ -33,7 +33,7 @@
 #define SPACESNAME_PATH "/etc/mydonglecloud-spaces.txt"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
-#define ZIGBEE_FIRMWARE "/usr/bin/CC2652R7_coordinator.bin"
+#define ZIGBEE_FIRMWARE "/usr/local/modules/mydonglecloud/CC2652R7_coordinator.bin"
 
 #define WIDTH 128	
 #define HEIGHT 128

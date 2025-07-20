@@ -7,7 +7,7 @@ Environment=NODE_ENV=production
 Environment=ZIGBEE2MQTT_DATA=/disk/admin/.zigbee2mqtt
 Type=simple
 ExecStart=/usr/local/bin/node index.js
-WorkingDirectory=/usr/local/zigbee2mqtt/node_modules/zigbee2mqtt
+WorkingDirectory=/usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
