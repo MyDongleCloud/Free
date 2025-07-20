@@ -102,9 +102,9 @@ apt-get -y upgrade
 echo "################################"
 echo "Basic"
 echo "################################"
-apt-get -y install libprotobuf32 liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libjpeg62-turbo-dev libturbojpeg0-dev
+apt-get -y install libprotobuf32 liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libjpeg62-turbo-dev libturbojpeg0-dev libldap-dev libsasl2-dev
 apt-get -y install python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
-apt-get -y install composer apache2 php php-mysql libapache2-mod-php sqlite3 certbot transgui procmail rspamd dovecot-pop3d dovecot-imapd
+apt-get -y install composer apache2 php php-mysql php-xml libapache2-mod-php sqlite3 certbot transgui procmail rspamd dovecot-pop3d dovecot-imapd
 apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt hdparm ffmpeg screen figlet toilet
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
@@ -383,6 +383,86 @@ git clone https://github.com/tubearchivist/tubearchivist
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
+
+echo "################################"
+echo "LimeSurvey"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/LimeSurvey/LimeSurvey
+cd LimeSurvey
+git checkout 6.15.3+250708
+rm -rf .git
+
+echo "################################"
+echo "ProjectSend"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/projectsend/projectsend
+cd projectsend
+git checkout r1720
+rm -rf .git
+
+echo "################################"
+echo "phpList"
+echo "################################"
+cd /usr/local/modules
+composer create-project -n -s dev --no-dev phplist/base-distribution phpList
+cd phpList
+composer update -n
+
+echo "################################"
+echo "GoAccess"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/allinurl/goaccess
+cd goaccess
+git checkout v1.9.4
+rm -rf .git
+
+echo "################################"
+echo "Webtrees"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/fisharebest/webtrees
+cd webtrees
+git checkout 2.2.1
+rm -rf .git
+
+echo "################################"
+echo "osTicket"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/osTicket/osTicket
+cd osTicket
+git checkout v1.18.2
+rm -rf .git
+
+echo "################################"
+echo "YOURLS"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/YOURLS/YOURLS
+cd YOURLS
+git checkout 1.10.1
+rm -rf .git
+
+echo "################################"
+echo "PrivateBin"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/PrivateBin/PrivateBin
+cd PrivateBin
+git checkout 1.7.8
+rm -rf .git
+
+echo "################################"
+echo "Flarum"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/flarum/flarum
+cd flarum
+git checkout v1.8.1
+rm -rf .git
 
 echo "################################"
 echo "QRCode"
