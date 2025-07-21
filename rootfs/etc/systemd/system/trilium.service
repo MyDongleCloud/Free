@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Environment=TRILIUM_DATA_DIR=/disk/admin/.trilium
-Environment=TRILIUM_LOG_DIR=/tmp/trilium_log
+Environment=TRILIUM_LOG_DIR=/disk/admin/.log/trilium
 Type=simple
 ExecStart=/usr/local/bin/node main.cjs
 WorkingDirectory=/usr/local/modules/trilium

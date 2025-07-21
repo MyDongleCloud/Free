@@ -500,6 +500,8 @@ rm -rf /root
 rm -rf /lost+found
 rmdir /usr/local/games
 rm -rf /opt/containerd /opt/pigpio
+mv /var/log /var/log.old
+ln -sf /disk/admin/.log/ /var/log
 
 echo "################################"
 echo "Package with interaction"
@@ -514,6 +516,8 @@ echo "################################"
 date
 
 if [ $PROD = 1 ]; then
+	rm -rf /var/log.old
+	rm -rf /disk/admin/.log/*
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow-
 fi

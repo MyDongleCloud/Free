@@ -70,7 +70,9 @@ EOF
 	rm -f /tmp/squashfs-exclude.txt
 fi
 rm -f /work/ai.mydonglecloud/private/img/mdc.tbz2
-rm -rf /tmp/2/disk/admin/zigbee2mqtt/data/log/ /tmp/2/disk/admin/zigbee2mqtt/data/state.json /tmp/2/disk/admin/.cache/
+rm -rf /tmp/2/disk/admin/.cache /tmp/2/disk/admin/.log
+mkdir -p /tmp/2/disk/admin/.log/zigbee2mqtt
+chown 1001:1001 /tmp/2/disk/admin/.log
 cd /tmp/2/disk/
 tar -cjpf /work/ai.mydonglecloud/private/img/mdc.tbz2 admin
 cd /tmp
