@@ -87,6 +87,9 @@ static int rotateKey(int k, int ignoreRotation) {
 }
 
 void processButton(int b, int ignoreRotation, int longPress) {
+#ifndef WEB
+	writeValueKeyInt(PLATFORM_PATH, "buzzerClick", 100);
+#endif
 	logicKey(rotateKey(b, ignoreRotation), longPress);
 }
 
@@ -121,10 +124,14 @@ void processInput(unsigned char c) {
 		PRINTF("*******************************************************\n");
 		PRINTF("Usage for keyboard input:\n");
 		PRINTF("h:	Print help information\n");
+		PRINTF("j:	Play jingle\n");
 		PRINTF("x:	Exit\n");
 		PRINTF("X:	Exit and power off\n");
 		PRINTF("Z:	Generate a crash\n");
 		PRINTF("*******************************************************\n");
+		break;
+	case 'j':
+		jingle();
 		break;
 	case 'x':
 		cleanExit(0);
