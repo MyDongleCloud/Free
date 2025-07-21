@@ -84,8 +84,10 @@ fatlabel /dev/mmcblk0p1 bootfs
 e2label /dev/mmcblk0p2 rootfs
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
-usermod -a -G dialout admin
+usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
 mkdir -p /usr/local/modules/mydonglecloud
+usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth mdc
+usermod -a -G sudo mdc
 
 echo "################################"
 echo "Fix locale"
