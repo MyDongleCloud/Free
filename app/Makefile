@@ -10,6 +10,7 @@ MYLINKPP = $(QUIETLINK)g++
 MYLINKPP_WEB = $(QUIETLINK)/opt/emsdk/upstream/emscripten/em++
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 PRE = ../build/_app/
+MDC_VERSION=\"$(shell cat version.txt)\"
 
 OBJs := $(PRE)backend.o \
 	$(PRE)ble.o \
@@ -25,7 +26,7 @@ OBJs := $(PRE)backend.o \
 	$(PRE)settings.o \
 	$(PRE)ui.o
 
-MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations
+MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -DMDC_VERSION=$(MDC_VERSION)
 MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -loath
 
 OBJs_APP := $(OBJs) $(PRE)backend-spi.o

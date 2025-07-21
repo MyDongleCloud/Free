@@ -76,7 +76,7 @@ static void *bleStart_t(void *arg) {
 		PRINTF("ERROR: 2. No btferret started\n");
 		return 0;
 	}
-	write_ctic(localnode(), UUID_VERSION - 0xfff1, VERSION, 0);
+	write_ctic(localnode(), UUID_VERSION - 0xfff1, MDC_VERSION, 0);
 	usleep(1000 * 1000);
 	le_server(le_callback, 0);
 	close_all();

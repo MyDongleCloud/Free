@@ -18,6 +18,7 @@ fi
 MANUFACTURER="MyDongle.Cloud"
 PRODUCT="MyDongle.Cloud `cat /dev/mydonglecloud_platform/model | sed 's/./\U&/'`"
 SERIALNUMBER="`cat /dev/mydonglecloud_platform/serialNumber`"
+VERSION="`cat /usr/local/modules/mydonglecloud/version.txt`"
 MODEL="`cat /dev/mydonglecloud_platform/model`"
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
 FFS="ffs.mtp"
@@ -110,6 +111,7 @@ echo -n $SERIALNUMBER > $PATHg1/strings/0x409/serialnumber
 sed -i -e "s/manufacturer.*/manufacturer \"${MANUFACTURER}\"/" /etc/umtprd/umtprd.conf
 sed -i -e "s/product.*/product \"${PRODUCT}\"/" /etc/umtprd/umtprd.conf
 sed -i -e "s/serial.*/serial \"${SERIALNUMBER}\"/" /etc/umtprd/umtprd.conf
+sed -i -e "s/firmware_version.*/firmware_version \"${VERSION}\"/" /etc/umtprd/umtprd.conf
 echo 0x1 > $PATHg1/bDeviceProtocol
 echo 0x1 > $PATHg1/bDeviceSubClass
 echo 0x6 > $PATHg1/bDeviceClass

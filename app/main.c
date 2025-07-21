@@ -62,6 +62,7 @@ int main(int argc, char *argv[]) {
 #ifdef DESKTOP
 	languageTest();
 #endif
+	PRINTF("Version: %s\n", MDC_VERSION);
 #if !defined(DESKTOP) && !defined(WEB)
 	writeValueKey(PLATFORM_PATH, "printk", "start app");
 	chdir("/home/mdc/app");
