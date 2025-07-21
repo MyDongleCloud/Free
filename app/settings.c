@@ -25,7 +25,11 @@ static void nameIdLoad() {
 void settingsDefault() {
 	smdc.version = SETTINGS_VERSION;
 	smdc.language = 0;
+#if !defined(DESKTOP) && !defined(WEB)
 	smdc.rotation = 3;
+#else
+	smdc.rotation = 0;
+#endif
 	smdc.noBuzzer = 0;
 	smdc.sleepKeepLed = 0;
 	smdc.setupDone = 0;
