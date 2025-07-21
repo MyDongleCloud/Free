@@ -121,7 +121,7 @@ umount ${LOSETUP}*
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then
-	zip -P `cat /work/ai.mydonglecloud/private/password-upgrade.bin.txt` -j /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc${POSTNAME}.img
+	zip -j /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc${POSTNAME}.img
 
 	cd /work/ai.mydonglecloud/client
 	ionic build --prod
