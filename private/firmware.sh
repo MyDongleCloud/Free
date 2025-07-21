@@ -46,10 +46,10 @@ mount ${DISK}2 /tmp/2
 cd /tmp/1
 zip -q -r /tmp/mdc.zip *
 if [ $CLEAN = 1 ]; then
-	rm -f /tmp/mdc.img
+	rm -f /tmp/mdc${POSTNAME}.img
 fi
-if [ -f /tmp/mdc.img ]; then
-	echo "No creation as /tmp/mdc.img already exists"
+if [ -f /tmp/mdc${POSTNAME}.img ]; then
+	echo "No creation as /tmp/mdc${POSTNAME}.img already exists"
 else
 	cd /tmp/2
 	rm -f /tmp/squashfs-exclude.txt
@@ -65,7 +65,7 @@ EOF
 	sed -i -e 's|#LABEL=rootfs  /disk|LABEL=rootfs  /disk|' /tmp/2/etc/fstab
 	echo "######## WARNING ########"
 	echo "/tmp/2/etc/fstab has been modified. It will be reverted once squashfs is finished"
-	mksquashfs . /tmp/mdc.img -ef /tmp/squashfs-exclude.txt
+	mksquashfs . /tmp/mdc${POSTNAME}.img -ef /tmp/squashfs-exclude.txt
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' /tmp/2/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
 fi
@@ -117,15 +117,16 @@ cp /work/ai.mydonglecloud/private/img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
 mkdir -p /tmp/2/fs/upper/ /tmp/2/fs/lower/ /tmp/2/fs/overlay/ /tmp/2/fs/work/
-cp /tmp/mdc.img /tmp/2/fs/
+cp /tmp/mdc${POSTNAME}.img /tmp/2/fs/
 sync
 sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 losetup -d ${LOSETUP}
-zip -P `cat /work/ai.mydonglecloud/private/password-upgrade.bin.txt` -j /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc.img
 
 if [ $FINAL = 1 ]; then
+	zip -P `cat /work/ai.mydonglecloud/private/password-upgrade.bin.txt` -j /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc${POSTNAME}.img
+
 	cd /work/ai.mydonglecloud/client
 	ionic build --prod
 	ionic cap sync android --prod
