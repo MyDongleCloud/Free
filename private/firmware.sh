@@ -81,8 +81,9 @@ umount ${DISK}*
 umount ${DISK}*
 
 dd if=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024
-SIZE=$((`stat -c %s /tmp/mdc${POSTNAME}.img`  * 110 / 100 / 1024))
-dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$((SIZE * 1024)) seek=$((4 * 1024)) conv=notrunc
+SIZE=$((`stat -c %s /tmp/mdc${POSTNAME}.img` * 110 / 100 / 1024))
+echo "Size: ${SIZE}kB"
+dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
 8192,131072,c
