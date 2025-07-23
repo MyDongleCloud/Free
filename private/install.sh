@@ -106,7 +106,7 @@ echo "Basic"
 echo "################################"
 apt-get -y install libprotobuf32 liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libjpeg62-turbo-dev libturbojpeg0-dev libldap-dev libsasl2-dev
 apt-get -y install python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
-apt-get -y install composer apache2 php php-mysql php-xml libapache2-mod-php sqlite3 certbot transgui procmail rspamd dovecot-pop3d dovecot-imapd
+apt-get -y install composer apache2 php php-mysql php-xml php-yaml libapache2-mod-php sqlite3 certbot transmission procmail rspamd dovecot-pop3d dovecot-imapd roundcube
 apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt hdparm ffmpeg screen figlet toilet
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
@@ -223,6 +223,7 @@ echo "uMTP"
 echo "################################"
 cd /home/mdc/build
 git clone https://github.com/viveris/uMTP-Responder
+git checkout umtprd-1.6.8
 cd uMTP-Responder
 make
 mkdir /usr/local/modules/MTP
@@ -293,12 +294,12 @@ fi
 apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
 
 echo "################################"
-echo "Zigbee+mosquitto"
+echo "Mosquitto Zigbee2mqtt"
 echo "################################"
 apt-get -y install mosquitto
 mkdir /usr/local/modules/zigbee2mqtt
 cd /usr/local/modules/zigbee2mqtt
-npm install zigbee2mqtt
+npm install zigbee2mqtt@2.5.1
 rm -rf /usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt/data
 ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
 
@@ -383,6 +384,7 @@ pip install whitenoise==6.9.0
 pip install yt-dlp[default]==2025.6.30
 cd /usr/local/modules/tubearchivist
 git clone https://github.com/tubearchivist/tubearchivist
+git checkout v0.5.4
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
@@ -468,12 +470,108 @@ git checkout v1.8.1
 rm -rf .git
 
 echo "################################"
+echo "Discourse"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/discourse/discourse
+cd discourse
+git checkout v3.4.6
+rm -rf .git
+
+echo "################################"
+echo "Grav"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/getgrav/grav
+cd grav
+git checkout 1.7.48
+rm -rf .git
+
+echo "################################"
+echo "MantisBT"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/mantisbt/mantisbt
+cd mantisbt
+git checkout release-2.27.1
+rm -rf .git
+
+echo "################################"
+echo "Bugzilla"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/bugzilla/bugzilla
+cd bugzilla
+git checkout release-5.3.3
+rm -rf .git
+
+echo "################################"
+echo "Open WebUI"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/open-webui/open-webui
+cd open-webui
+git checkout v0.6.18
+rm -rf .git
+
+echo "################################"
+echo "Ollama"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/ollama/ollama
+cd ollama
+git checkout v0.9.7-rc1
+rm -rf .git
+
+echo "################################"
+echo "Pandoc"
+echo "################################"
+apt-get -y install pandoc
+
+echo "################################"
+echo "Transmission"
+echo "################################"
+apt-get -y install libpsl-dev libminiupnpc-dev libnatpmp-dev libevent-dev googletest libdeflate-dev libutfcpp-dev
+git clone https://github.com/transmission/transmission
+cd transmission
+git checkout 4.0.6
+git submodule init
+git submodule update
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DWITH_GTK=OFF
+cd build
+make
+make install
+
+echo "################################"
+echo "Unmanic"
+echo "################################"
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/unmanic -s
+echo "PATH before any modif: $PATH"
+PATHOLD=$PATH
+PATH=/usr/local/modules/unmanic/bin:$PATHOLD
+export PATH=/usr/local/modules/unmanic/bin:$PATHOLD
+echo "PATH new: $PATH python: `python --version`"
+pip install unmanic
+PATH=$PATHOLD
+export PATH=$PATHOLD
+echo "PATH restored: $PATH"
+
+echo "################################"
 echo "QRCode"
 echo "################################"
 cd /home/mdc/build
 git clone https://code.antopie.org/miraty/libreqr.git
+cd libreqr
+git checkout 2.0.1
+cd ..
 git clone https://github.com/bizzycola/qrcode-generator
+cd qrcode-generator
+git checkout v1.8.0
+cd ..
 git clone https://github.com/mebjas/html5-qrcode
+cd html5-qrcode
+git checkout v2.3.8
+cd ..
 cd ..
 
 echo "################################"
