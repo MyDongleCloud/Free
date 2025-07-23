@@ -106,7 +106,7 @@ echo "Basic"
 echo "################################"
 apt-get -y install libprotobuf32 liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libjpeg62-turbo-dev libturbojpeg0-dev libldap-dev libsasl2-dev
 apt-get -y install python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
-apt-get -y install composer apache2 php php-mysql php-xml php-yaml libapache2-mod-php sqlite3 certbot transmission procmail rspamd dovecot-pop3d dovecot-imapd roundcube
+apt-get -y install composer apache2 php php-mysql php-sqlite3 php-xml php-yaml php-json libapache2-mod-php sqlite3 certbot procmail rspamd dovecot-pop3d dovecot-imapd
 apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt hdparm ffmpeg screen figlet toilet
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
@@ -153,7 +153,7 @@ elif [ $OS = "pios" ]; then
 	cd /home/mdc/build
 	wget https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
 	wget https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.0.8_all.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.1.1_all.deb
 	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
 	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
 	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
@@ -237,7 +237,7 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install linux-headers-raspi linux-image-raspi
 elif [ $OS = "pios" ]; then
 	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 raspi-utils-core raspi-utils-dt
-	apt-get -y purge linux-headers-rpi-v8 linux-image-rpi-v8
+	apt-get -y purge linux-headers*rpi-v8 linux-image*rpi-v8 linux-headers-6.12.25*
 	rm -rf /lib/modules/6.12.25+rpt-rpi-* /lib/modules/6.12.34+rpt-rpi-v8
 	rm -f /boot/cmdline.txt /boot/issue.txt /boot/config.txt /boot/overlays /boot/*6.12.25* /boot/*-v8
 	rm -f /boot/firmware/bcm2710* /boot/firmware/bcm2711* /boot/firmware/kernel8.img /boot/firmware/initramfs8 /boot/firmware/LICENCE.broadcom /boot/firmware/issue.txt
@@ -304,7 +304,7 @@ rm -rf /usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt/data
 ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
 
 echo "################################"
-echo "Homeassistant"
+echo "Home Assistant"
 echo "################################"
 /home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeautomation -v 3.12 -s
 echo "PATH before any modif: $PATH"
@@ -359,7 +359,7 @@ echo "PATH restored: $PATH"
 ln -sf /etc/systemd/system/homeautomation.service /etc/systemd/system/multi-user.target.wants/homeautomation.service
 
 echo "################################"
-echo "Tubearchivist"
+echo "Tube Archivist"
 echo "################################"
 /home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubearchivist -s
 echo "PATH before any modif: $PATH"
@@ -399,7 +399,7 @@ git checkout 6.15.3+250708
 rm -rf .git
 
 echo "################################"
-echo "ProjectSend"
+echo "Project Send"
 echo "################################"
 cd /usr/local/modules
 git clone https://github.com/projectsend/projectsend
@@ -416,7 +416,7 @@ cd phpList
 composer update -n
 
 echo "################################"
-echo "GoAccess"
+echo "Go Access"
 echo "################################"
 cd /usr/local/modules
 git clone https://github.com/allinurl/goaccess
@@ -488,7 +488,7 @@ git checkout 1.7.48
 rm -rf .git
 
 echo "################################"
-echo "MantisBT"
+echo "Mantis Bug Tracker"
 echo "################################"
 cd /usr/local/modules
 git clone https://github.com/mantisbt/mantisbt
@@ -531,13 +531,15 @@ apt-get -y install pandoc
 echo "################################"
 echo "Transmission"
 echo "################################"
+cd /home/mdc/build
 apt-get -y install libpsl-dev libminiupnpc-dev libnatpmp-dev libevent-dev googletest libdeflate-dev libutfcpp-dev
 git clone https://github.com/transmission/transmission
 cd transmission
 git checkout 4.0.6
 git submodule init
 git submodule update
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DWITH_GTK=OFF
+rm -rf .git
+cmake -B build -DCMAKE_BUILD_TYPE=Release
 cd build
 make
 make install
@@ -572,7 +574,6 @@ git clone https://github.com/mebjas/html5-qrcode
 cd html5-qrcode
 git checkout v2.3.8
 cd ..
-cd ..
 
 echo "################################"
 echo "App and rootfs"
@@ -588,6 +589,7 @@ chown -R root:root rootfs
 cp -a rootfs/* /
 rm -rf rootfs
 chown -R root:root /usr/local
+chown -R mdc:mdc /home/mdc
 chown -R admin:admin /disk/admin
 
 echo "################################"
@@ -607,7 +609,7 @@ ln -sf /disk/admin/.log/ /var/log
 echo "################################"
 echo "Package with interaction"
 echo "################################"
-apt-get -y install postfix jitsi-meet
+apt-get -y install postfix jitsi-meet roundcube
 
 sync
 sync
@@ -618,7 +620,6 @@ date
 
 if [ $PROD = 1 ]; then
 	rm -rf /var/log.old
-	rm -rf /disk/admin/.log/*
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow-
 fi
