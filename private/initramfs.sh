@@ -3,13 +3,16 @@
 helper() {
 echo "*******************************************************"
 echo "Usage for initramfs [-h]"
-echo "h:		Print this usage and exit"
+echo "f:	get original initramfs"
+echo "h:	Print this usage and exit"
 exit 0
 }
 
-DISK=/dev/sdcard
-while getopts h opt; do
+DISK=/dev/mmcblk0p
+FULL=0
+while getopts fh opt; do
 	case "$opt" in
+		f) FULL=1;;
 		h) helper;;
 	esac
 done
@@ -32,11 +35,19 @@ rm -rf /tmp/initramfs
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*
+if [ $FULL = 1 ]; then
+	mount ${DISK}1 /tmp/1
+	cp /tmp/1/initramfs_2712 /work/ai.mydonglecloud/private/img/initramfs_2712.orig
+	umount /${DISK}1
+fi
 mount ${DISK}2 /tmp/2
-zstd -d /work/ai.mydonglecloud/private/img/initramfs_2712.orig -o /tmp/initramfs_
+zstd -q -d /work/ai.mydonglecloud/private/img/initramfs_2712.orig -o /tmp/initramfs_
 mkdir /tmp/initramfs
 cd /tmp/initramfs
-cat /tmp/initramfs_ | cpio -idmv
+cat /tmp/initramfs_ | cpio -idmv 2> /dev/null
+if [ $? != 0 ]; then
+	echo "Error"
+fi
 rm -f /tmp/initramfs_
 KERNEL=`ls /tmp/2/lib/modules/ | egrep ^6`
 mkdir -p /tmp/initramfs/usr/lib/modules/$KERNEL/kernel/fs/squashfs
@@ -49,7 +60,7 @@ patch -p1 < /work/ai.mydonglecloud/private/initramfs.patch
 find . | cpio -o -H newc > /tmp/initramfs_
 cd /tmp
 rm -rf /tmp/initramfs
-zstd /tmp/initramfs_ -o /work/ai.mydonglecloud/private/img/initramfs_2712
+zstd -q /tmp/initramfs_ -o /work/ai.mydonglecloud/private/img/initramfs_2712
 chmod 755 /work/ai.mydonglecloud/private/img/initramfs_2712
 rm -f /tmp/initramfs_
 umount ${DISK}*
