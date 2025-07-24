@@ -604,7 +604,7 @@ rm -rf /lost+found
 rmdir /usr/local/games
 rm -rf /opt/containerd /opt/pigpio
 mv /var/log /var/log.old
-ln -sf /disk/admin/.log/ /var/log
+ln -sf /disk/admin/.modules/log/ /var/log
 
 echo "################################"
 echo "Package with interaction"
