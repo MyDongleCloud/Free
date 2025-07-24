@@ -11,9 +11,11 @@ fclose($h);
 $stars = 0;
 $posgh = 10;
 for ($i = 1; $i < count($modules); $i++) {
+	if (strlen($modules[$i]) == 0)
+		continue;
 	$m = explode(";", $modules[$i]);
 	echo $m[0] . "\n";
-	if (strlen($m[$posgh]) != 0) {
+	if (strlen($m[$posgh]) == -1) {
 		$headers = array("Accept: application/json", "Authorization: Bearer " . $githubAPIKey, "X-GitHub-Api-Version: 2022-11-28", "User-Agent: MyDongleCloud");
 		$ch = curl_init("https://api.github.com/repos/" . $m[$posgh]);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -22,15 +24,16 @@ for ($i = 1; $i < count($modules); $i++) {
 		curl_close($ch);
 		$resp = json_decode($response, true);
 		$m[$posgh + 1] = intval($resp["stargazers_count"]);
-		$m[$posgh + 2] = $resp["license"]["name"];
-		$m[$posgh + 3] = $resp["description"];
+		$m[$posgh + 2] = str_replace(";", " ", $resp["license"]["name"]);
+		$m[$posgh + 3] = str_replace(";", " ", $resp["description"]);
 	}
 	$stars += intval($m[$posgh + 1]);
 	$modules[$i] = implode(";", $m);
 }
 $h = fopen($pathname, "w");
 foreach ($modules as $l)
-	fwrite($h, $l . "\n");
+	if (strlen($l) > 0)
+		fwrite($h, $l . "\n");
 fclose($h);
 echo "Github stars: " . $stars . "\n";
 ?>
