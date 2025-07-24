@@ -21,6 +21,7 @@
 #else
 #define MAIN_PATH "/home/mdc/app/"
 #endif
+#define ADMIN_PATH "/disk/admin/.mydonglecloud/"
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
 

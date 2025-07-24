@@ -45,20 +45,19 @@ void settingsDump() {
 
 void settingsLoad() {
 	nameIdLoad();
-	struct stat statTest;
-	if (stat(MAIN_PATH "settings", &statTest) == -1)
-		 mkdir(MAIN_PATH "settings", 0775);
 	settingsDefault();
-	FILE *f = fopen(MAIN_PATH "settings/smdc", "rb");
+#ifndef DESKTOP
+	FILE *f = fopen(ADMIN_PATH "smdc", "rb");
 	if (f) {
 		fread(&smdc, sizeof(smdc), 1, f);
 		fclose(f);
 	}
+#endif
 }
 
 void settingsSave() {
 #ifndef DESKTOP
-	FILE *f = fopen(MAIN_PATH "settings/smdc", "wb+");
+	FILE *f = fopen(ADMIN_PATH "smdc", "wb+");
 	if (f) {
 		fwrite(&smdc, sizeof(smdc), 1, f);
 		fclose(f);
