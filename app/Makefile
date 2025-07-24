@@ -16,6 +16,7 @@ OBJs := $(PRE)backend.o \
 	$(PRE)ble.o \
 	$(PRE)bluetoothAddr.o \
 	$(PRE)btlib.o \
+	$(PRE)cJSON.o \
 	$(PRE)common.o \
 	$(PRE)communication.o \
 	$(PRE)language.o \

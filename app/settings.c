@@ -1,14 +1,43 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 #include "macro.h"
 #include "settings.h"
+#include "cJSON.h"
 
 //Global variables
 settings smdc;
 int nameId;
 
 //Functions
+#ifndef WEB
+void settingsFromJson(char *sz, settings *psmdc) {
+	cJSON *root = cJSON_Parse(sz);
+	cJSON *el;
+	el = cJSON_GetObjectItem(root, "version"); if (el) psmdc->version = (int)cJSON_GetNumberValue(el);
+	el = cJSON_GetObjectItem(root, "language"); if (el) psmdc->language = (int)cJSON_GetNumberValue(el);
+	el = cJSON_GetObjectItem(root, "rotation"); if (el) psmdc->rotation = (int)cJSON_GetNumberValue(el);
+	el = cJSON_GetObjectItem(root, "noBuzzer"); if (el) psmdc->noBuzzer = (int)cJSON_GetNumberValue(el);
+	el = cJSON_GetObjectItem(root, "sleepKeepLed"); if (el) psmdc->sleepKeepLed = (int)cJSON_GetNumberValue(el);
+	el = cJSON_GetObjectItem(root, "setupDone"); if (el) psmdc->setupDone = (int)cJSON_GetNumberValue(el);
+	cJSON_free(root);
+}
+
+char *settingsToJson(settings *psmdc) {
+	cJSON *root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(root, "version", psmdc->version);
+    cJSON_AddNumberToObject(root, "language", psmdc->language);
+    cJSON_AddNumberToObject(root, "rotation", psmdc->rotation);
+    cJSON_AddNumberToObject(root, "noBuzzer", psmdc->noBuzzer);
+    cJSON_AddNumberToObject(root, "sleepKeepLed", psmdc->sleepKeepLed);
+    cJSON_AddNumberToObject(root, "setupDone", psmdc->setupDone);
+	char *sz = cJSON_Print(root);
+	cJSON_free(root);
+	return sz;
+}
+#endif
+
 void nameIdSave(int nid) {
 	nameId = nid;
 }
@@ -46,20 +75,26 @@ void settingsDump() {
 void settingsLoad() {
 	nameIdLoad();
 	settingsDefault();
-#ifndef DESKTOP
-	FILE *f = fopen(ADMIN_PATH "smdc", "rb");
+#ifndef WEB
+	FILE *f = fopen(ADMIN_PATH "app.json", "rb");
 	if (f) {
-		fread(&smdc, sizeof(smdc), 1, f);
+		char sz[1024];
+		fread(sz, sizeof(sz), 1, f);
+		settingsFromJson(sz, &smdc);
 		fclose(f);
 	}
 #endif
 }
 
 void settingsSave() {
-#ifndef DESKTOP
-	FILE *f = fopen(ADMIN_PATH "smdc", "wb+");
+#ifndef WEB
+	FILE *f = fopen(ADMIN_PATH "app.json", "wb+");
 	if (f) {
-		fwrite(&smdc, sizeof(smdc), 1, f);
+		char *sz = settingsToJson(&smdc);
+		if (sz) {
+			fwrite(sz, strlen(sz), 1, f);
+			free(sz);
+		}
 		fclose(f);
 	}
 #endif

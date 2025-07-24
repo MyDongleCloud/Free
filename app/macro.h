@@ -18,10 +18,11 @@
 
 #ifdef DESKTOP
 #define MAIN_PATH "./"
+#define ADMIN_PATH "/tmp/"
 #else
 #define MAIN_PATH "/home/mdc/app/"
+#define ADMIN_PATH "/disk/admin/.modules/mydonglecloud/"
 #endif
-#define ADMIN_PATH "/disk/admin/.mydonglecloud/"
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
 
