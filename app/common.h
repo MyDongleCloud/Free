@@ -28,7 +28,7 @@ int oathValidate(char secret[33], int OTP);
 void getSerialID();
 int killOtherPids(char *sz);
 int fileExists(char *st);
-void logInit(int daemon, int debug);
+void logInit(int daemon);
 void logUninit();
 void logUninit();
 void buzzer(int n);

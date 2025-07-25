@@ -76,6 +76,7 @@ ifeq ($(DEBUG),)
 	@strip app
 endif
 ifeq ($(shell uname -m), aarch64)
+	@setcap 'cap_net_admin+eip' app
 	@cp app /usr/local/modules/mydonglecloud/app
 endif
 

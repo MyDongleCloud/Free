@@ -46,13 +46,12 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 	}
-	int debug = 0;
 #ifndef WEB
 	if (killOtherPids("app")) {
 		fprintf(stderr, "Exiting because process already exists\n");
 		return 0;
 	}
-	logInit(daemon, debug);
+	logInit(daemon);
 	settingsLoad();
 	if (forceRotation != -1) {
 		smdc.rotation = forceRotation;

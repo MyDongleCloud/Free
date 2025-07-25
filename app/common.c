@@ -315,9 +315,9 @@ int fileExists(char *st) {
 	return (stat(st, &statTest) == 0);
 }
 
-void logInit(int daemon, int debug) {
+void logInit(int daemon) {
 	char sz[256];
-	strcpy(sz, debug ? "/var/log/mydonglecloud-app.log" : "/tmp/app.log");
+	strcpy(sz, "/var/log/mydonglecloud/app.log");
 	int pipe_fd[2];
 	pipe(pipe_fd);
 	pidLog = fork();
