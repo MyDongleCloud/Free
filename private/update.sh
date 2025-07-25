@@ -70,7 +70,6 @@ mount ${DISK}2 /tmp/2
 tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C /tmp/2/lib/modules/
 rm -rf /tmp/2/home/mdc/app/
 cp -a /work/ai.mydonglecloud/app/ /tmp/2/home/mdc/
-ln -sf /usr/local/modules/mydonglecloud/version.txt /tmp/2/home/mdc/app/version.txt
 chroot /tmp/2 sh -c 'cd home/mdc/app/ && make clean && make'
 sleep 2
 sync
