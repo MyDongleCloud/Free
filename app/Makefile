@@ -48,7 +48,6 @@ OBJs_WEB := $(PRE)backend__.o \
 	$(PRE)ui__.o
 #OBJs_WEB := $(PRE)demo-web__.o
 
-
 OBJs_ZIGBEE := $(PRE)sbl.o \
 	$(PRE)sbl2.o \
 	$(PRE)main_zigbee.o
@@ -59,11 +58,17 @@ MYLDFLAGS_WEB = -L ../build/lvgl-web/cmbuild/lib/ -llvgl -llvgl_thorvg -llvgl_de
 .PHONY : clean
 
 ifeq ($(shell uname -m), aarch64)
-all: app_exec zigbee_exec
+all: pre_build app_exec zigbee_exec
 else
-all: app_exec desktop_exec zigbee_exec web_exec
+all: pre_build app_exec desktop_exec zigbee_exec web_exec
 endif
 clean: cleanup
+
+pre_build:
+	@mkdir -p $(PRE)
+ifeq ($(shell uname -m), aarch64)
+	@ln -sf /usr/local/modules/mydonglecloud/version.txt version.txt
+endif
 
 app_exec: $(OBJs_APP)
 	$(MYLINKPP) $(DEBUG) $(OBJs_APP) $(MYLDFLAGS_APP) -o app
@@ -95,7 +100,6 @@ ifeq ($(DEBUG),)
 endif
 
 $(PRE)%.o : %.c
-	@mkdir -p $(PRE)
 	$(MYCC) $(DEBUG) $< -o $@ -c $(MYCFLAGS_APP)
 
 $(PRE)%_.o : %.c
