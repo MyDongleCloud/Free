@@ -62,13 +62,11 @@ static void *bleStart_t(void *arg) {
 		sprintf(nn, "MyDongle-%s", "1234567890");
 		sprintf(sz, "DEVICE=%s type=mesh node=2 address=%s\n", nn, bluetoothClassicAddr);
 		fwrite(sz, strlen(sz), 1, pf);
-		char *szTplt[] = {
-		" PRIMARY_SERVICE=0000fff0-0000-1000-8000-00805f9b34fb\n",
-		" lechar=Version permit=2 size=10 uuid=0000fff1-0000-1000-8000-00805f9b34fb\n",
-		" lechar=Data permit=1a size=182 uuid=0000fff2-0000-1000-8000-00805f9b34fb\n",
-		};
-		for (int i = 0; i < sizeof(szTplt) / sizeof(char *); i++)
-			fwrite(szTplt[i], strlen(szTplt[i]), 1, pf);
+		char szTplt[] = "\
+ PRIMARY_SERVICE=0000fff0-0000-1000-8000-00805f9b34fb\n\
+ lechar=Version permit=2 size=10 uuid=0000fff1-0000-1000-8000-00805f9b34fb\n\
+ lechar=Data permit=1a size=182 uuid=0000fff2-0000-1000-8000-00805f9b34fb\n";
+		fwrite(szTplt, strlen(szTplt), 1, pf);
 		fclose(pf);
 	}
 	int ret = init_blue("/tmp/bleCfg.txt");
