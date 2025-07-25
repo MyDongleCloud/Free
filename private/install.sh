@@ -2,16 +2,19 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for install [-h -p]"
-echo "h:		Print this usage and exit"
-echo "p:		Do production image"
+echo "Usage for install [-h -n -p]"
+echo "h:	Print this usage and exit"
+echo "n:	Not native (via chroot)"
+echo "p:	Do production image"
 exit 0
 }
 
 PROD=0
-while getopts hp opt; do
+NATIVE=1
+while getopts hnp opt; do
 	case "$opt" in
 		h) helper;;
+		n) NATIVE=0;;
 		p) PROD=1;;
 	esac
 done
@@ -21,14 +24,13 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
+lsb_release -a | grep bookworm
+if [ $? = 0 ]; then
 #On PC
 #tar -cjpvf a.tbz2 app/ kernel/ rootfs/ screenAvr/ private/install.sh
 #scp a.tbz2 mdc@192.168.10.41:/tmp
 #On device
 #tar -xjpvf /tmp/a.tbz2
-
-lsb_release -a | grep bookworm
-if [ $? = 0 ]; then
 	OS="pios"
 fi
 lsb_release -a | grep noble
@@ -56,9 +58,10 @@ sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/mdc/.bashrc
 ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.target.wants/serial-getty@ttyGS0.service
 ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
 ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
-echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
-sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
-cat > /boot/firmware/config.txt <<EOF
+if [ $NATIVE = 1 ]; then
+	echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
+	sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
+	cat > /boot/firmware/config.txt <<EOF
 auto_initramfs=1
 arm_64bit=1
 arm_boost=1
@@ -75,13 +78,16 @@ dtparam=spi=on
 dtparam=pciex1=1
 dtparam=nvme
 EOF
+fi
 cat > /etc/fstab <<EOF
 proc            /proc           proc    defaults          0       0
 LABEL=rootfs  /               ext4    defaults,noatime  0       1
 #LABEL=rootfs  /disk           ext4    defaults,noatime  0       1
 EOF
-fatlabel /dev/mmcblk0p1 bootfs
-e2label /dev/mmcblk0p2 rootfs
+if [ $NATIVE = 1 ]; then
+	fatlabel /dev/mmcblk0p1 bootfs
+	e2label /dev/mmcblk0p2 rootfs
+fi
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
@@ -104,16 +110,24 @@ apt-get -y upgrade
 echo "################################"
 echo "Basic"
 echo "################################"
-apt-get -y install libprotobuf32 liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libjpeg62-turbo-dev libturbojpeg0-dev libldap-dev libsasl2-dev
+apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev
+if [ $OS = "ubuntu" ]; then
+	apt-get -y install libprotobuf32t64 libjpeg62-dev
+elif [ $OS = "pios" ]; then
+	apt-get -y install libprotobuf32 libjpeg62-turbo-dev
+fi
 apt-get -y install python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
 apt-get -y install composer apache2 php php-mysql php-sqlite3 php-xml php-yaml php-json libapache2-mod-php sqlite3 certbot procmail rspamd dovecot-pop3d dovecot-imapd
 apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt hdparm ffmpeg screen figlet toilet
 rm -f /etc/apache2/sites-enabled/*
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
-	snap remove snapd
-	apt-get -y purge snapd
-	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential
+	which snapd
+	if [ $? = 0 ]; then
+		snap remove snapd
+		apt-get -y purge snapd
+	fi
+	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools
 fi
 
 echo "################################"
@@ -232,13 +246,20 @@ mv umtprd /usr/local/modules/MTP
 cd ../..
 
 echo "################################"
-echo "Kernel"
+echo "Kernel for Dongle Pro"
 echo "################################"
 if [ $OS = "ubuntu" ]; then
-	apt-get -y install linux-headers-raspi linux-image-raspi
+	echo "apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 linux-headers-6.12.34+rpt-common-rpi linux-headers-6.12.34+rpt-rpi-2712 linux-image-6.12.34+rpt-rpi-2712 linux-kbuild-6.12.34+rpt"
+	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-image-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-6.12.34+rpt-common-rpi_6.12.34-1+rpt1_all.deb
+	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-image-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-kbuild-6.12.34+rpt_6.12.34-1+rpt1_arm64.deb
+	dpkg -i linux-*.deb
 elif [ $OS = "pios" ]; then
 	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 raspi-utils-core raspi-utils-dt
-	apt-get -y purge linux-headers*rpi-v8 linux-image*rpi-v8 linux-headers-6.12.25*
+	apt-get -y purge linux-headers*rpi-v8 linux-image*rpi-v8 linux-headers-6.12.25* linux-kbuild-6.12.25*
 	rm -rf /lib/modules/6.12.25+rpt-rpi-* /lib/modules/6.12.34+rpt-rpi-v8
 	rm -f /boot/cmdline.txt /boot/issue.txt /boot/config.txt /boot/overlays /boot/*6.12.25* /boot/*-v8
 	rm -f /boot/firmware/bcm2710* /boot/firmware/bcm2711* /boot/firmware/kernel8.img /boot/firmware/initramfs8 /boot/firmware/LICENCE.broadcom /boot/firmware/issue.txt
@@ -291,8 +312,8 @@ Components: main
 Signed-By: /etc/apt/keyrings/deb-pascalroeleven.gpg
 EOF
 	apt-get update
+	apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
 fi
-apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
 
 echo "################################"
 echo "Mosquitto Zigbee2mqtt"
@@ -421,11 +442,7 @@ composer update -n
 echo "################################"
 echo "Go Access"
 echo "################################"
-cd /usr/local/modules
-git clone https://github.com/allinurl/goaccess
-cd goaccess
-git checkout v1.9.4
-rm -rf .git
+apt-get -y install goaccess
 
 echo "################################"
 echo "Webtrees"
@@ -605,7 +622,9 @@ rm -rf /home/mdc/.cache/pip
 rm -rf /root
 rm -rf /lost+found
 rmdir /usr/local/games
-rm -rf /opt/containerd /opt/pigpio
+if [ $OS = "pios" ]; then
+	rm -rf /opt/containerd /opt/pigpio
+fi
 mv /var/log /var/log.old
 ln -sf /disk/admin/.modules/log/ /var/log
 
