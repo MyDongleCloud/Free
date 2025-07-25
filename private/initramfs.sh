@@ -23,6 +23,7 @@ if [ "m`id -u`" != "m0" ]; then
 fi
 cd `dirname $0`
 echo "Current directory is now `pwd`"
+PP=`pwd`
 
 umount ${DISK}*
 umount ${DISK}*
@@ -34,7 +35,6 @@ fi
 
 rm -f img/initramfs_2712 /tmp/initramfs_
 rm -rf /tmp/initramfs
-cd /tmp
 umount ${DISK}*
 umount ${DISK}*
 if [ $FULL = 1 ]; then
@@ -58,9 +58,9 @@ unxz -k /tmp/2/lib/modules/$KERNEL/kernel/fs/squashfs/squashfs.ko.xz
 mv /tmp/2/lib/modules/$KERNEL/kernel/fs/squashfs/squashfs.ko /tmp/initramfs/usr/lib/modules/$KERNEL/kernel/fs/squashfs
 unxz -k /tmp/2/lib/modules/$KERNEL/kernel/fs/overlayfs/overlay.ko.xz
 mv /tmp/2/lib/modules/$KERNEL/kernel/fs/overlayfs/overlay.ko /tmp/initramfs/usr/lib/modules/$KERNEL/kernel/fs/overlayfs
-patch -p1 < initramfs.patch
+patch -p1 < ${PP}/initramfs.patch
 find . | cpio -o -H newc > /tmp/initramfs_
-cd /tmp
+cd ${PP}
 rm -rf /tmp/initramfs
 zstd -q /tmp/initramfs_ -o img/initramfs_2712
 chmod 755 img/initramfs_2712
