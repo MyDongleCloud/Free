@@ -108,6 +108,7 @@ apt-get -y install libprotobuf32 liboath-dev libinput-dev libboost-dev libboost-
 apt-get -y install python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
 apt-get -y install composer apache2 php php-mysql php-sqlite3 php-xml php-yaml php-json libapache2-mod-php sqlite3 certbot procmail rspamd dovecot-pop3d dovecot-imapd
 apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt hdparm ffmpeg screen figlet toilet
+rm -f /etc/apache2/sites-enabled/*
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
 	snap remove snapd
@@ -353,6 +354,8 @@ pip install esphome-dashboard-api==1.2.3
 pip install bleak-esphome==2.0.0
 pip install paho-mqtt==1.6.1
 pip install ibeacon-ble==1.2.0
+pip install isal==1.7.2
+pip install zlib_ng==0.5.1
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
@@ -399,7 +402,7 @@ git checkout 6.15.3+250708
 rm -rf .git
 
 echo "################################"
-echo "Project Send"
+echo "ProjectSend"
 echo "################################"
 cd /usr/local/modules
 git clone https://github.com/projectsend/projectsend
