@@ -12,7 +12,7 @@ exit 0
 }
 
 SETUP=0
-VERSION=3.11
+VERSION=`python3 --version | cut -d' ' -f2 | cut -d'.' -f1,2`
 LOCAL=0
 FOLDER=/tmp/test
 while getopts f:hlsv: opt; do
