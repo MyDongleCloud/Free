@@ -40,6 +40,13 @@ chmod 222 /dev/mydonglecloud_screen/rect
 chmod 222 /dev/mydonglecloud_screen/update
 chmod 666 /dev/mydonglecloud_screen_f
 
+chmod 666 /sys/class/leds/LED_GREEN/delay_off
+chmod 666 /sys/class/leds/LED_GREEN/delay_on
+chmod 666 /sys/class/leds/LED_GREEN/trigger
+chmod 666 /sys/class/leds/LED_RED/delay_off
+chmod 666 /sys/class/leds/LED_RED/delay_on
+chmod 666 /sys/class/leds/LED_RED/trigger
+
 if [ $MODEL = "std" ]; then
 	ln -s /dev/ttySAC5 /dev/tty_zigbee
 	ln -s /dev/ttySAC3 /dev/tty_debug
