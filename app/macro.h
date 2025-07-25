@@ -18,7 +18,7 @@
 
 #ifdef DESKTOP
 #define MAIN_PATH "./"
-#define ADMIN_PATH "/tmp/"
+#define ADMIN_PATH "../rootfs/disk/admin/.modules/MyDongleCloud/"
 #else
 #define MAIN_PATH "/home/mdc/app/"
 #define ADMIN_PATH "/disk/admin/.modules/mydonglecloud/"

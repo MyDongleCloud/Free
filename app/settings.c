@@ -11,7 +11,7 @@ settings smdc;
 int nameId;
 
 //Functions
-#ifndef WEB
+#if !defined(DESKTOP) && !defined(WEB)
 void settingsFromJson(char *sz, settings *psmdc) {
 	cJSON *root = cJSON_Parse(sz);
 	cJSON *el;
@@ -75,8 +75,8 @@ void settingsDump() {
 void settingsLoad() {
 	nameIdLoad();
 	settingsDefault();
-#ifndef WEB
-	FILE *f = fopen(ADMIN_PATH "app.json", "rb");
+#if !defined(DESKTOP) && !defined(WEB)
+	FILE *f = fopen(ADMIN_PATH "app.json", "r");
 	if (f) {
 		char sz[1024];
 		fread(sz, sizeof(sz), 1, f);
@@ -87,8 +87,8 @@ void settingsLoad() {
 }
 
 void settingsSave() {
-#ifndef WEB
-	FILE *f = fopen(ADMIN_PATH "app.json", "wb+");
+#if !defined(DESKTOP) && !defined(WEB)
+	FILE *f = fopen(ADMIN_PATH "app.json", "w");
 	if (f) {
 		char *sz = settingsToJson(&smdc);
 		if (sz) {
