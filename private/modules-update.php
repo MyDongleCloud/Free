@@ -9,13 +9,13 @@ $data = fread($h, filesize($pathname));
 $modules = explode("\n", $data);
 fclose($h);
 $stars = 0;
-$posgh = 10;
+$posgh = array_search("Github URL", explode(";", $modules[0]));
 for ($i = 1; $i < count($modules); $i++) {
 	if (strlen($modules[$i]) == 0)
 		continue;
 	$m = explode(";", $modules[$i]);
 	echo $m[0] . "\n";
-	if (strlen($m[$posgh]) == -1) {
+	if (strlen($m[$posgh]) != 0) {
 		$headers = array("Accept: application/json", "Authorization: Bearer " . $githubAPIKey, "X-GitHub-Api-Version: 2022-11-28", "User-Agent: MyDongleCloud");
 		$ch = curl_init("https://api.github.com/repos/" . $m[$posgh]);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
