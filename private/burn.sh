@@ -21,7 +21,14 @@ while getopts d:e:fh opt; do
 		h) helper;;
 	esac
 done
-IMG=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
+IMG=img/flasher-m${POSTNAME}-s.img
+
+if [ "m`id -u`" != "m0" ]; then
+	echo "You need to be root"
+	exit 0
+fi
+cd `dirname $0`
+echo "Current directory is now `pwd`"
 
 umount ${DISK}*
 umount ${DISK}*
@@ -46,10 +53,10 @@ mount ${DISK}2 /tmp/2
 if [ $EXTRACT = 1 ]; then
 	unsquashfs -f -d /tmp/2 /tmp/2/fs/mdc.img
 	rm -rf /tmp/2/fs/
-	cp /work/ai.mydonglecloud/private/img/initramfs_2712.orig /tmp/1/initramfs_2712
+	cp img/initramfs_2712.orig /tmp/1/initramfs_2712
 fi
 rm -rf /tmp/2/lost+found/
-tar -xjpvf /work/ai.mydonglecloud/private/img/mdc.tbz2 -C /tmp/2/
+tar -xjpvf img/mdc.tbz2 -C /tmp/2/
 sync
 umount ${DISK}*
 umount ${DISK}*

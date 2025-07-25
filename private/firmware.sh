@@ -28,6 +28,8 @@ if [ "m`id -u`" != "m0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
+cd `dirname $0`
+echo "Current directory is now `pwd`"
 
 umount ${DISK}*
 umount ${DISK}*
@@ -40,7 +42,7 @@ fi
 cd /tmp
 umount ${DISK}*
 umount ${DISK}*
-rm -f /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip
+rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin /tmp/mdc.zip
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
 cd /tmp/1
@@ -54,7 +56,7 @@ else
 	cd /tmp/2
 	rm -f /tmp/squashfs-exclude.txt
 	if [ $FINAL = 1 ]; then
-		cp /work/ai.mydonglecloud/private/squashfs-exclude.txt /tmp/squashfs-exclude.txt
+		cp squashfs-exclude.txt /tmp/squashfs-exclude.txt
 	else
 		rm -f /tmp/squashfs-exclude.txt
 		touch /tmp/squashfs-exclude.txt
@@ -69,22 +71,22 @@ EOF
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' /tmp/2/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
 fi
-rm -f /work/ai.mydonglecloud/private/img/mdc.tbz2
+rm -f img/mdc.tbz2
 rm -rf /tmp/2/disk/admin/.cache /tmp/2/disk/admin/.log
 mkdir -p /tmp/2/disk/admin/.log/zigbee2mqtt
 chown -R 1001:1001 /tmp/2/disk/admin/
 cd /tmp/2/disk/
-tar -cjpf /work/ai.mydonglecloud/private/img/mdc.tbz2 admin
+tar -cjpf img/mdc.tbz2 admin
 cd /tmp
 sync
 umount ${DISK}*
 umount ${DISK}*
 
-dd if=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024
+dd if=img/sdcard-bootdelay1-m-s of=img/flasher-m${POSTNAME}-s.img bs=1024
 SIZE=$((`stat -c %s /tmp/mdc${POSTNAME}.img` * 110 / 100 / 1024))
 echo "Size: ${SIZE}kB"
-dd if=/dev/zero of=/work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
-losetup --show ${LOSETUP} /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
+dd if=/dev/zero of=img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
+losetup --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
 8192,131072,c
 139264,
@@ -95,7 +97,7 @@ sync
 losetup -d ${LOSETUP}
 sync
 sync
-losetup --partscan --show ${LOSETUP} /work/ai.mydonglecloud/private/img/flasher-m${POSTNAME}-s.img
+losetup --partscan --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
 if [ $? != 0 ]; then
 	echo "ERROR losetup"
 	exit 1
@@ -110,7 +112,7 @@ umount ${LOSETUP}*
 umount ${LOSETUP}*
 mount ${LOSETUP}p1 /tmp/1
 unzip -q -d /tmp/1/ /tmp/mdc.zip
-cp /work/ai.mydonglecloud/private/img/initramfs_2712 /tmp/1
+cp img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
 mkdir -p /tmp/2/fs/upper/ /tmp/2/fs/lower/ /tmp/2/fs/overlay/ /tmp/2/fs/work/
@@ -122,9 +124,9 @@ umount ${LOSETUP}*
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then
-	zip -j /work/ai.mydonglecloud/private/img/upgrade.bin /tmp/mdc.zip /tmp/mdc${POSTNAME}.img
+	zip -j img/upgrade.bin /tmp/mdc.zip /tmp/mdc${POSTNAME}.img
 
-	cd /work/ai.mydonglecloud/client
+	cd ../client
 	ionic build --prod
 	ionic cap sync android --prod
 

@@ -30,6 +30,8 @@ if [ "m`id -u`" != "m0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
+cd `dirname $0`
+echo "Current directory is now `pwd`"
 
 umount ${DISK}*
 umount ${DISK}*
@@ -47,7 +49,7 @@ else
 	OFF=${DISK}
 fi
 if [ $UBOOT = 1 ]; then
-	IFF=/work/ai.mydonglecloud/private/img/sdcard-bootdelay1-m-s
+	IFF=img/sdcard-bootdelay1-m-s
 	dd if=$IFF of=$OFF
 	sfdisk -f $OFF << EOF
 16384,1048576,c
@@ -69,7 +71,7 @@ fi
 mount ${DISK}2 /tmp/2
 tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C /tmp/2/lib/modules/
 rm -rf /tmp/2/home/mdc/app/
-cp -a /work/ai.mydonglecloud/app/ /tmp/2/home/mdc/
+cp -a ../app/ /tmp/2/home/mdc/
 chroot /tmp/2 sh -c 'cd home/mdc/app/ && make clean && make'
 sleep 2
 sync
