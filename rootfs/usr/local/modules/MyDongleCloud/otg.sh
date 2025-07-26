@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for otg.sh [-h -m -s -x]"
+echo "Usage for otg [-h -m -s -x]"
 echo "h:		Print this usage and exit"
 echo "m:		Force MTP"
 echo "s:		Force serial"

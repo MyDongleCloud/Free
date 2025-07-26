@@ -1,0 +1,16 @@
+[Unit]
+Description=TriliumNotes
+After=network.target
+
+[Service]
+Environment=TRILIUM_DATA_DIR=/disk/admin/.modules/TriliumNotes
+Environment=TRILIUM_LOG_DIR=/disk/admin/.modules/log/TriliumNotes
+Type=simple
+ExecStart=/usr/local/bin/node main.cjs
+WorkingDirectory=/usr/local/modules/TriliumNotes
+Restart=always
+RestartSec=10s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

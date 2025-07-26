@@ -38,11 +38,11 @@ static int logicOath() {
 
 int logicIsSetup() {
 	struct stat statTest;
-	return stat(SPACESNAME_PATH, &statTest) == 0;
+	return stat(SPACENAME_PATH, &statTest) == 0;
 }
 
 void logicSetupName(char *name, char *email) {
-	FILE *pf = fopen(SPACESNAME_PATH, "w");
+	FILE *pf = fopen(SPACENAME_PATH, "w");
 	if (pf) {
 		char sz2[64];
 		sprintf(sz2, "%s:%s", name, email);

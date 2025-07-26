@@ -56,8 +56,8 @@ sed -i -e 's|%sudo	ALL=(ALL:ALL) ALL|%sudo	ALL=(ALL:ALL) NOPASSWD:ALL|' /etc/sud
 sed -i -e 's|HISTSIZE=.*|HISTSIZE=-1|' /home/mdc/.bashrc
 sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/mdc/.bashrc
 ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.target.wants/serial-getty@ttyGS0.service
-ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
-ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
+ln -sf /etc/systemd/system/MyDongleCloud-app.service /etc/systemd/system/multi-user.target.wants/MyDongleCloud-app.service
+ln -sf /etc/systemd/system/MyDongleCloud-init.service /etc/systemd/system/sysinit.target.wants/MyDongleCloud-init.service
 if [ $NATIVE = 1 ]; then
 	echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
 	sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
@@ -91,7 +91,7 @@ fi
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
-mkdir -p /usr/local/modules/mydonglecloud
+mkdir -p /usr/local/modules/MyDongleCloud
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth mdc
 usermod -a -G sudo mdc
 
@@ -239,7 +239,7 @@ wget https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextN
 tar -xJpf TriliumNextNotes-Server*
 mv TriliumNextNotes-Server-0.*/ /usr/local/modules/trilium
 rm -rf /usr/local/modules/trilium/node
-ln -sf /etc/systemd/system/trilium.service /etc/systemd/system/multi-user.target.wants/trilium.service
+ln -sf /etc/systemd/system/TriliumNotes.service /etc/systemd/system/multi-user.target.wants/TriliumNotes.service
 
 echo "################################"
 echo "Node.js"
@@ -262,11 +262,11 @@ cd ../..
 echo "################################"
 echo "Zigbee2MQTT"
 echo "################################"
-mkdir /usr/local/modules/zigbee2mqtt
-cd /usr/local/modules/zigbee2mqtt
+mkdir /usr/local/modules/Zigbee2MQTT
+cd /usr/local/modules/Zigbee2MQTT
 npm install zigbee2mqtt@2.5.1
-rm -rf /usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt/data
-ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
+rm -rf /usr/local/modules/Zigbee2MQTT/node_modules/zigbee2mqtt/data
+ln -sf /etc/systemd/system/Zigbee2MQTT.service /etc/systemd/system/multi-user.target.wants/Zigbee2MQTT.service
 
 echo "################################"
 echo "phpList"
@@ -320,11 +320,11 @@ cd ../..
 echo "################################"
 echo "Home Assistant"
 echo "################################"
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeautomation -v 3.12 -s
+/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/HomeAutomation -v 3.12 -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/homeautomation/bin:$PATHOLD
-export PATH=/usr/local/modules/homeautomation/bin:$PATHOLD
+PATH=/usr/local/modules/HomeAutomation/bin:$PATHOLD
+export PATH=/usr/local/modules/HomeAutomation/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install homeassistant
 pip install aiodhcpwatcher==1.0.2
@@ -372,16 +372,16 @@ pip install zlib_ng==0.5.1
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
-ln -sf /etc/systemd/system/homeautomation.service /etc/systemd/system/multi-user.target.wants/homeautomation.service
+ln -sf /etc/systemd/system/HomeAutomation.service /etc/systemd/system/multi-user.target.wants/HomeAutomation.service
 
 echo "################################"
-echo "Tube Archivist"
+echo "TubeArchivist"
 echo "################################"
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubearchivist -s
+/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/TubeArchivist -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/tubearchivist/bin:$PATHOLD
-export PATH=/usr/local/modules/tubearchivist/bin:$PATHOLD
+PATH=/usr/local/modules/TubeArchivist/bin:$PATHOLD
+export PATH=/usr/local/modules/TubeArchivist/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install apprise==1.9.3
 pip install celery==5.5.3
@@ -408,11 +408,11 @@ echo "PATH restored: $PATH"
 echo "################################"
 echo "Unmanic"
 echo "################################"
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/unmanic -s
+/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/Unmanic -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/unmanic/bin:$PATHOLD
-export PATH=/usr/local/modules/unmanic/bin:$PATHOLD
+PATH=/usr/local/modules/Unmanic/bin:$PATHOLD
+export PATH=/usr/local/modules/Unmanic/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install unmanic
 PATH=$PATHOLD

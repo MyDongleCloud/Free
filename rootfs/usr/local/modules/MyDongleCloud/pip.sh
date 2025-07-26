@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for pip.sh [-f fold -h -l -s -v vers]"
+echo "Usage for pip [-f fold -h -l -s -v vers]"
 echo "f fold:	Set folder"
 echo "h:	Print this usage and exit"
 echo "l:	Local"

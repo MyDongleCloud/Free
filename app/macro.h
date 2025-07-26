@@ -21,7 +21,7 @@
 #define ADMIN_PATH "../rootfs/disk/admin/.modules/MyDongleCloud/"
 #else
 #define MAIN_PATH "/home/mdc/app/"
-#define ADMIN_PATH "/disk/admin/.modules/mydonglecloud/"
+#define ADMIN_PATH "/disk/admin/.modules/MyDongleCloud/"
 #endif
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
@@ -32,10 +32,10 @@
 #define TEMPERATURE_PATH "/sys/class/thermal/thermal_zone0/%s"
 #define BUTTON_PATH "/dev/input/event0"
 #define OATH_PATH "/etc/users.oath"
-#define SPACESNAME_PATH "/etc/mydonglecloud-spaces.txt"
+#define SPACENAME_PATH "/disk/admin/.modules/MyDongleCloud/spacename.txt"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
-#define ZIGBEE_FIRMWARE "/usr/local/modules/mydonglecloud/CC2652R7_coordinator.bin"
+#define ZIGBEE_FIRMWARE "/usr/local/modules/MyDongleCloud/CC2652R7_coordinator.bin"
 
 #define WIDTH 128	
 #define HEIGHT 128

@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for otg.sh [b backlight -h -l mode]"
+echo "Usage for leds [b backlight -h -l mode]"
 echo "b:		Turn on off screen backlight"
 echo "h:		Print this usage and exit"
 echo "l:		Set mode for leds"

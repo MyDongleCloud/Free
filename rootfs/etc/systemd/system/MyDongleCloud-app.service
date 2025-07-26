@@ -1,5 +1,5 @@
 [Unit]
-Description=MyDongle Cloud app service
+Description=MyDongleCloud app
 After=systemd-modules-load.service
 #After=network.target
 #StartLimitIntervalSec=0
@@ -8,7 +8,7 @@ After=systemd-modules-load.service
 Type=oneshot
 RestartSec=1
 User=admin
-ExecStart=/usr/local/modules/mydonglecloud/app -d
+ExecStart=/usr/local/modules/MyDongleCloud/app -d
 
 [Install]
 WantedBy=multi-user.target

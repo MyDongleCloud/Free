@@ -1,1 +1,1 @@
-../rootfs/usr/local/modules/mydonglecloud/version.txt
+../rootfs/usr/local/modules/MyDongleCloud/version.txt

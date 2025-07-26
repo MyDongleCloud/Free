@@ -1,11 +1,11 @@
 [Unit]
-Description=homeautomation
+Description=HomeAutomation
 After=network.target
 
 [Service]
-Environment=PATH=/usr/local/modules/homeautomation/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PATH=/usr/local/modules/HomeAutomation/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Type=simple
-ExecStart=/usr/local/modules/homeautomation/bin/hass
+ExecStart=/usr/local/modules/HomeAutomation/bin/hass
 WorkingDirectory=/disk/admin
 StandardOutput=inherit
 StandardError=inherit
