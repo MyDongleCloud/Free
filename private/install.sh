@@ -873,8 +873,9 @@ rmdir /usr/local/games
 if [ $OS = "pios" ]; then
 	rm -rf /opt/containerd /opt/pigpio
 fi
-mv /var/log /var/log.old
-ln -sf /disk/admin/.modules/log/ /var/log
+mv /var/log/* /disk/admin/.log/
+rmdir /var/log
+ln -sf /disk/admin/.log/ /var/log
 
 sync
 sync
