@@ -30,6 +30,7 @@ if [ "m`id -u`" != "m0" ]; then
 fi
 cd `dirname $0`
 echo "Current directory is now `pwd`"
+PP=`pwd`
 
 umount ${DISK}*
 umount ${DISK}*
@@ -39,14 +40,14 @@ if [ ! -b ${DISK}1 ]; then
 	exit 0
 fi
 
-cd /tmp
 umount ${DISK}*
 umount ${DISK}*
-rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin /tmp/mdc.zip
+rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin img/partition1.zip
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
 cd /tmp/1
-zip -q -r /tmp/mdc.zip *
+zip -q -r ${PP}/img/partition1.zip *
+cd ${PP}
 if [ $CLEAN = 1 ]; then
 	rm -f /tmp/mdc${POSTNAME}.img
 fi
@@ -70,14 +71,15 @@ EOF
 	mksquashfs . /tmp/mdc${POSTNAME}.img -ef /tmp/squashfs-exclude.txt
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' /tmp/2/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
+	cd ${PP}
 fi
-rm -f img/mdc.tbz2
+rm -f img/partition2-admin.tbz2
 rm -rf /tmp/2/disk/admin/.cache /tmp/2/disk/admin/.log
 mkdir -p /tmp/2/disk/admin/.log/zigbee2mqtt
 chown -R 1001:1001 /tmp/2/disk/admin/
 cd /tmp/2/disk/
-tar -cjpf img/mdc.tbz2 admin
-cd /tmp
+tar -cjpf ${PP}/img/partition2-admin.tbz2 admin
+cd ${PP}
 sync
 umount ${DISK}*
 umount ${DISK}*
@@ -111,7 +113,7 @@ sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 mount ${LOSETUP}p1 /tmp/1
-unzip -q -d /tmp/1/ /tmp/mdc.zip
+unzip -q -d /tmp/1/ img/partition1.zip
 cp img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
@@ -124,11 +126,12 @@ umount ${LOSETUP}*
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then
-	zip -j img/upgrade.bin /tmp/mdc.zip /tmp/mdc${POSTNAME}.img
+	zip -j img/upgrade.bin img/partition1.zip /tmp/mdc${POSTNAME}.img
 
 	cd ../client
 	ionic build --prod
 	ionic cap sync android --prod
+	cd ${PP}
 
 	echo "*******************************************************"
 	echo -n "\e[34m"
@@ -167,4 +170,3 @@ EOF
 	echo -n "\e[m"
 	echo "*******************************************************"
 fi
-rm -f /tmp/mdc.zip

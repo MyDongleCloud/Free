@@ -56,7 +56,7 @@ if [ $EXTRACT = 1 ]; then
 	cp img/initramfs_2712.orig /tmp/1/initramfs_2712
 fi
 rm -rf /tmp/2/lost+found/
-tar -xjpvf img/mdc.tbz2 -C /tmp/2/
+tar -xjpf img/partition2-admin.tbz2 -C /tmp/2/
 sync
 umount ${DISK}*
 umount ${DISK}*
