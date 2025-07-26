@@ -151,6 +151,7 @@ echo "################################"
 echo "Mysql"
 echo "################################"
 if [ $OS = "ubuntu" ]; then
+	apt-get -y install mysql-server-8.0
 	apt-get -y install mysql-server
 elif [ $OS = "pios" ]; then
 	apt-get -y install libaio1 libevent-pthreads-2.1-7 libmecab2
