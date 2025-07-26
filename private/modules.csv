@@ -8,7 +8,6 @@ ChangeDetection;clone;0.50.7;Utils;;;;;X;;;dgtlmoon/changedetection.io;24863;Apa
 Clang;apt;14.0.6;Code;X;X;Compiler;;;;;llvm/llvm-project;33646;Other;The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.
 CMake;apt;3.25.1;Code;X;X;Compiler;;;;;Kitware/CMake;7369;"BSD 3-Clause ""New"" or ""Revised"" License";Mirror of CMake upstream repository
 collaboraonline;;;Productivity;;;Calendar;;X;;;;0;;
-Composer;composer;2.5.5;Tools;X;X;Emailing solution;MailChimp;;X;;phpList/core;85;GNU Affero General Public License v3.0;This module is the core of phpList 4. Join discussion at the community forum: https://discuss.phplist.org/
 ConvertX;clone;v0.14.1;Utils;;;File converter (image, video, text);;X;;;C4illin/ConvertX;6451;GNU Affero General Public License v3.0;💾 Self-hosted online file converter. Supports 1000+ formats ⚙️
 Cyberchef;clone;v10.19.4;Utils;;;Converter;;X;;;gchq/CyberChef;31970;Apache License 2.0;The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis
 Discourse;clone;v3.4.6;Community;X;;;;;;;discourse/discourse;44629;GNU General Public License v2.0;A platform for community discussion. Free, open, simple.
@@ -45,25 +44,25 @@ Libreqr;git;2.0.1;;X;;;;;;;;0;;
 LimeSurvey;clone;6.15.3+250708;Productivity;X;;Questionnaire, forms, survey;SurveyMonkey;X;X;MySQL;LimeSurvey/LimeSurvey;3196;Other;🔥 LimeSurvey – A powerful, open-source survey platform. A free alternative to SurveyMonkey, Typeform, Qualtrics, and Google Forms, making it simple to create online surveys and forms with unmatched flexibility.
 Make;apt;4.3;Code;X;X;;;;;;;0;;
 MantisBugTracker;clone;release-2.27.1;Code;X;;Bugs tracking;;X;X;;mantisbt/mantisbt;1714;;Mantis Bug Tracker (MantisBT)
-MariaDB;apt;;Database;;;MariaDB;;;;MariaDB;MariaDB/server;6215;GNU General Public License v2.0;MariaDB server is a community developed fork of MySQL server. Started by core members of the original MySQL team, MariaDB actively works with outside developers to deliver the most featureful, stable, and sanely licensed open SQL server in the industry.
 Maybe;clone;v0.5.0;Utils;;;;;X;;;maybe-finance/maybe;52254;GNU Affero General Public License v3.0;The personal finance app for everyone
 MeTube;clone;20250721;Utils;;;;;X;;;alexta69/metube;9529;GNU Affero General Public License v3.0;Self-hosted YouTube downloader (web UI for youtube-dl / yt-dlp)
 MinIO;clone;RELEASE.2025-07-18T21-56-31Z;Utils;;;;;X;;;minio/minio;54097;GNU Affero General Public License v3.0;MinIO is a high-performance, S3 compatible object store, open sourced under GNU AGPLv3 license.
 MongoDB;apt (source);;Database;;;MongoDB;;;;MongoDB;mongodb/mongo;27359;Other;The MongoDB Database
 Mosquitto;apt;2.0.11;Home;X;X;;;;;;eclipse-mosquitto/mosquitto;9949;Other;Eclipse Mosquitto - An open source MQTT broker
-MydongleCloud;clone;2025-07-07;Base;X;X;App;;;;;;0;;
+MydongleCloud;;2025-07-07;Base;X;X;App;;;;;;0;;
 MySQL;apt;8.0.42;Database;X;;;;;;;mysql/mysql-server;11553;Other;MySQL Server, the world's most popular open source database, and MySQL Cluster, a real-time, open source transactional database.
 NGINX;apt;;Hosting;;;Web server;;;;;nginx/nginx;27539;"BSD 2-Clause ""Simplified"" License";The official NGINX Open Source repository.
 Node;tar;v22.17.1;Tools;X;X;;;;;;nodejs/node;112344;Other;Node.js JavaScript runtime ✨🐢🚀✨
 Ollama;clone;v0.9.7-rc1;Chatbot;X;;;;X;;;ollama/ollama;147480;MIT License;Get up and running with Llama 3.3, DeepSeek-R1, Phi-4, Gemma 3, Mistral Small 3.1 and other large language models.
-OneTimeEmail;clone;2025-07-07;Mail;X;;One-time email;;X;;;;0;;
-Open WebUI;clone;v0.6.18;Chatbot;X;;;;X;;;open-webui/open-webui;103851;Other;User-friendly AI Interface (Supports Ollama, OpenAI API, ...)
+OneTimeEmail;;2025-07-07;Mail;X;;One-time email;;X;;;;0;;
+OpenWebUI;clone;v0.6.18;Chatbot;X;;;;X;;;open-webui/open-webui;103851;Other;User-friendly AI Interface (Supports Ollama, OpenAI API, ...)
 osTicket;clone;v1.18.2;Productivity;X;;;;X;X;MySQL;osTicket/osTicket;3474;GNU General Public License v2.0;The osTicket open source ticketing system official project repository, for versions 1.8 and later
 Pandoc;apt;2.17.1.1;;X;;File converter (image, video, text);;X;;;jgm/pandoc;38482;Other;Universal markup converter
 PhotoPrism;clone;250707-d28b3101e;Personal;;;Photos;Google Photos;X;;;photoprism/photoprism;37954;Other;AI-Powered Photos App for the Decentralized Web 🌈💎✨
 Photoview;clone;v2.4.0;Personal;;;Photos;Google Photos;X;;;photoview/photoview;6019;GNU Affero General Public License v3.0;Photo gallery for self-hosted personal servers
 PHP;apt;8.2.28;Coding;X;X;;;;X;;php/php-src;39280;Other;The PHP Interpreter
 phpBB;clone;release-3.3.15;Community;;;Community, forum;;X;X;;phpbb/phpbb;1950;GNU General Public License v2.0; phpBB Development: phpBB is a popular open-source bulletin board written in PHP. This repository also contains the history of version 2.
+phpList;composer;2.5.5;Mail;X;X;Emailing solution;MailChimp;;X;;phpList/core;85;GNU Affero General Public License v3.0;This module is the core of phpList 4. Join discussion at the community forum: https://discuss.phplist.org/
 Postfix;apt;3.7.11;Mail;X;;;;;;;;0;;
 PrivateBin;clone;1.7.8;Utils;X;;;;X;X;;PrivateBin/PrivateBin;7381;Other;A minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted in the browser using 256 bits AES.
 ProjectSend;clone;r1720;Utils;X;;File download/upload, file exchange;WeTransfer, Google One;X;X;;projectsend/projectsend;1647;GNU General Public License v2.0;ProjectSend is a free, open source software that lets you share files with your clients, focused on ease of use and privacy. It supports clients groups, system users roles, statistics, multiple languages, detailed logs... and much more!
@@ -78,7 +77,7 @@ RoundCube;apt;1.6.5;Mail;X;;;;X;X;SQLite;roundcube/roundcubemail;6430;GNU Genera
 rspamd;apt;3.4;Mail;X;X;Mail + spam filter;Gmail;X;;MySQL;rspamd/rspamd;2251;Other;Rapid spam filtering system.
 Sonarr;clone;v4.0.15.2941;;;;;;X;;;Sonarr/Sonarr;12098;GNU General Public License v3.0;Smart PVR for newsgroup and bittorrent users.
 SQLite;apt;3.40.1;Database;X;X;;;;;;sqlite/sqlite;8111;Other;Official Git mirror of the SQLite source tree
-Stirling PDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;63698;Other;#1 Locally hosted web application that allows you to perform various operations on PDF files
+StirlingPDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;63698;Other;#1 Locally hosted web application that allows you to perform various operations on PDF files
 Superset;clone;5.0.0;Utils;;;;;X;;;apache/superset;67257;Apache License 2.0;Apache Superset is a Data Visualization and Data Exploration Platform
 Syncthing;clone;1.30.0;Utils;;;;;X;;;syncthing/syncthing;73822;Mozilla Public License 2.0;Open Source Continuous File Synchronization
 Transmission;clone;4.0.6;Utils;X;;Torrent;Vuze;X;;;transmission/transmission;13294;Other;Official Transmission BitTorrent client repository

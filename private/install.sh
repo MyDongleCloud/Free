@@ -105,21 +105,11 @@ echo "################################"
 echo "Upgrade"
 echo "################################"
 apt-get update
-apt-get -y upgrade
+apt-get -y -o Dkpg::Options::=--force-confnew upgrade
 
 echo "################################"
 echo "Basic"
 echo "################################"
-apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev
-if [ $OS = "ubuntu" ]; then
-	apt-get -y install libprotobuf32t64 libjpeg62-dev
-elif [ $OS = "pios" ]; then
-	apt-get -y install libprotobuf32 libjpeg62-turbo-dev
-fi
-apt-get -y install python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
-apt-get -y install composer apache2 php php-mysql php-sqlite3 php-xml php-yaml php-json libapache2-mod-php sqlite3 certbot procmail rspamd dovecot-pop3d dovecot-imapd
-apt-get -y install evtest qrencode dos2unix lrzsz imagemagick squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof fscrypt libpam-fscrypt hdparm ffmpeg screen figlet toilet
-rm -f /etc/apache2/sites-enabled/*
 if [ $OS = "ubuntu" ]; then
 	chmod a-x /etc/update-motd.d/*
 	which snapd
@@ -129,34 +119,36 @@ if [ $OS = "ubuntu" ]; then
 	fi
 	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools
 fi
-
-echo "################################"
-echo "pcpp"
-echo "################################"
+apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9
+apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev
 if [ $OS = "ubuntu" ]; then
-	apt-get -y install python3-pcpp
-	ln -sf pcpp-python /usr/bin/pcpp
+	apt-get -y install libprotobuf32t64 libjpeg62-dev
 elif [ $OS = "pios" ]; then
-	cd /home/mdc/build
-	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
-	tar -xpf pcpp-1.30.tar.gz
-	cd pcpp-1.30
-	python setup.py install
+	apt-get -y install libprotobuf32 libjpeg62-turbo-dev
 fi
 
 echo "################################"
-echo "pymcuprog"
+echo "Python"
 echo "################################"
-cd /home/mdc/build
-git clone https://github.com/microchip-pic-avr-tools/pymcuprog
-cd pymcuprog
-cat > setup.py <<EOF
-from setuptools import setup
-if __name__ == '__main__':
-    setup()
+if [ $OS = "pios" ]; then
+	wget https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
+	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
+Types: deb
+URIs: http://deb.pascalroeleven.nl/python3.12
+Suites: bookworm-backports
+Components: main
+Signed-By: /etc/apt/keyrings/deb-pascalroeleven.gpg
 EOF
-python setup.py install
-cd ../..
+	apt-get update
+	apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
+fi
+apt-get -y install python3-venv python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
+
+echo "################################"
+echo "Modules via apt"
+echo "################################"
+DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml postfix procmail roundcube rspamd sqlite3
+rm -f /etc/apache2/sites-enabled/*
 
 echo "################################"
 echo "Mysql"
@@ -179,74 +171,7 @@ elif [ $OS = "pios" ]; then
 fi
 
 echo "################################"
-echo "Docker"
-echo "################################"
-curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-if [ $OS = "ubuntu" ]; then
-	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
-elif [ $OS = "pios" ]; then
-	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list
-fi
-apt-get update
-apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-usermod -aG docker admin
-
-echo "################################"
-echo "Qdrant"
-echo "################################"
-cd /home/mdc/build
-wget https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
-tar -xpf qdrant-aarch64-unknown-linux-musl.tar.gz
-chmod a+x qdrant
-mkdir /usr/local/modules/qdrant
-mv qdrant /usr/local/modules/qdrant
-cd ..
-
-echo "################################"
-echo "RethinkDB"
-echo "################################"
-cd /home/mdc/build
-wget https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
-dpkg -i rethinkdb*.deb
-cd ..
-
-echo "################################"
-echo "Trilium Notes"
-echo "################################"
-cd /home/mdc/build
-wget https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
-tar -xJpf TriliumNextNotes-Server*
-mv TriliumNextNotes-Server-0.*/ /usr/local/modules/trilium
-rm -rf /usr/local/modules/trilium/node
-ln -sf /etc/systemd/system/trilium.service /etc/systemd/system/multi-user.target.wants/trilium.service
-
-echo "################################"
-echo "postfix-parser"
-echo "################################"
-cd /home/mdc/build
-git clone https://github.com/Privex/python-loghelper
-cd python-loghelper
-python3 setup.py install
-cd ..
-git clone https://github.com/Privex/python-helpers
-cd python-helpers
-python3 setup.py install
-cd ../..
-
-echo "################################"
-echo "uMTP"
-echo "################################"
-cd /home/mdc/build
-git clone https://github.com/viveris/uMTP-Responder
-git checkout umtprd-1.6.8
-cd uMTP-Responder
-make
-mkdir /usr/local/modules/MTP
-mv umtprd /usr/local/modules/MTP
-cd ../..
-
-echo "################################"
-echo "Kernel for Dongle Pro"
+echo "Kernel (Dongle Pro)"
 echo "################################"
 if [ $OS = "ubuntu" ]; then
 	echo "apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 linux-headers-6.12.34+rpt-common-rpi linux-headers-6.12.34+rpt-rpi-2712 linux-image-6.12.34+rpt-rpi-2712 linux-kbuild-6.12.34+rpt"
@@ -256,6 +181,7 @@ if [ $OS = "ubuntu" ]; then
 	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
 	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-image-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
 	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-kbuild-6.12.34+rpt_6.12.34-1+rpt1_arm64.deb
+	apt-get -y install cpp-14-aarch64-linux-gnu gcc-14 gcc-14-aarch64-linux-gnu libgcc-14-dev pahole
 	dpkg -i linux-*.deb
 elif [ $OS = "pios" ]; then
 	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 raspi-utils-core raspi-utils-dt
@@ -271,6 +197,49 @@ echo "################################"
 curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
 echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
 apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get -y install jitsi-meet
+
+echo "################################"
+echo "Docker"
+echo "################################"
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+if [ $OS = "ubuntu" ]; then
+	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
+elif [ $OS = "pios" ]; then
+	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list
+fi
+apt-get update
+apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+usermod -aG docker admin
+
+echo "################################"
+echo "RethinkDB"
+echo "################################"
+cd /home/mdc/build
+wget https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
+dpkg -i rethinkdb*.deb
+cd ..
+
+echo "################################"
+echo "Qdrant"
+echo "################################"
+cd /home/mdc/build
+wget https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
+tar -xpf qdrant-aarch64-unknown-linux-musl.tar.gz
+chmod a+x qdrant
+mkdir /usr/local/modules/qdrant
+mv qdrant /usr/local/modules/qdrant
+cd ..
+
+echo "################################"
+echo "Trilium Notes"
+echo "################################"
+cd /home/mdc/build
+wget https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
+tar -xJpf TriliumNextNotes-Server*
+mv TriliumNextNotes-Server-0.*/ /usr/local/modules/trilium
+rm -rf /usr/local/modules/trilium/node
+ln -sf /etc/systemd/system/trilium.service /etc/systemd/system/multi-user.target.wants/trilium.service
 
 echo "################################"
 echo "Node.js"
@@ -291,39 +260,62 @@ npm install better-auth
 cd ../..
 
 echo "################################"
-echo "cc2538-prog"
+echo "Zigbee2MQTT"
 echo "################################"
-cd /home/mdc/build
-git clone https://github.com/1248/cc2538-prog
-cd cc2538-prog
-make
-cd ../..
-
-echo "################################"
-echo "Python3.12"
-echo "################################"
-if [ $OS = "pios" ]; then
-	wget https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
-	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
-Types: deb
-URIs: http://deb.pascalroeleven.nl/python3.12
-Suites: bookworm-backports
-Components: main
-Signed-By: /etc/apt/keyrings/deb-pascalroeleven.gpg
-EOF
-	apt-get update
-	apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
-fi
-
-echo "################################"
-echo "Mosquitto Zigbee2mqtt"
-echo "################################"
-apt-get -y install mosquitto
 mkdir /usr/local/modules/zigbee2mqtt
 cd /usr/local/modules/zigbee2mqtt
 npm install zigbee2mqtt@2.5.1
 rm -rf /usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt/data
 ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
+
+echo "################################"
+echo "phpList"
+echo "################################"
+cd /usr/local/modules
+composer create-project -n -s dev --no-dev phplist/base-distribution phpList
+cd phpList
+composer update -n
+
+echo "################################"
+echo "pcpp"
+echo "################################"
+if [ $OS = "ubuntu" ]; then
+	apt-get -y install python3-pcpp
+	ln -sf pcpp-python /usr/bin/pcpp
+elif [ $OS = "pios" ]; then
+	cd /home/mdc/build
+	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
+	tar -xpf pcpp-1.30.tar.gz
+	cd pcpp-1.30
+	python3 setup.py install
+fi
+
+echo "################################"
+echo "PyMCUProg"
+echo "################################"
+cd /home/mdc/build
+git clone https://github.com/microchip-pic-avr-tools/pymcuprog
+cd pymcuprog
+cat > setup.py <<EOF
+from setuptools import setup
+if __name__ == '__main__':
+    setup()
+EOF
+python3 setup.py install
+cd ../..
+
+echo "################################"
+echo "postfix-parser"
+echo "################################"
+cd /home/mdc/build
+git clone https://github.com/Privex/python-loghelper
+cd python-loghelper
+python3 setup.py install
+cd ..
+git clone https://github.com/Privex/python-helpers
+cd python-helpers
+python3 setup.py install
+cd ../..
 
 echo "################################"
 echo "Home Assistant"
@@ -414,157 +406,6 @@ export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 
 echo "################################"
-echo "LimeSurvey"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/LimeSurvey/LimeSurvey
-cd LimeSurvey
-git checkout 6.15.3+250708
-rm -rf .git
-
-echo "################################"
-echo "ProjectSend"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/projectsend/projectsend
-cd projectsend
-git checkout r1720
-rm -rf .git
-
-echo "################################"
-echo "phpList"
-echo "################################"
-cd /usr/local/modules
-composer create-project -n -s dev --no-dev phplist/base-distribution phpList
-cd phpList
-composer update -n
-
-echo "################################"
-echo "Go Access"
-echo "################################"
-apt-get -y install goaccess
-
-echo "################################"
-echo "Webtrees"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/fisharebest/webtrees
-cd webtrees
-git checkout 2.2.1
-rm -rf .git
-
-echo "################################"
-echo "osTicket"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/osTicket/osTicket
-cd osTicket
-git checkout v1.18.2
-rm -rf .git
-
-echo "################################"
-echo "YOURLS"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/YOURLS/YOURLS
-cd YOURLS
-git checkout 1.10.1
-rm -rf .git
-
-echo "################################"
-echo "PrivateBin"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/PrivateBin/PrivateBin
-cd PrivateBin
-git checkout 1.7.8
-rm -rf .git
-
-echo "################################"
-echo "Flarum"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/flarum/flarum
-cd flarum
-git checkout v1.8.1
-rm -rf .git
-
-echo "################################"
-echo "Discourse"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/discourse/discourse
-cd discourse
-git checkout v3.4.6
-rm -rf .git
-
-echo "################################"
-echo "Grav"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/getgrav/grav
-cd grav
-git checkout 1.7.48
-rm -rf .git
-
-echo "################################"
-echo "Mantis Bug Tracker"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/mantisbt/mantisbt
-cd mantisbt
-git checkout release-2.27.1
-rm -rf .git
-
-echo "################################"
-echo "Bugzilla"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/bugzilla/bugzilla
-cd bugzilla
-git checkout release-5.3.3
-rm -rf .git
-
-echo "################################"
-echo "Open WebUI"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/open-webui/open-webui
-cd open-webui
-git checkout v0.6.18
-rm -rf .git
-
-echo "################################"
-echo "Ollama"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/ollama/ollama
-cd ollama
-git checkout v0.9.7-rc1
-rm -rf .git
-
-echo "################################"
-echo "Pandoc"
-echo "################################"
-apt-get -y install pandoc
-
-echo "################################"
-echo "Transmission"
-echo "################################"
-cd /home/mdc/build
-apt-get -y install libpsl-dev libminiupnpc-dev libnatpmp-dev libevent-dev googletest libdeflate-dev libutfcpp-dev
-git clone https://github.com/transmission/transmission
-cd transmission
-git checkout 4.0.6
-git submodule init
-git submodule update
-rm -rf .git
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cd build
-make
-make install
-
-echo "################################"
 echo "Unmanic"
 echo "################################"
 /home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/unmanic -s
@@ -579,35 +420,438 @@ export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 
 echo "################################"
-echo "QRCode"
+echo "Transmission"
+echo "################################"
+if [ $OS = "ubuntu" ]; then
+	apt-get -y install transmission-common transmission-daemon transmission-cli
+elif [ $OS = "pios" ]; then
+	cd /home/mdc/build
+	apt-get -y install libpsl-dev libminiupnpc-dev libnatpmp-dev libevent-dev googletest libdeflate-dev libutfcpp-dev
+	git clone https://github.com/transmission/transmission
+	cd transmission
+	git checkout 4.0.6
+	git submodule init
+	git submodule update
+	rm -rf .git
+	cmake -B build -DCMAKE_BUILD_TYPE=Release
+	cd build
+	make
+	make install
+fi
+
+echo "################################"
+echo "uMTP"
 echo "################################"
 cd /home/mdc/build
+git clone https://github.com/viveris/uMTP-Responder
+git checkout umtprd-1.6.8
+cd uMTP-Responder
+make
+mkdir /usr/local/modules/MTP
+cp umtprd /usr/local/modules/MTP
+cd ../..
+
+echo "################################"
+echo "cc2538-prog"
+echo "################################"
+cd /home/mdc/build
+git clone https://github.com/1248/cc2538-prog
+cd cc2538-prog
+make
+cp cc2538-prog /usr/local/bin/
+cd ../..
+
+echo "################################"
+echo "Libreqr"
+echo "################################"
+cd /usr/local/modules
 git clone https://code.antopie.org/miraty/libreqr.git
 cd libreqr
 git checkout 2.0.1
-cd ..
-git clone https://github.com/bizzycola/qrcode-generator
-cd qrcode-generator
-git checkout v1.8.0
-cd ..
-git clone https://github.com/mebjas/html5-qrcode
-cd html5-qrcode
+rm -rf .git
+
+echo "################################"
+echo "Audiobookshelf"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/advplyr/audiobookshelf Audiobookshelf
+cd Audiobookshelf
+git checkout v2.26.2
+rm -rf .git
+
+echo "################################"
+echo "Bugzilla"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/bugzilla/bugzilla Bugzilla
+cd Bugzilla
+git checkout release-5.3.3
+rm -rf .git
+
+echo "################################"
+echo "ChangeDetection"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/dgtlmoon/changedetection.io ChangeDetection
+cd ChangeDetection
+git checkout 0.50.7
+rm -rf .git
+
+echo "################################"
+echo "ConvertX"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/C4illin/ConvertX ConvertX
+cd ConvertX
+git checkout v0.14.1
+rm -rf .git
+
+echo "################################"
+echo "Cyberchef"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/gchq/CyberChef Cyberchef
+cd Cyberchef
+git checkout v10.19.4
+rm -rf .git
+
+echo "################################"
+echo "Discourse"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/discourse/discourse Discourse
+cd Discourse
+git checkout v3.4.6
+rm -rf .git
+
+echo "################################"
+echo "Flarum"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/flarum/flarum Flarum
+cd Flarum
+git checkout v1.8.1
+rm -rf .git
+
+echo "################################"
+echo "FreshRSS"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/FreshRSS/FreshRSS FreshRSS
+cd FreshRSS
+git checkout 1.26.3
+rm -rf .git
+
+echo "################################"
+echo "Gitea"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/go-gitea/gitea Gitea
+cd Gitea
+git checkout v1.24.3
+rm -rf .git
+
+echo "################################"
+echo "Grav"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/getgrav/grav Grav
+cd Grav
+git checkout 1.7.48
+rm -rf .git
+
+echo "################################"
+echo "Html5-QRCode"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/mebjas/html5-qrcode Html5-QRCode
+cd Html5-QRCode
 git checkout v2.3.8
-cd ..
+rm -rf .git
+
+echo "################################"
+echo "Immich"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/immich-app/immich Immich
+cd Immich
+git checkout v1.135.3
+rm -rf .git
+
+echo "################################"
+echo "IOPaint"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/Sanster/IOPaint IOPaint
+cd IOPaint
+git checkout iopaint-1.5.3
+rm -rf .git
+
+echo "################################"
+echo "Jellyfin"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/jellyfin/jellyfin Jellyfin
+cd Jellyfin
+git checkout v10.10.7
+rm -rf .git
+
+echo "################################"
+echo "Joomla"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/joomla/joomla-cms Joomla
+cd Joomla
+git checkout 5.3.2
+rm -rf .git
+
+echo "################################"
+echo "Joplin"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/laurent22/joplin Joplin
+cd Joplin
+git checkout server-v3.4.1
+rm -rf .git
+
+echo "################################"
+echo "Karakeep"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/karakeep-app/karakeep Karakeep
+cd Karakeep
+git checkout v0.26.0
+rm -rf .git
+
+echo "################################"
+echo "LibrePhotos"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/LibrePhotos/librephotos LibrePhotos
+cd LibrePhotos
+git checkout 
+rm -rf .git
+
+echo "################################"
+echo "LimeSurvey"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/LimeSurvey/LimeSurvey LimeSurvey
+cd LimeSurvey
+git checkout 6.15.3+250708
+rm -rf .git
+
+echo "################################"
+echo "MantisBugTracker"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/mantisbt/mantisbt MantisBugTracker
+cd MantisBugTracker
+git checkout release-2.27.1
+rm -rf .git
+
+echo "################################"
+echo "Maybe"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/maybe-finance/maybe Maybe
+cd Maybe
+git checkout v0.5.0
+rm -rf .git
+
+echo "################################"
+echo "MeTube"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/alexta69/metube MeTube
+cd MeTube
+git checkout 20250721
+rm -rf .git
+
+echo "################################"
+echo "MinIO"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/minio/minio MinIO
+cd MinIO
+git checkout RELEASE.2025-07-18T21-56-31Z
+rm -rf .git
+
+echo "################################"
+echo "Ollama"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/ollama/ollama Ollama
+cd Ollama
+git checkout v0.9.7-rc1
+rm -rf .git
+
+echo "################################"
+echo "OpenWebUI"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/open-webui/open-webui OpenWebUI
+cd OpenWebUI
+git checkout v0.6.18
+rm -rf .git
+
+echo "################################"
+echo "osTicket"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/osTicket/osTicket osTicket
+cd osTicket
+git checkout v1.18.2
+rm -rf .git
+
+echo "################################"
+echo "PhotoPrism"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/photoprism/photoprism PhotoPrism
+cd PhotoPrism
+git checkout 250707-d28b3101e
+rm -rf .git
+
+echo "################################"
+echo "Photoview"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/photoview/photoview Photoview
+cd Photoview
+git checkout v2.4.0
+rm -rf .git
+
+echo "################################"
+echo "phpBB"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/phpbb/phpbb phpBB
+cd phpBB
+git checkout release-3.3.15
+rm -rf .git
+
+echo "################################"
+echo "PrivateBin"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/PrivateBin/PrivateBin PrivateBin
+cd PrivateBin
+git checkout 1.7.8
+rm -rf .git
+
+echo "################################"
+echo "ProjectSend"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/projectsend/projectsend ProjectSend
+cd ProjectSend
+git checkout r1720
+rm -rf .git
+
+echo "################################"
+echo "PyMCUProg"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/microchip-pic-avr-tools/pymcuprog PyMCUProg
+cd PyMCUProg
+git checkout 3.19.4.61
+rm -rf .git
+
+echo "################################"
+echo "QRCodeGenerator"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/bizzycola/qrcode-generator QRCodeGenerator
+cd QRCodeGenerator
+git checkout v1.8.0
+rm -rf .git
+
+echo "################################"
+echo "Radaar"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/Radarr/Radarr Radaar
+cd Radaar
+git checkout v5.27.2.10142
+rm -rf .git
+
+echo "################################"
+echo "Sonarr"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/Sonarr/Sonarr Sonarr
+cd Sonarr
+git checkout v4.0.15.2941
+rm -rf .git
+
+echo "################################"
+echo "StirlingPDF"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/Stirling-Tools/Stirling-PDF StirlingPDF
+cd StirlingPDF
+git checkout v1.0.2
+rm -rf .git
+
+echo "################################"
+echo "Superset"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/apache/superset Superset
+cd Superset
+git checkout 5.0.0
+rm -rf .git
+
+echo "################################"
+echo "Syncthing"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/syncthing/syncthing Syncthing
+cd Syncthing
+git checkout 1.30.0
+rm -rf .git
+
+echo "################################"
+echo "Uptime"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/louislam/uptime-kuma Uptime
+cd Uptime
+git checkout 1.23.16
+rm -rf .git
+
+echo "################################"
+echo "Webtrees"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/fisharebest/webtrees Webtrees
+cd Webtrees
+git checkout 2.2.1
+rm -rf .git
+
+echo "################################"
+echo "YOURLS"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/YOURLS/YOURLS YOURLS
+cd YOURLS
+git checkout 1.10.1
+rm -rf .git
 
 echo "################################"
 echo "App and rootfs"
 echo "################################"
+cd /home/mdc
+chown -R root:root rootfs
+cp -a rootfs/* /
+rm -rf rootfs
 cd /home/mdc/kernel
 make
 make install
 cd /home/mdc/app
 ./lvgl.sh -b -c
 make
-cd /home/mdc
-chown -R root:root rootfs
-cp -a rootfs/* /
-rm -rf rootfs
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
 chown -R admin:admin /disk/admin
@@ -627,11 +871,6 @@ if [ $OS = "pios" ]; then
 fi
 mv /var/log /var/log.old
 ln -sf /disk/admin/.modules/log/ /var/log
-
-echo "################################"
-echo "Package with interaction"
-echo "################################"
-apt-get -y install postfix jitsi-meet roundcube
 
 sync
 sync
