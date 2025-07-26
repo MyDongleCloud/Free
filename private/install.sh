@@ -39,7 +39,7 @@ if [ $? = 0 ]; then
 fi
 
 echo "################################"
-echo "Start"
+echo "Start Install"
 echo "################################"
 date
 

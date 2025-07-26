@@ -2,11 +2,12 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for firmware [-c -f -h -l NB]"
+echo "Usage for firmware [-c -f -h -l NB -n]"
 echo "c:	Clean build"
 echo "f:	Create final binaries"
 echo "h:	Print this usage and exit"
 echo "l:	Set loop number"
+echo "n:	Not native (via chroot)"
 exit 0
 }
 
@@ -15,12 +16,14 @@ LOSETUP=/dev/loop3
 POSTNAME=""
 FINAL=0
 CLEAN=0
-while getopts cfhl: opt; do
+NATIVE=1
+while getopts cfhl:n opt; do
 	case "$opt" in
 		c) CLEAN=1;;
 		f) POSTNAME="-final";FINAL=1;;
 		h) helper;;
 		l) LOSETUP=/dev/loop${OPTARG};;
+		n) NATIVE=0;;
 	esac
 done
 
@@ -32,29 +35,33 @@ cd `dirname $0`
 echo "Current directory is now `pwd`"
 PP=`pwd`
 
-umount ${DISK}*
-umount ${DISK}*
-sync
-if [ ! -b ${DISK}1 ]; then
-	echo "No /dev${DISK}1..."
-	exit 0
-fi
+if [ $NATIVE = 1 ]; then
+	umount ${DISK}*
+	umount ${DISK}*
+	sync
+	if [ ! -b ${DISK}1 ]; then
+		echo "No /dev${DISK}1..."
+		exit 0
+	fi
 
-umount ${DISK}*
-umount ${DISK}*
-rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin img/partition1.zip
-mount ${DISK}1 /tmp/1
-mount ${DISK}2 /tmp/2
-cd /tmp/1
-zip -q -r ${PP}/img/partition1.zip *
-cd ${PP}
+	umount ${DISK}*
+	umount ${DISK}*
+	rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin img/partition1.zip
+	mount ${DISK}1 /tmp/1
+	mount ${DISK}2 /tmp/2
+	cd /tmp/1
+	zip -q -r ${PP}/img/partition1.zip *
+	cd ${PP}
+	ROOTFS=/tmp/2
+else
+	ROOTFS=../build/rootfs
+fi
 if [ $CLEAN = 1 ]; then
 	rm -f /tmp/mdc${POSTNAME}.img
 fi
 if [ -f /tmp/mdc${POSTNAME}.img ]; then
 	echo "No creation as /tmp/mdc${POSTNAME}.img already exists"
 else
-	cd /tmp/2
 	rm -f /tmp/squashfs-exclude.txt
 	if [ $FINAL = 1 ]; then
 		cp squashfs-exclude.txt /tmp/squashfs-exclude.txt
@@ -65,24 +72,27 @@ else
 	cat >> /tmp/squashfs-exclude.txt <<EOF
 ./disk/
 EOF
-	sed -i -e 's|#LABEL=rootfs  /disk|LABEL=rootfs  /disk|' /tmp/2/etc/fstab
+	sed -i -e 's|#LABEL=rootfs  /disk|LABEL=rootfs  /disk|' ${ROOTFS}/etc/fstab
 	echo "######## WARNING ########"
-	echo "/tmp/2/etc/fstab has been modified. It will be reverted once squashfs is finished"
+	echo "${ROOTFS}/etc/fstab has been modified. It will be reverted once squashfs is finished"
+	cd ${ROOTFS}
 	mksquashfs . /tmp/mdc${POSTNAME}.img -ef /tmp/squashfs-exclude.txt
-	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' /tmp/2/etc/fstab
-	rm -f /tmp/squashfs-exclude.txt
 	cd ${PP}
+	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' ${ROOTFS}/etc/fstab
+	rm -f /tmp/squashfs-exclude.txt
 fi
 rm -f img/partition2-admin.tbz2
-rm -rf /tmp/2/disk/admin/.cache /tmp/2/disk/admin/.log
-mkdir -p /tmp/2/disk/admin/.log/zigbee2mqtt
-chown -R 1001:1001 /tmp/2/disk/admin/
-cd /tmp/2/disk/
+rm -rf ${ROOTFS}/disk/admin/.cache ${ROOTFS}/disk/admin/.log
+mkdir -p ${ROOTFS}/disk/admin/.log/zigbee2mqtt
+chown -R 1001:1001 ${ROOTFS}/disk/admin/
+cd ${ROOTFS}/disk/
 tar -cjpf ${PP}/img/partition2-admin.tbz2 admin
 cd ${PP}
-sync
-umount ${DISK}*
-umount ${DISK}*
+if [ $NATIVE = 1 ]; then
+	sync
+	umount ${DISK}*
+	umount ${DISK}*
+fi
 
 dd if=img/sdcard-bootdelay1-m-s of=img/flasher-m${POSTNAME}-s.img bs=1024
 SIZE=$((`stat -c %s /tmp/mdc${POSTNAME}.img` * 110 / 100 / 1024))
