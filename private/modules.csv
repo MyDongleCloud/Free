@@ -6,7 +6,7 @@ Busybox;apt;1.35.0;Tools;X;X;Tools command line;;;;;mirror/busybox;1844;Other;Bu
 Certbot;apt;2.1.0;Tools;X;;SSL certificate;;;;;certbot/certbot;32346;Other;Certbot is EFF's tool to obtain certs from Let's Encrypt and (optionally) auto-enable HTTPS on your server.  It can also act as a client for any other CA that uses the ACME protocol.
 ChangeDetection;clone;0.50.7;Utils;;;;;X;;;dgtlmoon/changedetection.io;24863;Apache License 2.0;Best and simplest tool for website change detection, web page monitoring, and website change alerts. Perfect for tracking content changes, price drops, restock alerts, and website defacement monitoring—all for free or enjoy our SaaS plan!
 Clang;apt;14.0.6;Code;X;X;Compiler;;;;;llvm/llvm-project;33646;Other;The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.
-CMake;apt;3.25.1;Code;X;X;Compiler;;;;;Kitware/CMake;7369;BSD 3-Clause "New" or "Revised" License;Mirror of CMake upstream repository
+CMake;apt;3.25.1;Code;X;X;Compiler;;;;;Kitware/CMake;7369;"BSD 3-Clause ""New"" or ""Revised"" License";Mirror of CMake upstream repository
 collaboraonline;;;Productivity;;;Calendar;;X;;;;0;;
 Composer;composer;2.5.5;Tools;X;X;Emailing solution;MailChimp;;X;;phpList/core;85;GNU Affero General Public License v3.0;This module is the core of phpList 4. Join discussion at the community forum: https://discuss.phplist.org/
 ConvertX;clone;v0.14.1;Utils;;;File converter (image, video, text);;X;;;C4illin/ConvertX;6451;GNU Affero General Public License v3.0;💾 Self-hosted online file converter. Supports 1000+ formats ⚙️
@@ -23,12 +23,12 @@ fscrypt;apt;0.3.3;Tools;X;X;Encryption;;;;;google/fscrypt;945;Apache License 2.0
 GCC;apt;12.2.0;Code;X;X;Compiler;;;;;gcc-mirror/gcc;10098;GNU General Public License v2.0;
 Git;apt;2.39.5;Tools;X;X;;Github;;;;git/git;55747;Other;Git Source Code Mirror - This is a publish-only repository but pull requests can be turned into patches to the mailing list via GitGitGadget (https://gitgitgadget.github.io/). Please follow Documentation/SubmittingPatches procedure for any of your improvements.
 Gitea;clone;v1.24.3;Productivity;;;;;X;;;go-gitea/gitea;49721;MIT License;Git with a cup of tea! Painless self-hosted all-in-one software development service, including Git hosting, code review, team collaboration, package registry and CI/CD
-Go;apt;1.19.8;Code;X;X;Compiler;;;;;golang/go;129062;BSD 3-Clause "New" or "Revised" License;The Go programming language
+Go;apt;1.19.8;Code;X;X;Compiler;;;;;golang/go;129062;"BSD 3-Clause ""New"" or ""Revised"" License";The Go programming language
 GoAccess;clone;v1.9.4;Hosting;X;;Website metrics;;X;;;allinurl/goaccess;19558;MIT License;GoAccess is a real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems or through your browser.
 GoodIP;;;VPN;;;VPN;;;;;;0;;
 Grav;clone;1.7.48;Utils;X;;Documentation, support, wiki;;X;X;;getgrav/grav;15115;MIT License;Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File CMS powered by PHP, Markdown, Twig, and Symfony
 HomeAssistant;pip;2025.1.4;Home;X;;;;X;;;home-assistant/core;80352;Apache License 2.0;:house_with_garden: Open source home automation that puts local control and privacy first.
-html5-qrcode;clone;v2.3.8;Utils;X;;;;X;;;mebjas/html5-qrcode;5651;Apache License 2.0;A cross platform HTML5 QR code reader. See end to end implementation at: https://scanapp.org
+Html5-QRCode;clone;v2.3.8;Utils;X;;;;X;;;mebjas/html5-qrcode;5651;Apache License 2.0;A cross platform HTML5 QR code reader. See end to end implementation at: https://scanapp.org
 Hugo;apt;0.111.3;Tools;X;X;SSG;;;;;gohugoio/hugo;82444;Apache License 2.0;The world’s fastest framework for building websites.
 ImageMagick;apt;6.9.11.60;Tools;X;X;Image tool;;;;;ImageMagick/ImageMagick;14048;Other;ImageMagick is a free, open-source software suite for creating, editing, converting, and displaying images. It supports 200+ formats and offers powerful command-line tools and APIs for automation, scripting, and integration across platforms.
 Immich;clone;v1.135.3;Personal;;;Photos;Google Photos;X;;;immich-app/immich;71122;GNU Affero General Public License v3.0;High performance self-hosted photo and video management solution.
@@ -52,8 +52,8 @@ MinIO;clone;RELEASE.2025-07-18T21-56-31Z;Utils;;;;;X;;;minio/minio;54097;GNU Aff
 MongoDB;apt (source);;Database;;;MongoDB;;;;MongoDB;mongodb/mongo;27359;Other;The MongoDB Database
 Mosquitto;apt;2.0.11;Home;X;X;;;;;;eclipse-mosquitto/mosquitto;9949;Other;Eclipse Mosquitto - An open source MQTT broker
 MydongleCloud;clone;2025-07-07;Base;X;X;App;;;;;;0;;
-MySQL;deb;8.0.42;Database;X;;;;;;;mysql/mysql-server;11553;Other;MySQL Server, the world's most popular open source database, and MySQL Cluster, a real-time, open source transactional database.
-NGINX;apt;;Hosting;;;Web server;;;;;nginx/nginx;27539;BSD 2-Clause "Simplified" License;The official NGINX Open Source repository.
+MySQL;apt;8.0.42;Database;X;;;;;;;mysql/mysql-server;11553;Other;MySQL Server, the world's most popular open source database, and MySQL Cluster, a real-time, open source transactional database.
+NGINX;apt;;Hosting;;;Web server;;;;;nginx/nginx;27539;"BSD 2-Clause ""Simplified"" License";The official NGINX Open Source repository.
 Node;tar;v22.17.1;Tools;X;X;;;;;;nodejs/node;112344;Other;Node.js JavaScript runtime ✨🐢🚀✨
 Ollama;clone;v0.9.7-rc1;Chatbot;X;;;;X;;;ollama/ollama;147480;MIT License;Get up and running with Llama 3.3, DeepSeek-R1, Phi-4, Gemma 3, Mistral Small 3.1 and other large language models.
 OneTimeEmail;clone;2025-07-07;Mail;X;;One-time email;;X;;;;0;;
