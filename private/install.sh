@@ -105,7 +105,10 @@ echo "################################"
 echo "Upgrade"
 echo "################################"
 apt-get update
-apt-get -y -o Dkpg::Options::=--force-confnew upgrade
+if [ $OS = "pios" ]; then
+	apt-get -y -o Dkpg::Options::=--force-confnew install initramfs-tools-core
+fi
+apt-get -y upgrade
 
 echo "################################"
 echo "Basic"
@@ -117,7 +120,7 @@ if [ $OS = "ubuntu" ]; then
 		snap remove snapd
 		apt-get -y purge snapd
 	fi
-	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools
+	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools device-tree-compiler
 fi
 apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev
@@ -145,12 +148,6 @@ fi
 apt-get -y install python3-venv python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
 
 echo "################################"
-echo "Modules via apt"
-echo "################################"
-DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml postfix procmail roundcube rspamd sqlite3
-rm -f /etc/apache2/sites-enabled/*
-
-echo "################################"
 echo "Mysql"
 echo "################################"
 if [ $OS = "ubuntu" ]; then
@@ -169,6 +166,12 @@ elif [ $OS = "pios" ]; then
 	dpkg -i mysql-client* mysql-server*
 	cd ..
 fi
+
+echo "################################"
+echo "Modules via apt"
+echo "################################"
+DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml postfix procmail roundcube rspamd sqlite3
+rm -f /etc/apache2/sites-enabled/*
 
 echo "################################"
 echo "Kernel (Dongle Pro)"
@@ -848,6 +851,7 @@ cp -a rootfs/* /
 rm -rf rootfs
 cd /home/mdc/kernel
 make
+mkdir -p /boot/firmware/overlays
 make install
 cd /home/mdc/app
 ./lvgl.sh -b -c
