@@ -17,9 +17,9 @@ fi
 
 MANUFACTURER="MyDongle.Cloud"
 PRODUCT="MyDongle.Cloud `cat /dev/mydonglecloud_platform/model | sed 's/./\U&/'`"
-SERIALNUMBER="`cat /dev/mydonglecloud_platform/serialNumber`"
-VERSION="`cat /usr/local/modules/mydonglecloud/version.txt`"
-MODEL="`cat /dev/mydonglecloud_platform/model`"
+SERIALNUMBER=`cat /dev/mydonglecloud_platform/serialNumber`
+VERSION=`cat /usr/local/modules/MyDongleCloud/version.txt`
+MODEL=`cat /dev/mydonglecloud_platform/model`
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
 FFS="ffs.mtp"
 STOP=0
@@ -34,10 +34,26 @@ do
 		x) STOP=1;;
 	esac
 done
+
 if [ $OPTIND = 1 ]; then
-	SERIAL=1
-	MTP=1
+	if [ ! -f /disk/admin/.modules/MyDongleCloud/otg.json ]; then
+		MTP=1
+		SERIAL=1
+	else
+		grep -qi serial /disk/admin/.modules/MyDongleCloud/otg.json
+		if [ $? = 0 ]; then
+			SERIAL=1
+		fi
+		grep -qi mtp /disk/admin/.modules/MyDongleCloud/otg.json
+		if [ $? = 0 ]; then
+			MTP=1
+		fi
+		if [ $MTP = 0 -a $SERIAL = 0 ]; then
+			SERIAL=1
+		fi
+	fi
 fi
+echo "Doing OTG in MTP:${MTP} Serial:${SERIAL}"
 
 if [ $MODEL = "std" ]; then
 	PATHg1=/tmp/config/usb_gadget/g1
