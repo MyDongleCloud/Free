@@ -1,0 +1,340 @@
+{
+	"version":	1,
+	"Apache2": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"localRanges": ["10", "172.16", "192.168"],
+		"path": "/disk/admin/Web"
+	},
+	"Audiobookshelf": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Bugzilla": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Busybox": {},
+	"Certbot": {},
+	"ChangeDetection": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Clang": {},
+	"CMake": {},
+	"collaboraonline": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Composer": {},
+	"ConvertX": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Cyberchef": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Discourse": {},
+	"Docker": {},
+	"Doodle": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Dovecot": {},
+	"FFmpeg": {},
+	"Fileflows": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Flarum": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"FreshRSS": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"fscrypt": {},
+	"GCC": {},
+	"Git": {},
+	"Gitea": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Go": {},
+	"GoAccess": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"GoodIP": {},
+	"Grav": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"HomeAssistant": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"enabled": true,
+		"authorized": "_all_",
+		"reverseProxy": 8123
+	},
+	"Html5-QRCode": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Hugo": {},
+	"ImageMagick": {},
+	"Immich": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"IOPaint": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Java": {},
+	"Jellyfin": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"JitsiMeet": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Joomla": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Joplin": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Karakeep": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Kernel": {},
+	"LibrePhotos": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Libreqr": {},
+	"LimeSurvey": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Make": {},
+	"MantisBugTracker": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Maybe": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"MeTube": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"MinIO": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"MongoDB": {},
+	"Mosquitto": {},
+	"MydongleCloud": {},
+	"MySQL": {},
+	"Nginx": {},
+	"Node": {},
+	"Ollama": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"OneTimeEmail": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"OpenWebUI": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"osTicket": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Pandoc": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"PhotoPrism": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"PhotoView": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"PHP": {},
+	"phpBB": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Postfix": {},
+	"PrivateBin": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"ProjectSend": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"PyMCUProg": {},
+	"Python": {},
+	"Python": {},
+	"Qdrant": {},
+	"QRCodeGenerator": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Radaar": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"RethinkDB": {},
+	"RoundCube": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"rspamd": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Sonarr": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"SQLite": {},
+	"StirlingPDF": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"SunriseCMS": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Superset": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Syncthing": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Transmission": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"TriliumNotes": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"enabled": true,
+		"authorized": "_all_",
+		"reverseProxy": 9001
+	},
+	"TubeArchivist": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"uMTP-Responder": {},
+	"Unmanic": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Uptime": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Webtrees": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"WordPress": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Write.as": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"YOURLS": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
+	"Youtube-dl": {},
+	"Zigbee2MQTT": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"enabled": true,
+		"authorized": "_all_",
+		"reverseProxy": 8124
+	}
+}
