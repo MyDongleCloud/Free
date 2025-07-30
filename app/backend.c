@@ -56,10 +56,11 @@ void cleanExit(int todo) {
 		FILE *pf = fopen("/tmp/softreset", "w+");
 		if (pf)
 			fclose(pf);
-	} else if (todo == 2)
-		system("sync && sleep 0.1 && reboot &");
-	else if (todo == 1)
-		system("sync && sleep 0.1 && shutdown -h now &");
+	} else if (todo == 2) {
+		system("sync; sudo reboot");
+	} else if (todo == 1) {
+		system("sync; sudo shutdown -h now");
+	}
 #endif
 #endif
 }
