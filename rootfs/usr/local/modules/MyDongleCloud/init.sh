@@ -19,44 +19,7 @@ do
 	esac
 done
 
-MODEL="cat `/sys/devices/platform/mydonglecloud/model`"
-/usr/local/modules/MyDongleCloud/leds.sh -l "normal"
-
-ln -sf /sys/devices/platform/mydonglecloud /dev/mydonglecloud_platform
-chmod 222 /dev/mydonglecloud_platform/printk
-chmod 222 /dev/mydonglecloud_platform/buzzer
-chmod 222 /dev/mydonglecloud_platform/buzzerClick
-chmod 222 /dev/mydonglecloud_platform/buzzerFreq
-chmod 444 /dev/mydonglecloud_platform/hardwareVersion
-chmod 444 /dev/mydonglecloud_platform/model
-chmod 444 /dev/mydonglecloud_platform/serialNumber
-
-ln -sf /sys/bus/spi/devices/spi0.0 /dev/mydonglecloud_screen
-chmod 666 /dev/mydonglecloud_screen/backlight
-chmod 666 /dev/mydonglecloud_screen/rotation
-chmod 222 /dev/mydonglecloud_screen/reset
-chmod 222 /dev/mydonglecloud_screen/init
-chmod 222 /dev/mydonglecloud_screen/rect
-chmod 222 /dev/mydonglecloud_screen/update
-chmod 666 /dev/mydonglecloud_screen_f
-
-chmod 666 /sys/class/leds/LED_GREEN/delay_off
-chmod 666 /sys/class/leds/LED_GREEN/delay_on
-chmod 666 /sys/class/leds/LED_GREEN/trigger
-chmod 666 /sys/class/leds/LED_RED/delay_off
-chmod 666 /sys/class/leds/LED_RED/delay_on
-chmod 666 /sys/class/leds/LED_RED/trigger
-
-if [ $MODEL = "std" ]; then
-	ln -s /dev/ttySAC5 /dev/tty_zigbee
-	ln -s /dev/ttySAC3 /dev/tty_debug
-else
-	ln -s /dev/ttyAMA2 /dev/tty_zigbee
-	ln -s /dev/ttyAMA10 /dev/tty_debug
-	ln -s /dev/ttyAMA0 /dev/tty_attiny
-fi
-
-if [ $MODEL = "std" ]; then
+if [ `cat /dev/mydonglecloud_platform/model` = "std" ]; then
 	modprobe -r dhd
 	modprobe dhd nvram_path=/etc/wifi/nvram.txt firmware_path=/etc/wifi/fw.bin
 	/usr/local/modules/MyDongleCloud/init-std-bluetooth.sh &

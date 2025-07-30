@@ -185,11 +185,12 @@ static struct attribute_group mydongle_attr_group = {
 
 int isMydonglecloud = 0;
 static int mydongle_probe(struct platform_device *pdev) {
-	printk("MyDongleCloud: Enter probe\n");
+	int ret;
 	struct device *dev = &pdev->dev;
 	struct mydonglePriv *ip = devm_kzalloc(dev, sizeof(struct mydonglePriv), GFP_KERNEL);
 	if (!ip)
 		return -ENOMEM;
+	printk("MyDongleCloud: Enter probe\n");
 
 	isMydonglecloud = 1;
 	platform_set_drvdata(pdev, ip);
@@ -220,8 +221,20 @@ static int mydongle_probe(struct platform_device *pdev) {
 #endif
 	timer_setup(&my_timer_buzzer, my_timer_buzzer_callback, 0);
 
+	ret = sysfs_create_group(&dev->kobj, &mydongle_attr_group);
+	kuid_t new_uid;
+	kgid_t new_gid;
+	new_uid = make_kuid(&init_user_ns, 0);
+	new_gid = make_kgid(&init_user_ns, 100);
+	sysfs_file_change_owner(&dev->kobj, "buzzer", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "buzzerClick", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "buzzerFreq", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "hardwareVersion", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "model", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "printk", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "serialNumber", new_uid, new_gid);
 	printk("MyDongleCloud: Exit probe\n");
-	return sysfs_create_group(&dev->kobj, &mydongle_attr_group);
+	return ret;
 }
 
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(6,12,0)
@@ -245,7 +258,7 @@ static const struct of_device_id mydongle_of[] = {
     { .compatible = "mydonglecloud", },
     {},
 };
-MODULE_DEVICE_TABLE(of, mydongle_of); 
+MODULE_DEVICE_TABLE(of, mydongle_of);
 
 static struct platform_driver mydongle_driver = {
 	.driver = {

@@ -486,6 +486,12 @@ static struct attribute_group st7735s_attr_group = {
 	.attrs = st7735s_attributes,
 };
 
+static char *my_class_devnode(const struct device *dev, umode_t *mode) {
+	if (mode)
+		*mode = 0666;
+	return NULL;
+}
+
 static int st7735s_probe(struct spi_device *spi) {
 	struct st7735sPriv *priv;
 	int error;
@@ -514,6 +520,17 @@ static int st7735s_probe(struct spi_device *spi) {
 	priv->framebuffer = kmalloc(priv->framebuffersize, GFP_KERNEL);
 
 	error = sysfs_create_group(&dev->kobj, &st7735s_attr_group);
+	kuid_t new_uid;
+	kgid_t new_gid;
+	new_uid = make_kuid(&init_user_ns, 0);
+	new_gid = make_kgid(&init_user_ns, 100);
+	sysfs_file_change_owner(&dev->kobj, "backlight", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "rotation", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "reset", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "init", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "rect", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "update", new_uid, new_gid);
+	printk("MyDongleCloud: Exit probe\n");
 
 #define VS10x3_MAJOR 200
 	error = register_chrdev(VS10x3_MAJOR, "mydonglecloud_screen_f", &st7735s_fops);
@@ -529,6 +546,7 @@ static int st7735s_probe(struct spi_device *spi) {
 		error = PTR_ERR(priv->cls);
 		goto err0;
 	}
+	priv->cls->devnode = my_class_devnode;
 
 	cdev_init(&priv->cdev, &st7735s_fops);
 	priv->cdev.owner = THIS_MODULE;
@@ -625,7 +643,7 @@ static const struct of_device_id st7735s_of[] = {
 	{ .compatible = "st7735s", },
 	{},
 };
-MODULE_DEVICE_TABLE(of, st7735s_of); 
+MODULE_DEVICE_TABLE(of, st7735s_of);
 
 static struct spi_driver st7735s_driver = {
 	.driver = {
