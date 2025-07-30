@@ -12,7 +12,8 @@ MYLINKPP_WEB = $(QUIETLINK)/opt/emsdk/upstream/emscripten/em++
 PRE = ../build/_app/
 MDC_VERSION=\"$(shell cat version.txt)\"
 
-OBJs := $(PRE)backend.o \
+OBJs := $(PRE)apache2.o \
+	$(PRE)backend.o \
 	$(PRE)ble.o \
 	$(PRE)bluetoothAddr.o \
 	$(PRE)btlib.o \
@@ -57,7 +58,7 @@ MYLDFLAGS_WEB = -L ../build/lvgl-web/cmbuild/lib/ -llvgl -llvgl_thorvg -llvgl_de
 
 .PHONY : clean
 
-ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?),0)
+ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?), 0)
 all: pre_build app_exec zigbee_exec
 else
 all: pre_build app_exec desktop_exec zigbee_exec web_exec
@@ -66,7 +67,7 @@ clean: cleanup
 
 pre_build:
 	@mkdir -p $(PRE)
-ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?),0)
+ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?), 0)
 	@ln -sf /usr/local/modules/MyDongleCloud/version.txt version.txt
 endif
 
@@ -75,7 +76,7 @@ app_exec: $(OBJs_APP)
 ifeq ($(DEBUG),)
 	@strip app
 endif
-ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?),0)
+ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?), 0)
 	@setcap 'cap_net_admin+eip' app
 	@cp app /usr/local/modules/MyDongleCloud/app
 endif

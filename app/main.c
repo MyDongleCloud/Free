@@ -11,6 +11,7 @@
 #include "logic.h"
 #include "language.h"
 #include "ble.h"
+#include "apache2.h"
 
 //Functions
 int main(int argc, char *argv[]) {
@@ -69,6 +70,9 @@ int main(int argc, char *argv[]) {
 	if (ble)
 		bleStart();
 	buzzer(1);
+#endif
+#ifndef WEB
+	buildApache2Conf();
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);
