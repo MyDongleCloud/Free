@@ -317,7 +317,11 @@ int fileExists(char *st) {
 
 void logInit(int daemon) {
 	char sz[256];
-	strcpy(sz, "/var/log/mydonglecloud/app.log");
+#ifdef DESKTOP
+	strcpy(sz, "/tmp/app.log");
+#else
+	strcpy(sz, "/var/log/MyDongleCloud/app.log");
+#endif
 	int pipe_fd[2];
 	pipe(pipe_fd);
 	pidLog = fork();
