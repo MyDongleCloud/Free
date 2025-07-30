@@ -70,9 +70,10 @@ if [ $SECONDPART = 0 ]; then
 fi
 mount ${DISK}2 /tmp/2
 tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C /tmp/2/lib/modules/
-rm -rf /tmp/2/home/mdc/app/
-cp -a ../app/ /tmp/2/home/mdc/
+rm -rf /tmp/2/home/mdc/app/ /tmp/2/home/mdc/moduleApache2/
+cp -a ../app/ ../moduleApache2/ /tmp/2/home/mdc/
 chroot /tmp/2 sh -c 'cd home/mdc/app/ && make clean && make'
+chroot /tmp/2 sh -c 'cd home/mdc/moduleApache2/ && make clean && make'
 sleep 2
 sync
 umount ${DISK}*
