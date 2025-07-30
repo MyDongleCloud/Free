@@ -128,9 +128,9 @@ sed -i -e "s/manufacturer.*/manufacturer \"${MANUFACTURER}\"/" /etc/umtprd/umtpr
 sed -i -e "s/product.*/product \"${PRODUCT}\"/" /etc/umtprd/umtprd.conf
 sed -i -e "s/serial.*/serial \"${SERIALNUMBER}\"/" /etc/umtprd/umtprd.conf
 sed -i -e "s/firmware_version.*/firmware_version \"${VERSION}\"/" /etc/umtprd/umtprd.conf
-echo 0x1 > $PATHg1/bDeviceProtocol
-echo 0x1 > $PATHg1/bDeviceSubClass
-echo 0x6 > $PATHg1/bDeviceClass
+echo 0x0 > $PATHg1/bDeviceClass
+echo 0x0 > $PATHg1/bDeviceSubClass
+echo 0x0 > $PATHg1/bDeviceProtocol
 mkdir -p $PATHg1/configs/c.1/strings/0x409
 echo "Config 1: Mass Storage" > $PATHg1/configs/c.1/strings/0x409/configuration
 echo 250 > $PATHg1/configs/c.1/MaxPower
