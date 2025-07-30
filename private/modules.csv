@@ -66,7 +66,7 @@ phpList;composer;2.5.5;Mail;X;X;Emailing solution;MailChimp;;X;;phpList/core;85;
 Postfix;apt;3.7.11;Mail;X;;;;;;;;0;;
 PrivateBin;clone;1.7.8;Utils;X;;;;X;X;;PrivateBin/PrivateBin;7381;Other;A minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted in the browser using 256 bits AES.
 ProjectSend;clone;r1720;Utils;X;;File download/upload, file exchange;WeTransfer, Google One;X;X;;projectsend/projectsend;1647;GNU General Public License v2.0;ProjectSend is a free, open source software that lets you share files with your clients, focused on ease of use and privacy. It supports clients groups, system users roles, statistics, multiple languages, detailed logs... and much more!
-PyMCUProg;clone;3.19.4.61;Tools;X;X;;;;;;microchip-pic-avr-tools/pymcuprog;115;MIT License;a Python utility for programming various Microchip MCU devices using Microchip CMSIS-DAP based debuggers
+PyMCUProg;;3.19.4.61;Tools;X;X;;;;;;microchip-pic-avr-tools/pymcuprog;115;MIT License;a Python utility for programming various Microchip MCU devices using Microchip CMSIS-DAP based debuggers
 Python;apt;3.11.2;Code;X;X;;;;;;;0;;
 Python;apt (source);3.12.9;Code;X;X;;;;;;;0;;
 Qdrant;tar;v1.14.1;Database;X;;;;;;Qdrant;qdrant/qdrant;24887;Apache License 2.0;Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/
@@ -79,6 +79,7 @@ Sonarr;clone;v4.0.15.2941;;;;;;X;;;Sonarr/Sonarr;12098;GNU General Public Licens
 SQLite;apt;3.40.1;Database;X;X;;;;;;sqlite/sqlite;8111;Other;Official Git mirror of the SQLite source tree
 StirlingPDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;63698;Other;#1 Locally hosted web application that allows you to perform various operations on PDF files
 Superset;clone;5.0.0;Utils;;;;;X;;;apache/superset;67257;Apache License 2.0;Apache Superset is a Data Visualization and Data Exploration Platform
+SunriseCMS;clone;v1.0.0-alpha.19;Productivity;X;;;EverArk;;;;cityssm/sunrise-cms;4;;
 Syncthing;clone;1.30.0;Utils;;;;;X;;;syncthing/syncthing;73822;Mozilla Public License 2.0;Open Source Continuous File Synchronization
 Transmission;clone;4.0.6;Utils;X;;Torrent;Vuze;X;;;transmission/transmission;13294;Other;Official Transmission BitTorrent client repository
 Trilium;tar;v0.95.0;Productivity;X;X;;;X;;;TriliumNext/Notes;2910;GNU Affero General Public License v3.0;Build your personal knowledge base with TriliumNext Notes
