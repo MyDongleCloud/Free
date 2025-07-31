@@ -95,7 +95,7 @@ if [ $NATIVE = 1 ]; then
 fi
 
 dd if=img/sdcard-bootdelay1-m-s of=img/flasher-m${POSTNAME}-s.img bs=1024
-SIZE=$((`stat -c %s /tmp/mdc${POSTNAME}.img` * 110 / 100 / 1024))
+SIZE=$((`stat -c %s /tmp/mdc${POSTNAME}.img` * 125 / 100 / 1024))
 echo "Size: ${SIZE}kB"
 dd if=/dev/zero of=img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
