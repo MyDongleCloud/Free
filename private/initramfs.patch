@@ -29,7 +29,7 @@
 +fi
 +mount -t squashfs -o loop /root_/fs/mdc.img /root_/fs/lower
 +if [ -f /root_/reset.overlay ]; then
-+	rm -rf /root_/fs/upper /root_/fs/work
++	rm -rf /root_/fs/upper /root_/fs/work /root_/reset.overlay
 +	mkdir /root_/fs/upper
 +	mkdir /root_/fs/work
 +fi
