@@ -34,7 +34,7 @@
 +	mkdir /root_/fs/work
 +fi
 +if [ -f /root_/reset.admin ]; then
-+	rm -rf /root_/admin
++	rm -rf /root_/admin /root_/reset.admin
 +fi
 +if [ ! -d /root_/admin ]; then
 +	cp -a /root_/fs/lower/home/admin.default /root_/admin
