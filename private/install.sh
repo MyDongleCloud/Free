@@ -881,7 +881,7 @@ cd /home/mdc/moduleApache2
 make
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
-chown -R admin:admin /disk/admin
+chown -R admin:admin /disk/admin /var/cache-admin
 
 echo "################################"
 echo "Jitsi"

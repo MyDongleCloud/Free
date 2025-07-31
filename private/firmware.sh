@@ -62,6 +62,17 @@ fi
 if [ -f /tmp/mdc${POSTNAME}.img ]; then
 	echo "No creation as /tmp/mdc${POSTNAME}.img already exists"
 else
+	rm -rf ${ROOTFS}/var/cache-admin
+	mkdir ${ROOTFS}/var/cache-admin
+	chown -R 1001:1001 ${ROOTFS}/var/cache-admin
+	rm -rf ${ROOTFS}/home/admin.default
+	cp -a ${ROOTFS}/disk/admin ${ROOTFS}/home/admin.default
+	rm -rf ${ROOTFS}/home/admin.default/.log
+	mkdir ${ROOTFS}/home/admin.default/.log
+	mkdir ${ROOTFS}/home/admin.default/.log/apache2
+	mkdir ${ROOTFS}/home/admin.default/.log/MyDongleCloud
+	mkdir ${ROOTFS}/home/admin.default/.log/Zigbee2MQTT
+	chown -R 1001:1001 ${ROOTFS}/home/admin.default
 	rm -f /tmp/squashfs-exclude.txt
 	if [ $FINAL = 1 ]; then
 		cp squashfs-exclude.txt /tmp/squashfs-exclude.txt
@@ -81,13 +92,6 @@ EOF
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' ${ROOTFS}/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
 fi
-rm -f img/partition2-admin.tbz2
-rm -rf ${ROOTFS}/disk/admin/.cache ${ROOTFS}/disk/admin/.log
-mkdir -p ${ROOTFS}/disk/admin/.log/zigbee2mqtt
-chown -R 1001:1001 ${ROOTFS}/disk/admin/
-cd ${ROOTFS}/disk/
-tar -cjpf ${PP}/img/partition2-admin.tbz2 admin
-cd ${PP}
 if [ $NATIVE = 1 ]; then
 	sync
 	umount ${DISK}*
