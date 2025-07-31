@@ -139,6 +139,11 @@ sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 e2fsck -f -p ${LOSETUP}p2
+mount ${LOSETUP}p2 /tmp/2
+rm -rf /tmp/2/lost+found
+umount ${LOSETUP}*
+umount ${LOSETUP}*
+sync
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then
