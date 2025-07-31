@@ -100,8 +100,8 @@ echo "Size: ${SIZE}kB"
 dd if=/dev/zero of=img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
-8192,131072,c
-139264,
+8192,262144,c
+270336,
 EOF
 sync
 partprobe ${LOSETUP}
