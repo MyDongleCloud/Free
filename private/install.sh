@@ -181,7 +181,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install Postfix
 echo "################################"
 echo "Modules via apt"
 echo "################################"
-apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap procmail rspamd sqlite3
+apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap php-curl php-zip procmail rspamd sqlite3
 
 echo "################################"
 echo "Apache2"
@@ -288,9 +288,10 @@ echo "################################"
 echo "phpList"
 echo "################################"
 cd /usr/local/modules
-composer create-project -n -s dev --no-dev phplist/base-distribution phpList
-cd phpList
-composer update -n
+wget https://versaweb.dl.sourceforge.net/project/phplist/phplist/3.6.16/phplist-3.6.16.tgz
+tar -xpf phplist-*
+rm phplist-*.tgz
+mv phplist-* phpList
 
 echo "################################"
 echo "pcpp"

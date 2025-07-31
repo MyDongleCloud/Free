@@ -215,6 +215,12 @@
 		"enabled": true,
 		"authorized": "_all_"
 	},
+	"phpList": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"path": "/usr/local/modules/phpList/public_html"
+	},
 	"Postfix": {},
 	"PrivateBin": {
 		"web": true,
