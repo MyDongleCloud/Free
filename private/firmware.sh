@@ -69,7 +69,8 @@ else
 	cp -a ${ROOTFS}/disk/admin ${ROOTFS}/home/admin.default
 	rm -rf ${ROOTFS}/home/admin.default/.log
 	mkdir ${ROOTFS}/home/admin.default/.log
-	mkdir ${ROOTFS}/home/admin.default/.log/apache2
+	mkdir ${ROOTFS}/home/admin.default/.log/Apache2
+	ln -sf Apache2/ ${ROOTFS}/home/admin.default/.log/apache2
 	mkdir ${ROOTFS}/home/admin.default/.log/MyDongleCloud
 	mkdir ${ROOTFS}/home/admin.default/.log/Zigbee2MQTT
 	chown -R 1001:1001 ${ROOTFS}/home/admin.default
