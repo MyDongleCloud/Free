@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for burn.sh [-d disk -e -f -h]"
+echo "Usage for burn [-d disk -e -f -h]"
 echo "d disk:	Set /dev/disk (default: /dev/sda)"
 echo "e:	Extract image"
 echo "f:	Use final image"

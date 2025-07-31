@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for updating firmware [-b -d disk -h -o -u]"
+echo "Usage for update [-b -d disk -h -o -u]"
 echo "b:		Put bootdelay=1"
 echo "d disk:	set /dev/disk[1-2] (sda or mmcblk0p)"
 echo "h:		Print this usage and exit"
@@ -74,7 +74,6 @@ rm -rf /tmp/2/home/mdc/app/ /tmp/2/home/mdc/moduleApache2/
 cp -a ../app/ ../moduleApache2/ /tmp/2/home/mdc/
 chroot /tmp/2 sh -c 'cd home/mdc/app/ && make clean && make'
 chroot /tmp/2 sh -c 'cd home/mdc/moduleApache2/ && make clean && make'
-sleep 2
 sync
 umount ${DISK}*
 umount ${DISK}*
