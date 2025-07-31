@@ -110,7 +110,7 @@ echo "Upgrade"
 echo "################################"
 apt-get update
 if [ $OS = "pios" ]; then
-	apt-get -y -o Dkpg::Options::=--force-confnew install initramfs-tools-core
+	apt-get -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-confdef" install initramfs-tools-core
 fi
 apt-get -y upgrade
 
@@ -126,8 +126,8 @@ if [ $OS = "ubuntu" ]; then
 	fi
 	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools device-tree-compiler
 fi
-apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9
-apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev
+apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9 acl
+apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev apache2-dev
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install libprotobuf32t64 libjpeg62-dev
 elif [ $OS = "pios" ]; then
@@ -173,10 +173,25 @@ elif [ $OS = "pios" ]; then
 fi
 
 echo "################################"
+echo "Postfix"
+echo "################################"
+DEBIAN_FRONTEND=noninteractive apt-get -y install Postfix
+
+echo "################################"
 echo "Modules via apt"
 echo "################################"
-DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml postfix procmail roundcube rspamd sqlite3
+apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap procmail rspamd sqlite3
+
+echo "################################"
+echo "Apache2"
+echo "################################"
+apt-get -y install apache2
 rm -f /etc/apache2/sites-enabled/*
+
+echo "################################"
+echo "Roundcube"
+echo "################################"
+DEBIAN_FRONTEND=noninteractive apt-get -y install roundcube
 
 echo "################################"
 echo "Kernel (Dongle Pro)"
@@ -198,14 +213,6 @@ elif [ $OS = "pios" ]; then
 	rm -f /boot/cmdline.txt /boot/issue.txt /boot/config.txt /boot/overlays /boot/*6.12.25* /boot/*-v8
 	rm -f /boot/firmware/bcm2710* /boot/firmware/bcm2711* /boot/firmware/kernel8.img /boot/firmware/initramfs8 /boot/firmware/LICENCE.broadcom /boot/firmware/issue.txt
 fi
-
-echo "################################"
-echo "Jitsi"
-echo "################################"
-curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
-echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
-apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get -y install jitsi-meet
 
 echo "################################"
 echo "Docker"
@@ -245,8 +252,8 @@ echo "################################"
 cd /home/mdc/build
 wget https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
 tar -xJpf TriliumNextNotes-Server*
-mv TriliumNextNotes-Server-0.*/ /usr/local/modules/trilium
-rm -rf /usr/local/modules/trilium/node
+mv TriliumNextNotes-Server-0.*/ /usr/local/modules/TriliumNotes
+rm -rf /usr/local/modules/TriliumNotes/node
 ln -sf /etc/systemd/system/TriliumNotes.service /etc/systemd/system/multi-user.target.wants/TriliumNotes.service
 
 echo "################################"
@@ -386,6 +393,7 @@ ln -sf /etc/systemd/system/HomeAssistant.service /etc/systemd/system/multi-user.
 echo "################################"
 echo "TubeArchivist"
 echo "################################"
+cd /home/mdc
 /home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/TubeArchivist -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
@@ -407,9 +415,11 @@ pip install ryd-client==0.0.6
 pip install uvicorn==0.35.0
 pip install whitenoise==6.9.0
 pip install yt-dlp[default]==2025.6.30
-cd /usr/local/modules/tubearchivist
+cd /usr/local/modules/TubeArchivist
 git clone https://github.com/tubearchivist/tubearchivist
+cd tubearchivist
 git checkout v0.5.4
+rm -rf .git
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
@@ -417,6 +427,7 @@ echo "PATH restored: $PATH"
 echo "################################"
 echo "Unmanic"
 echo "################################"
+cd /home/mdc
 /home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/Unmanic -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
@@ -643,7 +654,6 @@ echo "################################"
 cd /usr/local/modules
 git clone https://github.com/LibrePhotos/librephotos LibrePhotos
 cd LibrePhotos
-git checkout 
 rm -rf .git
 
 echo "################################"
@@ -679,7 +689,6 @@ echo "################################"
 cd /usr/local/modules
 git clone https://github.com/alexta69/metube MeTube
 cd MeTube
-git checkout 20250721
 rm -rf .git
 
 echo "################################"
@@ -764,21 +773,11 @@ git checkout r1720
 rm -rf .git
 
 echo "################################"
-echo "PyMCUProg"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/microchip-pic-avr-tools/pymcuprog PyMCUProg
-cd PyMCUProg
-git checkout 3.19.4.61
-rm -rf .git
-
-echo "################################"
 echo "QRCodeGenerator"
 echo "################################"
 cd /usr/local/modules
 git clone https://github.com/bizzycola/qrcode-generator QRCodeGenerator
 cd QRCodeGenerator
-git checkout v1.8.0
 rm -rf .git
 
 echo "################################"
@@ -809,6 +808,15 @@ git checkout v1.0.2
 rm -rf .git
 
 echo "################################"
+echo "SunriseCMS"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/cityssm/sunrise-cms SunriseCMS
+cd SunriseCMS
+git checkout v1.0.0-alpha.19
+rm -rf .git
+
+echo "################################"
 echo "Superset"
 echo "################################"
 cd /usr/local/modules
@@ -823,7 +831,7 @@ echo "################################"
 cd /usr/local/modules
 git clone https://github.com/syncthing/syncthing Syncthing
 cd Syncthing
-git checkout 1.30.0
+git checkout v1.30.0
 rm -rf .git
 
 echo "################################"
@@ -875,8 +883,19 @@ chown -R mdc:mdc /home/mdc
 chown -R admin:admin /disk/admin
 
 echo "################################"
+echo "Jitsi"
+echo "################################"
+curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
+echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
+apt-get update
+apt-get -y install jitsi-meet
+
+echo "################################"
 echo "Cleanup"
 echo "################################"
+if [ $OS = "pios" ]; then
+	apt-get -y purge python3-rpi-lgpio rpicam-apps-core
+fi
 apt-get -y autoremove
 rm -f /var/cache/apt/archives/*.deb
 rm -f /home/mdc/build/*.deb /home/mdc/build/*.xz
