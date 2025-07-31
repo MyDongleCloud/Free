@@ -2,7 +2,8 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for install [-h -n -p]"
+echo "Usage for install [-c -h -n -p]"
+echo "c:	Do full clone of all modules"
 echo "h:	Print this usage and exit"
 echo "n:	Not native (via chroot)"
 echo "p:	Do production image"
@@ -11,8 +12,10 @@ exit 0
 
 PROD=0
 NATIVE=1
-while getopts hnp opt; do
+CLONE=0
+while getopts chnp opt; do
 	case "$opt" in
+		c) CLONE=1;;
 		h) helper;;
 		n) NATIVE=0;;
 		p) PROD=1;;
@@ -466,6 +469,11 @@ make
 cp cc2538-prog /usr/local/bin/
 cd ../..
 
+if [ $CLONE = 0 ]; then
+	echo "################################"
+	echo "Don't clone"
+	echo "################################"
+else
 echo "################################"
 echo "Libreqr"
 echo "################################"
@@ -843,6 +851,7 @@ git clone https://github.com/YOURLS/YOURLS YOURLS
 cd YOURLS
 git checkout 1.10.1
 rm -rf .git
+fi
 
 echo "################################"
 echo "App and rootfs"
