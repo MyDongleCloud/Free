@@ -52,6 +52,13 @@ void modulesSetup() {
 		cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
 
 		if (strcmp(elModule->string, "Apache2") == 0) {
+			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
+				PRINTF("Apache2: No creation of main.conf\n");
+			} else
+				buildApache2Conf(modulesDefault, modules);
+#ifndef DESKTOP
+			reloadApache2Conf();
+#endif
 		} else if (strcmp(elModule->string, "Audiobookshelf") == 0) {
 		} else if (strcmp(elModule->string, "Bugzilla") == 0) {
 		} else if (strcmp(elModule->string, "Busybox") == 0) {
