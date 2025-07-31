@@ -17,7 +17,7 @@
  export debug=
  export panic=
  export blacklist=
-@@ -251,6 +252,16 @@
+@@ -251,6 +252,21 @@
  mountroot
  log_end_msg
  
@@ -28,6 +28,11 @@
 +	mv /root_/fs/mdc.new.img /root_/fs/mdc.img
 +fi
 +mount -t squashfs -o loop /root_/fs/mdc.img /root_/fs/lower
++if [ -f /root_/reset.overlay ]; then
++	rm -rf /root_/fs/upper /root_/fs/work
++	mkdir /root_/fs/upper
++	mkdir /root_/fs/work
++fi
 +mount -t overlay -o lowerdir=/root_/fs/lower,upperdir=/root_/fs/upper,workdir=/root_/fs/work none /root
 +export rootmnt=/root
 +
