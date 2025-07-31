@@ -23,6 +23,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)language.o \
 	$(PRE)logic.o \
 	$(PRE)main.o \
+	$(PRE)modules.o \
 	$(PRE)sbl.o \
 	$(PRE)sbl2.o \
 	$(PRE)settings.o \

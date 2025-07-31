@@ -11,7 +11,7 @@
 #include "logic.h"
 #include "language.h"
 #include "ble.h"
-#include "apache2.h"
+#include "modules.h"
 
 //Functions
 int main(int argc, char *argv[]) {
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 	buzzer(1);
 #endif
 #ifndef WEB
-	buildApache2Conf();
+	modulesSetup();
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);

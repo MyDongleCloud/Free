@@ -6,13 +6,6 @@
 #include "cJSON.h"
 
 //Functions
-static void cJSON_Dump(cJSON *el) {
-	char *sz = cJSON_Print(el);
-	PRINTF("%s\n", sz);
-	free(sz);
-}
-
-//Implement enabled
 static void writePermissions(cJSON *elLocalRanges, char *authorized, FILE *pf) {
 //ex: _all_,_dongle_,_local_,_allusers_,admin,user1
 	char *authorized_ = strdup(authorized);
@@ -68,31 +61,11 @@ static void writeLog(char *name, FILE *pf) {
 void reloadApache2Conf() {
 #if !defined(DESKTOP) && !defined(WEB)
 	system("sudo /usr/bin/systemctl reload apache2");
+	PRINTF("Apache2: Reloaded\n");
 #endif
 }
 
-void buildApache2Conf() {
-	char sz2[10240];
-	FILE *f;
-	f = fopen(LOCAL_PATH "MyDongleCloud/modules.json", "r");
-	if (f) {
-		fread(sz2, sizeof(sz2), 1, f);
-		fclose(f);
-	}
-	cJSON *modulesDefault = cJSON_Parse(sz2);
-	f = fopen(ADMIN_PATH "MyDongleCloud/modules.json", "r");
-	if (f) {
-		fread(sz2, sizeof(sz2), 1, f);
-		fclose(f);
-	}
-	cJSON *modules = cJSON_Parse(sz2);
-
-	if (cJSON_IsTrue(cJSON_GetObjectItem(modules, "overwrite"))) {
-		PRINTF("Apache2: main.conf not modified\n");
-		reloadApache2Conf();
-		return;
-	}
-
+void buildApache2Conf(cJSON *modulesDefault, cJSON *modules) {
 #ifdef DESKTOP
 	FILE *pf = fopen("/tmp/main.conf", "w");
 #else
@@ -173,8 +146,5 @@ void buildApache2Conf() {
 	strcpy(sz, "</VirtualHost>\n");
 	fwrite(sz, strlen(sz), 1, pf);
 	fclose(pf);
-	cJSON_Delete(modules);
-	cJSON_Delete(modulesDefault);
-	PRINTF("Apache2: main.conf created\n");
-	reloadApache2Conf();
+	PRINTF("Apache2: Creation of main.conf\n");
 }
