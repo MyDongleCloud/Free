@@ -42,9 +42,10 @@ if [ $? = 0 ]; then
 fi
 
 echo "################################"
-echo "Start Install"
+echo "Start install"
 echo "################################"
 date
+DATESTART=`date +%s`
 
 echo "################################"
 echo "Initial"
@@ -893,9 +894,12 @@ ln -sf /disk/admin/.log/ /var/log
 sync
 sync
 echo "################################"
-echo "Finish"
+echo "Finish install"
 echo "################################"
 date
+DATEFINISH=`date +%s`
+DELTA=$((DATEFINISH - DATESTART))
+echo "Duration: $((DELTA / 3600))h $(((DELTA % 3600) / 60))m $((DELTA % 60))s"
 
 if [ $PROD = 1 ]; then
 	rm -rf /var/log.old
