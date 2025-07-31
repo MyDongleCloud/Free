@@ -27,7 +27,7 @@ fi
 lsb_release -a | grep bookworm
 if [ $? = 0 ]; then
 #On PC
-#tar -cjpvf a.tbz2 app/ kernel/ rootfs/ screenAvr/ private/install.sh
+##tar -cjpvf a.tbz2 app/ kernel/ rootfs/ screenAvr/ moduleApache2/ private/install.sh
 #scp a.tbz2 mdc@192.168.10.41:/tmp
 #On device
 #tar -xjpvf /tmp/a.tbz2
@@ -857,6 +857,8 @@ mkdir -p /boot/firmware/overlays
 make install
 cd /home/mdc/app
 ./lvgl.sh -b -c
+make
+cd /home/mdc/moduleApache2
 make
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
