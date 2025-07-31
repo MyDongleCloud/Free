@@ -17,11 +17,11 @@
 #define RANGE(a,b,c) MIN2(MAX2(a,b),c)
 
 #ifdef DESKTOP
-#define MAIN_PATH "./"
-#define ADMIN_PATH "../rootfs/disk/admin/.modules/MyDongleCloud/"
+#define ADMIN_PATH "../rootfs/disk/admin/.modules/"
+#define LOCAL_PATH "../rootfs/usr/local/modules/"
 #else
-#define MAIN_PATH "/home/mdc/app/"
-#define ADMIN_PATH "/disk/admin/.modules/MyDongleCloud/"
+#define ADMIN_PATH "/disk/admin/.modules/"
+#define LOCAL_PATH "/usr/local/modules/"
 #endif
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
