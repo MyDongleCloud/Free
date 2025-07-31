@@ -492,8 +492,8 @@ echo "################################"
 echo "Libreqr"
 echo "################################"
 cd /usr/local/modules
-git clone https://code.antopie.org/miraty/libreqr.git
-cd libreqr
+git clone https://code.antopie.org/miraty/libreqr.git Libreqr
+cd Libreqr
 git checkout 2.0.1
 rm -rf .git
 

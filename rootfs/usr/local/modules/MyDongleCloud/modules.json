@@ -141,7 +141,11 @@
 		"enabled": true,
 		"authorized": "_all_"
 	},
-	"Libreqr": {},
+	"Libreqr": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_"
+	},
 	"LimeSurvey": {
 		"web": true,
 		"enabled": true,
