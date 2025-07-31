@@ -42,8 +42,15 @@ static void writePermissions(cJSON *elLocalRanges, char *authorized, FILE *pf) {
 	fwrite(sz, strlen(sz), 1, pf);
 }
 
-static void writeSymlink(FILE *pf) {
-	char sz[] = "\tOptions +FollowSymLinks\n";
+static void writeSymlinks(int b, FILE *pf) {
+	char sz[256];
+	sprintf(sz, "\t\tOptions %sFollowSymLinks\n", b ? "+" : "-");
+	fwrite(sz, strlen(sz), 1, pf);
+}
+
+static void writeIndexes(int b, FILE *pf) {
+	char sz[256];
+	sprintf(sz, "\t\tOptions %sIndexes\n", b ? "+" : "-");
 	fwrite(sz, strlen(sz), 1, pf);
 }
 
@@ -141,9 +148,11 @@ void buildApache2Conf() {
 					char *authorized = cJSON_GetStringValue(elAuthorized);
 					writePermissions(elLocalRanges, authorized, pf);
 
-					if (cJSON_GetObjectItem(elModule, "symlink") || cJSON_HasObjectItem(elModule2, "symlink"))
-						if (cJSON_IsTrue(cJSON_GetObjectItem(elModule, "symlink")) || cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "symlink")))
-							writeSymlink(pf);
+					if (cJSON_GetObjectItem(elModule, "symlinks") || cJSON_HasObjectItem(elModule2, "symlinks"))
+						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "symlinks")) || cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "symlinsk")), pf);
+
+					if (cJSON_GetObjectItem(elModule, "indexes") || cJSON_HasObjectItem(elModule2, "indexes"))
+						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "indexes")) || cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "indexes")), pf);
 
 					strcpy(sz, "\t</Directory>\n");
 					fwrite(sz, strlen(sz), 1, pf);
