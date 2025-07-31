@@ -133,6 +133,7 @@ sync
 sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
+e2fsck -f -p ${LOSETUP}p2
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then

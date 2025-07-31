@@ -45,9 +45,8 @@ sync
 umount ${DISK}*
 umount ${DISK}*
 growpart ${OFF} 2
-e2fsck -f -p ${DISK}2
 resize2fs ${DISK}2
-e2fsck -f -p ${DISK}2
+#e2fsck -f -p ${DISK}2
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
 if [ $EXTRACT = 1 ]; then
