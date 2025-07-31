@@ -17,7 +17,7 @@
  export debug=
  export panic=
  export blacklist=
-@@ -251,6 +252,25 @@
+@@ -251,6 +252,28 @@
  mountroot
  log_end_msg
  
@@ -32,6 +32,9 @@
 +	rm -rf /root_/fs/upper /root_/fs/work
 +	mkdir /root_/fs/upper
 +	mkdir /root_/fs/work
++fi
++if [ -f /root_/reset.admin ]; then
++	rm -rf /root_/admin
 +fi
 +if [ ! -d /root_/admin ]; then
 +	cp -a /root_/fs/lower/home/admin.default /root_/admin
