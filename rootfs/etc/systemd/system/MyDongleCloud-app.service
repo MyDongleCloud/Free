@@ -9,6 +9,8 @@ Type=oneshot
 RestartSec=1
 User=admin
 ExecStart=/usr/local/modules/MyDongleCloud/app -d
+StandardOutput=inherit
+StandardError=inherit
 
 [Install]
 WantedBy=multi-user.target

@@ -1,11 +1,14 @@
 [Unit]
 Description=MyDongleCloud init
-After=systemd-modules-load.service
+After=systemd-modules-load.service systemd-udevd.service
+Requires=systemd-modules-load.service systemd-udevd.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/usr/local/modules/MyDongleCloud/init.sh
+StandardOutput=inherit
+StandardError=inherit
 
 [Install]
 WantedBy=sysinit.target

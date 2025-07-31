@@ -8,8 +8,10 @@ Environment=TRILIUM_LOG_DIR=/disk/admin/.log/TriliumNotes
 Type=simple
 ExecStart=/usr/local/bin/node main.cjs
 WorkingDirectory=/usr/local/modules/TriliumNotes
+StandardOutput=inherit
+StandardError=inherit
 Restart=always
-RestartSec=10s
+RestartSec=2s
 User=admin
 
 [Install]
