@@ -1,0 +1,17 @@
+[Unit]
+Description=HomeAssistant
+After=network.target
+
+[Service]
+Environment=PATH=/usr/local/modules/HomeAssistant/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Type=simple
+ExecStart=/usr/local/modules/HomeAssistant/bin/hass
+WorkingDirectory=/disk/admin
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=2s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

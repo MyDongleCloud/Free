@@ -322,13 +322,14 @@ python3 setup.py install
 cd ../..
 
 echo "################################"
-echo "Home Assistant"
+echo "HomeAssistant"
 echo "################################"
-/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/HomeAutomation -v 3.12 -s
+cd /home/mdc
+/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/HomeAssistant -v 3.12 -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/HomeAutomation/bin:$PATHOLD
-export PATH=/usr/local/modules/HomeAutomation/bin:$PATHOLD
+PATH=/usr/local/modules/HomeAssistant/bin:$PATHOLD
+export PATH=/usr/local/modules/HomeAssistant/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install homeassistant
 pip install aiodhcpwatcher==1.0.2
@@ -376,7 +377,7 @@ pip install zlib_ng==0.5.1
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
-ln -sf /etc/systemd/system/HomeAutomation.service /etc/systemd/system/multi-user.target.wants/HomeAutomation.service
+ln -sf /etc/systemd/system/HomeAssistant.service /etc/systemd/system/multi-user.target.wants/HomeAssistant.service
 
 echo "################################"
 echo "TubeArchivist"
