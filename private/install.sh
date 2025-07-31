@@ -923,7 +923,9 @@ DELTA=$((DATEFINISH - DATESTART))
 echo "Duration: $((DELTA / 3600))h $(((DELTA % 3600) / 60))m $((DELTA % 60))s"
 
 if [ $PROD = 1 ]; then
-	rm -rf /var/log.old
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow
 	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow-
+	rm -rf /home/mdc
+	mkdir /home/mdc
+	chown -R 1000:1000 /home/mdc
 fi
