@@ -17,7 +17,7 @@
  export debug=
  export panic=
  export blacklist=
-@@ -251,6 +252,21 @@
+@@ -251,6 +252,25 @@
  mountroot
  log_end_msg
  
@@ -32,6 +32,10 @@
 +	rm -rf /root_/fs/upper /root_/fs/work
 +	mkdir /root_/fs/upper
 +	mkdir /root_/fs/work
++fi
++if [ ! -d /root_/admin ]; then
++	cp -a /root_/fs/lower/home/admin.default /root_/admin
++	chown -R 1001:1001 /root_/admin
 +fi
 +mount -t overlay -o lowerdir=/root_/fs/lower,upperdir=/root_/fs/upper,workdir=/root_/fs/work none /root
 +export rootmnt=/root
