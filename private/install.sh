@@ -728,6 +728,8 @@ git clone https://github.com/osTicket/osTicket osTicket
 cd osTicket
 git checkout v1.18.2
 rm -rf .git
+mkdir -p /disk/admin/.modules/osTicket
+ln -sf /disk/admin/.modules/osTicket/ost-config.php include/ost-config.php
 
 echo "################################"
 echo "PhotoPrism"

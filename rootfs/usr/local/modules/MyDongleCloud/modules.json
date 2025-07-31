@@ -195,6 +195,7 @@
 	},
 	"osTicket": {
 		"web": true,
+		"symlinks": true,
 		"enabled": true,
 		"authorized": "_all_"
 	},
