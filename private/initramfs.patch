@@ -17,13 +17,16 @@
  export debug=
  export panic=
  export blacklist=
-@@ -251,6 +252,13 @@
+@@ -251,6 +252,16 @@
  mountroot
  log_end_msg
  
 +insmod /usr/lib/modules/*/kernel/fs/squashfs/squashfs.ko
 +insmod /usr/lib/modules/*/kernel/fs/overlayfs/overlay.ko
 +mount -o remount,rw /root_
++if [ -f /root_/fs/mdc.new.img ]; then
++	mv /root_/fs/mdc.new.img /root_/fs/mdc.img
++fi
 +mount -t squashfs -o loop /root_/fs/mdc.img /root_/fs/lower
 +mount -t overlay -o lowerdir=/root_/fs/lower,upperdir=/root_/fs/upper,workdir=/root_/fs/work none /root
 +export rootmnt=/root
