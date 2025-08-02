@@ -2,6 +2,7 @@ A Name;Install method;Version;Category;Included;Finished;Features;Proprietary eq
 Apache2;apt;2.4.62;Hosting;X;;Web server;;;;;;0;;
 Audiobookshelf;clone;v2.26.2;Personal;;;Audio;;X;;;advplyr/audiobookshelf;9467;GNU General Public License v3.0;Self-hosted audiobook and podcast server
 Bugzilla;clone;release-5.3.3;Productivity;X;;Bugs tracking;;X;X;;bugzilla/bugzilla;765;Mozilla Public License 2.0;Official repository for the Bugzilla bug tracking system. Report bugs to https://bugzilla.mozilla.org/enter_bug.cgi?product=Bugzilla&format=__default__ . Main website:
+btferret;clone;21.1;Tools;X;X;;;;;;petzval/btferret;169;;Python and C Bluetooth Library
 Busybox;apt;1.35.0;Tools;X;X;Tools command line;;;;;mirror/busybox;1844;Other;BusyBox mirror
 Certbot;apt;2.1.0;Tools;X;;SSL certificate;;;;;certbot/certbot;32346;Other;Certbot is EFF's tool to obtain certs from Let's Encrypt and (optionally) auto-enable HTTPS on your server.  It can also act as a client for any other CA that uses the ACME protocol.
 ChangeDetection;clone;0.50.7;Utils;;;;;X;;;dgtlmoon/changedetection.io;24863;Apache License 2.0;Best and simplest tool for website change detection, web page monitoring, and website change alerts. Perfect for tracking content changes, price drops, restock alerts, and website defacement monitoring—all for free or enjoy our SaaS plan!
