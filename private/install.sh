@@ -237,6 +237,16 @@ dpkg -i rethinkdb*.deb
 cd ..
 
 echo "################################"
+echo "frp"
+echo "################################"
+cd /home/mdc/build
+wget https://github.com/fatedier/frp/releases/download/v0.63.0/frp_0.63.0_linux_arm64.tar.gz
+tar -xpf frp_*_linux_arm64.tar.gz
+mkdir /usr/local/modules/frp
+mv frp_*_linux_arm64/frpc /usr/local/modules/frp
+cd ..
+
+echo "################################"
 echo "Qdrant"
 echo "################################"
 cd /home/mdc/build
@@ -916,7 +926,7 @@ if [ $OS = "pios" ]; then
 fi
 apt-get -y autoremove
 rm -f /var/cache/apt/archives/*.deb
-rm -f /home/mdc/build/*.deb /home/mdc/build/*.xz
+rm -f /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz
 rm -rf /home/mdc/.cache/pip
 rm -rf /root
 rm -rf /lost+found

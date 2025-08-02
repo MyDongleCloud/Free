@@ -66,6 +66,7 @@
 		"enabled": true,
 		"authorized": "_all_"
 	},
+	"frp": {},
 	"fscrypt": {},
 	"GCC": {},
 	"Git": {},
