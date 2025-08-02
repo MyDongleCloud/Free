@@ -315,6 +315,13 @@
 		"enabled": true,
 		"authorized": "_all_"
 	},
+	"WebSSH2": {
+		"web": true,
+		"enabled": true,
+		"authorized": "admin",
+		"overwrite": false,
+		"reverseProxy": 2222
+	},
 	"Webtrees": {
 		"web": true,
 		"enabled": true,

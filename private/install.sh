@@ -483,6 +483,20 @@ make
 cp cc2538-prog /usr/local/bin/
 cd ../..
 
+echo "################################"
+echo "WebSSH2"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/billchurch/webssh2 WebSSH2
+cd WebSSH2
+git checkout v0.2.24
+rm -rf .git
+cd app
+npm install --production
+cd ../..
+ln -sf /etc/systemd/system/WebSSH2.service /etc/systemd/system/multi-user.target.wants/WebSSH2.service
+
+
 if [ $CLONE = 0 ]; then
 	echo "################################"
 	echo "Don't clone"

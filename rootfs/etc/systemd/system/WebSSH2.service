@@ -1,0 +1,16 @@
+[Unit]
+Description=WebSSH2
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=npm start
+WorkingDirectory=/usr/local/modules/WebSSH2/app
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=2s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

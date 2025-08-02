@@ -87,6 +87,7 @@ TubeArchivist;clone;v0.5.4;Utils;X;;Download video helper;;X;;;tubearchivist/tub
 uMTP-Responder;clone;umtprd-1.6.8;Tools;X;X;;;;;;viveris/uMTP-Responder;216;GNU General Public License v3.0;Lightweight USB Media Transfer Protocol (MTP) responder daemon for GNU/Linux
 Unmanic;pip;;;X;;;;X;;;Unmanic/unmanic;1888;GNU General Public License v3.0;Unmanic - Library Optimiser
 Uptime;clone;1.23.16;Utils;;;;;X;;;louislam/uptime-kuma;72292;MIT License;A fancy self-hosted monitoring tool
+WebSSH2;clone;v0.2.24;Utils;X;;;;;;;billchurch/webssh2;2477;MIT License;Web SSH Client using ssh2, socket.io, xterm.js, and express. webssh webssh2
 Webtrees;clone;2.2.1;Personal;X;;Genealogy;;X;X;MySQL;fisharebest/webtrees;625;GNU General Public License v3.0;Online genealogy
 WordPress;;;Hosting;;;Blog;Medium;X;X;;;0;;
 Write.as;;;Hosting;;;Blog;Medium;X;;;;0;;
