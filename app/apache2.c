@@ -7,32 +7,46 @@
 
 //Functions
 static void writePermissions(cJSON *elLocalRanges, char *authorized, FILE *pf) {
-//ex: _all_,_dongle_,_local_,_allusers_,admin,user1
-	char *authorized_ = strdup(authorized);
-	char *token = strtok(authorized_, ",");
-	while (token != NULL) {
-		if (strstr(token, "_all_") != NULL) {
-			char sz[] = "\t\tRequire all granted\n";
-			fwrite(sz, strlen(sz), 1, pf);
-		} else if (strcmp(token, "_dongle_") == 0) {
-			char sz[] = "\t\tRequire local\n";
-			fwrite(sz, strlen(sz), 1, pf);
-		} else if (strcmp(token, "_local_") == 0) {
-			cJSON *item = NULL;
-			cJSON_ArrayForEach(item, elLocalRanges) {
-				char sz[256];
-				sprintf(sz, "\t\tRequire ip %s\n", item->valuestring);
+//ex: _all_,_dongle_,_localnetwork_,_allusers_,admin,user1
+	if (strstr(authorized, "_all_") != NULL) {
+		char sz[] = "\t\tRequire all granted\n";
+		fwrite(sz, strlen(sz), 1, pf);
+	} else {
+		char *authorized_ = strdup(authorized);
+		char *token = strtok(authorized_, ",");
+		int requireNb = 0;
+		char list[256];
+		strcpy(list, "");
+		while (token != NULL) {
+			if (strcmp(token, "_dongle_") == 0) {
+				char sz[] = "\t\tRequire local\n";
 				fwrite(sz, strlen(sz), 1, pf);
+			} else if (strcmp(token, "_localnetwork_") == 0) {
+				cJSON *item = NULL;
+				cJSON_ArrayForEach(item, elLocalRanges) {
+					char sz[256];
+					sprintf(sz, "\t\tRequire ip %s\n", item->valuestring);
+					fwrite(sz, strlen(sz), 1, pf);
+				}
+			} else {
+				if (strlen(list) == 0)
+					strcpy(list, "\t\tRequire all granted\n\t\tMyDongleCloudModuleAuthorized");
+				strcat(list, " ");
+				strcat(list, token);
 			}
-		} else {
-			char sz[] = "\t\tRequire valid-user\n";
-			fwrite(sz, strlen(sz), 1, pf);
+			token = strtok(NULL, ",");
+			requireNb++;
 		}
-		token = strtok(NULL, ",");
+		free(authorized_);
+		if (strlen(list) != 0) {
+			strcat(list, "\n");
+			fwrite(list, strlen(list), 1, pf);
+		}
+		if (requireNb > 1) {
+				char sz[] = "\t\tSatisfy any\n";
+				fwrite(sz, strlen(sz), 1, pf);
+		}
 	}
-    free(authorized_);
-	char sz[] = "\t\tSatisfy any\n";
-	fwrite(sz, strlen(sz), 1, pf);
 }
 
 static void writeSymlinks(int b, FILE *pf) {
@@ -47,6 +61,12 @@ static void writeIndexes(int b, FILE *pf) {
 	fwrite(sz, strlen(sz), 1, pf);
 }
 
+static void writeDirectoryIndex(char *s, FILE *pf) {
+	char sz[256];
+	sprintf(sz, "\t\tDirectoryIndex %s\n", s);
+	fwrite(sz, strlen(sz), 1, pf);
+}
+
 static void writeLog(char *name, FILE *pf) {
 	char sz[256];
 	sprintf(sz, "/disk/admin/.log/%s", name);
@@ -54,7 +74,7 @@ static void writeLog(char *name, FILE *pf) {
 	if (strcmp(name, "Apache2") == 0)
 		sprintf(sz, "\tCustomLog /disk/admin/.log/%s/web.log combined\n", name);
 	else
-		sprintf(sz, "\tSetEnvIf Request_URI \"^/m/%s/\" %s_log\n\tCustomLog /disk/admin/.log/%s/web.log combined env=%s_log\n", name, name, name, name);
+		sprintf(sz, "\tSetEnvIf Request_URI ^/m/%s %s_log\n\tCustomLog /disk/admin/.log/%s/web.log combined env=%s_log\n", name, name, name, name);
 	fwrite(sz, strlen(sz), 1, pf);
 }
 
@@ -71,19 +91,27 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules) {
 #else
 	FILE *pf = fopen(ADMIN_PATH "Apache2/main.conf", "w");
 #endif
-	char sz[512];
+	char sz[1024];
 	strcpy(sz, "<VirtualHost *:80>\n\
-	LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\n\
-	LogLevel info mydonglecloud_module:info\n\
-	DocumentRoot /disk/admin/Web\n\
-	DirectoryIndex index.php index.html index.htm\n\
-	FallbackResource /usr/local/modules/Apache2/home.php\n\
-	#ErrorLog /disk/admin/.log/Web/web.log\n\
+	RewriteEngine On\n\
 	ProxyRequests Off\n\
 	ProxyPreserveHost On\n\
-	RewriteEngine On\n\n");
+	DirectoryIndex index.php index.html\n\
+	LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\n\
+	LogLevel info mydonglecloud_module:info\n\n\
+	<Directory /usr/local/modules/Apache2/pages/>\n\
+		Require all granted\n\
+	</Directory>\n\
+	ErrorDocument 401 /m/unauthorized.html\n\
+	RewriteRule ^/m/unauthorized.html /usr/local/modules/Apache2/pages/unauthorized.html [L]\n\
+	ErrorDocument 403 /m/denied.html\n\
+	RewriteRule ^/m/denied.html /usr/local/modules/Apache2/pages/denied.html [L]\n\
+	ErrorDocument 404 /m/notpresent.html\n\
+	RewriteRule ^/m/notpresent.html /usr/local/modules/Apache2/pages/notpresent.html [L]\n\
+	RewriteRule ^/m/disabled.html /usr/local/modules/Apache2/pages/disabled.html [L]\n\
+	RewriteRule ^/m/login.html /usr/local/modules/Apache2/pages/login.html [L]\n\
+	RewriteRule ^/m/login_submit.php /usr/local/modules/Apache2/pages/login_submit.php [L]\n\n");
 	fwrite(sz, strlen(sz), 1, pf);
-
 	cJSON *elLocalRanges = cJSON_GetObjectItem(cJSON_GetObjectItem(modulesDefault, "Apache2"), "localRanges");
 
 	for (int i = 0; i < cJSON_GetArraySize(modulesDefault); i++) {
@@ -97,35 +125,45 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules) {
 			else
 				sprintf(path, "/usr/local/modules/%s", elModule->string);
 
+			if (strcmp(elModule->string, "Apache2") == 0) {
+				sprintf(sz, "\tDocumentRoot \"%s\"\n\
+	RewriteCond %s/index.html !-f\n\
+	RewriteRule ^/(index\\.html)?$ /m/home.html\n\
+	RewriteRule ^/m/home.html /usr/local/modules/Apache2/pages/home.html [L]\n", path, path);
+				fwrite(sz, strlen(sz), 1, pf);
+			}
 			cJSON *elEnabled = cJSON_GetObjectItem(elModule, "enabled");
 			if (cJSON_HasObjectItem(elModule2, "enabled"))
 				elEnabled = cJSON_GetObjectItem(elModule2, "enabled");
-			int enabled = cJSON_IsTrue(elEnabled);
-
-			if (enabled) {
+			if (cJSON_IsTrue(elEnabled)) {
 				if (cJSON_HasObjectItem(elModule, "reverseProxy")) {
 					int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "reverseProxy"));
-					sprintf(sz, "\tRewriteRule \"/m/%s/(.*)$\" \"http://localhost:%d/$1\" [P]\n", elModule->string, port);
+					sprintf(sz, "\tRewriteRule /m/%s/(.*)$ http://localhost:%d/$1 [P]\n", elModule->string, port);
 					fwrite(sz, strlen(sz), 1, pf);
 				} else {
 					if (strcmp(elModule->string, "Apache2") != 0) {
-						sprintf(sz, "\tAlias \"/m/%s\" \"%s/\"\n", elModule->string, path);
+						sprintf(sz, "\tAlias /m/%s %s/\n", elModule->string, path);
 						fwrite(sz, strlen(sz), 1, pf);
 					}
-
-					sprintf(sz, "\t<Directory \"%s/\">\n\t\tMyDongleCloudModule %s\n", path, elModule->string);
+					sprintf(sz, "\t<Directory %s/>\n\t\tMyDongleCloudModule %s\n", path, elModule->string);
 					fwrite(sz, strlen(sz), 1, pf);
 					cJSON *elAuthorized = cJSON_GetObjectItem(elModule, "authorized");
 					if (cJSON_HasObjectItem(elModule2, "authorized"))
 						elAuthorized = cJSON_GetObjectItem(elModule2, "authorized");
 					char *authorized = cJSON_GetStringValue(elAuthorized);
 					writePermissions(elLocalRanges, authorized, pf);
-
-					if (cJSON_GetObjectItem(elModule, "symlinks") || cJSON_HasObjectItem(elModule2, "symlinks"))
-						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "symlinks")) || cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "symlinsk")), pf);
-
-					if (cJSON_GetObjectItem(elModule, "indexes") || cJSON_HasObjectItem(elModule2, "indexes"))
-						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "indexes")) || cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "indexes")), pf);
+					if (cJSON_HasObjectItem(elModule2, "DirectoryIndex"))
+						writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "DirectoryIndex")), pf);
+					else if (cJSON_HasObjectItem(elModule, "DirectoryIndex"))
+						writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "DirectoryIndex")), pf);
+					if (cJSON_HasObjectItem(elModule2, "FollowSymLinks"))
+						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "FollowSymLinks")), pf);
+					else if (cJSON_GetObjectItem(elModule, "FollowSymLinks"))
+						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "FollowSymLinks")), pf);
+					if (cJSON_HasObjectItem(elModule2, "Indexes"))
+						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "Indexes")), pf);
+					else if (cJSON_GetObjectItem(elModule, "Indexes"))
+						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "Indexes")), pf);
 
 					strcpy(sz, "\t</Directory>\n");
 					fwrite(sz, strlen(sz), 1, pf);
@@ -133,7 +171,7 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules) {
 			} else {
 				if (strcmp(elModule->string, "Apache2") == 0) {
 				} else {
-					sprintf(sz, "\tRedirectMatch permanent \"^/m/%s(.*)$\" \"/usr/local/modules/Apache2/disabled.php\"\n", elModule->string);
+					sprintf(sz, "\tRedirectMatch permanent ^/m/%s(.*)$ /m/disabled.html?m=%s\n", elModule->string, elModule->string);
 					fwrite(sz, strlen(sz), 1, pf);
 				}
 			}
