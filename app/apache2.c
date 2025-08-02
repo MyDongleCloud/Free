@@ -148,7 +148,7 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules) {
 					sprintf(sz, "\t<Directory %s/>\n\t\tMyDongleCloudModule %s\n", path, elModule->string);
 					fwrite(sz, strlen(sz), 1, pf);
 					cJSON *elAuthorized = cJSON_GetObjectItem(elModule, "authorized");
-					if (cJSON_HasObjectItem(elModule2, "authorized"))
+					if (cJSON_HasObjectItem(elModule2, "authorized") && !cJSON_IsFalse(cJSON_GetObjectItem(elModule, "overwrite")))
 						elAuthorized = cJSON_GetObjectItem(elModule2, "authorized");
 					char *authorized = cJSON_GetStringValue(elAuthorized);
 					writePermissions(elLocalRanges, authorized, pf);
