@@ -17,6 +17,7 @@
 		"enabled": true,
 		"authorized": "_all_"
 	},
+	"btferret": {},
 	"Busybox": {},
 	"Certbot": {},
 	"ChangeDetection": {
