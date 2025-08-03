@@ -1,98 +1,104 @@
 A Name;Install method;Version;Category;Included;Finished;Features;Proprietary equivalent;Web;Php;Database;Github URL;Github Stars;Github License;Github Description
-Apache2;apt;2.4.62;Hosting;X;;Web server;;;;;;0;;
-Audiobookshelf;clone;v2.26.2;Personal;;;Audio;;X;;;advplyr/audiobookshelf;9467;GNU General Public License v3.0;Self-hosted audiobook and podcast server
-Bugzilla;clone;release-5.3.3;Productivity;X;;Bugs tracking;;X;X;;bugzilla/bugzilla;765;Mozilla Public License 2.0;Official repository for the Bugzilla bug tracking system. Report bugs to https://bugzilla.mozilla.org/enter_bug.cgi?product=Bugzilla&format=__default__ . Main website:
-btferret;clone;21.1;Tools;X;X;;;;;;petzval/btferret;169;;Python and C Bluetooth Library
-Busybox;apt;1.35.0;Tools;X;X;Tools command line;;;;;mirror/busybox;1844;Other;BusyBox mirror
-Certbot;apt;2.1.0;Tools;X;;SSL certificate;;;;;certbot/certbot;32346;Other;Certbot is EFF's tool to obtain certs from Let's Encrypt and (optionally) auto-enable HTTPS on your server.  It can also act as a client for any other CA that uses the ACME protocol.
-ChangeDetection;clone;0.50.7;Utils;;;;;X;;;dgtlmoon/changedetection.io;24863;Apache License 2.0;Best and simplest tool for website change detection, web page monitoring, and website change alerts. Perfect for tracking content changes, price drops, restock alerts, and website defacement monitoring—all for free or enjoy our SaaS plan!
-Clang;apt;14.0.6;Code;X;X;Compiler;;;;;llvm/llvm-project;33646;Other;The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.
-CMake;apt;3.25.1;Code;X;X;Compiler;;;;;Kitware/CMake;7369;"BSD 3-Clause ""New"" or ""Revised"" License";Mirror of CMake upstream repository
+Angular;dev;6.7.5;Client App;;;;;;;;angular/angular;-1;MIT License;Deliver web apps with confidence 🚀
+Apache2;apt;2.4.62;Hosting;X;;Web server;;;;;apache/httpd;-1;Apache License 2.0;Mirror of Apache HTTP Server. Issues: http://issues.apache.org
+Audiobookshelf;clone;v2.26.2;Personal;;;Audio;;X;;;advplyr/audiobookshelf;-1;GNU General Public License v3.0;Self-hosted audiobook and podcast server
+Bugzilla;clone;release-5.3.3;Productivity;X;;Bugs tracking;;X;X;;bugzilla/bugzilla;-1;Mozilla Public License 2.0;Official repository for the Bugzilla bug tracking system. Report bugs to https://bugzilla.mozilla.org/enter_bug.cgi?product=Bugzilla&format=__default__ . Main website:
+btferret;clone;21.1;Dongle App;X;X;;;;;;petzval/btferret;-1;MIT License;Python and C Bluetooth Library
+Busybox;apt;1.35.0;Tools;X;X;Tools command line;;;;;mirror/busybox;-1;Other;BusyBox mirror
+Certbot;apt;2.1.0;Tools;X;;SSL certificate;;;;;certbot/certbot;-1;Other;Certbot is EFF's tool to obtain certs from Let's Encrypt and (optionally) auto-enable HTTPS on your server.  It can also act as a client for any other CA that uses the ACME protocol.
+ChangeDetection;clone;0.50.7;Utils;;;;;X;;;dgtlmoon/changedetection.io;-1;Apache License 2.0;Best and simplest tool for website change detection, web page monitoring, and website change alerts. Perfect for tracking content changes, price drops, restock alerts, and website defacement monitoring—all for free or enjoy our SaaS plan!
+Clang;apt;14.0.6;Code;X;X;Compiler;;;;;llvm/llvm-project;-1;Other;The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.
+CMake;apt;3.25.1;Code;X;X;Compiler;;;;;Kitware/CMake;-1;BSD 3-Clause "New" or "Revised" License;Mirror of CMake upstream repository
 collaboraonline;;;Productivity;;;Calendar;;X;;;;0;;
-ConvertX;clone;v0.14.1;Utils;;;File converter (image, video, text);;X;;;C4illin/ConvertX;6451;GNU Affero General Public License v3.0;💾 Self-hosted online file converter. Supports 1000+ formats ⚙️
-Cyberchef;clone;v10.19.4;Utils;;;Converter;;X;;;gchq/CyberChef;31970;Apache License 2.0;The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis
-Discourse;clone;v3.4.6;Community;X;;;;;;;discourse/discourse;44629;GNU General Public License v2.0;A platform for community discussion. Free, open, simple.
+ConvertX;clone;v0.14.1;Utils;;;File converter (image, video, text);;X;;;C4illin/ConvertX;-1;GNU Affero General Public License v3.0;💾 Self-hosted online file converter. Supports 1000+ formats ⚙️
+Cyberchef;clone;v10.19.4;Utils;;;Converter;;X;;;gchq/CyberChef;-1;Apache License 2.0;The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis
+Discourse;clone;v3.4.6;Community;X;;;;;;;discourse/discourse;-1;GNU General Public License v2.0;A platform for community discussion. Free, open, simple.
 Docker;apt (source);28.3.2;Tools;X;;;;;;;;0;;
 Doodle;;;Productivity;;;Meeting scheduling;;X;;;;0;;
-Dovecot;apt;2.3.19.1;Mail;X;;Mail box manager;;;;;dovecot/core;1085;Other;Dovecot mail server
-FFmpeg;apt;5.1.6;Tools;X;X;Media player;;;;;FFmpeg/FFmpeg;51462;Other;Mirror of https://git.ffmpeg.org/ffmpeg.git
+Dovecot;apt;2.3.19.1;Mail;X;;Mail box manager;;;;;dovecot/core;-1;Other;Dovecot mail server
+FFmpeg;apt;5.1.6;Tools;X;X;Media player;;;;;FFmpeg/FFmpeg;-1;Other;Mirror of https://git.ffmpeg.org/ffmpeg.git
 Fileflows;;;Utils;;;File converter (image, video, text);;X;X;;;0;;
-Flarum;clone;v1.8.1;Community;X;;Community forum;;X;X;;flarum/flarum;15895;MIT License;Simple forum software for building great communities.
-FreshRSS;clone;1.26.3;Utils;;;RSS;;X;X;;FreshRSS/FreshRSS;12011;GNU Affero General Public License v3.0;A free, self-hostable news aggregator…
-frp;clone;v0.63.0;Tools;X;;;;;;;fatedier/frp;96808;Apache License 2.0;A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.
-fscrypt;apt;0.3.3;Tools;X;X;Encryption;;;;;google/fscrypt;945;Apache License 2.0;Go tool for managing Linux filesystem encryption
-GCC;apt;12.2.0;Code;X;X;Compiler;;;;;gcc-mirror/gcc;10098;GNU General Public License v2.0;
-Git;apt;2.39.5;Tools;X;X;;Github;;;;git/git;55747;Other;Git Source Code Mirror - This is a publish-only repository but pull requests can be turned into patches to the mailing list via GitGitGadget (https://gitgitgadget.github.io/). Please follow Documentation/SubmittingPatches procedure for any of your improvements.
-Gitea;clone;v1.24.3;Productivity;;;;;X;;;go-gitea/gitea;49721;MIT License;Git with a cup of tea! Painless self-hosted all-in-one software development service, including Git hosting, code review, team collaboration, package registry and CI/CD
-Go;apt;1.19.8;Code;X;X;Compiler;;;;;golang/go;129062;"BSD 3-Clause ""New"" or ""Revised"" License";The Go programming language
-GoAccess;clone;v1.9.4;Hosting;X;;Website metrics;;X;;;allinurl/goaccess;19558;MIT License;GoAccess is a real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems or through your browser.
+Flarum;clone;v1.8.1;Community;X;;Community forum;;X;X;;flarum/flarum;-1;MIT License;Simple forum software for building great communities.
+FreshRSS;clone;1.26.3;Utils;;;RSS;;X;X;;FreshRSS/FreshRSS;-1;GNU Affero General Public License v3.0;A free, self-hostable news aggregator…
+frp;clone;v0.63.0;Tools;X;;;;;;;fatedier/frp;-1;Apache License 2.0;A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.
+fscrypt;apt;0.3.3;Tools;X;X;Encryption;;;;;google/fscrypt;-1;Apache License 2.0;Go tool for managing Linux filesystem encryption
+GCC;apt;12.2.0;Code;X;X;Compiler;;;;;gcc-mirror/gcc;-1;GNU General Public License v2.0;
+Git;apt;2.39.5;Tools;X;X;;Github;;;;git/git;-1;Other;Git Source Code Mirror - This is a publish-only repository but pull requests can be turned into patches to the mailing list via GitGitGadget (https://gitgitgadget.github.io/). Please follow Documentation/SubmittingPatches procedure for any of your improvements.
+Gitea;clone;v1.24.3;Productivity;;;;;X;;;go-gitea/gitea;-1;MIT License;Git with a cup of tea! Painless self-hosted all-in-one software development service, including Git hosting, code review, team collaboration, package registry and CI/CD
+Go;apt;1.19.8;Code;X;X;Compiler;;;;;golang/go;-1;BSD 3-Clause "New" or "Revised" License;The Go programming language
+GoAccess;clone;v1.9.4;Hosting;X;;Website metrics;;X;;;allinurl/goaccess;-1;MIT License;GoAccess is a real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems or through your browser.
 GoodIP;;;VPN;;;VPN;;;;;;0;;
-Grav;clone;1.7.48;Utils;X;;Documentation, support, wiki;;X;X;;getgrav/grav;15115;MIT License;Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File CMS powered by PHP, Markdown, Twig, and Symfony
-HomeAssistant;pip;2025.1.4;Home;X;;;;X;;;home-assistant/core;80352;Apache License 2.0;:house_with_garden: Open source home automation that puts local control and privacy first.
-Html5-QRCode;clone;v2.3.8;Utils;X;;;;X;;;mebjas/html5-qrcode;5651;Apache License 2.0;A cross platform HTML5 QR code reader. See end to end implementation at: https://scanapp.org
-Hugo;apt;0.111.3;Tools;X;X;SSG;;;;;gohugoio/hugo;82444;Apache License 2.0;The world’s fastest framework for building websites.
-ImageMagick;apt;6.9.11.60;Tools;X;X;Image tool;;;;;ImageMagick/ImageMagick;14048;Other;ImageMagick is a free, open-source software suite for creating, editing, converting, and displaying images. It supports 200+ formats and offers powerful command-line tools and APIs for automation, scripting, and integration across platforms.
-Immich;clone;v1.135.3;Personal;;;Photos;Google Photos;X;;;immich-app/immich;71122;GNU Affero General Public License v3.0;High performance self-hosted photo and video management solution.
-IOPaint;clone;iopaint-1.5.3;Utils;;;Image tool;;X;;;Sanster/IOPaint;21894;Apache License 2.0;Image inpainting tool powered by SOTA AI Model. Remove any unwanted object, defect, people from your pictures or erase and replace(powered by stable diffusion) any thing on your pictures.
+Grav;clone;1.7.48;Utils;X;;Documentation, support, wiki;;X;X;;getgrav/grav;-1;MIT License;Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File CMS powered by PHP, Markdown, Twig, and Symfony
+HomeAssistant;pip;2025.1.4;Home;X;;;;X;;;home-assistant/core;-1;Apache License 2.0;:house_with_garden: Open source home automation that puts local control and privacy first.
+Html5-QRCode;clone;v2.3.8;Utils;X;;;;X;;;mebjas/html5-qrcode;-1;Apache License 2.0;A cross platform HTML5 QR code reader. See end to end implementation at: https://scanapp.org
+Hugo;apt;0.111.3;Tools;X;X;SSG;;;;;gohugoio/hugo;-1;Apache License 2.0;The world’s fastest framework for building websites.
+ImageMagick;apt;6.9.11.60;Tools;X;X;Image tool;;;;;ImageMagick/ImageMagick;-1;Other;ImageMagick is a free, open-source software suite for creating, editing, converting, and displaying images. It supports 200+ formats and offers powerful command-line tools and APIs for automation, scripting, and integration across platforms.
+Immich;clone;v1.135.3;Personal;;;Photos;Google Photos;X;;;immich-app/immich;-1;GNU Affero General Public License v3.0;High performance self-hosted photo and video management solution.
+Ionic;dev;7.2.0;Client App;;;;;;;;ionic-team/ionic-framework;-1;MIT License;A powerful cross-platform UI toolkit for building native-quality iOS, Android, and Progressive Web Apps with HTML, CSS, and JavaScript.
+IOPaint;clone;iopaint-1.5.3;Utils;;;Image tool;;X;;;Sanster/IOPaint;-1;Apache License 2.0;Image inpainting tool powered by SOTA AI Model. Remove any unwanted object, defect, people from your pictures or erase and replace(powered by stable diffusion) any thing on your pictures.
 Java;apt;17.0.15;Code;X;X;Compiler;;;;;;0;;
-Jellyfin;clone;v10.10.7;Personal;;;Video;;X;;;jellyfin/jellyfin;41552;GNU General Public License v2.0;The Free Software Media System - Server Backend & API
-JitsiMeet;apt (source);2.0.10314;Productivity;X;;WebRTC;Zoom;X;;;jitsi/jitsi-meet;25988;Apache License 2.0;Jitsi Meet - Secure, Simple and Scalable Video Conferences that you use as a standalone app or embed in your web application.
-Joomla;clone;5.3.2;Hosting;;;Blog;Medium;X;X;;joomla/joomla-cms;4942;GNU General Public License v2.0;Home of the Joomla! Content Management System
-Joplin;clone;server-v3.4.1;Productivity;;;;;X;;;laurent22/joplin;50458;Other;Joplin - the privacy-focused note taking app with sync capabilities for Windows, macOS, Linux, Android and iOS.
-Karakeep;clone;v0.26.0;;;;;;X;;;karakeep-app/karakeep;18706;GNU Affero General Public License v3.0;A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search
-Kernel;apt;6.12.34;Base;X;X;;;;;;torvalds/linux;198239;Other;Linux kernel source tree
-LibrePhotos;clone;;Personal;;;Photos;Google Photos;X;;;LibrePhotos/librephotos;7710;MIT License;A self-hosted open source photo management service. This is the repository of the backend.
-Libreqr;git;2.0.1;;X;;;;;;;;0;;
-LimeSurvey;clone;6.15.3+250708;Productivity;X;;Questionnaire, forms, survey;SurveyMonkey;X;X;MySQL;LimeSurvey/LimeSurvey;3196;Other;🔥 LimeSurvey – A powerful, open-source survey platform. A free alternative to SurveyMonkey, Typeform, Qualtrics, and Google Forms, making it simple to create online surveys and forms with unmatched flexibility.
+Jellyfin;clone;v10.10.7;Personal;;;Video;;X;;;jellyfin/jellyfin;-1;GNU General Public License v2.0;The Free Software Media System - Server Backend & API
+JitsiMeet;apt (source);2.0.10314;Productivity;X;;WebRTC;Zoom;X;;;jitsi/jitsi-meet;-1;Apache License 2.0;Jitsi Meet - Secure, Simple and Scalable Video Conferences that you use as a standalone app or embed in your web application.
+Joomla;clone;5.3.2;Hosting;;;Blog;Medium;X;X;;joomla/joomla-cms;-1;GNU General Public License v2.0;Home of the Joomla! Content Management System
+Joplin;clone;server-v3.4.1;Productivity;;;;;X;;;laurent22/joplin;-1;Other;Joplin - the privacy-focused note taking app with sync capabilities for Windows, macOS, Linux, Android and iOS.
+Karakeep;clone;v0.26.0;;;;;;X;;;karakeep-app/karakeep;-1;GNU Affero General Public License v3.0;A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search
+Kernel;apt;6.12.34;Dongle;X;X;;;;;;torvalds/linux;-1;Other;Linux kernel source tree
+LibrePhotos;clone;;Personal;;;Photos;Google Photos;X;;;LibrePhotos/librephotos;-1;MIT License;A self-hosted open source photo management service. This is the repository of the backend.
+Libreqr;git;2.0.1;Utils;X;;;;;;;;0;;
+LimeSurvey;clone;6.15.3+250708;Productivity;X;;Questionnaire, forms, survey;SurveyMonkey;X;X;MySQL;LimeSurvey/LimeSurvey;-1;Other;🔥 LimeSurvey – A powerful, open-source survey platform. A free alternative to SurveyMonkey, Typeform, Qualtrics, and Google Forms, making it simple to create online surveys and forms with unmatched flexibility.
 Make;apt;4.3;Code;X;X;;;;;;;0;;
-MantisBugTracker;clone;release-2.27.1;Code;X;;Bugs tracking;;X;X;;mantisbt/mantisbt;1714;;Mantis Bug Tracker (MantisBT)
-Maybe;clone;v0.5.0;Utils;;;;;X;;;maybe-finance/maybe;52254;GNU Affero General Public License v3.0;The personal finance app for everyone
-MeTube;clone;20250721;Utils;;;;;X;;;alexta69/metube;9529;GNU Affero General Public License v3.0;Self-hosted YouTube downloader (web UI for youtube-dl / yt-dlp)
-MinIO;clone;RELEASE.2025-07-18T21-56-31Z;Utils;;;;;X;;;minio/minio;54097;GNU Affero General Public License v3.0;MinIO is a high-performance, S3 compatible object store, open sourced under GNU AGPLv3 license.
-MongoDB;apt (source);;Database;;;MongoDB;;;;MongoDB;mongodb/mongo;27359;Other;The MongoDB Database
-Mosquitto;apt;2.0.11;Home;X;X;;;;;;eclipse-mosquitto/mosquitto;9949;Other;Eclipse Mosquitto - An open source MQTT broker
-MydongleCloud;;2025-07-07;Base;X;X;App;;;;;;0;;
-MySQL;apt;8.0.42;Database;X;;;;;;;mysql/mysql-server;11553;Other;MySQL Server, the world's most popular open source database, and MySQL Cluster, a real-time, open source transactional database.
-NGINX;apt;;Hosting;;;Web server;;;;;nginx/nginx;27539;"BSD 2-Clause ""Simplified"" License";The official NGINX Open Source repository.
-Node;tar;v22.17.1;Tools;X;X;;;;;;nodejs/node;112344;Other;Node.js JavaScript runtime ✨🐢🚀✨
-Ollama;clone;v0.9.7-rc1;Chatbot;X;;;;X;;;ollama/ollama;147480;MIT License;Get up and running with Llama 3.3, DeepSeek-R1, Phi-4, Gemma 3, Mistral Small 3.1 and other large language models.
+MantisBugTracker;clone;release-2.27.1;Code;X;;Bugs tracking;;X;X;;mantisbt/mantisbt;-1;;Mantis Bug Tracker (MantisBT)
+Maybe;clone;v0.5.0;Utils;;;;;X;;;maybe-finance/maybe;-1;GNU Affero General Public License v3.0;The personal finance app for everyone
+MeTube;clone;20250721;Utils;;;;;X;;;alexta69/metube;-1;GNU Affero General Public License v3.0;Self-hosted YouTube downloader (web UI for youtube-dl / yt-dlp)
+MinIO;clone;RELEASE.2025-07-18T21-56-31Z;Utils;;;;;X;;;minio/minio;-1;GNU Affero General Public License v3.0;MinIO is a high-performance, S3 compatible object store, open sourced under GNU AGPLv3 license.
+MongoDB;apt (source);;Database;;;MongoDB;;;;MongoDB;mongodb/mongo;-1;Other;The MongoDB Database
+Mosquitto;apt;2.0.11;Home;X;X;;;;;;eclipse-mosquitto/mosquitto;-1;Other;Eclipse Mosquitto - An open source MQTT broker
+MydongleCloud;clone;2025-07-07;Base;X;X;App;;;;;;0;;
+MySQL;apt;8.0.42;Database;X;;;;;;;mysql/mysql-server;-1;Other;MySQL Server, the world's most popular open source database, and MySQL Cluster, a real-time, open source transactional database.
+NGINX;apt;;Hosting;;;Web server;;;;;nginx/nginx;-1;BSD 2-Clause "Simplified" License;The official NGINX Open Source repository.
+Node;tar;v22.17.1;Tools;X;X;;;;;;nodejs/node;-1;Other;Node.js JavaScript runtime ✨🐢🚀✨
+OhMyZsh;wget;;Tools;;;sh;;;;;ohmyzsh/ohmyzsh;-1;MIT License;🙃   A delightful community-driven (with 2,400+ contributors) framework for managing your zsh configuration. Includes 300+ optional plugins (rails, git, macOS, hub, docker, homebrew, node, php, python, etc), 140+ themes to spice up your morning, and an auto-update tool that makes it easy to keep up with the latest updates from the community.
+Ollama;clone;v0.9.7-rc1;Chatbot;X;;;;X;;;ollama/ollama;-1;MIT License;Get up and running with Llama 3.3, DeepSeek-R1, Phi-4, Gemma 3, Mistral Small 3.1 and other large language models.
 OneTimeEmail;;2025-07-07;Mail;X;;One-time email;;X;;;;0;;
-OpenWebUI;clone;v0.6.18;Chatbot;X;;;;X;;;open-webui/open-webui;103851;Other;User-friendly AI Interface (Supports Ollama, OpenAI API, ...)
-osTicket;clone;v1.18.2;Productivity;X;;;;X;X;MySQL;osTicket/osTicket;3474;GNU General Public License v2.0;The osTicket open source ticketing system official project repository, for versions 1.8 and later
-Pandoc;apt;2.17.1.1;;X;;File converter (image, video, text);;X;;;jgm/pandoc;38482;Other;Universal markup converter
-PhotoPrism;clone;250707-d28b3101e;Personal;;;Photos;Google Photos;X;;;photoprism/photoprism;37954;Other;AI-Powered Photos App for the Decentralized Web 🌈💎✨
-Photoview;clone;v2.4.0;Personal;;;Photos;Google Photos;X;;;photoview/photoview;6019;GNU Affero General Public License v3.0;Photo gallery for self-hosted personal servers
-PHP;apt;8.2.28;Coding;X;X;;;;X;;php/php-src;39280;Other;The PHP Interpreter
-phpBB;clone;release-3.3.15;Community;;;Community, forum;;X;X;;phpbb/phpbb;1950;GNU General Public License v2.0; phpBB Development: phpBB is a popular open-source bulletin board written in PHP. This repository also contains the history of version 2.
-phpList;composer;2.5.5;Mail;X;X;Emailing solution;MailChimp;;X;;phpList/core;85;GNU Affero General Public License v3.0;This module is the core of phpList 4. Join discussion at the community forum: https://discuss.phplist.org/
+OpenWebUI;clone;v0.6.18;Chatbot;X;;;;X;;;open-webui/open-webui;-1;Other;User-friendly AI Interface (Supports Ollama, OpenAI API, ...)
+osTicket;clone;v1.18.2;Productivity;X;;;;X;X;MySQL;osTicket/osTicket;-1;GNU General Public License v2.0;The osTicket open source ticketing system official project repository, for versions 1.8 and later
+Pandoc;apt;2.17.1.1;;X;;File converter (image, video, text);;X;;;jgm/pandoc;-1;Other;Universal markup converter
+PhotoPrism;clone;250707-d28b3101e;Personal;;;Photos;Google Photos;X;;;photoprism/photoprism;-1;Other;AI-Powered Photos App for the Decentralized Web 🌈💎✨
+Photoview;clone;v2.4.0;Personal;;;Photos;Google Photos;X;;;photoview/photoview;-1;GNU Affero General Public License v3.0;Photo gallery for self-hosted personal servers
+PHP;apt;8.2.28;Coding;X;X;;;;X;;php/php-src;-1;Other;The PHP Interpreter
+phpBB;clone;release-3.3.15;Community;;;Community, forum;;X;X;;phpbb/phpbb;-1;GNU General Public License v2.0; phpBB Development: phpBB is a popular open-source bulletin board written in PHP. This repository also contains the history of version 2.
+phpList;composer;2.5.5;Mail;X;X;Emailing solution;MailChimp;;X;;phpList/core;-1;GNU Affero General Public License v3.0;This module is the core of phpList 4. Join discussion at the community forum: https://discuss.phplist.org/
 Postfix;apt;3.7.11;Mail;X;;;;;;;;0;;
-PrivateBin;clone;1.7.8;Utils;X;;;;X;X;;PrivateBin/PrivateBin;7381;Other;A minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted in the browser using 256 bits AES.
-ProjectSend;clone;r1720;Utils;X;;File download/upload, file exchange;WeTransfer, Google One;X;X;;projectsend/projectsend;1647;GNU General Public License v2.0;ProjectSend is a free, open source software that lets you share files with your clients, focused on ease of use and privacy. It supports clients groups, system users roles, statistics, multiple languages, detailed logs... and much more!
-PyMCUProg;;3.19.4.61;Tools;X;X;;;;;;microchip-pic-avr-tools/pymcuprog;115;MIT License;a Python utility for programming various Microchip MCU devices using Microchip CMSIS-DAP based debuggers
+PrivateBin;clone;1.7.8;Utils;X;;;;X;X;;PrivateBin/PrivateBin;-1;Other;A minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted in the browser using 256 bits AES.
+ProjectSend;clone;r1720;Utils;X;;File download/upload, file exchange;WeTransfer, Google One;X;X;;projectsend/projectsend;-1;GNU General Public License v2.0;ProjectSend is a free, open source software that lets you share files with your clients, focused on ease of use and privacy. It supports clients groups, system users roles, statistics, multiple languages, detailed logs... and much more!
+PyMCUProg;;3.19.4.61;Tools;X;X;;;;;;microchip-pic-avr-tools/pymcuprog;-1;MIT License;a Python utility for programming various Microchip MCU devices using Microchip CMSIS-DAP based debuggers
 Python;apt;3.11.2;Code;X;X;;;;;;;0;;
 Python;apt (source);3.12.9;Code;X;X;;;;;;;0;;
-Qdrant;tar;v1.14.1;Database;X;;;;;;Qdrant;qdrant/qdrant;24887;Apache License 2.0;Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/
-QRCodeGenerator;clone;v1.8.0;Utils;X;;;;X;;;bizzycola/qrcode-generator;137;GNU General Public License v3.0;Basic UI to generate QR codes from a URL running in Docker.
-Radaar;clone;v5.27.2.10142;File;;;Torrent;Vuze;X;X;;Radarr/Radarr;11844;GNU General Public License v3.0;Movie organizer/manager for usenet and torrent users.
-RethinkDB;deb;2.4.4;Database;X;;;;;;;rethinkdb/rethinkdb;26910;Other;The open-source database for the realtime web.
-RoundCube;apt;1.6.5;Mail;X;;;;X;X;SQLite;roundcube/roundcubemail;6430;GNU General Public License v3.0;The Roundcube Webmail suite
-rspamd;apt;3.4;Mail;X;X;Mail + spam filter;Gmail;X;;MySQL;rspamd/rspamd;2251;Other;Rapid spam filtering system.
-Sonarr;clone;v4.0.15.2941;;;;;;X;;;Sonarr/Sonarr;12098;GNU General Public License v3.0;Smart PVR for newsgroup and bittorrent users.
-SQLite;apt;3.40.1;Database;X;X;;;;;;sqlite/sqlite;8111;Other;Official Git mirror of the SQLite source tree
-StirlingPDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;63698;Other;#1 Locally hosted web application that allows you to perform various operations on PDF files
-Superset;clone;5.0.0;Utils;;;;;X;;;apache/superset;67257;Apache License 2.0;Apache Superset is a Data Visualization and Data Exploration Platform
-SunriseCMS;clone;v1.0.0-alpha.19;Productivity;X;;;EverArk;;;;cityssm/sunrise-cms;4;;
-Syncthing;clone;1.30.0;Utils;;;;;X;;;syncthing/syncthing;73822;Mozilla Public License 2.0;Open Source Continuous File Synchronization
-Transmission;clone;4.0.6;Utils;X;;Torrent;Vuze;X;;;transmission/transmission;13294;Other;Official Transmission BitTorrent client repository
-Trilium;tar;v0.95.0;Productivity;X;X;;;X;;;TriliumNext/Notes;2910;GNU Affero General Public License v3.0;Build your personal knowledge base with TriliumNext Notes
-TubeArchivist;clone;v0.5.4;Utils;X;;Download video helper;;X;;;tubearchivist/tubearchivist;6533;GNU General Public License v3.0;Your self hosted YouTube media server
-uMTP-Responder;clone;umtprd-1.6.8;Tools;X;X;;;;;;viveris/uMTP-Responder;216;GNU General Public License v3.0;Lightweight USB Media Transfer Protocol (MTP) responder daemon for GNU/Linux
-Unmanic;pip;;;X;;;;X;;;Unmanic/unmanic;1888;GNU General Public License v3.0;Unmanic - Library Optimiser
-Uptime;clone;1.23.16;Utils;;;;;X;;;louislam/uptime-kuma;72292;MIT License;A fancy self-hosted monitoring tool
-WebSSH2;clone;v0.2.24;Utils;X;;;;;;;billchurch/webssh2;2477;MIT License;Web SSH Client using ssh2, socket.io, xterm.js, and express. webssh webssh2
-Webtrees;clone;2.2.1;Personal;X;;Genealogy;;X;X;MySQL;fisharebest/webtrees;625;GNU General Public License v3.0;Online genealogy
+Qdrant;tar;v1.14.1;Database;X;;;;;;Qdrant;qdrant/qdrant;-1;Apache License 2.0;Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/
+QRCodeGenerator;clone;v1.8.0;Utils;X;;;;X;;;bizzycola/qrcode-generator;-1;GNU General Public License v3.0;Basic UI to generate QR codes from a URL running in Docker.
+Radaar;clone;v5.27.2.10142;File;;;Torrent;Vuze;X;X;;Radarr/Radarr;-1;GNU General Public License v3.0;Movie organizer/manager for usenet and torrent users.
+RethinkDB;deb;2.4.4;Database;X;;;;;;;rethinkdb/rethinkdb;-1;Other;The open-source database for the realtime web.
+RoundCube;apt;1.6.5;Mail;X;;;;X;X;SQLite;roundcube/roundcubemail;-1;GNU General Public License v3.0;The Roundcube Webmail suite
+rspamd;apt;3.4;Mail;X;X;Mail + spam filter;Gmail;X;;MySQL;rspamd/rspamd;-1;Other;Rapid spam filtering system.
+Rust;;;;;;;;;;;rust-lang/rust;-1;Other;Empowering everyone to build reliable and efficient software.
+Sonarr;clone;v4.0.15.2941;;;;;;X;;;Sonarr/Sonarr;-1;GNU General Public License v3.0;Smart PVR for newsgroup and bittorrent users.
+SQLite;apt;3.40.1;Database;X;X;;;;;;sqlite/sqlite;-1;Other;Official Git mirror of the SQLite source tree
+StirlingPDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;-1;Other;#1 Locally hosted web application that allows you to perform various operations on PDF files
+Superset;clone;5.0.0;Utils;;;;;X;;;apache/superset;-1;Apache License 2.0;Apache Superset is a Data Visualization and Data Exploration Platform
+SunriseCMS;clone;v1.0.0-alpha.19;Productivity;X;;;EverArk;;;;cityssm/sunrise-cms;-1;MIT License;Sunrise Cemetery Management System - A completely free, open source, web-based application to assist cemetery managers with managing their cemetery records.
+Syncthing;clone;1.30.0;Utils;;;;;X;;;syncthing/syncthing;-1;Mozilla Public License 2.0;Open Source Continuous File Synchronization
+Transmission;clone;4.0.6;Utils;X;;Torrent;Vuze;X;;;transmission/transmission;-1;Other;Official Transmission BitTorrent client repository
+Trilium;tar;v0.95.0;Productivity;X;X;;;X;;;TriliumNext/Notes;-1;GNU Affero General Public License v3.0;Build your personal knowledge base with TriliumNext Notes
+TubeArchivist;clone;v0.5.4;Utils;X;;Download video helper;;X;;;tubearchivist/tubearchivist;-1;GNU General Public License v3.0;Your self hosted YouTube media server
+TypeScript;;;Client App;;;;;;;;microsoft/TypeScript;-1;Apache License 2.0;TypeScript is a superset of JavaScript that compiles to clean JavaScript output.
+uMTP-Responder;clone;umtprd-1.6.8;Tools;X;X;;;;;;viveris/uMTP-Responder;-1;GNU General Public License v3.0;Lightweight USB Media Transfer Protocol (MTP) responder daemon for GNU/Linux
+Unmanic;pip;;;X;;;;X;;;Unmanic/unmanic;-1;GNU General Public License v3.0;Unmanic - Library Optimiser
+Uptime;clone;1.23.16;Utils;;;;;X;;;louislam/uptime-kuma;-1;MIT License;A fancy self-hosted monitoring tool
+WebSSH2;clone;v0.2.24;Utils;X;;;;;;;billchurch/webssh2;-1;MIT License;Web SSH Client using ssh2, socket.io, xterm.js, and express. webssh webssh2
+Webtrees;clone;2.2.1;Personal;X;;Genealogy;;X;X;MySQL;fisharebest/webtrees;-1;GNU General Public License v3.0;Online genealogy
 WordPress;;;Hosting;;;Blog;Medium;X;X;;;0;;
 Write.as;;;Hosting;;;Blog;Medium;X;;;;0;;
-YOURLS;clone;1.10.1;Hosting;X;;;;X;X;;YOURLS/YOURLS;11420;MIT License;🔗 The de facto standard self hosted URL shortener in PHP
-Youtube-dl;pip;2025.6.30;Tools;X;;;;;;;;0;;
-Zigbee2MQTT;npm;2.5.1;Home;X;X;;;X;;;Koenkk/zigbee2mqtt;13752;GNU General Public License v3.0;Zigbee 🐝 to MQTT bridge 🌉, get rid of your proprietary Zigbee bridges 🔨
+YOURLS;clone;1.10.1;Hosting;X;;;;X;X;;YOURLS/YOURLS;-1;MIT License;🔗 The de facto standard self hosted URL shortener in PHP
+Youtube-dl;pip;2025.6.30;Tools;X;;;;;;;ytdl-org/youtube-dl;-1;The Unlicense;Command-line program to download videos from YouTube.com and other video sites
+yt-dlp;pip;2025.6.30;Tools;X;;;;;;;yt-dlp/yt-dlp;-1;The Unlicense;A feature-rich command-line audio/video downloader
+Zigbee2MQTT;npm;2.5.1;Home;X;X;;;X;;;Koenkk/zigbee2mqtt;-1;GNU General Public License v3.0;Zigbee 🐝 to MQTT bridge 🌉, get rid of your proprietary Zigbee bridges 🔨

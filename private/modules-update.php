@@ -1,4 +1,8 @@
 <?php
+if (PHP_SAPI !== "cli")
+	exit;
+$options = getopt("c");
+$putStarsInCSV = isset($options['c']);
 $pathname = "password-githubkey.txt";
 $h = fopen($pathname, "r");
 $githubAPIKey = fread($h, filesize($pathname));
@@ -23,11 +27,11 @@ for ($i = 1; $i < count($modules); $i++) {
 		$response = curl_exec($ch);
 		curl_close($ch);
 		$resp = json_decode($response, true);
-		$m[$posgh + 1] = intval($resp["stargazers_count"]);
+		$m[$posgh + 1] = $putStarsInCSV ?intval($resp["stargazers_count"]) : -1;
 		$m[$posgh + 2] = str_replace(";", " ", $resp["license"]["name"]);
 		$m[$posgh + 3] = str_replace(";", " ", $resp["description"]);
+		$stars += intval($resp["stargazers_count"]);
 	}
-	$stars += intval($m[$posgh + 1]);
 	$modules[$i] = implode(";", $m);
 }
 $h = fopen($pathname, "w");
