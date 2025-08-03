@@ -87,6 +87,7 @@ StirlingPDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;-1;Other;#1 L
 Superset;clone;5.0.0;Utils;;;;;X;;;apache/superset;-1;Apache License 2.0;Apache Superset is a Data Visualization and Data Exploration Platform
 SunriseCMS;clone;v1.0.0-alpha.19;Productivity;X;;;EverArk;;;;cityssm/sunrise-cms;-1;MIT License;Sunrise Cemetery Management System - A completely free, open source, web-based application to assist cemetery managers with managing their cemetery records.
 Syncthing;clone;1.30.0;Utils;;;;;X;;;syncthing/syncthing;-1;Mozilla Public License 2.0;Open Source Continuous File Synchronization
+Taiga-UI;npm;v4.47.0;Client App;X;X;;;X;X;;taiga-family/taiga-ui;-1;Apache License 2.0;Angular UI Kit and components library for awesome people
 Transmission;clone;4.0.6;Utils;X;;Torrent;Vuze;X;;;transmission/transmission;-1;Other;Official Transmission BitTorrent client repository
 Trilium;tar;v0.95.0;Productivity;X;X;;;X;;;TriliumNext/Notes;-1;GNU Affero General Public License v3.0;Build your personal knowledge base with TriliumNext Notes
 TubeArchivist;clone;v0.5.4;Utils;X;;Download video helper;;X;;;tubearchivist/tubearchivist;-1;GNU General Public License v3.0;Your self hosted YouTube media server
