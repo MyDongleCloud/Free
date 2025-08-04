@@ -98,6 +98,11 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *domain) {
 	ErrorDocument 401 /MyDongleCloud/unauthorized.php\n\
 	ErrorDocument 403 /MyDongleCloud/denied.php\n\
 	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
+</Macro>\n\
+<Macro Macro_SSL>\n\
+    Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
+    SSLCertificateFile /usr/local/modules/MyDongleCloud/fullchain.pem\n\
+    SSLCertificateKeyFile /usr/local/modules/MyDongleCloud/privkey.pem\n\
 </Macro>\n\n");
 	fwrite(sz, strlen(sz), 1, pf);
 	cJSON *elLocalRanges = cJSON_GetObjectItem(cJSON_GetObjectItem(modulesDefault, "Apache2"), "localRanges");
@@ -201,6 +206,21 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *domain) {
 			sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pf);
 
+			sprintf(sz, "<IfModule mod_ssl.c>\n\t<VirtualHost *:443>\n");
+			fwrite(sz, strlen(sz), 1, pf);
+			if (domain != NULL) {
+				if (strcmp(elModule->string, "Apache2") == 0)
+					sprintf(sz, "\t\tServerName %s\n", domain);
+				else
+					sprintf(sz, "\t\tServerName %s.%s\n", elModule->string, domain);
+				fwrite(sz, strlen(sz), 1, pf);
+				if (cJSON_HasObjectItem(elModule, "alias")) {
+					sprintf(sz, "\t\tServerAlias %s.%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "alias")), domain);
+					fwrite(sz, strlen(sz), 1, pf);
+				}
+			}
+			sprintf(sz, "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
+			fwrite(sz, strlen(sz), 1, pf);
 			int fallbackPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "fallbackPort"));
 			if (fallbackPort > 0) {
 				sprintf(sz, "<VirtualHost *:%d>\n", fallbackPort);
