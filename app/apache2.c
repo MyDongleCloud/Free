@@ -166,9 +166,9 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *domain) {
 							port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "fallbackPort"));
 						if (port_ > 0) {
 							sprintf(sz, "\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%s.mydonglecloud [NC,L]\n\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%s.%s [NC,L]\n\
     RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%%{HTTP_HOST}:%d [NC,L]\n", el_Module->string, el_Module->string, el_Module->string, port_);
+	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%%{HTTP_HOST}:%d [NC,L]\n", el_Module->string, el_Module->string, domain, el_Module->string, port_);
 							fwrite(sz, strlen(sz), 1, pf);
 						}
 					}
