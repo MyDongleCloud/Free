@@ -38,8 +38,11 @@ if ($ret) {
 	$h = fopen($path, "w");
 	fwrite($h, json_encode($users));
 	fclose($h);
-	setcookie("user", $user);
-	setcookie("token", $token);
+	$expiration_time = time() + (86400 * 30);
+	$path = "/";
+	$domain = "." . $_SERVER['HTTP_HOST'];
+	setcookie("user", $user, $expiration_time, $path, $domain);
+	setcookie("token", $token, $expiration_time, $path, $domain);
 }
 ?><html>
 <body>
