@@ -20,6 +20,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)cJSON.o \
 	$(PRE)common.o \
 	$(PRE)communication.o \
+	$(PRE)json.o \
 	$(PRE)language.o \
 	$(PRE)logic.o \
 	$(PRE)main.o \
@@ -27,6 +28,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)sbl.o \
 	$(PRE)sbl2.o \
 	$(PRE)settings.o \
+	$(PRE)space.o \
 	$(PRE)ui.o
 
 MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -DMDC_VERSION=$(MDC_VERSION)

@@ -11,7 +11,7 @@
 #include "logic.h"
 #include "language.h"
 #include "ble.h"
-#include "modules.h"
+#include "space.h"
 
 //Functions
 int main(int argc, char *argv[]) {
@@ -53,6 +53,9 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 	logInit(daemon);
+#ifndef WEB
+	spaceSetup();
+#endif
 	settingsLoad();
 	if (forceRotation != -1) {
 		smdc.rotation = forceRotation;
@@ -70,9 +73,6 @@ int main(int argc, char *argv[]) {
 	if (ble)
 		bleStart();
 	buzzer(1);
-#endif
-#ifndef WEB
-	modulesSetup();
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);
