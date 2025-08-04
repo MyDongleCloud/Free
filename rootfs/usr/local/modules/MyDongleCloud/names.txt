@@ -81,6 +81,7 @@ ostrich
 owl
 ox
 oyster
+panda
 panther
 parrot
 penguin
@@ -122,5 +123,6 @@ weasel
 whale
 wildebeest
 wolf
+wombat
 woodpecker
 zebra
