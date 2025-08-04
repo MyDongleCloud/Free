@@ -11,7 +11,7 @@
 typedef struct {
 	const char *name;
 	cJSON *authorized;
-} directoryConfig;
+} config;
 
 //Defines
 #undef PRINTF_
@@ -39,8 +39,8 @@ static cJSON *usersLoad() {
 	return users;
 }
 
-static void *createDirectoryConfig(apr_pool_t *p, char *dirspec) {
-	directoryConfig *confD = apr_pcalloc(p, sizeof(directoryConfig));
+static void *createConfig(apr_pool_t *p, server_rec *s) {
+	config *confD = apr_pcalloc(p, sizeof(config));
 	confD->name = NULL;
 	confD->authorized = NULL;
 	return confD;
@@ -48,42 +48,42 @@ static void *createDirectoryConfig(apr_pool_t *p, char *dirspec) {
 
 static const char *moduleNameSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-    directoryConfig *confD = (directoryConfig *)mconfig;
-    confD->name = arg;
+	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	confD->name = arg;
 	PRINTF("MDC: Set %s", arg);
-    return NULL;
+	return NULL;
 }
 
 static const char *moduleAuthorizedSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-    directoryConfig *confD = (directoryConfig *)mconfig;
+	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	PRINTF("MDC: Add user %s for %s", arg, confD->name);
 	if (confD->authorized == NULL)
 		confD->authorized = cJSON_CreateObject();
 	cJSON_AddBoolToObject(confD->authorized, arg, cJSON_True);
-    return NULL;
+	return NULL;
 }
 
 char *extractCookieValue(const char *cookie, const char *name, struct request_rec *r) {
-    if (cookie == NULL || name == NULL)
-        return NULL;
-    const char *name_start = strstr(cookie, name);
-    if (name_start == NULL)
-        return NULL;
-    if (*(name_start + strlen(name)) != '=')
-        return extractCookieValue(name_start + 1, name, r);
+	if (cookie == NULL || name == NULL)
+		return NULL;
+	const char *name_start = strstr(cookie, name);
+	if (name_start == NULL)
+		return NULL;
+	if (*(name_start + strlen(name)) != '=')
+		return extractCookieValue(name_start + 1, name, r);
 
-    const char *value_start = name_start + strlen(name) + 1;
-    const char *value_end = strchr(value_start, ';');
+	const char *value_start = name_start + strlen(name) + 1;
+	const char *value_end = strchr(value_start, ';');
 
-    size_t value_len = value_end == NULL ? strlen(value_start) : (value_end - value_start);
-    char *extracted_value = apr_pstrndup(r->pool, value_start, value_len);
-    return extracted_value;
+	size_t value_len = value_end == NULL ? strlen(value_start) : (value_end - value_start);
+	char *extracted_value = apr_pstrndup(r->pool, value_start, value_len);
+	return extracted_value;
 }
 
 static int authorization(request_rec *r) {
 	server_rec *s = r->server;
-    directoryConfig *confD = ap_get_module_config(r->per_dir_config, &mydonglecloud_module);
+	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	//PRINTF("MDC: authorization1 name:%s", confD->name);
 	if (confD->name == NULL || confD->authorized == NULL)
 		return DECLINED;
@@ -128,5 +128,5 @@ static void registerHooks(apr_pool_t *p) {
 }
 
 module AP_MODULE_DECLARE_DATA mydonglecloud_module = {
-	STANDARD20_MODULE_STUFF, createDirectoryConfig, NULL, NULL, NULL, directives, registerHooks
+	STANDARD20_MODULE_STUFF, NULL, NULL, createConfig, NULL, directives, registerHooks
 };
