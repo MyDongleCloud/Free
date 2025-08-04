@@ -5,17 +5,20 @@
 		"enabled": true,
 		"authorized": "_all_",
 		"localRanges": ["10", "172.16", "192.168"],
-		"path": "/disk/admin/Web"
+		"path": "/disk/admin/Web",
+		"alias": "wwww"
 	},
 	"Audiobookshelf": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9201
 	},
 	"Bugzilla": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9202
 	},
 	"btferret": {},
 	"Busybox": {},
@@ -23,49 +26,57 @@
 	"ChangeDetection": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9203
 	},
 	"Clang": {},
 	"CMake": {},
 	"collaboraonline": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9204
 	},
 	"Composer": {},
 	"ConvertX": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9205
 	},
 	"Cyberchef": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9206
 	},
 	"Discourse": {},
 	"Docker": {},
 	"Doodle": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9207
 	},
 	"Dovecot": {},
 	"FFmpeg": {},
 	"Fileflows": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9208
 	},
 	"Flarum": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9209
 	},
 	"FreshRSS": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9210
 	},
 	"frp": {},
 	"fscrypt": {},
@@ -74,19 +85,22 @@
 	"Gitea": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9211
 	},
 	"Go": {},
 	"GoAccess": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9212
 	},
 	"GoodIP": {},
 	"Grav": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9213
 	},
 	"HomeAssistant": {
 		"web": true,
@@ -97,82 +111,97 @@
 	"Html5-QRCode": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9214
 	},
 	"Hugo": {},
 	"ImageMagick": {},
 	"Immich": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9215
 	},
 	"IOPaint": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9216
 	},
 	"Java": {},
 	"Jellyfin": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9217
 	},
 	"JitsiMeet": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9218
 	},
 	"Joomla": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9219
 	},
 	"Joplin": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9220
 	},
 	"Karakeep": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9221
 	},
 	"Kernel": {},
 	"LibrePhotos": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9222
 	},
 	"Libreqr": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9223
 	},
 	"LimeSurvey": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9224
 	},
 	"Make": {},
 	"MantisBugTracker": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9225
 	},
 	"Maybe": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9226
 	},
 	"MeTube": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9227
 	},
 	"MinIO": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9228
 	},
 	"MongoDB": {},
 	"Mosquitto": {},
@@ -183,44 +212,52 @@
 	"Ollama": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9229
 	},
 	"OneTimeEmail": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9230
 	},
 	"OpenWebUI": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9231
 	},
 	"osTicket": {
 		"web": true,
 		"symlinks": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9232
 	},
 	"Pandoc": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9233
 	},
 	"PhotoPrism": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9234
 	},
 	"PhotoView": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9235
 	},
 	"PHP": {},
 	"phpBB": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9236
 	},
 	"phpList": {
 		"web": true,
@@ -232,12 +269,14 @@
 	"PrivateBin": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9237
 	},
 	"ProjectSend": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9238
 	},
 	"PyMCUProg": {},
 	"Python": {},
@@ -246,54 +285,64 @@
 	"QRCodeGenerator": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9239
 	},
 	"Radaar": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9240
 	},
 	"RethinkDB": {},
 	"RoundCube": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9241
 	},
 	"rspamd": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9242
 	},
 	"Sonarr": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9243
 	},
 	"SQLite": {},
 	"StirlingPDF": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9244
 	},
 	"SunriseCMS": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9245
 	},
 	"Superset": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9246
 	},
 	"Syncthing": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9247
 	},
 	"Transmission": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9248
 	},
 	"TriliumNotes": {
 		"web": true,
@@ -304,45 +353,53 @@
 	"TubeArchivist": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9249
 	},
 	"uMTP-Responder": {},
 	"Unmanic": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9250
 	},
 	"Uptime": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9251
 	},
 	"WebSSH2": {
 		"web": true,
 		"enabled": true,
 		"authorized": "admin",
 		"overwrite": false,
+		"alias": "ssh",
 		"reverseProxy": 2222
 	},
 	"Webtrees": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9252
 	},
 	"WordPress": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9253
 	},
 	"Write.as": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9254
 	},
 	"YOURLS": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_"
+		"authorized": "_all_",
+		"fallbackPort": 9255
 	},
 	"Youtube-dl": {},
 	"Zigbee2MQTT": {
