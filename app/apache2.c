@@ -71,10 +71,7 @@ static void writeLog(char *name, FILE *pf) {
 	char sz[256];
 	sprintf(sz, "/disk/admin/.log/%s", name);
 	mkdir(sz, 755);
-	if (strcmp(name, "Apache2") == 0)
-		sprintf(sz, "\tCustomLog /disk/admin/.log/%s/web.log combined\n", name);
-	else
-		sprintf(sz, "\tSetEnvIf Request_URI ^/m/%s %s_log\n\tCustomLog /disk/admin/.log/%s/web.log combined env=%s_log\n", name, name, name, name);
+	sprintf(sz, "\tCustomLog /disk/admin/.log/%s/web.log combined\n", name);
 	fwrite(sz, strlen(sz), 1, pf);
 }
 
@@ -85,32 +82,23 @@ void reloadApache2Conf() {
 #endif
 }
 
-void buildApache2Conf(cJSON *modulesDefault, cJSON *modules) {
+void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *domain) {
 #ifdef DESKTOP
 	FILE *pf = fopen("/tmp/main.conf", "w");
 #else
 	FILE *pf = fopen(ADMIN_PATH "Apache2/main.conf", "w");
 #endif
-	char sz[1024];
-	strcpy(sz, "<VirtualHost *:80>\n\
-	RewriteEngine On\n\
-	ProxyRequests Off\n\
-	ProxyPreserveHost On\n\
-	DirectoryIndex index.php index.html\n\
-	LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\n\
-	LogLevel info mydonglecloud_module:info\n\n\
-	<Directory /usr/local/modules/Apache2/pages/>\n\
+	char sz[2048];
+	strcpy(sz, "LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\n\
+\n\
+<Macro Macro_Redirect>\n\
+	<Directory /usr/local/modules/Apache2/pages>\n\
 		Require all granted\n\
 	</Directory>\n\
-	ErrorDocument 401 /m/unauthorized.html\n\
-	RewriteRule ^/m/unauthorized.html /usr/local/modules/Apache2/pages/unauthorized.html [L]\n\
-	ErrorDocument 403 /m/denied.html\n\
-	RewriteRule ^/m/denied.html /usr/local/modules/Apache2/pages/denied.html [L]\n\
-	ErrorDocument 404 /m/notpresent.html\n\
-	RewriteRule ^/m/notpresent.html /usr/local/modules/Apache2/pages/notpresent.html [L]\n\
-	RewriteRule ^/m/disabled.html /usr/local/modules/Apache2/pages/disabled.html [L]\n\
-	RewriteRule ^/m/login.html /usr/local/modules/Apache2/pages/login.html [L]\n\
-	RewriteRule ^/m/login_submit.php /usr/local/modules/Apache2/pages/login_submit.php [L]\n\n");
+	ErrorDocument 401 /MyDongleCloud/unauthorized.php\n\
+	ErrorDocument 403 /MyDongleCloud/denied.php\n\
+	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
+</Macro>\n\n");
 	fwrite(sz, strlen(sz), 1, pf);
 	cJSON *elLocalRanges = cJSON_GetObjectItem(cJSON_GetObjectItem(modulesDefault, "Apache2"), "localRanges");
 
@@ -118,71 +106,116 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules) {
 		cJSON *elModule = cJSON_GetArrayItem(modulesDefault, i);
 		if (cJSON_HasObjectItem(elModule, "web")) {
 			cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
-
 			char path[128];
 			if (cJSON_HasObjectItem(elModule, "path"))
 				strcpy(path, cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "path")));
 			else
 				sprintf(path, "/usr/local/modules/%s", elModule->string);
+			sprintf(sz, "\
+<Macro Macro_%s>\n\
+	MyDongleCloudModule %s\n\
+	RewriteEngine On\n", elModule->string, elModule->string);
+			fwrite(sz, strlen(sz), 1, pf);
 
-			if (strcmp(elModule->string, "Apache2") == 0) {
-				sprintf(sz, "\tDocumentRoot \"%s\"\n\
-	RewriteCond %s/index.html !-f\n\
-	RewriteRule ^/(index\\.html)?$ /m/home.html\n\
-	RewriteRule ^/m/home.html /usr/local/modules/Apache2/pages/home.html [L]\n", path, path);
-				fwrite(sz, strlen(sz), 1, pf);
-			}
 			cJSON *elEnabled = cJSON_GetObjectItem(elModule, "enabled");
 			if (cJSON_HasObjectItem(elModule2, "enabled"))
 				elEnabled = cJSON_GetObjectItem(elModule2, "enabled");
 			if (cJSON_IsTrue(elEnabled)) {
+				cJSON *elAuthorized = cJSON_GetObjectItem(elModule, "authorized");
+				if (cJSON_HasObjectItem(elModule2, "authorized") && !cJSON_IsFalse(cJSON_GetObjectItem(elModule, "overwrite")))
+					elAuthorized = cJSON_GetObjectItem(elModule2, "authorized");
+				char *authorized = cJSON_GetStringValue(elAuthorized);
+
 				if (cJSON_HasObjectItem(elModule, "reverseProxy")) {
 					int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "reverseProxy"));
-					sprintf(sz, "\tRewriteRule /m/%s/(.*)$ http://localhost:%d/$1 [P]\n", elModule->string, port);
+					sprintf(sz, "\
+	ProxyRequests Off\n\
+	ProxyPreserveHost on\n\
+	ProxyPass / http://localhost:%d/\n\
+	ProxyPassReverse / http://localhost:%d/\n\t<Proxy *>\n", port, port);
 					fwrite(sz, strlen(sz), 1, pf);
 				} else {
-					if (strcmp(elModule->string, "Apache2") != 0) {
-						sprintf(sz, "\tAlias /m/%s %s/\n", elModule->string, path);
-						fwrite(sz, strlen(sz), 1, pf);
-					}
-					sprintf(sz, "\t<Directory %s/>\n\t\tMyDongleCloudModule %s\n", path, elModule->string);
-					fwrite(sz, strlen(sz), 1, pf);
-					cJSON *elAuthorized = cJSON_GetObjectItem(elModule, "authorized");
-					if (cJSON_HasObjectItem(elModule2, "authorized") && !cJSON_IsFalse(cJSON_GetObjectItem(elModule, "overwrite")))
-						elAuthorized = cJSON_GetObjectItem(elModule2, "authorized");
-					char *authorized = cJSON_GetStringValue(elAuthorized);
-					writePermissions(elLocalRanges, authorized, pf);
-					if (cJSON_HasObjectItem(elModule2, "DirectoryIndex"))
-						writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "DirectoryIndex")), pf);
-					else if (cJSON_HasObjectItem(elModule, "DirectoryIndex"))
-						writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "DirectoryIndex")), pf);
-					if (cJSON_HasObjectItem(elModule2, "FollowSymLinks"))
-						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "FollowSymLinks")), pf);
-					else if (cJSON_GetObjectItem(elModule, "FollowSymLinks"))
-						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "FollowSymLinks")), pf);
-					if (cJSON_HasObjectItem(elModule2, "Indexes"))
-						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "Indexes")), pf);
-					else if (cJSON_GetObjectItem(elModule, "Indexes"))
-						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "Indexes")), pf);
+					sprintf(sz, "\tDocumentRoot %s\n\t<Directory %s>\n", path, path);
+					fwrite(sz, strlen(sz), 1, pf); 
+				}
+				writePermissions(elLocalRanges, authorized, pf);
+				if (cJSON_HasObjectItem(elModule2, "DirectoryIndex"))
+					writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "DirectoryIndex")), pf);
+				else if (cJSON_HasObjectItem(elModule, "DirectoryIndex"))
+					writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "DirectoryIndex")), pf);
+				if (cJSON_HasObjectItem(elModule2, "FollowSymLinks"))
+					writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "FollowSymLinks")), pf);
+				else if (cJSON_GetObjectItem(elModule, "FollowSymLinks"))
+					writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "FollowSymLinks")), pf);
+				if (cJSON_HasObjectItem(elModule2, "Indexes"))
+					writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "Indexes")), pf);
+				else if (cJSON_GetObjectItem(elModule, "Indexes"))
+					writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "Indexes")), pf);
 
+				if (cJSON_HasObjectItem(elModule, "reverseProxy"))
+					strcpy(sz, "\t</Proxy>\n");
+				else
 					strcpy(sz, "\t</Directory>\n");
+				fwrite(sz, strlen(sz), 1, pf);
+
+				if (strcmp(elModule->string, "Apache2") == 0) {
+					for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
+						cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
+						int port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "reverseProxy"));
+						if (port_ <= 0)
+							port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "fallbackPort"));
+						if (port_ > 0) {
+							sprintf(sz, "\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%s.mydonglecloud [NC,L]\n\
+    RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%%{HTTP_HOST}:%d [NC,L]\n", el_Module->string, el_Module->string, el_Module->string, port_);
+							fwrite(sz, strlen(sz), 1, pf);
+						}
+					}
+					strcpy(sz, "\nAlias /MyDongleCloud /usr/local/modules/Apache2/pages\nAlias /m /usr/local/modules/Apache2/pages\n");
 					fwrite(sz, strlen(sz), 1, pf);
 				}
+				strcpy(sz, "\tUse Macro_Redirect\n");
+				fwrite(sz, strlen(sz), 1, pf);
 			} else {
-				if (strcmp(elModule->string, "Apache2") == 0) {
-				} else {
-					sprintf(sz, "\tRedirectMatch permanent ^/m/%s(.*)$ /m/disabled.html?m=%s\n", elModule->string, elModule->string);
+				sprintf(sz, "\tRewriteRule ^/.*$ http://%s/MyDongleCloud/disabled.php?m=%s\n\n", domain, elModule->string);
+				fwrite(sz, strlen(sz), 1, pf);
+			}
+			writeLog(elModule->string, pf);
+			sprintf(sz, "</Macro>\n");
+			fwrite(sz, strlen(sz), 1, pf);
+
+			sprintf(sz, "<VirtualHost *:80>\n");
+			fwrite(sz, strlen(sz), 1, pf);
+			if (domain != NULL) {
+				if (strcmp(elModule->string, "Apache2") == 0)
+					sprintf(sz, "\tServerName %s\n", domain);
+				else
+					sprintf(sz, "\tServerName %s.%s\n", elModule->string, domain);
+				fwrite(sz, strlen(sz), 1, pf);
+				if (cJSON_HasObjectItem(elModule, "alias")) {
+					sprintf(sz, "\tServerAlias %s.%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "alias")), domain);
 					fwrite(sz, strlen(sz), 1, pf);
 				}
 			}
-			writeLog(elModule->string, pf);
-			strcpy(sz, "\n");
+			sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
+			fwrite(sz, strlen(sz), 1, pf);
+
+			int fallbackPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "fallbackPort"));
+			if (fallbackPort > 0) {
+				sprintf(sz, "<VirtualHost *:%d>\n", fallbackPort);
+				fwrite(sz, strlen(sz), 1, pf);
+				if (domain != NULL) {
+					sprintf(sz, "\tServerName %s\n", domain);
+					fwrite(sz, strlen(sz), 1, pf);
+				}
+				sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
+				fwrite(sz, strlen(sz), 1, pf);
+			}
+			strcpy(sz, "\n\n");
 			fwrite(sz, strlen(sz), 1, pf);
 		}
 	}
-
-	strcpy(sz, "</VirtualHost>\n");
-	fwrite(sz, strlen(sz), 1, pf);
 	fclose(pf);
 	PRINTF("Apache2: Creation of main.conf\n");
 }
