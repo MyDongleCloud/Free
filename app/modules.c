@@ -120,7 +120,10 @@ void modulesSetup(char *domain) {
 #ifndef DESKTOP
 			if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
 				mkdir(ADMIN_PATH "osTicket", 0775);
-				copyFile(LOCAL_PATH "osTicket/include/ost-sampleconfig.php", ADMIN_PATH "osTicket/ost-config.php", NULL);
+				if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
+					copyFile(LOCAL_PATH "osTicket/include/ost-sampleconfig.php", ADMIN_PATH "osTicket/ost-config.php", NULL);
+					chmod(ADMIN_PATH "osTicket/ost-config.php", 666);
+				}
 			}
 #endif
 		} else if (strcmp(elModule->string, "Pandoc") == 0) {
