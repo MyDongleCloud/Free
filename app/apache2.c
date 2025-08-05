@@ -92,6 +92,7 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *domain) {
 	strcpy(sz, "LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\n\
 \n\
 <Macro Macro_Redirect>\n\
+	Alias /MyDongleCloud /usr/local/modules/Apache2/pages\n\
 	<Directory /usr/local/modules/Apache2/pages>\n\
 		Require all granted\n\
 	</Directory>\n\
@@ -177,7 +178,7 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *domain) {
 							fwrite(sz, strlen(sz), 1, pf);
 						}
 					}
-					strcpy(sz, "\nAlias /MyDongleCloud /usr/local/modules/Apache2/pages\nAlias /m /usr/local/modules/Apache2/pages\n");
+					strcpy(sz, "\n\tAlias /MyDongleCloud /usr/local/modules/Apache2/pages\n\tAlias /m /usr/local/modules/Apache2/pages\n");
 					fwrite(sz, strlen(sz), 1, pf);
 				}
 				strcpy(sz, "\tUse Macro_Redirect\n");
