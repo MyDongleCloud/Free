@@ -122,7 +122,7 @@ void modulesSetup(char *domain) {
 				mkdir(ADMIN_PATH "osTicket", 0775);
 				if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
 					copyFile(LOCAL_PATH "osTicket/include/ost-sampleconfig.php", ADMIN_PATH "osTicket/ost-config.php", NULL);
-					chmod(ADMIN_PATH "osTicket/ost-config.php", 666);
+					chmod(ADMIN_PATH "osTicket/ost-config.php", 0666);
 				}
 			}
 #endif
