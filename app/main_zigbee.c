@@ -167,7 +167,8 @@ int main(int argc, char **argv) {
 			break;
 		case 'p':
 			strcpy(szUart, "/dev/ttyUSB0");
-			strcpy(szFirmware, "../rootfs/usr/bin/CC2652R7_coordinator.bin");
+			strcpy(szFirmware, "../rootfs");
+			strcat(szFirmware, ZIGBEE_FIRMWARE);
 			break;
 		case 's':
 			nosound = 1;

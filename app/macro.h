@@ -36,7 +36,7 @@
 #define SPACENAME_PATH "/disk/admin/.modules/MyDongleCloud/spacename.txt"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
-#define ZIGBEE_FIRMWARE "/usr/local/modules/MyDongleCloud/CC2652R7_coordinator.bin"
+#define ZIGBEE_FIRMWARE "/usr/local/modules/Zigbee2MQTT/CC2652R7_coordinator.bin"
 
 #define WIDTH 128	
 #define HEIGHT 128
