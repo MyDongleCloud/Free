@@ -101,8 +101,8 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *domain) {
 </Macro>\n\
 <Macro Macro_SSL>\n\
     Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
-    SSLCertificateFile /usr/local/modules/MyDongleCloud/fullchain.pem\n\
-    SSLCertificateKeyFile /usr/local/modules/MyDongleCloud/privkey.pem\n\
+    SSLCertificateFile /disk/admin/.modules/Apache2/fullchain.pem\n\
+    SSLCertificateKeyFile /disk/admin/.modules/Apache2/privkey.pem\n\
 </Macro>\n\n");
 	fwrite(sz, strlen(sz), 1, pf);
 	cJSON *elLocalRanges = cJSON_GetObjectItem(cJSON_GetObjectItem(modulesDefault, "Apache2"), "localRanges");
