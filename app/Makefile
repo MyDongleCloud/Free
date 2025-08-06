@@ -17,6 +17,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)ble.o \
 	$(PRE)bluetoothAddr.o \
 	$(PRE)btlib.o \
+	$(PRE)certificate.o \
 	$(PRE)cJSON.o \
 	$(PRE)common.o \
 	$(PRE)communication.o \
