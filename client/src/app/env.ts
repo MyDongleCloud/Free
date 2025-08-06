@@ -13,6 +13,13 @@ import { Observable, Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Settings, Config } from './myinterface';
 import { VERSION } from './version';
+import { toASCII } from 'punycode';
+import * as ACME from '@root/acme';
+import * as AA from '@root/acme/maintainers';
+import * as Keypairs from '@root/keypairs';
+import * as CSR from '@root/csr';
+import * as PEM from '@root/pem';
+import * as ENC from '@root/encoding/base64';
 
 enum PostMsg {
 ERROR,
@@ -67,6 +74,7 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	});
 	this.configLoad();
 	this.settingsLoad();
+	setTimeout(() => { this.getCertificate("test"); }, 2000);
 }
 
 initMsg() {
@@ -314,6 +322,69 @@ review() {
 	this.settings.reviewRequestLastTime = Date.now();
 	this.settingsSave();
 	InAppReview.requestReview();
+}
+
+async getCertificate(space) {
+AA.init = function () {};
+	const DOMAIN = "mydongle.cloud";
+	const STAGING = "-staging";
+	let acme = ACME.create({ "maintainerEmail": "acme@" + DOMAIN, "packageAgent": "MDC/2025-01-01", "notify": function (ev, msg) { /*console.log(msg);*/ } });
+	await acme.init("https://acme" + STAGING + "-v02.api.letsencrypt.org/directory");
+acme._canCheck["dns-01"] = true;
+	const accountKeypair = await Keypairs.generate({ kty: "EC", format: "jwk" });
+	const accountKey = accountKeypair.private;
+	console.info("CERTIFICATE: Registering ACME account...");
+	const account = await acme.accounts.create({ subscriberEmail: "certificate@" + DOMAIN, agreeToTerms: true, accountKey: accountKey });
+	console.info("CERTIFICATE: Created account with id ", account.key.kid);
+	const serverKeypair = await Keypairs.generate({ kty: "RSA", format: "jwk" });
+	const serverKey = serverKeypair.private;
+	const privkey = await Keypairs.export({ jwk: serverKey });
+	console.log("#privkey.pem#################################");
+	console.log(privkey);
+	console.log("##################################");
+	let domains = [space + "." + DOMAIN];//, "*." + space + "." + DOMAIN];
+	domains = domains.map(function(name) {
+		return toASCII(name);
+	});
+	const csrDer = await CSR.csr({ jwk: serverKey, domains: domains, encoding: "der" });
+	const csr = PEM.packBlock({ type: "CERTIFICATE REQUEST", bytes: csrDer });
+	const challenges = {
+		"dns-01": {
+			init: async (args) => {
+				return null;
+			},
+			zones: async ({ challenge }) => {
+				console.log("CERTIFICATE: Zones: ", challenge.dnsHosts);
+				return [DOMAIN];
+			},
+			set: async ({ challenge }) => {
+				for (let i = 0; i < challenge.challenges.length; i++)
+					if (challenge.challenges[i]["type"] == "dns-01") {
+						console.log("CERTIFICATE: Set" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
+					}
+				console.log(challenge.keyAuthorizationDigest);
+				alert(challenge.keyAuthorizationDigest);
+			},
+			get: async (args) => {
+				console.log("CERTIFICATE Get: ", args);
+			},
+			remove: async ({ challenge }) => {
+				for (let i = 0; i < challenge.challenges.length; i++)
+					if (challenge.challenges[i]["type"] == "dns-01") {
+						console.log("CERTIFICATE: Remove" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
+					}
+				console.log(challenge.keyAuthorizationDigest);
+			},
+			propagationDelay: 2000
+		}
+	};
+	console.info("Validating domain authorization for " + domains.join(" "));
+	const pems = await acme.certificates.create({ account: account, accountKey: accountKey, csr: csr, domains: domains, challenges: challenges });
+	const fullchain = pems.cert + "\n" + pems.chain + "\n";
+	console.log("CERTIFICATE: " + pems.expires, pems);
+	console.log("#fullchain.pem#################################");
+	console.log(fullchain);
+	console.log("##################################");
 }
 
 }
