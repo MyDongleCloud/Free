@@ -1,5 +1,6 @@
 A Name;Install method;Version;Category;Included;Finished;Features;Proprietary equivalent;Web;Php;Database;Github URL;Github Stars;Github License;Github Description
-ACME.js;;;VPN;;;VPN;;;;;therootcompany/acme.js;-1;Mozilla Public License 2.0;Lightweight library for getting Free SSL certifications through Let's Encrypt v2, using ACME (RFC 8555)
+Acme;wget;3.1.1;Tools;;;;;;;;acmesh-official/acme.sh;-1;A pure Unix shell script implementing ACME client protocol
+ACME.js;npm;3.1.0;Client App;;;;;;;;therootcompany/acme.js;-1;Mozilla Public License 2.0;Lightweight library for getting Free SSL certifications through Let's Encrypt v2, using ACME (RFC 8555)
 Angular;dev;6.7.5;Client App;;;;;;;;angular/angular;-1;MIT License;Deliver web apps with confidence 🚀
 Apache2;apt;2.4.62;Hosting;X;;Web server;;;;;apache/httpd;-1;Apache License 2.0;Mirror of Apache HTTP Server. Issues: http://issues.apache.org
 Audiobookshelf;clone;v2.26.2;Personal;;;Audio;;X;;;advplyr/audiobookshelf;-1;GNU General Public License v3.0;Self-hosted audiobook and podcast server

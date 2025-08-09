@@ -506,6 +506,14 @@ npm install --production
 cd ../..
 ln -sf /etc/systemd/system/WebSSH2.service /etc/systemd/system/multi-user.target.wants/WebSSH2.service
 
+echo "################################"
+echo "Acme.sh"
+echo "################################"
+cd /usr/local/modules
+mkdir /usr/local/modules/Acme
+cd Acme
+wget https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1.1/acme.sh
+chmod a+x acme.sh
 
 if [ $CLONE = 0 ]; then
 	echo "################################"
