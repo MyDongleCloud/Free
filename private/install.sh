@@ -610,6 +610,7 @@ git clone https://github.com/getgrav/grav Grav
 cd Grav
 git checkout 1.7.48
 rm -rf .git
+bin/grav
 
 echo "################################"
 echo "Html5-QRCode"
