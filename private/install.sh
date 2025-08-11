@@ -837,6 +837,15 @@ git checkout v4.0.15.2941
 rm -rf .git
 
 echo "################################"
+echo "StackEdit"
+echo "################################"
+cd /usr/local/modules
+git clone https://github.com/benweet/stackedit StackEdit
+cd StackEdit
+git checkout v5.15.4
+rm -rf .git
+
+echo "################################"
 echo "StirlingPDF"
 echo "################################"
 cd /usr/local/modules

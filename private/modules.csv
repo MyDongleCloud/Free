@@ -85,6 +85,7 @@ rspamd;apt;3.4;Mail;X;X;Mail + spam filter;Gmail;X;;MySQL;rspamd/rspamd;-1;Other
 Rust;;;;;;;;;;;rust-lang/rust;-1;Other;Empowering everyone to build reliable and efficient software.
 Sonarr;clone;v4.0.15.2941;;;;;;X;;;Sonarr/Sonarr;-1;GNU General Public License v3.0;Smart PVR for newsgroup and bittorrent users.
 SQLite;apt;3.40.1;Database;X;X;;;;;;sqlite/sqlite;-1;Other;Official Git mirror of the SQLite source tree
+StackEdit;clone;v5.15.4;Utils;X;;;;;;;benweet/stackedit;-1;;In-browser Markdown editor
 StirlingPDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;-1;Other;#1 Locally hosted web application that allows you to perform various operations on PDF files
 Superset;clone;5.0.0;Utils;;;;;X;;;apache/superset;-1;Apache License 2.0;Apache Superset is a Data Visualization and Data Exploration Platform
 SunriseCMS;clone;v1.0.0-alpha.19;Productivity;X;;;EverArk;;;;cityssm/sunrise-cms;-1;MIT License;Sunrise Cemetery Management System - A completely free, open source, web-based application to assist cemetery managers with managing their cemetery records.
