@@ -44,5 +44,6 @@ void getMd5sum(char *szPath, char *szMd5sum);
 int getLocalIP(char *szIPCurrent);
 void fillZeroFile(FILE *pf, int ssize);
 void syncForce(int delay);
+void printNameId(char *buf, const char *format, int matching);
 
 #endif

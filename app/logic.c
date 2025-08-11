@@ -36,21 +36,6 @@ static int logicOath() {
 	return otp;
 }
 
-int logicIsSetup() {
-	struct stat statTest;
-	return stat(SPACENAME_PATH, &statTest) == 0;
-}
-
-void logicSetupName(char *name, char *email) {
-	FILE *pf = fopen(SPACENAME_PATH, "w");
-	if (pf) {
-		char sz2[64];
-		sprintf(sz2, "%s:%s", name, email);
-		fwrite(sz2, strlen(sz2), 1, pf);
-		fclose(pf);
-	}
-}
-
 void logicKey(int key, int longPress) {
 	if (slaveMode) {
 		char sz[16];

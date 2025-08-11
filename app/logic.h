@@ -32,8 +32,6 @@ extern logics lmdc;
 extern int slaveMode;
 
 //Functions
-int logicIsSetup();
-void logicSetupName(char *name, char *email);
 void logicUpdate();
 void logicKey(int key, int longPress);
 void logicWelcome();

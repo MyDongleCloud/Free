@@ -33,7 +33,7 @@
 #define TEMPERATURE_PATH "/sys/class/thermal/thermal_zone0/%s"
 #define BUTTON_PATH "/dev/input/event0"
 #define OATH_PATH "/etc/users.oath"
-#define SPACENAME_PATH "/disk/admin/.modules/MyDongleCloud/spacename.txt"
+#define NAMES_PATH "/usr/local/modules/MyDongleCloud/names.txt"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
 #define ZIGBEE_FIRMWARE "/usr/local/modules/Zigbee2MQTT/CC2652R7_coordinator.bin"
