@@ -181,7 +181,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install Postfix
 echo "################################"
 echo "Modules via apt"
 echo "################################"
-apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap php-curl php-zip php-apcu procmail rspamd sqlite3
+apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap php-curl php-zip php-apcu php-memcache php-redis php-ldap procmail rspamd sqlite3
 
 echo "################################"
 echo "Apache2"
