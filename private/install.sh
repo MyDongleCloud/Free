@@ -528,7 +528,6 @@ cd Acme
 wget https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1.1/acme.sh
 chmod a+x acme.sh
 
-if [ $CLONE = 1 ]; then
 echo "################################"
 echo "Libreqr"
 echo "################################"
@@ -538,387 +537,68 @@ cd Libreqr
 git checkout 2.0.1
 rm -rf .git
 
-echo "################################"
-echo "Audiobookshelf"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/advplyr/audiobookshelf Audiobookshelf
-cd Audiobookshelf
-git checkout v2.26.2
-rm -rf .git
-
-echo "################################"
-echo "Bugzilla"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/bugzilla/bugzilla Bugzilla
-cd Bugzilla
-git checkout release-5.3.3
-rm -rf .git
-
-echo "################################"
-echo "ChangeDetection"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/dgtlmoon/changedetection.io ChangeDetection
-cd ChangeDetection
-git checkout 0.50.7
-rm -rf .git
-
-echo "################################"
-echo "ConvertX"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/C4illin/ConvertX ConvertX
-cd ConvertX
-git checkout v0.14.1
-rm -rf .git
-
-echo "################################"
-echo "Cyberchef"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/gchq/CyberChef Cyberchef
-cd Cyberchef
-git checkout v10.19.4
-rm -rf .git
-
-echo "################################"
-echo "Discourse"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/discourse/discourse Discourse
-cd Discourse
-git checkout v3.4.6
-rm -rf .git
-
-echo "################################"
-echo "Flarum"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/flarum/flarum Flarum
-cd Flarum
-git checkout v1.8.1
-rm -rf .git
-
-echo "################################"
-echo "FreshRSS"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/FreshRSS/FreshRSS FreshRSS
-cd FreshRSS
-git checkout 1.26.3
-rm -rf .git
-
-echo "################################"
-echo "Gitea"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/go-gitea/gitea Gitea
-cd Gitea
-git checkout v1.24.3
-rm -rf .git
-
-echo "################################"
-echo "Grav"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/getgrav/grav Grav
-cd Grav
-git checkout 1.7.48
-rm -rf .git
-
-echo "################################"
-echo "Html5QRCode"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/mebjas/html5-qrcode Html5QRCode
-cd Html5QRCode
-git checkout v2.3.8
-rm -rf .git
-
-echo "################################"
-echo "Immich"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/immich-app/immich Immich
-cd Immich
-git checkout v1.135.3
-rm -rf .git
-
-echo "################################"
-echo "IOPaint"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/Sanster/IOPaint IOPaint
-cd IOPaint
-git checkout iopaint-1.5.3
-rm -rf .git
-
-echo "################################"
-echo "Jellyfin"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/jellyfin/jellyfin Jellyfin
-cd Jellyfin
-git checkout v10.10.7
-rm -rf .git
-
-echo "################################"
-echo "Joomla"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/joomla/joomla-cms Joomla
-cd Joomla
-git checkout 5.3.2
-rm -rf .git
-
-echo "################################"
-echo "Joplin"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/laurent22/joplin Joplin
-cd Joplin
-git checkout server-v3.4.1
-rm -rf .git
-
-echo "################################"
-echo "Karakeep"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/karakeep-app/karakeep Karakeep
-cd Karakeep
-git checkout v0.26.0
-rm -rf .git
-
-echo "################################"
-echo "LibrePhotos"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/LibrePhotos/librephotos LibrePhotos
-cd LibrePhotos
-rm -rf .git
-
-echo "################################"
-echo "LimeSurvey"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/LimeSurvey/LimeSurvey LimeSurvey
-cd LimeSurvey
-git checkout 6.15.3+250708
-rm -rf .git
-
-echo "################################"
-echo "MantisBugTracker"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/mantisbt/mantisbt MantisBugTracker
-cd MantisBugTracker
-git checkout release-2.27.1
-rm -rf .git
-
-echo "################################"
-echo "Maybe"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/maybe-finance/maybe Maybe
-cd Maybe
-git checkout v0.5.0
-rm -rf .git
-
-echo "################################"
-echo "MeTube"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/alexta69/metube MeTube
-cd MeTube
-rm -rf .git
-
-echo "################################"
-echo "MinIO"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/minio/minio MinIO
-cd MinIO
-git checkout RELEASE.2025-07-18T21-56-31Z
-rm -rf .git
-
-echo "################################"
-echo "Ollama"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/ollama/ollama Ollama
-cd Ollama
-git checkout v0.9.7-rc1
-rm -rf .git
-
-echo "################################"
-echo "OpenWebUI"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/open-webui/open-webui OpenWebUI
-cd OpenWebUI
-git checkout v0.6.18
-rm -rf .git
-
-echo "################################"
-echo "osTicket"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/osTicket/osTicket osTicket
-cd osTicket
-git checkout v1.18.2
-rm -rf .git
-
-echo "################################"
-echo "PhotoPrism"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/photoprism/photoprism PhotoPrism
-cd PhotoPrism
-git checkout 250707-d28b3101e
-rm -rf .git
-
-echo "################################"
-echo "Photoview"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/photoview/photoview Photoview
-cd Photoview
-git checkout v2.4.0
-rm -rf .git
-
-echo "################################"
-echo "phpBB"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/phpbb/phpbb phpBB
-cd phpBB
-git checkout release-3.3.15
-rm -rf .git
-
-echo "################################"
-echo "PrivateBin"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/PrivateBin/PrivateBin PrivateBin
-cd PrivateBin
-git checkout 1.7.8
-rm -rf .git
-
-echo "################################"
-echo "ProjectSend"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/projectsend/projectsend ProjectSend
-cd ProjectSend
-git checkout r1720
-rm -rf .git
-
-echo "################################"
-echo "QRCodeGenerator"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/bizzycola/qrcode-generator QRCodeGenerator
-cd QRCodeGenerator
-rm -rf .git
-
-echo "################################"
-echo "Radaar"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/Radarr/Radarr Radaar
-cd Radaar
-git checkout v5.27.2.10142
-rm -rf .git
-
-echo "################################"
-echo "Sonarr"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/Sonarr/Sonarr Sonarr
-cd Sonarr
-git checkout v4.0.15.2941
-rm -rf .git
-
-echo "################################"
-echo "StackEdit"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/benweet/stackedit StackEdit
-cd StackEdit
-git checkout v5.15.4
-rm -rf .git
-
-echo "################################"
-echo "StirlingPDF"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/Stirling-Tools/Stirling-PDF StirlingPDF
-cd StirlingPDF
-git checkout v1.0.2
-rm -rf .git
-
-echo "################################"
-echo "SunriseCMS"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/cityssm/sunrise-cms SunriseCMS
-cd SunriseCMS
-git checkout v1.0.0-alpha.19
-rm -rf .git
-
-echo "################################"
-echo "Superset"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/apache/superset Superset
-cd Superset
-git checkout 5.0.0
-rm -rf .git
-
-echo "################################"
-echo "Syncthing"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/syncthing/syncthing Syncthing
-cd Syncthing
-git checkout v1.30.0
-rm -rf .git
-
-echo "################################"
-echo "Uptime"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/louislam/uptime-kuma Uptime
-cd Uptime
-git checkout 1.23.16
-rm -rf .git
-
-echo "################################"
-echo "Webtrees"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/fisharebest/webtrees Webtrees
-cd Webtrees
-git checkout 2.2.1
-rm -rf .git
-
-echo "################################"
-echo "YOURLS"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/YOURLS/YOURLS YOURLS
-cd YOURLS
-git checkout 1.10.1
-rm -rf .git
-elif [ -f "/tmp/clone.tbz2" ]; then
+if [ -f "/tmp/clone.tbz2" ]; then
 	echo "################################"
 	echo "Extraction instead of cloning"
 	echo "################################"
 	tar -xjpf /tmp/clone.tbz2 -C /usr/local/modules
 	sync
 	rm -f /tmp/clone.tbz2
+else
+	clone() {
+		PATHB=/usr/local/modules
+		echo "################################"
+		echo "$1"
+		echo "################################"
+		cd $PATHB
+		git clone https://github.com/$2 $1
+		cd $1
+		git checkout $3
+		rm -rf .git
+	}
+
+	clone Audiobookshelf advplyr/audiobookshelf v2.26.2
+	clone Bugzilla bugzilla/bugzilla release-5.3.3
+	clone ChangeDetection dgtlmoon/changedetection.io 0.50.7
+	clone ConvertX C4illin/ConvertX v0.14.1
+	clone Cyberchef gchq/CyberChef v10.19.4
+	clone Discourse discourse/discourse v3.4.6
+	clone Flarum flarum/flarum v1.8.1
+	clone FreshRSS FreshRSS/FreshRSS 1.26.3
+	clone Gitea go-gitea/gitea v1.24.3
+	clone Grav getgrav/grav 1.7.48
+	clone Html5QRCode mebjas/html5-qrcode v2.3.8
+	clone Immich immich-app/immich v1.135.3
+	clone IOPaint Sanster/IOPaint iopaint-1.5.3
+	clone Jellyfin jellyfin/jellyfin v10.10.7
+	clone Joomla joomla/joomla-cms 5.3.2
+	clone Joplin laurent22/joplin server-v3.4.1
+	clone Karakeep karakeep-app/karakeep v0.26.0
+	clone LibrePhotos LibrePhotos/librephotos HEAD
+	clone LimeSurvey LimeSurvey/LimeSurvey 6.15.3+250708
+	clone MantisBugTracker mantisbt/mantisbt release-2.27.1
+	clone Maybe maybe-finance/maybe v0.5.0
+	clone MeTube alexta69/metube HEAD
+	clone MinIO minio/minio RELEASE.2025-07-18T21-56-31Z
+	clone Ollama ollama/ollama v0.9.7-rc1
+	clone OpenWebUI open-webui/open-webui v0.6.18
+	clone osTicket osTicket/osTicket v1.18.2
+	clone PhotoPrism photoprism/photoprism 250707-d28b3101e
+	clone Photoview photoview/photoview v2.4.0
+	clone phpBB phpbb/phpbb release-3.3.15
+	clone PrivateBin PrivateBin/PrivateBin 1.7.8
+	clone ProjectSend projectsend/projectsend r1720
+	clone QRCodeGenerator bizzycola/qrcode-generator HEAD
+	clone Radaar Radarr/Radarr v5.27.2.10142
+	clone Sonarr Sonarr/Sonarr v4.0.15.2941
+	clone StackEdit benweet/stackedit v5.15.4
+	clone StirlingPDF Stirling-Tools/Stirling-PDF v1.0.2
+	clone SunriseCMS cityssm/sunrise-cms v1.0.0-alpha.19
+	clone Superset apache/superset 5.0.0
+	clone Syncthing syncthing/syncthing v1.30.0
+	clone Uptime louislam/uptime-kuma 1.23.16
+	clone Webtrees fisharebest/webtrees 2.2.1
+	clone YOURLS YOURLS/YOURLS 1.10.1
 fi
 
 echo "################################"
