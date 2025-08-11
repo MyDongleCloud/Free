@@ -40,11 +40,11 @@ if [ $OPTIND = 1 ]; then
 		MTP=1
 		SERIAL=1
 	else
-		grep -qi serial /disk/admin/.modules/MyDongleCloud/otg.json
+		jq -r ".features" /disk/admin/.modules/MyDongleCloud/otg.json | grep -qi serial
 		if [ $? = 0 ]; then
 			SERIAL=1
 		fi
-		grep -qi mtp /disk/admin/.modules/MyDongleCloud/otg.json
+		jq -r ".features" /disk/admin/.modules/MyDongleCloud/otg.json | grep -qi mtp
 		if [ $? = 0 ]; then
 			MTP=1
 		fi
