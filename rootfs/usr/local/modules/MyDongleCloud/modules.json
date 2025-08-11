@@ -78,7 +78,9 @@
 		"authorized": "_all_",
 		"fallbackPort": 9210
 	},
-	"frp": {},
+	"frp": {
+		"port": 9101
+        },
 	"fscrypt": {},
 	"GCC": {},
 	"Git": {},

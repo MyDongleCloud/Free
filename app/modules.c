@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include "common.h"
 #include "macro.h"
@@ -40,12 +41,12 @@ static void jsonWrite(cJSON *el, char *path) {
 	}
 }
 
-void modulesSetup(char *domain) {
+void modulesSetup(char *spaceName, char *fqdn) {
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "MyDongleCloud/modules.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "MyDongleCloud/modules.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();
-	int hasInit = cJSON_IsTrue(cJSON_GetObjectItem(modules, "initDone"));
+	int firstTime = !cJSON_IsTrue(cJSON_GetObjectItem(modules, "initDone"));
 
 	for (int i = 0; i < cJSON_GetArraySize(modulesDefault); i++) {
 		cJSON *elModule = cJSON_GetArrayItem(modulesDefault, i);
@@ -55,7 +56,7 @@ void modulesSetup(char *domain) {
 			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
-				buildApache2Conf(modulesDefault, modules, domain);
+				buildApache2Conf(modulesDefault, modules, fqdn);
 #ifndef DESKTOP
 			reloadApache2Conf();
 #endif
@@ -78,6 +79,37 @@ void modulesSetup(char *domain) {
 		} else if (strcmp(elModule->string, "Fileflows") == 0) {
 		} else if (strcmp(elModule->string, "Flarum") == 0) {
 		} else if (strcmp(elModule->string, "FreshRSS") == 0) {
+		} else if (strcmp(elModule->string, "frp") == 0) {
+			int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "port"));
+#ifdef DESKTOP
+			FILE *pf = fopen("/tmp/frpc.toml", "w");
+#else
+			FILE *pf = fopen(ADMIN_PATH "frp/frpc.toml", "w");
+#endif
+			if (pf) {
+				char sz[2048];
+				sprintf(sz, "\
+serverAddr = \"mydongle.cloud\"\n\
+serverPort = %d\n\
+#user = \"%s\"\n\
+auth.method = \"token\"\n\
+auth.token = \"YOUR_STRONG_SECRET_TOKEN\"\n\
+\n\
+[[proxies]]\n\
+name = \"http\"\n\
+type = \"http\"\n\
+localIP = \"localhost\"\n\
+localPort = 80\n\
+customDomains = [\"%s\", \"*.%s\"]\n", port, spaceName, fqdn, fqdn);
+				fwrite(sz, strlen(sz), 1, pf);
+				fclose(pf);
+			}
+#ifndef DESKTOP
+			if (getuid() == 1001) {
+				PRINTF("frp: Starting service (user admin)\n");
+				system("sudo /usr/bin/systemctl start frp.service");
+			}
+#endif
 		} else if (strcmp(elModule->string, "fscrypt") == 0) {
 		} else if (strcmp(elModule->string, "GCC") == 0) {
 		} else if (strcmp(elModule->string, "Git") == 0) {
@@ -95,6 +127,8 @@ void modulesSetup(char *domain) {
 		} else if (strcmp(elModule->string, "Java") == 0) {
 		} else if (strcmp(elModule->string, "Jellyfin") == 0) {
 		} else if (strcmp(elModule->string, "JitsiMeet") == 0) {
+			if (firstTime)
+				;//system("find /etc -exec sed -i -e \"s/m_unique_d_unique_c/${SPACE}/\" {} \;");
 		} else if (strcmp(elModule->string, "Joomla") == 0) {
 		} else if (strcmp(elModule->string, "Joplin") == 0) {
 		} else if (strcmp(elModule->string, "Karakeep") == 0) {
@@ -133,6 +167,8 @@ void modulesSetup(char *domain) {
 		} else if (strcmp(elModule->string, "phpBB") == 0) {
 		} else if (strcmp(elModule->string, "phpList") == 0) {
 		} else if (strcmp(elModule->string, "Postfix") == 0) {
+			//In /etc/mailname mail.m_unique_d_unique_c.mydongle.cloud
+			//In etc/postfix/main.cf mydestination = $myhostname, mail.m_unique_d_unique_c.mydongle.cloud, mydonglecloud, localhost.localdomain, localhost
 		} else if (strcmp(elModule->string, "PrivateBin") == 0) {
 		} else if (strcmp(elModule->string, "ProjectSend") == 0) {
 		} else if (strcmp(elModule->string, "PyMCUProg") == 0) {
@@ -165,7 +201,7 @@ void modulesSetup(char *domain) {
 		}
 	}
 
-	if (!hasInit)
+	if (firstTime)
 		cJSON_AddBoolToObject(modules, "initDone", cJSON_True);
 #ifndef DESKTOP
 	jsonWrite(modules, ADMIN_PATH "MyDongleCloud/modules.json");

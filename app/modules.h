@@ -2,6 +2,6 @@
 #define MODULES_H
 
 //Global function
-void modulesSetup();
+void modulesSetup(char *space, char *fqdn);
 
 #endif
