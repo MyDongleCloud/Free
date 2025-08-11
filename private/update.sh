@@ -11,12 +11,12 @@ echo "u:		Do uboot"
 exit 0
 }
 
-DISK=/dev/mmcblk0p
+DISK=/dev/sda
 SECONDPART=1
 BOOTDELAY=0
 UBOOT=0
 SECURITY=1
-while getopts bd:hosu opt; do
+while getopts bd:hou opt; do
 	case "$opt" in
 		b) BOOTDELAY=1;;
 		d) DISK="/dev/${OPTARG}";;

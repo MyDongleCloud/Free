@@ -11,7 +11,7 @@ echo "n:	Not native (via chroot)"
 exit 0
 }
 
-DISK=/dev/mmcblk0p
+DISK=/dev/sda
 LOSETUP=/dev/loop3
 POSTNAME=""
 FINAL=0
