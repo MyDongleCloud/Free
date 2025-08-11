@@ -39,6 +39,6 @@ advanced:
     - 175
 frontend:
   enabled: true
-  port: 8124
+  port: 9104
 homeassistant:
   enabled: true

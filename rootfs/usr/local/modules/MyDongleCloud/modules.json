@@ -12,7 +12,7 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"fallbackPort": 9201
+		"reverseProxy": 9102
 	},
 	"Bugzilla": {
 		"web": true,
@@ -70,17 +70,21 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"fallbackPort": 9209
+		"fallbackPort": 9209,
+		"path": "/usr/local/modules/Flarum/public"
 	},
 	"FreshRSS": {
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"fallbackPort": 9210
+		"fallbackPort": 9210,
+		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
+		"path": "/usr/local/modules/FreshRSS/p",
+		"alias": "rss"
 	},
 	"frp": {
 		"port": 9101
-        },
+	},
 	"fscrypt": {},
 	"GCC": {},
 	"Git": {},
@@ -110,7 +114,7 @@
 		"authorized": "_all_",
 		"reverseProxy": 8123
 	},
-	"Html5-QRCode": {
+	"Html5QRCode": {
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
@@ -350,7 +354,7 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"reverseProxy": 9001
+		"reverseProxy": 9103
 	},
 	"TubeArchivist": {
 		"web": true,
@@ -391,7 +395,7 @@
 		"authorized": "_all_",
 		"fallbackPort": 9253
 	},
-	"Write.as": {
+	"WriteAs": {
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
@@ -408,6 +412,6 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"reverseProxy": 8124
+		"reverseProxy": 9104
 	}
 }
