@@ -30,8 +30,8 @@ fi
 lsb_release -a | grep bookworm
 if [ $? = 0 ]; then
 #On PC
-#tar -cjpvf a.tbz2 app/ kernel/ rootfs/ screenAvr/ moduleApache2/ private/install.sh
-#scp a.tbz2 mdc@192.168.10.41:/tmp
+#tar -cjpvf a.tbz2 app/ kernel/ rootfs/ screenAvr/ moduleApache2/ private/install.sh private/preseed*.cfg
+#scp a.tbz2 private/img/clone.tbz2 mdc@192.168.10.41:/tmp
 #On device
 #tar -xjpvf /tmp/a.tbz2
 	OS="pios"
@@ -176,7 +176,8 @@ fi
 echo "################################"
 echo "Postfix"
 echo "################################"
-DEBIAN_FRONTEND=noninteractive apt-get -y install Postfix
+cat /home/mdc/private/preseed_postfix.cfg | debconf-set-selections
+apt-get -y install postfix
 
 echo "################################"
 echo "Modules via apt"
@@ -193,7 +194,8 @@ rm -f /etc/apache2/ports.conf
 echo "################################"
 echo "Roundcube"
 echo "################################"
-DEBIAN_FRONTEND=noninteractive apt-get -y install roundcube
+cat /home/mdc/private/preseed_roundcube.cfg | debconf-set-selections
+apt-get -y install roundcube
 
 echo "################################"
 echo "Kernel (Dongle Pro)"
@@ -228,6 +230,16 @@ fi
 apt-get update
 apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 usermod -aG docker admin
+
+echo "################################"
+echo "Jitsi"
+echo "################################"
+curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
+echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
+apt-get update
+cat /home/mdc/private/preseed_jitsi.cfg | debconf-set-selections
+apt-get -y install jitsi-videobridge2 jitsi-meet-web-config jitsi-meet-web
+#apt-get -y install jitsi-meet
 
 echo "################################"
 echo "RethinkDB"
@@ -272,7 +284,7 @@ echo "################################"
 echo "Node.js"
 echo "################################"
 cd /home/mdc/build
-wget https://nodejs.org/dist/latest-v22.x/node-v22.17.1-linux-arm64.tar.xz
+wget https://nodejs.org/dist/latest-v22.x/node-v22.18.0-linux-arm64.tar.xz
 tar -xJpf node-v*
 cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local
 cd ..
@@ -516,11 +528,7 @@ cd Acme
 wget https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1.1/acme.sh
 chmod a+x acme.sh
 
-if [ $CLONE = 0 ]; then
-	echo "################################"
-	echo "Don't clone"
-	echo "################################"
-else
+if [ $CLONE = 1 ]; then
 echo "################################"
 echo "Libreqr"
 echo "################################"
@@ -619,14 +627,13 @@ git clone https://github.com/getgrav/grav Grav
 cd Grav
 git checkout 1.7.48
 rm -rf .git
-bin/grav
 
 echo "################################"
-echo "Html5-QRCode"
+echo "Html5QRCode"
 echo "################################"
 cd /usr/local/modules
-git clone https://github.com/mebjas/html5-qrcode Html5-QRCode
-cd Html5-QRCode
+git clone https://github.com/mebjas/html5-qrcode Html5QRCode
+cd Html5QRCode
 git checkout v2.3.8
 rm -rf .git
 
@@ -762,8 +769,6 @@ git clone https://github.com/osTicket/osTicket osTicket
 cd osTicket
 git checkout v1.18.2
 rm -rf .git
-mkdir -p /disk/admin/.modules/osTicket
-ln -sf /disk/admin/.modules/osTicket/ost-config.php include/ost-config.php
 
 echo "################################"
 echo "PhotoPrism"
@@ -907,7 +912,65 @@ git clone https://github.com/YOURLS/YOURLS YOURLS
 cd YOURLS
 git checkout 1.10.1
 rm -rf .git
+elif [ -f "/tmp/clone.tbz2" ]; then
+	echo "################################"
+	echo "Extraction instead of cloning"
+	echo "################################"
+	tar -xjpf /tmp/clone.tbz2 -C /usr/local/modules
+	sync
+	rm -f /tmp/clone.tbz2
 fi
+
+echo "################################"
+echo "Libreqr"
+echo "################################"
+cd /usr/local/modules/Libreqr
+composer -n install
+chown www-data:www-data css
+
+echo "################################"
+echo "Audiobookshelf"
+echo "################################"
+cd /usr/local/modules/Audiobookshelf
+npm install
+
+echo "################################"
+echo "Flarum"
+echo "################################"
+cd /usr/local/modules/Flarum
+composer -n install
+
+echo "################################"
+echo "FreshRSS"
+echo "################################"
+cd /usr/local/modules/FreshRSS
+npm install
+
+echo "################################"
+echo "Gitea"
+echo "################################"
+cd /usr/local/modules/Gitea
+npm install
+
+echo "################################"
+echo "Grav"
+echo "################################"
+cd /usr/local/modules/Grav
+bin/grav install
+
+echo "################################"
+echo "Joomla"
+echo "################################"
+cd /usr/local/modules/Joomla
+composer -n install
+npm ci
+
+echo "################################"
+echo "osTicket"
+echo "################################"
+cd /usr/local/modules/osTicket
+mkdir -p /disk/admin/.modules/osTicket
+ln -sf /disk/admin/.modules/osTicket/ost-config.php include/ost-config.php
 
 echo "################################"
 echo "App and rootfs"
@@ -930,18 +993,10 @@ chown -R mdc:mdc /home/mdc
 chown -R admin:admin /disk/admin /var/cache-admin
 
 echo "################################"
-echo "Jitsi"
-echo "################################"
-curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
-echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
-apt-get update
-apt-get -y install jitsi-meet
-
-echo "################################"
 echo "Cleanup"
 echo "################################"
 if [ $OS = "pios" ]; then
-	apt-get -y purge python3-rpi-lgpio rpicam-apps-core
+	apt-get -y purge python3-rpi-lgpio rpicam-apps-core rpicam-apps-lite
 fi
 apt-get -y autoremove
 rm -f /var/cache/apt/archives/*.deb
