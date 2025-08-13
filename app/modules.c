@@ -80,7 +80,10 @@ void modulesSetup(char *spaceName, char *fqdn) {
 		} else if (strcmp(elModule->string, "Flarum") == 0) {
 		} else if (strcmp(elModule->string, "FreshRSS") == 0) {
 		} else if (strcmp(elModule->string, "frp") == 0) {
-			int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "port"));
+			int	used = 0;
+			int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "bindingPort"));
+			cJSON *elModuleS = cJSON_GetObjectItem(elModule, "services");
+			cJSON *elModule2S = cJSON_GetObjectItem(elModule2, "services");
 #ifdef DESKTOP
 			FILE *pf = fopen("/tmp/frpc.toml", "w");
 #else
@@ -93,19 +96,41 @@ serverAddr = \"mydongle.cloud\"\n\
 serverPort = %d\n\
 #user = \"%s\"\n\
 auth.method = \"token\"\n\
-auth.token = \"YOUR_STRONG_SECRET_TOKEN\"\n\
-\n\
+auth.token = \"YOUR_STRONG_SECRET_TOKEN\"\n\n", port, spaceName);
+				fwrite(sz, strlen(sz), 1, pf);
+				for (int j = 0; j < cJSON_GetArraySize(elModuleS); j++) {
+					cJSON *elModuleSj = cJSON_GetArrayItem(elModuleS, j);
+					cJSON *elModule2Sj = cJSON_GetObjectItem(elModule2S, elModuleSj->string);
+					if (elModule2Sj && cJSON_IsTrue(cJSON_GetObjectItem(elModule2Sj, "enabled"))) {
+						used = 1;
+						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModuleSj, "localPort"));
+						if (strcmp(elModuleSj->string, "https") == 0) {
+							sprintf(sz, "\
 [[proxies]]\n\
-name = \"http\"\n\
+name = \"%s-%s\"\n\
 type = \"http\"\n\
 localIP = \"localhost\"\n\
 localPort = 80\n\
-customDomains = [\"%s\", \"*.%s\"]\n", port, spaceName, fqdn, fqdn);
-				fwrite(sz, strlen(sz), 1, pf);
+customDomains = [\"%s\", \"*.%s\"]\n\n", elModuleSj->string, spaceName, fqdn, fqdn);
+							fwrite(sz, strlen(sz), 1, pf);
+						} else {
+							int remotePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule2Sj, "remotePort"));
+							sprintf(sz, "\
+[[proxies]]\n\
+name = \"%s-%s\"\n\
+type = \"tcp\"\n\
+localIP = \"localhost\"\n\
+localPort = %d\n\
+remotePort = %d\n\n", elModuleSj->string, spaceName, localPort, remotePort);
+							fwrite(sz, strlen(sz), 1, pf);
+//PRINTF("https://mydongle.cloud/master/proxy.json { \"localPort\": %d, \"serviceName\": \"%s\", \"spaceName\": \"%s\", \"remotePort\": %d }\n", localPort, elModuleSj->string, spaceName, remotePort);
+						}
+					}
+				}
 				fclose(pf);
 			}
 #ifndef DESKTOP
-			if (getuid() == 1001) {
+			if (used && getuid() == 1001) {
 				PRINTF("frp: Starting service (user admin)\n");
 				system("sudo /usr/bin/systemctl start frp.service");
 			}

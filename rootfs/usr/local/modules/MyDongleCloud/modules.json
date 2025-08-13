@@ -83,7 +83,20 @@
 		"alias": "rss"
 	},
 	"frp": {
-		"port": 9101
+		"bindingPort": 9101,
+		"services": {
+			"https": {
+			},
+			"smtps": {
+				"localPort": 465
+			},
+			"pop3s": {
+				"localPort": 993
+			},
+			"imaps": {
+				"localPort": 995
+			}
+		}
 	},
 	"fscrypt": {},
 	"GCC": {},
