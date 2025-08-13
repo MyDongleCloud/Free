@@ -31,6 +31,7 @@ Go;apt;1.19.8;Code;X;X;Compiler;;;;;golang/go;-1;BSD 3-Clause "New" or "Revised"
 GoAccess;clone;v1.9.4;Hosting;X;;Website metrics;;X;;;allinurl/goaccess;-1;MIT License;GoAccess is a real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems or through your browser.
 GoodIP;;;VPN;;;VPN;;;;;;0;;
 Grav;clone;1.7.48;Utils;X;;Documentation, support, wiki;;X;X;;getgrav/grav;-1;MIT License;Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File CMS powered by PHP, Markdown, Twig, and Symfony
+HAProxy;apt;2.8.5;Server;;;;;;;;haproxy/haproxy;-1;Other;HAProxy Load Balancer's development branch (mirror of git.haproxy.org)
 HomeAssistant;pip;2025.1.4;Home;X;;;;X;;;home-assistant/core;-1;Apache License 2.0;:house_with_garden: Open source home automation that puts local control and privacy first.
 Html5QRCode;clone;v2.3.8;Utils;X;;;;X;;;mebjas/html5-qrcode;-1;Apache License 2.0;A cross platform HTML5 QR code reader. See end to end implementation at: https://scanapp.org
 Hugo;apt;0.111.3;Tools;X;X;SSG;;;;;gohugoio/hugo;-1;Apache License 2.0;The world’s fastest framework for building websites.
