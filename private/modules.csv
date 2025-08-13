@@ -1,5 +1,5 @@
 A Name;Install method;Version;Category;Included;Finished;Features;Proprietary equivalent;Web;Php;Database;Github URL;Github Stars;Github License;Github Description
-Acme;wget;3.1.1;Tools;;;;;;;;acmesh-official/acme.sh;-1;A pure Unix shell script implementing ACME client protocol
+Acme;wget;3.1.1;Tools;;;;;;;;acmesh-official/acme.sh;-1;GNU General Public License v3.0;A pure Unix shell script implementing ACME client protocol
 ACME.js;npm;3.1.0;Client App;;;;;;;;therootcompany/acme.js;-1;Mozilla Public License 2.0;Lightweight library for getting Free SSL certifications through Let's Encrypt v2, using ACME (RFC 8555)
 Angular;dev;6.7.5;Client App;;;;;;;;angular/angular;-1;MIT License;Deliver web apps with confidence 🚀
 Apache2;apt;2.4.62;Hosting;X;;Web server;;;;;apache/httpd;-1;Apache License 2.0;Mirror of Apache HTTP Server. Issues: http://issues.apache.org
@@ -63,7 +63,7 @@ MySQL;apt;8.0.42;Database;X;;;;;;;mysql/mysql-server;-1;Other;MySQL Server, the 
 NGINX;apt;;Hosting;;;Web server;;;;;nginx/nginx;-1;BSD 2-Clause "Simplified" License;The official NGINX Open Source repository.
 Node;tar;v22.17.1;Tools;X;X;;;;;;nodejs/node;-1;Other;Node.js JavaScript runtime ✨🐢🚀✨
 OhMyZsh;wget;;Tools;;;sh;;;;;ohmyzsh/ohmyzsh;-1;MIT License;🙃   A delightful community-driven (with 2,400+ contributors) framework for managing your zsh configuration. Includes 300+ optional plugins (rails, git, macOS, hub, docker, homebrew, node, php, python, etc), 140+ themes to spice up your morning, and an auto-update tool that makes it easy to keep up with the latest updates from the community.
-Ollama;clone;v0.9.7-rc1;Chatbot;X;;;;X;;;ollama/ollama;-1;MIT License;Get up and running with Llama 3.3, DeepSeek-R1, Phi-4, Gemma 3, Mistral Small 3.1 and other large language models.
+Ollama;clone;v0.9.7-rc1;Chatbot;X;;;;X;;;ollama/ollama;-1;MIT License;Get up and running with OpenAI gpt-oss, DeepSeek-R1, Gemma 3 and other models.
 OneTimeEmail;;2025-07-07;Mail;X;;One-time email;;X;;;;0;;
 OpenWebUI;clone;v0.6.18;Chatbot;X;;;;X;;;open-webui/open-webui;-1;Other;User-friendly AI Interface (Supports Ollama, OpenAI API, ...)
 osTicket;clone;v1.18.2;Productivity;X;;;;X;X;MySQL;osTicket/osTicket;-1;GNU General Public License v2.0;The osTicket open source ticketing system official project repository, for versions 1.8 and later
@@ -90,7 +90,7 @@ rspamd;apt;3.4;Mail;X;X;Mail + spam filter;Gmail;X;;MySQL;rspamd/rspamd;-1;Other
 Rust;;;;;;;;;;;rust-lang/rust;-1;Other;Empowering everyone to build reliable and efficient software.
 Sonarr;clone;v4.0.15.2941;;;;;;X;;;Sonarr/Sonarr;-1;GNU General Public License v3.0;Smart PVR for newsgroup and bittorrent users.
 SQLite;apt;3.40.1;Database;X;X;;;;;;sqlite/sqlite;-1;Other;Official Git mirror of the SQLite source tree
-StackEdit;clone;v5.15.4;Utils;X;;;;;;;benweet/stackedit;-1;;In-browser Markdown editor
+StackEdit;clone;v5.15.4;Utils;X;;;;;;;benweet/stackedit;-1;Apache License 2.0;In-browser Markdown editor
 StirlingPDF;clone;v1.0.2;Utils;;;;;X;;;Stirling-Tools/Stirling-PDF;-1;Other;#1 Locally hosted web application that allows you to perform various operations on PDF files
 Superset;clone;5.0.0;Utils;;;;;X;;;apache/superset;-1;Apache License 2.0;Apache Superset is a Data Visualization and Data Exploration Platform
 SunriseCMS;clone;v1.0.0-alpha.19;Productivity;X;;;EverArk;;;;cityssm/sunrise-cms;-1;MIT License;Sunrise Cemetery Management System - A completely free, open source, web-based application to assist cemetery managers with managing their cemetery records.
