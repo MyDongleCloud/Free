@@ -577,7 +577,9 @@ else
 	clone LibrePhotos LibrePhotos/librephotos HEAD
 	clone LimeSurvey LimeSurvey/LimeSurvey 6.15.3+250708
 	clone MantisBugTracker mantisbt/mantisbt release-2.27.1
+	clone MarkdownEditor jbt/markdown-editor v2
 	clone Maybe maybe-finance/maybe v0.5.0
+	clone Mermaid mermaid-js/mermaid mermaid@11.9.0
 	clone MeTube alexta69/metube HEAD
 	clone MinIO minio/minio RELEASE.2025-07-18T21-56-31Z
 	clone Ollama ollama/ollama v0.9.7-rc1
@@ -586,6 +588,8 @@ else
 	clone PhotoPrism photoprism/photoprism 250707-d28b3101e
 	clone Photoview photoview/photoview v2.4.0
 	clone phpBB phpbb/phpbb release-3.3.15
+	clone PHPSandbox Corveda/PHPSandbox v3.1
+	clone Pihole pi-hole/pi-hole v.6.1.4
 	clone PrivateBin PrivateBin/PrivateBin 1.7.8
 	clone ProjectSend projectsend/projectsend r1720
 	clone QRCodeGenerator bizzycola/qrcode-generator HEAD

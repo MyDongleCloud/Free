@@ -51,7 +51,9 @@ Libreqr;git;2.0.1;Utils;X;;;;;;;;0;;
 LimeSurvey;clone;6.15.3+250708;Productivity;X;;Questionnaire, forms, survey;SurveyMonkey;X;X;MySQL;LimeSurvey/LimeSurvey;-1;Other;🔥 LimeSurvey – A powerful, open-source survey platform. A free alternative to SurveyMonkey, Typeform, Qualtrics, and Google Forms, making it simple to create online surveys and forms with unmatched flexibility.
 Make;apt;4.3;Code;X;X;;;;;;;0;;
 MantisBugTracker;clone;release-2.27.1;Code;X;;Bugs tracking;;X;X;;mantisbt/mantisbt;-1;;Mantis Bug Tracker (MantisBT)
+MarkdownEditor;clone;v2;Utils;;;;;;;;jbt/markdown-editor;-1;ISC License;Live (Github-flavored) Markdown Editor
 Maybe;clone;v0.5.0;Utils;;;;;X;;;maybe-finance/maybe;-1;GNU Affero General Public License v3.0;The personal finance app for everyone
+Mermaid;clone;mermaid@11.9.0;Utils;;;;;;;;mermaid-js/mermaid;-1;MIT License;Generation of diagrams like flowcharts or sequence diagrams from text in a similar manner as markdown
 MeTube;clone;20250721;Utils;;;;;X;;;alexta69/metube;-1;GNU Affero General Public License v3.0;Self-hosted YouTube downloader (web UI for youtube-dl / yt-dlp)
 MinIO;clone;RELEASE.2025-07-18T21-56-31Z;Utils;;;;;X;;;minio/minio;-1;GNU Affero General Public License v3.0;MinIO is a high-performance, S3 compatible object store, open sourced under GNU AGPLv3 license.
 MongoDB;apt (source);;Database;;;MongoDB;;;;MongoDB;mongodb/mongo;-1;Other;The MongoDB Database
@@ -71,6 +73,8 @@ Photoview;clone;v2.4.0;Personal;;;Photos;Google Photos;X;;;photoview/photoview;-
 PHP;apt;8.2.28;Coding;X;X;;;;X;;php/php-src;-1;Other;The PHP Interpreter
 phpBB;clone;release-3.3.15;Community;;;Community, forum;;X;X;;phpbb/phpbb;-1;GNU General Public License v2.0; phpBB Development: phpBB is a popular open-source bulletin board written in PHP. This repository also contains the history of version 2.
 phpList;composer;2.5.5;Mail;X;X;Emailing solution;MailChimp;;X;;phpList/core;-1;GNU Affero General Public License v3.0;This module is the core of phpList 4. Join discussion at the community forum: https://discuss.phplist.org/
+PHPSandbox;clone;v3.1;Utils;;;;;;;;Corveda/PHPSandbox;-1;Other;A PHP-based sandboxing library with a full suite of configuration and validation options.
+Pihole;clone;v.6.1.4;Utils;;;;;;;;pi-hole/pi-hole;-1;Other;A black hole for Internet advertisements
 Postfix;apt;3.7.11;Mail;X;;;;;;;;0;;
 PrivateBin;clone;1.7.8;Utils;X;;;;X;X;;PrivateBin/PrivateBin;-1;Other;A minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted in the browser using 256 bits AES.
 ProjectSend;clone;r1720;Utils;X;;File download/upload, file exchange;WeTransfer, Google One;X;X;;projectsend/projectsend;-1;GNU General Public License v2.0;ProjectSend is a free, open source software that lets you share files with your clients, focused on ease of use and privacy. It supports clients groups, system users roles, statistics, multiple languages, detailed logs... and much more!
