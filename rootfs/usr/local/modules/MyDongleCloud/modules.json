@@ -204,11 +204,23 @@
 		"authorized": "_all_",
 		"fallbackPort": 9225
 	},
+	"MarkdownEditor": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"fallbackPort": 9256
+	},
 	"Maybe": {
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
 		"fallbackPort": 9226
+	},
+	"Mermaid": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"fallbackPort": 9257
 	},
 	"MeTube": {
 		"web": true,
@@ -283,6 +295,18 @@
 		"enabled": true,
 		"authorized": "_all_",
 		"path": "/usr/local/modules/phpList/public_html"
+	},
+	"PHPSandbox": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"fallbackPort": 9258
+	},
+	"Pihole": {
+		"web": true,
+		"enabled": true,
+		"authorized": "_all_",
+		"fallbackPort": 9259
 	},
 	"Postfix": {},
 	"PrivateBin": {
@@ -420,7 +444,7 @@
 		"authorized": "_all_",
 		"fallbackPort": 9255
 	},
-	"Youtube-dl": {},
+	"Youtubedl": {},
 	"Zigbee2MQTT": {
 		"web": true,
 		"enabled": true,
