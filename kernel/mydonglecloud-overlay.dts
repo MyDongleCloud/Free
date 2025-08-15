@@ -28,6 +28,7 @@
 				compatible = "mydonglecloud";
 				status = "okay";
 				pwms = <&pwm 0 166000 322000>;
+				ccnrst = <9>;
 			};
 		};
 	};

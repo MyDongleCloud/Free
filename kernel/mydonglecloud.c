@@ -24,6 +24,7 @@ struct mydonglePriv {
 	struct work_struct workBuzzer;
 	char model[8];
 	int hardwareVersion;
+	int ccnrst;
 };
 
 static struct mydonglePriv *myip;
@@ -152,6 +153,23 @@ static ssize_t write_printk(struct device *dev, struct device_attribute *attr, c
 
 static DEVICE_ATTR(printk, 0220, NULL, write_printk);
 
+static ssize_t show_ccreset(struct device *dev, struct device_attribute *attr, char *buf) {
+	struct mydonglePriv *ip = dev_get_drvdata(dev);
+	return sprintf(buf, "%u\n", !gpio_get_value(ip->ccnrst));
+}
+
+static ssize_t write_ccreset(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
+	struct mydonglePriv *ip = dev_get_drvdata(dev);
+	unsigned long i;
+		if (kstrtoul(buf, 10, &i))
+		return -EINVAL;
+
+	gpio_set_value(ip->ccnrst, !i);
+	return count;
+}
+
+static DEVICE_ATTR(ccreset, 0660, show_ccreset, write_ccreset);
+
 static ssize_t write_buzzerClick(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
 	unsigned long i;
@@ -175,6 +193,7 @@ static struct attribute *mydongle_attributes[] = {
 	&dev_attr_serialNumber.attr,
 	&dev_attr_debug.attr,
 	&dev_attr_printk.attr,
+	&dev_attr_ccreset.attr,
 	&dev_attr_buzzerClick.attr,
 	NULL,
 };
@@ -187,6 +206,7 @@ int isMydonglecloud = 0;
 static int mydongle_probe(struct platform_device *pdev) {
 	int ret;
 	struct device *dev = &pdev->dev;
+	struct device_node *node = of_find_compatible_node(NULL, NULL, "mydonglecloud");
 	struct mydonglePriv *ip = devm_kzalloc(dev, sizeof(struct mydonglePriv), GFP_KERNEL);
 	if (!ip)
 		return -ENOMEM;
@@ -221,6 +241,19 @@ static int mydongle_probe(struct platform_device *pdev) {
 #endif
 	timer_setup(&my_timer_buzzer, my_timer_buzzer_callback, 0);
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
+	priv->ccnrst = of_get_gpio(dev->of_node, 0);
+#else
+	of_property_read_u32(node, "ccnrst", &ip->ccnrst);
+	ip->ccnrst += 569;
+#endif
+	ret = gpio_request(ip->ccnrst, "CCNRST");
+	if (ret < 0) {
+		printk("MyDongle-Dongle: Failed to request GPIO %d for CCNRST\n", ip->ccnrst);
+		//return 0;
+	}
+	gpio_direction_output(ip->ccnrst, 1);
+
 	ret = sysfs_create_group(&dev->kobj, &mydongle_attr_group);
 	kuid_t new_uid;
 	kgid_t new_gid;
@@ -229,6 +262,7 @@ static int mydongle_probe(struct platform_device *pdev) {
 	sysfs_file_change_owner(&dev->kobj, "buzzer", new_uid, new_gid);
 	sysfs_file_change_owner(&dev->kobj, "buzzerClick", new_uid, new_gid);
 	sysfs_file_change_owner(&dev->kobj, "buzzerFreq", new_uid, new_gid);
+	sysfs_file_change_owner(&dev->kobj, "ccreset", new_uid, new_gid);
 	sysfs_file_change_owner(&dev->kobj, "hardwareVersion", new_uid, new_gid);
 	sysfs_file_change_owner(&dev->kobj, "model", new_uid, new_gid);
 	sysfs_file_change_owner(&dev->kobj, "printk", new_uid, new_gid);
