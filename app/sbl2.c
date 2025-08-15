@@ -1075,9 +1075,16 @@ uint32_t CCwriteFirmware(char *path, char *path3, int notAll, void (*progresscal
 	PRINTF("Writing firmware %s\n", path3);
 	FILE *fp = fopen(path3, "rb");
 	if (fp) {
-		int size = 1024 * 704;
-		int todo = 1024 * 704;
-		int end = 1024 * 700;
+		uint32_t a;
+		if (readDeviceId(&a) != SBL_SUCCESS) return 1;
+		if (readFlashSize(&a) != SBL_SUCCESS) return 1;
+		if (readRamSize(&a) != SBL_SUCCESS) return 1;
+		if (CCeraseFlashAll() != SBL_SUCCESS) return 1;
+		PRINTF("Erase done\n");
+
+		int size = 1024 * m_flashSize;
+		int todo = 1024 * m_flashSize;
+		int end = 1024 * (m_flashSize - 4);
 		unsigned char *pucData = malloc(size);
 		fread(pucData, size, 1, fp);
 		fclose(fp);
@@ -1096,12 +1103,6 @@ uint32_t CCwriteFirmware(char *path, char *path3, int notAll, void (*progresscal
 				PRINTF("Flashing nothing\n");
 			}
 		}
-		uint32_t a;
-		if (readDeviceId(&a) != SBL_SUCCESS) return 1;
-		if (readFlashSize(&a) != SBL_SUCCESS) return 1;
-		if (readRamSize(&a) != SBL_SUCCESS) return 1;
-		if (CCeraseFlashAll() != SBL_SUCCESS) return 1;
-		PRINTF("Erase done\n");
 
 		struct timespec tsa;
 		clock_gettime(CLOCK_REALTIME, &tsa);
