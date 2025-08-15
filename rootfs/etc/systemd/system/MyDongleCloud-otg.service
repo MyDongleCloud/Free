@@ -5,7 +5,7 @@ Requires=systemd-modules-load.service systemd-udevd.service
 
 [Service]
 Type=oneshot
-RemainAfterExit=no
+RemainAfterExit=yes
 ExecStart=/usr/local/modules/MyDongleCloud/otg.sh
 StandardOutput=inherit
 StandardError=inherit
