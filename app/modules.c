@@ -185,6 +185,10 @@ remotePort = %d\n\n", elModuleSj->string, spaceName, localPort, remotePort);
 				}
 			}
 #endif
+		} else if (strcmp(elModule->string, "OTG") == 0) {
+#ifndef DESKTOP
+			;
+#endif
 		} else if (strcmp(elModule->string, "Pandoc") == 0) {
 		} else if (strcmp(elModule->string, "PhotoPrism") == 0) {
 		} else if (strcmp(elModule->string, "PhotoView") == 0) {
@@ -214,7 +218,6 @@ remotePort = %d\n\n", elModuleSj->string, spaceName, localPort, remotePort);
 		} else if (strcmp(elModule->string, "Transmission") == 0) {
 		} else if (strcmp(elModule->string, "TriliumNotes") == 0) {
 		} else if (strcmp(elModule->string, "TubeArchivist") == 0) {
-		} else if (strcmp(elModule->string, "uMTP-Responder") == 0) {
 		} else if (strcmp(elModule->string, "Unmanic") == 0) {
 		} else if (strcmp(elModule->string, "Uptime") == 0) {
 		} else if (strcmp(elModule->string, "Webtrees") == 0) {

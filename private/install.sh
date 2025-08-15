@@ -62,6 +62,7 @@ sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/mdc/.bashrc
 ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.target.wants/serial-getty@ttyGS0.service
 ln -sf /etc/systemd/system/MyDongleCloud-app.service /etc/systemd/system/multi-user.target.wants/MyDongleCloud-app.service
 ln -sf /etc/systemd/system/MyDongleCloud-init.service /etc/systemd/system/sysinit.target.wants/MyDongleCloud-init.service
+ln -sf /etc/systemd/system/MyDongleCloud-otg.service /etc/systemd/system/sysinit.target.wants/MyDongleCloud-otg.service
 if [ $NATIVE = 1 ]; then
 	echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
 	sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt

@@ -265,6 +265,15 @@
 		"authorized": "_all_",
 		"fallbackPort": 9232
 	},
+	"OTG": {
+		"enabled": "true",
+		"features": ["serial", "mtp"],
+		"mtp": {
+			"show_hidden_files": true,
+			"path": "/disk/admin",
+			"rights": "rw"
+		}
+	},
 	"Pandoc": {
 		"web": true,
 		"enabled": true,

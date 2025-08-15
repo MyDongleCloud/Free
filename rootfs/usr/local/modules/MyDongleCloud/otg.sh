@@ -75,12 +75,12 @@ if [ $STOP = 1 ]; then
 	fi
 	if [ $SERIAL = 1 ]; then
 		touch /tmp/noacm
-		killall getty
+		#killall getty
 		sleep 1
 	fi
 	if [ $MTP = 1 ]; then
 		killall umtprd
-		umount /dev/umtp
+		umount /dev/ffs-mtp
 	fi
 	echo "" > $PATHg1/UDC
 	if [ $SERIAL = 1 ]; then
@@ -93,8 +93,6 @@ if [ $STOP = 1 ]; then
 	rmdir $PATHg1/configs/c.1/strings/0x409
 	rmdir $PATHg1/configs/c.1
 	if [ $SERIAL = 1 ]; then
-		killall getty
-		sleep 1
 		rmdir $PATHg1/functions/acm.usb0
 	fi
 	if [ $MTP = 1 ]; then
@@ -149,7 +147,7 @@ if [ $MTP = 1 ]; then
 	echo "0x4ee1" > $PATHg1/idProduct
 	mkdir $PATHg1/functions/$FFS
 	ln -s functions/$FFS configs/c.1/
-	mkdir /dev/ffs-mtp
+	mkdir -p /dev/ffs-mtp
 	mount -t functionfs mtp /dev/ffs-mtp
 	/usr/local/modules/MTP/umtprd -conf /disk/admin/.modules/MTP/umtprd.conf &
 	sleep 1
