@@ -427,6 +427,7 @@
 		"authorized": "admin",
 		"overwrite": false,
 		"alias": "ssh",
+		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [P,L]",
 		"reverseProxy": 2222
 	},
 	"Webtrees": {
