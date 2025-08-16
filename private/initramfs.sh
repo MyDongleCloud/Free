@@ -8,7 +8,7 @@ echo "h:	Print this usage and exit"
 exit 0
 }
 
-DISK=/dev/mmcblk0p
+DISK=/dev/sda
 FULL=0
 while getopts fh opt; do
 	case "$opt" in
