@@ -186,6 +186,7 @@ int main(int argc, char **argv) {
 		unsigned char data[128];
 		data[0] = 0xfe; data[1] = 0x00; data[2] = 0x21; data[3] = 0x02; data[4] = 0x23;
 		write(fd, data, 5);
+		memset(data, 0, 128);
 		int ret = read(fd, data, 128);
 		PRINTF("Data(%d): ", ret);
 		for (int i = 0; i < ret; i++)
