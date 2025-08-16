@@ -80,10 +80,12 @@ void modulesSetup(char *spaceName, char *fqdn) {
 		} else if (strcmp(elModule->string, "Flarum") == 0) {
 		} else if (strcmp(elModule->string, "FreshRSS") == 0) {
 		} else if (strcmp(elModule->string, "frp") == 0) {
+			PRINTF("Modules:frp: Enter\n");
 			int	used = 0;
 			int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "bindingPort"));
 			cJSON *elModuleS = cJSON_GetObjectItem(elModule, "services");
 			cJSON *elModule2S = cJSON_GetObjectItem(elModule2, "services");
+			mkdir(ADMIN_PATH "frp", 0775);
 #ifdef DESKTOP
 			FILE *pf = fopen("/tmp/frpc.toml", "w");
 #else
@@ -131,7 +133,7 @@ remotePort = %d\n\n", elModuleSj->string, spaceName, localPort, remotePort);
 			}
 #ifndef DESKTOP
 			if (used && getuid() == 1001) {
-				PRINTF("frp: Starting service (user admin)\n");
+				PRINTF("Modules:frp: Starting service (user=admin)\n");
 				system("sudo /usr/bin/systemctl start frp.service");
 			}
 #endif
@@ -178,6 +180,7 @@ remotePort = %d\n\n", elModuleSj->string, spaceName, localPort, remotePort);
 		} else if (strcmp(elModule->string, "osTicket") == 0) {
 #ifndef DESKTOP
 			if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
+				PRINTF("osTicket: Creation of ost-config.php\n");
 				mkdir(ADMIN_PATH "osTicket", 0775);
 				if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
 					copyFile(LOCAL_PATH "osTicket/include/ost-sampleconfig.php", ADMIN_PATH "osTicket/ost-config.php", NULL);
