@@ -8,29 +8,18 @@
 #include "sbl.h"
 #include "sbl2.h"
 
-#define SBL_MAX_DEVICES 20
 #define SBL_DEFAULT_RETRY_COUNT 1
-#define SBL_DEFAULT_READ_TIMEOUT 100 // in ms
-#define SBL_DEFAULT_WRITE_TIMEOUT 200 // in ms
 #define SBL_CC2650_PAGE_ERASE_SIZE 8192
 #define SBL_CC2650_FLASH_START_ADDRESS 0x00000000
 #define SBL_CC2650_RAM_START_ADDRESS 0x20000000
 #define SBL_CC2650_ACCESS_WIDTH_32B 1
 #define SBL_CC2650_ACCESS_WIDTH_8B 0
-#define SBL_CC2650_PAGE_ERASE_TIME_MS 20
 #define SBL_CC2650_MAX_BYTES_PER_TRANSFER 252
-#define SBL_CC2650_MAX_MEMWRITE_BYTES		247
-#define SBL_CC2650_MAX_MEMWRITE_WORDS		61
-#define SBL_CC2650_MAX_MEMREAD_BYTES		253
 #define SBL_CC2650_MAX_MEMREAD_WORDS		63
 #define SBL_CC2650_FLASH_SIZE_CFG 0x4003002C
 #define SBL_CC2650_RAM_SIZE_CFG 0x40082250
 #define SBL_CC2650_BL_CONFIG_PAGE_OFFSET 0x1FDB
 #define SBL_CC2650_BL_CONFIG_ENABLED_BM 0xC5
-#define SBL_CC2650_BL_WORK_MEMORY_START		0x20000000
-#define SBL_CC2650_BL_WORK_MEMORY_END		0x2000016F
-#define SBL_CC2650_BL_STACK_MEMORY_START	0x20000FC0
-#define SBL_CC2650_BL_STACK_MEMORY_END		0x20000FFF
 
 typedef enum {
 	SBL_SUCCESS = 0,
@@ -1049,6 +1038,40 @@ int calcCrcLikeChip(const unsigned char *pData, unsigned long ulByteCount) {
     return (acc ^ 0xFFFFFFFF);
 }
 
+#define FCFG1_BASE              0x50001000
+#define FCFG1_O_ICEPICK_DEVICE_ID                                   0x00000318
+#define FCFG1_ICEPICK_DEVICE_ID_WAFER_ID_W                                  16
+#define FCFG1_ICEPICK_DEVICE_ID_WAFER_ID_M                          0x0FFFF000
+#define FCFG1_ICEPICK_DEVICE_ID_WAFER_ID_S                                  12
+#define FCFG1_O_ICEPICK_DEVICE_ID                                   0x00000318
+#define FCFG1_O_MISC_CONF_1                                         0x000000A0
+#define FCFG1_MISC_CONF_1_DEVICE_MINOR_REV_W                                 8
+#define FCFG1_MISC_CONF_1_DEVICE_MINOR_REV_M                        0x000000FF
+#define FCFG1_MISC_CONF_1_DEVICE_MINOR_REV_S                                 0
+
+void ChipInfo_GetChipFamily() {
+	uint32_t value;
+	readMemory32(FCFG1_BASE + FCFG1_O_ICEPICK_DEVICE_ID, 1, &value);
+	uint32_t waferId = (value & FCFG1_ICEPICK_DEVICE_ID_WAFER_ID_M) >> FCFG1_ICEPICK_DEVICE_ID_WAFER_ID_S;
+	PRINTF("ChipFamily: 0x%x 0x%x\n", waferId, 0xBB41);
+}
+
+
+void ChipInfo_GetDeviceIdHwRevCode() {
+   // Returns HwRevCode = FCFG1_O_ICEPICK_DEVICE_ID[31:28]
+	uint32_t value;
+	readMemory32(FCFG1_BASE + FCFG1_O_ICEPICK_DEVICE_ID, 1, &value);
+	uint32_t HwRevCode = value >> 28;
+	PRINTF("HwRevCode: %d\n", HwRevCode);
+}
+
+void ChipInfo_GetMinorHwRev() {
+	uint32_t value;
+	readMemory32(FCFG1_BASE + FCFG1_O_MISC_CONF_1, 1, &value);
+	uint32_t minorRev = (value & FCFG1_MISC_CONF_1_DEVICE_MINOR_REV_M) >> FCFG1_MISC_CONF_1_DEVICE_MINOR_REV_S;
+	PRINTF("MinorHwRev: %d\n", minorRev);
+}
+
 void CCdumpMetadata() {
 	uint32_t a;
 	readDeviceId(&a);
@@ -1059,6 +1082,9 @@ void CCdumpMetadata() {
 	PRINTF("Ram: %dkB\n", a / 1024);
 	readStatus(&a);
 	PRINTF("Status: 0x%x\n", a);
+	ChipInfo_GetChipFamily();
+	ChipInfo_GetDeviceIdHwRevCode();
+	ChipInfo_GetMinorHwRev();
 }
 
 uint32_t CCeraseFlashAll() {
@@ -1082,9 +1108,9 @@ uint32_t CCwriteFirmware(char *path, char *path3, int notAll, void (*progresscal
 		if (CCeraseFlashAll() != SBL_SUCCESS) return 1;
 		PRINTF("Erase done\n");
 
-		int size = 1024 * m_flashSize;
-		int todo = 1024 * m_flashSize;
-		int end = 1024 * (m_flashSize - 4);
+		int size = m_flashSize;
+		int todo = m_flashSize;
+		int end = m_flashSize - 1024 * 4;
 		unsigned char *pucData = malloc(size);
 		fread(pucData, size, 1, fp);
 		fclose(fp);
