@@ -3,7 +3,7 @@ mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://localhost:1883
 serial:
-  port: /dev/ttyAMA2
+  port: /dev/tty_zigbee
   adapter: zstack
   baudrate: 115200
   rtscts: false
