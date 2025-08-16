@@ -83,7 +83,7 @@ void reloadApache2Conf() {
 }
 
 void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *fqdn) {
-	PRINTF("Apache2: Creation of configs\n");
+	PRINTF("Modules:Apache2: Enter\n");
 #ifdef DESKTOP
 	FILE *pfP = fopen("/tmp/ports.conf", "w");
 #else
@@ -134,6 +134,15 @@ Listen 80\n\
 	MyDongleCloudModule %s\n\
 	RewriteEngine On\n", elModule->string, elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
+			if (cJSON_HasObjectItem(elModule, "rewriteRule")) {
+				sprintf(sz, "\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "rewriteRule")));
+				fwrite(sz, strlen(sz), 1, pfM);
+			}
+			if (cJSON_HasObjectItem(elModule2, "rewriteRule")) {
+				sprintf(sz, "\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "rewriteRule")));
+				fwrite(sz, strlen(sz), 1, pfM);
+			}
+
 
 			cJSON *elEnabled = cJSON_GetObjectItem(elModule, "enabled");
 			if (cJSON_HasObjectItem(elModule2, "enabled"))
