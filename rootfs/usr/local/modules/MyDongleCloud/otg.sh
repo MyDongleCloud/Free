@@ -36,24 +36,36 @@ do
 done
 
 if [ $OPTIND = 1 ]; then
-	if [ ! -f /disk/admin/.modules/MyDongleCloud/otg.json ]; then
-		MTP=1
-		SERIAL=1
-	else
-		jq -r ".features" /disk/admin/.modules/MyDongleCloud/otg.json | grep -qi serial
+	if [ -f /disk/admin/.modules/MyDongleCloud/modules.json ]; then
+		L=`jq -r ".OTG.features | length" /disk/admin/.modules/MyDongleCloud/modules.json`
+		if [ $L != 0 ]; then
+			jq -r ".OTG.features" /disk/admin/.modules/MyDongleCloud/modules.json | grep -qi serial
+			if [ $? = 0 ]; then
+				SERIAL=1
+			fi
+			jq -r ".OTG.features" /disk/admin/.modules/MyDongleCloud/modules.json | grep -qi mtp
+			if [ $? = 0 ]; then
+				MTP=1
+			fi
+		fi
+	fi
+	if [ $MTP = 0 -a $SERIAL = 0 ]; then
+		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modules.json | grep -qi serial
 		if [ $? = 0 ]; then
 			SERIAL=1
 		fi
-		jq -r ".features" /disk/admin/.modules/MyDongleCloud/otg.json | grep -qi mtp
+		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modules.json | grep -qi mtp
 		if [ $? = 0 ]; then
 			MTP=1
 		fi
-		if [ $MTP = 0 -a $SERIAL = 0 ]; then
-			SERIAL=1
-		fi
 	fi
 fi
-echo "Doing OTG in MTP:${MTP} Serial:${SERIAL}"
+
+if [ $STOP = 1 ]; then
+	echo "Stopping OTG"
+else
+	echo "Starting OTG in MTP:${MTP} Serial:${SERIAL}"
+fi
 
 if [ $MODEL = "std" ]; then
 	PATHg1=/tmp/config/usb_gadget/g1
