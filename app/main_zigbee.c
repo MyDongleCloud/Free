@@ -86,6 +86,16 @@ static void crc32(char *path) {
 	}
 }
 
+static int isServiceRunning(const char* serviceName) {
+    char command[256];
+    snprintf(command, sizeof(command), "systemctl is-active --quiet %s.service", serviceName);
+    int status = system(command);
+    if (WIFEXITED(status))
+        if (WEXITSTATUS(status) == 0)
+            return 1;
+    return 0;
+}
+
 static void processInput(char c) {
 	PRINTF("processInput %c\n", c);
 	switch (c) {
@@ -143,6 +153,11 @@ int main(int argc, char **argv) {
 	int automatic = 0;
 	int nosound = 0;
 	int dotest = 0;
+
+	if (isServiceRunning("Zigbee2MQTT")) {
+		PRINTF("Exiting as Zigbee2MQTT is running\n");
+		return 0;
+	}
 
 	strcpy(szUart, ZIGBEE_DEV);
 	strcpy(szFirmware, ZIGBEE_FIRMWARE);
