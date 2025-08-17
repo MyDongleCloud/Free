@@ -12,7 +12,11 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"reverseProxy": 9102
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 9102,
+			"path": "/"
+		} ]
 	},
 	"Bugzilla": {
 		"web": true,
@@ -125,7 +129,15 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"reverseProxy": 8123
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 8123,
+			"path": "/"
+		}, {
+			"type": "wss",
+			"port": 8124,
+			"path": "/api/websocket"
+		} ]
 	},
 	"Html5QRCode": {
 		"web": true,
@@ -400,7 +412,11 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"reverseProxy": 9103
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 9103,
+			"path": "/"
+		} ]
 	},
 	"TubeArchivist": {
 		"web": true,
@@ -428,7 +444,11 @@
 		"overwrite": false,
 		"alias": "ssh",
 		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [P,L]",
-		"reverseProxy": 2222
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 2222,
+			"path": "/"
+		} ]
 	},
 	"Webtrees": {
 		"web": true,
@@ -459,6 +479,10 @@
 		"web": true,
 		"enabled": true,
 		"authorized": "_all_",
-		"reverseProxy": 9104
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 9104,
+			"path": "/"
+		} ]
 	}
 }

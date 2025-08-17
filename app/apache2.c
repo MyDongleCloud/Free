@@ -154,12 +154,18 @@ Listen 80\n\
 				char *authorized = cJSON_GetStringValue(elAuthorized);
 
 				if (cJSON_HasObjectItem(elModule, "reverseProxy")) {
-					int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "reverseProxy"));
-					sprintf(sz, "\
-	ProxyRequests Off\n\
-	ProxyPreserveHost on\n\
-	ProxyPass / http://localhost:%d/\n\
-	ProxyPassReverse / http://localhost:%d/\n\t<Proxy *>\n", port, port);
+					strcpy(sz, "\tProxyRequests Off\n\tProxyPreserveHost on\n");
+					fwrite(sz, strlen(sz), 1, pfM);
+					cJSON *elReverseProxy = cJSON_GetObjectItem(elModule, "reverseProxy");
+					for (int j = 0; j < cJSON_GetArraySize(elReverseProxy); j++) {
+						cJSON *elReverseProxy_ = cJSON_GetArrayItem(elReverseProxy, j);
+						char *type_ = cJSON_GetStringValue(cJSON_GetObjectItem(elReverseProxy_, "type"));
+						char *path_ = cJSON_GetStringValue(cJSON_GetObjectItem(elReverseProxy_, "path"));
+						int port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elReverseProxy_, "port"));
+						sprintf(sz, "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, port_, path_, path_, type_, port_, path_);
+						fwrite(sz, strlen(sz), 1, pfM);
+					}
+					strcpy(sz, "\t<Proxy *>\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				} else {
 					sprintf(sz, "\tDocumentRoot %s\n\t<Directory %s>\n", path, path);
@@ -196,7 +202,7 @@ Listen 80\n\
 				if (strcmp(elModule->string, "Apache2") == 0) {
 					for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
 						cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
-						int port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "reverseProxy"));
+						int port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(el_Module, "reverseProxy"), 0), "port"));
 						if (port_ <= 0)
 							port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "fallbackPort"));
 						if (port_ > 0) {
