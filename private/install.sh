@@ -411,6 +411,9 @@ pip install paho-mqtt==1.6.1
 pip install ibeacon-ble==1.2.0
 pip install isal==1.7.2
 pip install zlib_ng==0.5.1
+
+pip install universal-silabs-flasher==0.0.25
+pip install zha==0.0.45
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
