@@ -7,7 +7,7 @@ SUBSYSTEM=="leds", KERNEL=="LED_RED", ACTION=="change", RUN+="/usr/bin/chmod 666
 SUBSYSTEM=="leds", KERNEL=="LED_GREEN", ACTION=="add", RUN+="/usr/local/modules/MyDongleCloud/leds.sh -l normal"
 
 SUBSYSTEM=="tty", KERNEL=="ttyAMA2", ACTION=="add", RUN+="/usr/bin/ln -sf ttyAMA2 /dev/tty_zigbee"
-SUBSYSTEM=="tty", KERNEL=="ttySAC5", ACTION=="add", RUN+="/usr/bin/ln -sf ttySAC5 /dev/tty_zigbee"
+SUBSYSTEM=="tty", KERNEL=="ttySAC4", ACTION=="add", RUN+="/usr/bin/ln -sf ttySAC4 /dev/tty_zigbee"
 
 SUBSYSTEM=="tty", KERNEL=="ttyAMA10", ACTION=="add", RUN+="/usr/bin/ln -sf ttyAMA10 /dev/tty_debug"
 SUBSYSTEM=="tty", KERNEL=="ttySAC3", ACTION=="add", RUN+="/usr/bin/ln -sf ttySAC3 /dev/tty_debug"
