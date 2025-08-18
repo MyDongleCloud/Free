@@ -3,7 +3,7 @@
 helper() {
 echo "*******************************************************"
 echo "Usage for update-burnt [-d disk -h -r]"
-echo "d disk:	Set /dev/disk (default: /dev/sda)"
+echo "d disk:	Set /dev/disk (default: /dev/sda or mmcblk0p)"
 echo "h:		Print this usage and exit"
 echo "r:		Reset admin"
 exit 0

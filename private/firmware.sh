@@ -2,8 +2,9 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for firmware [-c -f -h -l NB -n]"
+echo "Usage for firmware [-c -d disk -f -h -l NB -n]"
 echo "c:	Clean build"
+echo "d disk:	set /dev/disk[1-2] (sda or mmcblk0p)"
 echo "f:	Create final binaries"
 echo "h:	Print this usage and exit"
 echo "l:	Set loop number"
@@ -17,9 +18,10 @@ POSTNAME=""
 FINAL=0
 CLEAN=0
 NATIVE=1
-while getopts cfhl:n opt; do
+while getopts cd:fhl:n opt; do
 	case "$opt" in
 		c) CLEAN=1;;
+		d) DISK="/dev/${OPTARG}";;
 		f) POSTNAME="-final";FINAL=1;;
 		h) helper;;
 		l) LOSETUP=/dev/loop${OPTARG};;
