@@ -95,7 +95,7 @@
 			status ="okay";
 		};
 
-		serial5:serial@c006f000 {
+		serial4:serial@c006d000 {
 			status ="okay";
 		};
 
