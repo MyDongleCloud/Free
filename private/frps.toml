@@ -2,3 +2,7 @@ bindPort = 9101
 vhostHTTPPort = 9101
 auth.token = ""
 custom404Page = "404.html"
+webServer.addr = "209.188.18.155"
+webServer.port = 8101
+webServer.user = "mdc"
+webServer.password = ""
