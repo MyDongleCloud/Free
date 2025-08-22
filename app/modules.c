@@ -107,7 +107,9 @@ serverAddr = \"mydongle.cloud\"\n\
 serverPort = %d\n\
 #user = \"%s\"\n\
 auth.method = \"token\"\n\
-auth.token = \"%s\"\n\n", port, spaceName, token);
+auth.token = \"%s\"\n\
+webServer.addr = \"127.0.0.1\"\n\
+webServer.port = 9105\n\n", port, spaceName, token);
 				fwrite(sz, strlen(sz), 1, pf);
 				for (int j = 0; j < cJSON_GetArraySize(elModuleS); j++) {
 					cJSON *elModuleSj = cJSON_GetArrayItem(elModuleS, j);

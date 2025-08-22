@@ -87,6 +87,14 @@
 		"alias": "rss"
 	},
 	"frp": {
+		"web": true,
+		"enabled": true,
+		"authorized": "admin",
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 9105,
+			"path": "/"
+		} ],
 		"bindingPort": 9101,
 		"services": {
 			"https": {
