@@ -92,13 +92,22 @@ void modulesSetup(char *spaceName, char *fqdn) {
 			FILE *pf = fopen(ADMIN_PATH "frp/frpc.toml", "w");
 #endif
 			if (pf) {
+				char token[64];
+				token[0] = '\0';
+				FILE *pft = fopen(LOCAL_PATH "frp/password-token.txt", "r");
+				if (pft) {
+					int ret = fread(token, 1, 64, pft);
+					if (ret >= 0)
+						token[ret] = '\0';
+					fclose(pft);
+				}
 				char sz[2048];
 				sprintf(sz, "\
 serverAddr = \"mydongle.cloud\"\n\
 serverPort = %d\n\
 #user = \"%s\"\n\
 auth.method = \"token\"\n\
-auth.token = \"YOUR_STRONG_SECRET_TOKEN\"\n\n", port, spaceName);
+auth.token = \"%s\"\n\n", port, spaceName, token);
 				fwrite(sz, strlen(sz), 1, pf);
 				for (int j = 0; j < cJSON_GetArraySize(elModuleS); j++) {
 					cJSON *elModuleSj = cJSON_GetArrayItem(elModuleS, j);

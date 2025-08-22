@@ -3,6 +3,7 @@ kernel/password.h
 private/img
 private/password-upgrade.bin.txt
 private/password-githubkey.txt
+rootfs/usr/local/modules/frp/password-token.txt
 www/js/app.js
 client/.angular/
 client/app/

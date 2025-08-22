@@ -1,4 +1,4 @@
 bindPort = 9101
 vhostHTTPPort = 9101
-auth.token = "YOUR_STRONG_SECRET_TOKEN"
+auth.token = ""
 custom404Page = "404.html"
