@@ -119,11 +119,12 @@ if [ $STOP = 1 ]; then
 	exit 0
 fi
 
-if [ ! -d /tmp/config ]; then
-	mkdir /tmp/config
-	mount -t configfs none /tmp/config
+if [ $MODEL = "std" ]; then
+	if [ ! -d /tmp/config ]; then
+		mkdir /tmp/config
+		mount -t configfs none /tmp/config
+	fi
 fi
-
 mkdir $PATHg1
 cd $PATHg1
 echo 0x100 > $PATHg1/bcdDevice
@@ -165,4 +166,5 @@ if [ $MTP = 1 ]; then
 	sleep 1
 fi
 ls /sys/class/udc/ > $PATHg1/UDC
+echo "OTG done" > /dev/mydonglecloud_platform/printk
 echo "Configuration OTG done"
