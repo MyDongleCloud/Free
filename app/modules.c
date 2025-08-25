@@ -127,21 +127,21 @@ webServer.port = 9105\n\n", port, token, spaceName, spaceToken);
 						if (strcmp(elModuleSj->string, "https") == 0) {
 							sprintf(sz, "\
 [[proxies]]\n\
-name = \"%s-%s\"\n\
+name = \"https\"\n\
 type = \"http\"\n\
 localIP = \"localhost\"\n\
 localPort = 80\n\
-customDomains = [\"%s\", \"*.%s\"]\n\n", elModuleSj->string, spaceName, fqdn, fqdn);
+customDomains = [\"%s\", \"*.%s\"]\n\n", fqdn, fqdn);
 							fwrite(sz, strlen(sz), 1, pf);
 						} else {
 							int remotePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule2Sj, "remotePort"));
 							sprintf(sz, "\
 [[proxies]]\n\
-name = \"%s-%s\"\n\
+name = \"%s\"\n\
 type = \"tcp\"\n\
 localIP = \"localhost\"\n\
 localPort = %d\n\
-remotePort = %d\n\n", elModuleSj->string, spaceName, localPort, remotePort);
+remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 							fwrite(sz, strlen(sz), 1, pf);
 //PRINTF("https://mydongle.cloud/master/proxy.json { \"localPort\": %d, \"serviceName\": \"%s\", \"spaceName\": \"%s\", \"remotePort\": %d }\n", localPort, elModuleSj->string, spaceName, remotePort);
 						}
