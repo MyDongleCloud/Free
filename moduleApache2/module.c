@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include "util_cookies.h"
+#include "http_request.h"
 #include "http_log.h"
 #include "apr_strings.h"
 #include "macro.h"
@@ -127,7 +128,7 @@ static const command_rec directives[] = {
 };
 
 static void registerHooks(apr_pool_t *p) {
-	ap_hook_handler(authorization, NULL, NULL, APR_HOOK_FIRST);
+	ap_hook_access_checker(authorization, NULL, NULL, APR_HOOK_FIRST);
 }
 
 module AP_MODULE_DECLARE_DATA mydonglecloud_module = {
