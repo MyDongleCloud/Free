@@ -47,16 +47,5 @@ if ($ret) {
 ?><html>
 <body>
 <?=$ret ? "Success" : "Failure"?>
-<?php
-if ($ret) {
-?>
-<script>
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "/m/usersReloading");
-xhr.send();
-</script>
-<?php
-}
-?>
 </body>
 </html>
