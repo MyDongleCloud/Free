@@ -101,15 +101,22 @@ void modulesSetup(char *spaceName, char *fqdn) {
 						token[ret] = '\0';
 					fclose(pft);
 				}
+				char *spaceToken = NULL;
+				cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
+				if (space)
+					spaceToken = cJSON_GetStringValue(cJSON_GetObjectItem(space, "frpToken"));
 				char sz[2048];
 				sprintf(sz, "\
 serverAddr = \"mydongle.cloud\"\n\
 serverPort = %d\n\
-#user = \"%s\"\n\
 auth.method = \"token\"\n\
 auth.token = \"%s\"\n\
+user = \"%s\"\n\
+metadatas.token = \"%s\"\n\
 webServer.addr = \"127.0.0.1\"\n\
-webServer.port = 9105\n\n", port, spaceName, token);
+webServer.port = 9105\n\n", port, token, spaceName, spaceToken);
+				if (space)
+					cJSON_Delete(space);
 				fwrite(sz, strlen(sz), 1, pf);
 				for (int j = 0; j < cJSON_GetArraySize(elModuleS); j++) {
 					cJSON *elModuleSj = cJSON_GetArrayItem(elModuleS, j);

@@ -1,0 +1,30 @@
+<?php
+global $LOGPATH;
+include "server.inc";
+
+date_default_timezone_set('America/Los_Angeles');
+$DATE = date("Ymd_His");
+$access = 0;
+if (frpReject()) {
+	$h = fopen($LOGPATH, "a");
+	$output = $DATE . ": " . var_export($_SERVER, true) . "\n\n";
+	fwrite($h, $output);
+	fclose($h);
+} else {
+	$json = file_get_contents('php://input');
+	$data = json_decode($json, true);
+	if (!isset($data["content"]["user"]) || !isset($data["content"]["metas"]) || !isset($data["content"]["metas"]["token"])) {
+		$h = fopen($LOGPATH, "a");
+		$output = $DATE . ": " . var_export($data, true) . "\n\n";
+		fwrite($h, $output);
+		fclose($h);
+	} else {
+		$output = $DATE . ": " . $data["content"]["user"] . "=" . $data["content"]["metas"]["token"] . "\n\n";
+		$h = fopen($LOGPATH, "a");
+		fwrite($h, $output);
+		fclose($h);
+		$access = frpAuthenticate($data["content"]["user"], $data["content"]["metas"]["token"]);
+	}
+}
+echo "{ \"reject\": " . ($access == 1 ? "false" : "true") . ", \"unchange\": true }";
+?>
