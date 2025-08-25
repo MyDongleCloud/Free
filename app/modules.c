@@ -107,7 +107,7 @@ void modulesSetup(char *spaceName, char *fqdn) {
 					spaceToken = cJSON_GetStringValue(cJSON_GetObjectItem(space, "frpToken"));
 				char sz[2048];
 				sprintf(sz, "\
-serverAddr = \"mydongle.cloud\"\n\
+serverAddr = \"server.mydongle.cloud\"\n\
 serverPort = %d\n\
 auth.method = \"token\"\n\
 auth.token = \"%s\"\n\
