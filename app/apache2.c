@@ -113,9 +113,9 @@ Listen 80\n\
 	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
-    Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
-    SSLCertificateFile /disk/admin/.modules/Apache2/fullchain.pem\n\
-    SSLCertificateKeyFile /disk/admin/.modules/Apache2/privkey.pem\n\
+	Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
+	SSLCertificateFile /disk/admin/.modules/Apache2/fullchain.pem\n\
+	SSLCertificateKeyFile /disk/admin/.modules/Apache2/privkey.pem\n\
 </Macro>\n\n");
 	fwrite(sz, strlen(sz), 1, pfM);
 	cJSON *elLocalRanges = cJSON_GetObjectItem(cJSON_GetObjectItem(modulesDefault, "Apache2"), "localRanges");
@@ -207,7 +207,7 @@ Listen 80\n\
 							port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "fallbackPort"));
 						if (port_ > 0) {
 							sprintf(sz, "\
-    RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
+	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
 	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%%{HTTP_HOST}:%d [NC,L]\n\
 	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%s.%s [NC,L]\n", el_Module->string, port_, el_Module->string, el_Module->string, fqdn);
 							fwrite(sz, strlen(sz), 1, pfM);
@@ -219,7 +219,10 @@ Listen 80\n\
 				strcpy(sz, "\tUse Macro_Redirect\n");
 				fwrite(sz, strlen(sz), 1, pfM);
 			} else {
-				sprintf(sz, "\tRewriteRule ^/.*$ http://%s/MyDongleCloud/disabled.php?m=%s\n\n", fqdn, elModule->string);
+				sprintf(sz, "\
+	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(:\\d+)?$\n\
+	RewriteRule ^/.*$ http://%%1/MyDongleCloud/disabled.php?m=%s\n\
+	RewriteRule ^/.*$ https://%s/MyDongleCloud/disabled.php?m=%s\n\n", elModule->string, fqdn, elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);
