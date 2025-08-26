@@ -220,9 +220,10 @@ Listen 80\n\
 				fwrite(sz, strlen(sz), 1, pfM);
 			} else {
 				sprintf(sz, "\
+	SSLProxyEngine On\n\
 	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(:\\d+)?$\n\
-	RewriteRule ^/.*$ http://%%1/MyDongleCloud/disabled.php?m=%s\n\
-	RewriteRule ^/.*$ https://%s/MyDongleCloud/disabled.php?m=%s\n\n", elModule->string, fqdn, elModule->string);
+	RewriteRule ^/.*$ http://%%1/MyDongleCloud/disabled.php?m=%s [P,L]\n\
+	RewriteRule ^/.*$ https://%s/MyDongleCloud/disabled.php?m=%s [P,L]\n\n", elModule->string, fqdn, elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);
