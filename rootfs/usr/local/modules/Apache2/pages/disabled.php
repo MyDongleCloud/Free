@@ -1,5 +1,5 @@
 <html>
 <body>
-Disabled module
+Module "<?=$_GET["m"];?>" is disabled. Contact the administrator.
 </body>
 </html>
