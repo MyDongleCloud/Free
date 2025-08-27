@@ -103,14 +103,13 @@ Listen 80\n\
 #endif
 	strcpy(sz, "LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\n\
 \n\
-<Macro Macro_Redirect>\n\
+<Macro Macro_Redirect $1>\n\
 	Alias /MyDongleCloud /usr/local/modules/Apache2/pages\n\
 	<Directory /usr/local/modules/Apache2/pages>\n\
 		Require all granted\n\
 	</Directory>\n\
-	ErrorDocument 401 /MyDongleCloud/unauthorized.php\n\
-	ErrorDocument 403 /MyDongleCloud/denied.php\n\
-	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
+	ErrorDocument 401 /MyDongleCloud/unauthorized.php?m=$1\n\
+	ProxyPass /MyDongleCloud/unauthorized.php !\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
 	Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
@@ -132,7 +131,8 @@ Listen 80\n\
 			sprintf(sz, "\
 <Macro Macro_%s>\n\
 	MyDongleCloudModule %s\n\
-	RewriteEngine On\n", elModule->string, elModule->string);
+	RewriteEngine On\n\
+	Use Macro_Redirect %s\n", elModule->string, elModule->string, elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 			if (cJSON_HasObjectItem(elModule, "rewriteRule")) {
 				sprintf(sz, "\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "rewriteRule")));
@@ -142,7 +142,6 @@ Listen 80\n\
 				sprintf(sz, "\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "rewriteRule")));
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
-
 
 			cJSON *elEnabled = cJSON_GetObjectItem(elModule, "enabled");
 			if (cJSON_HasObjectItem(elModule2, "enabled"))
@@ -161,8 +160,8 @@ Listen 80\n\
 						cJSON *elReverseProxy_ = cJSON_GetArrayItem(elReverseProxy, j);
 						char *type_ = cJSON_GetStringValue(cJSON_GetObjectItem(elReverseProxy_, "type"));
 						char *path_ = cJSON_GetStringValue(cJSON_GetObjectItem(elReverseProxy_, "path"));
-						int port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elReverseProxy_, "port"));
-						sprintf(sz, "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, port_, path_, path_, type_, port_, path_);
+						int reversePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elReverseProxy_, "port"));
+						sprintf(sz, "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, reversePort, path_, path_, type_, reversePort, path_);
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
 					strcpy(sz, "\t<Proxy *>\n");
@@ -202,22 +201,18 @@ Listen 80\n\
 				if (strcmp(elModule->string, "Apache2") == 0) {
 					for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
 						cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
-						int port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(cJSON_GetArrayItem(cJSON_GetObjectItem(el_Module, "reverseProxy"), 0), "port"));
-						if (port_ <= 0)
-							port_ = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "fallbackPort"));
-						if (port_ > 0) {
-							sprintf(sz, "\
+						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
+						sprintf(sz, "\
 	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
 	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%%{HTTP_HOST}:%d [NC,L]\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%s.%s [NC,L]\n", el_Module->string, port_, el_Module->string, el_Module->string, fqdn);
-							fwrite(sz, strlen(sz), 1, pfM);
-						}
+	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%s.%s [NC,L]\n", el_Module->string, localPort, el_Module->string, el_Module->string, fqdn);
+						fwrite(sz, strlen(sz), 1, pfM);
 					}
-					strcpy(sz, "\n\tAlias /MyDongleCloud /usr/local/modules/Apache2/pages\n\tAlias /m /usr/local/modules/Apache2/pages\n");
+					strcpy(sz, "\n\
+	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
+	ErrorDocument 500 /MyDongleCloud/error.php\n\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
-				strcpy(sz, "\tUse Macro_Redirect\n");
-				fwrite(sz, strlen(sz), 1, pfM);
 			} else {
 				sprintf(sz, "\
 	SSLProxyEngine On\n\
@@ -261,11 +256,11 @@ Listen 80\n\
 			}
 			sprintf(sz, "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
-			int fallbackPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "fallbackPort"));
-			if (fallbackPort > 0) {
-				sprintf(sz, "<VirtualHost *:%d>\n\tUse Macro_%s\n</VirtualHost>\n", fallbackPort, elModule->string);
+			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "localPort"));
+			if (localPort > 0) {
+				sprintf(sz, "<VirtualHost *:%d>\n\tUse Macro_%s\n</VirtualHost>\n", localPort, elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
-				sprintf(sz, "Listen %d\n", fallbackPort);
+				sprintf(sz, "Listen %d\n", localPort);
 				fwrite(sz, strlen(sz), 1, pfP);
 			}
 			strcpy(sz, "\n\n");
