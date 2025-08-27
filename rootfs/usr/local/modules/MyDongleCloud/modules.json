@@ -451,7 +451,7 @@
 		"authorized": "admin",
 		"overwrite": false,
 		"alias": "ssh",
-		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [P,L]",
+		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [R=301,L]",
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 2222,
