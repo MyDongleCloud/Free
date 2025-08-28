@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,6 @@ import { HelpRoutingModule } from './help-routing.module';
 		TranslateModule,
 		HelpRoutingModule
 	],
-	schemas: [NO_ERRORS_SCHEMA],
 	declarations: [Help]
 })
 
