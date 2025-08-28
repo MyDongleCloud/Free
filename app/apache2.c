@@ -148,7 +148,7 @@ Listen 80\n\
 				elEnabled = cJSON_GetObjectItem(elModule2, "enabled");
 			if (cJSON_IsTrue(elEnabled)) {
 				cJSON *elAuthorized = cJSON_GetObjectItem(elModule, "authorized");
-				if (cJSON_HasObjectItem(elModule2, "authorized") && !cJSON_IsFalse(cJSON_GetObjectItem(elModule, "overwrite")))
+				if (cJSON_HasObjectItem(elModule2, "authorized") && !cJSON_IsFalse(cJSON_GetObjectItem(elModule, "authorizedOverwrite")))
 					elAuthorized = cJSON_GetObjectItem(elModule2, "authorized");
 				char *authorized = cJSON_GetStringValue(elAuthorized);
 

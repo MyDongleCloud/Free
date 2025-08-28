@@ -455,7 +455,7 @@
 		"enabled": true,
 		"authorized": "admin",
 		"localPort": 9260,
-		"overwrite": false,
+		"authorizedOverwrite": false,
 		"alias": "ssh",
 		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [R=301,L]",
 		"reverseProxy": [ {
