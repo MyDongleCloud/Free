@@ -31,8 +31,6 @@
               }
             ],
             "styles": [
-				"node_modules/@taiga-ui/core/styles/taiga-ui-local.less",
-				"node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
 				"src/theme/variables.scss",
 				"src/global.scss"
 			],
