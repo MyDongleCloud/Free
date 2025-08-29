@@ -4,8 +4,6 @@ private/img
 private/password-upgrade.bin.txt
 private/password-githubkey.txt
 rootfs/usr/local/modules/frp/password-token.txt
-www/js/app.js
-www/master/server.inc
 client/.angular/
 client/app/
 client/node_modules/
