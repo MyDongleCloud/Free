@@ -156,7 +156,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				char *authorized = cJSON_GetStringValue(elAuthorized);
 
 				if (cJSON_HasObjectItem(elModule, "reverseProxy")) {
-					strcpy(sz, "\tProxyRequests Off\n\tProxyPreserveHost on\n");
+					strcpy(sz, "\tProxyRequests Off\n\tProxyPreserveHost on\n\tProxyVia On\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 					cJSON *elReverseProxy = cJSON_GetObjectItem(elModule, "reverseProxy");
 					for (int j = 0; j < cJSON_GetArraySize(elReverseProxy); j++) {
@@ -200,7 +200,14 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				else
 					strcpy(sz, "\t</Directory>\n");
 				fwrite(sz, strlen(sz), 1, pfM);
-
+				if (cJSON_HasObjectItem(elModule, "addConfig")) {
+					sprintf(sz, "%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "addConfig")));
+					fwrite(sz, strlen(sz), 1, pfM);
+				}
+				if (cJSON_HasObjectItem(elModule2, "addConfig")) {
+					sprintf(sz, "%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "addConfig")));
+					fwrite(sz, strlen(sz), 1, pfM);
+				}
 				if (strcmp(elModule->string, "Apache2") == 0) {
 					for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
 						cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);

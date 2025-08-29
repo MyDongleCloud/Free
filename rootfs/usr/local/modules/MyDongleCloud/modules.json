@@ -83,7 +83,7 @@
 		"enabled": true,
 		"authorized": "_all_",
 		"localPort": 9210,
-		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
+		"addLineInDirectoryOrProxy": "AllowOverride AuthConfig FileInfo Indexes Limit",
 		"path": "/usr/local/modules/FreshRSS/p",
 		"alias": "rss"
 	},
@@ -494,6 +494,7 @@
 		"enabled": true,
 		"authorized": "_all_",
 		"localPort": 9265,
+		"addConfig": "\tRewriteCond %{HTTP:Connection} Upgrade [NC]\n\tRewriteCond %{HTTP:Upgrade} websocket [NC]\n\tRewriteRule /(.*) ws://localhost:8099/$1 [P,L]",
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8099,
