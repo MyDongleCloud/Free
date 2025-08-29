@@ -15,7 +15,7 @@
 		"localPort": 9201,
 		"reverseProxy": [ {
 			"type": "http",
-			"port": 9102,
+			"port": 8092,
 			"path": "/"
 		} ]
 	},
@@ -94,10 +94,10 @@
 		"localPort": 9211,
 		"reverseProxy": [ {
 			"type": "http",
-			"port": 9105,
+			"port": 7400,
 			"path": "/"
 		} ],
-		"bindingPort": 9101,
+		"bindingPort": 7000,
 		"services": {
 			"https": {
 			},
@@ -427,7 +427,7 @@
 		"localPort": 9256,
 		"reverseProxy": [ {
 			"type": "http",
-			"port": 9103,
+			"port": 8090,
 			"path": "/"
 		} ]
 	},
@@ -496,7 +496,7 @@
 		"localPort": 9265,
 		"reverseProxy": [ {
 			"type": "http",
-			"port": 9104,
+			"port": 8099,
 			"path": "/"
 		} ]
 	}

@@ -1,10 +1,10 @@
-bindPort = 9101
-vhostHTTPPort = 9101
+bindPort = 7000
+vhostHTTPPort = 7000
 auth.token = ""
 custom404Page = "404.html"
 log.level = "trace"
 webServer.addr = "mydongle.cloud"
-webServer.port = 8101
+webServer.port = 7500
 webServer.user = ""
 webServer.password = ""
 

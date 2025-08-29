@@ -114,7 +114,7 @@ auth.token = \"%s\"\n\
 user = \"%s\"\n\
 metadatas.token = \"%s\"\n\
 webServer.addr = \"127.0.0.1\"\n\
-webServer.port = 9105\n\n", port, token, spaceName, spaceToken);
+webServer.port = 7400\n\n", port, token, spaceName, spaceToken);
 				if (space)
 					cJSON_Delete(space);
 				fwrite(sz, strlen(sz), 1, pf);
