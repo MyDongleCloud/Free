@@ -29,6 +29,13 @@
 		"ecommerce": "Ecommerce",
 		"dongle": "Dongle"
 	},
+	"setup": {
+		"Dongle": "",
+		"Connected": "",
+		"Searching": "",
+		"Connect": "",
+		"Device version:": ""
+	},
 	"splash": {
 		"Upgrade needed. A new version is available at": ""
 	},

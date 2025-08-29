@@ -1,0 +1,25 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{global.mytranslate("Setup")}}</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true"><div style="padding:10px;">
+	<ion-button (click)="ble.connectToggle()" [color]="ble.connectedBLE == 2 ? 'success' : ble.connectedBLE == 1 ? 'danger' : 'primary'" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
+		<ion-icon src="assets/dongle.svg" style="height:32px;width:74px;"></ion-icon>
+		<br>{{ble.connectedBLE == 2 ? global.mytranslate("Connected") : ble.connectedBLE == 1 ? global.mytranslate("Searching") : global.mytranslate("Connect")}}
+		<br>
+	</div></ion-button>
+	<div *ngIf="ble.connectedBLE == 2">
+		<ion-button (click)="ble.shutdown()" color="primary" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
+			<ion-icon name="power-outline" style="width:24px; height:24px;"></ion-icon>
+			<br>{{global.mytranslate("Shutdown")}}
+		</div></ion-button>
+		<br>
+		<br>
+		<b>{{global.mytranslate("Device version:")}}</b> {{ble.firmwareDeviceVersion}}
+	</div>
+<br><br><br><br>
+</div></ion-content>
