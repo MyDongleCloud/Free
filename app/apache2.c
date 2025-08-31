@@ -75,6 +75,17 @@ static void writeLog(char *name, FILE *pfM) {
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
+static void fillAlias(cJSON *alias, char*fqdn, char *tab, FILE *pfM) {
+	if (alias) {
+		cJSON *item = NULL;
+		cJSON_ArrayForEach(item, alias) {
+			char sz[256];
+			sprintf(sz, "%sServerAlias %s.%s\n", tab, item->valuestring, fqdn);
+			fwrite(sz, strlen(sz), 1, pfM);
+		}
+	}
+}
+
 void reloadApache2Conf() {
 #ifndef DESKTOP
 	PRINTF("Apache2: Reloading\n");
@@ -243,10 +254,8 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				else
 					sprintf(sz, "\tServerName %s.%s\n", elModule->string, fqdn);
 				fwrite(sz, strlen(sz), 1, pfM);
-				if (cJSON_HasObjectItem(elModule, "alias")) {
-					sprintf(sz, "\tServerAlias %s.%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "alias")), fqdn);
-					fwrite(sz, strlen(sz), 1, pfM);
-				}
+				fillAlias(cJSON_GetObjectItem(elModule, "alias"), fqdn, "\t", pfM);
+				fillAlias(cJSON_GetObjectItem(elModule2, "alias"), fqdn, "\t", pfM);
 			}
 			sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
@@ -259,10 +268,8 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				else
 					sprintf(sz, "\t\tServerName %s.%s\n", elModule->string, fqdn);
 				fwrite(sz, strlen(sz), 1, pfM);
-				if (cJSON_HasObjectItem(elModule, "alias")) {
-					sprintf(sz, "\t\tServerAlias %s.%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "alias")), fqdn);
-					fwrite(sz, strlen(sz), 1, pfM);
-				}
+				fillAlias(cJSON_GetObjectItem(elModule, "alias"), fqdn, "\t\t", pfM);
+				fillAlias(cJSON_GetObjectItem(elModule2, "alias"), fqdn, "\t\t", pfM);
 			}
 			sprintf(sz, "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);

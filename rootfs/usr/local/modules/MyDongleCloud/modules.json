@@ -6,7 +6,7 @@
 		"authorized": "_all_",
 		"localRanges": ["10", "172.16", "192.168"],
 		"path": "/disk/admin/Web",
-		"alias": "wwww"
+		"alias": [ "wwww" ]
 	},
 	"Audiobookshelf": {
 		"web": true,
@@ -85,7 +85,7 @@
 		"localPort": 9210,
 		"addLineInDirectoryOrProxy": "AllowOverride AuthConfig FileInfo Indexes Limit",
 		"path": "/usr/local/modules/FreshRSS/p",
-		"alias": "rss"
+		"alias": [ "rss" ]
 	},
 	"frp": {
 		"web": true,
@@ -456,7 +456,7 @@
 		"authorized": "admin",
 		"localPort": 9260,
 		"authorizedOverwrite": false,
-		"alias": "ssh",
+		"alias": [ "ssh" ],
 		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [R=301,L]",
 		"reverseProxy": [ {
 			"type": "http",
