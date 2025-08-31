@@ -251,6 +251,13 @@ dpkg -i rethinkdb*.deb
 cd ..
 
 echo "################################"
+echo "devmem2"
+echo "################################"
+cd /home/mdc/build
+wget https://bootlin.com/pub/mirror/devmem2.c
+gcc -o /usr/bin/devmem2 devmem2.c
+
+echo "################################"
 echo "frp"
 echo "################################"
 cd /home/mdc/build
