@@ -524,12 +524,12 @@ static int st7735s_probe(struct spi_device *spi) {
 	kgid_t new_gid;
 	new_uid = make_kuid(&init_user_ns, 0);
 	new_gid = make_kgid(&init_user_ns, 100);
-	sysfs_file_change_owner(&dev->kobj, "backlight", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "rotation", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "reset", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "init", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "rect", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "update", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "backlight", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "rotation", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "reset", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "init", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "rect", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "update", new_uid, new_gid);
 	printk("MyDongleCloud: Exit probe\n");
 
 #define VS10x3_MAJOR 200

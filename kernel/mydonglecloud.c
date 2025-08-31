@@ -206,7 +206,6 @@ int isMydonglecloud = 0;
 static int mydongle_probe(struct platform_device *pdev) {
 	int ret;
 	struct device *dev = &pdev->dev;
-	struct device_node *node = of_find_compatible_node(NULL, NULL, "mydonglecloud");
 	struct mydonglePriv *ip = devm_kzalloc(dev, sizeof(struct mydonglePriv), GFP_KERNEL);
 	if (!ip)
 		return -ENOMEM;
@@ -242,8 +241,9 @@ static int mydongle_probe(struct platform_device *pdev) {
 	timer_setup(&my_timer_buzzer, my_timer_buzzer_callback, 0);
 
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
-	priv->ccnrst = of_get_gpio(dev->of_node, 0);
+	ip->ccnrst = of_get_gpio(dev->of_node, 0);
 #else
+	struct device_node *node = of_find_compatible_node(NULL, NULL, "mydonglecloud");
 	of_property_read_u32(node, "ccnrst", &ip->ccnrst);
 	ip->ccnrst += 569;
 #endif
@@ -259,14 +259,14 @@ static int mydongle_probe(struct platform_device *pdev) {
 	kgid_t new_gid;
 	new_uid = make_kuid(&init_user_ns, 0);
 	new_gid = make_kgid(&init_user_ns, 100);
-	sysfs_file_change_owner(&dev->kobj, "buzzer", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "buzzerClick", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "buzzerFreq", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "ccreset", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "hardwareVersion", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "model", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "printk", new_uid, new_gid);
-	sysfs_file_change_owner(&dev->kobj, "serialNumber", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "buzzer", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "buzzerClick", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "buzzerFreq", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "ccreset", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "hardwareVersion", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "model", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "printk", new_uid, new_gid);
+	ret = sysfs_file_change_owner(&dev->kobj, "serialNumber", new_uid, new_gid);
 	printk("MyDongleCloud: Exit probe\n");
 	return ret;
 }
