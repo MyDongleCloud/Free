@@ -11,12 +11,11 @@ void spaceSetup() {
 	if (space == NULL) {
 		space = cJSON_CreateObject();
 		cJSON_AddNumberToObject(space, "nameId", 1);
-		cJSON_AddStringToObject(space, "space", "placeholder");
+		cJSON_AddStringToObject(space, "name", "placeholder");
 		cJSON_AddStringToObject(space, "alias", "ph");
 	}
-	char *spaceName = cJSON_GetStringValue2(space, "space");
 	char fqdn[256];
-	sprintf(fqdn, "%s.%s", spaceName, DOMAIN);
-	modulesSetup(spaceName, fqdn);
+	sprintf(fqdn, "%s.%s", cJSON_GetStringValue2(space, "name"), DOMAIN);
+	modulesSetup(space, fqdn);
 	cJSON_Delete(space);
 }

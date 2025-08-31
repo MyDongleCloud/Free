@@ -2,6 +2,6 @@
 #define MODULES_H
 
 //Global function
-void modulesSetup(char *space, char *fqdn);
+void modulesSetup(cJSON *space, char *fqdn);
 
 #endif

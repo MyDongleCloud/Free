@@ -41,7 +41,7 @@ static void jsonWrite(cJSON *el, char *path) {
 	}
 }
 
-void modulesSetup(char *spaceName, char *fqdn) {
+void modulesSetup(cJSON *space, char *fqdn) {
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "MyDongleCloud/modules.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "MyDongleCloud/modules.json");
 	if (modules == NULL)
@@ -101,10 +101,6 @@ void modulesSetup(char *spaceName, char *fqdn) {
 						token[ret] = '\0';
 					fclose(pft);
 				}
-				char *spaceToken = NULL;
-				cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
-				if (space)
-					spaceToken = cJSON_GetStringValue2(space, "frpToken");
 				char sz[2048];
 				sprintf(sz, "\
 serverAddr = \"server.mydongle.cloud\"\n\
@@ -114,9 +110,7 @@ auth.token = \"%s\"\n\
 user = \"%s\"\n\
 metadatas.token = \"%s\"\n\
 webServer.addr = \"127.0.0.1\"\n\
-webServer.port = 7400\n\n", port, token, spaceName, spaceToken);
-				if (space)
-					cJSON_Delete(space);
+webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), cJSON_GetStringValue2(space, "frpToken"));
 				fwrite(sz, strlen(sz), 1, pf);
 				for (int j = 0; j < cJSON_GetArraySize(elModuleS); j++) {
 					cJSON *elModuleSj = cJSON_GetArrayItem(elModuleS, j);
@@ -143,7 +137,7 @@ localIP = \"localhost\"\n\
 localPort = %d\n\
 remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 							fwrite(sz, strlen(sz), 1, pf);
-//PRINTF("https://mydongle.cloud/master/proxy.json { \"localPort\": %d, \"serviceName\": \"%s\", \"spaceName\": \"%s\", \"remotePort\": %d }\n", localPort, elModuleSj->string, spaceName, remotePort);
+//PRINTF("https://mydongle.cloud/master/proxy.json { \"localPort\": %d, \"serviceName\": \"%s\", \"spaceName\": \"%s\", \"remotePort\": %d }\n", localPort, elModuleSj->string, cJSON_GetStringValue2(space, "name"), remotePort);
 						}
 					}
 				}
