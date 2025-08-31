@@ -8,6 +8,8 @@
 			status = "okay";
 			#address-cells = <1>;
 			#size-cells = <0>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&spi0_custom>;
 			st7735s: st7735s@0 {
 				compatible = "st7735s";
 				spi-max-frequency = <12000000>;
@@ -25,6 +27,23 @@
 		target = <&spidev0>;
 		__overlay__ {
 			status = "disabled";
+		};
+	};
+
+	fragment@2 {
+		target = <&gpio>;
+		__overlay__ {
+			spi0_custom: spi0_custom {
+				pins = "gpio10", "gpio11";
+				function = "spi0";
+				drive-strength = <12>;
+				bias-disable;
+				slew-rate = <1>;
+			};
+			gpio9_output: gpio9_output {
+				pins = "gpio9";
+				function = "output";
+			};
 		};
 	};
 };
