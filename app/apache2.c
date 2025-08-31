@@ -225,8 +225,8 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
 						sprintf(sz, "\
 	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%%{HTTP_HOST}:%d [NC,L]\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* http://%s.%s [NC,L]\n", el_Module->string, localPort, el_Module->string, el_Module->string, fqdn);
+	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%{HTTP_HOST}:%d [NC,L]\n\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%s.%%{HTTP_HOST} [NC,L]\n", el_Module->string, localPort, el_Module->string, el_Module->string);
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
 					strcpy(sz, "\n\
@@ -238,8 +238,8 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				sprintf(sz, "\
 	SSLProxyEngine On\n\
 	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(:\\d+)?$\n\
-	RewriteRule ^/.*$ http://%%1/MyDongleCloud/disabled.php?m=%s [P,L]\n\
-	RewriteRule ^/.*$ https://%s/MyDongleCloud/disabled.php?m=%s [P,L]\n\n", elModule->string, fqdn, elModule->string);
+	RewriteRule ^/.*$ %%{REQUEST_SCHEME}://%%1/MyDongleCloud/disabled.php?m=%s [P,L]\n\
+	RewriteRule ^/.*$ %%{REQUEST_SCHEME}://%s/MyDongleCloud/disabled.php?m=%s [P,L]\n\n", elModule->string, fqdn, elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);
