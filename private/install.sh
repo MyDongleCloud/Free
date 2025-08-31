@@ -165,10 +165,10 @@ elif [ $OS = "pios" ]; then
 	wget https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
 	wget https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
 	wget https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.1.1_all.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.42-0ubuntu0.22.04.1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
 	dpkg -i libicu70* libprotobuf-lite23* mysql-common*
 	dpkg -i mysql-client* mysql-server*
 	cd ..
@@ -285,7 +285,8 @@ echo "################################"
 echo "Node.js"
 echo "################################"
 cd /home/mdc/build
-wget https://nodejs.org/dist/latest-v22.x/node-v22.18.0-linux-arm64.tar.xz
+FILENODE=`wget -q -O - https://nodejs.org/dist/latest-v22.x/ | grep "\-linux\-arm64\.tar\.xz" | sed -E "s|.*>([^<]*)<.*|\1|"`
+wget https://nodejs.org/dist/latest-v22.x/$FILENODE
 tar -xJpf node-v*
 cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local
 cd ..
