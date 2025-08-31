@@ -183,6 +183,7 @@ CJSON_PUBLIC(const char *) cJSON_GetErrorPtr(void);
 
 /* Check item type and return its value */
 CJSON_PUBLIC(char *) cJSON_GetStringValue(const cJSON * const item);
+#define cJSON_GetStringValue2(object, string) cJSON_GetStringValue(cJSON_GetObjectItem(object, string))
 CJSON_PUBLIC(double) cJSON_GetNumberValue(const cJSON * const item);
 
 /* These functions check the type of an item */

@@ -104,7 +104,7 @@ void modulesSetup(char *spaceName, char *fqdn) {
 				char *spaceToken = NULL;
 				cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
 				if (space)
-					spaceToken = cJSON_GetStringValue(cJSON_GetObjectItem(space, "frpToken"));
+					spaceToken = cJSON_GetStringValue2(space, "frpToken");
 				char sz[2048];
 				sprintf(sz, "\
 serverAddr = \"server.mydongle.cloud\"\n\

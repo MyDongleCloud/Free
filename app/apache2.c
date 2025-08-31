@@ -139,7 +139,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 			cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
 			char path[128];
 			if (cJSON_HasObjectItem(elModule, "path"))
-				strcpy(path, cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "path")));
+				strcpy(path, cJSON_GetStringValue2(elModule, "path"));
 			else
 				sprintf(path, "/usr/local/modules/%s", elModule->string);
 			sprintf(sz, "\
@@ -149,11 +149,11 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 	Use Macro_Redirect %s\n", elModule->string, elModule->string, elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 			if (cJSON_HasObjectItem(elModule, "rewriteRule")) {
-				sprintf(sz, "\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "rewriteRule")));
+				sprintf(sz, "\t%s\n", cJSON_GetStringValue2(elModule, "rewriteRule"));
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			if (cJSON_HasObjectItem(elModule2, "rewriteRule")) {
-				sprintf(sz, "\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "rewriteRule")));
+				sprintf(sz, "\t%s\n", cJSON_GetStringValue2(elModule2, "rewriteRule"));
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 
@@ -172,8 +172,8 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					cJSON *elReverseProxy = cJSON_GetObjectItem(elModule, "reverseProxy");
 					for (int j = 0; j < cJSON_GetArraySize(elReverseProxy); j++) {
 						cJSON *elReverseProxy_ = cJSON_GetArrayItem(elReverseProxy, j);
-						char *type_ = cJSON_GetStringValue(cJSON_GetObjectItem(elReverseProxy_, "type"));
-						char *path_ = cJSON_GetStringValue(cJSON_GetObjectItem(elReverseProxy_, "path"));
+						char *type_ = cJSON_GetStringValue2(elReverseProxy_, "type");
+						char *path_ = cJSON_GetStringValue2(elReverseProxy_, "path");
 						int reversePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elReverseProxy_, "port"));
 						sprintf(sz, "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, reversePort, path_, path_, type_, reversePort, path_);
 						fwrite(sz, strlen(sz), 1, pfM);
@@ -185,18 +185,18 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule, "addLineInDirectory")) {
-					sprintf(sz, "\t\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "addLineInDirectory")));
+					sprintf(sz, "\t\t%s\n", cJSON_GetStringValue2(elModule, "addLineInDirectory"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule2, "addLineInDirectory")) {
-					sprintf(sz, "\t\t%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "addLineInDirectory")));
+					sprintf(sz, "\t\t%s\n", cJSON_GetStringValue2(elModule2, "addLineInDirectory"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				writePermissions(elLocalRanges, authorized, pfM);
 				if (cJSON_HasObjectItem(elModule2, "DirectoryIndex"))
-					writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "DirectoryIndex")), pfM);
+					writeDirectoryIndex(cJSON_GetStringValue2(elModule2, "DirectoryIndex"), pfM);
 				else if (cJSON_HasObjectItem(elModule, "DirectoryIndex"))
-					writeDirectoryIndex(cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "DirectoryIndex")), pfM);
+					writeDirectoryIndex(cJSON_GetStringValue2(elModule, "DirectoryIndex"), pfM);
 				if (cJSON_HasObjectItem(elModule2, "FollowSymLinks"))
 					writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "FollowSymLinks")), pfM);
 				else if (cJSON_GetObjectItem(elModule, "FollowSymLinks"))
@@ -212,11 +212,11 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					strcpy(sz, "\t</Directory>\n");
 				fwrite(sz, strlen(sz), 1, pfM);
 				if (cJSON_HasObjectItem(elModule, "addConfig")) {
-					sprintf(sz, "%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule, "addConfig")));
+					sprintf(sz, "%s\n", cJSON_GetStringValue2(elModule, "addConfig"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule2, "addConfig")) {
-					sprintf(sz, "%s\n", cJSON_GetStringValue(cJSON_GetObjectItem(elModule2, "addConfig")));
+					sprintf(sz, "%s\n", cJSON_GetStringValue2(elModule2, "addConfig"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (strcmp(elModule->string, "Apache2") == 0) {
