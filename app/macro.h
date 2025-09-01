@@ -15,6 +15,7 @@
 #define MAX5(a,b,c,d,e) MAX2(MAX4(a,b,c,d),e)
 #define MIN2(a,b) ((a)>(b)?(b):(a))
 #define RANGE(a,b,c) MIN2(MAX2(a,b),c)
+#define TAB(n) (n == 2 ? "\t\t" : n == 1 ? "\t" : "")
 
 #ifdef DESKTOP
 #define ADMIN_PATH "../rootfs/disk/admin/.modules/"

@@ -75,15 +75,51 @@ static void writeLog(char *name, FILE *pfM) {
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
-static void fillAlias(cJSON *alias, char*fqdn, char *tab, FILE *pfM) {
-	if (alias) {
-		cJSON *item = NULL;
-		cJSON_ArrayForEach(item, alias) {
+static void fillAlias_(cJSON *a, char *sub, cJSON *d, char *fqdn, char *tab, FILE *pfM) {
+	if (d == NULL) {
+		cJSON *iA = NULL;
+		cJSON_ArrayForEach(iA, a) {
 			char sz[256];
-			sprintf(sz, "%sServerAlias %s.%s\n", tab, item->valuestring, fqdn);
+			sprintf(sz, "%sServerAlias %s.%s\n", tab, iA->valuestring, fqdn);
 			fwrite(sz, strlen(sz), 1, pfM);
 		}
+	} else {
+		cJSON *iD = NULL;
+		cJSON_ArrayForEach(iD, d) {
+			if (a == NULL) {
+				char sz[256];
+				sprintf(sz, "%sServerAlias %s%s%s\n", tab, sub, sub[0] ? "." : "", iD->valuestring);
+				fwrite(sz, strlen(sz), 1, pfM);
+			} else {
+				cJSON *iA = NULL;
+				cJSON_ArrayForEach(iA, a) {
+					char sz[256];
+					sprintf(sz, "%sServerAlias %s.%s\n", tab, iA->valuestring, iD->valuestring);
+					fwrite(sz, strlen(sz), 1, pfM);
+				}
+			}
+		}
 	}
+}
+
+static void fillAlias(cJSON *elModule, cJSON *elModule2, cJSON *space, char *fqdn, int tabN, FILE *pfM) {
+	cJSON *a = cJSON_GetObjectItem(elModule, "alias");
+	cJSON *a2 = cJSON_GetObjectItem(elModule2, "alias");
+	cJSON *d = cJSON_GetObjectItem(space, "domains");
+	if (a)
+		fillAlias_(a, NULL, NULL, fqdn, TAB(tabN), pfM);
+	if (a2)
+		fillAlias_(a2, NULL, NULL, fqdn, TAB(tabN), pfM);
+	if (d) {
+		if (strcmp(elModule->string, "Apache2") == 0)
+			fillAlias_(NULL, "", d, NULL, TAB(tabN), pfM);
+		else
+			fillAlias_(NULL, elModule->string, d, NULL, TAB(tabN), pfM);
+	}
+	if (a)
+		fillAlias_(a, NULL, d, NULL, TAB(tabN), pfM);
+	if (a2)
+		fillAlias_(a2, NULL, d, NULL, TAB(tabN), pfM);
 }
 
 void reloadApache2Conf() {
@@ -93,7 +129,7 @@ void reloadApache2Conf() {
 #endif
 }
 
-void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, char *fqdn) {
+void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, char *fqdn) {
 	PRINTF("Modules:Apache2: Enter\n");
 #ifdef DESKTOP
 	FILE *pfP = fopen("/tmp/ports.conf", "w");
@@ -254,8 +290,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				else
 					sprintf(sz, "\tServerName %s.%s\n", elModule->string, fqdn);
 				fwrite(sz, strlen(sz), 1, pfM);
-				fillAlias(cJSON_GetObjectItem(elModule, "alias"), fqdn, "\t", pfM);
-				fillAlias(cJSON_GetObjectItem(elModule2, "alias"), fqdn, "\t", pfM);
+				fillAlias(elModule, elModule2, space, fqdn, 1, pfM);
 			}
 			sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
@@ -268,8 +303,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				else
 					sprintf(sz, "\t\tServerName %s.%s\n", elModule->string, fqdn);
 				fwrite(sz, strlen(sz), 1, pfM);
-				fillAlias(cJSON_GetObjectItem(elModule, "alias"), fqdn, "\t\t", pfM);
-				fillAlias(cJSON_GetObjectItem(elModule2, "alias"), fqdn, "\t\t", pfM);
+				fillAlias(elModule, elModule2, space, fqdn, 2, pfM);
 			}
 			sprintf(sz, "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);

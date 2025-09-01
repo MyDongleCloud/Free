@@ -41,7 +41,9 @@ static void jsonWrite(cJSON *el, char *path) {
 	}
 }
 
-void modulesSetup(cJSON *space, char *fqdn) {
+void modulesSetup(cJSON *space) {
+	char fqdn[256];
+	sprintf(fqdn, "%s.%s", cJSON_GetStringValue2(space, "name"), DOMAIN);
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "MyDongleCloud/modules.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "MyDongleCloud/modules.json");
 	if (modules == NULL)
@@ -56,7 +58,7 @@ void modulesSetup(cJSON *space, char *fqdn) {
 			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
-				buildApache2Conf(modulesDefault, modules, fqdn);
+				buildApache2Conf(modulesDefault, modules, space, fqdn);
 #ifndef DESKTOP
 			reloadApache2Conf();
 #endif

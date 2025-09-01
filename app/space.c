@@ -14,8 +14,6 @@ void spaceSetup() {
 		cJSON_AddStringToObject(space, "name", "placeholder");
 		cJSON_AddStringToObject(space, "alias", "ph");
 	}
-	char fqdn[256];
-	sprintf(fqdn, "%s.%s", cJSON_GetStringValue2(space, "name"), DOMAIN);
-	modulesSetup(space, fqdn);
+	modulesSetup(space);
 	cJSON_Delete(space);
 }
