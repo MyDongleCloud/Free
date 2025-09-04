@@ -6,46 +6,41 @@
 #include "cJSON.h"
 
 //Functions
-static void writePermissions(cJSON *elLocalRanges, char *authorized, FILE *pfM) {
-//ex: _all_,_dongle_,_localnetwork_,_allusers_,admin,user1
-	if (strstr(authorized, "_all_") != NULL) {
-		char sz[] = "\t\tRequire all granted\n";
-		fwrite(sz, strlen(sz), 1, pfM);
-	} else {
-		char *authorized_ = strdup(authorized);
-		char *token = strtok(authorized_, ",");
-		int requireNb = 0;
-		char list[256];
-		strcpy(list, "");
-		while (token != NULL) {
-			if (strcmp(token, "_dongle_") == 0) {
-				char sz[] = "\t\tRequire local\n";
+static void writePermissions(cJSON *elAuthorized, cJSON *elLocalRanges, FILE *pfM) {
+//ex: [ "_all_", "_dongle_", "_localnetwork_", "admin", "user1" ]
+	int requireNb = 0;
+	int firstTime = 1;
+	cJSON *authorized = NULL;
+	cJSON_ArrayForEach(authorized, elAuthorized) {
+		char sz[256];
+		if (strcmp(authorized->valuestring, "_all_") == 0) {
+			char sz[] = "\t\tRequire all granted\n";
+			fwrite(sz, strlen(sz), 1, pfM);
+		} else if (strcmp(authorized->valuestring, "_dongle_") == 0) {
+			char sz[] = "\t\tRequire local\n";
+			fwrite(sz, strlen(sz), 1, pfM);
+		} else if (strcmp(authorized->valuestring, "_localnetwork_") == 0) {
+			cJSON *range = NULL;
+			cJSON_ArrayForEach(range, elLocalRanges) {
+				char sz[256];
+				sprintf(sz, "\t\tRequire ip %s\n", range->valuestring);
 				fwrite(sz, strlen(sz), 1, pfM);
-			} else if (strcmp(token, "_localnetwork_") == 0) {
-				cJSON *item = NULL;
-				cJSON_ArrayForEach(item, elLocalRanges) {
-					char sz[256];
-					sprintf(sz, "\t\tRequire ip %s\n", item->valuestring);
-					fwrite(sz, strlen(sz), 1, pfM);
-				}
-			} else {
-				if (strlen(list) == 0)
-					strcpy(list, "\t\tRequire all granted\n\t\tMyDongleCloudModuleAuthorized");
-				strcat(list, " ");
-				strcat(list, token);
 			}
-			token = strtok(NULL, ",");
+		} else {
+			if (firstTime) {
+				char sz[] = "\t\tRequire all granted\n";
+				fwrite(sz, strlen(sz), 1, pfM);
+				firstTime = 0;
+			}
+			char sz[256];
+			sprintf(sz, "\t\tMyDongleCloudModuleAuthorized %s\n", authorized->valuestring);
+			fwrite(sz, strlen(sz), 1, pfM);
 			requireNb++;
 		}
-		free(authorized_);
-		if (strlen(list) != 0) {
-			strcat(list, "\n");
-			fwrite(list, strlen(list), 1, pfM);
-		}
-		if (requireNb > 1) {
-				char sz[] = "\t\tSatisfy any\n";
-				fwrite(sz, strlen(sz), 1, pfM);
-		}
+	}
+	if (requireNb > 1) {
+		char sz[] = "\t\tSatisfy any\n";
+		fwrite(sz, strlen(sz), 1, pfM);
 	}
 }
 
@@ -198,9 +193,8 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				elEnabled = cJSON_GetObjectItem(elModule2, "enabled");
 			if (cJSON_IsTrue(elEnabled)) {
 				cJSON *elAuthorized = cJSON_GetObjectItem(elModule, "authorized");
-				if (cJSON_HasObjectItem(elModule2, "authorized") && !cJSON_IsFalse(cJSON_GetObjectItem(elModule, "authorizedOverwrite")))
+				if (cJSON_HasObjectItem(elModule2, "authorized"))
 					elAuthorized = cJSON_GetObjectItem(elModule2, "authorized");
-				char *authorized = cJSON_GetStringValue(elAuthorized);
 
 				if (cJSON_HasObjectItem(elModule, "reverseProxy")) {
 					strcpy(sz, "\tProxyRequests Off\n\tProxyPreserveHost on\n\tProxyVia On\n");
@@ -228,7 +222,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					sprintf(sz, "\t\t%s\n", cJSON_GetStringValue2(elModule2, "addLineInDirectory"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
-				writePermissions(elLocalRanges, authorized, pfM);
+				writePermissions(elAuthorized, elLocalRanges, pfM);
 				if (cJSON_HasObjectItem(elModule2, "DirectoryIndex"))
 					writeDirectoryIndex(cJSON_GetStringValue2(elModule2, "DirectoryIndex"), pfM);
 				else if (cJSON_HasObjectItem(elModule, "DirectoryIndex"))

@@ -3,7 +3,7 @@
 	"Apache2": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localRanges": ["10", "172.16", "192.168"],
 		"path": "/disk/admin/Web",
 		"alias": [ "wwww" ]
@@ -11,7 +11,7 @@
 	"Audiobookshelf": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9201,
 		"reverseProxy": [ {
 			"type": "http",
@@ -22,7 +22,7 @@
 	"Bugzilla": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9202
 	},
 	"btferret": {},
@@ -31,7 +31,7 @@
 	"ChangeDetection": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9203
 	},
 	"Clang": {},
@@ -39,20 +39,20 @@
 	"collaboraonline": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9204
 	},
 	"Composer": {},
 	"ConvertX": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9205
 	},
 	"Cyberchef": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9206
 	},
 	"Discourse": {},
@@ -60,7 +60,7 @@
 	"Doodle": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9207
 	},
 	"Dovecot": {},
@@ -68,20 +68,20 @@
 	"Fileflows": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9208
 	},
 	"Flarum": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9209,
 		"path": "/usr/local/modules/Flarum/public"
 	},
 	"FreshRSS": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9210,
 		"addLineInDirectoryOrProxy": "AllowOverride AuthConfig FileInfo Indexes Limit",
 		"path": "/usr/local/modules/FreshRSS/p",
@@ -90,7 +90,7 @@
 	"frp": {
 		"web": true,
 		"enabled": true,
-		"authorized": "admin",
+		"authorized": [ "admin" ],
 		"localPort": 9211,
 		"reverseProxy": [ {
 			"type": "http",
@@ -118,27 +118,27 @@
 	"Gitea": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9212
 	},
 	"Go": {},
 	"GoAccess": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9213
 	},
 	"GoodIP": {},
 	"Grav": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9214
 	},
 	"HomeAssistant": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9215,
 		"reverseProxy": [ {
 			"type": "http",
@@ -153,7 +153,7 @@
 	"Html5QRCode": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9216
 	},
 	"Hugo": {},
@@ -161,100 +161,100 @@
 	"Immich": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9217
 	},
 	"IOPaint": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9218
 	},
 	"Java": {},
 	"Jellyfin": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9219
 	},
 	"JitsiMeet": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9220
 	},
 	"Joomla": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9221
 	},
 	"Joplin": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9222
 	},
 	"Karakeep": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9223
 	},
 	"Kernel": {},
 	"LibrePhotos": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9224
 	},
 	"Libreqr": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9225
 	},
 	"LimeSurvey": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9226
 	},
 	"Make": {},
 	"MantisBugTracker": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9227
 	},
 	"MarkdownEditor": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9228
 	},
 	"Maybe": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9229
 	},
 	"Mermaid": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9230
 	},
 	"MeTube": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9231
 	},
 	"MinIO": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9232
 	},
 	"MongoDB": {},
@@ -266,26 +266,26 @@
 	"Ollama": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9233
 	},
 	"OneTimeEmail": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9234
 	},
 	"OpenWebUI": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9235
 	},
 	"osTicket": {
 		"web": true,
 		"symlinks": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9236
 	},
 	"OTG": {
@@ -300,58 +300,58 @@
 	"Pandoc": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9237
 	},
 	"PhotoPrism": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9238
 	},
 	"PhotoView": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9239
 	},
 	"PHP": {},
 	"phpBB": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9240
 	},
 	"phpList": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9241,
 		"path": "/usr/local/modules/phpList/public_html"
 	},
 	"PHPSandbox": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9242
 	},
 	"Pihole": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9243
 	},
 	"Postfix": {},
 	"PrivateBin": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9244
 	},
 	"ProjectSend": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9245
 	},
 	"PyMCUProg": {},
@@ -361,69 +361,69 @@
 	"QRCodeGenerator": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9246
 	},
 	"Radaar": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9247
 	},
 	"RethinkDB": {},
 	"RoundCube": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9248
 	},
 	"rspamd": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9249
 	},
 	"Sonarr": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9250
 	},
 	"SQLite": {},
 	"StirlingPDF": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9251
 	},
 	"SunriseCMS": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9252
 	},
 	"Superset": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9253
 	},
 	"Syncthing": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9254
 	},
 	"Transmission": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9255
 	},
 	"TriliumNotes": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9256,
 		"reverseProxy": [ {
 			"type": "http",
@@ -434,28 +434,27 @@
 	"TubeArchivist": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9257
 	},
 	"uMTP-Responder": {},
 	"Unmanic": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9258
 	},
 	"Uptime": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9259
 	},
 	"WebSSH2": {
 		"web": true,
 		"enabled": true,
-		"authorized": "admin",
+		"authorized": [ "admin" ],
 		"localPort": 9260,
-		"authorizedOverwrite": false,
 		"alias": [ "ssh" ],
 		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [R=301,L]",
 		"reverseProxy": [ {
@@ -467,32 +466,32 @@
 	"Webtrees": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9261
 	},
 	"WordPress": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9262
 	},
 	"WriteAs": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9263
 	},
 	"YOURLS": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9264
 	},
 	"Youtubedl": {},
 	"Zigbee2MQTT": {
 		"web": true,
 		"enabled": true,
-		"authorized": "_all_",
+		"authorized": [ "admin" ],
 		"localPort": 9265,
 		"addConfig": "\tRewriteCond %{HTTP:Connection} Upgrade [NC]\n\tRewriteCond %{HTTP:Upgrade} websocket [NC]\n\tRewriteRule /(.*) ws://localhost:8099/$1 [P,L]",
 		"reverseProxy": [ {
