@@ -10,6 +10,7 @@ declare var appRequestPasscode: any;
 	selector: 'app-setup',
 	templateUrl: './setup.page.html',
 	styleUrls: ['./setup.page.scss'],
+	standalone: false
 })
 
 export class Setup {

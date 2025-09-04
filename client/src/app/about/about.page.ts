@@ -6,6 +6,7 @@ import { Global } from '../env';
 	selector: 'app-about',
 	templateUrl: 'about.page.html',
 	styleUrls: ['about.page.scss'],
+	standalone: false
 })
 
 export class About {

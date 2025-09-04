@@ -5,6 +5,7 @@ import { Global } from '../env';
 	selector: 'app-selection',
 	templateUrl: './selection.page.html',
 	styleUrls: ['./selection.page.scss'],
+	standalone: false
 })
 
 export class Selection {

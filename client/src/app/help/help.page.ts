@@ -5,6 +5,7 @@ import { Global } from '../env';
 	selector: 'app-help',
 	templateUrl: 'help.page.html',
 	styleUrls: ['help.page.scss'],
+	standalone: false
 })
 
 export class Help {

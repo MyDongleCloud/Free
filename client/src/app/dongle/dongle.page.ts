@@ -10,6 +10,7 @@ declare var appRequestPasscode: any;
 	selector: 'app-dongle',
 	templateUrl: './dongle.page.html',
 	styleUrls: ['./dongle.page.scss'],
+	standalone: false
 })
 
 export class Dongle {

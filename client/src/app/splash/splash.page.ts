@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 	selector: 'app-splash',
 	templateUrl: 'splash.page.html',
 	styleUrls: ['splash.page.scss'],
+	standalone: false
 })
 
 export class Splash {
