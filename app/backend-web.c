@@ -12,7 +12,6 @@
 #include "backend.h"
 #include "logic.h"
 #include "communication.h"
-//#include "b64.h"
 #include "base64.h"
 
 //Global variable

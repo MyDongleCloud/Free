@@ -1,3 +1,24 @@
+//Browser
+//dongle.page.ts	appButton
+//appWrapper.js		Module._button
+//backend-web.c		button
+//backend.c			processButton
+//logic.c			logicKey
+//communication.c	communicationText
+//ble.c				serverWriteData, write_ctic
+//OVER-THE-AIR browser->dongle
+//ble.c				le_callback
+//communication.c	communicationReceive, write(eventFdBle)
+//backend.c			logicKey
+//logic.c			logicUpdate
+//communication.c	communicationState, communicationBinary2
+//ble.c				serverWriteData, write_ctic
+//OVER-THE-AIR dongle->browser
+//ble.ts			bleNotifyDataCb, appServerReceive(b64)
+//appWrapper.js		Module._serverReceive
+//backend-web.c		serverReceive, b64_decode_ex
+//communication.c	communicationReceive
+//logic.c			logicUpdate
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -5,7 +26,11 @@
 #include <string.h>
 #include <time.h>
 #include "macro.h"
+#ifdef WEB
+#include "backend-web.h"
+#else
 #include "ble.h"
+#endif
 #include "logic.h"
 #include "backend.h"
 #include "settings.h"
