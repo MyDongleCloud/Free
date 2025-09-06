@@ -101,6 +101,9 @@
 		"services": {
 			"https": {
 			},
+			"ssh": {
+				"localPort": 22
+			},
 			"smtps": {
 				"localPort": 465
 			},
