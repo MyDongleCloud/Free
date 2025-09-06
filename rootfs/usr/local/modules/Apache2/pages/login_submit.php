@@ -50,6 +50,7 @@ if ($user != "") {
 	if ($ret) {
 		$token = bin2hex(random_bytes(16));
 		$users[$user]["token"] = $token;
+		$users[$user]["tokenExpiration"] = 0;
 		$h = fopen($path, "w");
 		fwrite($h, json_encode($users));
 		fclose($h);

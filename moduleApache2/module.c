@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include <sys/stat.h>
 #include "util_cookies.h"
 #include "http_request.h"
@@ -100,13 +101,17 @@ static int authorization(request_rec *r) {
 				if (users != NULL) {
 					cJSON *el = cJSON_GetObjectItem(users, cookieUser);
 					if (el) {
-						cJSON *el2 = cJSON_GetObjectItem(el, "token");
-						if (el2) {
-							char *st = cJSON_GetStringValue(el2);
-							//PRINTF("MDC: authorization4 userToken:%s", st);
-							if (st != NULL && strcmp(cookieToken, st) == 0) {
-								cJSON_Delete(users);
-								return DECLINED;
+						cJSON *elToken = cJSON_GetObjectItem(el, "token");
+						if (elToken) {
+							char *stToken = cJSON_GetStringValue(elToken);
+							//PRINTF("MDC: authorization4 userToken:%s", stToken);
+							cJSON *elTokenExpiration = cJSON_GetObjectItem(el, "tokenExpiration");
+							if (elTokenExpiration) {
+								int expiration = (int)cJSON_GetNumberValue(elTokenExpiration);
+								if (stToken != NULL && strcmp(cookieToken, stToken) == 0 && (expiration == 0 || time(NULL) < expiration)) {
+									cJSON_Delete(users);
+									return DECLINED;
+								}
 							}
 						}
 					}
