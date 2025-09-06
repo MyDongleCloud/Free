@@ -155,6 +155,17 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 	</Directory>\n\
 	ErrorDocument 401 /MyDongleCloud/unauthorized.php?m=$1\n\
 	ProxyPass /MyDongleCloud/unauthorized.php !\n\
+	<IfModule mod_authnz_external.c>\n\
+		AddExternalAuth pwauth /usr/sbin/pwauth\n\
+		SetExternalAuthMethod pwauth pipe\n\
+	</IfModule>\n\
+	<Directory /usr/local/modules/Apache2/pages/protected>\n\
+		AuthType Basic\n\
+		AuthName \"Authentication\"\n\
+		AuthBasicProvider external\n\
+		AuthExternal pwauth\n\
+		Require valid-user\n\
+	</Directory>\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
 	Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
