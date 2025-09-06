@@ -35,8 +35,8 @@ static void writePermissions(cJSON *elAuthorized, cJSON *elLocalRanges, FILE *pf
 			char sz[256];
 			sprintf(sz, "\t\tMyDongleCloudModuleAuthorized %s\n", authorized->valuestring);
 			fwrite(sz, strlen(sz), 1, pfM);
-			requireNb++;
 		}
+		requireNb++;
 	}
 	if (requireNb > 1) {
 		char sz[] = "\t\tSatisfy any\n";
