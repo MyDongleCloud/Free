@@ -6,6 +6,20 @@ function domainFromFqdn($fqdn) {
 	$last_two_parts = array_slice($parts, -2);
 	return implode('.', $last_two_parts);
 }
+
+function passwordCheck($password, $dHash): bool {
+	$pieces = explode('$', $dHash);
+	if (count($pieces) !== 4)
+		return -1;
+	list($header, $iter, $salt, $hash) = $pieces;
+	if (preg_match('#^pbkdf2_([a-z0-9A-Z]+)$#', $header, $m))
+		$algo = $m[1];
+	else
+		return -1;
+	$calc = hash_pbkdf2($algo, $password, $salt, (int)$iter, 32, true);
+	return hash_equals($calc, base64_decode($hash));
+}
+
 $path = "/disk/admin/.modules/MyDongleCloud/users.json";
 $h = fopen($path, "r");
 $users = json_decode(fread($h, filesize($path)), true);
@@ -18,19 +32,21 @@ foreach ($users as $key => $val)
 		break;
 	}
 if ($user != "") {
-	$password = $_POST["password"];
-	$https = true;
-	$url = (str_starts_with($_SERVER["HTTP_REFERER"], "https") ? "https://" : "http://") . $_SERVER["HTTP_HOST"];
-	$protectedUrl = $url . "/MyDongleCloud/protected/empty.html";
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $protectedUrl);
-	curl_setopt($ch, CURLOPT_USERPWD, $user . ":" . $password);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$response = curl_exec($ch);
-	$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	$ret = $http_status === 200;
-	$curl_error = curl_error($ch);
-	curl_close($ch);
+	if (isset($users[$user]["password"]))
+		$ret = passwordCheck($_POST["password"], $users[$user]["password"]);
+	else {
+		$url = (str_starts_with($_SERVER["HTTP_REFERER"], "https") ? "https://" : "http://") . $_SERVER["HTTP_HOST"];
+		$protectedUrl = $url . "/MyDongleCloud/protected/empty.html";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $protectedUrl);
+		curl_setopt($ch, CURLOPT_USERPWD, $user . ":" . $_POST["password"]);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($ch);
+		$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$ret = $http_status === 200;
+		$curl_error = curl_error($ch);
+		curl_close($ch);
+	}
 	if ($ret) {
 		$token = bin2hex(random_bytes(16));
 		$users[$user]["token"] = $token;
