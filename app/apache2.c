@@ -183,9 +183,13 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					for (int j = 0; j < cJSON_GetArraySize(elReverseProxy); j++) {
 						cJSON *elReverseProxy_ = cJSON_GetArrayItem(elReverseProxy, j);
 						char *type_ = cJSON_GetStringValue2(elReverseProxy_, "type");
+						char *url_ = cJSON_GetStringValue2(elReverseProxy_, "url");
 						char *path_ = cJSON_GetStringValue2(elReverseProxy_, "path");
 						int reversePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elReverseProxy_, "port"));
-						sprintf(sz, "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, reversePort, path_, path_, type_, reversePort, path_);
+						if (url_ != NULL)
+							sprintf(sz, "\tProxyPass %s %s%s\n\tProxyPassReverse %s %s%s\n", path_, url_, path_, path_, url_, path_);
+						else
+							sprintf(sz, "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, reversePort, path_, path_, type_, reversePort, path_);
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
 					strcpy(sz, "\t<Proxy *>\n");
