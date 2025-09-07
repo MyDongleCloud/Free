@@ -35,7 +35,7 @@ int serverWriteData(unsigned char *data, int size) {
 			}
 			int chunkSize = MIN2(remain, BLE_CHUNK - 2);
 			memcpy(data_ + 2, data + count * (BLE_CHUNK - 2), chunkSize);
-			write_ctic(localnode(), UUID_DATA - 0xfff1, data_, chunkSize);
+			write_ctic(localnode(), UUID_DATA - 0xfff1, data_, chunkSize + 2);
 			usleep(50 * 1000);
 			remain -= chunkSize;
 			count++;

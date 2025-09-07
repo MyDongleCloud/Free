@@ -136,15 +136,37 @@ async writeData(a) {
 		await BleClient.write(this.deviceID, UUID_GATT, UUID_DATA, textToDataView(st));
 }
 
-bleNotifyDataCb = ((value) => {
-	var buf = new Uint8Array(value.buffer);
-	var bufSt = "";
-	const len = buf.byteLength;
-	for (let i = 0; i < len; i++)
-		bufSt += String.fromCharCode(buf[i]);
-	const b = JSON.parse(bufSt);
+communicationReceive(st) {
+	const b = JSON.parse(st);
 	if (b.a === "state")
-		appServerReceive(bufSt, 0);
+		appServerReceive(st, 0);
+}
+
+dataChunks;
+data = "";
+bleNotifyDataCb = ((value) => {
+	const data_ = new Uint8Array(value.buffer);
+	if (data_[0] == 1) {
+		this.data = "";
+		this.dataChunks = data_[1];
+		for (let i = 2; i < BLE_CHUNK; i++)
+			this.data += String.fromCharCode(data_[i]);
+		this.dataChunks--;
+	} else if (this.data != "" && data_[0] == 2) {
+		for (let i = 2; i < Math.min(BLE_CHUNK, data_.byteLength); i++)
+			this.data += String.fromCharCode(data_[i]);
+		this.dataChunks--;
+		if (this.dataChunks == 0) {
+			this.communicationReceive(this.data);
+			this.data = "";
+		}
+	} else if (data_[0] == '{'.charCodeAt(0)) {
+		this.data = "";
+		for (let i = 0; i < data_.byteLength; i++)
+			this.data += String.fromCharCode(data_[i]);
+		this.communicationReceive(this.data);
+		this.data = "";
+	}
 });
 
 async connectToBluetoothDevice(devId: string) {
