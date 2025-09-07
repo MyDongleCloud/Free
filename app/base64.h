@@ -2,7 +2,7 @@
 
 static const unsigned char base64_table[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-char *b64_encode(const unsigned char *src, size_t len) {
+static char *b64_encode(const unsigned char *src, size_t len) {
 	unsigned char *out, *pos;
 	const unsigned char *end, *in;
 	size_t olen = 4*((len + 2) / 3) + 1; /* 3-byte blocks to 4-byte */
@@ -44,7 +44,7 @@ static const int B64index[256] = { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 0,  0,  0, 63,  0, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51 };
 
-unsigned char *b64_decode_ex(char *p, size_t *decsize) {
+static unsigned char *b64_decode_ex(char *p, size_t *decsize) {
 	size_t len = strlen(p);
 	int pad = len > 0 && (len % 4 || p[len - 1] == '=');
 	const size_t L = ((len + 3) / 4 - pad) * 4;

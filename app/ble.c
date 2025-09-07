@@ -41,6 +41,7 @@ static int le_callback(int clientnode, int operation, int cticn) {
 		communicationConnection(1);
 		PRINTF("le_callback: %s written by %s\n",ctic_name(localnode(), cticn), device_name(clientnode));
 		char buf[256];
+		memset(buf, 0, 256);
 		int nread = read_ctic(localnode(), cticn, buf, sizeof(buf));
 		PRINTF("le_callback: len%d 0x%x %d\n", nread, buf[0], buf[0]);
 		communicationReceive((unsigned char *)buf, nread);

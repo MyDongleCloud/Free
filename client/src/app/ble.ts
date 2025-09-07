@@ -114,18 +114,15 @@ async writeData(a) {
 	await BleClient.write(this.deviceID, UUID_GATT, UUID_DATA, textToDataView(a));
 }
 
-async writeDataString(a) {
-	await this.writeData("_" + a);
-
-}
-
 bleNotifyDataCb = ((value) => {
 	var buf = new Uint8Array(value.buffer);
 	var bufSt = "";
 	const len = buf.byteLength;
 	for (let i = 0; i < len; i++)
 		bufSt += String.fromCharCode(buf[i]);
-	appServerReceive(bufSt, 1);
+	const b = JSON.parse(bufSt);
+	if (b.a === "state")
+		appServerReceive(bufSt, 0);
 });
 
 async connectToBluetoothDevice(devId: string) {
@@ -174,7 +171,12 @@ async listServices(deviceId: string) {
 	}
 }
 
+async requestPasscode() {
+	await this.writeData(JSON.stringify({ a:"passcode" }));
+}
+
 async shutdown() {
+	await this.writeData(JSON.stringify({ a:"shutdown" }));
 }
 
 async checkVersion() {
@@ -188,7 +190,7 @@ async checkVersion() {
 async syncDate() {
 	const d = new Date();
 	const localTime = Math.floor(d.getTime() / 1000 - (d.getTimezoneOffset() * 60));
-	await this.writeDataString("date " + localTime + "\0");
+	await this.writeData(JSON.stringify({ a:"date", v:localTime }));
 }
 
 async version() {

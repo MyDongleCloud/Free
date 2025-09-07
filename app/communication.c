@@ -4,17 +4,17 @@
 //backend-web.c		button
 //backend.c			processButton
 //logic.c			logicKey
-//communication.c	communicationText
+//communication.c	communicationJSON
 //ble.c				serverWriteData, write_ctic
 //OVER-THE-AIR browser->dongle
 //ble.c				le_callback
 //communication.c	communicationReceive, write(eventFdBle)
 //backend.c			logicKey
 //logic.c			logicUpdate
-//communication.c	communicationState, communicationBinary2
+//communication.c	communicationState
 //ble.c				serverWriteData, write_ctic
 //OVER-THE-AIR dongle->browser
-//ble.ts			bleNotifyDataCb, appServerReceive(b64)
+//ble.ts			bleNotifyDataCb, appServerReceive(b64=0)
 //appWrapper.js		Module._serverReceive
 //backend-web.c		serverReceive, b64_decode_ex
 //communication.c	communicationReceive
@@ -26,11 +26,14 @@
 #include <string.h>
 #include <time.h>
 #include "macro.h"
+#include "cJSON.h"
 #ifdef WEB
 #include "backend-web.h"
 #else
 #include "ble.h"
+#include "json.h"
 #endif
+#include "base64.h"
 #include "logic.h"
 #include "backend.h"
 #include "settings.h"
@@ -45,55 +48,69 @@ void communicationConnection(int s) {
 		logicSlaveNotConnected();
 }
 
-int communicationBinary(unsigned char *data, int size) {
-	if (!communicationConnected)
-		return 0;
-	unsigned char *data_ = malloc(size + 1);
-	data_[0] = '-';
-	memcpy(data_ + 1, data, size);
-	int ret = serverWriteData(data_, size + 1);
-	free(data_);
-	return ret;
-}
-
-static int communicationBinary2(unsigned char *data, int size, unsigned char *data2, int size2) {
-	if (!communicationConnected)
-		return 0;
-	unsigned char *data_ = malloc(size + size2 + 1);
-	data_[0] = '-';
-	memcpy(data_ + 1, data, size);
-	memcpy(data_ + 1 + size, data2, size2);
-	int ret = serverWriteData(data_, size + size2 + 1);
-	free(data_);
-	return ret;
-}
-
-int communicationText(char *sz) {
-	if (!communicationConnected)
-		return 0;
-	unsigned char *data_ = malloc(strlen(sz) + 1);
-	data_[0] = '_';
-	memcpy(data_ + 1, sz, strlen(sz));
-	int ret = serverWriteData(data_, strlen(sz) + 1);
-	free(data_);
+int communicationJSON(void *el) {
+	char *sz = cJSON_Print((cJSON *)el);
+	int ret = serverWriteData(sz, strlen(sz));
+	free(sz);
 	return ret;
 }
 
 int communicationState() {
-	return communicationBinary2((unsigned char *)&smdc, sizeof(smdc), (unsigned char *)&lmdc, sizeof(lmdc));
+	if (!communicationConnected)
+		return 0;
+	cJSON *el = cJSON_CreateObject();
+	cJSON_AddStringToObject(el, "a", "state");
+	unsigned char *data_ = malloc(sizeof(smdc) + sizeof(lmdc));
+	memcpy(data_, &smdc, sizeof(smdc));
+	memcpy(data_ + sizeof(smdc), &lmdc, sizeof(lmdc));
+	char *sz = b64_encode(data_, sizeof(smdc) + sizeof(lmdc));
+	free(data_);
+	cJSON_AddStringToObject(el, "p", sz);
+	free(sz);
+	int ret = communicationJSON(el);
+	cJSON_Delete(el);
+	return ret;
 }
 
 void communicationReceive(unsigned char *data, int size) {
-	PRINTF("communicationReceive: (%d)#%s#\n", size, data[0] == '_' ? (char *)(data + 1) : "binary");
-	if (size == sizeof(smdc) + sizeof(lmdc) + 1 && data[0] == '-') {
-		memcpy(&smdc, data + 1, sizeof(smdc));
-		memcpy(&lmdc, data + 1 + sizeof(smdc), sizeof(lmdc));
-		logicUpdate();
-	} else if (data[0] == '_' && strncmp(data + 1, "key ", 4) == 0) {
-		int k, l;
-		if (sscanf(data +1, "key %d,%d", &k, &l) == 2) {
+	PRINTF("communicationReceive: (%d)#%s#\n", size, data);
+//Examples:
+//{"a":"passcode"}
+//{"a":"sutdown"}
+//{"a":"key", "k":0, "l":0}
+//{"a":"state", "p":"blah_encoded64"}
+//{"a":"setup", "space":"", "alias":"", byod:["", ""], "user":"admin", "pass":"", "email":"", "ssid":"", "wpa2":"", "chain":"", "key":""}
+//{"a":"space"} -> {"a":"space", inline space.json }
+	cJSON *el = cJSON_Parse(data);
+	if (el) {
+		char *action = cJSON_GetStringValue2(el, "a");
+		if (strcmp(action, "passcode") == 0) {
+			PRINTF("Requesting passcode\n");
+			logicPasscode(-1);
+		} else if (strcmp(action, "shutdown") == 0) {
+			PRINTF("Requesting shutdown\n");
+			logicShutdown();
+		} else if (strcmp(action, "key") == 0) {
+			int k = (int)cJSON_GetNumberValue2(el, "k");
+			int l = (int)cJSON_GetNumberValue2(el, "l");
 			uint64_t value = (k << 8) + l;
 			write(eventFdBle, &value, sizeof(value));
+		} else if (strcmp(action, "state") == 0) {
+			unsigned long decsize;
+			unsigned char *payload = b64_decode_ex(cJSON_GetStringValue2(el, "p"), &decsize);
+			memcpy(&smdc, payload, sizeof(smdc));
+			memcpy(&lmdc, payload + sizeof(smdc), sizeof(lmdc));
+			free(payload);
+			logicUpdate();
+#ifndef WEB
+		} else if (strcmp(action, "space") == 0) {
+			cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
+			cJSON_AddStringToObject(space, "a", "space");
+			cJSON_Delete(space);
+#endif
+		} else {
+			PRINTF("communicationReceive: action:%s\n", action);
 		}
 	}
+	cJSON_Delete(el);
 }

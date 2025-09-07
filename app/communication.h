@@ -6,8 +6,7 @@ extern int communicationConnected;
 
 //Functions
 void communicationConnection(int s);
-int communicationBinary(unsigned char *data, int size);
-int communicationText(char *sz);
+int communicationJSON(void *el);
 int communicationState();
 void communicationReceive(unsigned char *data, int size);
 

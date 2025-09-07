@@ -45,6 +45,7 @@ MYLDFLAGS_DESKTOP = $(MYLDFLAGS_APP) `pkg-config --libs gtk+-3.0`
 
 OBJs_WEB := $(PRE)backend__.o \
 	$(PRE)backend-web__.o \
+	$(PRE)cJSON__.o \
 	$(PRE)communication__.o \
 	$(PRE)language__.o \
 	$(PRE)logic__.o \

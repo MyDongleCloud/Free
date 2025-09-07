@@ -10,6 +10,7 @@
 #include "backend.h"
 #include "ui.h"
 #include "settings.h"
+#include "cJSON.h"
 #include "communication.h"
 
 //Public variables
@@ -38,9 +39,12 @@ static int logicOath() {
 
 void logicKey(int key, int longPress) {
 	if (slaveMode) {
-		char sz[16];
-		sprintf(sz, "key %d,%d", key, longPress);
-		communicationText(sz);
+		cJSON *el = cJSON_CreateObject();
+		cJSON_AddStringToObject(el, "a", "key");
+		cJSON_AddNumberToObject(el, "k", key);
+		cJSON_AddNumberToObject(el, "l", longPress);
+		communicationJSON(el);
+		cJSON_Delete(el);
 		return;
 	}
 
