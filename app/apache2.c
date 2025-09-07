@@ -277,7 +277,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				}
 			} else {
 				sprintf(sz, "\
-	RewriteCond %{REQUEST_URI} !^/MyDongleCloud/disabled.php$\n\
+	RewriteCond %%{REQUEST_URI} !^/MyDongleCloud/disabled.php$\n\
 	RewriteRule ^/.*$ /MyDongleCloud/disabled.php?m=%s [PT,L]\n\n", elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
