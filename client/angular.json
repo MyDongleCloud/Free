@@ -13,6 +13,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@root/acme",
+              "@root/keypairs",
+              "@root/csr",
+              "@root/pem",
+              "@root/encoding/base64"
+            ],
             "outputPath": "app",
             "index": "src/index.html",
             "main": "src/main.ts",
