@@ -3,6 +3,7 @@
   "version": "2025.01.01",
   "author": "MyDongle Cloud",
   "homepage": "https://mydongle.cloud",
+  "description": "The MyDongle Cloud project",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -72,6 +73,5 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.0"
-  },
-  "description": "An Ionic project"
+  }
 }
