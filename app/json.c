@@ -37,3 +37,13 @@ void jsonWrite(cJSON *el, char *path) {
 		free(sz);
 	}
 }
+
+void jsonPrintArray(int tabN, char *before0, char *before1, char *sub, cJSON *el, char *after, FILE *pf) {
+	cJSON *s;
+	int count = 0;
+	cJSON_ArrayForEach(s, el) {
+		char sz[256];
+		sprintf(sz, "%s%s%s%s%s%s", tabN == 2 ? "\t\t" : tabN == 1 ? "\t" : "", count++ == 0 ? before0 : before1, sub, strlen(sub) == 0 ? "" : ".", s->valuestring, after);
+		fwrite(sz, strlen(sz), 1, pf);
+	}
+}

@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include "macro.h"
 #include "cJSON.h"
+#include "json.h"
 
 //Functions
 static void writePermissions(cJSON *elAuthorized, cJSON *elLocalRanges, FILE *pfM) {
@@ -70,51 +71,19 @@ static void writeLog(char *name, FILE *pfM) {
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
-static void fillAlias_(cJSON *a, char *sub, cJSON *d, char *fqdn, char *tab, FILE *pfM) {
-	if (d == NULL) {
-		cJSON *iA = NULL;
-		cJSON_ArrayForEach(iA, a) {
-			char sz[256];
-			sprintf(sz, "%sServerAlias %s.%s\n", tab, iA->valuestring, fqdn);
-			fwrite(sz, strlen(sz), 1, pfM);
-		}
-	} else {
-		cJSON *iD = NULL;
-		cJSON_ArrayForEach(iD, d) {
-			if (a == NULL) {
-				char sz[256];
-				sprintf(sz, "%sServerAlias %s%s%s\n", tab, sub, sub[0] ? "." : "", iD->valuestring);
-				fwrite(sz, strlen(sz), 1, pfM);
-			} else {
-				cJSON *iA = NULL;
-				cJSON_ArrayForEach(iA, a) {
-					char sz[256];
-					sprintf(sz, "%sServerAlias %s.%s\n", tab, iA->valuestring, iD->valuestring);
-					fwrite(sz, strlen(sz), 1, pfM);
-				}
-			}
-		}
-	}
-}
 
-static void fillAlias(cJSON *elModule, cJSON *elModule2, cJSON *space, char *fqdn, int tabN, FILE *pfM) {
-	cJSON *a = cJSON_GetObjectItem(elModule, "alias");
-	cJSON *a2 = cJSON_GetObjectItem(elModule2, "alias");
-	cJSON *d = cJSON_GetObjectItem(space, "domains");
+static void fillServer(int tabN, cJSON *elModule, cJSON *elModule2, cJSON *fqdn, FILE *pfM) {
+	jsonPrintArray(tabN, "ServerName ", "ServerAlias ", strcmp(elModule->string, "Apache2") == 0 ? "" : elModule->string, fqdn, "\n", pfM);
+	cJSON *i = NULL;
+	cJSON *a = NULL;
+	a = cJSON_GetObjectItem(elModule, "alias");
 	if (a)
-		fillAlias_(a, NULL, NULL, fqdn, TAB(tabN), pfM);
-	if (a2)
-		fillAlias_(a2, NULL, NULL, fqdn, TAB(tabN), pfM);
-	if (d) {
-		if (strcmp(elModule->string, "Apache2") == 0)
-			fillAlias_(NULL, "", d, NULL, TAB(tabN), pfM);
-		else
-			fillAlias_(NULL, elModule->string, d, NULL, TAB(tabN), pfM);
-	}
+		cJSON_ArrayForEach(i, a)
+			jsonPrintArray(tabN, "ServerAlias ", "ServerAlias ",  i->valuestring, fqdn, "\n", pfM);
+	a = cJSON_GetObjectItem(elModule2, "alias");
 	if (a)
-		fillAlias_(a, NULL, d, NULL, TAB(tabN), pfM);
-	if (a2)
-		fillAlias_(a2, NULL, d, NULL, TAB(tabN), pfM);
+		cJSON_ArrayForEach(i, a)
+			jsonPrintArray(tabN, "ServerAlias ", "ServerAlias ",  i->valuestring, fqdn, "\n", pfM);
 }
 
 void reloadApache2Conf() {
@@ -124,7 +93,7 @@ void reloadApache2Conf() {
 #endif
 }
 
-void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, char *fqdn) {
+void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, cJSON *fqdn) {
 	PRINTF("Modules:Apache2: Enter\n");
 #ifdef DESKTOP
 	FILE *pfP = fopen("/tmp/ports.conf", "w");
@@ -287,27 +256,14 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 
 			sprintf(sz, "<VirtualHost *:80>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
-			if (fqdn != NULL) {
-				if (strcmp(elModule->string, "Apache2") == 0)
-					sprintf(sz, "\tServerName %s\n", fqdn);
-				else
-					sprintf(sz, "\tServerName %s.%s\n", elModule->string, fqdn);
-				fwrite(sz, strlen(sz), 1, pfM);
-				fillAlias(elModule, elModule2, space, fqdn, 1, pfM);
-			}
+			if (strcmp(elModule->string, "Apache2") == 0)
+			fillServer(1, elModule, elModule2, fqdn, pfM);
 			sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 
 			sprintf(sz, "<IfModule mod_ssl.c>\n\t<VirtualHost *:443>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
-			if (fqdn != NULL) {
-				if (strcmp(elModule->string, "Apache2") == 0)
-					sprintf(sz, "\t\tServerName %s\n", fqdn);
-				else
-					sprintf(sz, "\t\tServerName %s.%s\n", elModule->string, fqdn);
-				fwrite(sz, strlen(sz), 1, pfM);
-				fillAlias(elModule, elModule2, space, fqdn, 2, pfM);
-			}
+			fillServer(2, elModule, elModule2, fqdn, pfM);
 			sprintf(sz, "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "localPort"));

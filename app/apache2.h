@@ -3,6 +3,6 @@
 
 //Global functions
 void reloadApache2Conf();
-void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, char *fqdn);
+void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, cJSON *fqdn);
 
 #endif

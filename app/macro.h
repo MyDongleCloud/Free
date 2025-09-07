@@ -27,7 +27,8 @@
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
 
-#define DOMAIN "mydongle.cloud"
+#define MAIN_DOMAIN "mydongle.cloud"
+#define SHORT_DOMAIN "myd.cd"
 #define PLATFORM_PATH "/dev/mydonglecloud_platform/%s"
 #define SCREEN_PATH "/dev/mydonglecloud_screen/%s"
 #define SCREEN_FILE "/dev/mydonglecloud_screen_f"

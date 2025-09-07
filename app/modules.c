@@ -6,44 +6,27 @@
 #include "common.h"
 #include "macro.h"
 #include "cJSON.h"
+#include "json.h"
 #include "apache2.h"
 
 //Functions
-static void jsonDump(cJSON *el) {
-	char *sz = cJSON_Print(el);
-	PRINTF("%s\n", sz);
-	free(sz);
-}
 
-static cJSON *jsonRead(char *path) {
-	struct stat statTest;
-	if (stat(path, &statTest) != 0 || statTest.st_size == 0)
-		return NULL;
-	int size = statTest.st_size + 16;
-	char *sz = malloc(size);
-	FILE *f = fopen(path, "r");
-	if (f) {
-		fread(sz, size, 1, f);
-		fclose(f);
-	}
-	cJSON *ret = cJSON_Parse(sz);
-	free(sz);
-	return ret;
-}
-
-static void jsonWrite(cJSON *el, char *path) {
-	FILE *f = fopen(path, "w");
-	if (f) {
-		char *sz = cJSON_Print(el);
-		fwrite(sz, strlen(sz), 1, f);
-		fclose(f);
-		free(sz);
-	}
-}
 
 void modulesSetup(cJSON *space) {
-	char fqdn[256];
-	sprintf(fqdn, "%s.%s", cJSON_GetStringValue2(space, "name"), DOMAIN);
+	char sz[256];
+	cJSON *fqdn = cJSON_CreateArray();
+	sprintf(sz, "%s.%s", cJSON_GetStringValue2(space, "name"), MAIN_DOMAIN);
+	cJSON *s = NULL;
+	s = cJSON_CreateString(sz);
+	cJSON_AddItemToArray(fqdn, s);
+	sprintf(sz, "%s.%s", cJSON_GetStringValue2(space, "alias"), SHORT_DOMAIN);
+	s = cJSON_CreateString(sz);
+	cJSON_AddItemToArray(fqdn, s);
+	cJSON *ss = NULL;
+	cJSON_ArrayForEach(ss, cJSON_GetObjectItem(space, "domains")) {
+		s = cJSON_CreateString(ss->valuestring);
+		cJSON_AddItemToArray(fqdn, s);
+	}
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "MyDongleCloud/modules.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "MyDongleCloud/modules.json");
 	if (modules == NULL)
@@ -121,13 +104,17 @@ webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), c
 						used = 1;
 						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModuleSj, "localPort"));
 						if (strcmp(elModuleSj->string, "https") == 0) {
-							sprintf(sz, "\
+							strcpy(sz, "\
 [[proxies]]\n\
 name = \"https\"\n\
 type = \"http\"\n\
 localIP = \"localhost\"\n\
 localPort = 80\n\
-customDomains = [\"%s\", \"*.%s\"]\n\n", fqdn, fqdn);
+customDomains = [\n");
+							fwrite(sz, strlen(sz), 1, pf);
+							jsonPrintArray(1, "\"", "\"", "", fqdn, "\",\n", pf);
+							jsonPrintArray(1, "\"", "\"", "*", fqdn, "\",\n", pf);
+							strcpy(sz, "]\n\n");
 							fwrite(sz, strlen(sz), 1, pf);
 						} else {
 							int remotePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule2Sj, "remotePort"));
@@ -251,6 +238,7 @@ remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 #ifndef DESKTOP
 	jsonWrite(modules, ADMIN_PATH "MyDongleCloud/modules.json");
 #endif
+	cJSON_Delete(fqdn);
 	cJSON_Delete(modules);
 	cJSON_Delete(modulesDefault);
 }

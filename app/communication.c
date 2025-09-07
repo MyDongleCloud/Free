@@ -111,7 +111,9 @@ void communicationReceive(unsigned char *data, int size) {
 #endif
 		} else {
 			PRINTF("communicationReceive: action:%s\n", action);
+#ifndef WEB
 			jsonDump(el);
+#endif
 		}
 	}
 	cJSON_Delete(el);
