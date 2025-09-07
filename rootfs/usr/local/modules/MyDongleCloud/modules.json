@@ -262,7 +262,14 @@
 	},
 	"MongoDB": {},
 	"Mosquitto": {},
-	"MydongleCloud": {},
+	"MyDongleCloud": {
+		"web": true,
+		"enabled": true,
+		"authorized": [ "admin" ],
+		"localPort": 9200,
+		"path": "/usr/local/modules/MyDongleCloud/client/app",
+		"alias": [ "app", "mdc" ]
+	},
 	"MySQL": {},
 	"Nginx": {},
 	"Node": {},
