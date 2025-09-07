@@ -277,10 +277,8 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				}
 			} else {
 				sprintf(sz, "\
-	SSLProxyEngine On\n\
-	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(:\\d+)?$\n\
-	RewriteRule ^/.*$ %%{REQUEST_SCHEME}://%%1/MyDongleCloud/disabled.php?m=%s [P,L]\n\
-	RewriteRule ^/.*$ %%{REQUEST_SCHEME}://%s/MyDongleCloud/disabled.php?m=%s [P,L]\n\n", elModule->string, fqdn, elModule->string);
+	RewriteCond %{REQUEST_URI} !^/MyDongleCloud/disabled.php$\n\
+	RewriteRule ^/.*$ /MyDongleCloud/disabled.php?m=%s [PT,L]\n\n", elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);
