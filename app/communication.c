@@ -73,7 +73,7 @@ int communicationState() {
 }
 
 void communicationReceive(unsigned char *data, int size) {
-	PRINTF("communicationReceive: (%d)#%s#\n", size, data);
+	//PRINTF("communicationReceive: (%d)#%s#\n", size, data);
 //Examples:
 //{"a":"passcode"}
 //{"a":"sutdown"}
@@ -106,10 +106,12 @@ void communicationReceive(unsigned char *data, int size) {
 		} else if (strcmp(action, "space") == 0) {
 			cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
 			cJSON_AddStringToObject(space, "a", "space");
+			communicationJSON(space);
 			cJSON_Delete(space);
 #endif
 		} else {
 			PRINTF("communicationReceive: action:%s\n", action);
+			jsonDump(el);
 		}
 	}
 	cJSON_Delete(el);

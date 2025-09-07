@@ -17,8 +17,59 @@ char bluetoothClassicAddr[18] = { 0 };
 
 //Functions
 int serverWriteData(unsigned char *data, int size) {
-	write_ctic(localnode(), UUID_DATA - 0xfff1, data, size);
+	if (size <= BLE_CHUNK)
+		write_ctic(localnode(), UUID_DATA - 0xfff1, data, size);
+	else if (size <= 256 * (BLE_CHUNK - 2)) {
+		char data_[256];
+		int remain = size;
+		int count = 0;
+		while (remain > 0) {
+			if (count == 0) {
+				data_[0] = 1;
+				data_[1] = (int)(size / (BLE_CHUNK - 2));
+				if (size > data_[1] * (BLE_CHUNK - 2))
+					data_[1]++;
+			} else {
+				data_[0] = 2;
+				data_[1] = count;
+			}
+			int chunkSize = MIN2(remain, BLE_CHUNK - 2);
+			memcpy(data_ + 2, data + count * (BLE_CHUNK - 2), chunkSize);
+			write_ctic(localnode(), UUID_DATA - 0xfff1, data_, chunkSize);
+			usleep(50 * 1000);
+			remain -= chunkSize;
+			count++;
+		}
+	}
 	return size;
+}
+
+int serverReadData(unsigned char *data_, int size) {
+	static unsigned char *data = NULL;
+	static int pos = 0;
+	static int chunks = 0;
+	if (data_[0] == 1) {
+		data = malloc(data_[1] * (BLE_CHUNK - 2));
+		memset(data, 0, data_[1] * (BLE_CHUNK - 2));
+		pos = 0;
+		chunks = data_[1];
+		memcpy(data + pos, data_ + 2, BLE_CHUNK - 2);
+		pos += BLE_CHUNK - 2;
+		chunks--;
+	} else if (data != NULL && data_[0] == 2) {
+		memcpy(data + data_[1] * (BLE_CHUNK - 2), data_ + 2, size - 2);
+		pos += size - 2;
+		chunks--;
+		if (chunks == 0) {
+			communicationReceive(data, pos);
+			free(data);
+			data = NULL;
+		}
+	} else if (data_[0] == '{')
+		communicationReceive(data_, size);
+	else {
+		PRINTF("serverReadData: ERROR\n");
+	}
 }
 
 static void *communicationState_t(void *arg) {
@@ -43,8 +94,8 @@ static int le_callback(int clientnode, int operation, int cticn) {
 		char buf[256];
 		memset(buf, 0, 256);
 		int nread = read_ctic(localnode(), cticn, buf, sizeof(buf));
-		PRINTF("le_callback: len%d 0x%x %d\n", nread, buf[0], buf[0]);
-		communicationReceive((unsigned char *)buf, nread);
+		PRINTF("le_callback: len=%d 0x%x=%d\n", nread, buf[0], buf[0]);
+		serverReadData(buf, nread);
 	} else if(operation == LE_DISCONNECT) {
 		communicationConnection(0);
 		PRINTF("le_callback: disconnect from %s\n", device_name(clientnode));
@@ -77,7 +128,7 @@ static void *bleStart_t(void *arg) {
 		char szTplt[] = "\
  PRIMARY_SERVICE=0000fff0-0000-1000-8000-00805f9b34fb\n\
  lechar=Version permit=2 size=10 uuid=0000fff1-0000-1000-8000-00805f9b34fb\n\
- lechar=Data permit=1a size=182 uuid=0000fff2-0000-1000-8000-00805f9b34fb\n";
+ lechar=Data permit=1a size=182 uuid=0000fff2-0000-1000-8000-00805f9b34fb\n";//BLE_CHUNK
 		fwrite(szTplt, strlen(szTplt), 1, pf);
 		fclose(pf);
 	}

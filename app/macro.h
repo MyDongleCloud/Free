@@ -35,6 +35,7 @@
 #define BUTTON_PATH "/dev/input/event0"
 #define OATH_PATH "/etc/users.oath"
 #define NAMES_PATH "/usr/local/modules/MyDongleCloud/names.txt"
+#define BLE_CHUNK 182
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
 #define ZIGBEE_FIRMWARE "/usr/local/modules/Zigbee2MQTT/CC2652R1_coordinator.bin"

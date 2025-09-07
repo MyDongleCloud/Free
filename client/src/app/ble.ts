@@ -10,7 +10,7 @@ const UUID_GATT = "0000fff0-0000-1000-8000-00805f9b34fb";
 const UUID_VERSION = "0000fff1-0000-1000-8000-00805f9b34fb";
 const UUID_DATA = "0000fff2-0000-1000-8000-00805f9b34fb";
 
-const CHUNK_BLE = 181;
+const BLE_CHUNK = 182;
 
 declare var appServerReceive: any;
 declare var appCommunicationStatus: any;
@@ -81,8 +81,8 @@ async tryConnect() {
 	if (!this.global.plt.is("android") && !this.global.plt.is("ios")) {
 		try {
 			const bled = await BleClient.requestDevice({optionalServices:[UUID_GATT]});
-		this.deviceID = bled.deviceId;
-		this.deviceName = bled.name;
+			this.deviceID = bled.deviceId;
+			this.deviceName = bled.name;
 			await this.connectToBluetoothDevice(bled.deviceId);
 		} catch(e) {
 			this.connectedBLE = 0;
@@ -111,7 +111,29 @@ async onBluetoothDeviceFound(result) {
 }
 
 async writeData(a) {
-	await BleClient.write(this.deviceID, UUID_GATT, UUID_DATA, textToDataView(a));
+	const st = JSON.stringify(a);
+	if (st.length > BLE_CHUNK) {
+		let remain = st.length;
+		let count = 0;
+		while (remain > 0) {
+			let aa0, aa1;
+			if (count == 0) {
+				aa0 = 1;
+				aa1 = Math.ceil(st.length / (BLE_CHUNK - 2));
+			} else {
+				aa0 = 2;
+				aa1 = count;
+			}
+			const pos = count * (BLE_CHUNK - 2);
+			const chunkSize = Math.min(remain, BLE_CHUNK - 2);
+			const aa = "" + String.fromCodePoint(aa0) + String.fromCodePoint(aa1) + st.substring(pos, pos + chunkSize);
+			await BleClient.write(this.deviceID, UUID_GATT, UUID_DATA, textToDataView(aa));
+			await this.global.sleepms(50);
+			remain -= BLE_CHUNK - 2;
+			count++;
+		}
+	} else
+		await BleClient.write(this.deviceID, UUID_GATT, UUID_DATA, textToDataView(st));
 }
 
 bleNotifyDataCb = ((value) => {
@@ -172,11 +194,11 @@ async listServices(deviceId: string) {
 }
 
 async requestPasscode() {
-	await this.writeData(JSON.stringify({ a:"passcode" }));
+	await this.writeData({ a:"passcode" });
 }
 
 async shutdown() {
-	await this.writeData(JSON.stringify({ a:"shutdown" }));
+	await this.writeData({ a:"shutdown" });
 }
 
 async checkVersion() {
@@ -190,7 +212,7 @@ async checkVersion() {
 async syncDate() {
 	const d = new Date();
 	const localTime = Math.floor(d.getTime() / 1000 - (d.getTimezoneOffset() * 60));
-	await this.writeData(JSON.stringify({ a:"date", v:localTime }));
+	await this.writeData({ a:"date", v:localTime });
 }
 
 async version() {

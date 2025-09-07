@@ -36,12 +36,12 @@ function appServerWriteData(data, isB64) {
 		st = atob(data);
 	else
 		st = data;
-	Module.print("(JS) serverWriteData: data#" + st + "#B64:" + isB64);
+	//Module.print("(JS) serverWriteData: data#" + st + "#B64:" + isB64);
 	thisble.writeData(st);
 }
 
 function appServerReceive(data, doB64) {
-	Module.print("(JS) appServerReceive: data#" + data + "#B64:" + doB64);
+	//Module.print("(JS) appServerReceive: data#" + data + "#B64:" + doB64);
 	var st;
 	if (doB64)
 		st = btoa(data);
