@@ -3,8 +3,10 @@ function domainFromFqdn($fqdn) {
 	$parts = explode('.', $fqdn);
 	if (count($parts) <= 2)
 		return $fqdn;
-	$last_two_parts = array_slice($parts, -2);
-	return implode('.', $last_two_parts);
+	if (is_numeric($parts[count($parts) - 1]))
+		return $fqdn;
+	$tmp = ($parts[count($parts) - 2] == "mydongle" || $parts[count($parts) - 2] == "myd") ? -3 : -2;
+	return implode('.', array_slice($parts, $tmp));
 }
 
 function passwordCheck($password, $dHash): bool {
@@ -56,7 +58,8 @@ if ($user != "") {
 		fclose($h);
 		$expiration_time = time() + (86400 * 30);
 		$path = "/";
-		$domain = "." . domainFromFqdn($_SERVER["HTTP_HOST"]);
+		$tmp = preg_replace("/^([^:]*)(?::\\d+)?$/i" , "$1", $_SERVER["HTTP_HOST"]);
+		$domain = domainFromFqdn($tmp);
 		setcookie("user", $user, $expiration_time, $path, $domain);
 		setcookie("token", $token, $expiration_time, $path, $domain);
 	}
