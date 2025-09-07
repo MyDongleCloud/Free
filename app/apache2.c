@@ -256,7 +256,6 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 
 			sprintf(sz, "<VirtualHost *:80>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
-			if (strcmp(elModule->string, "Apache2") == 0)
 			fillServer(1, elModule, elModule2, fqdn, pfM);
 			sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
