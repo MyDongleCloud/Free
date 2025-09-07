@@ -113,7 +113,7 @@ static void *bleStart_t(void *arg) {
 	if (pf) {
 		char sz[1024];
 		char nn[128];
-		sprintf(nn, "MyDongle-%s", "1234567890");
+		snprintf(nn, sizeof(nn), "MyDongle-%s", "1234567890");
 		cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
 		if (space) {
 			if (cJSON_HasObjectItem(space, "nameId")) {
@@ -123,7 +123,7 @@ static void *bleStart_t(void *arg) {
 			}
 			cJSON_Delete(space);
 		}
-		sprintf(sz, "DEVICE=%s type=mesh node=2 address=%s\n", nn, bluetoothClassicAddr);
+		snprintf(sz, sizeof(sz), "DEVICE=%s type=mesh node=2 address=%s\n", nn, bluetoothClassicAddr);
 		fwrite(sz, strlen(sz), 1, pf);
 		char szTplt[] = "\
  PRIMARY_SERVICE=0000fff0-0000-1000-8000-00805f9b34fb\n\

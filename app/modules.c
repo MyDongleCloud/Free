@@ -15,11 +15,11 @@
 void modulesSetup(cJSON *space) {
 	char sz[256];
 	cJSON *fqdn = cJSON_CreateArray();
-	sprintf(sz, "%s.%s", cJSON_GetStringValue2(space, "name"), MAIN_DOMAIN);
+	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(space, "name"), MAIN_DOMAIN);
 	cJSON *s = NULL;
 	s = cJSON_CreateString(sz);
 	cJSON_AddItemToArray(fqdn, s);
-	sprintf(sz, "%s.%s", cJSON_GetStringValue2(space, "alias"), SHORT_DOMAIN);
+	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(space, "alias"), SHORT_DOMAIN);
 	s = cJSON_CreateString(sz);
 	cJSON_AddItemToArray(fqdn, s);
 	cJSON *ss = NULL;
@@ -87,7 +87,7 @@ void modulesSetup(cJSON *space) {
 					fclose(pft);
 				}
 				char sz[2048];
-				sprintf(sz, "\
+				snprintf(sz, sizeof(sz), "\
 serverAddr = \"server.mydongle.cloud\"\n\
 serverPort = %d\n\
 auth.method = \"token\"\n\
@@ -118,7 +118,7 @@ customDomains = [\n");
 							fwrite(sz, strlen(sz), 1, pf);
 						} else {
 							int remotePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule2Sj, "remotePort"));
-							sprintf(sz, "\
+							snprintf(sz, sizeof(sz), "\
 [[proxies]]\n\
 name = \"%s\"\n\
 type = \"tcp\"\n\

@@ -24,7 +24,7 @@ static void writePermissions(cJSON *elAuthorized, cJSON *elLocalRanges, FILE *pf
 			cJSON *range = NULL;
 			cJSON_ArrayForEach(range, elLocalRanges) {
 				char sz[256];
-				sprintf(sz, "\t\tRequire ip %s\n", range->valuestring);
+				snprintf(sz, sizeof(sz), "\t\tRequire ip %s\n", range->valuestring);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 		} else {
@@ -34,7 +34,7 @@ static void writePermissions(cJSON *elAuthorized, cJSON *elLocalRanges, FILE *pf
 				firstTime = 0;
 			}
 			char sz[256];
-			sprintf(sz, "\t\tMyDongleCloudModuleAuthorized %s\n", authorized->valuestring);
+			snprintf(sz, sizeof(sz), "\t\tMyDongleCloudModuleAuthorized %s\n", authorized->valuestring);
 			fwrite(sz, strlen(sz), 1, pfM);
 		}
 		requireNb++;
@@ -59,15 +59,15 @@ static void writeIndexes(int b, FILE *pfM) {
 
 static void writeDirectoryIndex(char *s, FILE *pfM) {
 	char sz[256];
-	sprintf(sz, "\t\tDirectoryIndex %s\n", s);
+	snprintf(sz, sizeof(sz), "\t\tDirectoryIndex %s\n", s);
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
 static void writeLog(char *name, FILE *pfM) {
 	char sz[256];
-	sprintf(sz, "/disk/admin/.log/%s", name);
+	snprintf(sz, sizeof(sz), "/disk/admin/.log/%s", name);
 	mkdir(sz, 755);
-	sprintf(sz, "\tCustomLog /disk/admin/.log/%s/web.log combined\n", name);
+	snprintf(sz, sizeof(sz), "\tCustomLog /disk/admin/.log/%s/web.log combined\n", name);
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
@@ -152,19 +152,19 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 			if (cJSON_HasObjectItem(elModule, "path"))
 				strcpy(path, cJSON_GetStringValue2(elModule, "path"));
 			else
-				sprintf(path, "/usr/local/modules/%s", elModule->string);
-			sprintf(sz, "\
+				snprintf(path, sizeof(path), "/usr/local/modules/%s", elModule->string);
+			snprintf(sz, sizeof(sz), "\
 <Macro Macro_%s>\n\
 	MyDongleCloudModule %s\n\
 	RewriteEngine On\n\
 	Use Macro_Redirect %s\n", elModule->string, elModule->string, elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 			if (cJSON_HasObjectItem(elModule, "rewriteRule")) {
-				sprintf(sz, "\t%s\n", cJSON_GetStringValue2(elModule, "rewriteRule"));
+				snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule, "rewriteRule"));
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			if (cJSON_HasObjectItem(elModule2, "rewriteRule")) {
-				sprintf(sz, "\t%s\n", cJSON_GetStringValue2(elModule2, "rewriteRule"));
+				snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule2, "rewriteRule"));
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 
@@ -187,23 +187,23 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 						char *path_ = cJSON_GetStringValue2(elReverseProxy_, "path");
 						int reversePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elReverseProxy_, "port"));
 						if (url_ != NULL)
-							sprintf(sz, "\tProxyPass %s %s%s\n\tProxyPassReverse %s %s%s\n", path_, url_, path_, path_, url_, path_);
+							snprintf(sz, sizeof(sz), "\tProxyPass %s %s%s\n\tProxyPassReverse %s %s%s\n", path_, url_, path_, path_, url_, path_);
 						else
-							sprintf(sz, "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, reversePort, path_, path_, type_, reversePort, path_);
+							snprintf(sz, sizeof(sz), "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, reversePort, path_, path_, type_, reversePort, path_);
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
 					strcpy(sz, "\t<Proxy *>\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				} else {
-					sprintf(sz, "\tDocumentRoot %s\n\t<Directory %s>\n", path, path);
+					snprintf(sz, sizeof(sz), "\tDocumentRoot %s\n\t<Directory %s>\n", path, path);
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule, "addLineInDirectory")) {
-					sprintf(sz, "\t\t%s\n", cJSON_GetStringValue2(elModule, "addLineInDirectory"));
+					snprintf(sz, sizeof(sz), "\t\t%s\n", cJSON_GetStringValue2(elModule, "addLineInDirectory"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule2, "addLineInDirectory")) {
-					sprintf(sz, "\t\t%s\n", cJSON_GetStringValue2(elModule2, "addLineInDirectory"));
+					snprintf(sz, sizeof(sz), "\t\t%s\n", cJSON_GetStringValue2(elModule2, "addLineInDirectory"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				writePermissions(elAuthorized, elLocalRanges, pfM);
@@ -226,18 +226,18 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					strcpy(sz, "\t</Directory>\n");
 				fwrite(sz, strlen(sz), 1, pfM);
 				if (cJSON_HasObjectItem(elModule, "addConfig")) {
-					sprintf(sz, "%s\n", cJSON_GetStringValue2(elModule, "addConfig"));
+					snprintf(sz, sizeof(sz), "%s\n", cJSON_GetStringValue2(elModule, "addConfig"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule2, "addConfig")) {
-					sprintf(sz, "%s\n", cJSON_GetStringValue2(elModule2, "addConfig"));
+					snprintf(sz, sizeof(sz), "%s\n", cJSON_GetStringValue2(elModule2, "addConfig"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (strcmp(elModule->string, "Apache2") == 0) {
 					for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
 						cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
 						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
-						sprintf(sz, "\
+						snprintf(sz, sizeof(sz), "\
 	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
 	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%{HTTP_HOST}:%d [NC,L]\n\
 	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%s.%%{HTTP_HOST} [NC,L]\n", el_Module->string, localPort, el_Module->string, el_Module->string);
@@ -249,29 +249,29 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 			} else {
-				sprintf(sz, "\
+				snprintf(sz, sizeof(sz), "\
 	RewriteCond %%{REQUEST_URI} !^/MyDongleCloud/disabled.php$\n\
 	RewriteRule ^/.*$ /MyDongleCloud/disabled.php?m=%s [PT,L]\n\n", elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);
-			sprintf(sz, "</Macro>\n");
+			strcpy(sz, "</Macro>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 
-			sprintf(sz, "<VirtualHost *:80>\n");
+			strcpy(sz, "<VirtualHost *:80>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 			fillServer(1, elModule, elModule2, fqdn, pfM);
-			sprintf(sz, "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
+			snprintf(sz, sizeof(sz), "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 
-			sprintf(sz, "<IfModule mod_ssl.c>\n\t<VirtualHost *:443>\n");
+			strcpy(sz, "<IfModule mod_ssl.c>\n\t<VirtualHost *:443>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 			fillServer(2, elModule, elModule2, fqdn, pfM);
-			sprintf(sz, "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
+			snprintf(sz, sizeof(sz), "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "localPort"));
 			if (localPort > 0) {
-				sprintf(sz, "<VirtualHost *:%d>\n\tUse Macro_%s\n</VirtualHost>\n", localPort, elModule->string);
+				snprintf(sz, sizeof(sz), "<VirtualHost *:%d>\n\tUse Macro_%s\n</VirtualHost>\n", localPort, elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 				sprintf(sz, "Listen %d\n", localPort);
 				fwrite(sz, strlen(sz), 1, pfP);

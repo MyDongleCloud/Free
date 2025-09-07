@@ -41,7 +41,7 @@ static int fillInternal = 0;
 void readString(const char *path, const char *key, char *buf, int size) {
 	memset(buf, 0, size);
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	int fd = open(fullpath, O_RDONLY);
 	if (fd >= 0) {
 		read(fd, buf, size);
@@ -51,7 +51,7 @@ void readString(const char *path, const char *key, char *buf, int size) {
 
 int readValue(const char *path, const char *key) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	int fd = open(fullpath, O_RDONLY);
 	int v = -1;
 	char buf[16];
@@ -69,7 +69,7 @@ int readValue(const char *path, const char *key) {
 
 void readValues2(const char *path, const char *key, int *i, int *j) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	int fd = open(fullpath, O_RDONLY);
 	char buf[16];
 	char *p;
@@ -87,7 +87,7 @@ void readValues2(const char *path, const char *key, int *i, int *j) {
 
 void readValues4(const char *path, const char *key, int *i, int *j, int *k, int *l) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	int fd = open(fullpath, O_RDONLY);
 	char buf[32];
 	char *p;
@@ -107,7 +107,7 @@ void readValues4(const char *path, const char *key, int *i, int *j, int *k, int 
 
 void writeString(const char *path, const char *key, char *buf, int size) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	int fd = open(fullpath, O_WRONLY | O_CREAT, 0644);
 	if (fd >= 0) {
 		write(fd, buf, size);
@@ -125,7 +125,7 @@ void writeValue(const char *path, const char *v) {
 
 void writeValueKey(const char *path, const char *key, const char *v) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	writeValue(fullpath, v);
 }
 
@@ -143,19 +143,19 @@ void writeValueInts(const char *path, int i, int j) {
 
 void writeValueKeyInt(const char *path, const char *key, int i) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	writeValueInt(fullpath, i);
 }
 
 void writeValueKeyInts(const char *path, const char *key, int i, int j) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	writeValueInts(fullpath, i, j);
 }
 
 void writeValueKeyPrintf(const char *path, const char *key, const char *fmt, ...) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
     va_list args;
     char *sz = NULL;
     va_start(args, fmt);
@@ -292,7 +292,7 @@ int killOtherPids(char *sz) {
 	int ret = 0;
 	char line_[1024];
 	char *line = line_;
-	sprintf(line, "pidof -o %d %s", getpid(), sz);
+	snprintf(line, sizeof(line_), "pidof -o %d %s", getpid(), sz);
 	FILE *cmd = popen(line, "r");
 	strcpy(line, "");
 	fgets(line, 1024, cmd);

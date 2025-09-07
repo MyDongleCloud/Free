@@ -28,7 +28,7 @@ static int logicOath() {
 	FILE *pf = fopen(OATH_PATH, "w");
 	if (pf) {
 		char sz2[64];
-		sprintf(sz2, "HOTP mdc - %s", secret);
+		snprintf(sz2, sizeof(sz2), "HOTP mdc - %s", secret);
 		fwrite(sz2, strlen(sz2), 1, pf);
 		fclose(pf);
 		system("chown root:root " OATH_PATH ";chmod 400 " OATH_PATH);

@@ -20,7 +20,7 @@ static char szFirmware3[256];
 //Functions
 static int readValue(const char *path, const char *key) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	int fd = open(fullpath, O_RDONLY);
 	int v = -1;
 	char buf[16];
@@ -52,7 +52,7 @@ static void writeValueInt(const char *path, int i) {
 
 static void writeValueKeyInt(const char *path, const char *key, int i) {
 	char fullpath[256];
-	sprintf(fullpath, path, key);
+	snprintf(fullpath, sizeof(fullpath), path, key);
 	writeValueInt(fullpath, i);
 }
 

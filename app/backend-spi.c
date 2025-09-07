@@ -33,7 +33,7 @@ static void backendUpdate_plat(lv_disp_t *disp_drv, const lv_area_t *area, unsig
 		for (xx = 0; xx < w; xx++) {
 			int pos = DEPTH * (yy * w + xx);
 			unsigned int c = convert24to16(fb[pos + 0], fb[pos + 1], fb[pos + 2]);
-			sprintf(sz, "%d %d %d %d %d", x + xx, y + yy, 1, 1, c);
+			sprintf(sz,  "%d %d %d %d %d", x + xx, y + yy, 1, 1, c);
 			writeValueKey(SCREEN_PATH, "rect", sz);
 		}
 #else
