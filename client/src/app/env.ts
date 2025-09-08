@@ -21,6 +21,7 @@ import * as Keypairs from '@root/keypairs';
 import * as CSR from '@root/csr';
 import * as PEM from '@root/pem';
 import * as ENC from '@root/encoding/base64';
+import space from 'src/assets/space.json';
 
 enum PostMsg {
 ERROR,
@@ -33,7 +34,9 @@ PLACEHOLDER
 
 export class Global {
 VERSION: string = VERSION;
-BASEURL: string = "";
+WEBURL: string = "https://mydongle.cloud";
+DONGLEURL: string = "";
+space = "";
 postMsg = Object();
 currentUrl: string;
 settings: Settings = {} as Settings;
@@ -45,9 +48,9 @@ firmwareServerVersion;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	if (environment.production || this.isPlatform("androidios"))
-		this.BASEURL = "https://mydongle.cloud";
+		this.DONGLEURL = "https://app." + (space["name"] ?? "") + "mydongle.cloud";
 	else
-		this.BASEURL = "http://localhost";
+		this.DONGLEURL = "http://localhost";
 	if (typeof (<any>window).electron != "undefined") {
 		(<any>window).electron.ipc.invoke("isDev").then((r) => {
 			this.settings.isDev = 2;

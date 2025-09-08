@@ -22,7 +22,7 @@ async forwardWhenReady() {
 	try {
 		const response = await Promise.race([
 			new Promise( resolve => { setTimeout(resolve, 2000) } ),
-			this.httpClient.post(this.global.BASEURL + "/master/version.json", "", {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise()
+			this.httpClient.post(this.global.WEBURL + "/master/version.php", "", {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise()
 		]);
 		if (response === undefined)
 			console.log("forwardWhenReady: Timeout");
@@ -39,7 +39,7 @@ async forwardWhenReady() {
 }
 
 openUpgrade() {
-	let url = this.global.BASEURL + "";
+	let url = this.global.WEBURL + "";
 	if (this.global.plt.is("android"))
 		url = "https://play.google.com/store/apps/details?id=cloud.mydongle.app";
 	else if (this.global.plt.is("ios"))
