@@ -267,6 +267,7 @@
 		"enabled": true,
 		"authorized": [ "admin" ],
 		"localPort": 9200,
+		"FollowSymLinks": true,
 		"path": "/usr/local/modules/MyDongleCloud/web",
 		"rewriteRule": "RewriteRule ^/$ /app [R=301,L]",
 		"alias": [ "app", "mdc" ]
