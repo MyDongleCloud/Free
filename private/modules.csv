@@ -58,7 +58,7 @@ MeTube;clone;20250721;Utils;;;;;X;;;alexta69/metube;-1;GNU Affero General Public
 MinIO;clone;RELEASE.2025-07-18T21-56-31Z;Utils;;;;;X;;;minio/minio;-1;GNU Affero General Public License v3.0;MinIO is a high-performance, S3 compatible object store, open sourced under GNU AGPLv3 license.
 MongoDB;apt (source);;Database;;;MongoDB;;;;MongoDB;mongodb/mongo;-1;Other;The MongoDB Database
 Mosquitto;apt;2.0.11;Home;X;X;;;;;;eclipse-mosquitto/mosquitto;-1;Other;Eclipse Mosquitto - An open source MQTT broker
-MydongleCloud;clone;2025-07-07;Base;X;X;App;;;;;;0;;
+MyDongleCloud;clone;2025-07-07;Base;X;X;App;;;;;;0;;
 MySQL;apt;8.0.42;Database;X;;;;;;;mysql/mysql-server;-1;Other;MySQL Server, the world's most popular open source database, and MySQL Cluster, a real-time, open source transactional database.
 NGINX;apt;;Hosting;;;Web server;;;;;nginx/nginx;-1;BSD 2-Clause "Simplified" License;The official NGINX Open Source repository.
 Node;tar;v22.17.1;Tools;X;X;;;;;;nodejs/node;-1;Other;Node.js JavaScript runtime ✨🐢🚀✨
@@ -69,7 +69,7 @@ OpenWebUI;clone;v0.6.18;Chatbot;X;;;;X;;;open-webui/open-webui;-1;Other;User-fri
 osTicket;clone;v1.18.2;Productivity;X;;;;X;X;MySQL;osTicket/osTicket;-1;GNU General Public License v2.0;The osTicket open source ticketing system official project repository, for versions 1.8 and later
 Pandoc;apt;2.17.1.1;;X;;File converter (image, video, text);;X;;;jgm/pandoc;-1;Other;Universal markup converter
 PhotoPrism;clone;250707-d28b3101e;Personal;;;Photos;Google Photos;X;;;photoprism/photoprism;-1;Other;AI-Powered Photos App for the Decentralized Web 🌈💎✨
-Photoview;clone;v2.4.0;Personal;;;Photos;Google Photos;X;;;photoview/photoview;-1;GNU Affero General Public License v3.0;Photo gallery for self-hosted personal servers
+PhotoView;clone;v2.4.0;Personal;;;Photos;Google Photos;X;;;photoview/photoview;-1;GNU Affero General Public License v3.0;Photo gallery for self-hosted personal servers
 PHP;apt;8.2.28;Coding;X;X;;;;X;;php/php-src;-1;Other;The PHP Interpreter
 phpBB;clone;release-3.3.15;Community;;;Community, forum;;X;X;;phpbb/phpbb;-1;GNU General Public License v2.0; phpBB Development: phpBB is a popular open-source bulletin board written in PHP. This repository also contains the history of version 2.
 phpList;composer;2.5.5;Mail;X;X;Emailing solution;MailChimp;;X;;phpList/core;-1;GNU Affero General Public License v3.0;This module is the core of phpList 4. Join discussion at the community forum: https://discuss.phplist.org/
@@ -106,7 +106,7 @@ Uptime;clone;1.23.16;Utils;;;;;X;;;louislam/uptime-kuma;-1;MIT License;A fancy s
 WebSSH2;clone;v0.2.24;Utils;X;;;;;;;billchurch/webssh2;-1;MIT License;Web SSH Client using ssh2, socket.io, xterm.js, and express. webssh webssh2
 Webtrees;clone;2.2.1;Personal;X;;Genealogy;;X;X;MySQL;fisharebest/webtrees;-1;GNU General Public License v3.0;Online genealogy
 WordPress;;;Hosting;;;Blog;Medium;X;X;;;0;;
-Write.as;;;Hosting;;;Blog;Medium;X;;;;0;;
+WriteAs;;;Hosting;;;Blog;Medium;X;;;;0;;
 YOURLS;clone;1.10.1;Hosting;X;;;;X;X;;YOURLS/YOURLS;-1;MIT License;🔗 The de facto standard self hosted URL shortener in PHP
 Youtube-dl;pip;2025.6.30;Tools;X;;;;;;;ytdl-org/youtube-dl;-1;The Unlicense;Command-line program to download videos from YouTube.com and other video sites
 yt-dlp;pip;2025.6.30;Tools;X;;;;;;;yt-dlp/yt-dlp;-1;The Unlicense;A feature-rich command-line audio/video downloader
