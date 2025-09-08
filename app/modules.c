@@ -27,7 +27,7 @@ void modulesSetup(cJSON *space) {
 		s = cJSON_CreateString(ss->valuestring);
 		cJSON_AddItemToArray(fqdn, s);
 	}
-	cJSON *modulesDefault = jsonRead(LOCAL_PATH "MyDongleCloud/modules.json");
+	cJSON *modulesDefault = jsonRead(LOCAL_PATH "MyDongleCloud/modulesDefault.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "MyDongleCloud/modules.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();
