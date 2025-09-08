@@ -95,7 +95,7 @@ auth.token = \"%s\"\n\
 user = \"%s\"\n\
 metadatas.token = \"%s\"\n\
 webServer.addr = \"127.0.0.1\"\n\
-webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), cJSON_GetStringValue2(space, "frpToken"));
+webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), cJSON_GetStringValue2(elModule2, "token"));
 				fwrite(sz, strlen(sz), 1, pf);
 				for (int j = 0; j < cJSON_GetArraySize(elModuleS); j++) {
 					cJSON *elModuleSj = cJSON_GetArrayItem(elModuleS, j);
