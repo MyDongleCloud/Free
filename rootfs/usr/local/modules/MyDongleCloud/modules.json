@@ -6,7 +6,7 @@
 		"authorized": [ "admin" ],
 		"localRanges": ["10", "172.16", "192.168"],
 		"path": "/disk/admin/Web",
-		"alias": [ "wwww" ]
+		"alias": [ "www" ]
 	},
 	"Audiobookshelf": {
 		"web": true,
