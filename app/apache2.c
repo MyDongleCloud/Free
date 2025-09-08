@@ -86,6 +86,33 @@ static void fillServer(int tabN, cJSON *elModule, cJSON *elModule2, cJSON *fqdn,
 			jsonPrintArray(tabN, "ServerAlias ", "ServerAlias ",  i->valuestring, fqdn, "\n", pfM);
 }
 
+void rewrite_(char *st, int port, FILE *pfM) {
+	char sz[256];
+	if (port > 0) {
+		snprintf(sz, sizeof(sz), "\
+	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%{HTTP_HOST}:%d [NC,L]\n", st, port);
+		fwrite(sz, strlen(sz), 1, pfM);
+	}
+	snprintf(sz, sizeof(sz), "\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%s.%%{HTTP_HOST} [NC,L]\n", st, st);
+	fwrite(sz, strlen(sz), 1, pfM);
+}
+
+void rewrite(cJSON *el_Module, cJSON *el_Module2, int port, FILE *pfM) {
+	rewrite_(el_Module->string, port, pfM);
+	cJSON *i = NULL;
+	cJSON *a = NULL;
+	a = cJSON_GetObjectItem(el_Module, "alias");
+	if (a)
+		cJSON_ArrayForEach(i, a)
+			rewrite_(i->valuestring, port, pfM);
+	a = cJSON_GetObjectItem(el_Module2, "alias");
+	if (a)
+		cJSON_ArrayForEach(i, a)
+			rewrite_(i->valuestring, port, pfM);
+}
+
 void reloadApache2Conf() {
 #ifndef DESKTOP
 	PRINTF("Apache2: Reloading\n");
@@ -236,12 +263,11 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 				if (strcmp(elModule->string, "Apache2") == 0) {
 					for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
 						cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
-						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
-						snprintf(sz, sizeof(sz), "\
-	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%{HTTP_HOST}:%d [NC,L]\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%s.%%{HTTP_HOST} [NC,L]\n", el_Module->string, localPort, el_Module->string, el_Module->string);
-						fwrite(sz, strlen(sz), 1, pfM);
+						if (cJSON_HasObjectItem(el_Module, "web")) {
+							cJSON *el_Module2 = cJSON_GetObjectItem(modules, el_Module->string);
+							int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
+							rewrite(el_Module, el_Module2, localPort, pfM);
+						}
 					}
 					strcpy(sz, "\n\
 	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
