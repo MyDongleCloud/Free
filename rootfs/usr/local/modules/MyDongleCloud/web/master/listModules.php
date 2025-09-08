@@ -1,6 +1,6 @@
 <?php
-$path = "/usr/local/modules/MyDongleCloud/modules.json";
-$path2 = "/disk/admin/.modules/MyDongleCloud/modules.json";
+$path = $_SERVER["PREFIX"] . "/usr/local/modules/MyDongleCloud/modules.json";
+$path2 = $_SERVER["PREFIX"] . "/disk/admin/.modules/MyDongleCloud/modules.json";
 $h = fopen($path, "r");
 $modules = json_decode(fread($h, filesize($path)), true);
 fclose($h);
