@@ -50,11 +50,11 @@ if [ $OPTIND = 1 ]; then
 		fi
 	fi
 	if [ $MTP = 0 -a $SERIAL = 0 ]; then
-		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modules.json | grep -qi serial
+		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modulesDefault.json | grep -qi serial
 		if [ $? = 0 ]; then
 			SERIAL=1
 		fi
-		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modules.json | grep -qi mtp
+		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modulesDefault.json | grep -qi mtp
 		if [ $? = 0 ]; then
 			MTP=1
 		fi
