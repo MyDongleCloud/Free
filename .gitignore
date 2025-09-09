@@ -9,5 +9,4 @@ client/.angular/
 client/web/
 client/node_modules/
 client/src/assets/app.js
-client/src/assets/modules.json
-client/src/assets/space.json
+client/src/data/

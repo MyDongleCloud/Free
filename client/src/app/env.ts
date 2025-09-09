@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { NavController, AlertController, MenuController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
@@ -35,7 +35,7 @@ export class Global {
 VERSION: string = VERSION;
 WEBURL: string = "https://mydongle.cloud";
 DONGLEURL: string = "";
-space = "";
+space;
 postMsg = Object();
 currentUrl: string;
 settings: Settings = {} as Settings;
@@ -46,8 +46,9 @@ refreshObs;
 firmwareServerVersion;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
+	this.getSpace();
 	if (environment.production || this.isPlatform("androidios")) {
-		this.getDongleUrl();
+		;
 	} else
 		this.DONGLEURL = "http://localhost";
 	if (typeof (<any>window).electron != "undefined") {
@@ -80,10 +81,14 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	//setTimeout(() => { this.getCertificate("test101"); }, 2000);
 }
 
-async getDongleUrl() {
-	const space = await this.httpClient.get("/assets/space.json").toPromise();
-	console.log(space);
-	this.DONGLEURL = "https://" + (space["name"] ?? "") + ".mydongle.cloud";
+async getSpace() {
+	try {
+		this.space = await this.httpClient.get("/data/space.json").toPromise();
+	} catch(e) {
+		console.log("Failed to download /data/space.json");
+		this.space = { name:"placeholder" };
+	}
+	this.DONGLEURL = "https://" + (this.space["name"] ?? "") + ".mydongle.cloud";
 }
 
 initMsg() {

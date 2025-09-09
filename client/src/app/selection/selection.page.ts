@@ -12,6 +12,7 @@ import modulesMeta from '../modulesMeta.json';
 })
 
 export class Selection {
+modules;
 cards;
 filteredCards;
 searchTerm: string = "";
@@ -30,14 +31,18 @@ async ionViewDidEnter() {
 }
 
 async getData() {
-	const modules = await this.httpClient.get("/assets/modules.json").toPromise();
-	console.log(modules);
+	try {
+		this.modules = await this.httpClient.get("/data/modules.json").toPromise();
+	} catch(e) {
+		console.log("Failed to download /data/modules.json");
+		this.modules = {};
+	}
 	this.cards = [];
 	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (value["web"] === true) {
-			value["enabled"] = modules[key]?.enabled ?? true;
-			value["authorized"] = modules[key]?.authorized ?? value["authorized"];
-			value["alias"] = [...(value["alias"] ?? []), ...(modules[key]?.alias ?? [])];
+			value["enabled"] = this.modules[key]?.enabled ?? true;
+			value["authorized"] = this.modules[key]?.authorized ?? value["authorized"];
+			value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
 			value["name"] = key;
 			value["link"] = this.global.DONGLEURL + "/MyDongleCloud/" + value["name"];
 			value["title"] = key;
