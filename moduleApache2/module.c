@@ -12,7 +12,7 @@
 //Struct
 typedef struct {
 	const char *name;
-	cJSON *authorized;
+	cJSON *permissions;
 } config;
 
 //Defines
@@ -44,7 +44,7 @@ static cJSON *usersLoad() {
 static void *createConfig(apr_pool_t *p, server_rec *s) {
 	config *confD = apr_pcalloc(p, sizeof(config));
 	confD->name = NULL;
-	confD->authorized = NULL;
+	confD->permissions = NULL;
 	return confD;
 }
 
@@ -56,13 +56,13 @@ static const char *moduleNameSet(cmd_parms *cmd, void *mconfig, const char *arg)
 	return NULL;
 }
 
-static const char *moduleAuthorizedSet(cmd_parms *cmd, void *mconfig, const char *arg) {
+static const char *modulePermissionSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	PRINTF("MDC: Add user %s for %s", arg, confD->name);
-	if (confD->authorized == NULL)
-		confD->authorized = cJSON_CreateObject();
-	cJSON_AddBoolToObject(confD->authorized, arg, cJSON_True);
+	if (confD->permissions == NULL)
+		confD->permissions = cJSON_CreateObject();
+	cJSON_AddBoolToObject(confD->permissions, arg, cJSON_True);
 	return NULL;
 }
 
@@ -87,13 +87,13 @@ static int authorization(request_rec *r) {
 	server_rec *s = r->server;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	//PRINTF("MDC: authorization1 name:%s", confD->name);
-	if (confD->name == NULL || confD->authorized == NULL)
+	if (confD->name == NULL || confD->permissions == NULL)
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
 	char *cookieUser = extractCookieValue(cookies, "user", r);
 	//PRINTF("MDC: authorization2 cookieUser:%s", cookieUser);
 	if (cookieUser != NULL) {
-		if (cJSON_HasObjectItem(confD->authorized, "_allusers_") || cJSON_HasObjectItem(confD->authorized, cookieUser)) {
+		if (cJSON_HasObjectItem(confD->permissions, "_allusers_") || cJSON_HasObjectItem(confD->permissions, cookieUser)) {
 			char *cookieToken = extractCookieValue(cookies, "token", r);
 			//PRINTF("MDC: authorization3 cookieToken:%s", cookieToken);
 			if (cookieToken != NULL) {
@@ -128,7 +128,7 @@ static int authorization(request_rec *r) {
 
 static const command_rec directives[] = {
 	AP_INIT_TAKE1("MyDongleCloudModule", moduleNameSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloud module name"),
-	AP_INIT_ITERATE("MyDongleCloudModuleAuthorized", moduleAuthorizedSet, NULL, RSRC_CONF | ACCESS_CONF, "Authorized users list for MyDongleCloud module"),
+	AP_INIT_ITERATE("MyDongleCloudModulePermission", modulePermissionSet, NULL, RSRC_CONF | ACCESS_CONF, "Permission for MyDongleCloud module"),
 	{NULL}
 };
 
