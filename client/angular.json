@@ -20,7 +20,7 @@
               "@root/pem",
               "@root/encoding/base64"
             ],
-            "outputPath": "app",
+            "outputPath": "web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -30,10 +30,7 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets",
-                "ignore": [
-                  "**/space.json"
-                ]
+                "output": "assets"
               },
               {
                 "glob": "**/*.svg",
@@ -58,6 +55,24 @@
                   "maximumError": "4kb"
                 }
               ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+                "ignore": [
+                  "**/modules.json",
+                  "**/modulesDefault.json",
+                  "**/modulesMeta.json",
+                  "**/space.json"
+                ]
+              }
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
+            ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

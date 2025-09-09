@@ -8,6 +8,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "ionic:serve:before": "cp ../rootfs/disk/admin/.modules/MyDongleCloud/modules.json ../rootfs/disk/admin/.modules/MyDongleCloud/space.json src/assets/",
+    "ionic:build:after": "cp -r ../rootfs/usr/local/modules/MyDongleCloud/web/assets/* web/assets/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

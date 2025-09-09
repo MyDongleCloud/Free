@@ -21,7 +21,6 @@ import * as Keypairs from '@root/keypairs';
 import * as CSR from '@root/csr';
 import * as PEM from '@root/pem';
 import * as ENC from '@root/encoding/base64';
-import space from 'src/assets/space.json';
 
 enum PostMsg {
 ERROR,
@@ -47,9 +46,9 @@ refreshObs;
 firmwareServerVersion;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
-	if (environment.production || this.isPlatform("androidios"))
-		this.DONGLEURL = "https://app." + (space["name"] ?? "") + "mydongle.cloud";
-	else
+	if (environment.production || this.isPlatform("androidios")) {
+		this.getDongleUrl();
+	} else
 		this.DONGLEURL = "http://localhost";
 	if (typeof (<any>window).electron != "undefined") {
 		(<any>window).electron.ipc.invoke("isDev").then((r) => {
@@ -79,6 +78,12 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	this.configLoad();
 	this.settingsLoad();
 	//setTimeout(() => { this.getCertificate("test101"); }, 2000);
+}
+
+async getDongleUrl() {
+	const space = await this.httpClient.get("/assets/space.json").toPromise();
+	console.log(space);
+	this.DONGLEURL = "https://" + (space["name"] ?? "") + ".mydongle.cloud";
 }
 
 initMsg() {

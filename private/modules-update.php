@@ -14,6 +14,7 @@ $modules = explode("\n", $data);
 fclose($h);
 $stars = 0;
 $posgh = array_search("Github URL", explode(";", $modules[0]));
+$clientModules = array();
 for ($i = 1; $i < count($modules); $i++) {
 	if (strlen($modules[$i]) == 0)
 		continue;
@@ -33,6 +34,8 @@ for ($i = 1; $i < count($modules); $i++) {
 		$stars += intval($resp["stargazers_count"]);
 	}
 	$modules[$i] = implode(";", $m);
+	$clientModules[$m[0]] = array();
+	$clientModules[$m[0]] = array( "name" => $m[0], "version" => $m[2], "category" => $m[3], "description" => $m[14], "keywords" => array() );
 }
 $h = fopen($pathname, "w");
 foreach ($modules as $l)
@@ -40,4 +43,5 @@ foreach ($modules as $l)
 		fwrite($h, $l . "\n");
 fclose($h);
 echo "Github stars: " . $stars . "\n";
+file_put_contents("../rootfs/usr/local/modules/MyDongleCloud/modulesMeta.json", json_encode($clientModules, JSON_PRETTY_PRINT));
 ?>
