@@ -22,7 +22,7 @@ async forwardWhenReady() {
 	try {
 		const response = await Promise.race([
 			new Promise( resolve => { setTimeout(resolve, 2000) } ),
-			this.httpClient.post(this.global.WEBURL + "/master/version.php", "", {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise()
+			this.httpClient.post(this.global.WEBURL + "/master/version.json", "", {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise()
 		]);
 		if (response === undefined)
 			console.log("forwardWhenReady: Timeout");
