@@ -7,61 +7,50 @@
 	</ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-<ion-grid>
+<ion-searchbar [(ngModel)]="searchTerm" (input)="filterCards()" placeholder="Search by keywords..."></ion-searchbar>
+<div style="margin-left:5px; display:flex; align-items:center;">
+	<ion-segment [(ngModel)]="isTableView" [scrollable]="true" (ionChange)="toggleView($event)" style="border:0px solid gray; margin-top:10px; border-radius:5px; box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);">
+		<ion-segment-button value="cards" style="width:100%;">
+			<ion-label style="padding-bottom:0px;">Cards</ion-label>
+			<ion-icon name="apps" size="small"></ion-icon>
+		</ion-segment-button>
+		<ion-segment-button value="table" style="width:100%;">
+			<ion-label style="padding-bottom:0px;">Table</ion-label>
+			<ion-icon name="list" size="small"></ion-icon>
+		</ion-segment-button>
+	</ion-segment>
+	<ion-icon size="small" (click)="toggleSortDirection()" style="margin-left:20px;" [name]="sortDirection === 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon>
+</div>
+<ion-grid *ngIf="isTableView == 'cards'">
 	<ion-row>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/conference.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("conference")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/suite.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("suite")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/mail.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("mail")}}</div></ion-button>
-		</ion-col>
-	</ion-row>
-	<ion-row>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/chatbot.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("chatbot")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/calendar.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("calendar")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/hosting.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("hosting")}}</div></ion-button>
-		</ion-col>
-	</ion-row>
-	<ion-row>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/blog.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("blog")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/photos.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("photos")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/exchange.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("exchange")}}</div></ion-button>
-		</ion-col>
-	</ion-row>
-	<ion-row>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/survey.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("survey")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/emailing.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("emailing")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/forums.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("forums")}}</div></ion-button>
-		</ion-col>
-	</ion-row>
-	<ion-row>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/helpdesk.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("helpdesk")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/module"><div><img src="assets/icon/ecommerce.png" style="width:64px; filter:brightness(0) invert(1);"><br><br>{{global.mytranslateM("ecommerce")}}</div></ion-button>
-		</ion-col>
-		<ion-col size="4">
-			<ion-button routerLink="/dongle"><div><ion-icon src="assets/dongle.svg" style="width:64px;"></ion-icon><br><br>{{global.mytranslateM("dongle")}}</div></ion-button>
+		<ion-col size="12" size-md="3" *ngFor="let card of filteredCards">
+			<ion-card style="background-color:rgb(242, 247, 242);">
+				<ion-card-header>
+					<ion-card-title>{{ card.title }}</ion-card-title>
+					<ion-card-subtitle>{{ card.category }}</ion-card-subtitle>
+					</ion-card-header>
+				<ion-card-content>
+					<p><b><a href="{{ card.link }}" target="_blank">Go to module</a></b><br><br>{{ card.description }}</p>
+					<ion-chip *ngFor="let kw of card.keywords" style="border-radius:5px; border:1px solid gray; background-color:rgba(0,0,0,0);">{{ kw }}</ion-chip>
+				</ion-card-content>
+			</ion-card>
 		</ion-col>
 	</ion-row>
 </ion-grid>
+<ion-list *ngIf="isTableView == 'table'">
+	<ion-item-divider>
+	<ion-label>Name</ion-label>
+	<ion-label>Category</ion-label>
+	<ion-label>DescFription</ion-label>
+	<ion-label>keywords</ion-label>
+	</ion-item-divider>
+	<ion-item *ngFor="let card of filteredCards">
+	<ion-label>{{ card.title }}</ion-label>
+	<ion-label>{{ card.category }}</ion-label>
+	<ion-label>{{ card.description }}</ion-label>
+	<ion-label>
+		<ion-chip *ngFor="let kw of card.keywords">{{ kw }}</ion-chip>
+	</ion-label>
+	</ion-item>
+</ion-list>
 </ion-content>
