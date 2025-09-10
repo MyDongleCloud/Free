@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Selection } from './selection.page';
+import { Modules } from './modules.page';
 
 const routes: Routes = [{
 	path: '',
-	component: Selection
+	component: Modules
 }];
 
 @NgModule({
@@ -12,4 +12,4 @@ const routes: Routes = [{
 	exports: [RouterModule],
 })
 
-export class SelectionRoutingModule {}
+export class ModulesRoutingModule {}

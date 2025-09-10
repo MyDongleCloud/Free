@@ -6,13 +6,13 @@ import modulesDefault from '../modulesDefault.json';
 import modulesMeta from '../modulesMeta.json';
 
 @Component({
-	selector: 'app-selection',
-	templateUrl: './selection.page.html',
-	styleUrls: ['./selection.page.scss'],
+	selector: 'app-modules',
+	templateUrl: './modules.page.html',
+	styleUrls: ['./modules.page.scss'],
 	standalone: false
 })
 
-export class Selection {
+export class Modules {
 @ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
 modules;
 moduleCur;

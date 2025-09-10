@@ -234,7 +234,7 @@ mytranslate(st) {
 }
 
 mytranslateM(st) {
-	return this.mytranslateP("modules", st);
+	return this.mytranslateP("modules_", st);
 }
 
 async sleepms(ms) {

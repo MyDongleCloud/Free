@@ -16,8 +16,8 @@ const routes: Routes = [
 		loadChildren: () => import('./help/help.module').then( m => m.HelpModule)
 	},
 	{
-		path: 'selection',
-		loadChildren: () => import('./selection/selection.module').then( m => m.SelectionModule)
+		path: 'modules',
+		loadChildren: () => import('./modules/modules.module').then( m => m.ModulesModule)
 	},
 	{
 		path: 'setup',
@@ -46,7 +46,7 @@ export class AppRoutingModule {
 constructor(private global: Global) {
 	console.log("Version: " + global.VERSION);
 	console.log("Platform: " + global.plt.platforms());
-	global.currentUrl = "selection";
+	global.currentUrl = "modules";
 }
 
 }
