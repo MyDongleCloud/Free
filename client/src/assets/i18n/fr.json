@@ -13,6 +13,11 @@
 		"Shutdown": "",
 		"Device version:": ""
 	},
+	"modules": {
+		"_public_": "Public",
+		"_localnetwork_": "Réseau local",
+		"_dongle_": "Dongle"
+	},
 	"selection": {
 		"What do you want to do?": "",
 		"conference": "Video conference",

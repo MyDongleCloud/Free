@@ -233,8 +233,8 @@ mytranslate(st) {
 	return this.mytranslateP(this.currentUrl, st);
 }
 
-mytranslateM(module) {
-	return this.mytranslateP("selection", module);
+mytranslateM(st) {
+	return this.mytranslateP("modules", st);
 }
 
 async sleepms(ms) {
