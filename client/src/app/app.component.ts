@@ -17,7 +17,7 @@ navigationByBack: boolean = false;
 
 constructor(public global: Global, public ble: BleService, private location: Location, public router: Router, private cdr: ChangeDetectorRef) {
 	global.plt.backButton.subscribeWithPriority(10, () => {
-		if (window.location.href.endsWith("modules"))
+		if (window.location.href.endsWith("/"))
 			this.global.backButtonAlert();
 		else
 			this.location.back();

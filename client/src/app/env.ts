@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { NavController, AlertController, MenuController } from '@ionic/angular';
@@ -31,13 +31,15 @@ PLACEHOLDER
 	providedIn: "root"
 })
 
-export class Global {
+export class Global implements CanActivate {
+splashDone = false;
 VERSION: string = VERSION;
 WEBURL: string = "https://mydongle.cloud";
 DONGLEURL: string = "";
 space;
 postMsg = Object();
 currentUrl: string;
+activateUrl: string;
 settings: Settings = {} as Settings;
 config: Config = {} as Config;
 refreshUI:Subject<any> = new Subject();
@@ -234,7 +236,7 @@ mytranslate(st) {
 }
 
 mytranslateM(st) {
-	return this.mytranslateP("modules_", st);
+	return this.mytranslateP("modules", st);
 }
 
 async sleepms(ms) {
@@ -412,6 +414,11 @@ async getCertificate(space) {
 	console.log("# fullchain.pem #################################");
 	console.log(fullchain);
 	console.log("##################################");
+}
+
+canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+	this.activateUrl = state.url;
+	return this.splashDone ? true : this.router.navigate(["/splash"]);
 }
 
 }

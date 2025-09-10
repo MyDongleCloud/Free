@@ -35,7 +35,8 @@ async forwardWhenReady() {
 			}
 		}
 	} catch(e) { console.log("forwardWhenReady: " + e); }
-	this.global.openPage("modules", false);
+	this.global.splashDone = true;
+	this.global.openPage(this.global.activateUrl, false);
 }
 
 openUpgrade() {

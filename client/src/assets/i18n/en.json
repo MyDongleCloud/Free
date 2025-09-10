@@ -1,6 +1,6 @@
 {
 	"rightMenu": {
-		"Modules": "",
+		"Home": "",
 		"Dongle": "",
 		"Help": "",
 		"About": ""
@@ -18,7 +18,7 @@
 		"_localnetwork_": "Local Network",
 		"_dongle_": "Dongle"
 	},
-	"selection": {
+	"home": {
 		"What do you want to do?": "",
 		"conference": "Video conference",
 		"suite": "Office suite",

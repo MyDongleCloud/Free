@@ -5,22 +5,27 @@ import { Global } from './env';
 const routes: Routes = [
 	{
 		path: 'about',
+		canActivate: [Global],
 		loadChildren: () => import('./about/about.module').then( m => m.AboutModule)
 	},
 	{
 		path: 'dongle',
+		canActivate: [Global],
 		loadChildren: () => import('./dongle/dongle.module').then( m => m.DongleModule)
 	},
 	{
 		path: 'help',
+		canActivate: [Global],
 		loadChildren: () => import('./help/help.module').then( m => m.HelpModule)
 	},
 	{
-		path: 'modules',
-		loadChildren: () => import('./modules/modules.module').then( m => m.ModulesModule)
+		path: '',
+		canActivate: [Global],
+		loadChildren: () => import('./home/home.module').then( m => m.HomeModule)
 	},
 	{
 		path: 'setup',
+		canActivate: [Global],
 		loadChildren: () => import('./setup/setup.module').then( m => m.SetupModule)
 	},
 	{
@@ -46,7 +51,6 @@ export class AppRoutingModule {
 constructor(private global: Global) {
 	console.log("Version: " + global.VERSION);
 	console.log("Platform: " + global.plt.platforms());
-	global.currentUrl = "modules";
 }
 
 }

@@ -113,7 +113,7 @@
 				<div *ngIf="cards[findIdByModule(moduleCur)].github != ''">
 					<i>Project: {{cards[findIdByModule(moduleCur)].name}}</i>&nbsp;&nbsp;<a href="https://github.com/{{cards[findIdByModule(moduleCur)].github}}" title="GitHub {{cards[findIdByModule(moduleCur)].name}}" target="_blank"><ion-icon name="logo-github" size="large" style="margin-right:4px; color:var(--ion-color-secondary);" *ngIf="cards[findIdByModule(moduleCur)].stars != 0"></ion-icon></a> <ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);" *ngIf="cards[findIdByModule(moduleCur)].stars != 0"></ion-icon><span>{{approximateStars(cards[findIdByModule(moduleCur)].stars)}}k</span>
 				</div>
-				Perms: <ion-chip *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{pm}}</ion-chip><br><br>
+				Perms: <ion-chip *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip><br><br>
 				Keywords: <ion-chip *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip>
 			</div>
 		</ion-content>
