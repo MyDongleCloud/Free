@@ -8,13 +8,13 @@
 
 //Functions
 static void writePermissions(cJSON *elPermissions, cJSON *elLocalRanges, FILE *pfM) {
-//ex: [ "_all_", "_dongle_", "_localnetwork_", "admin", "user1" ]
+//ex: [ "_public_", "_dongle_", "_localnetwork_", "admin", "user1" ]
 	int requireNb = 0;
 	int firstTime = 1;
 	cJSON *permission = NULL;
 	cJSON_ArrayForEach(permission, elPermissions) {
 		char sz[256];
-		if (strcmp(permission->valuestring, "_all_") == 0) {
+		if (strcmp(permission->valuestring, "_public_") == 0) {
 			char sz[] = "\t\tRequire all granted\n";
 			fwrite(sz, strlen(sz), 1, pfM);
 		} else if (strcmp(permission->valuestring, "_dongle_") == 0) {
