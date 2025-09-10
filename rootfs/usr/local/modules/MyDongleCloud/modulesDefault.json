@@ -3,7 +3,7 @@
 	"Apache2": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_public_" ],
 		"localRanges": ["10", "172.16", "192.168"],
 		"path": "/disk/admin/Web",
 		"alias": [ "www" ]
