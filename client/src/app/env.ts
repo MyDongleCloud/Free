@@ -88,9 +88,9 @@ async getSpace() {
 		this.space = await this.httpClient.get("/data/space.json").toPromise();
 	} catch(e) {
 		console.log("Failed to download /data/space.json");
-		this.space = { name:"placeholder" };
+		this.space = { name: "" };
 	}
-	this.DONGLEURL = "https://" + (this.space["name"] ?? "") + ".mydongle.cloud";
+	this.DONGLEURL = "https://" + this.space["name"] + ".mydongle.cloud";
 }
 
 initMsg() {
