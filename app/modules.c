@@ -69,6 +69,10 @@ void modulesSetup(cJSON *space) {
 			int	used = 0;
 			int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "bindingPort"));
 			cJSON *elModuleS = cJSON_GetObjectItem(elModule, "services");
+			cJSON *elModule2Proxy = jsonRead(ADMIN_PATH "MyDongleCloud/proxy.json");
+			if (elModule2Proxy == NULL)
+				elModule2Proxy = cJSON_CreateObject();
+			elModule2 = cJSON_GetObjectItem(elModule2Proxy, "frp");
 			cJSON *elModule2S = cJSON_GetObjectItem(elModule2, "services");
 			mkdir(ADMIN_PATH "frp", 0775);
 #ifdef DESKTOP
