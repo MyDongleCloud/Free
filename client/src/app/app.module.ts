@@ -5,8 +5,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { provideHttpClient } from '@angular/common/http';
-import { TranslateModule } from '@ngx-translate/core';
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { provideTranslateHttpLoader, TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -17,9 +17,17 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 	importProvidersFrom(
 		TranslateModule.forRoot({
 			defaultLanguage: "en",
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory
+			}
 		})
 	),
 ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+export function HttpLoaderFactory(): TranslateLoader {
+  return new TranslateHttpLoader();
+}
