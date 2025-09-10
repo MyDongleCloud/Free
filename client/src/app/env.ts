@@ -22,11 +22,6 @@ import * as CSR from '@root/csr';
 import * as PEM from '@root/pem';
 import * as ENC from '@root/encoding/base64';
 
-enum PostMsg {
-ERROR,
-PLACEHOLDER
-};
-
 @Injectable({
 	providedIn: "root"
 })
@@ -37,7 +32,6 @@ VERSION: string = VERSION;
 WEBURL: string = "https://mydongle.cloud";
 DONGLEURL: string = "";
 space;
-postMsg = Object();
 currentUrl: string;
 activateUrl: string;
 settings: Settings = {} as Settings;
@@ -91,11 +85,6 @@ async getSpace() {
 		this.space = { name: "" };
 	}
 	this.DONGLEURL = "https://" + this.space["name"] + ".mydongle.cloud";
-}
-
-initMsg() {
-	for (let i = 0; i < Object.keys(PostMsg).length / 2; i++)
-		this.postMsg[PostMsg[i]] = Object.keys(this.translate.instant("assistant"))[i];
 }
 
 async checkFolder(d, p) {
@@ -156,8 +145,6 @@ async settingsLoad() {
 	await this.translate.use(this.settings.language);
 	if (typeof (<any>window).electron != "undefined")
 		(<any>window).electron.ipc.invoke("menuLanguage", this.settings.language);
-
-	this.initMsg();
 }
 
 async settingsSave() {
