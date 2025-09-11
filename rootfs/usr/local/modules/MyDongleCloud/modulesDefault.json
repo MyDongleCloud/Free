@@ -83,7 +83,7 @@
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9210,
-		"addLineInDirectoryOrProxy": "AllowOverride AuthConfig FileInfo Indexes Limit",
+		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
 		"path": "/usr/local/modules/FreshRSS/p",
 		"alias": [ "rss" ]
 	},
