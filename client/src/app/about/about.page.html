@@ -17,8 +17,7 @@
 <br>
 <div>{{global.mytranslate("Languages:")}} <ion-button (click)="changeLanguageAndRefresh('fr');" [disabled]="global.settings.language=='fr'">FR</ion-button><ion-button (click)="changeLanguageAndRefresh('en');" [disabled]="global.settings.language=='en'">EN</ion-button></div>
 <br>
-<div style="width:80%;"><br><br>{{global.mytranslate("ADVANCED USER MODE")}}<br>{{global.mytranslate("(dangerous, use with cautious)")}}<br><br>
-<ion-checkbox slot="start" labelPlacement="end" justify="start" [(ngModel)]="global.settings.powerUser"> {{global.mytranslate("Power User Mode")}}</ion-checkbox></div>
+<div style="width:80%;"><br><br>{{global.mytranslate("ADVANCED USER MODE")}}<br>{{global.mytranslate("(dangerous, use with cautious)")}}<br><br><ion-checkbox slot="start" labelPlacement="end" [(ngModel)]="global.settings.powerUser"> {{global.mytranslate("Power User Mode")}}</ion-checkbox></div>
 <br><div *ngIf="global.settings.isDev != 0" style="width:80%;"><ion-checkbox slot="start" labelPlacement="end" justify="start" (ionChange)="isDevChange()" [(ngModel)]="isDevCheckbox"> {{global.mytranslate("Development Mode")}}</ion-checkbox></div>
 <div>
 </div>
