@@ -7,6 +7,4 @@ rootfs/usr/local/modules/frp/password-token.txt
 rootfs/usr/local/modules/MyDongleCloud/modulesMeta.json
 client/.angular/
 client/web/
-client/node_modules/
 client/src/assets/app.js
-client/src/data/
