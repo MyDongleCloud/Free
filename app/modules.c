@@ -107,14 +107,14 @@ webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), c
 					if (elModule2Sj && cJSON_IsTrue(cJSON_GetObjectItem(elModule2Sj, "enabled"))) {
 						used = 1;
 						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModuleSj, "localPort"));
-						if (strcmp(elModuleSj->string, "https") == 0) {
-							strcpy(sz, "\
+						if (strncmp(elModuleSj->string, "http", 4) == 0) {
+							sprintf(sz, "\
 [[proxies]]\n\
-name = \"https\"\n\
-type = \"http\"\n\
+name = \"%s\"\n\
+type = \"%s\"\n\
 localIP = \"localhost\"\n\
 localPort = 80\n\
-customDomains = [\n");
+customDomains = [\n", elModuleSj->string, elModuleSj->string, elModuleSj->string[4] == 's' ? 443 : 80);
 							fwrite(sz, strlen(sz), 1, pf);
 							jsonPrintArray(1, "\"", "\"", "", fqdn, "\",\n", pf);
 							jsonPrintArray(1, "\"", "\"", "*", fqdn, "\",\n", pf);
