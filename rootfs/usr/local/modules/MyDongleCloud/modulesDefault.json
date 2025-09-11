@@ -267,7 +267,7 @@
 	"MyDongleCloud": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_localnetwork_", "admin" ],
 		"localPort": 9200,
 		"FollowSymLinks": true,
 		"path": "/usr/local/modules/MyDongleCloud/web",
