@@ -1,5 +1,4 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { BleService } from './ble';
 import { Location } from '@angular/common';
 import { Router, NavigationStart, NavigationEnd, Event } from "@angular/router";
 import { Global } from './env';
@@ -15,7 +14,7 @@ import { Global } from './env';
 export class AppComponent {
 navigationByBack: boolean = false;
 
-constructor(public global: Global, public ble: BleService, private location: Location, public router: Router, private cdr: ChangeDetectorRef) {
+constructor(public global: Global, private location: Location, public router: Router, private cdr: ChangeDetectorRef) {
 	global.plt.backButton.subscribeWithPriority(10, () => {
 		if (window.location.href.endsWith("/"))
 			this.global.backButtonAlert();
