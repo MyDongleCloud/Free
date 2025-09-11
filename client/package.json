@@ -8,8 +8,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "ionic:serve:before": "cp ../rootfs/disk/admin/.modules/MyDongleCloud/modules.json ../rootfs/disk/admin/.modules/MyDongleCloud/space.json src/data",
-    "ionic:build:after": "mkdir web/data; cp -r ../rootfs/usr/local/modules/MyDongleCloud/web/data/* web/data",
+	"ionic:build:after": "ln -sf ../master web/master",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

@@ -29,9 +29,11 @@ import * as ENC from '@root/encoding/base64';
 export class Global implements CanActivate {
 splashDone = false;
 VERSION: string = VERSION;
-WEBURL: string = "https://mydongle.cloud";
-DONGLEURL: string = "";
+SERVERURL: string = "https://mydongle.cloud";
+MASTERURL: string;
+DONGLEURL: string;
 space;
+token;
 currentUrl: string;
 activateUrl: string;
 settings: Settings = {} as Settings;
@@ -42,11 +44,13 @@ refreshObs;
 firmwareServerVersion;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
-	this.getSpace();
 	if (environment.production || this.isPlatform("androidios")) {
-		;
+		this.MASTERURL = "";
 	} else
-		this.DONGLEURL = "http://localhost";
+		this.MASTERURL = "http://localhost:8080";
+	this.token = this.getCookie("token");
+	console.log("Cookie token: " + this.token);
+	this.getSpace();
 	if (typeof (<any>window).electron != "undefined") {
 		(<any>window).electron.ipc.invoke("isDev").then((r) => {
 			this.settings.isDev = 2;
@@ -77,11 +81,28 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	//setTimeout(() => { this.getCertificate("test101"); }, 2000);
 }
 
+getCookie(name) {
+	const allCookies = document.cookie;
+	const nameEQ = name + "=";
+	const ca = document.cookie.split(';');
+	for(let i=0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) === 0)
+			return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
+
 async getSpace() {
 	try {
-		this.space = await this.httpClient.get("/data/space.json").toPromise();
+		this.space = await this.httpClient.post(this.MASTERURL + "/master/space.json", "user=admin&token=" + encodeURIComponent(this.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
 	} catch(e) {
-		console.log("Failed to download /data/space.json");
+		console.log("Failed to download " + this.MASTERURL + "/master/space.json");
+		this.space = { name: "" };
+	}
+	if (this.space?.error) {
+		console.log("Error download space.json, reason: " + this.space?.reason);
 		this.space = { name: "" };
 	}
 	this.DONGLEURL = "https://" + this.space["name"] + ".mydongle.cloud";
@@ -373,7 +394,7 @@ async getCertificate(space) {
 					}
 				console.log(challenge.keyAuthorizationDigest);
 				const data = { space: space, action: "set", text: challenge.keyAuthorizationDigest };
-				const ret = await this.httpClient.post("https://mydongle.cloud/master/domain.json", data).toPromise();
+				const ret = await this.httpClient.post(this.SERVERURL + "/master/domain.json", data).toPromise();
 				console.log(ret);
 				//alert(challenge.keyAuthorizationDigest);
 			},
@@ -387,7 +408,7 @@ async getCertificate(space) {
 					}
 				console.log(challenge.keyAuthorizationDigest);
 				const data = { space: space, action: "remove", text: challenge.keyAuthorizationDigest };
-				const ret = await this.httpClient.post("https://mydongle.cloud/master/domain.json", data).toPromise();
+				const ret = await this.httpClient.post(this.SERVERURL + "/master/domain.json", data).toPromise();
 				console.log(ret);
 				//alert(challenge.keyAuthorizationDigest);
 			},

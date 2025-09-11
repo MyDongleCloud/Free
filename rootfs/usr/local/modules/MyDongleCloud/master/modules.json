@@ -1,0 +1,8 @@
+<?php
+include "login.inc";
+
+$path = "../../../../../disk/admin/.modules/MyDongleCloud/modules.json";
+$h = fopen($path, "r");
+echo fread($h, filesize($path));
+fclose($h);
+?>
