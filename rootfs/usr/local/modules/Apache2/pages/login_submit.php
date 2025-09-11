@@ -64,11 +64,16 @@ if ($user != "") {
 		setcookie("token", $token, $expiration_time, $path, $domain);
 	}
 }
+
+if ($ret) {
+	header("Location: /");
+	exit();
+}
 ?><html>
 <body>
 <?php
 if ($ret) {
-	echo "Success. Go to <a href='/'>module homepage</a>.";
+	echo "Success. Go to <a href='/'>the homepage of the module</a>.";
 } else
 	echo "Failure. Go back to <a href='/MyDongleCloud/login.php'>login</a>.";
 ?>
