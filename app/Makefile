@@ -26,6 +26,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)logic.o \
 	$(PRE)main.o \
 	$(PRE)modules.o \
+	$(PRE)password.o \
 	$(PRE)sbl.o \
 	$(PRE)sbl2.o \
 	$(PRE)settings.o \
@@ -37,7 +38,7 @@ MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -loath
 
 OBJs_APP := $(OBJs) $(PRE)backend-spi.o
 MYCFLAGS_APP = $(MYCFLAGS) -I ../build/lvgl/
-MYLDFLAGS_APP = $(MYLDFLAGS) -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput
+MYLDFLAGS_APP = $(MYLDFLAGS) -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput -lpam
 
 OBJs_DESKTOP := $(OBJs:%.o=%_.o) $(PRE)backend-gtk_.o
 MYCFLAGS_DESKTOP = $(MYCFLAGS_APP) -DDESKTOP `pkg-config --cflags gtk+-3.0`
