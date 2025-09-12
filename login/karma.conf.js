@@ -1,0 +1,1 @@
+../client/karma.conf.js
