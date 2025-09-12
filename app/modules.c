@@ -113,7 +113,7 @@ webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), c
 name = \"%s\"\n\
 type = \"%s\"\n\
 localIP = \"localhost\"\n\
-localPort = 80\n\
+localPort = %d\n\
 customDomains = [\n", elModuleSj->string, elModuleSj->string, elModuleSj->string[4] == 's' ? 443 : 80);
 							fwrite(sz, strlen(sz), 1, pf);
 							jsonPrintArray(1, "\"", "\"", "", fqdn, "\",\n", pf);
