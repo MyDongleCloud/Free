@@ -75,6 +75,12 @@ else
 	cd -
 	rm -rf ${ROOTFS}/usr/local/modules/MyDongleCloud/web
 	cp -a ../client/web ${ROOTFS}/usr/local/modules/MyDongleCloud
+	cd ../login
+	rm -rf login
+	ionic --prod build
+	cd -
+	rm -rf ${ROOTFS}/usr/local/modules/Apache2/pages/login
+	cp -a ../login/login ${ROOTFS}/usr/local/modules/Apache2/pages
 	rm -rf ${ROOTFS}/var/cache-admin
 	mkdir ${ROOTFS}/var/cache-admin
 	chown -R 1001:1001 ${ROOTFS}/var/cache-admin
