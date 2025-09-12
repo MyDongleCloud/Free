@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 	buzzer(1);
 #endif
 #if !defined(WEB)
-	communicationInternalStart();
+	communicationSocket();
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);
