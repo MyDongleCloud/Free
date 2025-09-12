@@ -81,7 +81,7 @@ void serverReceive(char *st, int isB64) {
 		size = strlen(st);
 		data = st;
 	}
-	communicationReceive(data, size);
+	communicationReceive(data, size, "html");
 	if (isB64)
 		free(data);
 }

@@ -61,12 +61,12 @@ int serverReadData(unsigned char *data_, int size) {
 		pos += size - 2;
 		chunks--;
 		if (chunks == 0) {
-			communicationReceive(data, pos);
+			communicationReceive(data, pos, "ble");
 			free(data);
 			data = NULL;
 		}
 	} else if (data_[0] == '{')
-		communicationReceive(data_, size);
+		communicationReceive(data_, size, "ble");
 	else {
 		PRINTF("serverReadData: ERROR\n");
 	}

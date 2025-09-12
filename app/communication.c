@@ -75,8 +75,8 @@ int communicationState() {
 	return ret;
 }
 
-void communicationReceive(unsigned char *data, int size) {
-	//PRINTF("communicationReceive: (%d)#%s#\n", size, data);
+void communicationReceive(unsigned char *data, int size, char *orig) {
+	//PRINTF("communicationReceive: (%d)#%s# via %s\n", size, data, orig);
 //Examples:
 //{"a":"passcode"}
 //{"a":"sutdown"}
@@ -116,7 +116,7 @@ void communicationReceive(unsigned char *data, int size) {
 			cJSON_Delete(space);
 #endif
 		} else {
-			PRINTF("communicationReceive: action:%s\n", action);
+			PRINTF("communicationReceive: action:%s via %s\n", action, orig);
 #ifndef WEB
 			jsonDump(el);
 #endif
@@ -186,7 +186,7 @@ static void *comSocket_t(void *arg) {
 					nfds--;
 					i--;
 				} else {
-					communicationReceive(buf, nbytes);
+					communicationReceive(buf, nbytes, "socket");
 					strcpy(buf, "{\"error\":0}");
 					write(fds[i].fd, buf, strlen(buf));
 				}

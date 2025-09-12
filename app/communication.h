@@ -8,7 +8,7 @@ extern int communicationConnected;
 void communicationConnection(int s);
 int communicationJSON(void *el);
 int communicationState();
-void communicationReceive(unsigned char *data, int size);
+void communicationReceive(unsigned char *data, int size, char *orig);
 void communicationSocket();
 
 #endif
