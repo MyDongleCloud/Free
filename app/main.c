@@ -12,6 +12,7 @@
 #include "language.h"
 #include "ble.h"
 #include "space.h"
+#include "communication.h"
 
 //Functions
 int main(int argc, char *argv[]) {
@@ -73,6 +74,9 @@ int main(int argc, char *argv[]) {
 	if (ble)
 		bleStart();
 	buzzer(1);
+#endif
+#if !defined(WEB)
+	communicationInternalStart();
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);

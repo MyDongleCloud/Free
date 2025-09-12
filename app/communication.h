@@ -9,5 +9,6 @@ void communicationConnection(int s);
 int communicationJSON(void *el);
 int communicationState();
 void communicationReceive(unsigned char *data, int size);
+void communicationInternalStart();
 
 #endif
