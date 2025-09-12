@@ -88,8 +88,11 @@ void communicationReceive(unsigned char *data, int size) {
 	if (el) {
 		char *action = cJSON_GetStringValue2(el, "a");
 		if (strcmp(action, "passcode") == 0) {
-			PRINTF("Requesting passcode\n");
-			logicPasscode(-1);
+			int v = -1;
+			if (cJSON_HasObjectItem(el, "v"))
+				v = (int)cJSON_GetNumberValue2(el, "v");
+			PRINTF("Requesting passcode %d\n", v);
+			logicPasscode(v);
 		} else if (strcmp(action, "shutdown") == 0) {
 			PRINTF("Requesting shutdown\n");
 			logicShutdown();

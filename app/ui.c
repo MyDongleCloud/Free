@@ -626,14 +626,14 @@ void uiScreenPasscode(int expiration) {
 
 	lv_obj_t *label1 = lv_label_create(lv_screen_active());
 	char sz2[16];
-	sprintf(sz2, "%02d %02d %02d", (lmdc.passcode / 100 / 100) % 100, (lmdc.passcode / 100) % 100, lmdc.passcode % 100);
+	sprintf(sz2, "%03d %03d", (lmdc.passcode / 1000) % 1000, lmdc.passcode % 1000);
 	lv_label_set_text(label1, sz2);
 	lv_obj_set_width(label1, 128);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_align(label1, LV_ALIGN_TOP_LEFT, 0, 22);
 	static lv_style_t labelStyle2;
 	lv_style_init(&labelStyle2);
-	lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_28);
+	lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_30);
 	lv_obj_add_style(label1, &labelStyle2, LV_STATE_DEFAULT);
 
 	lv_obj_t *label2 = lv_label_create(lv_screen_active());
