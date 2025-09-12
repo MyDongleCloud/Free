@@ -27,12 +27,6 @@ constructor(public global: Global, private location: Location, public router: Ro
 			this.global.currentUrl = this.router.url.substr(1);
 		}
 	});
-
-	if (typeof (<any>window).electron != "undefined") {
-		(<any>window).electron.ipc.language((err: any, v: string) => {
-			this.changeLanguageAndRefresh(v);
-		});
-	}
 }
 
 async changeLanguageAndRefresh(v: string) {

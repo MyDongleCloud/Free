@@ -49,11 +49,6 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	this.settings.token = this.getCookie("token");
 	console.log("Cookie token: " + this.settings.token);
 	this.getSpace();
-	if (typeof (<any>window).electron != "undefined") {
-		(<any>window).electron.ipc.invoke("isDev").then((r) => {
-			this.settings.isDev = 2;
-		});
-	}
 	Device.getId().then((info) => {
 		this.settings.deviceId = info["identifier"];
 		console.log("deviceId: " + this.settings.deviceId);
@@ -62,14 +57,6 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	translate.setDefaultLang("en");
 	console.log("Default browser language is: " + translate.getBrowserLang());
 	this.changeLanguage(this.translate.getBrowserLang());
-	if (typeof (<any>window).electron != "undefined") {
-		(<any>window).electron.ipc.log((err: any, v: string) => {
-			console.log(v);
-		});
-		(<any>window).electron.ipc.open_page((err: any, v: string) => {
-			this.openPage(v, false);
-		});
-	}
 	this.refreshO = Observable.create((obs) => {
 		this.refreshObs = obs;
 		return () => {}
@@ -118,45 +105,14 @@ async getSpace() {
 	this.DONGLEURL = "https://" + this.settings.space["name"] + ".mydongle.cloud";
 }
 
-async checkFolder(d, p) {
-	if (typeof (<any>window).electron != "undefined") {//Electron
-	} else if (!this.plt.is("electron") && this.plt.is("desktop")) {//Web
-	} else {//Android, iOS
-		try {
-			const ret = await Filesystem.stat({
-				directory: d,
-				path: p,
-			});
-		} catch(e) {
-			try {
-				await Filesystem.mkdir({
-					directory: d,
-					path: p,
-				});
-			} catch(e) {
-				console.log("Error mkdir " + e);
-			}
-		}
-	}
-}
-
 async configLoad() {
 }
 
 async settingsLoad() {
 	console.log("settingsLoad: Enter");
-	if (typeof (<any>window).electron != "undefined") {
-		const useKeyring = true;
-		await (<any>window).electron.ipc.invoke("keyringEnable", useKeyring);
-		const value = await (<any>window).electron.ipc.invoke("load", "settings");
-		if (value != null)
-			this.settings = value as Settings;
-	} else if (true || this.plt.is("android") || this.plt.is("ios")) {
-		const { value } = await Preferences.get({key: "settings"});
-		if (value != null)
-			this.settings = JSON.parse(value);
-	}
-
+	const { value } = await Preferences.get({key: "settings"});
+	if (value != null)
+		this.settings = JSON.parse(value);
 	if (this.settings.powerUser === undefined)
 		this.settings.powerUser = false;
 	if (this.settings.isDev === undefined)
@@ -169,17 +125,12 @@ async settingsLoad() {
 		this.settings.dontShowAgain = Object();
 
 	await this.translate.use(this.settings.language);
-	if (typeof (<any>window).electron != "undefined")
-		(<any>window).electron.ipc.invoke("menuLanguage", this.settings.language);
 }
 
 async settingsSave() {
 	console.log("settingsSave: Enter");
 	let st = JSON.stringify(this.settings);
-	if (this.plt.is("electron"))
-		(<any>window).electron.ipc.invoke("save", "settings", st);
-	else if (true || this.plt.is("android") || this.plt.is("ios"))
-		await Preferences.set({key: "settings", value: st});
+	await Preferences.set({key: "settings", value: st});
 }
 
 async backButtonAlert() {
@@ -228,8 +179,6 @@ async changeLanguage(st) {
 	if (st != this.settings.language) {
 		this.settings.language = st;
 		await this.translate.use(this.settings.language);
-		if (typeof (<any>window).electron != "undefined")
-			(<any>window).electron.ipc.invoke("menuLanguage", this.settings.language);
 	}
 }
 
@@ -257,10 +206,7 @@ async sleepms(ms) {
 }
 
 openBrowser(url: string) {
-	if (typeof (<any>window).electron != "undefined")
-		(<any>window).electron.ipc.invoke("openBrowser", url);
-	else
-		window.open(url, "_blank");
+	window.open(url, "_blank");
 }
 
 openPage(url: string, close: boolean) {
@@ -292,9 +238,7 @@ async presentAlert(hd, st, msg, key:string = "") {
 }
 
 async platform() {
-	if (typeof (<any>window).electron != "undefined")
-		return await (<any>window).electron.ipc.invoke("os");
-	else if (this.plt.is("ios") && this.plt.is("cordova"))
+	if (this.plt.is("ios") && this.plt.is("cordova"))
 		return "ios";
 	else if (this.plt.is("android") && this.plt.is("cordova"))
 		return "android";
@@ -303,16 +247,14 @@ async platform() {
 }
 
 isPlatform(a) {
-	if (a == "electron")
-		return typeof (<any>window).electron != "undefined";
-	else if (a == "androidios")
+	if (a == "androidios")
 		return (this.plt.is("android") || this.plt.is("ios")) && this.plt.is("cordova");
 	else if (a == "android")
 		return this.plt.is("android") && this.plt.is("cordova");
 	else if (a == "ios")
 		return this.plt.is("ios") && this.plt.is("cordova");
 	else if (a == "web")
-		return !(typeof (<any>window).electron != "undefined" || (this.plt.is("android") && this.plt.is("cordova")) || (this.plt.is("ios") && this.plt.is("cordova")));
+		return !((this.plt.is("android") && this.plt.is("cordova")) || (this.plt.is("ios") && this.plt.is("cordova")));
 	else
 		return false;
 }
