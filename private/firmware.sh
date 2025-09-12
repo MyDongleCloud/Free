@@ -69,18 +69,23 @@ else
 	cp -a ../app/ ../moduleApache2/ ${ROOTFS}/home/mdc/
 	chroot ${ROOTFS} sh -c 'cd home/mdc/app/ && make clean && make'
 	chroot ${ROOTFS} sh -c 'cd home/mdc/moduleApache2/ && make clean && make'
+
+	rm -rf ../client/web
 	cd ../client
-	rm -rf web
 	ionic --prod build
 	cd -
 	rm -rf ${ROOTFS}/usr/local/modules/MyDongleCloud/web
 	cp -a ../client/web ${ROOTFS}/usr/local/modules/MyDongleCloud
+	rm -rf ../client/web
+
+	rm -rf ../login/login
 	cd ../login
-	rm -rf login
 	ionic --prod build
 	cd -
 	rm -rf ${ROOTFS}/usr/local/modules/Apache2/pages/login
 	cp -a ../login/login ${ROOTFS}/usr/local/modules/Apache2/pages
+	rm -rf ../login/login
+
 	rm -rf ${ROOTFS}/var/cache-admin
 	mkdir ${ROOTFS}/var/cache-admin
 	chown -R 1001:1001 ${ROOTFS}/var/cache-admin
