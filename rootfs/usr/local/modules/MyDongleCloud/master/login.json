@@ -12,30 +12,40 @@ function domainFromFqdn($fqdn) {
 function passwordCheck($password, $dHash): bool {
 	$pieces = explode('$', $dHash);
 	if (count($pieces) !== 4)
-		return -1;
+		return false;
 	list($header, $iter, $salt, $hash) = $pieces;
 	if (preg_match('#^pbkdf2_([a-z0-9A-Z]+)$#', $header, $m))
 		$algo = $m[1];
 	else
-		return -1;
+		return false;
 	$calc = hash_pbkdf2($algo, $password, $salt, (int)$iter, 32, true);
 	return hash_equals($calc, base64_decode($hash));
 }
 
-$path = "/disk/admin/.modules/MyDongleCloud/users.json";
+$path = "../../../../../disk/admin/.modules/MyDongleCloud/users.json";
 $h = fopen($path, "r");
 $users = json_decode(fread($h, filesize($path)), true);
 fclose($h);
 $ret = false;
+$reason = "";
 $user = "";
-foreach ($users as $key => $val)
-	if ($val["email"] == $_POST["email"]) {
-		$user = $key;
-		break;
-	}
-if ($user != "") {
-	if (isset($users[$user]["password"]))
-		$ret = passwordCheck($_POST["password"], $users[$user]["password"]);
+if (isset($_POST["user"]))
+	$user = $_POST["user"];
+else if ($useCookie === true && isset($_COOKIE["user"]))
+	$user = $_COOKIE["user"];
+else
+	foreach ($users as $key => $val)
+		if ($val["email"] == $_POST["email"]) {
+			$user = $key;
+			break;
+		}
+if ($user != "" && isset($users[$user])) {
+	if (isset($users[$user]["token"]) && isset($_POST["token"]))
+		$ret = $users[$user]["token"] == $_POST["token"];
+	else if (isset($users[$user]["token"]) && $useCookie === true && isset($_COOKIE["token"]))
+		$ret = $users[$user]["token"] == $_COOKIE["token"];
+	else if (isset($users[$user]["password"]))
+		$ret = $_POST["password"] == $users[$user]["password"];//passwordCheck($_POST["password"], $users[$user]["password"]);
 	else {
 		$url = (str_starts_with($_SERVER["HTTP_REFERER"], "https") ? "https://" : "http://") . $_SERVER["HTTP_HOST"];
 		$protectedUrl = $url . "/MyDongleCloud/protected/empty.html";
@@ -49,7 +59,7 @@ if ($user != "") {
 		$curl_error = curl_error($ch);
 		curl_close($ch);
 	}
-	if ($ret) {
+	if ($ret && (isset($_GET["set"]) || isset($_POST["set"]))) {
 		$token = bin2hex(random_bytes(16));
 		$users[$user]["token"] = $token;
 		$users[$user]["tokenExpiration"] = 0;
@@ -64,18 +74,13 @@ if ($user != "") {
 		setcookie("token", $token, $expiration_time, $path, $domain);
 	}
 }
-
-if ($ret) {
-	header("Location: /");
+if ($ret && $noReturnOnSuccess === true)
+		;
+else {
+	$a = ["error" => $ret ? 0 : 1, "reason" => $reason];
+	if (isset($token))
+		$a["token"] = $token;
+	echo json_encode($a);
 	exit();
 }
-?><html>
-<body>
-<?php
-if ($ret) {
-	echo "Success. Go to <a href='/'>the homepage of the module</a>.";
-} else
-	echo "Failure. Go back to <a href='/MyDongleCloud/login.php'>login</a>.";
 ?>
-</body>
-</html>

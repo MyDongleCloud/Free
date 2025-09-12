@@ -36,13 +36,13 @@ async ionViewDidEnter() {
 
 async getData() {
 	try {
-		this.modules = await this.httpClient.post(this.global.MASTERURL + "/master/modules.json", "user=admin&token=" + encodeURIComponent(this.global.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		this.modules = await this.httpClient.post(this.global.MASTERURL + "/master/modules.json", "user=admin&token=" + encodeURIComponent(this.global.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
 	} catch(e) {
 		console.log("Failed to download " + this.global.MASTERURL + "/master/modules.json");
 		this.modules = {};
 	}
-	if (this.modules?.error) {
-		console.log("Error download modules.json, reason: " + this.modules?.reason);
+	if (this.modules["error"] !== undefined) {
+		console.log("Error download modules.json, reason: " + this.modules["reason"]);
 		this.modules = {};
 	}
 	this.cards = [];

@@ -1,5 +1,7 @@
 <?php
-include "login.inc";
+$noReturnOnSuccess = true;
+$useCookie = true;
+include "login.json";
 
 $path = "../../../../../disk/admin/.modules/MyDongleCloud/modules.json";
 $h = fopen($path, "r");

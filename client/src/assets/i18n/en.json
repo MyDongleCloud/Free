@@ -1,5 +1,6 @@
 {
 	"rightMenu": {
+		"Login": "",
 		"Home": "",
 		"Dongle": "",
 		"Help": "",
@@ -35,6 +36,29 @@
 		"helpdesk": "Helpdesk",
 		"ecommerce": "Ecommerce",
 		"dongle": "Dongle"
+	},
+	"login": {
+		"Login": "",
+		"Email:": "",
+		"Email is required": "",
+		"Email is invalid": "",
+		"Password:": "",
+		"Password": "",
+		"Password is required": "",
+		"Password needs to be 2 characters": "",
+		"Log in": "",
+		"Wrong credentials. Please try again.": "",
+		"Reset password": "",
+		"An error occured. Please try again.": "",
+		"Enter the reset code sent to your email and your new password:": "",
+		"Reset Code:": "",
+		"Reset Code is required": "",
+		"Reset code needs to be 6 figures": "",
+		"Password is required": "",
+		"Password needs to be 2 characters": "",
+		"Confirm:": "",
+		"Passwords don't match": "",
+		"Wrong information. Please try again."
 	},
 	"setup": {
 		"Dongle": "",

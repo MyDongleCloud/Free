@@ -7,6 +7,7 @@ import { App } from '@capacitor/app';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../environments/environment';
+import { Settings, Config } from './myinterface';
 import { VERSION } from './version';
 
 @Injectable({
@@ -19,6 +20,8 @@ MASTERURL: string;
 token;
 language;
 currentUrl: string = "login";
+settings: Settings = {} as Settings;
+DONGLEURL: string;
 refreshUI:Subject<any> = new Subject();
 refreshO;
 refreshObs;
@@ -59,6 +62,30 @@ getCookie(name) {
 			return c.substring(nameEQ.length, c.length);
 	}
 	return null;
+}
+
+async isLoggedIn() {
+	try {
+		const loggedIn = await this.httpClient.post(this.MASTERURL + "/master/login.json", "user=admin&token=" + encodeURIComponent(this.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		console.log("isLoggedIn: " + JSON.stringify(loggedIn));
+		return loggedIn["error"] === 0;
+	} catch(e) {
+		console.log("Failed to download " + this.MASTERURL + "/master/login.json");
+		return false;
+	}
+}
+
+async getSpace() {
+}
+
+async settingsSave() {
+	console.log("settingsSave: Enter");
+}
+
+
+openPage(url: string, close: boolean) {
+	console.log("openPage");
+	alert("Loggedin!");
 }
 
 async backButtonAlert() {

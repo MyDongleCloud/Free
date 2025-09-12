@@ -147,6 +147,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 <Macro Macro_Redirect $1>\n\
 	Alias /MyDongleCloud /usr/local/modules/Apache2/pages\n\
 	<Directory /usr/local/modules/Apache2/pages>\n\
+		Options +FollowSymLinks\n\
 		Require all granted\n\
 	</Directory>\n\
 	ErrorDocument 401 /MyDongleCloud/unauthorized.php?m=$1\n\

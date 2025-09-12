@@ -5,8 +5,10 @@ export interface Settings {
 	powerUser: boolean,
 	isDev: number,
 	deviceId: string,
-	userId: string,
+	account: string,
+	token: string,
 	email: string,
+	space: Object,
 	welcomeSeen: boolean,
 	reviewRequestLastTime,
 	dontShowAgain: object,
@@ -14,5 +16,9 @@ export interface Settings {
 }
 
 export interface Config {
-	authorization: string
+}
+
+export interface OnlineRet {
+	error: number;
+	reason: string;
 }

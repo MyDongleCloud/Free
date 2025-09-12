@@ -32,8 +32,6 @@ VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
 MASTERURL: string;
 DONGLEURL: string;
-space;
-token;
 currentUrl: string;
 activateUrl: string;
 settings: Settings = {} as Settings;
@@ -48,8 +46,8 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 		this.MASTERURL = "";
 	} else
 		this.MASTERURL = "http://localhost:8080";
-	this.token = this.getCookie("token");
-	console.log("Cookie token: " + this.token);
+	this.settings.token = this.getCookie("token");
+	console.log("Cookie token: " + this.settings.token);
 	this.getSpace();
 	if (typeof (<any>window).electron != "undefined") {
 		(<any>window).electron.ipc.invoke("isDev").then((r) => {
@@ -94,18 +92,30 @@ getCookie(name) {
 	return null;
 }
 
+async isLoggedIn() {
+	try {
+		const loggedIn = await this.httpClient.post(this.MASTERURL + "/master/login.json", "user=admin&token=" + encodeURIComponent(this.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		console.log("isLoggedIn: " + JSON.stringify(loggedIn));
+		return loggedIn["error"] === 0;
+	} catch(e) {
+		console.log("Failed to download " + this.MASTERURL + "/master/login.json");
+		return false;
+	}
+}
+
 async getSpace() {
 	try {
-		this.space = await this.httpClient.post(this.MASTERURL + "/master/space.json", "user=admin&token=" + encodeURIComponent(this.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		this.settings.space = await this.httpClient.post(this.MASTERURL + "/master/space.json", "user=admin&token=" + encodeURIComponent(this.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		console.log("space: " + JSON.stringify(this.settings.space));
 	} catch(e) {
 		console.log("Failed to download " + this.MASTERURL + "/master/space.json");
-		this.space = { name: "" };
+		this.settings.space = { name: "" };
 	}
-	if (this.space?.error) {
-		console.log("Error download space.json, reason: " + this.space?.reason);
-		this.space = { name: "" };
+	if (this.settings.space["error"] !== undefined) {
+		console.log("Error download space.json, reason: " + this.settings.space["reason"]);
+		this.settings.space = { name: "" };
 	}
-	this.DONGLEURL = "https://" + this.space["name"] + ".mydongle.cloud";
+	this.DONGLEURL = "https://" + this.settings.space["name"] + ".mydongle.cloud";
 }
 
 async checkFolder(d, p) {
@@ -131,7 +141,6 @@ async checkFolder(d, p) {
 }
 
 async configLoad() {
-	this.config.authorization = "";
 }
 
 async settingsLoad() {
@@ -152,10 +161,6 @@ async settingsLoad() {
 		this.settings.powerUser = false;
 	if (this.settings.isDev === undefined)
 		this.settings.isDev = 0;
-	if (this.settings.userId === undefined)
-		this.settings.userId = "";
-	if (this.settings.email === undefined)
-		this.settings.email = "";
 	if (this.settings.welcomeSeen === undefined)
 		this.settings.welcomeSeen = false;
 	if (this.settings.reviewRequestLastTime === undefined)
