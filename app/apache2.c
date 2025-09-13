@@ -147,6 +147,7 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 <Macro Macro_Redirect $1>\n\
 	Alias /MyDongleCloud /usr/local/modules/Apache2/pages\n\
 	<Directory /usr/local/modules/Apache2/pages>\n\
+		AddType application/x-httpd-php .json\n\
 		Options +FollowSymLinks\n\
 		Require all granted\n\
 	</Directory>\n\
@@ -168,7 +169,19 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 	Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
 	SSLCertificateFile /disk/admin/.modules/Apache2/fullchain.pem\n\
 	SSLCertificateKeyFile /disk/admin/.modules/Apache2/privkey.pem\n\
-</Macro>\n\n");
+</Macro>\n");
+	fwrite(sz, strlen(sz), 1, pfM);
+	strcpy(sz, "<Macro Macro_Rewrite>\n");
+	fwrite(sz, strlen(sz), 1, pfM);
+	for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
+		cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
+		if (cJSON_HasObjectItem(el_Module, "web")) {
+			cJSON *el_Module2 = cJSON_GetObjectItem(modules, el_Module->string);
+			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
+			rewrite(el_Module, el_Module2, localPort, pfM);
+		}
+	}
+	strcpy(sz, "</Macro>\n\n\n");
 	fwrite(sz, strlen(sz), 1, pfM);
 	cJSON *elLocalRanges = cJSON_GetObjectItem(cJSON_GetObjectItem(modulesDefault, "Apache2"), "localRanges");
 
@@ -262,17 +275,10 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (strcmp(elModule->string, "Apache2") == 0) {
-					for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
-						cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
-						if (cJSON_HasObjectItem(el_Module, "web")) {
-							cJSON *el_Module2 = cJSON_GetObjectItem(modules, el_Module->string);
-							int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
-							rewrite(el_Module, el_Module2, localPort, pfM);
-						}
-					}
-					strcpy(sz, "\n\
+					strcpy(sz, "\
+	Use Macro_Rewrite\n\
 	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
-	ErrorDocument 500 /MyDongleCloud/error.php\n\n");
+	ErrorDocument 500 /MyDongleCloud/error.php\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 			} else {
