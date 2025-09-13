@@ -271,8 +271,7 @@
 		"localPort": 9200,
 		"FollowSymLinks": true,
 		"path": "/usr/local/modules/MyDongleCloud/web",
-		"addLineInDirectory": "RewriteBase /\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . /index.html [L]",
-		"addConfig": "\tAddType application/x-httpd-php .json",
+		"addLineInDirectory": "AddType application/x-httpd-php .json\n\t\tRewriteBase /\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . /index.html [L]",
 		"alias": [ "app", "mdc" ]
 	},
 	"MySQL": {},
