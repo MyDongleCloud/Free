@@ -51,9 +51,9 @@ async getData() {
 			value["enabled"] = this.modules[key]?.enabled ?? true;
 			value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
 			value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
-			value["link"] = this.global.DONGLEURL + "/m/" + key;
+			value["link"] = "/m/" + key;
 			if (value["alias"].length > 0)
-				value["link"] = this.global.DONGLEURL + "/m/" + value["alias"][0];
+				value["link"] = "/m/" + value["alias"][0];
 			Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
 				value[key2] = value2;
 			});
