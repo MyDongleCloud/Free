@@ -87,15 +87,16 @@ static void fillServer(int tabN, cJSON *elModule, cJSON *elModule2, cJSON *fqdn,
 }
 
 void rewrite_(char *st, int port, FILE *pfM) {
-	char sz[256];
-	if (port > 0) {
-		snprintf(sz, sizeof(sz), "\
-	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%{HTTP_HOST}:%d [NC,L]\n", st, port);
-		fwrite(sz, strlen(sz), 1, pfM);
-	}
+	char sz[512];
+	char port_[16];
+	strcpy(port_, "");
+	if (port > 0)
+		sprintf(port_, ":%d", port);
 	snprintf(sz, sizeof(sz), "\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%s.%%{HTTP_HOST} [NC,L]\n", st, st);
+	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(:\\d+)?$\n\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%1%s [NC,L]\n\
+	RewriteCond %%{HTTP_HOST} ^(app\\.)?(.*)\n\
+	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%s.%%2 [NC,L]\n", st, port_, st, st);
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
@@ -274,9 +275,12 @@ LoadModule mydonglecloud_module /usr/local/modules/Apache2/mod_mydonglecloud.so\
 					snprintf(sz, sizeof(sz), "%s\n", cJSON_GetStringValue2(elModule2, "addConfig"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
+				if (strcmp(elModule->string, "Apache2") == 0 || strcmp(elModule->string, "MyDongleCloud") == 0) {
+					strcpy(sz, "\tUse Macro_Rewrite\n");
+					fwrite(sz, strlen(sz), 1, pfM);
+				}
 				if (strcmp(elModule->string, "Apache2") == 0) {
 					strcpy(sz, "\
-	Use Macro_Rewrite\n\
 	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
 	ErrorDocument 500 /MyDongleCloud/error.php\n");
 					fwrite(sz, strlen(sz), 1, pfM);
