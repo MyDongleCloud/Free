@@ -1,0 +1,10 @@
+{
+	"name": "mdc/mdc",
+	"description": "Composer for MyDongle.Cloud",
+	"license": "proprietary",
+	"require": {
+		"phpmailer/phpmailer": "^6.6",
+		"maxmind-db/reader": "^1.11"
+	}
+}
+

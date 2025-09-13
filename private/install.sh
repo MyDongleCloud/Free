@@ -671,6 +671,8 @@ ln -sf /disk/admin/.modules/osTicket/ost-config.php include/ost-config.php
 echo "################################"
 echo "App and rootfs"
 echo "################################"
+cd /usr/local/modules/MyDongleCloud/master
+composer -n install
 cd /home/mdc
 chown -R root:root rootfs
 cp -a rootfs/* /
