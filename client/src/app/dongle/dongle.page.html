@@ -11,6 +11,7 @@
 		<ion-icon src="assets/dongle.svg" style="height:32px;width:74px;"></ion-icon>
 		<br>{{ble.connectedBLE == 2 ? global.mytranslate("Connected") : ble.connectedBLE == 1 ? global.mytranslate("Searching") : global.mytranslate("Connect")}}
 		<br>
+		<br>
 	</div></ion-button>
 	<div *ngIf="ble.connectedBLE == 2">
 		<ion-button (click)="ble.shutdown()" color="primary" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
@@ -20,7 +21,7 @@
 		<br>
 		<br>
 		<ion-button (click)="ble.passcode()" color="primary" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
-			<ion-icon name="power-outline" style="width:24px; height:24px;"></ion-icon>
+			<ion-icon name="log-in-outline" style="width:24px; height:24px;"></ion-icon>
 			<br>{{global.mytranslate("Login OTP")}}
 		</div></ion-button>
 		<br>
