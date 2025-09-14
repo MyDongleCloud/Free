@@ -30,7 +30,7 @@
 		</ion-item>
 		<div *ngIf="(password1.dirty || password1.touched) && password1.errors" class="errors">
 			<span *ngIf="password1.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="password1.errors?.minlength">{{global.mytranslate("Password needs to be 2 characters")}}</span>
+			<span *ngIf="password1.errors?.minlength">{{global.mytranslate("Password needs to be 6 characters")}}</span>
 		</div>
 		<ion-button expand="block" [disabled]="!formLogin.valid || progress" (click)="doLogin()">{{global.mytranslate("Log in")}}</ion-button>
 		<div *ngIf="showWrongLogin" class="errors">{{global.mytranslate("Wrong credentials. Please try again.")}}</div>
@@ -79,7 +79,7 @@
 		</ion-item>
 		<div *ngIf="(password4.dirty || password4.touched) && password4.errors" class="errors">
 			<span *ngIf="password4.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="password4.errors?.minlength">{{global.mytranslate("Password needs to be 2 characters")}}</span>
+			<span *ngIf="password4.errors?.minlength">{{global.mytranslate("Password needs to be 6 characters")}}</span>
 		</div>
 		<ion-item>
 			<label for="passwordConfirm4" style="white-space:nowrap;">{{global.mytranslate("Confirm:")}}&nbsp;&nbsp;&nbsp;</label>
@@ -87,7 +87,7 @@
 		</ion-item>
 		<div *ngIf="(passwordConfirm4.dirty || passwordConfirm4.touched) && passwordConfirm4.errors" class="errors">
 			<span *ngIf="passwordConfirm4.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="passwordConfirm4.errors?.minlength">{{global.mytranslate("Password needs to be 2 characters")}}</span>
+			<span *ngIf="passwordConfirm4.errors?.minlength">{{global.mytranslate("Password needs to be 6 characters")}}</span>
 		</div>
 		<div *ngIf="(password4.dirty || password4.touched || passwordConfirm4.dirty || passwordConfirm4.touched) && formResetCode.errors?.['mismatch']" class="errors">
 			{{global.mytranslate("Passwords don't match")}}

@@ -33,15 +33,15 @@ public formResetCode: FormGroup;
 constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 	this.formLogin = fb.group({
 		"email1": ["", [Validators.required, Validators.email]],
-		"password1": ["", [Validators.required, Validators.minLength(2)]]
+		"password1": ["", [Validators.required, Validators.minLength(6)]]
 	});
 	this.formReset = fb.group({
 		"email3": ["", [Validators.required, Validators.email]]
 	});
 	this.formResetCode = fb.group({
 		"resetCode4": ["", [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-		"password4": ["", [Validators.required, Validators.minLength(2)]],
-		"passwordConfirm4": ["", [Validators.required, Validators.minLength(2)]],
+		"password4": ["", [Validators.required, Validators.minLength(6)]],
+		"passwordConfirm4": ["", [Validators.required, Validators.minLength(6)]],
 	}, { validator: this.checkPassword4 });
 }
 
@@ -118,6 +118,7 @@ showReset() {
 async doReset() {
 	this.progress = true;
 	const ret = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "reset=1&email=" + encodeURIComponent(this.email3.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+	//console.log("doReset: " + JSON.stringify(ret));
 	this.progress = false;
 	this.showWrongReset = ret["error"] != 0;
 	if (ret["error"] == 0) {
@@ -138,9 +139,9 @@ showResetCode() {
 
 async doResetCode() {
 	this.progress = true;
-	const response = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "resetCode=" + encodeURIComponent(this.resetCode4.value) + "&email=" + encodeURIComponent(this.email3.value) + "&password=" + encodeURIComponent(this.password4.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+	const ret = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "resetCode=" + encodeURIComponent(this.resetCode4.value) + "&email=" + encodeURIComponent(this.email3.value) + "&password=" + encodeURIComponent(this.password4.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+	//console.log("doResetCode: " + JSON.stringify(ret));
 	this.progress = false;
-	const ret = response as OnlineRet;
 	this.showWrongResetCode = ret["error"] != 0;
 	if (ret["error"] == 0) {
 		this.global.settings.user = ret["user"];
