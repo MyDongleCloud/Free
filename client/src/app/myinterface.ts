@@ -5,7 +5,7 @@ export interface Settings {
 	powerUser: boolean,
 	isDev: number,
 	deviceId: string,
-	account: string,
+	user: string,
 	token: string,
 	email: string,
 	space: Object,
@@ -13,9 +13,6 @@ export interface Settings {
 	reviewRequestLastTime,
 	dontShowAgain: object,
 	currentUrl: string,
-}
-
-export interface Config {
 }
 
 export interface OnlineRet {

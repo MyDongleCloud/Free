@@ -5,9 +5,8 @@ import { Platform } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { App } from '@capacitor/app';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subject } from 'rxjs';
 import { environment } from '../environments/environment';
-import { Settings, Config } from './myinterface';
+import { Settings } from './myinterface';
 import { VERSION } from './version';
 
 @Injectable({
@@ -16,39 +15,23 @@ import { VERSION } from './version';
 
 export class Global {
 VERSION: string = VERSION;
+loggedIn = 0;
 MASTERURL: string;
-token;
 language;
 currentUrl: string = "login";
 settings: Settings = {} as Settings;
 DONGLEURL: string;
-refreshUI:Subject<any> = new Subject();
-refreshO;
-refreshObs;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private translate: TranslateService, private httpClient: HttpClient) {
 	if (environment.production || this.isPlatform("androidios")) {
 		this.MASTERURL = "";
 	} else
-		this.MASTERURL = "http://localhost:8080";
-	this.token = this.getCookie("token");
-	console.log("Cookie token: " + this.token);
+		this.MASTERURL = "http://localhost:8080/";
+	this.checkLogin();
 	navCtrl.setDirection("forward");
 	translate.setDefaultLang("en");
 	console.log("Default browser language is: " + translate.getBrowserLang());
 	this.changeLanguage(this.translate.getBrowserLang());
-	if (typeof (<any>window).electron != "undefined") {
-		(<any>window).electron.ipc.log((err: any, v: string) => {
-			console.log(v);
-		});
-		(<any>window).electron.ipc.open_page((err: any, v: string) => {
-			;//this.openPage(v, false);
-		});
-	}
-	this.refreshO = Observable.create((obs) => {
-		this.refreshObs = obs;
-		return () => {}
-	});
 }
 
 getCookie(name) {
@@ -64,28 +47,35 @@ getCookie(name) {
 	return null;
 }
 
-async isLoggedIn() {
+async checkLogin() {
 	try {
-		const loggedIn = await this.httpClient.post(this.MASTERURL + "/master/login.json", "user=admin&token=" + encodeURIComponent(this.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-		console.log("isLoggedIn: " + JSON.stringify(loggedIn));
-		return loggedIn["error"] === 0;
+		const ret = await this.httpClient.post(this.MASTERURL + "master/login.json", "", {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		//console.log("checkLogin: " + JSON.stringify(ret));
+		if (ret["error"] === 0) {
+			if (confirm("You are already loggedin. Do you want to logout?")) {
+				this.loggedIn = -1;
+				document.cookie = "user=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+				document.cookie = "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+			} else
+				this.openPage("", false);
+			return;
+		}
 	} catch(e) {
 		console.log("Failed to download " + this.MASTERURL + "/master/login.json");
-		return false;
 	}
+	this.loggedIn = -1;
 }
 
-async getSpace() {
+async logout() {
 }
 
 async settingsSave() {
-	console.log("settingsSave: Enter");
+	
 }
-
 
 openPage(url: string, close: boolean) {
 	console.log("openPage");
-	alert("Loggedin!");
+	document.location.href = "/";
 }
 
 async backButtonAlert() {
@@ -95,14 +85,7 @@ async changeLanguage(st) {
 	if (st != this.language) {
 		this.language = st;
 		await this.translate.use(this.language);
-		if (typeof (<any>window).electron != "undefined")
-			(<any>window).electron.ipc.invoke("menuLanguage", this.language);
 	}
-}
-
-changeLanguageAndRefresh(l) {
-	this.changeLanguage(l);
-	this.refreshObs.next();
 }
 
 mytranslateP(page, st) {
@@ -120,9 +103,7 @@ async sleepms(ms) {
 }
 
 async platform() {
-	if (typeof (<any>window).electron != "undefined")
-		return await (<any>window).electron.ipc.invoke("os");
-	else if (this.plt.is("ios") && this.plt.is("cordova"))
+	if (this.plt.is("ios") && this.plt.is("cordova"))
 		return "ios";
 	else if (this.plt.is("android") && this.plt.is("cordova"))
 		return "android";
@@ -131,16 +112,14 @@ async platform() {
 }
 
 isPlatform(a) {
-	if (a == "electron")
-		return typeof (<any>window).electron != "undefined";
-	else if (a == "androidios")
+	if (a == "androidios")
 		return (this.plt.is("android") || this.plt.is("ios")) && this.plt.is("cordova");
 	else if (a == "android")
 		return this.plt.is("android") && this.plt.is("cordova");
 	else if (a == "ios")
 		return this.plt.is("ios") && this.plt.is("cordova");
 	else if (a == "web")
-		return !(typeof (<any>window).electron != "undefined" || (this.plt.is("android") && this.plt.is("cordova")) || (this.plt.is("ios") && this.plt.is("cordova")));
+		return !((this.plt.is("android") && this.plt.is("cordova")) || (this.plt.is("ios") && this.plt.is("cordova")));
 	else
 		return false;
 }

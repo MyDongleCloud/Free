@@ -18,7 +18,7 @@
 		</div>
 		<ion-item>
 			<label for="email1" style="white-space:nowrap;">{{global.mytranslate("Email:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="john.smith@example.com" formControlName="email1" (keyup.enter)="doLogin()"></ion-input>
+			<ion-input type="text" placeholder="john.smith@example.com" #email1Input formControlName="email1" (keyup.enter)="doLogin()"></ion-input>
 		</ion-item>
 		<div *ngIf="(email1.dirty || email1.touched) && email1.errors" class="errors">
 			<span *ngIf="email1.errors?.required">{{global.mytranslate("Email is required")}}</span>
@@ -26,7 +26,7 @@
 		</div>
 		<ion-item>
 			<label for="password1" style="white-space:nowrap;">{{global.mytranslate("Password:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input placeholder='{{global.mytranslate("Password")}}' formControlName="password1" [type]="password1Show ? 'text' : 'password'" (keyup.enter)="doLogin()"></ion-input>&nbsp;&nbsp;<ion-button (click)="password1Show = !password1Show;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'"></ion-icon></ion-button>
+			<ion-input placeholder='{{global.mytranslate("Password")}}' #password1Input formControlName="password1" [type]="password1Show ? 'text' : 'password'" (keyup.enter)="doLogin()"></ion-input>&nbsp;&nbsp;<ion-button (click)="password1Show = !password1Show;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'"></ion-icon></ion-button>
 		</ion-item>
 		<div *ngIf="(password1.dirty || password1.touched) && password1.errors" class="errors">
 			<span *ngIf="password1.errors?.required">{{global.mytranslate("Password is required")}}</span>
@@ -46,7 +46,7 @@
 		</div>
 		<ion-item>
 			<label for="email3" style="white-space:nowrap;">{{global.mytranslate("Email:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="john.smith@example.com" formControlName="email3" (keyup.enter)="doReset()"></ion-input>
+			<ion-input type="text" placeholder="john.smith@example.com" #email3Input formControlName="email3" (keyup.enter)="doReset()"></ion-input>
 		</ion-item>
 		<div *ngIf="(email3.dirty || email3.touched) && email3.errors" class="errors">
 			<span *ngIf="email3.errors?.required">{{global.mytranslate("Email is required")}}</span>

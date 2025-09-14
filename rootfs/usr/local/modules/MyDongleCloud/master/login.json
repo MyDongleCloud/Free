@@ -1,4 +1,6 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+
 function domainFromFqdn($fqdn) {
 	$parts = explode('.', $fqdn);
 	if (count($parts) <= 2)
@@ -7,6 +9,14 @@ function domainFromFqdn($fqdn) {
 		return $fqdn;
 	$tmp = ($parts[count($parts) - 2] == "mydongle" || $parts[count($parts) - 2] == "myd") ? -3 : -2;
 	return implode('.', array_slice($parts, $tmp));
+}
+
+function passwordMakeHash($password) {
+	$iter = 36000;
+	$salt = base64_encode(random_bytes(64));
+	$salt = substr($salt, 0, 12);
+	$calc = hash_pbkdf2("sha256", $password, $salt, $iter, 32, true);
+	return "pbkdf2_sha256\${$iter}\${$salt}\$" . base64_encode($calc);
 }
 
 function passwordCheck($password, $dHash): bool {
@@ -22,31 +32,125 @@ function passwordCheck($password, $dHash): bool {
 	return hash_equals($calc, base64_decode($hash));
 }
 
-$path = "../../../../../disk/admin/.modules/MyDongleCloud/users.json";
-$h = fopen($path, "r");
-$users = json_decode(fread($h, filesize($path)), true);
+$dir = "../../../../../disk/admin/.modules/MyDongleCloud/";
+$h = fopen($dir . "space.json", "r");
+$space = json_decode(fread($h, filesize($dir . "space.json")), true);
+fclose($h);
+$h = fopen($dir . "users.json", "r");
+$users = json_decode(fread($h, filesize($dir . "users.json")), true);
 fclose($h);
 $ret = false;
-$reason = "";
+$doSet = false;
 $user = "";
+$token = "";
 if (isset($_POST["user"]))
 	$user = $_POST["user"];
-else if ($useCookie === true && isset($_COOKIE["user"]))
+foreach ($users as $key => $val)
+	if (isset($_POST["email"]) && $val["email"] == $_POST["email"]) {
+		$user = $key;
+		break;
+	}
+if ($user == "" && isset($_COOKIE["user"]))
 	$user = $_COOKIE["user"];
-else
-	foreach ($users as $key => $val)
-		if ($val["email"] == $_POST["email"]) {
-			$user = $key;
-			break;
-		}
+if (isset($_POST["token"]))
+	$token = $_POST["token"];
+if ($token == "" && isset($_COOKIE["token"]))
+	$token = $_COOKIE["token"];
 if ($user != "" && isset($users[$user])) {
-	if (isset($users[$user]["token"]) && isset($_POST["token"]))
-		$ret = $users[$user]["token"] == $_POST["token"];
-	else if (isset($users[$user]["token"]) && $useCookie === true && isset($_COOKIE["token"]))
-		$ret = $users[$user]["token"] == $_COOKIE["token"];
-	else if (isset($users[$user]["password"]))
-		$ret = $_POST["password"] == $users[$user]["password"];//passwordCheck($_POST["password"], $users[$user]["password"]);
-	else {
+	if (isset($_POST["reset"])) {
+		$resetCode = rand(100001, 999999);
+		if ($user == "admin") {
+			$ret = false;
+			$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+			if ($socket !== false) {
+				if (socket_connect($socket, "127.0.0.1", 8093)) {
+					$st = json_encode(array("a" => "passcode", "v" => $resetCode));
+					$ret = socket_send($socket, $st, strlen($st), 0) !== false;
+				}
+				socket_close($socket);
+			}
+		}
+		if (file_exists(dirname(__FILE__) . "/vendor/autoload.php")) {
+			$email = $_POST["email"];
+			$content = <<<EOT
+Hello,
+
+You have asked to reset the password of the MyDongle.Cloud account of {$email}.
+
+The reset code is: {$resetCode}
+
+Please reset your password using the app.
+
+Best regards,
+
+The MyDongle.Cloud team
+EOT;
+			require_once(dirname(__FILE__) . "/vendor/autoload.php");
+			$mail = new PHPMailer();
+			$mail->IsSMTP();
+			$mail->SMTPDebug = 0;
+			$mail->Host = "localhost";
+			$mail->Port = 465;
+			$mail->SetFrom("admin@" . $space["name"] . "mydongle.cloud", "MyDongle.Cloud");
+			$mail->Subject = "MyDongle.Cloud: Reset your password";
+			$mail->Body = $content;
+			$mail->IsHTML(false);
+			$mail->AddAddress($email);
+			//$mail->Send();
+		}
+		if ($ret) {
+			$users[$user]["resetCode"] = $resetCode;
+			$users[$user]["resetCodeTries"] = 3;
+			$users[$user]["resetCodeExpiration"] = time() + 90;
+			$h = fopen($dir . "users.json", "w");
+			fwrite($h, json_encode($users));
+			fclose($h);
+		}
+		echo json_encode(array("error" => $ret ? 0 : 1, "reason" => "reset"));
+		exit;
+	} else if (isset($_POST["resetCode"])) {
+		$ret = $users[$user]["resetCode"] == $_POST["resetCode"] && $users[$user]["resetCodeTries"] > 0 && $users[$user]["resetCodeExpiration"] > time();
+		if ($ret) {
+			unset($users[$user]["resetCode"]);
+			unset($users[$user]["resetCodeTries"]);
+			unset($users[$user]["resetCodeExpiration"]);
+			$users[$user]["password"] = passwordMakeHash($_POST["password"]);
+			if (file_exists(dirname(__FILE__) . "/vendor/autoload.php")) {
+				$email = $_POST["email"];
+				$content = <<<EOT
+Hello,
+
+The password of the MyDongle.Cloud account of {$email} has been changed.
+
+Best regards,
+
+The MyDongle.Cloud team
+EOT;
+				require_once(dirname(__FILE__) . "/vendor/autoload.php");
+				$mail = new PHPMailer();
+				$mail->IsSMTP();
+				$mail->SMTPDebug = 0;
+				$mail->Host = "localhost";
+				$mail->Port = 465;
+				$mail->SetFrom("admin@" . $space["name"] . "mydongle.cloud", "MyDongle.Cloud");
+				$mail->Subject = "MyDongle.Cloud: Reset your password";
+				$mail->Body = $content;
+				$mail->IsHTML(false);
+				$mail->AddAddress($email);
+				//$mail->Send();
+			}
+		} else
+			$users[$user]["resetCodeTries"]--;
+		$h = fopen($dir . "users.json", "w");
+		fwrite($h, json_encode($users));
+		fclose($h);
+		$doSet = true;
+	} else if (isset($users[$user]["token"]) && $token != "")
+		$ret = $users[$user]["token"] == $token;
+	else if (isset($users[$user]["password"])) {
+		$ret = passwordCheck($_POST["password"], $users[$user]["password"]);
+		$doSet = true;
+	} else {
 		$url = (str_starts_with($_SERVER["HTTP_REFERER"], "https") ? "https://" : "http://") . $_SERVER["HTTP_HOST"];
 		$protectedUrl = $url . "/MyDongleCloud/protected/empty.html";
 		$ch = curl_init();
@@ -58,29 +162,32 @@ if ($user != "" && isset($users[$user])) {
 		$ret = $http_status === 200;
 		$curl_error = curl_error($ch);
 		curl_close($ch);
-	}
-	if ($ret && (isset($_GET["set"]) || isset($_POST["set"]))) {
-		$token = bin2hex(random_bytes(16));
-		$users[$user]["token"] = $token;
-		$users[$user]["tokenExpiration"] = 0;
-		$h = fopen($path, "w");
-		fwrite($h, json_encode($users));
-		fclose($h);
-		$expiration_time = time() + (86400 * 30);
-		$path = "/";
-		$tmp = preg_replace("/^([^:]*)(?::\\d+)?$/i" , "$1", $_SERVER["HTTP_HOST"]);
-		$domain = domainFromFqdn($tmp);
-		setcookie("user", $user, $expiration_time, $path, $domain);
-		setcookie("token", $token, $expiration_time, $path, $domain);
+		$doSet = true;
 	}
 }
-if ($ret && $noReturnOnSuccess === true)
-		;
+if ($ret && isset($noReturnOnSuccess) && $noReturnOnSuccess == true)
+	;
 else {
-	$a = ["error" => $ret ? 0 : 1, "reason" => $reason];
-	if (isset($token))
-		$a["token"] = $token;
-	echo json_encode($a);
-	exit();
+	$data = array("error" => $ret ? 0 : 1, "reason" => "authentication");
+	if ($ret) {
+		if ($doSet) {
+			$token = bin2hex(random_bytes(16));
+			$users[$user]["token"] = $token;
+			$users[$user]["tokenExpiration"] = 0;
+			$h = fopen($dir . "users.json", "w");
+			fwrite($h, json_encode($users));
+			fclose($h);
+			$expiration_time = time() + (86400 * 30);
+			$tmp = preg_replace("/^([^:]*)(?::\\d+)?$/i" , "$1", $_SERVER["HTTP_HOST"]);
+			$domain = domainFromFqdn($tmp);
+			setcookie("user", $user, $expiration_time, "/", $domain);
+			setcookie("token", $token, $expiration_time, "/", $domain);
+			$data["user"] = $user;
+			$data["token"] = $token;
+		}
+		$data["space"] = $space;
+	}
+	echo json_encode($data);
+	exit;
 }
 ?>

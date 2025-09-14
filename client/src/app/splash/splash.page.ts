@@ -36,7 +36,10 @@ async forwardWhenReady() {
 		}
 	} catch(e) { console.log("forwardWhenReady: " + e); }
 	this.global.splashDone = true;
-	this.global.openPage(this.global.activateUrl, false);
+	let count = 20;
+	while (this.global.loggedIn == 0 && count-- > 0)
+		this.global.sleepms(100);
+	this.global.openPage(this.global.loggedIn == 1 ? this.global.activateUrl : "login", false);
 }
 
 openUpgrade() {

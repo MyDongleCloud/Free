@@ -1,5 +1,6 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
+import { IonInput } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
 import { OnlineRet } from '../myinterface';
@@ -25,10 +26,13 @@ public formLogin: FormGroup;
 public formRegister: FormGroup;
 public formReset: FormGroup;
 public formResetCode: FormGroup;
+@ViewChild("email1Input") email1Input: IonInput;
+@ViewChild("email3Input") email3Input: IonInput;
+@ViewChild("password1Input") password1Input: IonInput;
 
 constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 	this.formLogin = fb.group({
-		"email1": ["gregoire@gentil.com", [Validators.required, Validators.email]],
+		"email1": ["", [Validators.required, Validators.email]],
 		"password1": ["", [Validators.required, Validators.minLength(2)]]
 	});
 	this.formReset = fb.group({
@@ -46,10 +50,24 @@ checkPassword4(group: FormGroup) {
 }
 
 async ionViewDidEnter() {
-	if (await this.global.isLoggedIn()) {
-		this.global.openPage("", false);
-	} else
+	if (this.global.loggedIn == 1)
+		this.global.logout();
+	if (this.global.loggedIn == -1)
 		this.ready = true;
+	else if (this.global.loggedIn == 0) {
+		let count = 20;
+		while (this.global.loggedIn == 0 && count-- > 0)
+			this.global.sleepms(100);
+		this.ready = true;
+	}
+	let email = this.global.settings.email ?? null;
+	if (email == null)
+		email = this.global.getCookie("email");
+	if (email != null) {
+		this.formLogin.get("email1").setValue(email);
+		setTimeout(() => { this.password1Input.setFocus(); }, 100);
+	}
+		setTimeout(() => { this.email1Input.setFocus(); }, 100);
 }
 
 ionViewWillLeave() {
@@ -68,7 +86,6 @@ get password4() { return this.formResetCode.get("password4"); }
 get passwordConfirm4() { return this.formResetCode.get("passwordConfirm4"); }
 
 showLogin() {
-	//this.global.userFull.identified = false;
 	this.showReseting = false;
 	this.showResetingCode = false;
 	this.cdr.detectChanges();
@@ -76,39 +93,17 @@ showLogin() {
 
 async doLogin() {
 	this.progress = true;
-	const response = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "set=1&email=" + encodeURIComponent(this.email1.value) + "&password=" + encodeURIComponent(this.password1.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-console.log(response);
+	const ret = await this.httpClient.post(this.global.MASTERURL + "master/login.json", "email=" + encodeURIComponent(this.email1.value) + "&password=" + encodeURIComponent(this.password1.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+	//console.log("doLogin: " + JSON.stringify(ret));
 	this.progress = false;
-	const ret = response as OnlineRet;
-	this.showWrongLogin = ret.error != 0;
-	if (ret.error == 0) {
-		this.global.settings.token = response["token"];
-		this.global.getSpace();
+	this.showWrongLogin = ret["error"] != 0;
+	if (ret["error"] == 0) {
+		this.global.settings.user = ret["user"];
+		this.global.settings.space = ret["space"];
+		this.global.settings.token = ret["token"];
 		this.global.settingsSave();
+		this.global.loggedIn = 1;
 		this.global.openPage("", false);
-	} else
-		this.cdr.detectChanges();
-}
-
-async doRegister() {
-	this.progress = true;
-	const response = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "emailRegister=" + encodeURIComponent(this.email2.value) + "&password=" + encodeURIComponent(this.password2.value) + "&firstName=" + encodeURIComponent(this.firstName2.value) + "&lastName=" + encodeURIComponent(this.lastName2.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-	this.progress = false;
-	const ret = response as OnlineRet;
-	if (ret.error == 0) {
-		alert(3);
-		//this.global.userFull.identified = true;
-		this.global.settings.token = response["token"];
-		this.global.settingsSave();
-		this.formLogin.reset();
-		this.showReseting = false;
-		this.showResetingCode = false;
-		this.showWrongLogin = false;
-		this.showWrongReset = false;
-		this.showWrongResetCode = false;
-		;//await this.global.userInit();
-		this.cdr.detectChanges();
-		window.dispatchEvent(new Event("resize"));
 	} else
 		this.cdr.detectChanges();
 }
@@ -116,16 +111,16 @@ async doRegister() {
 showReset() {
 	this.showReseting = true;
 	this.showResetingCode = false;
+	setTimeout(() => { this.email3Input.setFocus(); }, 100);
 	this.cdr.detectChanges();
 }
 
 async doReset() {
 	this.progress = true;
-	const response = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "reset=1&email=" + encodeURIComponent(this.email3.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+	const ret = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "reset=1&email=" + encodeURIComponent(this.email3.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
 	this.progress = false;
-	const ret = response as OnlineRet;
-	this.showWrongReset = ret.error != 0;
-	if (ret.error == 0) {
+	this.showWrongReset = ret["error"] != 0;
+	if (ret["error"] == 0) {
 		this.showReseting = false;
 		this.showResetingCode = true;
 		this.showWrongLogin = false;
@@ -146,14 +141,14 @@ async doResetCode() {
 	const response = await this.httpClient.post(this.global.MASTERURL + "/master/login.json", "resetCode=" + encodeURIComponent(this.resetCode4.value) + "&email=" + encodeURIComponent(this.email3.value) + "&password=" + encodeURIComponent(this.password4.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
 	this.progress = false;
 	const ret = response as OnlineRet;
-	this.showWrongResetCode = ret.error != 0;
-	if (ret.error == 0) {
-		//this.global.userFull.identified = false;
-		this.showReseting = false;
-		this.showResetingCode = false;
-		this.showWrongLogin = false;
-		this.showWrongReset = false;
-		this.showWrongResetCode = false;
+	this.showWrongResetCode = ret["error"] != 0;
+	if (ret["error"] == 0) {
+		this.global.settings.user = ret["user"];
+		this.global.settings.space = ret["space"];
+		this.global.settings.token = ret["token"];
+		this.global.settingsSave();
+		this.global.loggedIn = 1;
+		this.global.openPage("", false);
 	}
 	this.cdr.detectChanges();
 }

@@ -12,7 +12,7 @@ import { InAppReview } from '@capacitor-community/in-app-review';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../environments/environment';
-import { Settings, Config } from './myinterface';
+import { Settings } from './myinterface';
 import { VERSION } from './version';
 //import { toASCII } from 'punycode';
 import * as ACME from '@root/acme';
@@ -28,14 +28,13 @@ import * as ENC from '@root/encoding/base64';
 
 export class Global implements CanActivate {
 splashDone = false;
+loggedIn = 0;
 VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
 MASTERURL: string;
-DONGLEURL: string;
 currentUrl: string;
 activateUrl: string;
 settings: Settings = {} as Settings;
-config: Config = {} as Config;
 refreshUI:Subject<any> = new Subject();
 refreshO;
 refreshObs;
@@ -45,14 +44,7 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	if (environment.production || this.isPlatform("androidios")) {
 		this.MASTERURL = "";
 	} else
-		this.MASTERURL = "http://localhost:8080";
-	this.settings.token = this.getCookie("token");
-	console.log("Cookie token: " + this.settings.token);
-	this.getSpace();
-	Device.getId().then((info) => {
-		this.settings.deviceId = info["identifier"];
-		console.log("deviceId: " + this.settings.deviceId);
-	}).catch((e) => { console.log(e); });
+		this.MASTERURL = "http://localhost:8080/";
 	navCtrl.setDirection("forward");
 	translate.setDefaultLang("en");
 	console.log("Default browser language is: " + translate.getBrowserLang());
@@ -61,9 +53,7 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 		this.refreshObs = obs;
 		return () => {}
 	});
-	this.configLoad();
 	this.settingsLoad();
-	//setTimeout(() => { this.getCertificate("test101"); }, 2000);
 }
 
 getCookie(name) {
@@ -79,33 +69,31 @@ getCookie(name) {
 	return null;
 }
 
-async isLoggedIn() {
+async checkLogin() {
 	try {
-		const loggedIn = await this.httpClient.post(this.MASTERURL + "/master/login.json", "user=admin&token=" + encodeURIComponent(this.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-		console.log("isLoggedIn: " + JSON.stringify(loggedIn));
-		return loggedIn["error"] === 0;
+		let data = "";
+		if (this.settings.user !== undefined)
+			data += "user=" + encodeURIComponent(this.settings.user);
+		if (this.settings.user !== undefined)
+			data += "&token=" + encodeURIComponent(this.settings.token);
+		const ret = await this.httpClient.post(this.MASTERURL + "master/login.json", data, {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		//console.log("checkLogin: " + JSON.stringify(ret));
+		if (ret["error"] === 0) {
+			this.loggedIn = 1;
+			return;
+		}
 	} catch(e) {
-		console.log("Failed to download " + this.MASTERURL + "/master/login.json");
-		return false;
+		console.log("Failed to download " + this.MASTERURL + "master/login.json");
 	}
+	this.loggedIn = -1;
 }
 
-async getSpace() {
-	try {
-		this.settings.space = await this.httpClient.post(this.MASTERURL + "/master/space.json", "user=admin&token=" + encodeURIComponent(this.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-		console.log("space: " + JSON.stringify(this.settings.space));
-	} catch(e) {
-		console.log("Failed to download " + this.MASTERURL + "/master/space.json");
-		this.settings.space = { name: "" };
-	}
-	if (this.settings.space["error"] !== undefined) {
-		console.log("Error download space.json, reason: " + this.settings.space["reason"]);
-		this.settings.space = { name: "" };
-	}
-	this.DONGLEURL = "https://" + this.settings.space["name"] + ".mydongle.cloud";
-}
-
-async configLoad() {
+async logout() {
+	this.loggedIn = -1;
+	delete this.settings.user;
+	delete this.settings.token;
+	delete this.settings.space;
+	this.settingsSave();
 }
 
 async settingsLoad() {
@@ -117,14 +105,15 @@ async settingsLoad() {
 		this.settings.powerUser = false;
 	if (this.settings.isDev === undefined)
 		this.settings.isDev = 0;
-	if (this.settings.welcomeSeen === undefined)
-		this.settings.welcomeSeen = false;
-	if (this.settings.reviewRequestLastTime === undefined)
-		this.settings.reviewRequestLastTime = 0;
 	if (this.settings.dontShowAgain === undefined)
 		this.settings.dontShowAgain = Object();
-
+	if (this.settings.deviceId === undefined)
+		this.settings.deviceId = await Device.getId()["identifier"];
+	const e = this.getCookie("email");
+	if (e !== undefined)
+		this.settings.email = e;
 	await this.translate.use(this.settings.language);
+	await this.checkLogin();
 }
 
 async settingsSave() {
