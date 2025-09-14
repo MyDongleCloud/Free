@@ -111,7 +111,7 @@ async onBluetoothDeviceFound(result) {
 }
 
 async writeData(a) {
-	const st = JSON.stringify(a);
+	const st = typeof(a) === "string" ? a : JSON.stringify(a);
 	if (st.length > BLE_CHUNK) {
 		let remain = st.length;
 		let count = 0;
