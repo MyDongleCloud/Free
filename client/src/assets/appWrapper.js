@@ -22,10 +22,6 @@ function appButton(b, l) {
 	Module._button(b, l);
 }
 
-function appRequestPasscode(p) {
-	Module._requestPasscode(p);
-}
-
 function appCommunicationStatus(s) {
 	Module._communicationStatus(s);
 }

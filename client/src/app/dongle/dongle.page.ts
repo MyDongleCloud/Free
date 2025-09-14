@@ -29,10 +29,6 @@ button(k, l) {
 	appButton(k, l);
 }
 
-requestPasscode() {
-	appRequestPasscode(123456);
-}
-
 ionViewWillLeave() {
 	this.global.settingsSave();
 }

@@ -5,7 +5,9 @@
 //backend.c			processButton
 //logic.c			logicKey
 //communication.c	communicationJSON
-//ble.c				serverWriteData, write_ctic
+//backend-web.c		serverWriteData, serverWriteDataEx
+//appWrapper.js		appServerWriteData
+//ble.ts			writeData, BleClient.write (potentially split in chunks)
 //OVER-THE-AIR browser->dongle
 //ble.c				le_callback
 //communication.c	communicationReceive, write(eventFdBle)

@@ -40,14 +40,6 @@ void button(int b, int l) {
 	processButton(b, 1, l);
 }
 
-//HTML -> C
-void requestPasscode(int p) {
-	if (slaveMode)
-		;
-	else
-		logicPasscode(p);
-}
-
 //C -> HTML
 static int serverWriteDataEx(unsigned char *data, int size, int doB64) {
 	char *st;
