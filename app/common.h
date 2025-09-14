@@ -23,8 +23,6 @@ void leaveInputMode();
 void copyFile(char *from, char *to, void (*progresscallback)());
 void generateUniqueId(char sz[17]);
 void generateRandomHexString(char sz[33]);
-int oathGenerate(char secret[33]);
-int oathValidate(char secret[33], int OTP);
 void getSerialID();
 int killOtherPids(char *sz);
 int fileExists(char *st);

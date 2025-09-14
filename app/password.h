@@ -2,7 +2,7 @@
 #define PASSWORD_H
 
 //Global functions
-int passwordCheck(char *username, char *pwd);
-int passwordChange(char *username, char *pwdOld, char *pwdNew);
+int oathAdmin();
+void passwordAdminChange(char *pwd);
 
 #endif

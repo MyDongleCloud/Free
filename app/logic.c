@@ -12,31 +12,15 @@
 #include "settings.h"
 #include "cJSON.h"
 #include "communication.h"
+#ifndef WEB
+#include "password.h"
+#endif
 
 //Public variables
 logics lmdc;
 int slaveMode = 0;
 
 //Functions
-static int logicOath() {
-#ifdef WEB
-	return rand() % 999999;
-#endif
-	char secret[33];
-	int  otp = oathGenerate(secret);
-#ifndef DESKTOP
-	FILE *pf = fopen(OATH_PATH, "w");
-	if (pf) {
-		char sz2[64];
-		snprintf(sz2, sizeof(sz2), "HOTP mdc - %s", secret);
-		fwrite(sz2, strlen(sz2), 1, pf);
-		fclose(pf);
-		system("chown root:root " OATH_PATH ";chmod 400 " OATH_PATH);
-	}
-#endif
-	return otp;
-}
-
 void logicKey(int key, int longPress) {
 	if (slaveMode) {
 		cJSON *el = cJSON_CreateObject();
@@ -231,7 +215,11 @@ void logicPasscode(int forcePasscode) {
 	if (forcePasscode != -1)
 		lmdc.passcode = forcePasscode;
 	else
-		lmdc.passcode = logicOath();
+#ifdef WEB
+		lmdc.passcode = (rand() % 899999) + 100000;
+#else
+		lmdc.passcode = oathAdmin();
+#endif
 	lmdc.current = LOGIC_PASSCODE;
 	logicUpdate();
 }

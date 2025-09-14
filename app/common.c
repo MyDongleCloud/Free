@@ -21,7 +21,6 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <openssl/md5.h>
-#include <liboath/oath.h>
 #endif
 #include "macro.h"
 #include "common.h"
@@ -251,33 +250,6 @@ void generateRandomHexString(char sz[33]) {
 	}
 	sz[32] = '\0';
 }
-
-#ifndef WEB
-int oathGenerate(char secret[33]) {
-	int ret = 0;
-	generateRandomHexString(secret);
-	oath_init();
-	char otp[8];
-	char secretbin[17];
-	size_t secretbinlen = 16;
-	oath_hex2bin(secret, secretbin, &secretbinlen);
-	oath_hotp_generate(secretbin, secretbinlen, 0, 6, 0, OATH_HOTP_DYNAMIC_TRUNCATION, otp);
-	oath_done();
-	sscanf(otp, "%d", &ret);
-	return ret;
-}
-
-int oathValidate(char secret[33], int OTP) {
-	if (OTP < 0 || OTP > 999999)
-		return 0;
-	char otp[8];
-	sprintf(otp, "%d", OTP);
-	oath_init();
-	int ret = oath_hotp_validate(secret, strlen(secret), 0, 20, otp);
-	oath_done();
-	return ret;
-}
-#endif
 
 void getSerialID() {
 #ifdef DESKTOP

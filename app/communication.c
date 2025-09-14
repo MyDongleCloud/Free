@@ -40,6 +40,7 @@
 #include "logic.h"
 #include "backend.h"
 #include "settings.h"
+#include "password.h"
 
 //Public variable
 int communicationConnected = 0;
@@ -109,7 +110,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			free(payload);
 			logicUpdate();
 #ifndef WEB
-		} else if (strcmp(action, "space") == 0) {
+		} else if (strcmp(action, "pwd") == 0 && strcmp(orig, "socket") == 0)
+			passwordAdminChange(cJSON_GetStringValue2(el, "p"));
+		else if (strcmp(action, "space") == 0) {
 			cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
 			cJSON_AddStringToObject(space, "a", "space");
 			communicationJSON(space);
@@ -187,6 +190,7 @@ static void *comSocket_t(void *arg) {
 					i--;
 				} else {
 					communicationReceive(buf, nbytes, "socket");
+					memset(buf, 0, nbytes);
 					strcpy(buf, "{\"error\":0}");
 					write(fds[i].fd, buf, strlen(buf));
 				}

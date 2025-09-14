@@ -2,100 +2,60 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <pwd.h>
-#include <security/pam_appl.h>
-#include <security/pam_misc.h>
+#include <liboath/oath.h>
 #include "macro.h"
+#include "common.h"
 
-// Struct
-typedef struct {
-	const char *old_pwd;
-	const char *new_pwd;
-} pam_password_data;
-
-static int pamConversationCheck(int num_msg, const struct pam_message **msg, struct pam_response **resp, void *appdata_ptr) {
-	pam_password_data *pwd_data = (pam_password_data *)appdata_ptr;
-	*resp = calloc(num_msg, sizeof(struct pam_response));
-	if (*resp == NULL)
-		return PAM_BUF_ERR;
-
-	for (int i = 0; i < num_msg; i++) {
-		if (msg[i]->msg_style == PAM_PROMPT_ECHO_OFF) {
-			if (pwd_data && pwd_data->old_pwd) {
-				(*resp)[i].resp = strdup(pwd_data->old_pwd);
-			} else {
-				return PAM_CONV_ERR;
-			}
-		}
-	}
-	return PAM_SUCCESS;
+//Functions
+static int oathGenerate(char secret[33]) {
+	int ret = 0;
+	generateRandomHexString(secret);
+	oath_init();
+	char otp[8];
+	char secretbin[17];
+	size_t secretbinlen = 16;
+	oath_hex2bin(secret, secretbin, &secretbinlen);
+	oath_hotp_generate(secretbin, secretbinlen, 0, 6, 0, OATH_HOTP_DYNAMIC_TRUNCATION, otp);
+	oath_done();
+	sscanf(otp, "%d", &ret);
+	return ret;
 }
 
-static int pamConversationChange(int num_msg, const struct pam_message **msg, struct pam_response **resp, void *appdata_ptr) {
-	pam_password_data *pwd_data = (pam_password_data *)appdata_ptr;
-	*resp = calloc(num_msg, sizeof(struct pam_response));
-	if (*resp == NULL)
-		return PAM_BUF_ERR;
-	for (int i = 0; i < num_msg; i++) {
-		if (msg[i]->msg_style == PAM_PROMPT_ECHO_OFF) {
-			if (strstr(msg[i]->msg, "Current password")) {
-				if (pwd_data && pwd_data->old_pwd) {
-					(*resp)[i].resp = strdup(pwd_data->old_pwd);
-				} else {
-					return PAM_CONV_ERR;
-				}
-			} else if (strstr(msg[i]->msg, "New password") || strstr(msg[i]->msg, "new password")) {
-				if (pwd_data && pwd_data->new_pwd) {
-					(*resp)[i].resp = strdup(pwd_data->new_pwd);
-				} else {
-					return PAM_CONV_ERR;
-				}
-			}
-		}
-	}
-	return PAM_SUCCESS;
-}
-
-int passwordCheck(char *username, char *pwd) {
-	pam_handle_t *pamh = NULL;
-	int pam_err;
-	pam_password_data pwd_data = { .old_pwd = pwd, .new_pwd = NULL };
-	struct pam_conv conv = {
-		pamConversationCheck,
-		&pwd_data
-	};
-	pam_err = pam_start("passwd", username, &conv, &pamh);
-	if (pam_err != PAM_SUCCESS) {
-		PRINTF("Password: Error start %s\n", pam_strerror(pamh, pam_err));
-		return -1;
-	}
-	pam_err = pam_authenticate(pamh, PAM_SILENT);
-	pam_end(pamh, pam_err);
-	if (pam_err == PAM_SUCCESS)
+static int oathValidate(char secret[33], int OTP) {
+	if (OTP < 0 || OTP > 999999)
 		return 0;
-	else {
-		PRINTF("Password: Error authenticate %s\n", pam_strerror(pamh, pam_err));
-		return -1;
-	}
+	char otp[8];
+	sprintf(otp, "%06d", OTP);
+	oath_init();
+	int ret = oath_hotp_validate(secret, strlen(secret), 0, 20, otp);
+	oath_done();
+	return ret;
 }
 
-// Corrected passwordChange function
-int passwordChange(char *username, char *pwdOld, char *pwdNew) {
-	pam_handle_t *pamh = NULL;
-	int pam_err;
-	pam_password_data pwd_data = { .old_pwd = pwdOld, .new_pwd = pwdNew };
-	struct pam_conv conv = { pamConversationChange, &pwd_data };
-	pam_err = pam_start("passwd", username, &conv, &pamh);
-	if (pam_err != PAM_SUCCESS) {
-		PRINTF("Password: Error start %s\n", pam_strerror(pamh, pam_err));
-		return -1;
+int oathAdmin() {
+	char secret[33];
+	int  otp = oathGenerate(secret);
+#ifndef DESKTOP
+	FILE *pf = fopen(OATH_PATH, "w");
+	if (pf) {
+		char sz2[64];
+		snprintf(sz2, sizeof(sz2), "HOTP admin - %s", secret);
+		fwrite(sz2, strlen(sz2), 1, pf);
+		fclose(pf);
 	}
-	pam_err = pam_chauthtok(pamh, PAM_CHANGE_EXPIRED_AUTHTOK);
-	if (pam_err != PAM_SUCCESS) {
-		PRINTF("Password: Error change %s\n", pam_strerror(pamh, pam_err));
-		pam_end(pamh, pam_err);
-		return -1;
+#endif
+	return otp;
+}
+
+void passwordAdminChange(char *pwd) {
+	char salt[33];
+	generateRandomHexString(salt);
+	strncpy(salt, "$6$", 3);
+	salt[19] = '\0';
+    char *hashed = crypt(pwd, salt);
+    FILE *fp = popen("sudo " LOCAL_PATH "MyDongleCloud/pwd.sh", "w");
+	if (fp) {
+	    fputs(hashed, fp);
+		pclose(fp);
 	}
-	pam_end(pamh, PAM_SUCCESS);
-	return 0;
 }

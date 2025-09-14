@@ -34,7 +34,7 @@
 #define SCREEN_FILE "/dev/mydonglecloud_screen_f"
 #define TEMPERATURE_PATH "/sys/class/thermal/thermal_zone0/%s"
 #define BUTTON_PATH "/dev/input/event0"
-#define OATH_PATH "/etc/users.oath"
+#define OATH_PATH "/disk/admin/.modules/MyDongleCloud/oath.txt"
 #define NAMES_PATH "/usr/local/modules/MyDongleCloud/names.txt"
 #define BLE_CHUNK 182
 #define COMMUNICATION_INTERNAL_PORT 8093

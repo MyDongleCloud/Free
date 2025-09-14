@@ -13,8 +13,9 @@
 #include "ble.h"
 #include "space.h"
 #include "communication.h"
+#include "password.h"
 
-//Functions
+//Function
 int main(int argc, char *argv[]) {
 	int option;
 	int daemon = 0;
