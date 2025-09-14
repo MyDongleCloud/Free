@@ -1,5 +1,5 @@
 
-Scan this QR Code to download the MyDongle.Cloud app:
+Scan this QR Code to go to the MyDongle.Cloud app:
 \[47m                                                                  \[0m
 \[47m        \[40m              \[47m      \[40m  \[47m      \[40m    \[47m    \[40m              \[47m        \[0m
 \[47m        \[40m  \[47m          \[40m  \[47m    \[40m  \[47m          \[40m  \[47m    \[40m  \[47m          \[40m  \[47m        \[0m
@@ -39,3 +39,10 @@ Scan this QR Code to download the MyDongle.Cloud app:
 | |___| | (_) | |_| | (_| |
  \\____|_|\\___/ \\__,_|\\__,_|
 
+##########################################################################
+You can login with the admin account:
+login: admin
+password: the_password_associated_with_your_primary_email
+Alternatively, you can request an OTP (6-digit one-time-password)
+for admin in the MyDongle.Cloud app.
+##########################################################################
