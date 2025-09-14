@@ -215,7 +215,7 @@ async listServices(deviceId: string) {
 	}
 }
 
-async requestPasscode() {
+async passcode() {
 	await this.writeData({ a:"passcode" });
 }
 
