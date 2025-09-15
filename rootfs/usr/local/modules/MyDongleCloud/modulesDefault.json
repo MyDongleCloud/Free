@@ -301,6 +301,15 @@
 		"permissions": [ "admin" ],
 		"localPort": 9236
 	},
+	"OTG": {
+		"enabled": "true",
+		"features": ["serial", "mtp"],
+		"mtp": {
+			"show_hidden_files": true,
+			"path": "/disk/admin",
+			"rights": "rw"
+		}
+	},
 	"Pandoc": {
 		"web": true,
 		"enabled": true,
@@ -440,15 +449,6 @@
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9257
-	},
-	"uMTP-Responder": {
-		"enabled": "true",
-		"features": ["serial", "mtp"],
-		"mtp": {
-			"show_hidden_files": true,
-			"path": "/disk/admin",
-			"rights": "rw"
-		}
 	},
 	"Unmanic": {
 		"web": true,
