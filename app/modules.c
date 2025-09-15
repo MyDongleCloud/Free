@@ -45,25 +45,6 @@ void modulesSetup(cJSON *space) {
 #ifndef DESKTOP
 			reloadApache2Conf();
 #endif
-		} else if (strcmp(elModule->string, "Audiobookshelf") == 0) {
-		} else if (strcmp(elModule->string, "Bugzilla") == 0) {
-		} else if (strcmp(elModule->string, "Busybox") == 0) {
-		} else if (strcmp(elModule->string, "Certbot") == 0) {
-		} else if (strcmp(elModule->string, "ChangeDetection") == 0) {
-		} else if (strcmp(elModule->string, "Clang") == 0) {
-		} else if (strcmp(elModule->string, "CMake") == 0) {
-		} else if (strcmp(elModule->string, "collaboraonline") == 0) {
-		} else if (strcmp(elModule->string, "Composer") == 0) {
-		} else if (strcmp(elModule->string, "ConvertX") == 0) {
-		} else if (strcmp(elModule->string, "Cyberchef") == 0) {
-		} else if (strcmp(elModule->string, "Discourse") == 0) {
-		} else if (strcmp(elModule->string, "Docker") == 0) {
-		} else if (strcmp(elModule->string, "Doodle") == 0) {
-		} else if (strcmp(elModule->string, "Dovecot") == 0) {
-		} else if (strcmp(elModule->string, "FFmpeg") == 0) {
-		} else if (strcmp(elModule->string, "Fileflows") == 0) {
-		} else if (strcmp(elModule->string, "Flarum") == 0) {
-		} else if (strcmp(elModule->string, "FreshRSS") == 0) {
 		} else if (strcmp(elModule->string, "frp") == 0) {
 			PRINTF("Modules:frp: Enter\n");
 			int	used = 0;
@@ -142,46 +123,9 @@ remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 				system("sudo /usr/bin/systemctl start frp.service");
 			}
 #endif
-		} else if (strcmp(elModule->string, "fscrypt") == 0) {
-		} else if (strcmp(elModule->string, "GCC") == 0) {
-		} else if (strcmp(elModule->string, "Git") == 0) {
-		} else if (strcmp(elModule->string, "Gitea") == 0) {
-		} else if (strcmp(elModule->string, "Go") == 0) {
-		} else if (strcmp(elModule->string, "GoAccess") == 0) {
-		} else if (strcmp(elModule->string, "GoodIP") == 0) {
-		} else if (strcmp(elModule->string, "Grav") == 0) {
-		} else if (strcmp(elModule->string, "HomeAssistant") == 0) {
-		} else if (strcmp(elModule->string, "Html5-QRCode") == 0) {
-		} else if (strcmp(elModule->string, "Hugo") == 0) {
-		} else if (strcmp(elModule->string, "ImageMagick") == 0) {
-		} else if (strcmp(elModule->string, "Immich") == 0) {
-		} else if (strcmp(elModule->string, "IOPaint") == 0) {
-		} else if (strcmp(elModule->string, "Java") == 0) {
-		} else if (strcmp(elModule->string, "Jellyfin") == 0) {
 		} else if (strcmp(elModule->string, "JitsiMeet") == 0) {
 			if (firstTime)
 				;//system("find /etc -exec sed -i -e \"s/m_unique_d_unique_c/${SPACE}/\" {} \;");
-		} else if (strcmp(elModule->string, "Joomla") == 0) {
-		} else if (strcmp(elModule->string, "Joplin") == 0) {
-		} else if (strcmp(elModule->string, "Karakeep") == 0) {
-		} else if (strcmp(elModule->string, "Kernel") == 0) {
-		} else if (strcmp(elModule->string, "LibrePhotos") == 0) {
-		} else if (strcmp(elModule->string, "Libreqr") == 0) {
-		} else if (strcmp(elModule->string, "LimeSurvey") == 0) {
-		} else if (strcmp(elModule->string, "Make") == 0) {
-		} else if (strcmp(elModule->string, "MantisBugTracker") == 0) {
-		} else if (strcmp(elModule->string, "Maybe") == 0) {
-		} else if (strcmp(elModule->string, "MeTube") == 0) {
-		} else if (strcmp(elModule->string, "MinIO") == 0) {
-		} else if (strcmp(elModule->string, "MongoDB") == 0) {
-		} else if (strcmp(elModule->string, "Mosquitto") == 0) {
-		} else if (strcmp(elModule->string, "MydongleCloud") == 0) {
-		} else if (strcmp(elModule->string, "MySQL") == 0) {
-		} else if (strcmp(elModule->string, "Nginx") == 0) {
-		} else if (strcmp(elModule->string, "Node") == 0) {
-		} else if (strcmp(elModule->string, "Ollama") == 0) {
-		} else if (strcmp(elModule->string, "OneTimeEmail") == 0) {
-		} else if (strcmp(elModule->string, "OpenWebUI") == 0) {
 		} else if (strcmp(elModule->string, "osTicket") == 0) {
 #ifndef DESKTOP
 			if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
@@ -197,43 +141,9 @@ remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 #ifndef DESKTOP
 			;
 #endif
-		} else if (strcmp(elModule->string, "Pandoc") == 0) {
-		} else if (strcmp(elModule->string, "PhotoPrism") == 0) {
-		} else if (strcmp(elModule->string, "PhotoView") == 0) {
-		} else if (strcmp(elModule->string, "PHP") == 0) {
-		} else if (strcmp(elModule->string, "phpBB") == 0) {
-		} else if (strcmp(elModule->string, "phpList") == 0) {
 		} else if (strcmp(elModule->string, "Postfix") == 0) {
 			//In /etc/mailname mail.m_unique_d_unique_c.mydongle.cloud
 			//In etc/postfix/main.cf mydestination = $myhostname, mail.m_unique_d_unique_c.mydongle.cloud, mydonglecloud, localhost.localdomain, localhost
-		} else if (strcmp(elModule->string, "PrivateBin") == 0) {
-		} else if (strcmp(elModule->string, "ProjectSend") == 0) {
-		} else if (strcmp(elModule->string, "PyMCUProg") == 0) {
-		} else if (strcmp(elModule->string, "Python") == 0) {
-		} else if (strcmp(elModule->string, "Python") == 0) {
-		} else if (strcmp(elModule->string, "Qdrant") == 0) {
-		} else if (strcmp(elModule->string, "QRCodeGenerator") == 0) {
-		} else if (strcmp(elModule->string, "Radaar") == 0) {
-		} else if (strcmp(elModule->string, "RethinkDB") == 0) {
-		} else if (strcmp(elModule->string, "RoundCube") == 0) {
-		} else if (strcmp(elModule->string, "rspamd") == 0) {
-		} else if (strcmp(elModule->string, "Sonarr") == 0) {
-		} else if (strcmp(elModule->string, "SQLite") == 0) {
-		} else if (strcmp(elModule->string, "StirlingPDF") == 0) {
-		} else if (strcmp(elModule->string, "SunriseCMS") == 0) {
-		} else if (strcmp(elModule->string, "Superset") == 0) {
-		} else if (strcmp(elModule->string, "Syncthing") == 0) {
-		} else if (strcmp(elModule->string, "Transmission") == 0) {
-		} else if (strcmp(elModule->string, "TriliumNotes") == 0) {
-		} else if (strcmp(elModule->string, "TubeArchivist") == 0) {
-		} else if (strcmp(elModule->string, "Unmanic") == 0) {
-		} else if (strcmp(elModule->string, "Uptime") == 0) {
-		} else if (strcmp(elModule->string, "Webtrees") == 0) {
-		} else if (strcmp(elModule->string, "WordPress") == 0) {
-		} else if (strcmp(elModule->string, "Write.as") == 0) {
-		} else if (strcmp(elModule->string, "YOURLS") == 0) {
-		} else if (strcmp(elModule->string, "Youtube-dl") == 0) {
-		} else if (strcmp(elModule->string, "Zigbee2MQTT") == 0) {
 		}
 	}
 
