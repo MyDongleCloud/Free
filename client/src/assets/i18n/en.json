@@ -19,23 +19,8 @@
 		"_localnetwork_": "Local Network",
 		"_dongle_": "Dongle"
 	},
-	"home": {
-		"What do you want to do?": "",
-		"conference": "Video conference",
-		"suite": "Office suite",
-		"mail": "Mail",
-		"chatbot": "AI Chatbot",
-		"calendar": "Calendar",
-		"hosting": "Web hosting",
-		"blog": "Blog",
-		"photos": "Photos",
-		"exchange": "Files Exchange",
-		"survey": "Survey",
-		"emailing": "Emailing",
-		"forums": "Forums",
-		"helpdesk": "Helpdesk",
-		"ecommerce": "Ecommerce",
-		"dongle": "Dongle"
+	"": {
+		"What do you want to do?": ""
 	},
 	"login": {
 		"Login": "",
@@ -58,7 +43,7 @@
 		"Password needs to be 2 characters": "",
 		"Confirm:": "",
 		"Passwords don't match": "",
-		"Wrong information. Please try again."
+		"Wrong information. Please try again.": ""
 	},
 	"setup": {
 		"Dongle": "",
