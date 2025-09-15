@@ -23,7 +23,7 @@ sortProperty: string = "title";
 sortDirection: "asc" | "desc" = "asc";
 category: string = "All";
 presentation: string = "cards";
-showDetails: boolean = false;
+showDetails: boolean = true;
 showNonWeb: boolean = false;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
@@ -53,13 +53,13 @@ async getData() {
 	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (value["web"] !== true)
 			value = { permissions:["admin"], web:false, enabled:true };
-		value["enabled"] = this.modules[key]?.enabled ?? true;
+		value["enabled"] = this.modules[key]?.enabled ?? value["enabled"] ?? true;
 		value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
 		value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
 		if (value["web"]) {
-			value["link"] = "/m/" + key;
-			if (value["alias"].length > 0)
-				value["link"] = "/m/" + value["alias"][0];
+			const ll = value["alias"].length > 0 ? value["alias"][0] : key;
+			value["link"] = location.protocol + "://" + location.host + "/m/" + ll;
+			value["link2"] = "https://" + ll + "." + (this.global.settings?.space?.["name"] ?? "") + ".mydongle.cloud";
 		}
 		if (modulesMeta[key] !== undefined)
 		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
@@ -79,10 +79,8 @@ filterCards() {
 	this.filteredCards = this.cards.filter( card => {
 		if (this.showNonWeb == false && card.web == false)
 			return false;
-		if (this.category == "All")
-			return card.title.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
-		else
-			return (card.title.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term))) && card.category.includes(this.category)
+		let ret =  card.title.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
+		return this.category == "All" ? ret : (ret && card.category.includes(this.category));
 	});
 	this.sortCards();
 }

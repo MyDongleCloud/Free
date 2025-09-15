@@ -67,32 +67,39 @@
 	<ion-row>
 		<ion-col size="12" size-md="3" *ngFor="let card of filteredCards; let cc = index;">
 			<ion-card style="max-width:400px; background-color:{{card.web == false ? 'rgb(240, 240, 240)' : card.enabled == false ? 'rgb(247, 222, 222)' : card.permissions[0] != '_public_' ? 'rgb(247, 247, 222)' : 'rgb(222, 247, 222)'}}">
-				<ion-card-header>
-					<ion-fab style="position:absolute; right:4px; display:flex; align-items:flex-end; flex-direction:column;">
-							<div style="display:flex; align-items:center;margin-bottom:7px;">
-								<a href="javascript:void()" *ngIf="card.enabled == false" title="Disabled module"><ion-icon name="cloud-offline-outline" size="large" style="color:var(--ion-color-danger); margin-right:4px;"></ion-icon></a>
-								<ion-icon name="settings-outline" size="large" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon>
-							</div>
-							<ion-chip style="cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip>
-							<div *ngIf="showDetails">
-								{{cc + 1}}: <a href="https://github.com/{{card.github}}" title="GitHub {{card.name}}" target="_blank">{{card.name}}</a>
-								<div style="margin-top:3px; display:flex; justify-content:flex-end;" *ngIf="card.github != ''">
-									<a href="https://github.com/{{card.github}}" title="GitHub {{card.name}}" target="_blank"><ion-icon name="logo-github" size="large" style="margin-right:4px; color:var(--ion-color-secondary);" *ngIf="card.stars != 0"></ion-icon></a>
-									<div style="display:flex; flex-direction:column; align-items:center;"><ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);" *ngIf="card.stars != 0"></ion-icon><span>{{approximateStars(card.stars)}}k</span></div>
-								</div>
-							</div>
-					</ion-fab>
-					<ion-card-title style="display:flex; align-items:center;">
-						<a href="{{card.link}}" title="{{card.title}}" target="_blank"><img src="assets/icon/{{card.module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
-						<a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a>
-					</ion-card-title>
-					<ion-card-subtitle *ngIf="showDetails">
-						Visibility: <ion-chip *ngFor="let pm of card.permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip>
-					</ion-card-subtitle>
-				</ion-card-header>
-				<ion-card-content>
+				<div style="display:flex;">
+					<div style="flex:1;">
+						<ion-card-header>
+							<ion-card-title>
+								<table style="width:100%;"><tr>
+									<td width="64"><a href="{{card.link}}" title="{{card.title}}" target="_blank"><img src="assets/icon/{{card.module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px;"></a></td>
+									<td width="15"></td>
+									<td><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a><br><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:small;">{{card.name}}</a></td>
+								</tr></table>
+							</ion-card-title>
+							<ion-card-subtitle *ngIf="showDetails">
+								Permissions: <ion-chip *ngFor="let pm of card.permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip>
+							</ion-card-subtitle>
+						</ion-card-header>
+					</div>
+					<div style="display:flex; align-items:flex-end; flex-direction:column; padding-right:5px; padding-top:5px;">
+						<div style="display:flex; align-items:center;">
+							<span *ngIf="showDetails">Nº{{cc + 1}}&nbsp;&nbsp;</span>
+							<a href="javascript:void()" *ngIf="card.enabled == false" title="Disabled module"><ion-icon name="cloud-offline-outline" size="large" style="color:var(--ion-color-danger); margin-right:4px;"></ion-icon></a>
+							<ion-icon name="settings-outline" size="large" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon>
+						</div>
+						<ion-chip style="margin-top:7px; cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip>
+						<div style="margin-top:5px; display:flex; justify-content:flex-end;" *ngIf="showDetails && card.githubUrl != ''">
+							<a href="https://github.com/{{card.github}}" title="GitHub {{card.github}}" target="_blank"><ion-icon name="logo-github" size="large" style="margin-right:4px; color:var(--ion-color-secondary);"></ion-icon></a>
+							<div style="display:flex; flex-direction:column; align-items:center;"><ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);"></ion-icon><span>{{approximateStars(card.githubStars)}}k</span></div>
+						</div>
+					</div>
+				</div>
+				<ion-card-content style="padding-top:0px;">
 					<p style="color:black;" style="font-size:larger; color:black;">{{card.description == "" ? "Placeholder of the description of this module" : card.description}}</p>
-					<ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip>
+					<div style="margin-left:-5px;">
+						<ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip>
+					</div>
 				</ion-card-content>
 			</ion-card>
 		</ion-col>
@@ -101,7 +108,7 @@
 <ion-list *ngIf="presentation == 'table'">
 	<ion-item-divider>
 	<ion-label style="flex:1;">Title <ion-icon size="small" (click)="toggleSortDirection('title')" style="margin-left:20px;" [name]="sortDirection == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></ion-label>
-	<ion-label style="flex:1;" *ngIf="showDetails">Visibility</ion-label>
+	<ion-label style="flex:1;" *ngIf="showDetails">Permissions</ion-label>
 	<ion-label style="flex:1;">Category <ion-icon *ngIf="category == 'All'" size="small" (click)="toggleSortDirection('category')" style="margin-left:20px;" [name]="sortDirection == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></ion-label>
 	<ion-label style="flex:3;">Description</ion-label>
 	<ion-label style="flex:2;" *ngIf="showDetails">Keywords</ion-label>
@@ -114,7 +121,7 @@
 		<ion-label style="flex:1;"><ion-chip style="cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip></ion-label>
 		<ion-label style="flex:3;">{{card.description}}</ion-label>
 		<ion-label style="flex:2;" *ngIf="showDetails"><ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip></ion-label>
-		<ion-label style="flex:1;" *ngIf="showDetails">{{cc + 1}}: <a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></ion-label>
+		<ion-label style="flex:1;" *ngIf="showDetails">{{cc + 1}}&nbsp;&nbsp;<a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></ion-label>
 		<ion-label style="flex:1;"><ion-icon name="settings-outline" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon></ion-label>
 	</ion-item>
 </ion-list>
@@ -122,18 +129,34 @@
 <ion-modal #modalModuleSettings class="modalLimitSize">
 	<ng-template>
 		<ion-content class="ion-padding">
-			<h3 style="text-align:center; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px;" (click)="closeModuleSettings()">Settings of {{cards[findIdByModule(moduleCur)].title}}&nbsp;<ion-icon name="close-circle-outline" style="margin-left:10px; width:24px; height:24px;" style="cursor:pointer;"></ion-icon></h3>
-			<div>
-				<br>
-				<span style="color:black;">{{cards[findIdByModule(moduleCur)].description}}</span><br><br>
-				Category: <ion-chip style="cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;">{{cards[findIdByModule(moduleCur)].category}}</ion-chip><br><br>
-				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link}}</a><br><br>
-				<div *ngIf="cards[findIdByModule(moduleCur)].github != ''">
-					<i>Project: {{cards[findIdByModule(moduleCur)].name}}</i>&nbsp;&nbsp;<a href="https://github.com/{{cards[findIdByModule(moduleCur)].github}}" title="GitHub {{cards[findIdByModule(moduleCur)].name}}" target="_blank"><ion-icon name="logo-github" size="large" style="margin-right:4px; color:var(--ion-color-secondary);" *ngIf="cards[findIdByModule(moduleCur)].stars != 0"></ion-icon></a> <ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);" *ngIf="cards[findIdByModule(moduleCur)].stars != 0"></ion-icon><span>{{approximateStars(cards[findIdByModule(moduleCur)].stars)}}k</span>
-				</div>
-				Visibility: <ion-chip *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip><br><br>
-				Keywords: <ion-chip *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip>
-			</div>
+			<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeModuleSettings()">Details of "{{cards[findIdByModule(moduleCur)].title}}"<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
+			<br><table style="width:100%;">
+				<tr><td colspan="3"><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank"><img src="assets/icon/{{cards[findIdByModule(moduleCur)].module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
+				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{cards[findIdByModule(moduleCur)].title}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}</a></td></tr>
+				<tr><td colspan="3" height="10"></td></tr>
+				<tr><td colspan="3"><span style="color:black;">{{cards[findIdByModule(moduleCur)].description}}</span></td></tr>
+				<tr><td colspan="3" height="16"></td></tr>
+				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr><td colspan="3" height="16"></td></tr>
+				<tr><td>Category</td><td width="20"></td><td><ion-chip style="cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;">{{cards[findIdByModule(moduleCur)].category}}</ion-chip></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td>Links</td><td width="20"></td><td><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link}}</a><br>
+				<a href="{{cards[findIdByModule(moduleCur)].link2}}" title="{{cards[findIdByModule(moduleCur)].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link2}}</a></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td>GitHub <a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="GitHub {{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank"><ion-icon name="logo-github" style="margin-right:4px; color:var(--ion-color-secondary);"></ion-icon></a></td><td width="20"></td><td><a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank">{{cards[findIdByModule(moduleCur)].githubUrl}}</a>&nbsp;&nbsp;<ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);"></ion-icon>&nbsp;&nbsp;<span>{{approximateStars(cards[findIdByModule(moduleCur)].githubStars)}}k</span><br>Language: {{cards[findIdByModule(moduleCur)].githubLanguage}}<br>License: {{cards[findIdByModule(moduleCur)].githubLicense}}</td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" height="8"></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" height="8"></td></tr>
+				<tr><td>Permissions</td><td width="20"></td><td><ion-chip *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td>Keywords</td><td width="20"></td><td><ion-chip *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip></td></tr>
+			</table>
 		</ion-content>
 	</ng-template>
 </ion-modal>
