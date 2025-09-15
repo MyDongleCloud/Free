@@ -50,7 +50,7 @@ for ($i = 1; $i < count($modules); $i++) {
 		"version" => $m[gc("version")],
 		"category" => $m[gc("category")],
 		"description" => $m[gc("description")],
-		"keywords" => empty($m[gc("keywords")]) ? array() : explode(",", $m[gc("keywords")])
+		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")])
 	);
 }
 $h = fopen($pathname, "w");
