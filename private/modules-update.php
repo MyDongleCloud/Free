@@ -56,5 +56,5 @@ for ($i = 1; $i < count($modules); $i++) {
 	);
 }
 echo "Github stars: " . $starsTotal . "\n";
-file_put_contents("../rootfs/usr/local/modules/MyDongleCloud/modulesMeta.json", json_encode($modulesMeta, JSON_PRETTY_PRINT));
+file_put_contents(__DIR__ . "/../rootfs/usr/local/modules/MyDongleCloud/modulesMeta.json", json_encode($modulesMeta, JSON_PRETTY_PRINT));
 ?>
