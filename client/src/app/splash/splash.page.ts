@@ -39,9 +39,9 @@ async forwardWhenReady() {
 	let count = 20;
 	while (this.global.loggedIn == 0 && count-- > 0)
 		await this.global.sleepms(100);
-	if (this.global.activateUrl = "splash")
+	if (this.global.activateUrl == "splash")
 		this.global.activateUrl = "";
-	this.global.openPage(this.global.loggedIn == 1 ? this.global.activateUrl : "login", false);
+	this.global.openPage(this.global.loggedIn == 1 || this.global.activateUrl == "/setup" ? this.global.activateUrl : "login", false);
 }
 
 openUpgrade() {
