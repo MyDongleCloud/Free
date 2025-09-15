@@ -221,6 +221,7 @@ void logicPasscode(int forcePasscode) {
 		lmdc.passcode = oathAdmin();
 #endif
 	lmdc.current = LOGIC_PASSCODE;
+	buzzer(1);
 	logicUpdate();
 }
 
