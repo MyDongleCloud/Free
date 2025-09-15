@@ -38,7 +38,9 @@ async forwardWhenReady() {
 	this.global.splashDone = true;
 	let count = 20;
 	while (this.global.loggedIn == 0 && count-- > 0)
-		this.global.sleepms(100);
+		await this.global.sleepms(100);
+	if (this.global.activateUrl = "splash")
+		this.global.activateUrl = "";
 	this.global.openPage(this.global.loggedIn == 1 ? this.global.activateUrl : "login", false);
 }
 
