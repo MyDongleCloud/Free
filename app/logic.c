@@ -211,7 +211,7 @@ void logicMessage(int m) {
 }
 
 void logicPasscode(int forcePasscode) {
-	PRINTF("Logic: Passcode forcePasscode:%d\n", forcePasscode);
+	PRINTF("Logic: Passcode%s\n", forcePasscode != -1 ? " (forced)" : "");
 	if (forcePasscode != -1)
 		lmdc.passcode = forcePasscode;
 	else

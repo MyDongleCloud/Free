@@ -94,7 +94,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			int v = -1;
 			if (cJSON_HasObjectItem(el, "v"))
 				v = (int)cJSON_GetNumberValue2(el, "v");
-			PRINTF("Requesting passcode %d\n", v);
+			PRINTF("Requesting passcode%s\n", v != -1 ? " (forced)" : "");
 			logicPasscode(v);
 		} else if (strcmp(action, "shutdown") == 0) {
 			PRINTF("Requesting shutdown\n");
