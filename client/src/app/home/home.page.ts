@@ -23,6 +23,8 @@ sortProperty: string = "title";
 sortDirection: "asc" | "desc" = "asc";
 category: string = "All";
 presentation: string = "cards";
+showDetails: boolean = false;
+showNonWeb: boolean = false;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
@@ -46,29 +48,37 @@ async getData() {
 		this.modules = {};
 	}
 	this.cards = [];
+	const version = modulesDefault.version;
+	delete modulesDefault.version;
 	Object.entries(modulesDefault).forEach(([key, value]) => {
-		if (value["web"] === true) {
-			value["enabled"] = this.modules[key]?.enabled ?? true;
-			value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
-			value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
+		if (value["web"] !== true)
+			value = { permissions:["admin"], web:false, enabled:true };
+		value["enabled"] = this.modules[key]?.enabled ?? true;
+		value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
+		value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
+		if (value["web"]) {
 			value["link"] = "/m/" + key;
 			if (value["alias"].length > 0)
 				value["link"] = "/m/" + value["alias"][0];
-			Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
-				value[key2] = value2;
-			});
-			this.cards.push(value);
 		}
+		if (modulesMeta[key] !== undefined)
+		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
+			value[key2] = value2;
+		});
+		value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
+		this.cards.push(value);
 	});
 	this.cards.sort((a, b) => {
 		return a["title"].localeCompare(b["title"]);
 	});
-	this.filteredCards = [...this.cards];
+	this.filterCards();
 }
 
 filterCards() {
 	const term = this.searchTerm.toLowerCase();
 	this.filteredCards = this.cards.filter( card => {
+		if (this.showNonWeb == false && card.web == false)
+			return false;
 		if (this.category == "All")
 			return card.title.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
 		else
@@ -79,6 +89,10 @@ filterCards() {
 
 filterCategory(c) {
 	this.category = c;
+	this.filterCards();
+}
+
+filterNonWeb() {
 	this.filterCards();
 }
 

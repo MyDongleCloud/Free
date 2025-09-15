@@ -7,50 +7,66 @@
 	</ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-<ion-searchbar [(ngModel)]="searchTerm" (input)="filterCards()" placeholder="Search modules..."></ion-searchbar>
-<div style="margin-left:5px; display:flex; align-items:center;">
-	<ion-segment [(ngModel)]="category" [scrollable]="true" (ionChange)="filterCards()" style="margin-right:20px; border:0px solid gray; margin-top:10px; border-radius:5px; box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);">
-		<ion-segment-button value="All" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">All</ion-label>
-			<ion-icon name="apps-outline" size="small"></ion-icon>
-		</ion-segment-button>
-		<ion-segment-button value="Essential" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">Essential</ion-label>
-			<ion-icon name="star-outline" size="small"></ion-icon>
-		</ion-segment-button>
-		<ion-segment-button value="Personal" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">Personal</ion-label>
-			<ion-icon name="person-outline" size="small"></ion-icon>
-		</ion-segment-button>
-		<ion-segment-button value="Productivity" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">Productivity</ion-label>
-			<ion-icon name="attach-outline" size="small"></ion-icon>
-		</ion-segment-button>
-		<ion-segment-button value="Utils" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">Utils</ion-label>
-			<ion-icon name="hammer-outline" size="small"></ion-icon>
-		</ion-segment-button>
-		<ion-segment-button value="Developer" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">Developer</ion-label>
-			<ion-icon name="code-slash-outline" size="small"></ion-icon>
-		</ion-segment-button>
-	</ion-segment>
-	<ion-segment [(ngModel)]="presentation" [scrollable]="true" style="border:0px solid gray; margin-top:10px; border-radius:5px; box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);">
-		<ion-segment-button value="cards" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">Cards</ion-label>
-			<ion-icon name="apps-outline" size="small"></ion-icon>
-		</ion-segment-button>
-		<ion-segment-button value="table" style="width:100%;">
-			<ion-label style="padding-bottom:0px;">Table</ion-label>
-			<ion-icon name="list" size="small"></ion-icon>
-		</ion-segment-button>
-	</ion-segment>
-	<ion-icon size="small" (click)="toggleSortDirection('title')" style="margin-left:20px;" [name]="sortDirection == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon>
-</div>
+<ion-grid>
+	<ion-row class="ion-no-padding">
+		<ion-col size="12">
+			<ion-searchbar [(ngModel)]="searchTerm" (input)="filterCards()" placeholder="Search modules..." class="ion-no-padding"></ion-searchbar>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col size="12" size-md="5">
+			<ion-segment [(ngModel)]="category" [scrollable]="true" (ionChange)="filterCards()" style="margin-right:20px; border:0px solid gray; margin-top:10px; border-radius:5px; box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);">
+				<ion-segment-button value="All" style="width:100%;">
+					<ion-label style="padding-bottom:0px;">All</ion-label>
+					<ion-icon name="apps-outline" size="small"></ion-icon>
+				</ion-segment-button>
+				<ion-segment-button value="Essential" style="width:100%;">
+					<ion-label style="padding-bottom:0px;">Essential</ion-label>
+					<ion-icon name="star-outline" size="small"></ion-icon>
+				</ion-segment-button>
+				<ion-segment-button value="Personal" style="width:100%;">
+					<ion-label style="padding-bottom:0px;">Personal</ion-label>
+					<ion-icon name="person-outline" size="small"></ion-icon>
+				</ion-segment-button>
+				<ion-segment-button value="Productivity" style="width:100%;">
+					<ion-label style="padding-bottom:0px;">Productivity</ion-label>
+					<ion-icon name="attach-outline" size="small"></ion-icon>
+				</ion-segment-button>
+				<ion-segment-button value="Utils" style="width:100%;">
+					<ion-label style="padding-bottom:0px;">Utils</ion-label>
+					<ion-icon name="hammer-outline" size="small"></ion-icon>
+				</ion-segment-button>
+				<ion-segment-button value="Developer" style="width:100%;">
+					<ion-label style="padding-bottom:0px;">Developer</ion-label>
+					<ion-icon name="code-slash-outline" size="small"></ion-icon>
+				</ion-segment-button>
+			</ion-segment>
+		</ion-col>
+		<ion-col size="6" size-md="2">
+				<ion-segment [(ngModel)]="presentation" [scrollable]="true" style="border:0px solid gray; margin-top:10px; border-radius:5px; box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);">
+					<ion-segment-button value="cards" style="width:100%;">
+						<ion-label style="padding-bottom:0px;">Cards</ion-label>
+						<ion-icon name="apps-outline" size="small"></ion-icon>
+					</ion-segment-button>
+					<ion-segment-button value="table" style="width:100%;">
+						<ion-label style="padding-bottom:0px;">Table</ion-label>
+						<ion-icon name="list" size="small"></ion-icon>
+					</ion-segment-button>
+				</ion-segment>
+		</ion-col>
+		<ion-col size="6" size-md="3" style="display:flex; align-items:center;">
+			<ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" style="margin-left:10px;"></ion-icon>
+			<div style="display:flex; flex-direction:column; margin-left:20px;">
+				<ion-checkbox [(ngModel)]="showDetails" labelPlacement="end">Details</ion-checkbox>
+				<ion-checkbox [(ngModel)]="showNonWeb" style="margin-top:10px;" labelPlacement="end" (ionChange)="filterNonWeb()">Non-web</ion-checkbox>
+			</div>
+		</ion-col>
+	</ion-row>
+</ion-grid>
 <ion-grid *ngIf="presentation == 'cards'">
 	<ion-row>
-		<ion-col size="12" size-md="3" *ngFor="let card of filteredCards">
-			<ion-card style="max-width:400px; background-color:{{card.enabled == false ? 'rgb(247, 222, 222)' : card.permissions[0] != '_public_' ? 'rgb(247, 247, 222)' : 'rgb(222, 247, 222)'}}">
+		<ion-col size="12" size-md="3" *ngFor="let card of filteredCards; let cc = index;">
+			<ion-card style="max-width:400px; background-color:{{card.web == false ? 'rgb(240, 240, 240)' : card.enabled == false ? 'rgb(247, 222, 222)' : card.permissions[0] != '_public_' ? 'rgb(247, 247, 222)' : 'rgb(222, 247, 222)'}}">
 				<ion-card-header>
 					<ion-fab style="position:absolute; right:4px; display:flex; align-items:flex-end; flex-direction:column;">
 							<div style="display:flex; align-items:center;margin-bottom:7px;">
@@ -58,23 +74,25 @@
 								<ion-icon name="settings-outline" size="large" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon>
 							</div>
 							<ion-chip style="cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip>
-							<div style="margin-top:3px; display:flex; align-items:center;" *ngIf="card.github != ''">
-								<a href="https://github.com/{{card.github}}" title="GitHub {{card.name}}" target="_blank"><ion-icon name="logo-github" size="large" style="margin-right:4px; color:var(--ion-color-secondary);" *ngIf="card.stars != 0"></ion-icon></a>
-								<div style="display:flex; flex-direction:column; align-items:center;"><ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);" *ngIf="card.stars != 0"></ion-icon><span>{{approximateStars(card.stars)}}k</span></div>
+							<div *ngIf="showDetails">
+								{{cc + 1}}: <a href="https://github.com/{{card.github}}" title="GitHub {{card.name}}" target="_blank">{{card.name}}</a>
+								<div style="margin-top:3px; display:flex; justify-content:flex-end;" *ngIf="card.github != ''">
+									<a href="https://github.com/{{card.github}}" title="GitHub {{card.name}}" target="_blank"><ion-icon name="logo-github" size="large" style="margin-right:4px; color:var(--ion-color-secondary);" *ngIf="card.stars != 0"></ion-icon></a>
+									<div style="display:flex; flex-direction:column; align-items:center;"><ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);" *ngIf="card.stars != 0"></ion-icon><span>{{approximateStars(card.stars)}}k</span></div>
+								</div>
 							</div>
 					</ion-fab>
 					<ion-card-title style="display:flex; align-items:center;">
-						<a href="{{card.link}}" title="{{card.title}}" target="_blank"><img src="assets/icon/{{card.module}}.png" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
+						<a href="{{card.link}}" title="{{card.title}}" target="_blank"><img src="assets/icon/{{card.module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
 						<a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a>
 					</ion-card-title>
-					<ion-card-subtitle>
-						<i>Project: {{card.name}}</i><br>
-						Perms: <ion-chip *ngFor="let pm of card.permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip>
+					<ion-card-subtitle *ngIf="showDetails">
+						Visibility: <ion-chip *ngFor="let pm of card.permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip>
 					</ion-card-subtitle>
 				</ion-card-header>
 				<ion-card-content>
-					<p style="color:black;">{{card.description}}</p>
-					Keywords: <ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip>
+					<p style="color:black;" style="font-size:larger; color:black;">{{card.description == "" ? "Placeholder of the description of this module" : card.description}}</p>
+					<ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip>
 				</ion-card-content>
 			</ion-card>
 		</ion-col>
@@ -83,20 +101,20 @@
 <ion-list *ngIf="presentation == 'table'">
 	<ion-item-divider>
 	<ion-label style="flex:1;">Title <ion-icon size="small" (click)="toggleSortDirection('title')" style="margin-left:20px;" [name]="sortDirection == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></ion-label>
-	<ion-label style="flex:1;">Permissions</ion-label>
+	<ion-label style="flex:1;" *ngIf="showDetails">Visibility</ion-label>
 	<ion-label style="flex:1;">Category <ion-icon *ngIf="category == 'All'" size="small" (click)="toggleSortDirection('category')" style="margin-left:20px;" [name]="sortDirection == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></ion-label>
 	<ion-label style="flex:3;">Description</ion-label>
-	<ion-label style="flex:2;">Keywords</ion-label>
-	<ion-label style="flex:1;">Project</ion-label>
-	<ion-label style="flex:1;"></ion-label>
+	<ion-label style="flex:2;" *ngIf="showDetails">Keywords</ion-label>
+	<ion-label style="flex:1;" *ngIf="showDetails">Project</ion-label>
+	<ion-label style="flex:1;">Settings</ion-label>
 	</ion-item-divider>
-	<ion-item *ngFor="let card of filteredCards">
+	<ion-item *ngFor="let card of filteredCards; let cc = index;">
 		<ion-label style="flex:1;"><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a></ion-label>
-		<ion-label style="flex:1;"><ion-chip *ngFor="let pm of card.permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{pm}}</ion-chip></ion-label>
+		<ion-label style="flex:1;" *ngIf="showDetails"><ion-chip *ngFor="let pm of card.permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip></ion-label>
 		<ion-label style="flex:1;"><ion-chip style="cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip></ion-label>
 		<ion-label style="flex:3;">{{card.description}}</ion-label>
-		<ion-label style="flex:2;"><ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip></ion-label>
-		<ion-label style="flex:1;"><a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></ion-label>
+		<ion-label style="flex:2;" *ngIf="showDetails"><ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip></ion-label>
+		<ion-label style="flex:1;" *ngIf="showDetails">{{cc + 1}}: <a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></ion-label>
 		<ion-label style="flex:1;"><ion-icon name="settings-outline" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon></ion-label>
 	</ion-item>
 </ion-list>
@@ -113,7 +131,7 @@
 				<div *ngIf="cards[findIdByModule(moduleCur)].github != ''">
 					<i>Project: {{cards[findIdByModule(moduleCur)].name}}</i>&nbsp;&nbsp;<a href="https://github.com/{{cards[findIdByModule(moduleCur)].github}}" title="GitHub {{cards[findIdByModule(moduleCur)].name}}" target="_blank"><ion-icon name="logo-github" size="large" style="margin-right:4px; color:var(--ion-color-secondary);" *ngIf="cards[findIdByModule(moduleCur)].stars != 0"></ion-icon></a> <ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);" *ngIf="cards[findIdByModule(moduleCur)].stars != 0"></ion-icon><span>{{approximateStars(cards[findIdByModule(moduleCur)].stars)}}k</span>
 				</div>
-				Perms: <ion-chip *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip><br><br>
+				Visibility: <ion-chip *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip><br><br>
 				Keywords: <ion-chip *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip>
 			</div>
 		</ion-content>
