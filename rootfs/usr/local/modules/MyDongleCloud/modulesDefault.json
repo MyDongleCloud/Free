@@ -42,7 +42,6 @@
 		"permissions": [ "admin" ],
 		"localPort": 9204
 	},
-	"Composer": {},
 	"ConvertX": {
 		"web": true,
 		"enabled": true,
@@ -275,7 +274,7 @@
 		"alias": [ "app", "mdc" ]
 	},
 	"MySQL": {},
-	"Nginx": {},
+	"NGINX": {},
 	"Node": {},
 	"Ollama": {
 		"web": true,
@@ -301,15 +300,6 @@
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9236
-	},
-	"OTG": {
-		"enabled": "true",
-		"features": ["serial", "mtp"],
-		"mtp": {
-			"show_hidden_files": true,
-			"path": "/disk/admin",
-			"rights": "rw"
-		}
 	},
 	"Pandoc": {
 		"web": true,
@@ -451,7 +441,15 @@
 		"permissions": [ "admin" ],
 		"localPort": 9257
 	},
-	"uMTP-Responder": {},
+	"uMTP-Responder": {
+		"enabled": "true",
+		"features": ["serial", "mtp"],
+		"mtp": {
+			"show_hidden_files": true,
+			"path": "/disk/admin",
+			"rights": "rw"
+		}
+	},
 	"Unmanic": {
 		"web": true,
 		"enabled": true,
@@ -502,6 +500,7 @@
 		"localPort": 9264
 	},
 	"Youtubedl": {},
+	"ytdlp": {},
 	"Zigbee2MQTT": {
 		"web": true,
 		"enabled": true,
