@@ -156,6 +156,10 @@
 				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
 				<tr><td colspan="3" height="8"></td></tr>
 				<tr><td>Keywords</td><td width="20"></td><td><ion-chip *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td>Proprietary<br>equivalent</td><td width="20"></td><td>{{cards[findIdByModule(moduleCur)].proprietary}}</td></tr>
 			</table>
 		</ion-content>
 	</ng-template>

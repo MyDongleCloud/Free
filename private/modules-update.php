@@ -52,7 +52,8 @@ for ($i = 1; $i < count($modules); $i++) {
 		"version" => $m[gc("version")],
 		"category" => $m[gc("category")],
 		"description" => $m[gc("description")],
-		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")])
+		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")]),
+		"proprietary" => empty($m[gc("proprietary")]) ? array() : explode("|", $m[gc("proprietary")])
 	);
 }
 echo "Github stars: " . $starsTotal . "\n";
