@@ -309,13 +309,9 @@ cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local
 cd ..
 
 echo "################################"
-echo "Better-auth"
+echo "npm packages"
 echo "################################"
-cd /home/mdc/build
-mkdir better-auth
-cd better-auth
-npm install better-auth
-cd ../..
+npm -g install @angular/cli @ionic/cli @vue/cli cordova-res better-auth
 
 echo "################################"
 echo "Zigbee2MQTT"
