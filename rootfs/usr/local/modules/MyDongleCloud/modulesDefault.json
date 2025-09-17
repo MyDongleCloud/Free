@@ -25,7 +25,6 @@
 		"permissions": [ "admin" ],
 		"localPort": 9202
 	},
-	"btferret": {},
 	"Busybox": {},
 	"Certbot": {},
 	"ChangeDetection": {
