@@ -219,9 +219,9 @@ void logicPasscode(int forcePasscode) {
 		lmdc.passcode = (rand() % 899999) + 100000;
 #else
 		lmdc.passcode = oathAdmin();
+	buzzer(1);
 #endif
 	lmdc.current = LOGIC_PASSCODE;
-	buzzer(1);
 	logicUpdate();
 }
 
