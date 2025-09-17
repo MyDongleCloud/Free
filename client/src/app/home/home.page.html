@@ -86,7 +86,7 @@
 						<div style="display:flex; align-items:center;">
 							<span *ngIf="showDetails">Nº{{cc + 1}}&nbsp;&nbsp;</span>
 							<a href="javascript:void()" *ngIf="card.enabled == false" title="Disabled module"><ion-icon name="cloud-offline-outline" size="large" style="color:var(--ion-color-danger); margin-right:4px;"></ion-icon></a>
-							<ion-icon name="settings-outline" size="large" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon>
+							<ion-icon name="information-circle-outline" size="large" (click)="info(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon>
 						</div>
 						<ion-chip style="margin-top:7px; cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip>
 						<div style="margin-top:5px; display:flex; justify-content:flex-end;" *ngIf="showDetails && card.githubUrl != ''">
@@ -112,24 +112,22 @@
 	<ion-label style="flex:1;">Category <ion-icon *ngIf="category == 'All'" size="small" (click)="toggleSortDirection('category')" style="margin-left:20px;" [name]="sortDirection == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></ion-label>
 	<ion-label style="flex:3;">Description</ion-label>
 	<ion-label style="flex:2;" *ngIf="showDetails">Keywords</ion-label>
-	<ion-label style="flex:1;" *ngIf="showDetails">Project</ion-label>
-	<ion-label style="flex:1;">Settings</ion-label>
+	<ion-label style="flex:1;" *ngIf="showDetails">Open-source</ion-label>
 	</ion-item-divider>
 	<ion-item *ngFor="let card of filteredCards; let cc = index;">
 		<ion-label style="flex:1;"><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a></ion-label>
 		<ion-label style="flex:1;" *ngIf="showDetails"><ion-chip *ngFor="let pm of card.permissions" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{global.mytranslateM(pm)}}</ion-chip></ion-label>
 		<ion-label style="flex:1;"><ion-chip style="cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip></ion-label>
-		<ion-label style="flex:3;">{{card.description}}</ion-label>
+		<ion-label style="flex:3; display:flex; align-items:center;"><ion-icon name="information-circle-outline" size="large" (click)="info(card.module)" style="color:var(--ion-color-secondary); cursor:pointer; margin-right:10px;"></ion-icon><span>{{card.description}}</span></ion-label>
 		<ion-label style="flex:2;" *ngIf="showDetails"><ion-chip *ngFor="let kw of card.keywords" style="cursor:default; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid gray; background-color:transparent;">{{kw}}</ion-chip></ion-label>
 		<ion-label style="flex:1;" *ngIf="showDetails">{{cc + 1}}&nbsp;&nbsp;<a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></ion-label>
-		<ion-label style="flex:1;"><ion-icon name="settings-outline" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon></ion-label>
 	</ion-item>
 </ion-list>
 
-<ion-modal #modalModuleSettings class="modalLimitSize">
+<ion-modal #modalModuleInfo class="modalLimitSize">
 	<ng-template>
 		<ion-content class="ion-padding">
-			<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeModuleSettings()">Details of "{{cards[findIdByModule(moduleCur)].title}}"<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
+			<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeModuleInfo()">Details of "{{cards[findIdByModule(moduleCur)].title}}"<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
 			<br><table style="width:100%;">
 				<tr><td colspan="3"><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank"><img src="assets/icon/{{cards[findIdByModule(moduleCur)].module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
 				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{cards[findIdByModule(moduleCur)].title}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}</a></td></tr>
@@ -142,8 +140,9 @@
 				<tr><td colspan="3" height="8"></td></tr>
 				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
 				<tr><td colspan="3" height="8"></td></tr>
-				<tr><td>Links</td><td width="20"></td><td><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link}}</a><br>
-				<a href="{{cards[findIdByModule(moduleCur)].link2}}" title="{{cards[findIdByModule(moduleCur)].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link2}}</a></td></tr>
+				<tr><td>Links</td><td width="20"></td><td>
+				<a href="{{cards[findIdByModule(moduleCur)].link2}}" title="{{cards[findIdByModule(moduleCur)].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link2}}</a><br>
+				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link}}</a></td></tr>
 				<tr><td colspan="3" height="8"></td></tr>
 				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
 				<tr><td colspan="3" height="8"></td></tr>

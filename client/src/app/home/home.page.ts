@@ -13,7 +13,7 @@ import modulesMeta from '../modulesMeta.json';
 })
 
 export class Home {
-@ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
+@ViewChild("modalModuleInfo") modalModuleInfo: IonModal;
 modules;
 moduleCur;
 cards;
@@ -51,6 +51,10 @@ async getData() {
 	const version = modulesDefault.version;
 	delete modulesDefault.version;
 	Object.entries(modulesDefault).forEach(([key, value]) => {
+		if (modulesMeta[key] === undefined) {
+			console.log("Error: " + key + " not in modulesMeta");
+			return;
+		}
 		if (value["web"] !== true)
 			value = { permissions:["admin"], web:false, enabled:true };
 		value["enabled"] = this.modules[key]?.enabled ?? value["enabled"] ?? true;
@@ -58,8 +62,10 @@ async getData() {
 		value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
 		if (value["web"]) {
 			const ll = value["alias"].length > 0 ? value["alias"][0] : key;
-			value["link"] = location.protocol + "://" + location.host + "/m/" + ll;
+			value["link"] = location.protocol + "//" + location.host + "/m/" + ll;
 			value["link2"] = "https://" + ll + "." + (this.global.settings?.space?.["name"] ?? "") + ".mydongle.cloud";
+			value["link"] = value["link"].toLowerCase();
+			value["link2"] = value["link2"].toLowerCase();
 		}
 		if (modulesMeta[key] !== undefined)
 		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
@@ -79,7 +85,7 @@ filterCards() {
 	this.filteredCards = this.cards.filter( card => {
 		if (this.showNonWeb == false && card.web == false)
 			return false;
-		let ret =  card.title.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
+		let ret =  card.title.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term));
 		return this.category == "All" ? ret : (ret && card.category.includes(this.category));
 	});
 	this.sortCards();
@@ -121,13 +127,13 @@ approximateStars(s) {
 	return s > 10000 ? Math.round(s / 1000) : (s / 1000).toFixed(1);
 }
 
-async settings(module) {
+async info(module) {
 	this.moduleCur = module;
-	await this.modalModuleSettings.present();
+	await this.modalModuleInfo.present();
 }
 
-closeModuleSettings() {
-	this.modalModuleSettings.dismiss();
+closeModuleInfo() {
+	this.modalModuleInfo.dismiss();
 }
 
 }
