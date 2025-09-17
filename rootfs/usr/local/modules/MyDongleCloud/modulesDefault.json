@@ -199,6 +199,12 @@
 		"permissions": [ "admin" ],
 		"localPort": 9222
 	},
+	"JsTinker": {
+		"web": true,
+		"enabled": true,
+		"permissions": [ "admin" ],
+		"localPort": 9267
+	},
 	"Karakeep": {
 		"web": true,
 		"enabled": true,
@@ -223,6 +229,12 @@
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9226
+	},
+	"LiveCodes": {
+		"web": true,
+		"enabled": true,
+		"permissions": [ "admin" ],
+		"localPort": 9268
 	},
 	"Make": {},
 	"MantisBugTracker": {

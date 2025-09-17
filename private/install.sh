@@ -269,6 +269,15 @@ mv frp_*_linux_arm64/frpc /usr/local/modules/frp
 cd ..
 
 echo "################################"
+echo "LiveCodes"
+echo "################################"
+cd /home/mdc/build
+wget https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
+mkdir /usr/local/modules/LiveCodes
+tar -xpvf livecodes-v46.tar.gz -C /usr/local/modules/LiveCodes --strip-components=1
+cd ..
+
+echo "################################"
 echo "Qdrant"
 echo "################################"
 cd /home/mdc/build
@@ -586,6 +595,7 @@ else
 	clone Jellyfin jellyfin/jellyfin v10.10.7
 	clone Joomla joomla/joomla-cms 5.3.2
 	clone Joplin laurent22/joplin server-v3.4.1
+	clone JsTinker johncipponeri/jstinker master
 	clone Karakeep karakeep-app/karakeep v0.26.0
 	clone LibrePhotos LibrePhotos/librephotos HEAD
 	clone LimeSurvey LimeSurvey/LimeSurvey 6.15.3+250708
