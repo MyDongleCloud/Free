@@ -38,6 +38,7 @@
 #define NAMES_PATH "/usr/local/modules/MyDongleCloud/names.txt"
 #define BLE_CHUNK 182
 #define COMMUNICATION_INTERNAL_PORT 8093
+#define NM_CONFIG_PATH "/etc/NetworkManager/system-connections/%s"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
 #define ZIGBEE_FIRMWARE "/usr/local/modules/Zigbee2MQTT/CC2652R1_coordinator.bin"

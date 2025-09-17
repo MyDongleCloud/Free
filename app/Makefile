@@ -31,14 +31,15 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)sbl2.o \
 	$(PRE)settings.o \
 	$(PRE)space.o \
-	$(PRE)ui.o
+	$(PRE)ui.o \
+	$(PRE)wifi.o
 
 MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -DMDC_VERSION=$(MDC_VERSION)
 MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -loath
 
 OBJs_APP := $(OBJs) $(PRE)backend-spi.o
-MYCFLAGS_APP = $(MYCFLAGS) -I ../build/lvgl/
-MYLDFLAGS_APP = $(MYLDFLAGS) -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput -lcrypt
+MYCFLAGS_APP = $(MYCFLAGS) -I ../build/lvgl/ `pkg-config --cflags libnm`
+MYLDFLAGS_APP = $(MYLDFLAGS) -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput -lcrypt `pkg-config --libs libnm`
 
 OBJs_DESKTOP := $(OBJs:%.o=%_.o) $(PRE)backend-gtk_.o
 MYCFLAGS_DESKTOP = $(MYCFLAGS_APP) -DDESKTOP `pkg-config --cflags gtk+-3.0`
