@@ -105,7 +105,8 @@ static void circulaText(char *sz, int x, int y, int s) {
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 
 	static lv_style_t labelStyle;
-	lv_style_init(&labelStyle);
+	if (labelStyle.prop_cnt == 0)
+		lv_style_init(&labelStyle);
 	lv_style_set_text_font(&labelStyle, &lv_font_montserrat_12);
 	lv_obj_add_style(label0, &labelStyle, LV_STATE_DEFAULT);
 }
@@ -142,7 +143,8 @@ static void buttonImg(int key, int longPress, const void *arg) {
 	lv_obj_set_pos(btn0, posx, posy);
 
 	static lv_style_t btn0StylePressed;
-	lv_style_init(&btn0StylePressed);
+	if (btn0StylePressed.prop_cnt == 0)
+		lv_style_init(&btn0StylePressed);
 	lv_style_set_img_recolor_opa(&btn0StylePressed, LV_OPA_30);
 	lv_style_set_img_recolor(&btn0StylePressed, lv_color_black());
 	lv_obj_add_style(btn0, &btn0StylePressed, LV_STATE_PRESSED);
@@ -171,7 +173,8 @@ static void button(int pos, char *sz, const void *arg) {
 	lv_obj_set_pos(btn0, posx, posy);
 	lv_obj_set_size(btn0, 49, 14);
 	static lv_style_t btnStyle;
-	lv_style_init(&btnStyle);
+	if (btnStyle.prop_cnt == 0)
+		lv_style_init(&btnStyle);
 	lv_style_set_bg_color(&btnStyle, lv_color_hex(COLOR_DARK));
 	lv_style_set_radius(&btnStyle, 4);
 	lv_obj_add_style(btn0, &btnStyle, 0);
@@ -180,7 +183,8 @@ static void button(int pos, char *sz, const void *arg) {
 	lv_obj_t *labelBtn0 = lv_label_create(btn0);
 	lv_label_set_text(labelBtn0, sz);
 	static lv_style_t labelStyleBtn0;
-	lv_style_init(&labelStyleBtn0);
+	if (labelStyleBtn0.prop_cnt == 0)
+		lv_style_init(&labelStyleBtn0);
 	lv_style_set_text_font(&labelStyleBtn0, &lv_font_montserrat_12);
 	lv_style_set_text_color(&labelStyleBtn0, lv_color_hex(COLOR_WHITE));
 	lv_obj_add_style(labelBtn0, &labelStyleBtn0, LV_STATE_DEFAULT);
@@ -195,7 +199,8 @@ static void button(int pos, char *sz, const void *arg) {
 
 static void advancement(int pos) {
 	static lv_style_t btnStyle;
-	lv_style_init(&btnStyle);
+	if (btnStyle.prop_cnt == 0)
+		lv_style_init(&btnStyle);
 	lv_style_set_bg_color(&btnStyle, lv_color_hex(COLOR_DARK));
 	lv_style_set_shadow_width(&btnStyle, 0);
 	int x, y, s;
@@ -292,7 +297,8 @@ static void uiBar() {
 	lv_obj_set_pos(labelTime, 66, 0);
 	lv_obj_set_size(labelTime , 50, 24);
 	static lv_style_t labelStyle1;
-	lv_style_init(&labelStyle1);
+	if (labelStyle1.prop_cnt == 0)
+		lv_style_init(&labelStyle1);
 	lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_10);
 	lv_style_set_text_color(&labelStyle1, lv_color_hex(COLOR_WHITE));
 	lv_obj_add_style(labelTime, &labelStyle1, LV_STATE_DEFAULT);
@@ -321,7 +327,8 @@ void uiScreenWelcome() {
 	lv_obj_set_width(label1, 128);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
 	static lv_style_t labelStyle1;
-	lv_style_init(&labelStyle1);
+	if (labelStyle1.prop_cnt == 0)
+		lv_style_init(&labelStyle1);
 	lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_10);
 	lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 	lv_obj_align(label1, LV_ALIGN_TOP_LEFT, 0, 46);
@@ -331,7 +338,8 @@ void uiScreenWelcome() {
 	lv_obj_set_width(label2, 128);
 	lv_obj_set_style_text_align(label2, LV_TEXT_ALIGN_CENTER, 0);
 	static lv_style_t labelStyle2;
-	lv_style_init(&labelStyle2);
+	if (labelStyle2.prop_cnt == 0)
+		lv_style_init(&labelStyle2);
 	lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_10);
 	lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
 	lv_obj_align(label2, LV_ALIGN_TOP_LEFT, 0, 73);
@@ -355,7 +363,8 @@ void uiScreenSleep() {
 static void doubleText(char *sz, char *sz2, int y, int x2) {
 	if (sz == NULL) {
 		static lv_style_t labelStyle1;
-		lv_style_init(&labelStyle1);
+		if (labelStyle1.prop_cnt == 0)
+				lv_style_init(&labelStyle1);
 		lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_10);
 		lv_style_set_text_decor(&labelStyle1, LV_TEXT_DECOR_UNDERLINE);
 		lv_style_set_text_color(&labelStyle1, lv_color_hex(COLOR_LIGHT));
@@ -368,7 +377,8 @@ static void doubleText(char *sz, char *sz2, int y, int x2) {
 		lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 	} else {
 		static lv_style_t labelStyle0;
-		lv_style_init(&labelStyle0);
+		if (labelStyle0.prop_cnt == 0)
+				lv_style_init(&labelStyle0);
 		lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_10);
 		//lv_style_set_text_color(&labelStyle0, lv_color_hex(COLOR_LIGHT));
 
@@ -378,7 +388,8 @@ static void doubleText(char *sz, char *sz2, int y, int x2) {
 		lv_obj_set_pos(label0, 4, y);
 
 		static lv_style_t labelStyle1;
-		lv_style_init(&labelStyle1);
+		if (labelStyle1.prop_cnt == 0)
+				lv_style_init(&labelStyle1);
 		lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_10);
 		lv_style_set_text_color(&labelStyle1, lv_color_hex(COLOR_LIGHT));
 
@@ -393,13 +404,15 @@ static void progressBar(int w, int y, char *sz, char *sz2, int p) {
 	doubleText(sz, sz2, y, 35);
 
 	static lv_style_t style_bg;
-	lv_style_init(&style_bg);
+	if (style_bg.prop_cnt == 0)
+		lv_style_init(&style_bg);
 	lv_style_set_border_color(&style_bg, lv_color_hex(COLOR_DARK));
 	lv_style_set_border_width(&style_bg, 1);
 	lv_style_set_pad_all(&style_bg, 2);
 	lv_style_set_radius(&style_bg, 3);
 	static lv_style_t style_indic;
-	lv_style_init(&style_indic);
+	if (style_indic.prop_cnt == 0)
+		lv_style_init(&style_indic);
 	lv_style_set_bg_opa(&style_indic, LV_OPA_COVER);
 	lv_style_set_bg_color(&style_indic, lv_color_hex(COLOR_LIGHT_FORCED));
 	lv_style_set_bg_grad_color(&style_indic, lv_palette_main(LV_PALETTE_RED));
@@ -427,7 +440,8 @@ void uiScreenHome() {
 		lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 		lv_obj_set_pos(label0, 2, 26);
 		static lv_style_t labelStyle0;
-		lv_style_init(&labelStyle0);
+		if (labelStyle0.prop_cnt == 0)
+				lv_style_init(&labelStyle0);
 		lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_14);
 		lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
 
@@ -440,7 +454,8 @@ void uiScreenHome() {
 		lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
 		lv_obj_set_pos(label1, 12, 60);
 		static lv_style_t labelStyle1;
-		lv_style_init(&labelStyle1);
+		if (labelStyle1.prop_cnt == 0)
+				lv_style_init(&labelStyle1);
 		lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_14);
 		lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
@@ -452,7 +467,8 @@ void uiScreenHome() {
 		lv_obj_set_style_text_align(label2, LV_TEXT_ALIGN_CENTER, 0);
 		lv_obj_set_pos(label2, 2, 95);
 		static lv_style_t labelStyle2;
-		lv_style_init(&labelStyle2);
+		if (labelStyle2.prop_cnt == 0)
+				lv_style_init(&labelStyle2);
 		lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_10);
 		lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
 
@@ -462,7 +478,8 @@ void uiScreenHome() {
 		lv_obj_set_style_text_align(label3, LV_TEXT_ALIGN_CENTER, 0);
 		lv_obj_set_pos(label3, 66, 26);
 		static lv_style_t labelStyle3;
-		lv_style_init(&labelStyle3);
+		if (labelStyle3.prop_cnt == 0)
+				lv_style_init(&labelStyle3);
 		lv_style_set_text_font(&labelStyle3, &lv_font_montserrat_14);
 		lv_obj_add_style(label3, &labelStyle3, LV_STATE_DEFAULT);
 
@@ -475,7 +492,8 @@ void uiScreenHome() {
 		lv_obj_set_style_text_align(label4, LV_TEXT_ALIGN_CENTER, 0);
 		lv_obj_set_pos(label4, 76, 60);
 		static lv_style_t labelStyle4;
-		lv_style_init(&labelStyle4);
+		if (labelStyle4.prop_cnt == 0)
+				lv_style_init(&labelStyle4);
 		lv_style_set_text_font(&labelStyle4, &lv_font_montserrat_14);
 		lv_obj_add_style(label4, &labelStyle4, LV_STATE_DEFAULT);
 
@@ -486,7 +504,8 @@ void uiScreenHome() {
 		lv_obj_set_style_text_align(label5, LV_TEXT_ALIGN_CENTER, 0);
 		lv_obj_set_pos(label5, 66, 95);
 		static lv_style_t labelStyle5;
-		lv_style_init(&labelStyle5);
+		if (labelStyle5.prop_cnt == 0)
+				lv_style_init(&labelStyle5);
 		lv_style_set_text_font(&labelStyle5, &lv_font_montserrat_10);
 		lv_obj_add_style(label5, &labelStyle5, LV_STATE_DEFAULT);
 	} else if (lmdc.homePos == 1) {
@@ -541,7 +560,8 @@ void uiScreenTips() {
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	static lv_style_t labelStyle0;
-	lv_style_init(&labelStyle0);
+	if (labelStyle0.prop_cnt == 0)
+		lv_style_init(&labelStyle0);
 	lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_12);
 	lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
 	lv_obj_center(label0);
@@ -555,7 +575,8 @@ void uiScreenTips() {
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_align(label1, LV_ALIGN_BOTTOM_LEFT, 0, -3);
 	static lv_style_t labelStyle1;
-	lv_style_init(&labelStyle1);
+	if (labelStyle1.prop_cnt == 0)
+		lv_style_init(&labelStyle1);
 	lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_10);
 	lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
@@ -621,7 +642,8 @@ void uiScreenPasscode(int expiration) {
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_align(label0, LV_ALIGN_TOP_LEFT, 0, 4);
 	static lv_style_t labelStyle1;
-	lv_style_init(&labelStyle1);
+	if (labelStyle1.prop_cnt == 0)
+		lv_style_init(&labelStyle1);
 	lv_obj_add_style(label0, &labelStyle1, LV_STATE_DEFAULT);
 
 	lv_obj_t *label1 = lv_label_create(lv_screen_active());
@@ -632,7 +654,8 @@ void uiScreenPasscode(int expiration) {
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_align(label1, LV_ALIGN_TOP_LEFT, 0, 22);
 	static lv_style_t labelStyle2;
-	lv_style_init(&labelStyle2);
+	if (labelStyle2.prop_cnt == 0)
+		lv_style_init(&labelStyle2);
 	lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_30);
 	lv_obj_add_style(label1, &labelStyle2, LV_STATE_DEFAULT);
 
@@ -647,7 +670,8 @@ void uiScreenPasscode(int expiration) {
 	lv_obj_set_style_text_align(label2, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_align(label2, LV_ALIGN_TOP_LEFT, 0, 57);
 	static lv_style_t labelStyle3;
-	lv_style_init(&labelStyle3);
+	if (labelStyle3.prop_cnt == 0)
+		lv_style_init(&labelStyle3);
 	lv_style_set_text_font(&labelStyle3, &lv_font_montserrat_12);
 	lv_obj_add_style(label2, &labelStyle3, LV_STATE_DEFAULT);
 
