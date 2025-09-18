@@ -17,10 +17,12 @@ cJSON *jsonRead(char *path) {
 	if (stat(path, &statTest) != 0 || statTest.st_size == 0)
 		return NULL;
 	int size = statTest.st_size + 16;
-	char *sz = malloc(size);
+	char *sz = malloc(size + 1);
+	strcpy(sz, "");
 	FILE *f = fopen(path, "r");
 	if (f) {
 		fread(sz, size, 1, f);
+		sz[size] = '\0';
 		fclose(f);
 	}
 	cJSON *ret = cJSON_Parse(sz);
