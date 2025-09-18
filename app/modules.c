@@ -117,6 +117,7 @@ remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 				}
 				fclose(pf);
 			}
+			cJSON_Delete(elModule2Proxy);
 #ifndef DESKTOP
 			if (used && getuid() == 1001) {
 				PRINTF("Modules:frp: Starting service (user=admin)\n");
