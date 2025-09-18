@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { Global } from './env';
 
 const routes: Routes = [
 	{
@@ -23,9 +22,6 @@ const routes: Routes = [
 
 export class AppRoutingModule {
 
-constructor(private global: Global) {
-	console.log("Version: " + global.VERSION);
-	console.log("Platform: " + global.plt.platforms());
-}
+constructor() {}
 
 }

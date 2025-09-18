@@ -23,6 +23,10 @@ settings: Settings = {} as Settings;
 DONGLEURL: string;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private translate: TranslateService, private httpClient: HttpClient) {
+	console.log("%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
+	console.log("%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
+	console.log("%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
+	console.log("Platform: " + this.plt.platforms());
 	if (environment.production || this.isPlatform("androidios")) {
 		this.MASTERURL = "";
 	} else
