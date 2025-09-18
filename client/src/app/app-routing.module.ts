@@ -52,9 +52,6 @@ const routes: Routes = [
 
 export class AppRoutingModule {
 
-constructor(private global: Global) {
-	console.log("Version: " + global.VERSION);
-	console.log("Platform: " + global.plt.platforms());
-}
+constructor() {}
 
 }

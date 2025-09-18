@@ -41,6 +41,10 @@ refreshObs;
 firmwareServerVersion;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
+	console.log("%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
+	console.log("%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
+	console.log("%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
+	console.log("Platform: " + this.plt.platforms());
 	if (environment.production || this.isPlatform("androidios")) {
 		this.MASTERURL = "";
 	} else
