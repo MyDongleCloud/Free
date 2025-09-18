@@ -127,6 +127,8 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			communicationJSON(space);
 			cJSON_Delete(space);
 #endif
+		} else if (strcmp(action, "date") == 0) {
+			;
 		} else {
 			PRINTF("communicationReceive: action:%s via %s\n", action, orig);
 #ifndef WEB
