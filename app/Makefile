@@ -8,7 +8,9 @@ MYCC = $(QUIET)gcc
 MYCC_WEB = $(QUIET)/opt/emsdk/upstream/emscripten/emcc
 MYLINKPP = $(QUIETLINK)g++
 MYLINKPP_WEB = $(QUIETLINK)/opt/emsdk/upstream/emscripten/em++
-#DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
+ifeq ($(Q)$(d), 1)
+	DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
+endif
 PRE = ../build/_app/
 MDC_VERSION=\"$(shell cat version.txt)\"
 
