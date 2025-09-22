@@ -1,5 +1,5 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
@@ -65,6 +65,12 @@ checkPassword4(group: FormGroup) {
 }
 
 async ionViewDidEnter() {
+	const params = new URLSearchParams(window.location.search);
+	const verify = params.get("verify");
+	if (params.has("verify")) {
+		await this.doMagicLinkVerify(verify);
+		return;
+	}
 	let count = 20;
 	while (this.global.session === undefined && count-- > 0)
 		await this.global.sleepms(100);
@@ -95,6 +101,11 @@ get resetCode4() { return this.formResetCode.get("resetCode4"); }
 get password4() { return this.formResetCode.get("password4"); }
 get passwordConfirm4() { return this.formResetCode.get("passwordConfirm4"); }
 
+validateEmail(e) {
+	const tempControl = new FormControl(e);
+	return e != "" && Validators.email(tempControl) == null;
+}
+
 showLogin() {
 	this.showRegistration = false;
 	this.showReseting = false;
@@ -108,7 +119,7 @@ async doLogin() {
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/email", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth sign-in: ", ret);
+		console.log("Auth sign-in/email: ", ret);
 	} catch(e) {}
 	this.progress = false;
 	this.showWrongLogin = ret == null;
@@ -117,6 +128,36 @@ async doLogin() {
 		this.global.openPage("", false);
 	} else
 		this.cdr.detectChanges();
+}
+
+async doMagicLink() {
+	this.progress = true;
+	const data = { email:this.email1.value, callbackURL:window.location.origin };
+	let ret = null;
+	try {
+		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/magic-link", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth sign-in/magic-link: ", ret);
+	} catch(e) {}
+	this.progress = false;
+	this.showWrongLogin = ret == null;
+	if (ret != null) {
+		await this.global.presentAlert("Success!", "An email has been sent with an automatic login link. Please use it to login.", "You can safely close this page now.");
+		this.global.openPage("login", false);
+	} else
+		this.cdr.detectChanges();
+}
+
+async doMagicLinkVerify(token) {
+	let ret = null;
+alert(token);
+	try {
+		ret = await this.httpClient.get("/MyDongleCloud/Auth/magic-link/verify?token=" + token, {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth magic-link/verify: ", ret);
+	} catch(e) {}
+	if (ret != null) {
+		await this.global.getSession();
+		this.global.openPage("", false);
+	}
 }
 
 showRegister() {

@@ -2,8 +2,8 @@ import { existsSync, readFileSync, writeFileSync } from "fs";
 import { randomBytes } from 'crypto';
 import { betterAuth } from "better-auth";
 import { createAuthEndpoint, createAuthMiddleware } from "better-auth/api";
-import { BetterAuthPlugin, customSession, jwt, oneTap, username, emailOTP, haveIBeenPwned } from "better-auth/plugins";
-import { sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInOTP, sendVerificationEmailURL } from "./email";
+import { BetterAuthPlugin, customSession, jwt, oneTap, username, emailOTP, haveIBeenPwned, magicLink } from "better-auth/plugins";
+import { sendMagicLinkEmail, sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInOTP, sendVerificationEmailURL } from "./email";
 import Database from "better-sqlite3";
 import "dotenv/config";
 import * as net from "net";
@@ -94,6 +94,11 @@ export const auth = betterAuth({
 				space,
 				modules
 			};
+		}),
+		magicLink({
+			async sendMagicLink({ email, token, url }) {
+				await sendMagicLinkEmail(email, token, url);
+			},
 		}),
 		jwt({
 			jwt: {

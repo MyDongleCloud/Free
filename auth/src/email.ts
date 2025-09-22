@@ -10,6 +10,36 @@ const transporter = nodemailer.createTransport({
 	secure: true
 });
 
+const sendMagicLinkEmail = async (to, token, url) => {
+	const link = decodeURIComponent(url.replace(/.*callbackURL=/, "")) + "/login?verify=" + token;
+	await transporter.sendMail({
+	from: `"${EMAIL_APP_NAME} - Email Verification" <${EMAIL_USER}>`,
+	to,
+	subject: `Unique URL to Login - ${EMAIL_APP_NAME}`,
+	html: `
+		<div style="font-family:sans-serif; line-height:1.5; max-width:600px; margin:0 auto;">
+			<div style="background-color:#0054e9; padding:20px; text-align:center;">
+				<h1 style="color:white; margin:0;">${EMAIL_APP_NAME}</h1>
+			</div>
+			<div style="padding:30px; background-color:#f9f9f9;">
+				<h2 style="color:#333;">Unique URL to Login</h2>
+				<p>Hello,</p>
+				<p>Please use the button below to login:</p>
+				<div style="text-align:center; margin:30px 0;">
+					<div style="background-color:#2dd55b; color:white; padding:15px 30px; display:inline-block; border-radius:8px; font-size:24px; font-weight:bold; letter-spacing:3px;"><a href="${link}">Automatic Login</a></div>
+				</div>
+				<p style="color:#666;">Copy-paste this link in your browser if needed:<br>${link}</p>
+				<p style="color:#666;">This link will expire in 10 minutes for security reasons.</p>
+				<p>If you didn't request this link, please ignore this email.</p>
+				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
+				<p>Thank you,<br/>The ${EMAIL_APP_NAME} Team</p>
+				<p style="font-size:12px; color:#999;">Visit at <a href="${EMAIL_APP_URL}" target="_blank" style="color:#0054e9;">${EMAIL_APP_URL}</a></p>
+			</div>
+		</div>
+	`,
+	});
+};
+
 const sendVerificationEmail = async (to, code) => {
 	await transporter.sendMail({
 	from: `"${EMAIL_APP_NAME} - Email Verification" <${EMAIL_USER}>`,
@@ -129,9 +159,10 @@ const sendVerificationEmailURL = async (to, url) => {
 	});
 };
 
-export { 
-	sendVerificationEmail, 
-	sendPasswordResetVerificationEmail, 
+export {
+	sendMagicLinkEmail,
+	sendVerificationEmail,
+	sendPasswordResetVerificationEmail,
 	sendSignInOTP,
-	sendVerificationEmailURL 
+	sendVerificationEmailURL
 };

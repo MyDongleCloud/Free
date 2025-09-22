@@ -32,9 +32,13 @@
 			<span *ngIf="password1.errors?.required">{{global.mytranslate("Password is required")}}</span>
 			<span *ngIf="password1.errors?.minlength">{{global.mytranslate("Password needs to be 6 characters")}}</span>
 		</div>
-		<ion-button expand="block" [disabled]="!formLogin.valid || progress" (click)="doLogin()">{{global.mytranslate("Log in")}}</ion-button>
+		<br/>
+		<ion-button expand="block" [disabled]="!formLogin.valid || progress" (click)="doLogin()">{{global.mytranslate("Log in with password")}}</ion-button>
+		<br/>
+		<ion-button expand="block" [disabled]="!validateEmail(email1Input.value) || progress" (click)="doMagicLink()">{{global.mytranslate("Receive link to login")}}</ion-button>
 		<div *ngIf="showWrongLogin" class="errors">{{global.mytranslate("Wrong credentials. Please try again.")}}</div>
 	</form>
+	<br/><br/><br/>
 	<br/><br/><br/>
 	<ion-button expand="block" (click)="showRegister()">{{global.mytranslate("Sign up!")}}</ion-button>
 	<br/><br/><br/>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { App } from '@capacitor/app';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
@@ -21,7 +21,7 @@ settings: Settings = {} as Settings;
 DONGLEURL: string;
 session;
 
-constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private translate: TranslateService, private httpClient: HttpClient) {
+constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private translate: TranslateService, private httpClient: HttpClient) {
 	console.log("%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
 	console.log("%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
 	console.log("%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
@@ -87,7 +87,6 @@ async logout() {
 }
 
 async settingsSave() {
-	
 }
 
 openPage(url: string, close: boolean) {
@@ -96,6 +95,39 @@ openPage(url: string, close: boolean) {
 }
 
 async backButtonAlert() {
+	const alert = await this.alertCtrl.create({
+		message: this.mytranslateP("splash", "Do you want to leave this application?"),
+		buttons: [{
+			text: "cancel",
+			role: "cancel"
+		},{
+			text: "Close App",
+			handler: () => {
+				App.exitApp();
+			}
+		}]
+	});
+	await alert.present();
+}
+
+async presentAlert(hd, st, msg, key:string = "") {
+	let checked = false;
+	if (this.settings.dontShowAgain[key] !== undefined)
+		return;
+	const alert = await this.alertCtrl.create({
+		cssClass: "basic-alert",
+		header: hd,
+		subHeader: st,
+		message: msg,
+		buttons: [{ text:"OK", handler: data => { if (data !== undefined && data.length > 0 && data[0]) checked = true; } }],
+		inputs: key != "" ? [{label:"Don't show again", type:"checkbox", checked:false, value:true}] : []
+	});
+	await alert.present();
+	await alert.onDidDismiss();
+	if (checked) {
+		this.settings.dontShowAgain[key] = true;
+		this.settingsSave();
+	}
 }
 
 async changeLanguage(st) {
