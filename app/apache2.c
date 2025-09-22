@@ -163,8 +163,8 @@ MyDongleCloudJwkPem /disk/admin/.modules/MyDongleCloud/jwk.pub\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
 	Include /usr/local/modules/Apache2/options-ssl-apache.conf\n\
-	SSLCertificateFile /disk/admin/.modules/Apache2/fullchain.pem\n\
-	SSLCertificateKeyFile /disk/admin/.modules/Apache2/privkey.pem\n\
+	SSLCertificateFile /disk/admin/.modules/LetsEncrypt/fullchain.pem\n\
+	SSLCertificateKeyFile /disk/admin/.modules/LetsEncrypt/privkey.pem\n\
 </Macro>\n");
 	fwrite(sz, strlen(sz), 1, pfM);
 	strcpy(sz, "<Macro Macro_Rewrite>\n");
