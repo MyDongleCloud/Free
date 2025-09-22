@@ -32,7 +32,7 @@ static int oathValidate(char secret[33], int OTP) {
 	return ret;
 }
 
-int oathAdmin() {
+int oathCreate() {
 	char secret[33];
 	int  otp = oathGenerate(secret);
 #ifndef DESKTOP
@@ -45,6 +45,15 @@ int oathAdmin() {
 	}
 #endif
 	return otp;
+}
+
+void oathDelete() {
+#ifndef DESKTOP
+	FILE *pf = fopen(OATH_PATH, "w");
+	if (pf) {
+		fclose(pf);
+	}
+#endif
 }
 
 void passwordAdminChange(char *pwd) {

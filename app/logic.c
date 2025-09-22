@@ -124,7 +124,7 @@ void logicUpdate() {
 	else if (lmdc.current == LOGIC_MESSAGE)
 		uiScreenMessage();
 	else if (lmdc.current == LOGIC_PASSCODE)
-		uiScreenPasscode(90);
+		uiScreenPasscode(59);
 	else if (lmdc.current == LOGIC_SLAVENOTCONNECTED)
 		uiScreenSlaveNotConnected();
 
@@ -210,25 +210,26 @@ void logicMessage(int m) {
 	logicUpdate();
 }
 
-void logicPasscode(int forcePasscode) {
-	PRINTF("Logic: Passcode%s\n", forcePasscode != -1 ? " (forced)" : "");
-	if (forcePasscode != -1)
-		lmdc.passcode = forcePasscode;
+void logicPasscode(int v) {
+#ifndef WEB
+	PRINTF("Logic: Passcode%s\n", v != -1 ? " (forced)" : "(random)");
+	if (v != -1)
+		lmdc.passcode = v;
 	else
-#ifdef WEB
-		lmdc.passcode = (rand() % 899999) + 100000;
-#else
-		lmdc.passcode = oathAdmin();
+		lmdc.passcode = oathCreate();
 	buzzer(1);
-#endif
 	lmdc.current = LOGIC_PASSCODE;
 	logicUpdate();
+#endif
 }
 
 void logicPasscodeFinished() {
+#ifndef WEB
 	PRINTF("Logic: Passcode finished\n");
 	lmdc.passcode = 0;
+	oathDelete();
 	logicHome(0, 0);
+#endif
 }
 
 

@@ -94,8 +94,10 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			int v = -1;
 			if (cJSON_HasObjectItem(el, "v"))
 				v = (int)cJSON_GetNumberValue2(el, "v");
-			PRINTF("Requesting passcode%s\n", v != -1 ? " (forced)" : "");
-			logicPasscode(v);
+			if (v == 0)
+				logicPasscodeFinished();
+			else
+				logicPasscode(v);
 		} else if (strcmp(action, "shutdown") == 0) {
 			PRINTF("Requesting shutdown\n");
 			logicShutdown();
@@ -114,13 +116,11 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 #ifndef WEB
 		} else if (strcmp(action, "pwd") == 0 && strcmp(orig, "socket") == 0)
 			passwordAdminChange(cJSON_GetStringValue2(el, "p"));
-		else if (strcmp(action, "pam") == 0 && strcmp(orig, "socket") == 0) {
+		else if (strcmp(action, "pam") == 0) {
 			char *user = cJSON_GetStringValue2(el, "u");
 			char *service = cJSON_GetStringValue2(el, "s");
 			char *type = cJSON_GetStringValue2(el, "t");
-			PRINTF("PAM: user:%s service:%s type:%s\n", user, service, type);
-			if (user && service && type && strcmp(user, "admin") == 0 && strcmp(service, "login") == 0 && strcmp(type, "open_session") == 0)
-				logicPasscodeFinished();
+			//PRINTF("PAM: user:%s service:%s type:%s\n", user, service, type);
 		} else if (strcmp(action, "space") == 0) {
 			cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
 			cJSON_AddStringToObject(space, "a", "space");

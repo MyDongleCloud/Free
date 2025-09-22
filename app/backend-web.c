@@ -10,7 +10,6 @@
 #include "macro.h"
 #include "lvgl.h"
 #include "backend.h"
-#include "logic.h"
 #include "communication.h"
 #include "base64.h"
 
