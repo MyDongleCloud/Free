@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from "fs";
 import { randomBytes } from 'crypto';
 import { betterAuth } from "better-auth";
 import { createAuthEndpoint, createAuthMiddleware } from "better-auth/api";
-import { BetterAuthPlugin, customSession, jwt, oneTap, username, emailOTP, haveIBeenPwned, magicLink } from "better-auth/plugins";
+import { BetterAuthPlugin, username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
 import { sendMagicLinkEmail, sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInOTP, sendVerificationEmailURL } from "./email";
 import Database from "better-sqlite3";
 import "dotenv/config";
@@ -66,14 +66,16 @@ const jwksPem = () => {
 
 export const auth = betterAuth({
 	secret: readFileSync(secretPath, "utf-8").trim(),
-	baseURL: "http://localhost:" + port + "/MyDongleCloud/Auth/",
+	baseURL: "http://localhost:" + port + "/MyDongleCloud/Auth",
 	database: new Database(databasePath),
 	emailAndPassword: {
 		enabled: true
 	},
 	plugins: [
 		username(),
-		jwksPem(),
+		customSession(async ({ user, session }) => {
+			return { session, user, space, modules };
+		}),
 		emailOTP({
 			async sendVerificationOTP({ email, otp, type }) {
 				sendOtpToDongle(otp);
@@ -86,20 +88,14 @@ export const auth = betterAuth({
 				}
 			},
 		}),
-		oneTap(),
-		customSession(async ({ user, session }) => {
-			return {
-				session,
-				user,
-				space,
-				modules
-			};
-		}),
 		magicLink({
 			async sendMagicLink({ email, token, url }) {
 				await sendMagicLinkEmail(email, token, url);
 			},
 		}),
+		//twoFactor(),
+		//haveIBeenPwned(),
+		//admin(),
 		jwt({
 			jwt: {
 				definePayload: ({ user }) => {
@@ -114,7 +110,8 @@ export const auth = betterAuth({
 					alg: "ES256",
 				},
 			}
-		})
+		}),
+		jwksPem()
 	],
 	 databaseHooks: {
 		user: {
@@ -122,8 +119,12 @@ export const auth = betterAuth({
 				before: async (user, ctx) => {
 					const countStatement = ctx?.context.options.database.prepare('SELECT COUNT(*) AS count FROM user');
 					const result = countStatement.get();
-					const un = result?.count == 0 ? "admin" : null;
-					return { data: { ...user, username:un } };
+//					const un = result?.count == 0 ? "admin" : null;
+					if (result?.count == 0) {
+						user.username = "admin";
+						user.role = "admin";
+					}
+					return { data: { ...user } };
 				}
 			}
 		}
