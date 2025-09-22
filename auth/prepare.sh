@@ -28,6 +28,7 @@ if [ $INSTALL = 1 ]; then
 	sed -i -e 's/PRODUCTION=false/PRODUCTION=true/' .env
 	npx @better-auth/cli migrate -y
 	rm -f /disk/admin/.modules/BetterAuth/secret.txt
+	chown -R admin:admin /disk/admin/.modules/BetterAuth
 	npm run build
 	rm -rf /usr/local/modules/BetterAuth
 	cp -a BetterAuth /usr/local/modules
