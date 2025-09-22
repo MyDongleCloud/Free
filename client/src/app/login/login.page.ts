@@ -132,7 +132,7 @@ async doLogin() {
 
 async doMagicLink() {
 	this.progress = true;
-	const data = { email:this.email1.value, callbackURL:window.location.origin };
+	const data = { email:this.email1.value, callbackURL:window.location.origin, errorCallbackURL:window.location.origin };
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/magic-link", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
