@@ -65,7 +65,7 @@ if [ -f /tmp/mdc${POSTNAME}.img ]; then
 	echo "No creation as /tmp/mdc${POSTNAME}.img already exists"
 else
 	tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C ${ROOTFS}/lib/modules/
-	rm -rf ${ROOTFS}/home/mdc/app/ ${ROOTFS}/home/mdc/moduleApache2/ ${ROOTFS}/home/mdc/pam/
+	rm -rf ${ROOTFS}/home/mdc/app/ ${ROOTFS}/home/mdc/auth/ ${ROOTFS}/home/mdc/moduleApache2/ ${ROOTFS}/home/mdc/pam/
 	cp -a ../app/ ../moduleApache2/ ../pam/ ../auth/ ${ROOTFS}/home/mdc/
 	chroot ${ROOTFS} sh -c 'cd /home/mdc/app && make clean && make'
 	chroot ${ROOTFS} sh -c 'cd /home/mdc/moduleApache2 && make clean && make'
