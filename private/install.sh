@@ -144,7 +144,7 @@ echo "################################"
 echo "Python"
 echo "################################"
 if [ $OS = "pios" ]; then
-	wget https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
+	wget -nv https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
 	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
 Types: deb
 URIs: http://deb.pascalroeleven.nl/python3.12
@@ -166,13 +166,13 @@ if [ $OS = "ubuntu" ]; then
 elif [ $OS = "pios" ]; then
 	apt-get -y install libaio1 libevent-pthreads-2.1-7 libmecab2
 	cd /home/mdc/build
-	wget https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.1.1ubuntu1_all.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.1.1ubuntu1_all.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
 	dpkg -i libicu70* libprotobuf-lite23* mysql-common*
 	dpkg -i mysql-client* mysql-server*
 	cd ..
@@ -207,12 +207,12 @@ echo "Kernel (Dongle Pro)"
 echo "################################"
 if [ $OS = "ubuntu" ]; then
 	echo "apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 linux-headers-6.12.34+rpt-common-rpi linux-headers-6.12.34+rpt-rpi-2712 linux-image-6.12.34+rpt-rpi-2712 linux-kbuild-6.12.34+rpt"
-	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-rpi-2712_6.12.34-1+rpt1_arm64.deb
-	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-image-rpi-2712_6.12.34-1+rpt1_arm64.deb
-	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-6.12.34+rpt-common-rpi_6.12.34-1+rpt1_all.deb
-	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
-	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-image-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
-	wget https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-kbuild-6.12.34+rpt_6.12.34-1+rpt1_arm64.deb
+	wget -nv https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget -nv https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-image-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget -nv https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-6.12.34+rpt-common-rpi_6.12.34-1+rpt1_all.deb
+	wget -nv https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-headers-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget -nv https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-image-6.12.34+rpt-rpi-2712_6.12.34-1+rpt1_arm64.deb
+	wget -nv https://archive.raspberrypi.org/debian/pool/main/l/linux/linux-kbuild-6.12.34+rpt_6.12.34-1+rpt1_arm64.deb
 	apt-get -y install cpp-14-aarch64-linux-gnu gcc-14 gcc-14-aarch64-linux-gnu libgcc-14-dev pahole
 	dpkg -i linux-*.deb
 elif [ $OS = "pios" ]; then
@@ -250,7 +250,7 @@ echo "################################"
 echo "RethinkDB"
 echo "################################"
 cd /home/mdc/build
-wget https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
+wget -nv https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
 dpkg -i rethinkdb*.deb
 cd ..
 
@@ -258,14 +258,14 @@ echo "################################"
 echo "devmem2"
 echo "################################"
 cd /home/mdc/build
-wget https://bootlin.com/pub/mirror/devmem2.c
+wget -nv https://bootlin.com/pub/mirror/devmem2.c
 gcc -o /usr/bin/devmem2 devmem2.c
 
 echo "################################"
 echo "frp"
 echo "################################"
 cd /home/mdc/build
-wget https://github.com/fatedier/frp/releases/download/v0.63.0/frp_0.63.0_linux_arm64.tar.gz
+wget -nv https://github.com/fatedier/frp/releases/download/v0.63.0/frp_0.63.0_linux_arm64.tar.gz
 tar -xpf frp_*_linux_arm64.tar.gz
 mkdir /usr/local/modules/frp
 mv frp_*_linux_arm64/frpc /usr/local/modules/frp
@@ -275,7 +275,7 @@ echo "################################"
 echo "LiveCodes"
 echo "################################"
 cd /home/mdc/build
-wget https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
+wget -nv https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
 mkdir /usr/local/modules/LiveCodes
 tar -xpvf livecodes-v46.tar.gz -C /usr/local/modules/LiveCodes --strip-components=1
 cd ..
@@ -284,7 +284,7 @@ echo "################################"
 echo "Qdrant"
 echo "################################"
 cd /home/mdc/build
-wget https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
+wget -nv https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
 tar -xpf qdrant-aarch64-unknown-linux-musl.tar.gz
 chmod a+x qdrant
 mkdir /usr/local/modules/qdrant
@@ -295,7 +295,7 @@ echo "################################"
 echo "Trilium Notes"
 echo "################################"
 cd /home/mdc/build
-wget https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
+wget -nv https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
 tar -xJpf TriliumNextNotes-Server*
 mv TriliumNextNotes-Server-0.*/ /usr/local/modules/TriliumNotes
 rm -rf /usr/local/modules/TriliumNotes/node
@@ -306,7 +306,7 @@ echo "Node.js"
 echo "################################"
 cd /home/mdc/build
 FILENODE=`wget -q -O - https://nodejs.org/dist/latest-v22.x/ | grep "\-linux\-arm64\.tar\.xz" | sed -E "s|.*>([^<]*)<.*|\1|"`
-wget https://nodejs.org/dist/latest-v22.x/$FILENODE
+wget -nv https://nodejs.org/dist/latest-v22.x/$FILENODE
 tar -xJpf node-v*
 cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local
 cd ..
@@ -329,7 +329,7 @@ echo "################################"
 echo "phpList"
 echo "################################"
 cd /usr/local/modules
-wget https://versaweb.dl.sourceforge.net/project/phplist/phplist/3.6.16/phplist-3.6.16.tgz
+wget -nv https://versaweb.dl.sourceforge.net/project/phplist/phplist/3.6.16/phplist-3.6.16.tgz
 tar -xpf phplist-*
 rm phplist-*.tgz
 mv phplist-* phpList
@@ -342,7 +342,7 @@ if [ $OS = "ubuntu" ]; then
 	ln -sf pcpp-python /usr/bin/pcpp
 elif [ $OS = "pios" ]; then
 	cd /home/mdc/build
-	wget https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
+	wget -nv https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
 	tar -xpf pcpp-1.30.tar.gz
 	cd pcpp-1.30
 	python3 setup.py install
@@ -546,7 +546,7 @@ echo "################################"
 cd /usr/local/modules
 mkdir /usr/local/modules/Acme
 cd Acme
-wget https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1.1/acme.sh
+wget -nv https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1.1/acme.sh
 chmod a+x acme.sh
 
 echo "################################"
