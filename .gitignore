@@ -1,3 +1,5 @@
+auth/BetterAuth/
+auth/node_modules/
 build
 kernel/password.h
 private/img

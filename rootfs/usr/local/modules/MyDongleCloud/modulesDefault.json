@@ -19,6 +19,18 @@
 			"path": "/"
 		} ]
 	},
+	"BetterAuth": {},
+	"BetterAuthStudio": {
+		"web": true,
+		"enabled": true,
+		"permissions": [ "admin" ],
+		"localPort": 9266,
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 3002,
+			"path": "/"
+		} ]
+	},
 	"Bugzilla": {
 		"web": true,
 		"enabled": true,

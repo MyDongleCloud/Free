@@ -1,0 +1,16 @@
+[Unit]
+Description=Better Auth
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/node app.js
+WorkingDirectory=/usr/local/modules/BetterAuth
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=2s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

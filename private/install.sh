@@ -30,7 +30,7 @@ fi
 lsb_release -a | grep bookworm
 if [ $? = 0 ]; then
 #On PC
-#tar -cjpvf a.tbz2 app/ kernel/ rootfs/ screenAvr/ moduleApache2/ private/install.sh private/preseed*.cfg
+#tar -cjpvf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ private/install.sh private/preseed*.cfg
 #scp a.tbz2 private/img/clone.tbz2 mdc@192.168.10.41:/tmp
 #On device
 #tar -xjpvf /tmp/a.tbz2
@@ -675,6 +675,14 @@ echo "################################"
 cd /usr/local/modules/osTicket
 mkdir -p /disk/admin/.modules/osTicket
 ln -sf /disk/admin/.modules/osTicket/ost-config.php include/ost-config.php
+
+echo "################################"
+echo "Better Auth"
+echo "################################"
+ln -sf /etc/systemd/system/BetterAuth.service /etc/systemd/system/multi-user.target.wants/BetterAuth.service
+ln -sf /etc/systemd/system/BetterAuth-Studio.service /etc/systemd/system/multi-user.target.wants/BetterAuth-Studio.service
+cd /home/mdc/auth
+./prepare.sh -i
 
 echo "################################"
 echo "App and rootfs"
