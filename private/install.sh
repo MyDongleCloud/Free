@@ -30,7 +30,7 @@ fi
 lsb_release -a | grep bookworm
 if [ $? = 0 ]; then
 #On PC
-#tar -cjpvf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ private/install.sh private/preseed*.cfg
+#tar -cjpvf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ private/install.sh private/preseed*.cfg
 #scp a.tbz2 private/img/clone.tbz2 mdc@192.168.10.41:/tmp
 #On device
 #tar -xjpvf /tmp/a.tbz2
@@ -97,8 +97,9 @@ mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
 sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/bin/systemctl reload apache2, /usr/bin/systemctl start frp.service, /usr/local/modules/MyDongleCloud/pwd.sh|' /etc/sudoers
-sed -i '1i auth sufficient pam_oath.so usersfile=/disk/admin/.modules/MyDongleCloud/oath.txt' /etc/pam.d/common-auth
-sed -i '2i session optional pam_exec.so /usr/local/modules/MyDongleCloud/pam.sh' /etc/pam.d/common-auth
+sed -i '1i auth sufficient pam_oath.so usersfile=/disk/admin/.modules/pam/oath.txt' /etc/pam.d/common-auth
+sed -i '2i auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so' /etc/pam.d/common-auth
+sed -i '3i session optional pam_exec.so /usr/local/modules/pam/pam.sh' /etc/pam.d/common-auth
 mkdir -p /usr/local/modules/MyDongleCloud
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth mdc
 usermod -a -G sudo mdc
@@ -130,7 +131,7 @@ if [ $OS = "ubuntu" ]; then
 	fi
 	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools device-tree-compiler nmap ncat fd-find ncdu
 fi
-apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9 acl jq telnet pwauth netcat-openbsd
+apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9 acl jq telnet pwauth netcat-openbsd pamtester
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev apache2-dev libpam0g-dev libnm-dev
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install libprotobuf32t64 libjpeg62-dev
@@ -685,7 +686,7 @@ cd /home/mdc/auth
 ./prepare.sh -i
 
 echo "################################"
-echo "App and rootfs"
+echo "MyDongleCloud stuff and rootfs"
 echo "################################"
 cd /usr/local/modules/MyDongleCloud/master
 composer -n install
@@ -701,6 +702,8 @@ cd /home/mdc/app
 ./lvgl.sh -b -c
 make
 cd /home/mdc/moduleApache2
+make
+cd /home/mdc/pam
 make
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
