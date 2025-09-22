@@ -631,8 +631,10 @@ void uiScreenPasscode(int expiration) {
 	struct timespec now;
 	clock_gettime(CLOCK_REALTIME, &now);
 	int counter = start.tv_sec - now.tv_sec;
-	if (counter < 1)
+	if (counter <= 1) {
 		logicPasscodeFinished();
+		return;
+	}
 
 	lv_obj_clean(lv_screen_active());
 
