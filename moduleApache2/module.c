@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <jwt.h>
 #include "util_cookies.h"
 #include "http_request.h"
 #include "http_log.h"
@@ -11,6 +12,8 @@
 
 //Struct
 typedef struct {
+	const char *jwkPemFile;
+	const char *jwkPem;
 	const char *name;
 	cJSON *permissions;
 } config;
@@ -19,47 +22,70 @@ typedef struct {
 #undef PRINTF_
 #undef PRINTF
 #define PRINTF_(level, format, ...) {ap_log_error(APLOG_MARK, level, 0, s, format, ##__VA_ARGS__);}
-#define PRINTF(format, ...) PRINTF_(APLOG_INFO, format, ##__VA_ARGS__)
+#define PRINTF(format, ...) PRINTF_(APLOG_ERR, format, ##__VA_ARGS__)
 
 //Functions
 module AP_MODULE_DECLARE_DATA mydonglecloud_module;
 
-static cJSON *usersLoad() {
-	struct stat statTest;
-	if (stat(ADMIN_PATH "MyDongleCloud/users.json", &statTest) != 0 || statTest.st_size == 0)
-		return NULL;
-	int size = statTest.st_size + 16;
-	char *sz = malloc(size);
-	FILE *f = fopen(ADMIN_PATH "MyDongleCloud/users.json", "r");
-	cJSON *users = NULL;
-	if (f) {
-		int ret = fread(sz, size, 1, f);
-		users = cJSON_Parse(sz);
-		fclose(f);
-	}
-	free(sz);
-	return users;
-}
-
 static void *createConfig(apr_pool_t *p, server_rec *s) {
 	config *confD = apr_pcalloc(p, sizeof(config));
+	confD->jwkPemFile = NULL;
+	confD->jwkPem = NULL;
 	confD->name = NULL;
 	confD->permissions = NULL;
 	return confD;
+}
+
+static void *mergeConfig(apr_pool_t *p, void *basev, void *addv) {
+	config *base = (config *)basev;
+	config *add = (config *)addv;
+	config *conf = (config *)apr_pcalloc(p, sizeof(config));
+	conf->jwkPemFile = base->jwkPemFile;
+	conf->jwkPem = base->jwkPem;
+	conf->name = add->name;
+	conf->permissions = add->permissions;
+    return conf;
+}
+
+void getJwkPemContent(server_rec *s, config *confD) {
+	struct stat statTest;
+	if (stat(confD->jwkPemFile, &statTest) == 0) {
+		if (statTest.st_size > 100) {
+			int size = statTest.st_size + 1;
+			char *sz = malloc(size);
+			FILE *pf = fopen(confD->jwkPemFile, "r");
+			if (pf) {
+				int ret = fread(sz, 1, size, pf);
+				if (ret >= 0)
+					sz[ret] = '\0';
+				confD->jwkPem = sz;
+				fclose(pf);
+			}
+		}
+	}
+}
+
+static const char *moduleJwkPemFileSet(cmd_parms *cmd, void *mconfig, const char *arg) {
+	server_rec *s = cmd->server;
+	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	confD->jwkPemFile = arg;
+	getJwkPemContent(s, confD);
+	PRINTF("MDC: Jwt %s", arg);
+	return NULL;
 }
 
 static const char *moduleNameSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	confD->name = arg;
-	PRINTF("MDC: Set %s", arg);
+	PRINTF("MDC: Name %s", arg);
 	return NULL;
 }
 
 static const char *modulePermissionSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	PRINTF("MDC: Add user %s for %s", arg, confD->name);
+	PRINTF("MDC: Permission %s (for %s)", arg, confD->name);
 	if (confD->permissions == NULL)
 		confD->permissions = cJSON_CreateObject();
 	cJSON_AddBoolToObject(confD->permissions, arg, cJSON_True);
@@ -83,43 +109,40 @@ char *extractCookieValue(const char *cookie, const char *name, struct request_re
 	return extracted_value;
 }
 
+int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *elPermissions) {
+	int ret = 0;
+    jwt_t* jwt_decoded;
+    int result = jwt_decode(&jwt_decoded, token, (const unsigned char*)keyPem, strlen(keyPem));
+    if (result == 0) {
+        const char* jwtRole = jwt_get_grant(jwt_decoded, "role");
+		if (cJSON_HasObjectItem(elPermissions, jwtRole))
+			ret = 1;
+        //PRINTF("MDC: JWT ret:%d role:%s\n", ret, jwtRole);
+        jwt_free(jwt_decoded);
+    } else {
+		//PRINTF("MDC: JWT verification failed: %d\n", result);
+    }
+    return ret;
+}
+
 static int authorization(request_rec *r) {
 	server_rec *s = r->server;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	//PRINTF("MDC: authorization1 name:%s", confD->name);
-	if (confD->name == NULL || confD->permissions == NULL)
+	//PRINTF("MDC: authorization1a jwkPemFile: %s", confD->jwkPemFile);
+	if (confD->jwkPem == NULL)
+		getJwkPemContent(s, confD);
+	//PRINTF("MDC: authorization1b jwkPem: %s", confD->jwkPem);
+	//PRINTF("MDC: authorization1c name: %s", confD->name);
+	char *ssz = cJSON_Print(confD->permissions);
+	PRINTF("MDC: authorization1d permissions: %s\n", ssz);
+	free(ssz);
+	if (confD->permissions == NULL || cJSON_HasObjectItem(confD->permissions, "_allusers_"))
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
-	char *cookieUser = extractCookieValue(cookies, "user", r);
-	//PRINTF("MDC: authorization2 cookieUser:%s", cookieUser);
-	if (cookieUser != NULL) {
-		if (cJSON_HasObjectItem(confD->permissions, "_allusers_") || cJSON_HasObjectItem(confD->permissions, cookieUser)) {
-			char *cookieToken = extractCookieValue(cookies, "token", r);
-			//PRINTF("MDC: authorization3 cookieToken:%s", cookieToken);
-			if (cookieToken != NULL) {
-				cJSON *users = usersLoad(s);
-				if (users != NULL) {
-					cJSON *el = cJSON_GetObjectItem(users, cookieUser);
-					if (el) {
-						cJSON *elToken = cJSON_GetObjectItem(el, "token");
-						if (elToken) {
-							char *stToken = cJSON_GetStringValue(elToken);
-							//PRINTF("MDC: authorization4 userToken:%s", stToken);
-							cJSON *elTokenExpiration = cJSON_GetObjectItem(el, "tokenExpiration");
-							if (elTokenExpiration) {
-								int expiration = (int)cJSON_GetNumberValue(elTokenExpiration);
-								if (stToken != NULL && strcmp(cookieToken, stToken) == 0 && (expiration == 0 || time(NULL) < expiration)) {
-									cJSON_Delete(users);
-									return DECLINED;
-								}
-							}
-						}
-					}
-					cJSON_Delete(users);
-				}
-			}
-		}
-	}
+	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
+	//PRINTF("MDC: authorization2 cookieJwt: %s", cookieJwt);
+	if (cookieJwt != NULL)
+		return decodeAndCheck(s, cookieJwt, confD->jwkPem, confD->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
 	const char *current_uri = r->uri;
 	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
 		return DECLINED;
@@ -129,6 +152,7 @@ static int authorization(request_rec *r) {
 }
 
 static const command_rec directives[] = {
+	AP_INIT_TAKE1("MyDongleCloudJwkPem", moduleJwkPemFileSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloud Jwt Key"),
 	AP_INIT_TAKE1("MyDongleCloudModule", moduleNameSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloud module name"),
 	AP_INIT_ITERATE("MyDongleCloudModulePermission", modulePermissionSet, NULL, RSRC_CONF | ACCESS_CONF, "Permission for MyDongleCloud module"),
 	{NULL}
@@ -139,5 +163,5 @@ static void registerHooks(apr_pool_t *p) {
 }
 
 module AP_MODULE_DECLARE_DATA mydonglecloud_module = {
-	STANDARD20_MODULE_STUFF, NULL, NULL, createConfig, NULL, directives, registerHooks
+	STANDARD20_MODULE_STUFF, NULL, NULL, createConfig, mergeConfig, directives, registerHooks
 };

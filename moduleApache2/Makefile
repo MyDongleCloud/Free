@@ -14,7 +14,7 @@ OBJs := $(PRE)module.o \
 	$(PRE)cJSON.o
 
 MYCFLAGS = $(CFLAGS) -DMDC_VERSION=$(MDC_VERSION) -O2 -flto=auto -ffat-lto-objects -I/usr/include/apache2 -fPIC -DPIC `pkg-config --cflags apr-1`
-MYLDFLAGS = -shared -fPIC -DPIC -flto=auto -Wl,--as-needed -Wl,-Bsymbolic-functions -Wl,-soname -Wl,mod_mydonglecloud.so
+MYLDFLAGS = -shared -fPIC -DPIC -flto=auto -Wl,--as-needed -Wl,-Bsymbolic-functions -Wl,-soname -Wl,mod_mydonglecloud.so -ljwt
 
 .PHONY : clean
 
