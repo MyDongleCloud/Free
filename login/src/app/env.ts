@@ -15,23 +15,18 @@ import { VERSION } from './version';
 
 export class Global {
 VERSION: string = VERSION;
-loggedIn = 0;
-MASTERURL: string;
 language;
 currentUrl: string = "login";
 settings: Settings = {} as Settings;
 DONGLEURL: string;
+session;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private translate: TranslateService, private httpClient: HttpClient) {
 	console.log("%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
 	console.log("%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
 	console.log("%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
 	console.log("Platform: " + this.plt.platforms());
-	if (environment.production || this.isPlatform("androidios")) {
-		this.MASTERURL = "";
-	} else
-		this.MASTERURL = "http://localhost:8080/";
-	this.checkLogin();
+	this.getSession();
 	navCtrl.setDirection("forward");
 	translate.setDefaultLang("en");
 	console.log("Default browser language is: " + translate.getBrowserLang());
@@ -51,26 +46,44 @@ getCookie(name) {
 	return null;
 }
 
-async checkLogin() {
-	try {
-		const ret = await this.httpClient.post(this.MASTERURL + "master/login.json", "", {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-		//console.log("checkLogin: " + JSON.stringify(ret));
-		if (ret["error"] === 0) {
-			if (confirm("You are already loggedin. Do you want to logout?")) {
-				this.loggedIn = -1;
-				document.cookie = "user=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-				document.cookie = "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-			} else
-				this.openPage("", false);
-			return;
-		}
-	} catch(e) {
-		console.log("Failed to download " + this.MASTERURL + "/master/login.json");
+setCookie(name, value, domain) {
+	//console.log("setCookie: " + `${name}=${value}; domain=${domain}; path=/;`);
+	document.cookie = `${name}=${value}; domain=${domain}; path=/;`;
+}
+
+domainFromFqdn(fqdn) {
+	const parts = fqdn.split('.');
+	if (parts.length <= 2)
+		return fqdn;
+	if (!isNaN(parts[parts.length - 1]))
+		return fqdn;
+	const sliceIndex = (parts[parts.length - 2] === "mydongle" || parts[parts.length - 2] === "myd") ? -3 : -2;
+	return parts.slice(sliceIndex).join('.');
+}
+
+setCookieSpecial(name, value) {
+	const host = window.location.hostname.replace(/^([^:]*)(?::\d+)?$/i, '$1');
+	const domain = this.domainFromFqdn(host);
+	this.setCookie(name, value, domain);
+}
+
+async AuthHealth() {
+	const ret = await this.httpClient.get("/MyDongleCloud/Auth/", {headers:{"content-type": "application/json"}}).toPromise();
+	console.log("Auth Health: ", ret);
+}
+
+async getSession() {
+	this.session = await this.httpClient.get("/MyDongleCloud/Auth/get-session", {headers:{"content-type": "application/json"}}).toPromise();
+	console.log("Auth get-session: ", this.session);
+	if (this.session != null) {
+		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
+		this.setCookieSpecial("jwt", jwt["token"]);
 	}
-	this.loggedIn = -1;
 }
 
 async logout() {
+	console.log("logout");
+	document.location.href = "/";
 }
 
 async settingsSave() {

@@ -1,9 +1,0 @@
-<?php
-$noReturnOnSuccess = true;
-include "login.json";
-
-$path = "../../../../../disk/admin/.modules/MyDongleCloud/modules.json";
-$h = fopen($path, "r");
-echo fread($h, filesize($path));
-fclose($h);
-?>

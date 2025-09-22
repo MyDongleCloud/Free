@@ -8,11 +8,11 @@
 </ion-header>
 <ion-content [fullscreen]="true" [style]="ready ? 'display:none;' : 'display:block;'">
 <div style="display:flex; justify-content:center; align-items:center; height:100%;">
-		<img src="/assets/loading.gif" style="width:10%; height:10%; max-width:64px; max-height:64px;">
+		<img src="assets/loading.gif" style="width:10%; height:10%; max-width:64px; max-height:64px;">
 </div>
 </ion-content>
-<ion-content [fullscreen]="true" [style]="!ready || showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
-	<form class="input-group" [formGroup]="formLogin">
+<ion-content [fullscreen]="true" [style]="!ready || showRegistration || showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
+	<form class="input-group" [formGroup]="formLogin" (ngSubmit)="doLogin();">
 		<div style="display:flex; justify-content:center;">
 			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Login")}}</ion-label>
 		</div>
@@ -36,10 +36,58 @@
 		<div *ngIf="showWrongLogin" class="errors">{{global.mytranslate("Wrong credentials. Please try again.")}}</div>
 	</form>
 	<br/><br/><br/>
+	<ion-button expand="block" (click)="showRegister()">{{global.mytranslate("Sign up!")}}</ion-button>
+	<br/><br/><br/>
 	<ion-button expand="block" (click)="showReset()">{{global.mytranslate("Reset password")}}</ion-button>
 </ion-content>
-<ion-content [fullscreen]="true" [style]="!ready || !showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
-	<div class="input-group" [formGroup]="formReset">
+<ion-content [fullscreen]="true" [style]="!ready || !showRegistration || showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
+	<form class="input-group" [formGroup]="formRegister">
+		<ion-button (click)="showLogin()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+		<div style="display:flex; justify-content:center;">
+			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Sign up")}}</ion-label>
+		</div>
+		<ion-item>
+			<label for="email2" style="white-space:nowrap;">{{global.mytranslate("Email:")}}&nbsp;&nbsp;&nbsp;</label>
+			<ion-input type="text" placeholder="john.smith@example.com" #email2Input formControlName="email2" (keyup.enter)="doRegister()"></ion-input>
+		</ion-item>
+		<div *ngIf="(email2.dirty || email2.touched) && email2.errors" class="errors">
+			<span *ngIf="email2.errors?.required">{{global.mytranslate("Email is required")}}</span>
+			<span *ngIf="email2.errors?.email">{{global.mytranslate("Email is invalid")}}</span>
+		</div>
+		<ion-item>
+			<label for="name2" style="white-space:nowrap;">{{global.mytranslate("Name:")}}&nbsp;&nbsp;&nbsp;</label>
+			<ion-input type="text" placeholder="John" formControlName="name2" (keyup.enter)="doRegister()"></ion-input>
+		</ion-item>
+		<div *ngIf="(name2.dirty || name2.touched) && name2.errors" class="errors">
+			<span *ngIf="name2.errors?.required">{{global.mytranslate("Name is required")}}</span>
+		</div>
+		<ion-item>
+			<label for="password2" style="white-space:nowrap;">{{global.mytranslate("Password:")}}&nbsp;&nbsp;&nbsp;</label>
+			<ion-input placeholder='{{global.mytranslate("Password")}}' formControlName="password2" [type]="password2Show ? 'text' : 'password'" (keyup.enter)="doRegister()"></ion-input>&nbsp;&nbsp;<ion-button (click)="password2Show = !password2Show;"><ion-icon [name]="password2Show ? 'eye-off-outline' : 'eye-outline'"></ion-icon></ion-button>
+		</ion-item>
+		<div *ngIf="(password2.dirty || password2.touched) && password2.errors" class="errors">
+			<span *ngIf="password2.errors?.required">{{global.mytranslate("Password is required")}}</span>
+			<span *ngIf="password2.errors?.minlength">{{global.mytranslate("Password needs to be 2 characters")}}</span>
+		</div>
+		<ion-item>
+			<label for="passwordConfirm2" style="white-space:nowrap;">Confirm:&nbsp;&nbsp;&nbsp;</label>
+			<ion-input placeholder='{{global.mytranslate("Password")}}' formControlName="passwordConfirm2" [type]="password2Show ? 'text' : 'password'" (keyup.enter)="doRegister()"></ion-input>
+		</ion-item>
+		<div *ngIf="(passwordConfirm2.dirty || passwordConfirm2.touched) && passwordConfirm2.errors" class="errors">
+			<span *ngIf="passwordConfirm2.errors?.required">{{global.mytranslate("Password is required")}}</span>
+			<span *ngIf="passwordConfirm2.errors?.minlength">{{global.mytranslate("Password needs to be 2 characters")}}</span>
+		</div>
+		<div *ngIf="(password2.dirty || password2.touched || passwordConfirm2.dirty || passwordConfirm2.touched) && formRegister.errors?.['mismatch']" class="errors">
+			{{global.mytranslate("Passwords don't match")}}
+		</div>
+		<ion-button expand="block" [disabled]="!formRegister.valid || progress" (click)="doRegister()">{{global.mytranslate("Sign up")}}</ion-button>
+		<div *ngIf="showWrongRegister" class="errors">{{global.mytranslate("An error occured. Please try again.")}}</div>
+	</form>
+</ion-content>
+
+
+<ion-content [fullscreen]="true" [style]="!ready || showRegistration || !showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
+	<form class="input-group" [formGroup]="formReset">
 		<ion-button (click)="showLogin()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
 		<div style="display:flex; justify-content:center;">
 			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Reset Password")}}</ion-label>
@@ -54,10 +102,10 @@
 		</div>
 		<ion-button expand="block" [disabled]="!formReset.valid || progress" (click)="doReset()">{{global.mytranslate("Reset Password")}}</ion-button>
 		<div *ngIf="showWrongReset" class="errors">{{global.mytranslate("An error occured. Please try again.")}}</div>
-	</div>
+	</form>
 </ion-content>
-<ion-content [fullscreen]="true" [style]="!ready || showReseting || !showResetingCode ? 'display:none;' : 'display:block;'">
-	<div class="input-group" [formGroup]="formResetCode">
+<ion-content [fullscreen]="true" [style]="!ready || showRegistration || showReseting || !showResetingCode ? 'display:none;' : 'display:block;'">
+	<form class="input-group" [formGroup]="formResetCode" (ngSubmit)="doResetCode()">
 		<ion-button (click)="showLogin()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
 		<div style="display:flex; justify-content:center;">
 			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Reset Password")}}</ion-label>
@@ -67,7 +115,7 @@
 		<ion-label>{{global.mytranslate("Enter the reset code sent to your email and your new password:")}}</ion-label>
 		<ion-item>
 			<label for="resetCode4" style="white-space:nowrap;">{{global.mytranslate("Reset Code:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="123456" formControlName="resetCode4" (keyup.enter)="doResetCode()"></ion-input>
+			<ion-input type="text" placeholder="123456" #resetCode4Input formControlName="resetCode4" (keyup.enter)="doResetCode()"></ion-input>
 		</ion-item>
 		<div *ngIf="(resetCode4.dirty || resetCode4.touched) && resetCode4.errors" class="errors">
 			<span *ngIf="resetCode4.errors?.required">{{global.mytranslate("Reset Code is required")}}</span>
@@ -94,5 +142,5 @@
 		</div>
 		<ion-button expand="block" [disabled]="!formResetCode.valid || progress" (click)="doResetCode()">{{global.mytranslate("Reset password")}}</ion-button>
 		<div *ngIf="showWrongResetCode" class="errors">{{global.mytranslate("Wrong information. Please try again.")}}</div>
-	</div>
+	</form>
 </ion-content>

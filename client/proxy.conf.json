@@ -1,0 +1,5 @@
+{
+	"/MyDongleCloud/Auth": {
+		"target": "http://localhost:8091"
+	}
+}

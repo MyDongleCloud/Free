@@ -8,7 +8,6 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-	"ionic:build:after": "ln -sf ../../../MyDongleCloud/master login/master",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

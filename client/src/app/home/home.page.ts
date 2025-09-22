@@ -37,16 +37,7 @@ async ionViewDidEnter() {
 }
 
 async getData() {
-	try {
-		this.modules = await this.httpClient.post(this.global.MASTERURL + "/master/modules.json", "user=admin&token=" + encodeURIComponent(this.global.settings.token), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-	} catch(e) {
-		console.log("Failed to download " + this.global.MASTERURL + "/master/modules.json");
-		this.modules = {};
-	}
-	if (this.modules["error"] !== undefined) {
-		console.log("Error download modules.json, reason: " + this.modules["reason"]);
-		this.modules = {};
-	}
+	this.modules = this.global.session?.["modules"];
 	this.cards = [];
 	const version = modulesDefault.version;
 	delete modulesDefault.version;
@@ -63,7 +54,7 @@ async getData() {
 		if (value["web"]) {
 			const ll = value["alias"].length > 0 ? value["alias"][0] : key;
 			value["link"] = location.protocol + "//" + location.host + "/m/" + ll;
-			value["link2"] = "https://" + ll + "." + (this.global.settings?.space?.["name"] ?? "") + ".mydongle.cloud";
+			value["link2"] = "https://" + ll + "." + (this.global.session?.["space"]?.["name"] ?? "") + ".mydongle.cloud";
 			value["link"] = value["link"].toLowerCase();
 			value["link2"] = value["link2"].toLowerCase();
 		}

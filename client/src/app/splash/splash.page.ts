@@ -37,11 +37,11 @@ async forwardWhenReady() {
 	} catch(e) { console.log("forwardWhenReady: " + e); }
 	this.global.splashDone = true;
 	let count = 20;
-	while (this.global.loggedIn == 0 && count-- > 0)
+	while (this.global.session === undefined && count-- > 0)
 		await this.global.sleepms(100);
 	if (this.global.activateUrl == "splash")
 		this.global.activateUrl = "";
-	this.global.openPage(this.global.loggedIn == 1 || this.global.activateUrl == "/setup" ? this.global.activateUrl : "login", false);
+	this.global.openPage(this.global.session != null || this.global.activateUrl == "/setup" ? this.global.activateUrl : "login", false);
 }
 
 openUpgrade() {
