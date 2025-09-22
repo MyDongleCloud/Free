@@ -16,7 +16,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 		AppRoutingModule,
 		TranslateModule.forRoot({
 			loader: provideTranslateHttpLoader({
-				prefix: "/assets/i18n/",
+				prefix: "assets/i18n/",
 				suffix: ".json",
 			}),
 			fallbackLang: "en"
