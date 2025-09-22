@@ -29,7 +29,7 @@ const sendMagicLinkEmail = async (to, token, url) => {
 					<div style="background-color:#2dd55b; color:white; padding:15px 30px; display:inline-block; border-radius:8px; font-size:24px; font-weight:bold; letter-spacing:3px;"><a href="${link}">Automatic Login</a></div>
 				</div>
 				<p style="color:#666;">Copy-paste this link in your browser if needed:<br>${link}</p>
-				<p style="color:#666;">This link will expire in 10 minutes for security reasons.</p>
+				<p style="color:#666;">This link will expire in 5 minutes for security reasons.</p>
 				<p>If you didn't request this link, please ignore this email.</p>
 				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
 				<p>Thank you,<br/>The ${EMAIL_APP_NAME} Team</p>
