@@ -39,7 +39,7 @@ elif [ $CLEAN = 1 ]; then
 	exit 0
 else
 	#On PC only
-	rm -f ../rootfs/disk/admin/.modules/MyDongleCloud/jwk.pub ../rootfs/disk/admin/.modules/BetterAuth/
+	rm -rf ../rootfs/disk/admin/.modules/MyDongleCloud/jwk.pub ../rootfs/disk/admin/.modules/BetterAuth/
 	mkdir ../rootfs/disk/admin/.modules/BetterAuth/
 	npm install
 	npx @better-auth/cli migrate -y

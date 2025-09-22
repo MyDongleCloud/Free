@@ -15,9 +15,13 @@ const secretPath = adminPath + "BetterAuth/secret.txt";
 const jwkPath = adminPath + "/MyDongleCloud/jwk.pub";
 const databasePath = adminPath + "BetterAuth/database.sqlite";
 const spacePath = adminPath + "MyDongleCloud/space.json";
-const space = JSON.parse(readFileSync(spacePath, "utf-8"));
+let space = { name:"" };
+if (existsSync(spacePath))
+	space = JSON.parse(readFileSync(spacePath, "utf-8"));
 const modulesPath = adminPath + "MyDongleCloud/modules.json";
-const modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
+let modules = {};
+if (existsSync(modulesPath))
+	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
 const domain = process.env.PRODUCTION === "true" ? (space.name + ".mydongle.cloud") : "localhost";
 const trustedOrigins = process.env.PRODUCTION === "true" ? [] : [ "http://localhost:8100" ];
 
