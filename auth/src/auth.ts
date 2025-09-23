@@ -94,7 +94,7 @@ export const auth = betterAuth({
 			},
 		}),
 		//twoFactor(),
-		//haveIBeenPwned(),
+		//haveIBeenPwned({ customPasswordCompromisedMessage: "Please choose a more secure password." }),
 		//admin(),
 		jwt({
 			jwt: {
@@ -129,13 +129,7 @@ export const auth = betterAuth({
 			}
 		}
 	},
-	trustedOrigins: trustedOrigins,
-	advanced: {
-/*		crossSubDomainCookies: {
-			enabled: true,
-			domain: domain,
-		}*/
-	}
+	trustedOrigins: trustedOrigins
 });
 
 export const handler = auth.handler;
