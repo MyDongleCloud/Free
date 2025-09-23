@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for test [-a -c -d -h -l -m -r -s -t -u -v]"
+echo "Usage for test [-a -c -d -h -l -m -r -s -t -u -v -z]"
 echo "a:	Sign-in, login, token, revoke, sign-out"
 echo "c:	Create with email, password and name"
 echo "d:	Update username"
@@ -14,6 +14,7 @@ echo "s:	Sign-in with email"
 echo "t:	Get token with cookie"
 echo "u:	Sign-out"
 echo "v:	Sign-in with username"
+echo "z:	Delete"
 exit 0
 }
 
@@ -25,7 +26,8 @@ REVOKE=0
 TOKEN=0
 SIGNIN=0
 SIGNOUT=0
-while getopts acdhlmrstuv opt; do
+DELETE=0
+while getopts acdhlmrstuvz opt; do
 	case "$opt" in
 		a) SIGNIN=1;LOGIN=1;TOKEN=1;REVOKE=1;SIGNOUT=1;;
 		c) CREATE=1;;
@@ -38,6 +40,7 @@ while getopts acdhlmrstuv opt; do
 		t) TOKEN=1;;
 		u) SIGNOUT=1;;
 		v) SIGNIN=2;;
+		z) DELETE=1;;
 	esac
 done
 
@@ -85,4 +88,9 @@ if [ $SIGNOUT = 1 ]; then
 	echo "############### Sign-out"
 	RET_SIGNOUT=`curl -s -b /tmp/cookie.txt http://localhost:8091/MyDongleCloud/Auth/sign-out -H "Content-Type: application/json"`
 	echo $RET_SIGNOUT
+fi
+if [ $DELETE = 1 ]; then
+	echo "############### Delete"
+	RET_DELETE=`curl -s -b /tmp/cookie.txt -X POST http://localhost:8091/MyDongleCloud/Auth/delete-user -H "Content-Type: application/json" -d '{"password":"gregoire"}' -c /tmp/cookie.txt`
+	echo $RET_DELETE
 fi

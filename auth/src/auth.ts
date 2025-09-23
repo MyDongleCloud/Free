@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { randomBytes } from 'crypto';
 import { betterAuth } from "better-auth";
-import { createAuthEndpoint, createAuthMiddleware } from "better-auth/api";
+import { APIError, createAuthEndpoint, createAuthMiddleware } from "better-auth/api";
 import { BetterAuthPlugin, username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
 import { sendMagicLinkEmail, sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInOTP, sendVerificationEmailURL } from "./email";
 import Database from "better-sqlite3";
@@ -68,8 +68,15 @@ export const auth = betterAuth({
 	secret: readFileSync(secretPath, "utf-8").trim(),
 	baseURL: "http://localhost:" + port + "/MyDongleCloud/Auth",
 	database: new Database(databasePath),
-	emailAndPassword: {
-		enabled: true
+	emailAndPassword: { enabled: true },
+	user: {
+		deleteUser: {
+			enabled: true,
+			beforeDelete: async (user, request) => {
+				if (user["username"] == "admin")
+					throw new APIError("BAD_REQUEST", { message: "Admin account can't be deleted" });
+			}
+		}
 	},
 	plugins: [
 		username(),
