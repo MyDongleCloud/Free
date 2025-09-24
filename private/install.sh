@@ -2,22 +2,19 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for install [-c -h -n -p]"
+echo "Usage for install [-c -h -p]"
 echo "c:	Do full clone of all modules"
 echo "h:	Print this usage and exit"
-echo "n:	Not native (via chroot)"
 echo "p:	Do production image"
 exit 0
 }
 
 PROD=0
-NATIVE=1
 CLONE=0
-while getopts chnp opt; do
+while getopts chp opt; do
 	case "$opt" in
 		c) CLONE=1;;
 		h) helper;;
-		n) NATIVE=0;;
 		p) PROD=1;;
 	esac
 done
@@ -63,11 +60,10 @@ ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.targe
 ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
 ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
 ln -sf /etc/systemd/system/mydonglecloud-otg.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-otg.service
-if [ $NATIVE = 1 ]; then
-	echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
-	sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
-	sed -i -e 's/cfg80211.ieee80211_regdom=US/cfg80211.ieee80211_regdom=00/' /boot/firmware/cmdline.txt
-	cat > /boot/firmware/config.txt <<EOF
+echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
+sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
+sed -i -e 's/cfg80211.ieee80211_regdom=US/cfg80211.ieee80211_regdom=00/' /boot/firmware/cmdline.txt
+cat > /boot/firmware/config.txt <<EOF
 auto_initramfs=1
 arm_64bit=1
 arm_boost=1
@@ -84,16 +80,13 @@ dtparam=spi=on
 dtparam=pciex1=1
 dtparam=nvme
 EOF
-fi
 cat > /etc/fstab <<EOF
 proc            /proc           proc    defaults          0       0
 LABEL=rootfs  /               ext4    defaults,noatime  0       1
 #LABEL=rootfs  /disk           ext4    defaults,noatime  0       1
 EOF
-if [ $NATIVE = 1 ]; then
-	fatlabel /dev/mmcblk0p1 bootfs
-	e2label /dev/mmcblk0p2 rootfs
-fi
+fatlabel /dev/mmcblk0p1 bootfs
+e2label /dev/mmcblk0p2 rootfs
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
