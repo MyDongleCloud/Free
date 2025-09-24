@@ -114,9 +114,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			free(payload);
 			logicUpdate();
 #ifndef WEB
-		} else if (strcmp(action, "pwd") == 0 && strcmp(orig, "socket") == 0)
-			passwordAdminChange(cJSON_GetStringValue2(el, "p"));
-		else if (strcmp(action, "pam") == 0) {
+		} else if (strcmp(action, "pam") == 0) {
 			char *user = cJSON_GetStringValue2(el, "u");
 			char *service = cJSON_GetStringValue2(el, "s");
 			char *type = cJSON_GetStringValue2(el, "t");

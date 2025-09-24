@@ -4,6 +4,5 @@
 //Global functions
 int oathCreate();
 void oathDelete();
-void passwordAdminChange(char *pwd);
 
 #endif
