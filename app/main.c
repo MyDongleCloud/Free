@@ -12,6 +12,7 @@
 #include "language.h"
 #include "ble.h"
 #include "space.h"
+#include "common.h"
 #include "communication.h"
 #include "password.h"
 
@@ -57,6 +58,10 @@ int main(int argc, char *argv[]) {
 	logInit(daemon);
 #ifndef WEB
 	spaceSetup();
+	getSerialID();
+	PRINTF("Version:%s Serial:%s\n", MDC_VERSION, szSerial);
+#else
+	PRINTF("Version:%s\n", MDC_VERSION);
 #endif
 	settingsLoad();
 	if (forceRotation != -1) {
@@ -67,7 +72,6 @@ int main(int argc, char *argv[]) {
 #ifdef DESKTOP
 	languageTest();
 #endif
-	PRINTF("Version: %s\n", MDC_VERSION);
 #if !defined(DESKTOP) && !defined(WEB)
 	writeValueKey(PLATFORM_PATH, "printk", "start app");
 	chdir("/home/mdc/app");

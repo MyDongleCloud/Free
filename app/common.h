@@ -2,7 +2,7 @@
 #define COMMON_H
 
 //Global variable
-extern char szSerial[32];
+extern char szSerial[17];
 
 //Global functions
 void readString(const char *path, const char *key, char *buf, int size);
@@ -42,6 +42,5 @@ void getMd5sum(char *szPath, char *szMd5sum);
 int getLocalIP(char *szIPCurrent);
 void fillZeroFile(FILE *pf, int ssize);
 void syncForce(int delay);
-void printNameId(char *buf, const char *format, int matching);
 
 #endif

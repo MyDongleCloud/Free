@@ -35,7 +35,6 @@
 #define TEMPERATURE_PATH "/sys/class/thermal/thermal_zone0/%s"
 #define BUTTON_PATH "/dev/input/event0"
 #define OATH_PATH "/disk/admin/.modules/pam/oath.txt"
-#define NAMES_PATH "/usr/local/modules/MyDongleCloud/names.txt"
 #define BLE_CHUNK 182
 #define COMMUNICATION_INTERNAL_PORT 8093
 #define NM_CONFIG_PATH "/etc/NetworkManager/system-connections/%s"

@@ -115,14 +115,11 @@ static void *bleStart_t(void *arg) {
 		char nn[128];
 		snprintf(nn, sizeof(nn), "MyDongle-%s", "1234567890");
 		cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
-		if (space) {
-			if (cJSON_HasObjectItem(space, "nameId")) {
-				int nameId = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(space, "nameId"));
-				if (nameId >= 1 && nameId <= 128)
-					printNameId(nn, "MyDongle-%s", nameId);
-			}
-			cJSON_Delete(space);
-		}
+		if (space && cJSON_HasObjectItem(space, "name"))
+			snprintf(nn, 27, "MyDongle-%s", cJSON_GetStringValue2(space, "name"));
+		else
+			snprintf(nn, 27, "MyDongle-%s", szSerial);
+		cJSON_Delete(space);
 		snprintf(sz, sizeof(sz), "DEVICE=%s type=mesh node=2 address=%s\n", nn, bluetoothClassicAddr);
 		fwrite(sz, strlen(sz), 1, pf);
 		char szTplt[] = "\

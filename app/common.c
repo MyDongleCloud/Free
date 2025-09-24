@@ -26,7 +26,7 @@
 #include "common.h"
 
 //Global variables
-char szSerial[32];
+char szSerial[17];
 
 //Private variables
 static int termioUsed = 0;
@@ -255,6 +255,7 @@ void getSerialID() {
 #ifdef DESKTOP
 	strcpy(szSerial, "1234567890abcdef");
 #else
+	memset(szSerial, 0, 17);
 	readString(PLATFORM_PATH, "serialNumber", szSerial, 16);
 #endif
 }
@@ -583,18 +584,4 @@ void syncForce(int delay) {
 	pthread_t pth;
 	pthread_create(&pth, NULL, sync_t, delay ? (void *)1 : (void *)0);
 	pthread_setname_np(pth, "sync");
-}
-
-void printNameId(char *buf, const char *format, int matching) {
-	char name[1024];
-	int count = 1;
-	FILE *f = fopen(NAMES_PATH, "r");
-	if (f) {
-		while (fgets(name, 1024, f) && count++ < matching)
-			;
-		sprintf(buf, format, name);
-		fclose(f);
-	}
-	if (strlen(buf) >= 1 && buf[strlen(buf) - 1] == '\n')
-		buf[strlen(buf) - 1] = '\0';
 }
