@@ -260,7 +260,7 @@ echo "devmem2"
 echo "################################"
 cd /home/mdc/build
 wget -nv https://bootlin.com/pub/mirror/devmem2.c
-gcc -o /usr/bin/devmem2 devmem2.c
+gcc -o /usr/bin/local/devmem2 devmem2.c
 
 echo "################################"
 echo "frp"
