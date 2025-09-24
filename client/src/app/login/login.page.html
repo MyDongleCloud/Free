@@ -59,7 +59,7 @@
 			<span *ngIf="email2.errors?.email">{{global.mytranslate("Email is invalid")}}</span>
 		</div>
 		<ion-item>
-			<label for="name2" style="white-space:nowrap;">{{global.mytranslate("Name:")}}&nbsp;&nbsp;&nbsp;</label>
+			<label for="name2" style="white-space:nowrap;">{{global.mytranslate("Display Name:")}}&nbsp;&nbsp;&nbsp;</label>
 			<ion-input type="text" placeholder="John" formControlName="name2" (keyup.enter)="doRegister()"></ion-input>
 		</ion-item>
 		<div *ngIf="(name2.dirty || name2.touched) && name2.errors" class="errors">
