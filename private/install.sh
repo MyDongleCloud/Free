@@ -85,8 +85,8 @@ proc            /proc           proc    defaults          0       0
 LABEL=rootfs  /               ext4    defaults,noatime  0       1
 #LABEL=rootfs  /disk           ext4    defaults,noatime  0       1
 EOF
-fatlabel /dev/mmcblk0p1 bootfs
-e2label /dev/mmcblk0p2 rootfs
+fatlabel /dev/nvme0n1p1 bootfs
+e2label /dev/nvme0n1p2 rootfs
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
