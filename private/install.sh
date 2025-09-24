@@ -66,6 +66,7 @@ ln -sf /etc/systemd/system/MyDongleCloud-otg.service /etc/systemd/system/sysinit
 if [ $NATIVE = 1 ]; then
 	echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
 	sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
+	sed -i -e 's/cfg80211.ieee80211_regdom=US/cfg80211.ieee80211_regdom=00/' /boot/firmware/cmdline.txt
 	cat > /boot/firmware/config.txt <<EOF
 auto_initramfs=1
 arm_64bit=1
