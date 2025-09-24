@@ -7,7 +7,7 @@ endif
 MYCC = $(QUIET)gcc
 MYLINKPP = $(QUIETLINK)gcc
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer
-PRE = ../build/_moduleApache/
+PRE = ../build/_moduleapache/
 MDC_VERSION=\"$(shell cat ../app/version.txt)\"
 
 OBJs := $(PRE)module.o \
@@ -30,7 +30,7 @@ ifeq ($(DEBUG),)
 	@strip mod_mydonglecloud.so
 endif
 ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?), 0)
-	@cp mod_mydonglecloud.so /usr/local/modules/Apache2/
+	@cp mod_mydonglecloud.so /usr/local/modules/apache2/
 endif
 
 $(PRE)%.o : %.c

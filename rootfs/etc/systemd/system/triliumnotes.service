@@ -3,11 +3,11 @@ Description=TriliumNotes
 After=network.target
 
 [Service]
-Environment=TRILIUM_DATA_DIR=/disk/admin/.modules/TriliumNotes
-Environment=TRILIUM_LOG_DIR=/disk/admin/.log/TriliumNotes
+Environment=TRILIUM_DATA_DIR=/disk/admin/.modules/triliumnotes
+Environment=TRILIUM_LOG_DIR=/disk/admin/.log/triliumnotes
 Type=simple
 ExecStart=/usr/local/bin/node main.cjs
-WorkingDirectory=/usr/local/modules/TriliumNotes
+WorkingDirectory=/usr/local/modules/triliumnotes
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

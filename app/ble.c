@@ -109,12 +109,12 @@ static int le_callback(int clientnode, int operation, int cticn) {
 static void *bleStart_t(void *arg) {
 #ifndef DESKTOP
 	bluetoothAddr(bluetoothClassicAddr, 0);
-	FILE *pf = fopen(ADMIN_PATH "MyDongleCloud/bleCfg.txt", "w");
+	FILE *pf = fopen(ADMIN_PATH "mydonglecloud/blecfg.txt", "w");
 	if (pf) {
 		char sz[1024];
 		char nn[128];
 		snprintf(nn, sizeof(nn), "MyDongle-%s", "1234567890");
-		cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
+		cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
 		if (space && cJSON_HasObjectItem(space, "name"))
 			snprintf(nn, 27, "MyDongle-%s", cJSON_GetStringValue2(space, "name"));
 		else
@@ -129,7 +129,7 @@ static void *bleStart_t(void *arg) {
 		fwrite(szTplt, strlen(szTplt), 1, pf);
 		fclose(pf);
 	}
-	int ret = init_blue(ADMIN_PATH "MyDongleCloud/bleCfg.txt");
+	int ret = init_blue(ADMIN_PATH "mydonglecloud/blecfg.txt");
 	if (ret != 1) {
 		PRINTF("ERROR: 2. No btferret started\n");
 		return 0;

@@ -1,6 +1,6 @@
 {
 	"version":	1,
-	"Apache2": {
+	"apache2": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_public_" ],
@@ -8,7 +8,7 @@
 		"path": "/disk/admin/Web",
 		"alias": [ "www" ]
 	},
-	"Audiobookshelf": {
+	"audiobookshelf": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
@@ -19,8 +19,8 @@
 			"path": "/"
 		} ]
 	},
-	"BetterAuth": {},
-	"BetterAuthStudio": {
+	"betterauth": {},
+	"betterauthstudio": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
@@ -31,70 +31,70 @@
 			"path": "/"
 		} ]
 	},
-	"Bugzilla": {
+	"bugzilla": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9202
 	},
-	"Busybox": {},
-	"Certbot": {},
-	"ChangeDetection": {
+	"busybox": {},
+	"certbot": {},
+	"changedetection": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9203
 	},
-	"Clang": {},
-	"CMake": {},
+	"clang": {},
+	"cmake": {},
 	"collaboraonline": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9204
 	},
-	"ConvertX": {
+	"convertx": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9205
 	},
-	"Cyberchef": {
+	"cyberchef": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9206
 	},
-	"Discourse": {},
-	"Docker": {},
-	"Doodle": {
+	"discourse": {},
+	"docker": {},
+	"doodle": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9207
 	},
-	"Dovecot": {},
-	"FFmpeg": {},
-	"Fileflows": {
+	"dovecot": {},
+	"ffmpeg": {},
+	"fileflows": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9208
 	},
-	"Flarum": {
+	"flarum": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9209,
-		"path": "/usr/local/modules/Flarum/public"
+		"path": "/usr/local/modules/flarum/public"
 	},
-	"FreshRSS": {
+	"freshrss": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9210,
 		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
-		"path": "/usr/local/modules/FreshRSS/p",
+		"path": "/usr/local/modules/freshrss/p",
 		"alias": [ "rss" ]
 	},
 	"frp": {
@@ -128,29 +128,29 @@
 		}
 	},
 	"fscrypt": {},
-	"GCC": {},
-	"Git": {},
-	"Gitea": {
+	"gcc": {},
+	"git": {},
+	"gitea": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9212
 	},
-	"Go": {},
-	"GoAccess": {
+	"go": {},
+	"goaccess": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9213
 	},
-	"GoodIP": {},
-	"Grav": {
+	"goodip": {},
+	"grav": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9214
 	},
-	"HomeAssistant": {
+	"homeassistant": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
@@ -165,166 +165,166 @@
 			"path": "/api/websocket"
 		} ]
 	},
-	"Html5QRCode": {
+	"html5qrcode": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9216
 	},
-	"Hugo": {},
-	"ImageMagick": {},
-	"Immich": {
+	"hugo": {},
+	"imagemagick": {},
+	"immich": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9217
 	},
-	"IOPaint": {
+	"iopaint": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9218
 	},
-	"Java": {},
-	"Jellyfin": {
+	"java": {},
+	"jellyfin": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9219
 	},
-	"JitsiMeet": {
+	"jitsimeet": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9220
 	},
-	"Joomla": {
+	"joomla": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9221
 	},
-	"Joplin": {
+	"joplin": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9222
 	},
-	"JsTinker": {
+	"jstinker": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9267
 	},
-	"Karakeep": {
+	"karakeep": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9223
 	},
-	"Kernel": {},
-	"LibrePhotos": {
+	"kernel": {},
+	"librephotos": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9224
 	},
-	"Libreqr": {
+	"libreqr": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9225
 	},
-	"LimeSurvey": {
+	"limesurvey": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9226
 	},
-	"LiveCodes": {
+	"livecodes": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9268
 	},
-	"Make": {},
-	"MantisBugTracker": {
+	"make": {},
+	"mantisbugtracker": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9227
 	},
-	"MarkdownEditor": {
+	"markdowneditor": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9228
 	},
-	"Maybe": {
+	"maybe": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9229
 	},
-	"Mermaid": {
+	"mermaid": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9230
 	},
-	"MeTube": {
+	"metube": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9231
 	},
-	"MinIO": {
+	"minio": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9232
 	},
-	"MongoDB": {},
-	"Mosquitto": {},
-	"MyDongleCloud": {
+	"mongodb": {},
+	"mosquitto": {},
+	"mydonglecloud": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_localnetwork_", "admin" ],
 		"localPort": 9200,
 		"FollowSymLinks": true,
-		"path": "/usr/local/modules/MyDongleCloud/web",
+		"path": "/usr/local/modules/mydonglecloud/web",
 		"addLineInDirectory": "AddType application/x-httpd-php .json\n\t\tRewriteBase /\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . /index.html [L]",
 		"alias": [ "app", "mdc" ]
 	},
-	"MySQL": {},
-	"NGINX": {},
-	"Node": {},
-	"Ollama": {
+	"mysql": {},
+	"nginx": {},
+	"node": {},
+	"ollama": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9233
 	},
-	"OneTimeEmail": {
+	"onetimeemail": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9234
 	},
-	"OpenWebUI": {
+	"openwebui": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9235
 	},
-	"osTicket": {
+	"osticket": {
 		"web": true,
 		"symlinks": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9236
 	},
-	"OTG": {
+	"otg": {
 		"enabled": "true",
 		"features": ["serial", "mtp"],
 		"mtp": {
@@ -333,81 +333,80 @@
 			"rights": "rw"
 		}
 	},
-	"Pandoc": {
+	"pandoc": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9237
 	},
-	"PhotoPrism": {
+	"photoprism": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9238
 	},
-	"PhotoView": {
+	"photoview": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9239
 	},
-	"PHP": {},
-	"phpBB": {
+	"php": {},
+	"phpbb": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9240
 	},
-	"phpList": {
+	"phplist": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9241,
-		"path": "/usr/local/modules/phpList/public_html"
+		"path": "/usr/local/modules/phplist/public_html"
 	},
-	"PHPSandbox": {
+	"phpsandbox": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9242
 	},
-	"Pihole": {
+	"pihole": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9243
 	},
-	"Postfix": {},
-	"PrivateBin": {
+	"postfix": {},
+	"privatebin": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9244
 	},
-	"ProjectSend": {
+	"projectsend": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9245
 	},
-	"PyMCUProg": {},
-	"Python": {},
-	"Python": {},
-	"Qdrant": {},
-	"QRCodeGenerator": {
+	"pymcuprog": {},
+	"python": {},
+	"qdrant": {},
+	"qrcodegenerator": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9246
 	},
-	"Radaar": {
+	"radaar": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9247
 	},
-	"RethinkDB": {},
-	"RoundCube": {
+	"rethinkdb": {},
+	"roundcube": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
@@ -419,44 +418,44 @@
 		"permissions": [ "admin" ],
 		"localPort": 9249
 	},
-	"Sonarr": {
+	"sonarr": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9250
 	},
-	"SQLite": {},
-	"StirlingPDF": {
+	"sqlite": {},
+	"stirlingpdf": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9251
 	},
-	"SunriseCMS": {
+	"sunrisecms": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9252
 	},
-	"Superset": {
+	"superset": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9253
 	},
-	"Syncthing": {
+	"syncthing": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9254
 	},
-	"Transmission": {
+	"transmission": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9255
 	},
-	"TriliumNotes": {
+	"triliumnotes": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
@@ -467,25 +466,25 @@
 			"path": "/"
 		} ]
 	},
-	"TubeArchivist": {
+	"tubearchivist": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9257
 	},
-	"Unmanic": {
+	"unmanic": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9258
 	},
-	"Uptime": {
+	"uptime": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9259
 	},
-	"WebSSH2": {
+	"webssh2": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
@@ -498,33 +497,33 @@
 			"path": "/"
 		} ]
 	},
-	"Webtrees": {
+	"webtrees": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9261
 	},
-	"WordPress": {
+	"wordpress": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9262
 	},
-	"WriteAs": {
+	"writeas": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9263
 	},
-	"YOURLS": {
+	"yourls": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],
 		"localPort": 9264
 	},
-	"Youtubedl": {},
+	"youtubedl": {},
 	"ytdlp": {},
-	"Zigbee2MQTT": {
+	"zigbee2mqtt": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "admin" ],

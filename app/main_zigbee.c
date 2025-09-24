@@ -154,8 +154,8 @@ int main(int argc, char **argv) {
 	int nosound = 0;
 	int dotest = 0;
 
-	if (isServiceRunning("Zigbee2MQTT")) {
-		PRINTF("Exiting as Zigbee2MQTT is running\n");
+	if (isServiceRunning("zigbee2mqtt")) {
+		PRINTF("Exiting as zigbee2mqtt is running\n");
 		return 0;
 	}
 

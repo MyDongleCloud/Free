@@ -7,7 +7,7 @@
 
 //Function
 void spaceSetup() {
-	cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
+	cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
 	if (space == NULL) {
 		space = cJSON_CreateObject();
 		cJSON_AddNumberToObject(space, "nameId", 1);

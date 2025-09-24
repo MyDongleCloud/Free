@@ -11,14 +11,14 @@ import * as jose from "jose";
 
 export const port = 8091;
 const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/.modules/";
-const secretPath = adminPath + "BetterAuth/secret.txt";
-const jwkPath = adminPath + "/MyDongleCloud/jwk.pub";
-const databasePath = adminPath + "BetterAuth/database.sqlite";
-const spacePath = adminPath + "MyDongleCloud/space.json";
+const secretPath = adminPath + "betterauth/secret.txt";
+const jwkPath = adminPath + "/mydonglecloud/jwk.pub";
+const databasePath = adminPath + "betterauth/database.sqlite";
+const spacePath = adminPath + "mydonglecloud/space.json";
 let space = { name:"" };
 if (existsSync(spacePath))
 	space = JSON.parse(readFileSync(spacePath, "utf-8"));
-const modulesPath = adminPath + "MyDongleCloud/modules.json";
+const modulesPath = adminPath + "mydonglecloud/modules.json";
 let modules = {};
 if (existsSync(modulesPath))
 	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));

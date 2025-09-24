@@ -77,16 +77,16 @@ else
 	cd ../client
 	ionic --prod build
 	cd -
-	rm -rf ${ROOTFS}/usr/local/modules/MyDongleCloud/web
-	cp -a ../client/web ${ROOTFS}/usr/local/modules/MyDongleCloud
+	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/web
+	cp -a ../client/web ${ROOTFS}/usr/local/modules/mydonglecloud
 	rm -rf ../client/web
 
 	rm -rf ../login/login
 	cd ../login
 	ionic --prod build
 	cd -
-	rm -rf ${ROOTFS}/usr/local/modules/Apache2/pages/login
-	cp -a ../login/login ${ROOTFS}/usr/local/modules/Apache2/pages
+	rm -rf ${ROOTFS}/usr/local/modules/apache2/pages/login
+	cp -a ../login/login ${ROOTFS}/usr/local/modules/apache2/pages
 	rm -rf ../login/login
 
 	rm -rf ${ROOTFS}/var/cache-admin
@@ -96,10 +96,8 @@ else
 	cp -a ${ROOTFS}/disk/admin ${ROOTFS}/home/admin.default
 	rm -rf ${ROOTFS}/home/admin.default/.log
 	mkdir ${ROOTFS}/home/admin.default/.log
-	mkdir ${ROOTFS}/home/admin.default/.log/Apache2
-	ln -sf Apache2/ ${ROOTFS}/home/admin.default/.log/apache2
-	mkdir ${ROOTFS}/home/admin.default/.log/MyDongleCloud
-	mkdir ${ROOTFS}/home/admin.default/.log/Zigbee2MQTT
+	mkdir ${ROOTFS}/home/admin.default/.log/mydonglecloud
+	mkdir ${ROOTFS}/home/admin.default/.log/zigbee2mqtt
 	chown -R 1001:1001 ${ROOTFS}/home/admin.default
 	rm -f /tmp/squashfs-exclude.txt
 	if [ $FINAL = 1 ]; then

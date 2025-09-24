@@ -60,9 +60,9 @@ sed -i -e 's|%sudo	ALL=(ALL:ALL) ALL|%sudo	ALL=(ALL:ALL) NOPASSWD:ALL|' /etc/sud
 sed -i -e 's|HISTSIZE=.*|HISTSIZE=-1|' /home/mdc/.bashrc
 sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/mdc/.bashrc
 ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.target.wants/serial-getty@ttyGS0.service
-ln -sf /etc/systemd/system/MyDongleCloud-app.service /etc/systemd/system/multi-user.target.wants/MyDongleCloud-app.service
-ln -sf /etc/systemd/system/MyDongleCloud-init.service /etc/systemd/system/sysinit.target.wants/MyDongleCloud-init.service
-ln -sf /etc/systemd/system/MyDongleCloud-otg.service /etc/systemd/system/sysinit.target.wants/MyDongleCloud-otg.service
+ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
+ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
+ln -sf /etc/systemd/system/mydonglecloud-otg.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-otg.service
 if [ $NATIVE = 1 ]; then
 	echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
 	sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
@@ -97,12 +97,12 @@ fi
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
-sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/bin/systemctl reload apache2, /usr/bin/systemctl start frp.service, /usr/local/modules/MyDongleCloud/pwd.sh|' /etc/sudoers
+sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/bin/systemctl reload apache2, /usr/bin/systemctl start frp.service, /usr/local/modules/mydonglecloud/pwd.sh|' /etc/sudoers
 mkdir -p /usr/local/modules/pam && echo -e "#!/bin/sh\nexit 0" > /usr/local/modules/pam/pam.sh && chmod a+x /usr/local/modules/pam/pam.sh
 sed -i '1i auth sufficient pam_oath.so usersfile=/disk/admin/.modules/pam/oath.txt' /etc/pam.d/common-auth
 sed -i '2i auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so' /etc/pam.d/common-auth
 sed -i '3i session optional pam_exec.so /usr/local/modules/pam/pam.sh' /etc/pam.d/common-auth
-mkdir -p /usr/local/modules/MyDongleCloud
+mkdir -p /usr/local/modules/mydonglecloud
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth mdc
 usermod -a -G sudo mdc
 
@@ -277,8 +277,8 @@ echo "LiveCodes"
 echo "################################"
 cd /home/mdc/build
 wget -nv https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
-mkdir /usr/local/modules/LiveCodes
-tar -xpvf livecodes-v46.tar.gz -C /usr/local/modules/LiveCodes --strip-components=1
+mkdir /usr/local/modules/livecodes
+tar -xpvf livecodes-v46.tar.gz -C /usr/local/modules/livecodes --strip-components=1
 cd ..
 
 echo "################################"
@@ -298,9 +298,9 @@ echo "################################"
 cd /home/mdc/build
 wget -nv https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
 tar -xJpf TriliumNextNotes-Server*
-mv TriliumNextNotes-Server-0.*/ /usr/local/modules/TriliumNotes
-rm -rf /usr/local/modules/TriliumNotes/node
-ln -sf /etc/systemd/system/TriliumNotes.service /etc/systemd/system/multi-user.target.wants/TriliumNotes.service
+mv TriliumNextNotes-Server-0.*/ /usr/local/modules/triliumnotes
+rm -rf /usr/local/modules/triliumnotes/node
+ln -sf /etc/systemd/system/triliumnotes.service /etc/systemd/system/multi-user.target.wants/triliumnotes.service
 
 echo "################################"
 echo "Node.js"
@@ -320,11 +320,11 @@ npm -g install @angular/cli @ionic/cli @vue/cli cordova-res
 echo "################################"
 echo "Zigbee2MQTT"
 echo "################################"
-mkdir /usr/local/modules/Zigbee2MQTT
-cd /usr/local/modules/Zigbee2MQTT
+mkdir /usr/local/modules/zigbee2mqtt
+cd /usr/local/modules/zigbee2mqtt
 npm install zigbee2mqtt@2.5.1
-rm -rf /usr/local/modules/Zigbee2MQTT/node_modules/zigbee2mqtt/data
-ln -sf /etc/systemd/system/Zigbee2MQTT.service /etc/systemd/system/multi-user.target.wants/Zigbee2MQTT.service
+rm -rf /usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt/data
+ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
 
 echo "################################"
 echo "phpList"
@@ -333,7 +333,7 @@ cd /usr/local/modules
 wget -nv https://versaweb.dl.sourceforge.net/project/phplist/phplist/3.6.16/phplist-3.6.16.tgz
 tar -xpf phplist-*
 rm phplist-*.tgz
-mv phplist-* phpList
+mv phplist-* phplist
 
 echo "################################"
 echo "pcpp"
@@ -380,11 +380,11 @@ echo "################################"
 echo "HomeAssistant"
 echo "################################"
 cd /home/mdc
-/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/HomeAssistant -v 3.12 -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeassistant -v 3.12 -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/HomeAssistant/bin:$PATHOLD
-export PATH=/usr/local/modules/HomeAssistant/bin:$PATHOLD
+PATH=/usr/local/modules/homeassistant/bin:$PATHOLD
+export PATH=/usr/local/modules/homeassistant/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install homeassistant
 pip install aiodhcpwatcher==1.0.2
@@ -435,17 +435,17 @@ pip install zha==0.0.45
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
-ln -sf /etc/systemd/system/HomeAssistant.service /etc/systemd/system/multi-user.target.wants/HomeAssistant.service
+ln -sf /etc/systemd/system/homeassistant.service /etc/systemd/system/multi-user.target.wants/homeassistant.service
 
 echo "################################"
 echo "TubeArchivist"
 echo "################################"
 cd /home/mdc
-/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/TubeArchivist -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubearchivist -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/TubeArchivist/bin:$PATHOLD
-export PATH=/usr/local/modules/TubeArchivist/bin:$PATHOLD
+PATH=/usr/local/modules/tubearchivist/bin:$PATHOLD
+export PATH=/usr/local/modules/tubearchivist/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install apprise==1.9.3
 pip install celery==5.5.3
@@ -462,7 +462,7 @@ pip install ryd-client==0.0.6
 pip install uvicorn==0.35.0
 pip install whitenoise==6.9.0
 pip install yt-dlp[default]==2025.6.30
-cd /usr/local/modules/TubeArchivist
+cd /usr/local/modules/tubearchivist
 git clone https://github.com/tubearchivist/tubearchivist
 cd tubearchivist
 git checkout v0.5.4
@@ -475,11 +475,11 @@ echo "################################"
 echo "Unmanic"
 echo "################################"
 cd /home/mdc
-/home/mdc/rootfs/usr/local/modules/MyDongleCloud/pip.sh -f /usr/local/modules/Unmanic -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/unmanic -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/Unmanic/bin:$PATHOLD
-export PATH=/usr/local/modules/Unmanic/bin:$PATHOLD
+PATH=/usr/local/modules/unmanic/bin:$PATHOLD
+export PATH=/usr/local/modules/unmanic/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install unmanic
 PATH=$PATHOLD
@@ -514,8 +514,8 @@ git clone https://github.com/viveris/uMTP-Responder
 git checkout umtprd-1.6.8
 cd uMTP-Responder
 make
-mkdir /usr/local/modules/MTP
-cp umtprd /usr/local/modules/MTP
+mkdir /usr/local/modules/mtp
+cp umtprd /usr/local/modules/mtp
 cd ../..
 
 echo "################################"
@@ -532,20 +532,20 @@ echo "################################"
 echo "WebSSH2"
 echo "################################"
 cd /usr/local/modules
-git clone https://github.com/billchurch/webssh2 WebSSH2
-cd WebSSH2
+git clone https://github.com/billchurch/webssh2 webssh2
+cd webssh2
 git checkout v0.2.24
 rm -rf .git
 cd app
 npm install --production
 cd ../..
-ln -sf /etc/systemd/system/WebSSH2.service /etc/systemd/system/multi-user.target.wants/WebSSH2.service
+ln -sf /etc/systemd/system/webssh2.service /etc/systemd/system/multi-user.target.wants/webssh2.service
 
 echo "################################"
 echo "Acme.sh"
 echo "################################"
 cd /usr/local/modules
-mkdir /usr/local/modules/Acme
+mkdir /usr/local/modules/acme
 cd Acme
 wget -nv https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1.1/acme.sh
 chmod a+x acme.sh
@@ -554,7 +554,7 @@ echo "################################"
 echo "Libreqr"
 echo "################################"
 cd /usr/local/modules
-git clone https://code.antopie.org/miraty/libreqr.git Libreqr
+git clone https://code.antopie.org/miraty/libreqr.git libreqr
 cd Libreqr
 git checkout 2.0.1
 rm -rf .git
@@ -579,111 +579,111 @@ else
 		rm -rf .git
 	}
 
-	clone Audiobookshelf advplyr/audiobookshelf v2.26.2
-	clone Bugzilla bugzilla/bugzilla release-5.3.3
-	clone ChangeDetection dgtlmoon/changedetection.io 0.50.7
-	clone ConvertX C4illin/ConvertX v0.14.1
-	clone Cyberchef gchq/CyberChef v10.19.4
-	clone Discourse discourse/discourse v3.4.6
-	clone Flarum flarum/flarum v1.8.1
-	clone FreshRSS FreshRSS/FreshRSS 1.26.3
-	clone Gitea go-gitea/gitea v1.24.3
-	clone Grav getgrav/grav 1.7.48
-	clone Html5QRCode mebjas/html5-qrcode v2.3.8
-	clone Immich immich-app/immich v1.135.3
-	clone IOPaint Sanster/IOPaint iopaint-1.5.3
-	clone Jellyfin jellyfin/jellyfin v10.10.7
-	clone Joomla joomla/joomla-cms 5.3.2
-	clone Joplin laurent22/joplin server-v3.4.1
-	clone JsTinker johncipponeri/jstinker master
-	clone Karakeep karakeep-app/karakeep v0.26.0
-	clone LibrePhotos LibrePhotos/librephotos HEAD
-	clone LimeSurvey LimeSurvey/LimeSurvey 6.15.3+250708
-	clone MantisBugTracker mantisbt/mantisbt release-2.27.1
-	clone MarkdownEditor jbt/markdown-editor v2
-	clone Maybe maybe-finance/maybe v0.5.0
-	clone Mermaid mermaid-js/mermaid mermaid@11.9.0
-	clone MeTube alexta69/metube HEAD
-	clone MinIO minio/minio RELEASE.2025-07-18T21-56-31Z
-	clone Ollama ollama/ollama v0.9.7-rc1
-	clone OpenWebUI open-webui/open-webui v0.6.18
-	clone osTicket osTicket/osTicket v1.18.2
-	clone PhotoPrism photoprism/photoprism 250707-d28b3101e
-	clone Photoview photoview/photoview v2.4.0
-	clone phpBB phpbb/phpbb release-3.3.15
-	clone PHPSandbox Corveda/PHPSandbox v3.1
-	clone Pihole pi-hole/pi-hole v.6.1.4
-	clone PrivateBin PrivateBin/PrivateBin 1.7.8
-	clone ProjectSend projectsend/projectsend r1720
-	clone QRCodeGenerator bizzycola/qrcode-generator HEAD
-	clone Radaar Radarr/Radarr v5.27.2.10142
-	clone Sonarr Sonarr/Sonarr v4.0.15.2941
-	clone StackEdit benweet/stackedit v5.15.4
-	clone StirlingPDF Stirling-Tools/Stirling-PDF v1.0.2
-	clone SunriseCMS cityssm/sunrise-cms v1.0.0-alpha.19
-	clone Superset apache/superset 5.0.0
-	clone Syncthing syncthing/syncthing v1.30.0
-	clone Uptime louislam/uptime-kuma 1.23.16
-	clone Webtrees fisharebest/webtrees 2.2.1
-	clone YOURLS YOURLS/YOURLS 1.10.1
+	clone audiobookshelf advplyr/audiobookshelf v2.26.2
+	clone bugzilla bugzilla/bugzilla release-5.3.3
+	clone changedetection dgtlmoon/changedetection.io 0.50.7
+	clone convertx C4illin/ConvertX v0.14.1
+	clone cyberchef gchq/CyberChef v10.19.4
+	clone discourse discourse/discourse v3.4.6
+	clone flarum flarum/flarum v1.8.1
+	clone freshrss FreshRSS/FreshRSS 1.26.3
+	clone gitea go-gitea/gitea v1.24.3
+	clone grav getgrav/grav 1.7.48
+	clone html5qrcode mebjas/html5-qrcode v2.3.8
+	clone immich immich-app/immich v1.135.3
+	clone iopaint Sanster/IOPaint iopaint-1.5.3
+	clone jellyfin jellyfin/jellyfin v10.10.7
+	clone joomla joomla/joomla-cms 5.3.2
+	clone joplin laurent22/joplin server-v3.4.1
+	clone jstinker johncipponeri/jstinker master
+	clone karakeep karakeep-app/karakeep v0.26.0
+	clone librephotos LibrePhotos/librephotos HEAD
+	clone limesurvey LimeSurvey/LimeSurvey 6.15.3+250708
+	clone mantisbugtracker mantisbt/mantisbt release-2.27.1
+	clone markdowneditor jbt/markdown-editor v2
+	clone maybe maybe-finance/maybe v0.5.0
+	clone mermaid mermaid-js/mermaid mermaid@11.9.0
+	clone metube alexta69/metube HEAD
+	clone minio minio/minio RELEASE.2025-07-18T21-56-31Z
+	clone ollama ollama/ollama v0.9.7-rc1
+	clone openwebui open-webui/open-webui v0.6.18
+	clone osticket osTicket/osTicket v1.18.2
+	clone photoprism photoprism/photoprism 250707-d28b3101e
+	clone photoview photoview/photoview v2.4.0
+	clone phpbb phpbb/phpbb release-3.3.15
+	clone phpsandbox Corveda/PHPSandbox v3.1
+	clone pihole pi-hole/pi-hole v.6.1.4
+	clone privatebin PrivateBin/PrivateBin 1.7.8
+	clone projectsend projectsend/projectsend r1720
+	clone qrcodegenerator bizzycola/qrcode-generator HEAD
+	clone radaar Radarr/Radarr v5.27.2.10142
+	clone sonarr Sonarr/Sonarr v4.0.15.2941
+	clone stackedit benweet/stackedit v5.15.4
+	clone stirlingpdf Stirling-Tools/Stirling-PDF v1.0.2
+	clone sunrisecms cityssm/sunrise-cms v1.0.0-alpha.19
+	clone superset apache/superset 5.0.0
+	clone syncthing syncthing/syncthing v1.30.0
+	clone uptime louislam/uptime-kuma 1.23.16
+	clone webtrees fisharebest/webtrees 2.2.1
+	clone yourls YOURLS/YOURLS 1.10.1
 fi
 
 echo "################################"
 echo "Libreqr"
 echo "################################"
-cd /usr/local/modules/Libreqr
+cd /usr/local/modules/libreqr
 composer -n install
 chown www-data:www-data css
 
 echo "################################"
 echo "Audiobookshelf"
 echo "################################"
-cd /usr/local/modules/Audiobookshelf
+cd /usr/local/modules/audiobookshelf
 npm install
 
 echo "################################"
 echo "Flarum"
 echo "################################"
-cd /usr/local/modules/Flarum
+cd /usr/local/modules/flarum
 composer -n install
 
 echo "################################"
 echo "FreshRSS"
 echo "################################"
-cd /usr/local/modules/FreshRSS
+cd /usr/local/modules/freshrss
 npm install
 
 echo "################################"
 echo "Gitea"
 echo "################################"
-cd /usr/local/modules/Gitea
+cd /usr/local/modules/gitea
 npm install
 
 echo "################################"
 echo "Grav"
 echo "################################"
-cd /usr/local/modules/Grav
+cd /usr/local/modules/grav
 bin/grav install
 
 echo "################################"
 echo "Joomla"
 echo "################################"
-cd /usr/local/modules/Joomla
+cd /usr/local/modules/joomla
 composer -n install
 npm ci
 
 echo "################################"
 echo "osTicket"
 echo "################################"
-cd /usr/local/modules/osTicket
-mkdir -p /disk/admin/.modules/osTicket
-ln -sf /disk/admin/.modules/osTicket/ost-config.php include/ost-config.php
+cd /usr/local/modules/osticket
+mkdir -p /disk/admin/.modules/osticket
+ln -sf /disk/admin/.modules/osticket/ost-config.php include/ost-config.php
 
 echo "################################"
 echo "Better Auth"
 echo "################################"
-ln -sf /etc/systemd/system/BetterAuth.service /etc/systemd/system/multi-user.target.wants/BetterAuth.service
-ln -sf /etc/systemd/system/BetterAuth-Studio.service /etc/systemd/system/multi-user.target.wants/BetterAuth-Studio.service
+ln -sf /etc/systemd/system/betterauth.service /etc/systemd/system/multi-user.target.wants/betterauth.service
+ln -sf /etc/systemd/system/betterauth-studio.service /etc/systemd/system/multi-user.target.wants/betterauth-studio.service
 cd /home/mdc/auth
 ./prepare.sh -i
 

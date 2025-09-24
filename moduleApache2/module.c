@@ -146,7 +146,7 @@ static int authorization(request_rec *r) {
 	const char *current_uri = r->uri;
 	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
 		return DECLINED;
-	if (confD->name != NULL && strcmp(confD->name, "LiveCodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
+	if (confD->name != NULL && strcmp(confD->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
             return DECLINED;
 	return HTTP_UNAUTHORIZED;
 }

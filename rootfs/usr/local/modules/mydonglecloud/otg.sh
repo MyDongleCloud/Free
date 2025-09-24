@@ -18,7 +18,7 @@ fi
 MANUFACTURER="MyDongle.Cloud"
 PRODUCT="MyDongle.Cloud `cat /dev/mydonglecloud_platform/model | sed 's/./\U&/'`"
 SERIALNUMBER=`cat /dev/mydonglecloud_platform/serialNumber`
-VERSION=`cat /usr/local/modules/MyDongleCloud/version.txt`
+VERSION=`cat /usr/local/modules/mydonglecloud/version.txt`
 MODEL=`cat /dev/mydonglecloud_platform/model`
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
 FFS="ffs.mtp"
@@ -36,25 +36,25 @@ do
 done
 
 if [ $OPTIND = 1 ]; then
-	if [ -f /disk/admin/.modules/MyDongleCloud/modules.json ]; then
-		L=`jq -r ".OTG.features | length" /disk/admin/.modules/MyDongleCloud/modules.json`
+	if [ -f /disk/admin/.modules/mydonglecloud/modules.json ]; then
+		L=`jq -r ".otg.features | length" /disk/admin/.modules/mydonglecloud/modules.json`
 		if [ $L != 0 ]; then
-			jq -r ".OTG.features" /disk/admin/.modules/MyDongleCloud/modules.json | grep -qi serial
+			jq -r ".otg.features" /disk/admin/.modules/mydonglecloud/modules.json | grep -qi serial
 			if [ $? = 0 ]; then
 				SERIAL=1
 			fi
-			jq -r ".OTG.features" /disk/admin/.modules/MyDongleCloud/modules.json | grep -qi mtp
+			jq -r ".otg.features" /disk/admin/.modules/mydonglecloud/modules.json | grep -qi mtp
 			if [ $? = 0 ]; then
 				MTP=1
 			fi
 		fi
 	fi
 	if [ $MTP = 0 -a $SERIAL = 0 ]; then
-		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modulesDefault.json | grep -qi serial
+		jq -r ".otg.features" /usr/local/modules/mydonglecloud/modulesdefault.json | grep -qi serial
 		if [ $? = 0 ]; then
 			SERIAL=1
 		fi
-		jq -r ".OTG.features" /usr/local/modules/MyDongleCloud/modulesDefault.json | grep -qi mtp
+		jq -r ".otg.features" /usr/local/modules/mydonglecloud/modulesdefault.json | grep -qi mtp
 		if [ $? = 0 ]; then
 			MTP=1
 		fi
@@ -162,7 +162,7 @@ if [ $MTP = 1 ]; then
 	ln -s functions/$FFS configs/c.1/
 	mkdir -p /dev/ffs-mtp
 	mount -t functionfs mtp /dev/ffs-mtp
-	/usr/local/modules/MTP/umtprd -conf /disk/admin/.modules/MTP/umtprd.conf &
+	/usr/local/modules/mtp/umtprd -conf /disk/admin/.modules/mtp/umtprd.conf &
 	sleep 1
 fi
 ls /sys/class/udc/ > $PATHg1/UDC

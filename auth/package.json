@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --watch src --respawn src/app.ts",
     "dev-studio": "concurrently \"ts-node-dev --watch src --respawn src/app.ts\" \"node node_modules/better-auth-studio/dist/cli.js start\"",
-    "build": "tsc && cp .env BetterAuth",
+    "build": "tsc && cp .env betterauth",
     "start": "node dist/app.js"
   },
   "keywords": [],

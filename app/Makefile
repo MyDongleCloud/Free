@@ -77,7 +77,7 @@ clean: cleanup
 pre_build:
 	@mkdir -p $(PRE)
 ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?), 0)
-	@ln -sf /usr/local/modules/MyDongleCloud/version.txt version.txt
+	@ln -sf /usr/local/modules/mydonglecloud/version.txt version.txt
 endif
 
 app_exec: $(OBJs_APP)
@@ -87,8 +87,8 @@ ifeq ($(DEBUG),)
 endif
 ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?), 0)
 	@setcap 'cap_net_admin+eip' app
-	@cp app /usr/local/modules/MyDongleCloud/app
-	@setcap 'cap_net_admin+eip' /usr/local/modules/MyDongleCloud/app
+	@cp app /usr/local/modules/mydonglecloud/app
+	@setcap 'cap_net_admin+eip' /usr/local/modules/mydonglecloud/app
 endif
 
 desktop_exec: $(OBJs_DESKTOP)

@@ -4,7 +4,7 @@ MYCC = $(MYPATH)avr-gcc
 MYCFLAGS = -Os -I $(MYPATH)/../avr/include
 
 #DEBUG = -g
-PRE = /tmp/_screenAvr/
+PRE = /tmp/_screenavr/
 
 OBJs := $(PRE)main.o
 

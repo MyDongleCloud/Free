@@ -1,12 +1,12 @@
 [Unit]
-Description=MyDongleCloud OTG
+Description=MyDongleCloud init
 After=systemd-modules-load.service systemd-udevd.service
 Requires=systemd-modules-load.service systemd-udevd.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/local/modules/MyDongleCloud/otg.sh
+ExecStart=/usr/local/modules/mydonglecloud/init.sh
 StandardOutput=inherit
 StandardError=inherit
 

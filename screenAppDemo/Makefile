@@ -10,7 +10,7 @@ MYLINK = $(QUIETLINK)gcc
 MYLINKPP = $(QUIETLINK)g++
 DEBUG = -g
 #DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
-PRE = /tmp/_screenApp/
+PRE = /tmp/_screenapp/
 
 OBJs := $(PRE)main.o $(PRE)ui.o $(PRE)backend.o $(PRE)backend-spi.o
 OBJs_DESKTOP := $(PRE)main.o $(PRE)ui.o $(PRE)backend.o $(PRE)backend-gtk_.o

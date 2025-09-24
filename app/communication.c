@@ -122,7 +122,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			char *type = cJSON_GetStringValue2(el, "t");
 			//PRINTF("PAM: user:%s service:%s type:%s\n", user, service, type);
 		} else if (strcmp(action, "space") == 0) {
-			cJSON *space = jsonRead(ADMIN_PATH "MyDongleCloud/space.json");
+			cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
 			cJSON_AddStringToObject(space, "a", "space");
 			communicationJSON(space);
 			cJSON_Delete(space);

@@ -2,8 +2,8 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
-import modulesDefault from '../modulesDefault.json';
-import modulesMeta from '../modulesMeta.json';
+import modulesDefault from '../modulesdefault.json';
+import modulesMeta from '../modulesmeta.json';
 
 @Component({
 	selector: 'app-home',
@@ -43,7 +43,7 @@ async getData() {
 	delete modulesDefault.version;
 	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (modulesMeta[key] === undefined) {
-			console.log("Error: " + key + " not in modulesMeta");
+			console.log("Error: " + key + " not in modulesmeta");
 			return;
 		}
 		if (value["web"] !== true)

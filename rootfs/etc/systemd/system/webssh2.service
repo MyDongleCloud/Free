@@ -1,11 +1,11 @@
 [Unit]
-Description=Better Auth
+Description=WebSSH2
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/node app.js
-WorkingDirectory=/usr/local/modules/BetterAuth
+ExecStart=npm start
+WorkingDirectory=/usr/local/modules/webssh2/app
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

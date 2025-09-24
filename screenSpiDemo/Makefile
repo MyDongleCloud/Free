@@ -1,6 +1,6 @@
 MYCC = gcc
 #DEBUG = -g
-PRE = /tmp/_screenDemo/
+PRE = /tmp/_screendemo/
 
 OBJs := $(PRE)screen.o $(PRE)screenBackend.o $(PRE)main.o
 

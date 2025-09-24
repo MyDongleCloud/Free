@@ -62,7 +62,7 @@ void passwordAdminChange(char *pwd) {
 	strncpy(salt, "$6$", 3);
 	salt[19] = '\0';
     char *hashed = crypt(pwd, salt);
-    FILE *fp = popen("sudo " LOCAL_PATH "MyDongleCloud/pwd.sh", "w");
+    FILE *fp = popen("sudo " LOCAL_PATH "mydonglecloud/pwd.sh", "w");
 	if (fp) {
 	    fputs(hashed, fp);
 		pclose(fp);

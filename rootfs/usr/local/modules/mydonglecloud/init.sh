@@ -22,7 +22,7 @@ done
 if [ `cat /dev/mydonglecloud_platform/model` = "std" ]; then
 	modprobe -r dhd
 	modprobe dhd nvram_path=/etc/wifi/nvram.txt firmware_path=/etc/wifi/fw.bin
-	/usr/local/modules/MyDongleCloud/init-std-bluetooth.sh &
+	/usr/local/modules/mydonglecloud/init-std-bluetooth.sh &
 fi
 
 echo "Init done"

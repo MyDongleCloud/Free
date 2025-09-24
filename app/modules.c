@@ -27,8 +27,8 @@ void modulesSetup(cJSON *space) {
 		s = cJSON_CreateString(ss->valuestring);
 		cJSON_AddItemToArray(fqdn, s);
 	}
-	cJSON *modulesDefault = jsonRead(LOCAL_PATH "MyDongleCloud/modulesDefault.json");
-	cJSON *modules = jsonRead(ADMIN_PATH "MyDongleCloud/modules.json");
+	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
+	cJSON *modules = jsonRead(ADMIN_PATH "mydonglecloud/modules.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();
 	int firstTime = !cJSON_IsTrue(cJSON_GetObjectItem(modules, "initDone"));
@@ -37,7 +37,7 @@ void modulesSetup(cJSON *space) {
 		cJSON *elModule = cJSON_GetArrayItem(modulesDefault, i);
 		cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
 
-		if (strcmp(elModule->string, "Apache2") == 0) {
+		if (strcmp(elModule->string, "apache2") == 0) {
 			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
@@ -50,7 +50,7 @@ void modulesSetup(cJSON *space) {
 			int	used = 0;
 			int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "bindingPort"));
 			cJSON *elModuleS = cJSON_GetObjectItem(elModule, "services");
-			cJSON *elModule2Proxy = jsonRead(ADMIN_PATH "MyDongleCloud/proxy.json");
+			cJSON *elModule2Proxy = jsonRead(ADMIN_PATH "mydonglecloud/proxy.json");
 			if (elModule2Proxy == NULL)
 				elModule2Proxy = cJSON_CreateObject();
 			elModule2 = cJSON_GetObjectItem(elModule2Proxy, "frp");
@@ -124,25 +124,25 @@ remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 				system("sudo /usr/bin/systemctl start frp.service");
 			}
 #endif
-		} else if (strcmp(elModule->string, "JitsiMeet") == 0) {
+		} else if (strcmp(elModule->string, "jitsimeet") == 0) {
 			if (firstTime)
 				;//system("find /etc -exec sed -i -e \"s/m_unique_d_unique_c/${SPACE}/\" {} \;");
-		} else if (strcmp(elModule->string, "osTicket") == 0) {
+		} else if (strcmp(elModule->string, "osticket") == 0) {
 #ifndef DESKTOP
-			if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
+			if (!fileExists(ADMIN_PATH "osticket/ost-config.php")) {
 				PRINTF("osTicket: Creation of ost-config.php\n");
-				mkdir(ADMIN_PATH "osTicket", 0775);
-				if (!fileExists(ADMIN_PATH "osTicket/ost-config.php")) {
-					copyFile(LOCAL_PATH "osTicket/include/ost-sampleconfig.php", ADMIN_PATH "osTicket/ost-config.php", NULL);
-					chmod(ADMIN_PATH "osTicket/ost-config.php", 0666);
+				mkdir(ADMIN_PATH "osticket", 0775);
+				if (!fileExists(ADMIN_PATH "osticket/ost-config.php")) {
+					copyFile(LOCAL_PATH "osticket/include/ost-sampleconfig.php", ADMIN_PATH "osticket/ost-config.php", NULL);
+					chmod(ADMIN_PATH "osticket/ost-config.php", 0666);
 				}
 			}
 #endif
-		} else if (strcmp(elModule->string, "OTG") == 0) {
+		} else if (strcmp(elModule->string, "otg") == 0) {
 #ifndef DESKTOP
 			;
 #endif
-		} else if (strcmp(elModule->string, "Postfix") == 0) {
+		} else if (strcmp(elModule->string, "postfix") == 0) {
 			//In /etc/mailname mail.m_unique_d_unique_c.mydongle.cloud
 			//In etc/postfix/main.cf mydestination = $myhostname, mail.m_unique_d_unique_c.mydongle.cloud, mydonglecloud, localhost.localdomain, localhost
 		}
@@ -151,7 +151,7 @@ remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
 	if (firstTime)
 		cJSON_AddBoolToObject(modules, "initDone", cJSON_True);
 #ifndef DESKTOP
-	jsonWrite(modules, ADMIN_PATH "MyDongleCloud/modules.json");
+	jsonWrite(modules, ADMIN_PATH "mydonglecloud/modules.json");
 #endif
 	cJSON_Delete(fqdn);
 	cJSON_Delete(modules);

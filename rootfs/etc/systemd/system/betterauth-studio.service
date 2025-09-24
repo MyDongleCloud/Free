@@ -1,12 +1,12 @@
 [Unit]
 Description=Better Auth Studio
 After=BetterAuth.serivce
-Requires=BetterAuth.serivce
+Requires=betterauth.serivce
 
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/node node_modules/better-auth-studio/dist/cli.js start
-WorkingDirectory=/usr/local/modules/BetterAuth
+WorkingDirectory=/usr/local/modules/betterauth
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

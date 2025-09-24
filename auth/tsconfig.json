@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
-    "outDir": "./BetterAuth",
+    "outDir": "./betterauth",
     "rootDir": "./src",
     "strict": true,
     "noImplicitAny": false,
