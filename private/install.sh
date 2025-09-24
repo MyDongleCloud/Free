@@ -97,7 +97,7 @@ fi
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
-sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/bin/systemctl reload apache2, /usr/bin/systemctl start frp.service, /usr/local/modules/mydonglecloud/pwd.sh|' /etc/sudoers
+sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/bin/systemctl reload apache2, /usr/bin/systemctl start frp.service|' /etc/sudoers
 mkdir -p /usr/local/modules/pam && echo -e "#!/bin/sh\nexit 0" > /usr/local/modules/pam/pam.sh && chmod a+x /usr/local/modules/pam/pam.sh
 sed -i '1i auth sufficient pam_oath.so usersfile=/disk/admin/.modules/pam/oath.txt' /etc/pam.d/common-auth
 sed -i '2i auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so' /etc/pam.d/common-auth
