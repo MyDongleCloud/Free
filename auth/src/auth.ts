@@ -15,15 +15,15 @@ const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "/mydonglecloud/jwk.pub";
 const databasePath = adminPath + "betterauth/database.sqlite";
 const spacePath = adminPath + "mydonglecloud/space.json";
-let space = { name:"" };
+let space = { name:"", domains: [] };
 if (existsSync(spacePath))
 	space = JSON.parse(readFileSync(spacePath, "utf-8"));
 const modulesPath = adminPath + "mydonglecloud/modules.json";
 let modules = {};
 if (existsSync(modulesPath))
 	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
-const domain = process.env.PRODUCTION === "true" ? (space.name + ".mydongle.cloud") : "localhost";
-const trustedOrigins = process.env.PRODUCTION === "true" ? [] : [ "http://localhost:8100" ];
+const trustedOriginsDefault = [ "*.mydongle.cloud", "*.myd.cd" ];
+const trustedOrigins = process.env.PRODUCTION !== "true" ? (space?.domains ? [ ...trustedOriginsDefault, ...space?.domains.map(domain => `*.${domain}`)] : [ ...trustedOriginsDefault ]) : [ "http://localhost:8100" ];
 
 if (!existsSync(secretPath)) {
 	writeFileSync(secretPath, randomBytes(32).toString("base64"), "utf-8");
