@@ -10,8 +10,6 @@
 #include "macro.h"
 #include "lvgl.h"
 #include "backend.h"
-#include "communication.h"
-#include "base64.h"
 
 //Global variable
 unsigned char *fbPublic;
@@ -39,46 +37,7 @@ void button(int b, int l) {
 	processButton(b, 1, l);
 }
 
-//C -> HTML
-static int serverWriteDataEx(unsigned char *data, int size, int doB64) {
-	char *st;
-	if (doB64)
-		st = b64_encode(data, size);
-	else
-		st = data;
-	EM_ASM({
-		appServerWriteData(UTF8ToString($0), $1);
-	}, st, doB64);
-	return size;
-}
-
-int serverWriteData(unsigned char *data, int size) {
-	return serverWriteDataEx(data, size, 1);
-}
-
-//HTML -> C
-void communicationStatus(int s) {
-	communicationConnection(s);
-}
-
-//HTML -> C
-void serverReceive(char *st, int isB64) {
-	communicationConnection(1);
-	size_t size;
-	unsigned char *data;
-	if (isB64)
-		data = b64_decode_ex(st, &size);
-	else {
-		size = strlen(st);
-		data = st;
-	}
-	communicationReceive(data, size, "html");
-	if (isB64)
-		free(data);
-}
-
 void backendRun_plat() {
-	communicationConnection(0);
 	SDL_EventState(SDL_TEXTINPUT, SDL_DISABLE);
 	SDL_EventState(SDL_KEYDOWN, SDL_DISABLE);
 	SDL_EventState(SDL_KEYUP, SDL_DISABLE);

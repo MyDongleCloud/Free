@@ -10,7 +10,11 @@
 #include "settings.h"
 #include "logic.h"
 #include "language.h"
-#include "ble.h"
+#ifndef WEB
+#include "comBle.h"
+#include "comSocket.h"
+#include "comWebSocket.h"
+#endif
 #include "space.h"
 #include "common.h"
 #include "communication.h"
@@ -80,8 +84,9 @@ int main(int argc, char *argv[]) {
 		bleStart();
 	buzzer(1);
 #endif
-#if !defined(WEB)
+#ifndef WEB
 	communicationSocket();
+	communicationWebSocket();
 #endif
 	backendInit_plat(argc, argv);
 	backendInit(daemon);

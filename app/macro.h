@@ -36,7 +36,8 @@
 #define BUTTON_PATH "/dev/input/event0"
 #define OATH_PATH "/disk/admin/.modules/pam/oath.txt"
 #define BLE_CHUNK 182
-#define COMMUNICATION_INTERNAL_PORT 8093
+#define COMSOCKET_PORT 8093
+#define COMWEBSOCKET_PORT 8094
 #define NM_CONFIG_PATH "/etc/NetworkManager/system-connections/%s"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"

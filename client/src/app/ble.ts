@@ -12,7 +12,7 @@ const UUID_DATA = "0000fff2-0000-1000-8000-00805f9b34fb";
 
 const BLE_CHUNK = 182;
 
-declare var appServerReceive: any;
+declare var appServerReceiveHtml: any;
 declare var appCommunicationStatus: any;
 
 @Injectable({
@@ -139,7 +139,7 @@ async writeData(a) {
 communicationReceive(st) {
 	const b = JSON.parse(st);
 	if (b.a === "state")
-		appServerReceive(st, 0);
+		appServerReceiveHtml(st, 0);
 }
 
 dataChunks;
@@ -180,7 +180,7 @@ async connectToBluetoothDevice(devId: string) {
 		this.global.refreshUI.next(true);
 		return;
 	}
-	appCommunicationStatus(1);
+	appCommunicationStatus(3);
 	console.log("connectToBluetoothDevice device success!");
 	this.connectedBLE = 2;
 	this.global.refreshUI.next(true);

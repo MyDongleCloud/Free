@@ -5,37 +5,36 @@
 //backend.c			processButton
 //logic.c			logicKey
 //communication.c	communicationJSON
-//backend-web.c		serverWriteData, serverWriteDataEx
-//appWrapper.js		appServerWriteData
+//comHtml.c			serverWriteDataHtml
+//appWrapper.js		appServerWriteDataHtml
 //ble.ts			writeData, BleClient.write (potentially split in chunks)
 //OVER-THE-AIR browser->dongle
-//ble.c				le_callback
+//comBle.c			le_callback
 //communication.c	communicationReceive, write(eventFdBle)
 //backend.c			logicKey
 //logic.c			logicUpdate
-//communication.c	communicationState
-//ble.c				serverWriteData, write_ctic
+//communication.c	communicationState, communicationJSON
+//comBle.c			serverWriteDataBle, write_ctic
 //OVER-THE-AIR dongle->browser
 //ble.ts			bleNotifyDataCb, appServerReceive(b64=0)
-//appWrapper.js		Module._serverReceive
-//backend-web.c		serverReceive, b64_decode_ex
+//appWrapper.js		Module._serverReceiveHtml
+//comHtml.c			serverReceiveHtml
 //communication.c	communicationReceive
 //logic.c			logicUpdate
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <unistd.h>
-#include <string.h>
 #include <time.h>
 #include <pthread.h>
-#include <poll.h>
-#include <arpa/inet.h>
 #include "macro.h"
 #include "cJSON.h"
 #ifdef WEB
-#include "backend-web.h"
+#include "comHtml.h"
 #else
-#include "ble.h"
+#include "comBle.h"
+#include "comSocket.h"
+#include "comWebSocket.h"
 #include "json.h"
 #endif
 #include "base64.h"
@@ -56,7 +55,15 @@ void communicationConnection(int s) {
 
 int communicationJSON(void *el) {
 	char *sz = cJSON_Print((cJSON *)el);
-	int ret = serverWriteData(sz, strlen(sz));
+	int ret;
+#ifdef WEB
+	ret = serverWriteDataHtml(sz, strlen(sz));
+#else
+	if (communicationConnected == 1)
+		ret = serverWriteDataBle(sz, strlen(sz));
+	else if (communicationConnected == 2)
+		ret = serverWriteDataWebSocket(sz, strlen(sz));
+#endif
 	free(sz);
 	return ret;
 }
@@ -76,6 +83,17 @@ int communicationState() {
 	int ret = communicationJSON(el);
 	cJSON_Delete(el);
 	return ret;
+}
+
+static void *communicationState_t(void *arg) {
+	usleep(1000 * 1000);
+	communicationState();
+	return 0;
+}
+
+void communicationDoState() {
+		pthread_t pth;
+		pthread_create(&pth, NULL, communicationState_t, NULL);
 }
 
 void communicationReceive(unsigned char *data, int size, char *orig) {
@@ -135,83 +153,4 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 		}
 	}
 	cJSON_Delete(el);
-}
-
-static void *comSocket_t(void *arg) {
-	struct sockaddr_in server_addr, client_addr;
-	socklen_t client_len;
-	int listen_sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (listen_sock < 0) {
-		PRINTF("comSocket: error socket\n");
-		return 0;
-	}
-	memset(&server_addr, 0, sizeof(server_addr));
-	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	server_addr.sin_port = htons(COMMUNICATION_INTERNAL_PORT);
-		int yes = 1;
-	setsockopt(listen_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
-	if (bind(listen_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-		PRINTF("comSocket: error socket bind\n");
-		return 0;
-	}
-	if (listen(listen_sock, SOMAXCONN) < 0) {
-		PRINTF("comSocket: error socket listen\n");
-		return 0;
-	}
-	PRINTF("comSocket: OK\n");
-	struct pollfd fds[SOMAXCONN + 1];
-	int nfds = 1;
-	fds[0].fd = listen_sock;
-	fds[0].events = POLLIN;
-	while (1) {
-		poll(fds, nfds, -1);
-		if (fds[0].revents & POLLIN) {
-			int client_sock = accept(listen_sock, (struct sockaddr*)&client_addr, &client_len);
-			if (client_sock < 0) {
-				PRINTF("comSocket: error socket accept\n");
-				continue;
-			}
-			//PRINTF("comSocket: new connection\n");
-			if (nfds < SOMAXCONN + 1) {
-				fds[nfds].fd = client_sock;
-				fds[nfds].events = POLLIN;
-				nfds++;
-			} else {
-				PRINTF("comSocket: error max reached\n");
-				close(client_sock);
-			}
-		}
-		for (int i = 1; i < nfds; i++) {
-			if (fds[i].revents & (POLLIN | POLLHUP)) {
-				char buf[1024];
-				memset(buf, 0, sizeof(buf));
-				int nbytes = read(fds[i].fd, buf, sizeof(buf));
-				if (nbytes <= 0) {
-					if (nbytes == 0) {
-						//PRINTF("comSocket: connection ended\n");
-					} else {
-						PRINTF("comSocket: error socket read");
-					}
-					close(fds[i].fd);
-					fds[i] = fds[nfds - 1];
-					nfds--;
-					i--;
-				} else {
-					communicationReceive(buf, nbytes, "socket");
-					memset(buf, 0, nbytes);
-					strcpy(buf, "{\"error\":0}");
-					write(fds[i].fd, buf, strlen(buf));
-				}
-			}
-		}
-	}
-	for (int i = 0; i < nfds; i++)
-		close(fds[i].fd);
-	return 0;
-}
-
-void communicationSocket() {
-	pthread_t pth;
-	pthread_create(&pth, NULL, comSocket_t, NULL);
 }

@@ -3,20 +3,15 @@
 <tr><td colspan="2"><canvas id="canvas" width=128 height=128 style="width:512px; height:512px; margin:15px 0px;"></canvas></td></tr>
 <tr><td><button onclick="appButton(105);" style="font-size:larger;">Left</button></td><td align="right"><button onclick="appButton(106);" style="font-size:larger;">Right</button></td></tr>
 </table>
-<br>
-<br>
-<button onclick="appRequestPasscode(123456);" style="font-size:larger;">Request Passcode</button>
-<br>
-<br>
-<button onclick="appServerReceive('test', 1);" style="font-size:larger;">Notification serverReceive</button>
 <script>
 var Module;
+var socket;
 
 function appInit(log) {
 	Module = {
 		print: function(text) { if (log) console.log(text); },
 		canvas: (function() { return document.getElementById("canvas"); })(),
-//		arguments: ["-s"]
+		arguments: ["-s"]
 	};
 
 	const script = document.createElement("script");
@@ -29,24 +24,17 @@ function appButton(b) {
 	Module._button(b);
 }
 
-function appRequestPasscode(p) {
-	Module._requestPasscode(p);
-}
-
-function appCommunicationStatus(s) {
-	Module._communicationStatus(s);
-}
-
-function appServerWriteData(data, isB64) {
+function appServerWriteDataHtml(data, isB64) {
 	var st;
 	if (isB64)
 		st = atob(data);
 	else
 		st = data;
-	console.log("(JS) serverWriteData: #" + st + "#B64:" + isB64);
+	//console.log("(JS) appServerWriteDataHtml: #" + st + "#B64:" + isB64);
+	socket.send(st);
 }
 
-function appServerReceive(data, doB64) {
+function appServerReceiveHtml(data, doB64) {
 	var st;
 	if (doB64)
 		st = btoa(data);
@@ -55,10 +43,30 @@ function appServerReceive(data, doB64) {
 	var size = lengthBytesUTF8(st) + 1;
 	var ptr = Module._malloc(size);
 	stringToUTF8(st, ptr, size);
-	Module._serverReceive(ptr, doB64);
+	Module._serverReceiveHtml(ptr, doB64);
 	Module._free(ptr);
 }
-	</script>
+
+function connectWebSocket(url) {
+	const ws = "ws://" + url + ":8094";
+	console.log("socketInit " + ws);
+	socket = new WebSocket(ws);
+	socket.binaryType = "arraybuffer";
+	socket.onopen = () => {
+		console.log("socket onopen");
+	}
+	socket.onerror = (e) => {
+		console.log("socket onerror " + JSON.stringify(e));
+	}
+	socket.onclose = (e) => {
+		console.log("socket onclose " + JSON.stringify(e));
+	}
+	socket.onmessage = (msg) => {
+		appServerReceiveHtml(msg.data, 1);
+	}
+}
+</script>
 <script>
 appInit(1);
+connectWebSocket("127.0.0.1");
 </script>

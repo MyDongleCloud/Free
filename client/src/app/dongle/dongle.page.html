@@ -7,12 +7,14 @@
 	</ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true"><div style="padding:10px;">
-	<ion-button (click)="ble.connectToggle()" [color]="ble.connectedBLE == 2 ? 'success' : ble.connectedBLE == 1 ? 'danger' : 'primary'" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
+	<ion-button (click)="connectToggle()" [color]="ble.connectedBLE == 2 ? 'success' : ble.connectedBLE == 1 ? 'danger' : 'primary'" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
 		<ion-icon src="assets/dongle.svg" style="height:32px;width:74px;"></ion-icon>
 		<br>{{ble.connectedBLE == 2 ? global.mytranslate("Connected") : ble.connectedBLE == 1 ? global.mytranslate("Searching") : global.mytranslate("Connect")}}
 		<br>
 		<br>
 	</div></ion-button>
+	<br><br>
+	<ion-checkbox [(ngModel)]="typeBluetooth" labelPlacement="end">Via Bluetooth</ion-checkbox>
 	<div *ngIf="ble.connectedBLE == 2">
 		<ion-button (click)="ble.shutdown()" color="primary" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
 			<ion-icon name="power-outline" style="width:24px; height:24px;"></ion-icon>

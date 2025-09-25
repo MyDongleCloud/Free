@@ -4,7 +4,7 @@ import { Global } from '../env';
 
 declare var appInit: any;
 declare var appButton: any;
-declare var appRequestPasscode: any;
+declare var appConnectToggle: any;
 
 @Component({
 	selector: 'app-dongle',
@@ -14,6 +14,7 @@ declare var appRequestPasscode: any;
 })
 
 export class Dongle {
+typeBluetooth: boolean = true;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
@@ -35,6 +36,13 @@ ionViewWillLeave() {
 
 ionViewDidEnter() {
 	this.global.settingsSave();
+}
+
+connectToggle() {
+	if (this.typeBluetooth)
+		this.ble.connectToggle();
+	else
+		appConnectToggle();
 }
 
 }

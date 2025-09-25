@@ -10,8 +10,6 @@
 #include "apache2.h"
 
 //Functions
-
-
 void modulesSetup(cJSON *space) {
 	char sz[256];
 	cJSON *fqdn = cJSON_CreateArray();

@@ -291,6 +291,7 @@
 		"enabled": true,
 		"permissions": [ "_localnetwork_", "admin" ],
 		"localPort": 9200,
+		"addConfig": "ProxyPass /ws/ ws://localhost:8094/ws/",
 		"FollowSymLinks": true,
 		"path": "/usr/local/modules/mydonglecloud/web",
 		"addLineInDirectory": "AddType application/x-httpd-php .json\n\t\tRewriteBase /\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . /index.html [L]",

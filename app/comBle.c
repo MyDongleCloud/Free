@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <bluetooth/bluetooth.h>
@@ -16,7 +15,7 @@
 char bluetoothClassicAddr[18] = { 0 };
 
 //Functions
-int serverWriteData(unsigned char *data, int size) {
+int serverWriteDataBle(unsigned char *data, int size) {
 	if (size <= BLE_CHUNK)
 		write_ctic(localnode(), UUID_DATA - 0xfff1, data, size);
 	else if (size <= 256 * (BLE_CHUNK - 2)) {
@@ -44,7 +43,7 @@ int serverWriteData(unsigned char *data, int size) {
 	return size;
 }
 
-int serverReadData(unsigned char *data_, int size) {
+static int serverReadDataBle(unsigned char *data_, int size) {
 	static unsigned char *data = NULL;
 	static int pos = 0;
 	static int chunks = 0;
@@ -72,30 +71,21 @@ int serverReadData(unsigned char *data_, int size) {
 	}
 }
 
-static void *communicationState_t(void *arg) {
-	usleep(1000 * 1000);
-	communicationState();
-	return 0;
-}
-
 static int le_callback(int clientnode, int operation, int cticn) {
 	if(operation == LE_CONNECT) {
 		communicationConnection(1);
 		PRINTF("le_callback connect from %s(%d)\n", device_name(clientnode), clientnode);
 		buzzer(1);
-		pthread_t pth;
-		pthread_create(&pth, NULL, communicationState_t, NULL);
+		communicationDoState();
 	} else if(operation == LE_READ) {
-		communicationConnection(1);
 		PRINTF("le_callback: %s read by %s\n", ctic_name(localnode(), cticn), device_name(clientnode));
 	} else if(operation == LE_WRITE) {
-		communicationConnection(1);
 		PRINTF("le_callback: %s written by %s\n",ctic_name(localnode(), cticn), device_name(clientnode));
 		char buf[256];
 		memset(buf, 0, 256);
 		int nread = read_ctic(localnode(), cticn, buf, sizeof(buf));
 		PRINTF("le_callback: len=%d 0x%x=%d\n", nread, buf[0], buf[0]);
-		serverReadData(buf, nread);
+		serverReadDataBle(buf, nread);
 	} else if(operation == LE_DISCONNECT) {
 		communicationConnection(0);
 		PRINTF("le_callback: disconnect from %s\n", device_name(clientnode));

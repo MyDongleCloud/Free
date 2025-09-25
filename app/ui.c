@@ -683,12 +683,15 @@ void uiScreenPasscode(int expiration) {
 
 void uiScreenSlaveNotConnected() {
 	lv_obj_clean(lv_screen_active());
-
-	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, L("Not connected"));
-	lv_obj_set_width(label0, 128);
-	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_center(label0);
+	static int showMsg = 0;
+	if (showMsg) {
+		lv_obj_t *label0 = lv_label_create(lv_screen_active());
+		lv_label_set_text(label0, L("Not connected"));
+		lv_obj_set_width(label0, 128);
+		lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_center(label0);
+	}
+	showMsg = 1;
 }
 
 void uiUpdate() {

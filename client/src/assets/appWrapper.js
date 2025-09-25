@@ -1,6 +1,7 @@
 var Module;
 var thisble;
 var initDone = false;
+var socket = null;
 
 function appInit(tb, log) {
 	if (initDone) return;
@@ -26,18 +27,21 @@ function appCommunicationStatus(s) {
 	Module._communicationStatus(s);
 }
 
-function appServerWriteData(data, isB64) {
+function appServerWriteDataHtml(data, isB64) {
 	var st;
 	if (isB64)
 		st = atob(data);
 	else
 		st = data;
-	//Module.print("(JS) serverWriteData: data#" + st + "#B64:" + isB64);
-	thisble.writeData(st);
+	//Module.print("(JS) appServerWriteDataHtml: data#" + st + "#B64:" + isB64);
+	if (socket != null)
+		socket.send(st);
+	else
+		thisble.writeData(st);
 }
 
-function appServerReceive(data, doB64) {
-	//Module.print("(JS) appServerReceive: data#" + data + "#B64:" + doB64);
+function appServerReceiveHtml(data, doB64) {
+	//Module.print("(JS) appServerReceiveHtml: data#" + data + "#B64:" + doB64);
 	var st;
 	if (doB64)
 		st = btoa(data);
@@ -46,6 +50,32 @@ function appServerReceive(data, doB64) {
 	var size = lengthBytesUTF8(st) + 1;
 	var ptr = Module._malloc(size);
 	stringToUTF8(st, ptr, size);
-	Module._serverReceive(ptr, doB64);
+	Module._serverReceiveHtml(ptr, doB64);
 	Module._free(ptr);
+}
+
+function appConnectToggle() {
+	if (socket != null) {
+		socket.close();
+		socket = null;
+	} else {
+		const ws = "ws" + (window.location.protocol === "https:" ? "s" : "") + "://" + window.location.hostname + (window.location.hostname == "localhost" ? ":8094" : "") + "/ws/";
+		console.log("socketInit " + ws);
+		socket = new WebSocket(ws);
+		socket.binaryType = "arraybuffer";
+		socket.onopen = () => {
+			console.log("socket onopen");
+		}
+		socket.onerror = (e) => {
+			console.log("socket onerror " + JSON.stringify(e));
+			socket = null;
+		}
+		socket.onclose = (e) => {
+			console.log("socket onclose " + JSON.stringify(e));
+			socket = null;
+		}
+		socket.onmessage = (msg) => {
+			appServerReceiveHtml(msg.data, 1);
+		}
+	}
 }

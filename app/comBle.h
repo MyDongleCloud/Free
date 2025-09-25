@@ -1,11 +1,11 @@
-#ifndef BLE_H
-#define BLE_H
+#ifndef COMBLE_H
+#define COMBLE_H
 
 //Global variable
 extern char bluetoothClassicAddr[18];
 
 //Global functions
-int serverWriteData(unsigned char *dat, int size);
+int serverWriteDataBle(unsigned char *dat, int size);
 void bleStart();
 
 #endif

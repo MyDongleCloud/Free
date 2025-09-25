@@ -260,11 +260,11 @@ MyDongleCloudJwkPem /disk/admin/.modules/mydonglecloud/jwk.pub\n\
 					strcpy(sz, "\t</Directory>\n");
 				fwrite(sz, strlen(sz), 1, pfM);
 				if (cJSON_HasObjectItem(elModule, "addConfig")) {
-					snprintf(sz, sizeof(sz), "%s\n", cJSON_GetStringValue2(elModule, "addConfig"));
+					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule, "addConfig"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule2, "addConfig")) {
-					snprintf(sz, sizeof(sz), "%s\n", cJSON_GetStringValue2(elModule2, "addConfig"));
+					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule2, "addConfig"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (strcmp(elModule->string, "apache2") == 0 || strcmp(elModule->string, "mydonglecloud") == 0) {
