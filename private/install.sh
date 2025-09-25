@@ -709,18 +709,9 @@ if [ $OS = "pios" ]; then
 	apt-get -y purge python3-rpi-lgpio rpicam-apps-core rpicam-apps-lite
 fi
 apt-get -y autoremove
-rm -f /var/cache/apt/archives/*.deb
-rm -f /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz
-rm -rf /home/mdc/.cache/pip
-rm -rf /root
-rm -rf /lost+found
-rmdir /usr/local/games
-if [ $OS = "pios" ]; then
-	rm -rf /opt/containerd /opt/pigpio
-fi
-mv /var/log/* /disk/admin/.log/
-rmdir /var/log
-ln -sf /disk/admin/.log/ /var/log
+rm -rf /var/cache/apt/archives/*.deb /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz /home/mdc/.cache/*
+rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
+rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager
 
 sync
 sync
