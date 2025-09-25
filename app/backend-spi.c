@@ -18,6 +18,10 @@
 unsigned char *fbPublic;
 
 //Functions
+static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned char b) {
+	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
+}
+
 static void backendUpdate_plat(lv_disp_t *disp_drv, const lv_area_t *area, unsigned char *colorp) {
 	//PRINTF("Update: xy:%dx%d wh:%dx%d\n", area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
 	int x = area->x1;
@@ -32,7 +36,7 @@ static void backendUpdate_plat(lv_disp_t *disp_drv, const lv_area_t *area, unsig
 	for (yy = 0; yy < h; yy++)
 		for (xx = 0; xx < w; xx++) {
 			int pos = DEPTH * (yy * w + xx);
-			unsigned int c = convert24to16(fb[pos + 0], fb[pos + 1], fb[pos + 2]);
+			unsigned int c = convert24to16(fbPublic[pos + 0], fbPublic[pos + 1], fbPublic[pos + 2]);
 			sprintf(sz,  "%d %d %d %d %d", x + xx, y + yy, 1, 1, c);
 			writeValueKey(SCREEN_PATH, "rect", sz);
 		}
@@ -50,13 +54,13 @@ void backendRotate_plat(int rot) {
 
 void backendInit_plat(int argc, char *argv[]) {
 	lv_init();
-#ifdef NOMMAP
-	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-#else
+#ifndef NOMMAP
 	int screenFile = open(SCREEN_FILE, O_RDWR);
-	if (screenFile)
+	if (screenFile >= 0)
 		fbPublic = mmap(NULL, WIDTH * HEIGHT * DEPTH, PROT_WRITE | PROT_READ, MAP_SHARED, screenFile, 0);
+	else
 #endif
+		fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
 	writeValueKey(SCREEN_PATH, "init", "1");
 
 	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
@@ -70,10 +74,6 @@ void backendRun_plat() {
 	while (doLoop)
 		backendLoop();
 	PRINTF("End of doLoop\n");
-}
-
-static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned char b) {
-	return ((r >> 3) << 11) | ((g >> 2) << 5) | ((b >> 3) << 0);
 }
 
 void backendUninit_plat() {
