@@ -1,5 +1,3 @@
-@use '@angular/material' as mat;
-
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
@@ -19,20 +17,3 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
-
-
-$theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$blue-palette,
-    tertiary: mat.$green-palette,
-  ),
-));
-
-html {
-	@include mat.all-component-themes($theme);
-	.primary { @include mat.button-color($theme: $theme, $color-variant: 'primary'); }
-	.warning { @include mat.button-overrides((filled-label-text-color: black, filled-container-color: var(--ion-color-warning))); }
-	.danger { @include mat.button-theme($theme: $theme, $color-variant: 'error'); }
-	.success { @include mat.button-theme($theme: $theme, $color-variant: 'tertiary'); }
-}
