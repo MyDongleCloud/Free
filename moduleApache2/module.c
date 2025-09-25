@@ -132,22 +132,23 @@ static int authorization(request_rec *r) {
 	if (confD->jwkPem == NULL)
 		getJwkPemContent(s, confD);
 	//PRINTF("MDC: authorization1b jwkPem: %s", confD->jwkPem);
-	//PRINTF("MDC: authorization1c name: %s", confD->name);
-	char *ssz = cJSON_Print(confD->permissions);
-	PRINTF("MDC: authorization1d permissions: %s\n", ssz);
-	free(ssz);
+	//PRINTF("MDC: authorization1c name:%s uri:%s", confD->name, r->uri);
+	//char *ssz = cJSON_Print(confD->permissions);
+	//PRINTF("MDC: authorization1d permissions: %s\n", ssz);
+	//free(ssz);
 	if (confD->permissions == NULL || cJSON_HasObjectItem(confD->permissions, "_allusers_"))
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
 	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
 	//PRINTF("MDC: authorization2 cookieJwt: %s", cookieJwt);
-	if (cookieJwt != NULL)
+	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
 		return decodeAndCheck(s, cookieJwt, confD->jwkPem, confD->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
 	const char *current_uri = r->uri;
 	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
 		return DECLINED;
 	if (confD->name != NULL && strcmp(confD->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
             return DECLINED;
+	//PRINTF("MDC: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confD->name, r->uri);
 	return HTTP_UNAUTHORIZED;
 }
 
