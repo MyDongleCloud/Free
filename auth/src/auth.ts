@@ -100,6 +100,19 @@ export const auth = betterAuth({
 				if (user["username"] == "admin")
 					throw new APIError("BAD_REQUEST", { message: "Admin account can't be deleted" });
 			}
+		},
+		additionalFields: {
+			role: {
+				type: "string",
+				required: true,
+				defaultValue: "user",
+				input: false
+			},
+			lang: {
+				type: "string",
+				required: true,
+				defaultValue: "en"
+			}
 		}
 	},
 	plugins: [
