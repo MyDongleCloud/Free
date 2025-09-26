@@ -10,7 +10,6 @@ import { Device } from '@capacitor/device';
 import { Preferences } from '@capacitor/preferences';
 import { InAppReview } from '@capacitor-community/in-app-review';
 import { TranslateService } from '@ngx-translate/core';
-import { createRemoteJWKSet, jwtVerify } from 'jose';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Settings } from './myinterface';
@@ -101,9 +100,6 @@ async getSession() {
 	if (this.session != null) {
 		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
 		this.setCookie("jwt", jwt["token"]);
-		const jwks = await this.httpClient.get("/MyDongleCloud/Auth/jwks", {headers:{"content-type": "application/json"}}).toPromise();
-		const payload = await jwtVerify(jwt["token"], jwks["keys"][0]);
-		console.log("Auth decoded jwt: ", payload);
 	}
 }
 
