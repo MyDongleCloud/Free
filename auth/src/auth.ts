@@ -23,7 +23,7 @@ let modules = {};
 if (existsSync(modulesPath))
 	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
 const trustedOriginsDefault = [ "*.mydongle.cloud", "*.myd.cd" ];
-const trustedOrigins = process.env.PRODUCTION !== "true" ? (space?.domains ? [ ...trustedOriginsDefault, ...space?.domains.map(domain => `*.${domain}`)] : [ ...trustedOriginsDefault ]) : [ "http://localhost:8100" ];
+const trustedOrigins = process.env.PRODUCTION === "true" ? (space?.domains ? [ ...trustedOriginsDefault, ...space?.domains.map(domain => `*.${domain}`)] : [ ...trustedOriginsDefault ]) : [ "http://localhost:8100" ];
 
 if (!existsSync(secretPath)) {
 	writeFileSync(secretPath, randomBytes(32).toString("base64"), "utf-8");
