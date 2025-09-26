@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ global.mytranslate("Server Log:") }} /var/log/</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list lines="none">
+    <ng-template #recursiveTree let-nodes="nodes" let-depth="depth">
+      <ng-container *ngFor="let node of nodes">
+        <ion-item
+          (click)="node.type === 'file' ? viewFileContent(node) : toggleExpand(node)"
+          detail=false>
+          <ion-icon
+            [name]="node.type === 'directory'
+              ? (isExpanded(node) ? 'folder-open' : 'folder')
+              : node.type === 'symlink' ? 'link' : 'document'"
+            slot="start"
+            [color]="node.type === 'directory' ? 'primary' : 'medium'"
+          ></ion-icon>
+          <ion-label>
+            <h3>
+              {{ node.name }}
+              <ion-note color="medium" *ngIf="node.type !== 'file'">
+                {{ node.permissions }} · {{ node.owner }}:{{ node.group }}
+                <ion-note *ngIf="node.modified" color="medium" class="ion-float-right">
+                  {{ node.modified | date:'short' }}
+                </ion-note>
+              </ion-note>
+            </h3>
+            <p *ngIf="node.type === 'file'">
+              {{ node.permissions }} · {{ node.owner }}:{{ node.group }} · {{ getSizeString(node.size) }}
+              <ion-note *ngIf="node.modified" color="medium" class="ion-float-right">
+                {{ node.modified | date:'short' }}
+              </ion-note>
+            </p>
+          </ion-label>
+        </ion-item>
+
+        <!-- Recursive rendering -->
+        <div *ngIf="node.type === 'directory' && isExpanded(node)" class="nested" [style.margin-left.px]="16 * (depth + 1)">
+          <ng-container *ngTemplateOutlet="recursiveTree; context: { nodes: node.children || [], depth: depth + 1 }"></ng-container>
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <!-- Initial call -->
+    <ng-container *ngTemplateOutlet="recursiveTree; context:{ nodes: nodes, depth: 0 }"></ng-container>
+  </ion-list>
+</ion-content>
+
+<ion-modal #modalContent class="file-content-modal">
+	<ng-template>
+		<ion-content class="ion-padding">
+			<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeContent()">Content of {{ modalContentMeta }}<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
+			<pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; ; overflow-y:auto;">{{ modalContentText }}</pre>
+		</ion-content>
+	</ng-template>
+</ion-modal>

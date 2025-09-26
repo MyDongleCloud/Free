@@ -46,6 +46,9 @@
 		"Passwords don't match": "",
 		"Wrong information. Please try again.": ""
 	},
+	"serverlog": {
+		"Server Log": ""
+	},
 	"setup": {
 		"Dongle": "",
 		"Connected": "",

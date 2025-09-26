@@ -1,11 +1,13 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { randomBytes } from 'crypto';
 import { betterAuth } from "better-auth";
-import { APIError, createAuthEndpoint, createAuthMiddleware } from "better-auth/api";
+import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
 import { BetterAuthPlugin, username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
 import { sendMagicLinkEmail, sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInOTP, sendVerificationEmailURL } from "./email";
+import { folderAndChildren } from "./tree";
 import Database from "better-sqlite3";
 import "dotenv/config";
+import fs from "fs";
 import * as net from "net";
 import * as jose from "jose";
 
@@ -45,6 +47,28 @@ const sendOtpToDongle = (otp) => {
 	});
 	client.on("error", (err: Error) => {
 	});
+}
+
+const rootPath = "/work/ai.mydonglecloud/app/";
+const serverLog = () => {
+	return {
+		id: "serverLog",
+		endpoints: {
+			serverLog: createAuthEndpoint("/server-log", {
+				method: "POST",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				if (ctx.context.session?.user?.username != "admin")
+					return Response.json({}, { status: 200 });
+				const myPath = rootPath + ctx.body?.path;
+				const stats = fs.statSync(myPath);
+				if (stats.isDirectory())
+					return Response.json(folderAndChildren(myPath), { status: 200 });
+				else
+					return new Response(fs.readFileSync(myPath, "utf8"), { status: 200 });
+			})
+		}
+	} satisfies BetterAuthPlugin
 }
 
 const jwksPem = () => {
@@ -118,6 +142,7 @@ export const auth = betterAuth({
 				},
 			}
 		}),
+		serverLog(),
 		jwksPem()
 	],
 	 databaseHooks: {

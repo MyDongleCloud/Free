@@ -1,0 +1,19 @@
+.nested {
+  border-left: 1px dashed var(--ion-color-step-200, #d7d8da);
+  padding-left: 8px;
+}
+
+ion-note {
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+.file-content-modal {
+  --width: 90%;
+  --height: 90%;
+  --border-radius: 16px;
+
+  ion-content {
+    --background: var(--ion-color-light);
+  }
+}
