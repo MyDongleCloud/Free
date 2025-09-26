@@ -46,11 +46,6 @@ getCookie(name) {
 	return null;
 }
 
-setCookie(name, value, domain) {
-	//console.log("setCookie: " + `${name}=${value}; domain=${domain}; path=/;`);
-	document.cookie = `${name}=${value}; domain=${domain}; path=/;`;
-}
-
 domainFromFqdn(fqdn) {
 	const parts = fqdn.split('.');
 	if (parts.length <= 2)
@@ -61,10 +56,13 @@ domainFromFqdn(fqdn) {
 	return parts.slice(sliceIndex).join('.');
 }
 
-setCookieSpecial(name, value) {
+setCookie(name, value) {
 	const host = window.location.hostname.replace(/^([^:]*)(?::\d+)?$/i, '$1');
 	const domain = this.domainFromFqdn(host);
-	this.setCookie(name, value, domain);
+	if (value == "")
+		document.cookie = `${name}=; Domain=${domain}; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+	else
+		document.cookie = `${name}=${value}; Domain=${domain}; Path=/;`;
 }
 
 async AuthHealth() {
@@ -77,7 +75,7 @@ async getSession() {
 	console.log("Auth get-session: ", this.session);
 	if (this.session != null) {
 		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
-		this.setCookieSpecial("jwt", jwt["token"]);
+		this.setCookie("jwt", jwt["token"]);
 	}
 }
 

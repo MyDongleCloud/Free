@@ -71,11 +71,6 @@ getCookie(name) {
 	return null;
 }
 
-setCookie(name, value, domain) {
-	//console.log("setCookie: " + `${name}=${value}; domain=${domain}; path=/;`);
-	document.cookie = `${name}=${value}; domain=${domain}; path=/;`;
-}
-
 domainFromFqdn(fqdn) {
 	const parts = fqdn.split('.');
 	if (parts.length <= 2)
@@ -86,10 +81,13 @@ domainFromFqdn(fqdn) {
 	return parts.slice(sliceIndex).join('.');
 }
 
-setCookieSpecial(name, value) {
+setCookie(name, value) {
 	const host = window.location.hostname.replace(/^([^:]*)(?::\d+)?$/i, '$1');
 	const domain = this.domainFromFqdn(host);
-	this.setCookie(name, value, domain);
+	if (value == "")
+		document.cookie = `${name}=; Domain=${domain}; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+	else
+		document.cookie = `${name}=${value}; Domain=${domain}; Path=/;`;
 }
 
 async AuthHealth() {
@@ -102,8 +100,7 @@ async getSession() {
 	console.log("Auth get-session: ", this.session);
 	if (this.session != null) {
 		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
-		this.setCookieSpecial("jwt", jwt["token"]);
-
+		this.setCookie("jwt", jwt["token"]);
 		const jwks = await this.httpClient.get("/MyDongleCloud/Auth/jwks", {headers:{"content-type": "application/json"}}).toPromise();
 		const payload = await jwtVerify(jwt["token"], jwks["keys"][0]);
 		console.log("Auth decoded jwt: ", payload);
@@ -111,6 +108,7 @@ async getSession() {
 }
 
 async logout() {
+	this.setCookie("jwt", "");
 	const data = { token:this.session["session"]["token"] };
 	const ret = await this.httpClient.post("/MyDongleCloud/Auth/revoke-session", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 	console.log("Auth revoke-session: ", ret);
