@@ -89,16 +89,8 @@ else
 	cp -a ../login/login ${ROOTFS}/usr/local/modules/apache2/pages
 	rm -rf ../login/login
 
-	rm -rf ${ROOTFS}/var/cache-admin
-	mkdir ${ROOTFS}/var/cache-admin
-	chown -R 1001:1001 ${ROOTFS}/var/cache-admin
 	rm -rf ${ROOTFS}/home/admin.default
 	cp -a ${ROOTFS}/disk/admin ${ROOTFS}/home/admin.default
-	rm -rf ${ROOTFS}/home/admin.default/.log
-	mkdir ${ROOTFS}/home/admin.default/.log
-	mkdir ${ROOTFS}/home/admin.default/.log/mydonglecloud
-	mkdir ${ROOTFS}/home/admin.default/.log/zigbee2mqtt
-	chown -R 1001:1001 ${ROOTFS}/home/admin.default
 	rm -f /tmp/squashfs-exclude.txt
 	if [ $FINAL = 1 ]; then
 		cp squashfs-exclude.txt /tmp/squashfs-exclude.txt

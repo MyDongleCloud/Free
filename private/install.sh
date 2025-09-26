@@ -548,7 +548,7 @@ echo "Libreqr"
 echo "################################"
 cd /usr/local/modules
 git clone https://code.antopie.org/miraty/libreqr.git libreqr
-cd Libreqr
+cd libreqr
 git checkout 2.0.1
 rm -rf .git
 
@@ -685,6 +685,7 @@ echo "MyDongleCloud stuff and rootfs"
 echo "################################"
 cd /home/mdc
 chown -R root:root rootfs
+chown -R admin:admin rootfs/disk/admin rootfs/var/log/mydonglecloud
 cp -a rootfs/* /
 rm -rf rootfs
 cd /home/mdc/kernel
@@ -700,7 +701,9 @@ cd /home/mdc/pam
 make
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
-chown -R admin:admin /disk/admin /var/cache-admin
+mv /var/lib/mysql /disk/admin/.modules
+chown mysql:mysql /disk/admin/.modules/mysql
+ln -sf /disk/admin/.modules/mysql /var/lib/mysql
 
 echo "################################"
 echo "Cleanup"
@@ -711,13 +714,15 @@ fi
 apt-get -y autoremove
 rm -rf /var/cache/apt/archives/*.deb /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz /home/mdc/.cache/*
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
-rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager
+rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
+mkdir /var/cache-admin
+chown admin:admin /var/cache-admin
 
-sync
-sync
 echo "################################"
 echo "Finish install"
 echo "################################"
+sync
+sync
 date
 DATEFINISH=`date +%s`
 DELTA=$((DATEFINISH - DATESTART))
