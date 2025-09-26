@@ -289,7 +289,7 @@
 	"mydonglecloud": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "_localnetwork_", "admin" ],
+		"permissions": [ "admin" ],
 		"localPort": 9200,
 		"addConfig": "ProxyPass /ws/ ws://localhost:8094/ws/",
 		"path": "/usr/local/modules/mydonglecloud/web",
