@@ -4,16 +4,20 @@ import { toNodeHandler } from "better-auth/node";
 import cookieParser from "cookie-parser";
 import { auth, handler, jwkInit, port } from "./auth";
 import express from "express";
+import morgan from "morgan";
 import cors from "cors";
 
 const app = express();
 /*
-console.log(auth);
+//console.log(auth);
 app.use((req, res, next) => {
-	console.log({ method:req.method, path:req.path, host:req.get("host"), headers:req.headers });
+	console.log(`Request (${req.method}) ${req.path}`);
+	//console.log({ method:req.method, path:req.path, host:req.get("host"), headers:req.headers });//
 	next();
 });
 */
+const customFormat = ":date[clf] :method :url :status :response-time ms";
+app.use(morgan(customFormat));
 app.use(cors({
 	origin: ["*"],
 	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],

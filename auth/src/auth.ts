@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
-import { randomBytes } from 'crypto';
+import { randomBytes } from "crypto";
 import { betterAuth } from "better-auth";
 import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
 import { BetterAuthPlugin, username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
@@ -145,11 +145,28 @@ export const auth = betterAuth({
 		serverLog(),
 		jwksPem()
 	],
-	 databaseHooks: {
+	hooks: {
+/*
+		after: createAuthMiddleware(async (ctx) => {
+			const responseBody = ctx.context.returned;
+			let logBody;
+			if (responseBody instanceof Response) {
+				const status = responseBody.status || 200;
+				const bodyText = await responseBody.text();
+				logBody = bodyText.startsWith("{") || bodyText.startsWith("[") ? JSON.stringify(JSON.parse(bodyText), null, 2) : bodyText;
+				console.log(`${status} for ${ctx.method} ${ctx.path}:\n`, logBody);
+			} else {
+				logBody = typeof responseBody === "string" ? responseBody  : JSON.stringify(responseBody, null, 2);
+				console.log(`200 for ${ctx.method} ${ctx.path}:\n`, logBody);
+			}
+		})
+*/
+	},
+	databaseHooks: {
 		user: {
 			create: {
 				before: async (user, ctx) => {
-					const countStatement = ctx?.context.options.database.prepare('SELECT COUNT(*) AS count FROM user');
+					const countStatement = ctx?.context.options.database.prepare("SELECT COUNT(*) AS count FROM user");
 					const result = countStatement.get();
 //					const un = result?.count == 0 ? "admin" : null;
 					if (result?.count == 0) {
