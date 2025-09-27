@@ -110,19 +110,27 @@
 		"bindingPort": 7000,
 		"services": {
 			"http": {
+				"type": "http",
+				"localPort": 80
 			},
 			"https": {
+				"type": "https",
+				"localPort": 443
 			},
 			"ssh": {
+				"type": "tcp",
 				"localPort": 22
 			},
-			"smtps": {
+			"mail": {
+				"type": "tcpmux",
 				"localPort": 465
 			},
 			"pop3s": {
+				"type": "tcpmux",
 				"localPort": 993
 			},
 			"imaps": {
+				"type": "tcpmux",
 				"localPort": 995
 			}
 		}

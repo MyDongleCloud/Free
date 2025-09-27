@@ -85,31 +85,29 @@ webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), c
 					cJSON *elModule2Sj = cJSON_GetObjectItem(elModule2S, elModuleSj->string);
 					if (elModule2Sj && cJSON_IsTrue(cJSON_GetObjectItem(elModule2Sj, "enabled"))) {
 						used = 1;
+						char *type = cJSON_GetStringValue2(elModuleSj, "type");
 						int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModuleSj, "localPort"));
-						if (strncmp(elModuleSj->string, "http", 4) == 0) {
-							sprintf(sz, "\
+						int remotePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule2Sj, "remotePort"));
+						sprintf(sz, "\
 [[proxies]]\n\
 name = \"%s\"\n\
 type = \"%s\"\n\
 localIP = \"localhost\"\n\
-localPort = %d\n\
-customDomains = [\n", elModuleSj->string, elModuleSj->string, elModuleSj->string[4] == 's' ? 443 : 80);
+localPort = %d\n", elModuleSj->string, type, localPort);
+						fwrite(sz, strlen(sz), 1, pf);
+						if (strncmp(type, "http", 4) == 0) {
+							strcpy(sz, "customDomains = [\n");
 							fwrite(sz, strlen(sz), 1, pf);
 							jsonPrintArray(1, "\"", "\"", "", fqdn, "\",\n", pf);
 							jsonPrintArray(1, "\"", "\"", "*", fqdn, "\",\n", pf);
 							strcpy(sz, "]\n\n");
 							fwrite(sz, strlen(sz), 1, pf);
-						} else {
-							int remotePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule2Sj, "remotePort"));
-							snprintf(sz, sizeof(sz), "\
-[[proxies]]\n\
-name = \"%s\"\n\
-type = \"tcp\"\n\
-localIP = \"localhost\"\n\
-localPort = %d\n\
-remotePort = %d\n\n", elModuleSj->string, localPort, remotePort);
+						} else if (strcmp(type, "tcpmux") == 0) {
+							snprintf(sz, sizeof(sz), "multiplexer = \"httpconnect\"\ncustomDomains = [ \"%s.%s\" ]\n\n", elModuleSj->string, cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
 							fwrite(sz, strlen(sz), 1, pf);
-//PRINTF("https://mydongle.cloud/master/proxy.json { \"localPort\": %d, \"serviceName\": \"%s\", \"spaceName\": \"%s\", \"remotePort\": %d }\n", localPort, elModuleSj->string, cJSON_GetStringValue2(space, "name"), remotePort);
+						} else if (remotePort > 0) {
+							snprintf(sz, sizeof(sz), "remotePort= %d\n\n", remotePort);
+							fwrite(sz, strlen(sz), 1, pf);
 						}
 					}
 				}
