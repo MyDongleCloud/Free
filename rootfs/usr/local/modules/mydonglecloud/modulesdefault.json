@@ -417,6 +417,7 @@
 	"roundcube": {
 		"web": true,
 		"enabled": true,
+		"path": "/usr/share/roundcube",
 		"permissions": [ "admin" ],
 		"localPort": 9248
 	},
