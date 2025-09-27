@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 	next();
 });
 */
-const customFormat = ":date[clf] :method :url :status :response-time ms";
+const customFormat = ":method :url :status :response-time ms";
 app.use(morgan(customFormat));
 app.use(cors({
 	origin: ["*"],
