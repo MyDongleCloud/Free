@@ -17,9 +17,7 @@ const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "/mydonglecloud/jwk.pub";
 const databasePath = adminPath + "betterauth/database.sqlite";
 const spacePath = adminPath + "mydonglecloud/space.json";
-let space = { name:"", domains: [] };
-if (existsSync(spacePath))
-	space = JSON.parse(readFileSync(spacePath, "utf-8"));
+export const space = existsSync(spacePath) ? JSON.parse(readFileSync(spacePath, "utf-8")) : { name:"", domains: [] };
 const modulesPath = adminPath + "mydonglecloud/modules.json";
 let modules = {};
 if (existsSync(modulesPath))

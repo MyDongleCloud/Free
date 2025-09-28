@@ -1,9 +1,5 @@
 import nodemailer from "nodemailer";
 
-const EMAIL_APP_NAME = "MyDongle.Cloud";
-const EMAIL_APP_URL = "https://mydongle.cloud";
-const EMAIL_USER = "admin@mydongle.cloud";	
-
 const transporter = nodemailer.createTransport({
 	host: "localhost",
 	port: 25,
@@ -11,16 +7,25 @@ const transporter = nodemailer.createTransport({
 	ignoreTLS: true
 });
 
+let APP_NAME, APP_URL, APP_ADMIN;
+async function lazyInit() {
+    const { space } = await import("./auth");
+	APP_NAME = "MyDongle.Cloud " + space.name;
+	APP_URL = "https://" + space.name + ".mydongle.cloud";
+	APP_ADMIN = "admin@" + space.name + ".mydongle.cloud";
+}
+lazyInit();
+
 const sendMagicLinkEmail = async (to, token, url) => {
 	const link = decodeURIComponent(url.replace(/.*callbackURL=/, "")) + "/login?verify=" + token;
 	await transporter.sendMail({
-	from: `"${EMAIL_APP_NAME} - Email Verification" <${EMAIL_USER}>`,
+	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
-	subject: `Unique URL to Login - ${EMAIL_APP_NAME}`,
+	subject: `Magic Link to Login [${APP_NAME}]`,
 	html: `
 		<div style="font-family:sans-serif; line-height:1.5; max-width:600px; margin:0 auto;">
 			<div style="background-color:#0054e9; padding:20px; text-align:center;">
-				<h1 style="color:white; margin:0;">${EMAIL_APP_NAME}</h1>
+				<h1 style="color:white; margin:0;">${APP_NAME}</h1>
 			</div>
 			<div style="padding:30px; background-color:#f9f9f9;">
 				<h2 style="color:#333;">Unique URL to Login</h2>
@@ -33,8 +38,7 @@ const sendMagicLinkEmail = async (to, token, url) => {
 				<p style="color:#666;">This link will expire in 5 minutes for security reasons.</p>
 				<p>If you didn't request this link, please ignore this email.</p>
 				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
-				<p>Thank you,<br/>The ${EMAIL_APP_NAME} Team</p>
-				<p style="font-size:12px; color:#999;">Visit at <a href="${EMAIL_APP_URL}" target="_blank" style="color:#0054e9;">${EMAIL_APP_URL}</a></p>
+				<p>Thank you,<br/><a href="${APP_URL}" target="_blank" style="color:#ff6b6b;">${APP_NAME}</a></p>
 			</div>
 		</div>
 	`,
@@ -43,13 +47,13 @@ const sendMagicLinkEmail = async (to, token, url) => {
 
 const sendVerificationEmail = async (to, code) => {
 	await transporter.sendMail({
-	from: `"${EMAIL_APP_NAME} - Email Verification" <${EMAIL_USER}>`,
+	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
-	subject: `Verify your email - ${EMAIL_APP_NAME}`,
+	subject: `Verify Email [${APP_NAME}]`,
 	html: `
 		<div style="font-family:sans-serif; line-height:1.5; max-width:600px; margin:0 auto;">
 			<div style="background-color:#0054e9; padding:20px; text-align:center;">
-				<h1 style="color:white; margin:0;">${EMAIL_APP_NAME}</h1>
+				<h1 style="color:white; margin:0;">${APP_NAME}</h1>
 			</div>
 			<div style="padding:30px; background-color:#f9f9f9;">
 				<h2 style="color:#333;">Email Verification Required</h2>
@@ -61,8 +65,7 @@ const sendVerificationEmail = async (to, code) => {
 				<p style="color:#666;">This code will expire in 10 minutes for security reasons.</p>
 				<p>If you didn't request this verification, please ignore this email.</p>
 				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
-				<p>Thank you,<br/>The ${EMAIL_APP_NAME} Team</p>
-				<p style="font-size:12px; color:#999;">Visit at <a href="${EMAIL_APP_URL}" target="_blank" style="color:#0054e9;">${EMAIL_APP_URL}</a></p>
+				<p>Thank you,<br/><a href="${APP_URL}" target="_blank" style="color:#ff6b6b;">${APP_NAME}</a></p>
 			</div>
 		</div>
 	`,
@@ -71,13 +74,13 @@ const sendVerificationEmail = async (to, code) => {
 
 const sendPasswordResetVerificationEmail = async (to, code) => {
 	await transporter.sendMail({
-	from: `"${EMAIL_APP_NAME} - Password Reset" <${EMAIL_USER}>`,
+	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
-	subject: `Reset Your Password - ${EMAIL_APP_NAME}`,
+	subject: `Reset Password [${APP_NAME}]`,
 	html: `
 		<div style="font-family:sans-serif; line-height:1.5; max-width:600px; margin:0 auto;">
 			<div style="background-color:#0054e9; padding:20px; text-align:center;">
-				<h1 style="color:white; margin:0;">${EMAIL_APP_NAME}</h1>
+				<h1 style="color:white; margin:0;">${APP_NAME}</h1>
 			</div>
 			<div style="padding:30px; background-color:#f9f9f9;">
 				<h2 style="color:#333;">Password Reset Request</h2>
@@ -89,10 +92,7 @@ const sendPasswordResetVerificationEmail = async (to, code) => {
 				<p style="color:#666;">This code is valid for 10 minutes. If you didn't request this, you can safely ignore this email.</p>
 				<p><strong>Security Tip:</strong> Never share this code with anyone. Our team will never ask for this code.</p>
 				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
-				<p>Thank you,<br/>The ${EMAIL_APP_NAME} Team</p>
-				<p style="font-size:12px; color:#999;">
-				Visit us at <a href="${EMAIL_APP_URL}" target="_blank" style="color:#ff6b6b;">${EMAIL_APP_URL}</a>
-				</p>
+				<p>Thank you,<br/><a href="${APP_URL}" target="_blank" style="color:#ff6b6b;">${APP_NAME}</a></p>
 			</div>
 		</div>
 	`,
@@ -101,28 +101,25 @@ const sendPasswordResetVerificationEmail = async (to, code) => {
 
 const sendSignInOTP = async (to, code) => {
 	await transporter.sendMail({
-	from: `"${EMAIL_APP_NAME} - Sign In" <${EMAIL_USER}>`,
+	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
-	subject: `Your Sign In Code - ${EMAIL_APP_NAME}`,
+	subject: `Sign-In Code [${APP_NAME}]`,
 	html: `
 		<div style="font-family:sans-serif; line-height:1.5; max-width:600px; margin:0 auto;">
 			<div style="background-color:#0054e9; padding:20px; text-align:center;">
-				<h1 style="color:white; margin:0;">${EMAIL_APP_NAME}</h1>
+				<h1 style="color:white; margin:0;">${APP_NAME}</h1>
 			</div>
 			<div style="padding:30px; background-color:#f9f9f9;">
 				<h2 style="color:#333;">Sign In to Your Account</h2>
 				<p>Hello,</p>
-				<p>Use the code below to sign in to your ${EMAIL_APP_NAME} account:</p>
+				<p>Use the code below to sign in to your account:</p>
 				<div style="text-align:center; margin:30px 0;">
 					<div style="background-color:#2dd55b; color:white; padding:15px 30px; display:inline-block; border-radius:8px; font-size:24px; font-weight:bold; letter-spacing:3px;">${code}</div>
 				</div>
 				<p style="color:#666;">This code will expire in 10 minutes for security reasons.</p>
 				<p>If you didn't try to sign in, please ignore this email and consider changing your password.</p>
 				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
-				<p>Thank you,<br/>The ${EMAIL_APP_NAME} Team</p>
-				<p style="font-size:12px; color:#999;">
-				Visit us at <a href="${EMAIL_APP_URL}" target="_blank" style="color:#74b9ff;">${EMAIL_APP_URL}</a>
-				</p>
+				<p>Thank you,<br/><a href="${APP_URL}" target="_blank" style="color:#ff6b6b;">${APP_NAME}</a></p>
 			</div>
 		</div>
 	`,
@@ -131,13 +128,13 @@ const sendSignInOTP = async (to, code) => {
 
 const sendVerificationEmailURL = async (to, url) => {
 	await transporter.sendMail({
-	from: `"${EMAIL_APP_NAME} - Email Verification" <${EMAIL_USER}>`,
+	from: `"${APP_NAME} - Email Verification" <${APP_ADMIN}>`,
 	to,
-	subject: `Verify your email - ${EMAIL_APP_NAME}`,
+	subject: `Verify email [${APP_NAME}]`,
 	html: `
 		<div style="font-family:sans-serif; line-height:1.5; max-width:600px; margin:0 auto;">
 			<div style="background-color:#0054e9; padding:20px; text-align:center;">
-				<h1 style="color:white; margin:0;">${EMAIL_APP_NAME}</h1>
+				<h1 style="color:white; margin:0;">${APP_NAME}</h1>
 			</div>
 			<div style="padding:30px; background-color:#f9f9f9;">
 				<h2 style="color:#333;">Confirm Your Email Address</h2>
@@ -150,10 +147,7 @@ const sendVerificationEmailURL = async (to, url) => {
 				<p style="word-break:break-all;"><a href="${url}" target="_blank" style="color:#4caf50;">${url}</a></p>
 				<p>If you didn't sign up for this account, you can safely ignore this email.</p>
 				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
-				<p>Thank you,<br/>The ${EMAIL_APP_NAME} Team</p>
-				<p style="font-size:12px; color:#999;">
-				Visit us at <a href="${EMAIL_APP_URL}" target="_blank" style="color:#4caf50;">${EMAIL_APP_URL}</a>
-				</p>
+				<p>Thank you,<br/><a href="${APP_URL}" target="_blank" style="color:#ff6b6b;">${APP_NAME}</a></p>
 			</div>
 		</div>
 	`,
