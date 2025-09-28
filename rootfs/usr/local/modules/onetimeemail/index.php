@@ -1,7 +1,5 @@
 <?php
-include "../email/sec.inc";
-
-$baseDir = "/home/gregoire/mail/";
+$baseDir = "/disk/admin/.modules/mail/";
 $domain = "mail2.cloud";
 $accountCur = "";
 
