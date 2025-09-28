@@ -110,8 +110,8 @@ async backButtonAlert() {
 
 async presentAlert(hd, st, msg, key:string = "") {
 	let checked = false;
-	if (this.settings.dontShowAgain[key] !== undefined)
-		return;
+//	if (this.settings.dontShowAgain[key] !== undefined)
+//		return;
 	const alert = await this.alertCtrl.create({
 		cssClass: "basic-alert",
 		header: hd,
@@ -122,10 +122,10 @@ async presentAlert(hd, st, msg, key:string = "") {
 	});
 	await alert.present();
 	await alert.onDidDismiss();
-	if (checked) {
-		this.settings.dontShowAgain[key] = true;
-		this.settingsSave();
-	}
+//	if (checked) {
+//		this.settings.dontShowAgain[key] = true;
+//		this.settingsSave();
+//	}
 }
 
 async changeLanguage(st) {
