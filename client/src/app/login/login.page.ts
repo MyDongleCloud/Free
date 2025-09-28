@@ -149,7 +149,6 @@ async doMagicLink() {
 
 async doMagicLinkVerify(token) {
 	let ret = null;
-alert(token);
 	try {
 		ret = await this.httpClient.get("/MyDongleCloud/Auth/magic-link/verify?token=" + token, {headers:{"content-type": "application/json"}}).toPromise();
 		console.log("Auth magic-link/verify: ", ret);
