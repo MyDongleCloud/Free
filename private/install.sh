@@ -181,7 +181,7 @@ apt-get -y install postfix swaks s-nail
 echo "################################"
 echo "Modules via apt"
 echo "################################"
-apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap php-curl php-zip php-apcu php-memcache php-redis php-ldap procmail rspamd sqlite3
+apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap php-curl php-zip php-apcu php-memcache php-redis php-ldap procmail rspamd sqlite3 php-imagick
 
 echo "################################"
 echo "Apache2"
@@ -195,6 +195,7 @@ echo "Roundcube"
 echo "################################"
 cat /home/mdc/private/preseed_roundcube.cfg | debconf-set-selections
 apt-get -y install roundcube
+ln -sf /usr/local/modules/onetimeemail/autologin.php /usr/share/roundcube
 
 echo "################################"
 echo "Kernel (Dongle Pro)"
@@ -701,6 +702,7 @@ cd /home/mdc/pam
 make
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
+chown -R www-data:www-data /disk/admin/.modules/roundcube
 mv /var/lib/mysql /disk/admin/.modules
 chown mysql:mysql /disk/admin/.modules/mysql
 ln -sf /disk/admin/.modules/mysql /var/lib/mysql
