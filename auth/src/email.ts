@@ -6,8 +6,9 @@ const EMAIL_USER = "admin@mydongle.cloud";
 
 const transporter = nodemailer.createTransport({
 	host: "localhost",
-	port: 465,
-	secure: true
+	port: 25,
+	secure: false,
+	ignoreTLS: true
 });
 
 const sendMagicLinkEmail = async (to, token, url) => {

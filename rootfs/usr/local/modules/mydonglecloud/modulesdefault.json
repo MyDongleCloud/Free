@@ -122,16 +122,20 @@
 				"localPort": 22
 			},
 			"mail": {
-				"type": "tcpmux",
+				"type": "tcp",
+				"localPort": 25
+			},
+			"smtp": {
+				"type": "tcp",
 				"localPort": 465
 			},
-			"pop3s": {
-				"type": "tcpmux",
-				"localPort": 993
-			},
-			"imaps": {
-				"type": "tcpmux",
+			"pop3": {
+				"type": "tcp",
 				"localPort": 995
+			},
+			"imap": {
+				"type": "tcp",
+				"localPort": 993
 			}
 		}
 	},
@@ -417,6 +421,7 @@
 	"roundcube": {
 		"web": true,
 		"enabled": true,
+		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
 		"permissions": [ "admin" ],
 		"localPort": 9248

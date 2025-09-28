@@ -1,0 +1,8 @@
+passdb {
+  driver = passwd-file
+  args = scheme=CRYPT username_format=%u /disk/admin/.modules/mail/password-%d
+}
+userdb {
+  driver = static
+  args = uid=admin gid=admin home=/disk/admin/.modules/mail/%d/%n
+}

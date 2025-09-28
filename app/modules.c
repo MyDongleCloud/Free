@@ -36,6 +36,7 @@ void modulesSetup(cJSON *space) {
 		cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
 
 		if (strcmp(elModule->string, "apache2") == 0) {
+			mkdir(ADMIN_PATH "apache2", 0775);
 			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
@@ -134,13 +135,25 @@ localPort = %d\n", elModuleSj->string, type, localPort);
 				}
 			}
 #endif
-		} else if (strcmp(elModule->string, "otg") == 0) {
-#ifndef DESKTOP
-			;
-#endif
 		} else if (strcmp(elModule->string, "postfix") == 0) {
-			//In /etc/mailname mail.m_unique_d_unique_c.mydongle.cloud
-			//In etc/postfix/main.cf mydestination = $myhostname, mail.m_unique_d_unique_c.mydongle.cloud, mydonglecloud, localhost.localdomain, localhost
+			PRINTF("Modules:postfix: Enter\n");
+			mkdir(ADMIN_PATH "mail", 0775);
+#ifdef DESKTOP
+			FILE *pf = fopen("/tmp/virtualhosts", "w");
+#else
+			FILE *pf = fopen(ADMIN_PATH "mail/virtualhosts", "w");
+#endif
+			if (pf) {
+				jsonPrintArray(0, "", "", "", fqdn, "\n", pf);
+				fclose(pf);
+			}
+#ifndef DESKTOP
+			char sz[256];
+			snprintf(sz, sizeof(sz), "sudo /usr/local/modules/postfix/update.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
+			system(sz);
+			system(ADMIN_PATH "mail/virtualalias; postmap " ADMIN_PATH "mail/virtualmaps");
+			system("sudo /usr/sbin/postfix reload");
+#endif
 		}
 	}
 
