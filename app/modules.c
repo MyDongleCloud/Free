@@ -8,6 +8,7 @@
 #include "cJSON.h"
 #include "json.h"
 #include "apache2.h"
+#include "dbBerkeley.h"
 
 //Functions
 void modulesSetup(cJSON *space) {
@@ -147,11 +148,15 @@ localPort = %d\n", elModuleSj->string, type, localPort);
 				jsonPrintArray(0, "", "", "", fqdn, "\n", pf);
 				fclose(pf);
 			}
-#ifndef DESKTOP
+#ifdef DESKTOP
+			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", "/tmp/virtualalias.db");
+			dbBerkeleyCreate(ADMIN_PATH "mail/virtualmaps", "/tmp/virtualmaps.db");
+#else
 			char sz[256];
-			snprintf(sz, sizeof(sz), "sudo /usr/local/modules/postfix/update.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
+			snprintf(sz, sizeof(sz), "sudo /usr/local/modules/postfix/postfix.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
 			system(sz);
-			system(ADMIN_PATH "mail/virtualalias; postmap " ADMIN_PATH "mail/virtualmaps");
+			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", ADMIN_PATH "mail/virtualalias.db");
+			dbBerkeleyCreate(ADMIN_PATH "mail/virtualmaps", ADMIN_PATH "mail/virtualmaps.db");
 			system("sudo /usr/sbin/postfix reload");
 #endif
 		}
