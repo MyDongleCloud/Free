@@ -44,5 +44,6 @@ else
 	mkdir ../rootfs/disk/admin/.modules/betterauth/
 	npm install
 	npx @better-auth/cli migrate -y
+	(sleep 3 && ./test.sh -c) &
 	npm run dev
 fi
