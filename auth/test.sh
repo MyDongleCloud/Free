@@ -55,11 +55,6 @@ if [ $UPDATE = 1 ]; then
 	echo $RET_UPDATE
 fi
 if [ $SIGNIN = 1 ]; then
-	echo "############### Sign-in"
-	RET_SIGNIN=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-in/username -H "Content-Type: application/json" -d '{"username":"gregoiregentil", "password":"gregoire"}' -c /tmp/cookie.txt`
-	echo $RET_SIGNIN
-elif [ $SIGNIN = 2 ]; then
-	echo "############### Sign-in"
 	RET_SIGNIN=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-in/username -H "Content-Type: application/json" -d '{"username":"admin", "password":"gregoire"}' -c /tmp/cookie.txt`
 	echo $RET_SIGNIN
 fi
@@ -75,6 +70,8 @@ if [ $MAGIC = 1 ]; then
 fi
 if [ $TOKEN = 1 ]; then
 	echo "############### Token"
+	RET_JWKS=`curl -s http://localhost:8091/MyDongleCloud/Auth/jwks -H "Content-Type: application/json"`
+	echo $RET_JWKS
 	RET_TOKEN=`curl -s -b /tmp/cookie.txt http://localhost:8091/MyDongleCloud/Auth/token -H "Content-Type: application/json"`
 	echo $RET_TOKEN
 fi

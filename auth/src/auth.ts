@@ -159,6 +159,7 @@ export const auth = betterAuth({
 	hooks: {
 /*
 		after: createAuthMiddleware(async (ctx) => {
+			console.log("###########################");
 			const responseBody = ctx.context.returned;
 			let logBody;
 			if (responseBody instanceof Response) {
@@ -167,7 +168,7 @@ export const auth = betterAuth({
 				logBody = bodyText.startsWith("{") || bodyText.startsWith("[") ? JSON.stringify(JSON.parse(bodyText), null, 2) : bodyText;
 				console.log(`${status} for ${ctx.method} ${ctx.path}:\n`, logBody);
 			} else {
-				logBody = typeof responseBody === "string" ? responseBody  : JSON.stringify(responseBody, null, 2);
+				logBody = typeof responseBody === "string" ? responseBody : JSON.stringify(responseBody, null, 2);
 				console.log(`200 for ${ctx.method} ${ctx.path}:\n`, logBody);
 			}
 		})
