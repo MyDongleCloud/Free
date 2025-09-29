@@ -5,7 +5,6 @@ import { Global } from './env';
 const routes: Routes = [
 	{
 		path: 'about',
-		canActivate: [Global],
 		loadChildren: () => import('./about/about.module').then( m => m.AboutModule)
 	},
 	{
@@ -15,7 +14,6 @@ const routes: Routes = [
 	},
 	{
 		path: 'help',
-		canActivate: [Global],
 		loadChildren: () => import('./help/help.module').then( m => m.HelpModule)
 	},
 	{
