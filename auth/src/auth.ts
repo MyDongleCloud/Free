@@ -143,6 +143,7 @@ export const auth = betterAuth({
 				definePayload: ({ user }) => {
 					return {
 						role: "admin",
+						spacename: space["name"],
 						user
 					};
 				}
