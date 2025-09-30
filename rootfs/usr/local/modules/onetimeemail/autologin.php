@@ -53,6 +53,8 @@ function verifyJwt(string $jwt, string $keyPem): array {
 	$verification_result = openssl_verify($signed_data, $der_signature, $public_key_resource, OPENSSL_ALGO_SHA256);
 	openssl_free_key($public_key_resource);
 	if ($verification_result === 1) {
+		if (!isset($payload["exp"]) || $payload["exp"] < time())
+			return [];
 		return $payload;
 	}
 	return [];

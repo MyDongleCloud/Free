@@ -114,10 +114,12 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
     jwt_t* jwt_decoded;
     int result = jwt_decode(&jwt_decoded, token, (const unsigned char*)keyPem, strlen(keyPem));
     if (result == 0) {
+		time_t current_time = time(NULL);
         const char* jwtRole = jwt_get_grant(jwt_decoded, "role");
-		if (cJSON_HasObjectItem(elPermissions, jwtRole))
+		time_t exp_time = (time_t)jwt_get_grant_int(jwt_decoded, "exp");
+        //PRINTF("MDC: JWT ret:%d role:%s exp:%d\n", ret, jwtRole, exp_time);
+		if (cJSON_HasObjectItem(elPermissions, jwtRole) && current_time < exp_time)
 			ret = 1;
-        //PRINTF("MDC: JWT ret:%d role:%s\n", ret, jwtRole);
         jwt_free(jwt_decoded);
     } else {
 		//PRINTF("MDC: JWT verification failed: %d\n", result);
