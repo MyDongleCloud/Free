@@ -27,6 +27,10 @@ if [ "m`id -u`" != "m0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
+if [ ! -b ${DISK}1 ]; then
+	echo "No /dev${DISK}1..."
+	exit 0
+fi
 cd `dirname $0`
 echo "Current directory is now `pwd`"
 
