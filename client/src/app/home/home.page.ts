@@ -37,7 +37,7 @@ async ionViewDidEnter() {
 }
 
 async getData() {
-	this.modules = this.global.session?.["modules"];
+	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
 	const version = modulesDefault.version;
 	delete modulesDefault.version;

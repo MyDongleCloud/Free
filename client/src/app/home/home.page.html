@@ -72,7 +72,7 @@
 						<ion-card-header>
 							<ion-card-title>
 								<table style="width:100%;"><tr>
-									<td width="64"><a href="{{card.link}}" title="{{card.title}}" target="_blank"><img src="assets/icon/{{card.module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px;"></a></td>
+									<td width="64"><a href="{{card.link}}" title="{{card.title}}" target="_blank"><img title="assets/icon/{{card.module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px;"></a></td>
 									<td width="15"></td>
 									<td><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a><br><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:small;">{{card.name}}</a></td>
 								</tr></table>
@@ -129,7 +129,7 @@
 		<ion-content class="ion-padding">
 			<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeModuleInfo()">Details of "{{cards[findIdByModule(moduleCur)].title}}"<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
 			<br><table style="width:100%;">
-				<tr><td colspan="3"><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank"><img src="assets/icon/{{cards[findIdByModule(moduleCur)].module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
+				<tr><td colspan="3"><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank"><img title="assets/icon/{{cards[findIdByModule(moduleCur)].module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
 				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{cards[findIdByModule(moduleCur)].title}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}</a></td></tr>
 				<tr><td colspan="3" height="10"></td></tr>
 				<tr><td colspan="3"><span style="color:black;">{{cards[findIdByModule(moduleCur)].description}}</span></td></tr>
