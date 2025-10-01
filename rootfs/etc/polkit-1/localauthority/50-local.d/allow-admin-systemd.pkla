@@ -4,3 +4,10 @@ Action=org.freedesktop.systemd1.manage-units
 ResultAny=yes
 ResultInactive=yes
 ResultActive=yes
+
+[Allow admin group to use logind1 actions]
+Identity=unix-group:admin
+Action=org.freedesktop.login1.*
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes

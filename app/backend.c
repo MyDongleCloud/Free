@@ -7,6 +7,7 @@
 #ifndef WEB
 #include <sys/eventfd.h>
 #include <linux/input.h>
+#include <systemd/sd-bus.h>
 #endif
 #include "lvgl.h"
 #include "macro.h"
@@ -46,6 +47,27 @@ int backendRotate(int incr) {
 	return 0;
 }
 
+#ifndef WEB
+static void dbus(const char *action) {
+	sd_bus *bus = NULL;
+	int r = sd_bus_open_system(&bus);
+	if (r < 0) {
+		PRINTF("Failed to connect to system bus: %s\n", strerror(-r));
+		return;
+	}
+	sd_bus_error error = SD_BUS_ERROR_NULL;
+	const char *method_signature = "b";
+	bool interactive = false;
+	r = sd_bus_call_method( bus, "org.freedesktop.login1", "/org/freedesktop/login1", "org.freedesktop.login1.Manager", action, &error, NULL, "b", false);
+
+	if (r < 0) {
+		PRINTF("Failed action %s: %s\n", action, error.message);
+		sd_bus_error_free(&error);
+	}
+	sd_bus_close(bus);
+}
+#endif
+
 void cleanExit(int todo) {
 	PRINTF("cleanExit mode:%d\n", todo);
 #ifndef WEB
@@ -57,9 +79,11 @@ void cleanExit(int todo) {
 		if (pf)
 			fclose(pf);
 	} else if (todo == 2) {
-		system("sync; sudo reboot");
+		system("sync;");
+		dbus("Reboot");
 	} else if (todo == 1) {
-		system("sync; sudo shutdown -h now");
+		system("sync;");
+		dbus("PowerOff");
 	}
 #endif
 #endif
