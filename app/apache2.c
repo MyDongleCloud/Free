@@ -10,7 +10,7 @@
 
 //Functions
 static void writePermissions(cJSON *elPermissions, cJSON *elLocalRanges, FILE *pfM) {
-//ex: [ "_public_", "_dongle_", "_localnetwork_", "admin", "user1" ]
+//Permissions: [ "_public_", "_dongle_", "_localnetwork_", "_groupadmin_", "_groupuser_", "admin", "user", ... ]
 	int requireNb = 0;
 	int firstTime = 1;
 	cJSON *permission = NULL;

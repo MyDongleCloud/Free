@@ -71,9 +71,9 @@ fi
 if [ $TOKEN = 1 ]; then
 	echo "############### Token"
 	RET_JWKS=`curl -s http://localhost:8091/MyDongleCloud/Auth/jwks -H "Content-Type: application/json"`
-	echo $RET_JWKS
+	#echo $RET_JWKS
 	RET_TOKEN=`curl -s -b /tmp/cookie.txt http://localhost:8091/MyDongleCloud/Auth/token -H "Content-Type: application/json"`
-	echo $RET_TOKEN
+	echo "$RET_TOKEN" | jq -R 'split(".") | .[1] | @base64d | fromjson'
 fi
 if [ $REVOKE = 1 ]; then
 	echo "############### Revoke"

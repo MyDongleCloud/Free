@@ -144,6 +144,7 @@ export const auth = betterAuth({
 				definePayload: ({ user }) => {
 					return {
 						role: "admin",
+						username: user["username"],
 						spacename: space["name"],
 						user
 					};
@@ -182,7 +183,6 @@ export const auth = betterAuth({
 				before: async (user, ctx) => {
 					const countStatement = ctx?.context.options.database.prepare("SELECT COUNT(*) AS count FROM user");
 					const result = countStatement.get();
-//					const un = result?.count == 0 ? "admin" : null;
 					if (result?.count == 0) {
 						user.username = "admin";
 						user.role = "admin";

@@ -109,17 +109,30 @@ char *extractCookieValue(const char *cookie, const char *name, struct request_re
 	return extracted_value;
 }
 
+int checkAccess(cJSON *elPermissions, const char *role, const char *username) {
+//Permissions: [ "_public_", "_dongle_", "_localnetwork_", "_groupadmin_", "_groupuser_", "admin", "user", ... ]
+//Roles: admin or user
+	if (cJSON_HasObjectItem(elPermissions, "_groupadmin_") && strcmp(role, "admin") == 0)
+		return 1;
+	if (cJSON_HasObjectItem(elPermissions, "_groupuser_") && (strcmp(role, "admin") == 0 || strcmp(role, "user") == 0))
+		return 1;
+	if (cJSON_HasObjectItem(elPermissions, username))
+		return 1;
+}
+
 int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *elPermissions) {
 	int ret = 0;
     jwt_t* jwt_decoded;
     int result = jwt_decode(&jwt_decoded, token, (const unsigned char*)keyPem, strlen(keyPem));
     if (result == 0) {
 		time_t current_time = time(NULL);
-        const char* jwtRole = jwt_get_grant(jwt_decoded, "role");
 		time_t exp_time = (time_t)jwt_get_grant_int(jwt_decoded, "exp");
-        //PRINTF("MDC: JWT ret:%d role:%s exp:%d\n", ret, jwtRole, exp_time);
-		if (cJSON_HasObjectItem(elPermissions, jwtRole) && current_time < exp_time)
-			ret = 1;
+		if (current_time < exp_time) {
+		    const char *jwtRole = jwt_get_grant(jwt_decoded, "role");
+		    const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
+		    //PRINTF("MDC: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
+			ret = checkAccess(elPermissions, jwtRole, jwtUsername);
+		}
         jwt_free(jwt_decoded);
     } else {
 		//PRINTF("MDC: JWT verification failed: %d\n", result);
@@ -138,7 +151,7 @@ static int authorization(request_rec *r) {
 	//char *ssz = cJSON_Print(confD->permissions);
 	//PRINTF("MDC: authorization1d permissions: %s\n", ssz);
 	//free(ssz);
-	if (confD->permissions == NULL || cJSON_HasObjectItem(confD->permissions, "_allusers_"))
+	if (confD->permissions == NULL || cJSON_HasObjectItem(confD->permissions, "_public_"))
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
 	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
