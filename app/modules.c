@@ -136,6 +136,24 @@ localPort = %d\n", elModuleSj->string, type, localPort);
 				}
 			}
 #endif
+		} else if (strcmp(elModule->string, "roundcube") == 0) {
+			FILE *ipf = fopen("/tmp/config.inc.php.template", "r");
+			if (ipf) {
+				FILE *opf = fopen("/tmp/config.inc.php", "w");
+				if (opf) {
+					char *line = NULL;
+					size_t lineLen = 0;
+					while (getline(&line, &lineLen, ipf) != -1) {
+						if (strncmp(line, "$config['smtp_host']", strlen("$config['smtp_host']")) == 0) {
+							char sz[] = "$config['smtp_host'] = 'ssl://localhost:465'; $config['smtp_conn_options'] = [ 'ssl' => [ 'verify_peer' => false, 'verify_peer_name' => false ] ];\n";
+							fwrite(sz, strlen(sz), 1, opf);
+						} else
+							fwrite(line, strlen(line), 1, opf);
+					}
+					fclose(opf);
+				}
+				fclose(ipf);
+			}
 		} else if (strcmp(elModule->string, "postfix") == 0) {
 			PRINTF("Modules:postfix: Enter\n");
 			mkdir(ADMIN_PATH "mail", 0775);
