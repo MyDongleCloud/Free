@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <systemd/sd-bus.h>
 #include "common.h"
 #include "macro.h"
 #include "cJSON.h"
@@ -11,6 +12,23 @@
 #include "dbBerkeley.h"
 
 //Functions
+static void serviceAction(const char *name, const char *action) {
+	sd_bus *bus = NULL;
+	int r = sd_bus_open_system(&bus);
+	if (r < 0) {
+		PRINTF("Failed to connect to system bus: %s\n", strerror(-r));
+		return;
+	}
+	sd_bus_error error = SD_BUS_ERROR_NULL;
+	r = sd_bus_call_method( bus, "org.freedesktop.systemd1", "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager", action, &error, NULL, "ss", name, "replace");
+
+	if (r < 0) {
+		PRINTF("Failed unit %s: %s\n", name, error.message);
+		sd_bus_error_free(&error);
+	}
+	sd_bus_close(bus);
+}
+
 void modulesSetup(cJSON *space) {
 	char sz[256];
 	cJSON *fqdn = cJSON_CreateArray();
@@ -42,8 +60,9 @@ void modulesSetup(cJSON *space) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
 				buildApache2Conf(modulesDefault, modules, space, fqdn);
+			PRINTF("Apache2: Reloading\n");
 #ifndef DESKTOP
-			reloadApache2Conf();
+			serviceAction("apache2.service", "ReloadUnit");
 #endif
 		} else if (strcmp(elModule->string, "frp") == 0) {
 			PRINTF("Modules:frp: Enter\n");
@@ -117,10 +136,7 @@ localPort = %d\n", elModuleSj->string, type, localPort);
 			}
 			cJSON_Delete(elModule2Proxy);
 #ifndef DESKTOP
-			if (used && getuid() == 1001) {
-				PRINTF("Modules:frp: Starting service (user=admin)\n");
-				system("sudo /usr/bin/systemctl start frp.service");
-			}
+			serviceAction("frp.service", "RestartUnit");
 #endif
 		} else if (strcmp(elModule->string, "jitsimeet") == 0) {
 			if (firstTime)

@@ -90,7 +90,7 @@ e2label /dev/nvme0n1p2 rootfs
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
-sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/bin/systemctl reload apache2, /usr/bin/systemctl start frp.service, /usr/sbin/postfix reload|' /etc/sudoers
+sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/sbin/postfix reload|' /etc/sudoers
 mkdir -p /usr/local/modules/pam && echo -e "#!/bin/sh\nexit 0" > /usr/local/modules/pam/pam.sh && chmod a+x /usr/local/modules/pam/pam.sh
 sed -i '1i auth sufficient pam_oath.so usersfile=/disk/admin/.modules/pam/oath.txt' /etc/pam.d/common-auth
 sed -i '2i auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so' /etc/pam.d/common-auth
@@ -127,7 +127,7 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools device-tree-compiler nmap ncat fd-find ncdu
 fi
 apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9 acl jq telnet netcat-openbsd pamtester
-apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev apache2-dev libpam0g-dev libnm-dev libjwt-dev
+apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev apache2-dev libpam0g-dev libnm-dev libjwt-dev libsystemd-dev
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install libprotobuf32t64 libjpeg62-dev
 elif [ $OS = "pios" ]; then

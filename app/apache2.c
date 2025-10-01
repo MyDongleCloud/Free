@@ -116,13 +116,6 @@ void rewrite(cJSON *el_Module, cJSON *el_Module2, int port, FILE *pfM) {
 			rewrite_(i->valuestring, port, pfM);
 }
 
-void reloadApache2Conf() {
-#ifndef DESKTOP
-	PRINTF("Apache2: Reloading\n");
-	system("sudo /usr/bin/systemctl reload apache2");
-#endif
-}
-
 void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, cJSON *fqdn) {
 	PRINTF("Modules:Apache2: Enter\n");
 #ifdef DESKTOP

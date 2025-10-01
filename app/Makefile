@@ -49,7 +49,7 @@ MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -loath
 
 OBJs_APP := $(OBJs) $(PRE)backend-spi.o
 MYCFLAGS_APP = $(MYCFLAGS) -I ../build/lvgl/ `pkg-config --cflags libnm`
-MYLDFLAGS_APP = $(MYLDFLAGS) -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput -lcrypt -ldb `pkg-config --libs libnm`
+MYLDFLAGS_APP = $(MYLDFLAGS) -L ../build/lvgl/build/lib/ -llvgl -llvgl_thorvg -linput -lcrypt -ldb -lsystemd `pkg-config --libs libnm`
 
 OBJs_DESKTOP := $(OBJs:%.o=%_.o) $(PRE)backend-gtk_.o
 MYCFLAGS_DESKTOP = $(MYCFLAGS_APP) -DDESKTOP `pkg-config --cflags gtk+-3.0`

@@ -1,0 +1,6 @@
+[Allow admin group to manage systemd units]
+Identity=unix-group:admin
+Action=org.freedesktop.systemd1.manage-units
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
