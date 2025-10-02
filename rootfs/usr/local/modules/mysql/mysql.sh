@@ -26,7 +26,7 @@ if [ $RESET != 1 ]; then
 	exit 0
 fi
 
-PASSWORD=$(tr -dc 'A-Za-z0-9!@#$%^&*()_+' < /dev/urandom | head -c 16)
+PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
 systemctl stop mysql
 mkdir -p /var/run/mysqld
 chown mysql:mysql /var/run/mysqld
@@ -50,5 +50,6 @@ FLUSH PRIVILEGES;
 EOF
 mysqladmin -u root -p"$PASSWORD" shutdown
 systemctl start mysql
-echo "[client]\nhost=localhost\nuser=root\npassword=${PASSWORD}" > /disk/admin/.modules/mysql/my.cnf
-chown admin:admin /disk/admin/.modules/mysql/my.cnf
+echo "[client]\nhost=localhost\nuser=root\npassword=${PASSWORD}" > /disk/admin/.modules/mysql/conf.txt
+chown admin:admin /disk/admin/.modules/mysql/conf.txt
+chmod 444 /disk/admin/.modules/mysql/conf.txt
