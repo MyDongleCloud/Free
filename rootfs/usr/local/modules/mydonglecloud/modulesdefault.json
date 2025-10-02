@@ -11,7 +11,7 @@
 	"audiobookshelf": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9201,
 		"reverseProxy": [ {
 			"type": "http",
@@ -23,7 +23,7 @@
 	"betterauthstudio": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9266,
 		"reverseProxy": [ {
 			"type": "http",
@@ -34,7 +34,7 @@
 	"bugzilla": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9202
 	},
 	"busybox": {},
@@ -42,7 +42,7 @@
 	"changedetection": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9203
 	},
 	"clang": {},
@@ -50,19 +50,19 @@
 	"collaboraonline": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9204
 	},
 	"convertx": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9205
 	},
 	"cyberchef": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9206
 	},
 	"discourse": {},
@@ -70,7 +70,7 @@
 	"doodle": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9207
 	},
 	"dovecot": {},
@@ -78,20 +78,20 @@
 	"fileflows": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9208
 	},
 	"flarum": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9209,
 		"path": "/usr/local/modules/flarum/public"
 	},
 	"freshrss": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9210,
 		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
 		"path": "/usr/local/modules/freshrss/p",
@@ -100,7 +100,7 @@
 	"frp": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9211,
 		"reverseProxy": [ {
 			"type": "http",
@@ -145,27 +145,27 @@
 	"gitea": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9212
 	},
 	"go": {},
 	"goaccess": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9213
 	},
 	"goodip": {},
 	"grav": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9214
 	},
 	"homeassistant": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9215,
 		"reverseProxy": [ {
 			"type": "http",
@@ -180,7 +180,7 @@
 	"html5qrcode": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9216
 	},
 	"hugo": {},
@@ -188,112 +188,112 @@
 	"immich": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9217
 	},
 	"iopaint": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9218
 	},
 	"java": {},
 	"jellyfin": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9219
 	},
 	"jitsimeet": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9220
 	},
 	"joomla": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9221
 	},
 	"joplin": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9222
 	},
 	"jstinker": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9267
 	},
 	"karakeep": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9223
 	},
 	"kernel": {},
 	"librephotos": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9224
 	},
 	"libreqr": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9225
 	},
 	"limesurvey": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9226
 	},
 	"livecodes": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9268
 	},
 	"make": {},
 	"mantisbugtracker": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9227
 	},
 	"markdowneditor": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9228
 	},
 	"maybe": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9229
 	},
 	"mermaid": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9230
 	},
 	"metube": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9231
 	},
 	"minio": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9232
 	},
 	"mongodb": {},
@@ -301,7 +301,7 @@
 	"mydonglecloud": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9200,
 		"addConfig": "ProxyPass /ws/ ws://localhost:8094/ws/",
 		"path": "/usr/local/modules/mydonglecloud/web",
@@ -314,26 +314,26 @@
 	"ollama": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9233
 	},
 	"onetimeemail": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9234
 	},
 	"openwebui": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9235
 	},
 	"osticket": {
 		"web": true,
 		"symlinks": true,
 		"enabled": true,
-		"permissions": [ "_dongle_", "admin" ],
+		"permissions": [ "_dongle_", "_admin_" ],
 		"localPort": 9236
 	},
 	"otg": {
@@ -348,58 +348,58 @@
 	"pandoc": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9237
 	},
 	"photoprism": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9238
 	},
 	"photoview": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9239
 	},
 	"php": {},
 	"phpbb": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9240
 	},
 	"phplist": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9241,
 		"path": "/usr/local/modules/phplist/public_html"
 	},
 	"phpsandbox": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9242
 	},
 	"pihole": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9243
 	},
 	"postfix": {},
 	"privatebin": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9244
 	},
 	"projectsend": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9245
 	},
 	"pymcuprog": {},
@@ -408,13 +408,13 @@
 	"qrcodegenerator": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9246
 	},
 	"radaar": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9247
 	},
 	"rethinkdb": {},
@@ -423,56 +423,56 @@
 		"enabled": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9248
 	},
 	"rspamd": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9249
 	},
 	"sonarr": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9250
 	},
 	"sqlite": {},
 	"stirlingpdf": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9251
 	},
 	"sunrisecms": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9252
 	},
 	"superset": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9253
 	},
 	"syncthing": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9254
 	},
 	"transmission": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9255
 	},
 	"triliumnotes": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9256,
 		"reverseProxy": [ {
 			"type": "http",
@@ -483,25 +483,25 @@
 	"tubearchivist": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9257
 	},
 	"unmanic": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9258
 	},
 	"uptime": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9259
 	},
 	"webssh2": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9260,
 		"alias": [ "ssh" ],
 		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [R=301,L]",
@@ -514,25 +514,25 @@
 	"webtrees": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9261
 	},
 	"wordpress": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9262
 	},
 	"writeas": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9263
 	},
 	"yourls": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9264
 	},
 	"youtubedl": {},
@@ -540,7 +540,7 @@
 	"zigbee2mqtt": {
 		"web": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_admin_" ],
 		"localPort": 9265,
 		"addConfig": "\tRewriteCond %{HTTP:Connection} Upgrade [NC]\n\tRewriteCond %{HTTP:Upgrade} websocket [NC]\n\tRewriteRule /(.*) ws://localhost:8099/$1 [P,L]",
 		"reverseProxy": [ {
