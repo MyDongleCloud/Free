@@ -1,0 +1,60 @@
+***************
+postfix
+Listening: 25 (mail), 465 (smtp)
+Outgoing: 25 (mail)
+
+***************
+openssh
+Listening: 22 (ssh)
+
+***************
+dovecot
+Listening: 995 (pop3), 993 (imap)
+
+***************
+frp
+Outgoing: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx995 (pop3)
+
+***************
+apache2
+Listening: 80 (http), 443 (https), 9201-9268 (modules)
+Listening: 2222 (webssh2), 3002 (betterauthstudio), 7400 (frp stats), 8092 (audiobookshelf), 8123 (homeassistant), 8124 (homeassistant socket), 8090 (triliumnotes), 8099 (zigbee2mqtt)
+
+
+
+***************
+server.mydongle.cloud
+***************
+***************
+frp
+Listening: 80 (http), 443 (https), 7000 (clients), 7500 (stats)
+
+***************
+haproxy
+Listening: 22 (ssh), 465 (smtp), 993 (imap), 995 (pop3)
+
+***************
+postfix
+Listening: 25 (email)
+
+***************
+bind9
+Listening: 53 (dns)
+
+***************
+????
+Listening: 3478, 3479
+
+
+
+***************
+Traffic paths
+***************
+22: haproxy -> frps -/-> frpc -> openssh
+25: postfix -/-> postfix
+80: frps -/-> frpc -> apache2
+443: frps -/-> frpc -> apache2
+465: haproxy -> frps -/-> frpc -> postfix
+993: haproxy -> frps -/-> frpc -> dovecot
+995: haproxy -> frps -/-> frpc -> dovecot
+
