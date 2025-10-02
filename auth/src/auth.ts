@@ -66,6 +66,13 @@ const mdcEndpoints = () => {
 					return new Response(fs.readFileSync(myPath, "utf8"), { status: 200 });
 			}),
 
+			saveModules: createAuthEndpoint("/save-modules", {
+				method: "POST",
+			}, async(ctx) => {
+				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
+				return Response.json({"success": true}, { status: 200 });
+			}),
+
 			jwksPem: createAuthEndpoint("/jwks-pem", {
 				method: "GET",
 			}, async(ctx) => {

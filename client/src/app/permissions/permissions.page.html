@@ -1,0 +1,36 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>
+			<ion-button (click)="getData()" [disabled]="dResetSave"><ion-icon name="refresh-outline" size="medium"></ion-icon>&nbsp;&nbsp;Reset</ion-button>
+			&nbsp;&nbsp;
+			<ion-button (click)="save()" [disabled]="dResetSave"><ion-icon name="save-outline" size="medium"></ion-icon>&nbsp;&nbsp;Save</ion-button>
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+<ion-list>
+	<ion-item-divider>
+		<ion-label style="flex:1;">Title <ion-icon size="small" style="margin-left:20px;"></ion-icon></ion-label>
+		<ion-label style="flex:1;">Open Source</ion-label>
+		<ion-label style="flex:3;">Description</ion-label>
+		<ion-label style="flex:1;">Disabled</ion-label>
+		<ion-label style="flex:1;">Public</ion-label>
+		<ion-label style="flex:1;">Local<br>Network</ion-label>
+		<ion-label style="flex:1;">Group<br>Admin</ion-label>
+		<ion-label style="flex:1;">Group<br>User</ion-label>
+	</ion-item-divider>
+	<ion-item *ngFor="let card of cards; let cc = index;">
+		<ion-label style="flex:1;"><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a></ion-label>
+		<ion-label style="flex:1;"><a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></ion-label>
+		<ion-label style="flex:3; display:flex; align-items:center;"><span>{{card.description}}</span></ion-label>
+		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bDisabled']" [disabled]="card['dDisabled']" (ionChange)="update(card)"></ion-checkbox></ion-label>
+		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bPublic']" [disabled]="card['dPublic']" (ionChange)="update(card)" style="{{'display:' + (card['dPublic'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
+		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (ionChange)="update(card)" style="{{'display:' + (card['dLocal'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
+		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (ionChange)="update(card)" style="{{'display:' + (card['dAdmin'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
+		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (ionChange)="update(card)" style="{{'display:' + (card['dUser'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
+	</ion-item>
+</ion-list>
+</ion-content>

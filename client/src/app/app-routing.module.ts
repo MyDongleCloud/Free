@@ -26,6 +26,11 @@ const routes: Routes = [
 		loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
 	},
 	{
+		path: 'permissions',
+		canActivate: [Global],
+		loadChildren: () => import('./permissions/permissions.module').then( m => m.PermissionsModule)
+	},
+	{
 		path: 'serverlog',
 		canActivate: [Global],
 		loadChildren: () => import('./serverlog/serverlog.module').then( m => m.ServerLogModule)
