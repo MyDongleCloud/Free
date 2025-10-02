@@ -333,7 +333,7 @@
 		"web": true,
 		"symlinks": true,
 		"enabled": true,
-		"permissions": [ "admin" ],
+		"permissions": [ "_dongle_", "admin" ],
 		"localPort": 9236
 	},
 	"otg": {
