@@ -48,9 +48,9 @@ const sendOtpToDongle = (otp) => {
 }
 
 const rootPath = "/work/ai.mydonglecloud/app/";
-const serverLog = () => {
+const mdcEndpoints = () => {
 	return {
-		id: "serverLog",
+		id: "mdcEndpoints",
 		endpoints: {
 			serverLog: createAuthEndpoint("/server-log", {
 				method: "POST",
@@ -64,15 +64,8 @@ const serverLog = () => {
 					return Response.json(folderAndChildren(myPath), { status: 200 });
 				else
 					return new Response(fs.readFileSync(myPath, "utf8"), { status: 200 });
-			})
-		}
-	} satisfies BetterAuthPlugin
-}
+			}),
 
-const jwksPem = () => {
-	return {
-		id: "jwksPem",
-		endpoints: {
 			jwksPem: createAuthEndpoint("/jwks-pem", {
 				method: "GET",
 			}, async(ctx) => {
@@ -156,8 +149,7 @@ export const auth = betterAuth({
 				},
 			}
 		}),
-		serverLog(),
-		jwksPem()
+		mdcEndpoints()
 	],
 	hooks: {
 /*
