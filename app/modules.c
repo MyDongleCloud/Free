@@ -186,9 +186,11 @@ localPort = %d\n", elModuleSj->string, type, localPort);
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", "/tmp/virtualalias.db");
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualmaps", "/tmp/virtualmaps.db");
 #else
-			char sz[256];
-			snprintf(sz, sizeof(sz), "sudo /usr/local/modules/postfix/postfix.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
-			system(sz);
+			if (firstTime) {
+				char sz[256];
+				snprintf(sz, sizeof(sz), "sudo /usr/local/modules/postfix/postfix.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
+				system(sz);
+			}
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", ADMIN_PATH "mail/virtualalias.db");
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualmaps", ADMIN_PATH "mail/virtualmaps.db");
 			system("sudo /usr/sbin/postfix reload");
