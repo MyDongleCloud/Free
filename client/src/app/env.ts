@@ -16,7 +16,6 @@ import { Settings } from './myinterface';
 import { VERSION } from './version';
 //import { toASCII } from 'punycode';
 import * as ACME from '@root/acme';
-import * as AA from '@root/acme/maintainers';
 import * as Keypairs from '@root/keypairs';
 import * as CSR from '@root/csr';
 import * as PEM from '@root/pem';
@@ -300,7 +299,6 @@ review() {
 }
 
 async getCertificate(space) {
-	AA.init = function () {};
 	const DOMAIN = "mydongle.cloud";
 	const STAGING = false;
 	let acme = ACME.create({ maintainerEmail: "acme@" + DOMAIN, packageAgent: "MDC/2025-01-01", notify: function (ev, msg) { /*console.log(msg);*/ }, skipDryRun: true });
