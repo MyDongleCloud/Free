@@ -40,10 +40,12 @@ elif [ $CLEAN = 1 ]; then
 	exit 0
 else
 	#On PC only
-	rm -rf ../rootfs/disk/admin/.modules/mydonglecloud/jwk.pub ../rootfs/disk/admin/.modules/betterauth/
-	mkdir ../rootfs/disk/admin/.modules/betterauth/
-	npm install
-	npx @better-auth/cli migrate -y
-	(sleep 3 && ./test.sh -c) &
+	if [ ! -d ../rootfs/disk/admin/.modules/betterauth/ -o ! -d node_modules ]; then
+		rm -rf node_modules ../rootfs/disk/admin/.modules/mydonglecloud/jwk.pub ../rootfs/disk/admin/.modules/betterauth/
+		mkdir -p ../rootfs/disk/admin/.modules/betterauth/
+		npm install
+		npx @better-auth/cli migrate -y
+		(sleep 3 && ./test.sh -c) &
+	fi
 	npm run dev
 fi
