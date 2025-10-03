@@ -14,6 +14,7 @@ import modulesMeta from '../modulesmeta.json';
 
 export class Home {
 @ViewChild("modalModuleInfo") modalModuleInfo: IonModal;
+@ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
 modules;
 moduleCur;
 cards;
@@ -125,6 +126,24 @@ async info(module) {
 
 closeModuleInfo() {
 	this.modalModuleInfo.dismiss();
+}
+
+async settings(module) {
+	this.moduleCur = module;
+	await this.modalModuleSettings.present();
+}
+
+async reset() {
+	if (await this.global.presentQuestion("Reinitialize \"" + modulesDefault[this.moduleCur].title + "\" (" + modulesDefault[this.moduleCur].name + ")", "WARNING! All data will be lost", "Are you absolutely sure to reinitialize this module?")) {
+		const data = { module:this.moduleCur };
+		const ret = await this.httpClient.post("/MyDongleCloud/Auth/reset-module", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth reset-module: ", ret);
+		this.modalModuleSettings.dismiss();
+	}
+}
+
+closeModuleSettings() {
+	this.modalModuleSettings.dismiss();
 }
 
 }

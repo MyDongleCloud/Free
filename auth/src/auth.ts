@@ -73,6 +73,12 @@ const mdcEndpoints = () => {
 				return Response.json({"success": true}, { status: 200 });
 			}),
 
+			reset: createAuthEndpoint("/reset-module", {
+				method: "POST",
+			}, async(ctx) => {
+				return Response.json({"success": true}, { status: 200 });
+			}),
+
 			jwksPem: createAuthEndpoint("/jwks-pem", {
 				method: "GET",
 			}, async(ctx) => {

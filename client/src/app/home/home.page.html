@@ -86,6 +86,7 @@
 						<div style="display:flex; align-items:center;">
 							<span *ngIf="showDetails">Nº{{cc + 1}}&nbsp;&nbsp;</span>
 							<a href="javascript:void()" *ngIf="card.enabled == false" title="Disabled module"><ion-icon name="cloud-offline-outline" size="large" style="color:var(--ion-color-danger); margin-right:4px;"></ion-icon></a>
+							<ion-icon name="settings-outline" size="large" (click)="settings(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;" *ngIf="card.hasSettings"></ion-icon>
 							<ion-icon name="information-circle-outline" size="large" (click)="info(card.module)" style="color:var(--ion-color-secondary); cursor:pointer;"></ion-icon>
 						</div>
 						<ion-chip style="margin-top:7px; cursor:pointer; padding-top:0px; padding-bottom:0px; border-radius:5px; border:1px solid var(--ion-color-secondary); background-color:transparent;" (click)="filterCategory(card.category)">{{card.category}}</ion-chip>
@@ -161,6 +162,30 @@
 				<tr><td>Proprietary<br>equivalent</td><td width="20"></td><td>{{cards[findIdByModule(moduleCur)].proprietary}}</td></tr>
 			</table>
 		</ion-content>
+	</ng-template>
+</ion-modal>
+
+<ion-modal #modalModuleSettings class="modalLimitSize">
+	<ng-template>
+<!--		<ion-content class="ion-padding">-->
+			<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeModuleSettings()">Settings of "{{cards[findIdByModule(moduleCur)].title}}"<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
+			<br><table style="width:100%;">
+				<tr><td colspan="3"><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank"><img title="assets/icon/{{cards[findIdByModule(moduleCur)].module}}.png" onerror="this.onerror=null; this.src='assets/icon/placeholder.png';" style="width:64px; height:64px; float:left; margin-right:15px;"></a>
+				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{cards[findIdByModule(moduleCur)].title}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}</a></td></tr>
+				<tr><td colspan="3" height="10"></td></tr>
+				<tr><td colspan="3"><span style="color:black;">{{cards[findIdByModule(moduleCur)].description}}</span></td></tr>
+				<tr><td colspan="3" height="16"></td></tr>
+				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td>Links</td><td width="20"></td><td>
+				<a href="{{cards[findIdByModule(moduleCur)].link2}}" title="{{cards[findIdByModule(moduleCur)].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link2}}</a><br>
+				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link}}</a></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
+				<tr><td colspan="3" height="8"></td></tr>
+				<tr><td></td><td width="20"></td><td><ion-button (click)="reset()"><ion-icon name="refresh-outline" size="medium"></ion-icon>Reinitialize</ion-button></td></tr>
+			</table>
+<!--		</ion-content>-->
 	</ng-template>
 </ion-modal>
 

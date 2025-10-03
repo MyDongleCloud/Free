@@ -308,7 +308,9 @@
 		"addLineInDirectory": "RewriteBase /\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . /index.html [L]",
 		"alias": [ "app", "mdc" ]
 	},
-	"mysql": {},
+	"mysql": {
+		"hasSettings": true
+	},
 	"nginx": {},
 	"node": {},
 	"ollama": {
@@ -331,6 +333,7 @@
 	},
 	"osticket": {
 		"web": true,
+		"hasSettings": true,
 		"symlinks": true,
 		"enabled": true,
 		"permissions": [ "_dongle_", "_admin_" ],
