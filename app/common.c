@@ -20,7 +20,6 @@
 #include <linux/wireless.h>
 #include <curl/curl.h>
 #include <curl/easy.h>
-#include <openssl/md5.h>
 #endif
 #include "macro.h"
 #include "common.h"
@@ -388,125 +387,39 @@ int hardwareVersion() {
 	return rv;
 }
 
-int downloadURLFile(char *szURL, char *szFile, int (*progresscallback)(void *, double,  double,  double,  double)) {
-	CURLcode ret = -1;
-	unlink(szFile);
-	FILE *pf = fopen(szFile, "wb");
-	if (pf) {
-		CURL *curl = curl_easy_init();
-		if (curl) {
-			curl_easy_setopt(curl, CURLOPT_URL, szURL);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, pf);
-			if (progresscallback) {
-				curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0);
-				curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progresscallback);
-			}
-			ret = curl_easy_perform(curl);
-			PRINTF("Download (ret:%d) %s to %s\n", ret, szURL, szFile);
-			curl_easy_cleanup(curl);
-		}
-		fclose(pf);
-	}
-	return ret;
-}
-
-int uploadURLFile(char *szURL, char *szName0, char *szdata0, char *szName1, char *szFile1, char *szType1, char *szName2, char *szFile2, char *szType2, int (*progresscallback)(void *, double,  double,  double,  double)) {
-	CURLcode ret = -1;
-	CURL *curl = curl_easy_init();
-	if (curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, szURL);
-		struct curl_httppost *post = NULL;
-		struct curl_httppost *last = NULL;
-		curl_formadd(&post, &last, CURLFORM_COPYNAME, szName0, CURLFORM_COPYCONTENTS, szdata0, CURLFORM_END);
-		curl_formadd(&post, &last, CURLFORM_COPYNAME, szName1, CURLFORM_FILE, szFile1, CURLFORM_CONTENTTYPE, szType1, CURLFORM_END);
-		curl_formadd(&post, &last, CURLFORM_COPYNAME, szName2, CURLFORM_FILE, szFile2, CURLFORM_CONTENTTYPE, szType2, CURLFORM_END);
-		curl_easy_setopt(curl, CURLOPT_HTTPPOST, post);
-		if (progresscallback) {
-			curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0);
-			curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progresscallback);
-		}
-		ret = curl_easy_perform(curl);
-		PRINTF("Upload (ret:%d) %s\n", ret, szURL);
-		curl_easy_cleanup(curl);
-	}
-	return ret;
-}
-
+#ifndef WEB
 static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata) {
-	memcpy(userdata, ptr, MIN2(nmemb, 256));
+	memcpy(userdata, ptr, MIN2(nmemb, 1024));
 	char *p = (char *)userdata;
-	p[MIN2(nmemb, 255)] = '\0';
+	p[MIN2(nmemb, 1024)] = '\0';
 	return nmemb;
 }
 
-int downloadURLBuffer(char *szURL, char *buf) {
-	CURLcode ret = -1;
+int downloadURLBuffer(char *url, char *buf, char *header, char *post) {
+	int ret = -1;
 	CURL *curl = curl_easy_init();
 	if (curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, szURL);
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		struct curl_slist *headers = NULL;
+		if (header) {
+			headers = curl_slist_append(headers, header);
+			curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+		}
+		if (post) {
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post);
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(post));
+		}
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, buf);
 		ret = curl_easy_perform(curl);
-		PRINTF("Download (ret:%d) %s #%s#\n", ret, szURL, buf);
+		if (headers)
+		curl_slist_free_all(headers);
+		//PRINTF("Download (ret:%d) %s\n", ret, buf);
 		curl_easy_cleanup(curl);
 	}
 	return ret;
 }
-
-void deleteDirectory(char *szFolder) {
-	DIR *d = opendir(szFolder);
-	struct dirent *dir;
-	while ((dir = readdir(d)) != NULL) {
-		if (dir->d_type == DT_REG) {
-			char szPath[256];
-			strcpy(szPath, szFolder);
-			strcat(szPath, "/");
-			strcat(szPath, dir->d_name);
-			unlink(szPath);
-		}  else if (dir->d_type == DT_DIR && strlen(dir->d_name) > 2) {
-			char szFolder2[256];
-			strcpy(szFolder2, szFolder);
-			strcat(szFolder2, "/");
-			strcat(szFolder2, dir->d_name);
-			DIR *d2 = opendir(szFolder2);
-			struct dirent *dir2;
-			while ((dir2 = readdir(d2)) != NULL) {
-				if (dir2->d_type == DT_REG) {
-					char szPath[256];
-					strcpy(szPath, szFolder2);
-					strcat(szPath, "/");
-					strcat(szPath, dir2->d_name);
-					unlink(szPath);
-				}
-			}
-			closedir(d2);
-			rmdir(szFolder2);
-		}
-	}
-	rmdir(szFolder);
-	closedir(d);
-}
-
-void getMd5sum(char *szPath, char *szMd5sum) {
-	int n;
-	MD5_CTX c;
-	char buf[512];
-	ssize_t bytes;
-	unsigned char out[MD5_DIGEST_LENGTH];
-
-	MD5_Init(&c);
-	FILE *f = fopen(szPath, "rb");
-	while ((bytes = fread(buf, 1, 512, f)) > 0)
-		MD5_Update(&c, buf, bytes);
-	MD5_Final(out, &c);
-
-	strcpy(szMd5sum, "");
-	char sz[8];
-	for(n = 0; n < MD5_DIGEST_LENGTH; n++) {
-		sprintf(sz, "%02x", out[n]);
-		strcat(szMd5sum, sz);
-	}
-}
+#endif
 
 int getLocalIP(char *szIPCurrent) {
 	int ret = 0;
@@ -555,33 +468,4 @@ int getLocalIP(char *szIPCurrent) {
 	PRINTF("Current IP address is %s\n", szIPCurrent);
 	close(sockInet);
 	return ret;
-}
-
-void fillZeroFile(FILE *pf, int ssize) {
-	fseek(pf, 0, SEEK_SET);
-	int count = 0;
-	char zeros[128];
-	memset(zeros, 0, 128);
-	while (count < ssize) {
-		int a = MIN2(ssize - count, 128);
-		fwrite(zeros, a, 1, pf);
-		count += a;
-	}
-}
-
-static int syncInProgress = 0;
-static void *sync_t(void *arg) {
-	if (syncInProgress)
-		return 0;
-	syncInProgress = 1;
-	if ((long)arg == 1)
-		usleep(1000 * 1000);
-	sync();
-	syncInProgress = 0;
-}
-
-void syncForce(int delay) {
-	pthread_t pth;
-	pthread_create(&pth, NULL, sync_t, delay ? (void *)1 : (void *)0);
-	pthread_setname_np(pth, "sync");
 }

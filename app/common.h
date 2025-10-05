@@ -34,13 +34,7 @@ void touchClick();
 void jingle();
 void touch(char *szPath);
 int hardwareVersion();
-int downloadURLFile(char *szURL, char *szFile, int (*progresscallback)(void *, double,  double,  double,  double));
-int uploadURLFile(char *szURL, char *szName0, char *szdata0, char *szName1, char *szFile1, char *szType1, char *szName2, char *szFile2, char *szType2, int (*progresscallback)(void *, double,  double,  double,  double));
-int downloadURLBuffer(char *szURL, char *buf);
-void deleteDirectory(char *szFolder);
-void getMd5sum(char *szPath, char *szMd5sum);
+int downloadURLBuffer(char *szURL, char *buf, char *header, char *post);
 int getLocalIP(char *szIPCurrent);
-void fillZeroFile(FILE *pf, int ssize);
-void syncForce(int delay);
 
 #endif

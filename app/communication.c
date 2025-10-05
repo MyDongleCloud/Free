@@ -36,6 +36,8 @@
 #include "comSocket.h"
 #include "comWebSocket.h"
 #include "json.h"
+#include "wifi.h"
+#include "common.h"
 #endif
 #include "base64.h"
 #include "logic.h"
@@ -108,7 +110,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 //{"a":"sutdown"}
 //{"a":"key", "k":0, "l":0}
 //{"a":"state", "p":"blah_encoded64"}
-//{"a":"setup", "space":"", "alias":"", byod:["", ""], "user":"admin", "pass":"", "email":"", "ssid":"", "wpa2":"", "chain":"", "key":""}
+//{"a":"setup", "spacename":"", "shortname":"", domains:[""], "email":"", "name":"", "password":"", "ssid":"", "security":"", "chain":"", "key":""}
 //{"a":"space"} -> {"a":"space", inline space.json }
 	cJSON *el = cJSON_Parse(data);
 	if (el) {
@@ -142,6 +144,34 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			char *service = cJSON_GetStringValue2(el, "s");
 			char *type = cJSON_GetStringValue2(el, "t");
 			//PRINTF("PAM: user:%s service:%s type:%s\n", user, service, type);
+		} else if (strcmp(action, "setup") == 0) {
+			cJSON *space = cJSON_CreateObject();
+			cJSON_AddStringToObject(space, "name", cJSON_GetStringValue2(el, "spacename"));
+			cJSON_AddStringToObject(space, "shortname", cJSON_GetStringValue2(el, "shortname"));
+			cJSON_AddArrayToObject(space, "domains");//, cJSON_GetArray(el, "domains"));
+			jsonWrite(space, ADMIN_PATH "mydonglecloud/space.json");
+			cJSON_Delete(space);
+			FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
+			if (fpC) {
+				fwrite(cJSON_GetStringValue2(el, "fullchain"), strlen(cJSON_GetStringValue2(el, "fullchain")), 1, fpC);
+				fclose(fpC);
+			}
+			FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey.pem", "w");
+			if (fpK) {
+				fwrite(cJSON_GetStringValue2(el, "privatekey"), strlen(cJSON_GetStringValue2(el, "privatekey")), 1, fpK);
+				fclose(fpK);
+			}
+			cJSON *data = cJSON_CreateObject();
+			cJSON_AddStringToObject(data, "email", cJSON_GetStringValue2(el, "email"));
+			cJSON_AddStringToObject(data, "name", cJSON_GetStringValue2(el, "name"));
+			cJSON_AddStringToObject(data, "password", cJSON_GetStringValue2(el, "password"));
+			char buf[1024];
+			char *post = cJSON_Print(data);
+			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-up/email", buf, "Content-Type: application/json", post);
+			free(post);
+			cJSON_Delete(data);
+			wiFiAddActivate(cJSON_GetStringValue2(el, "ssid"), cJSON_GetStringValue2(el, "security"));
+			communicationString("{\"status\":1}");
 		} else if (strcmp(action, "space") == 0) {
 			cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
 			cJSON_AddStringToObject(space, "a", "space");

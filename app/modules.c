@@ -36,7 +36,7 @@ void modulesSetup(cJSON *space) {
 	cJSON *s = NULL;
 	s = cJSON_CreateString(sz);
 	cJSON_AddItemToArray(fqdn, s);
-	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(space, "alias"), SHORT_DOMAIN);
+	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(space, "shortname"), SHORT_DOMAIN);
 	s = cJSON_CreateString(sz);
 	cJSON_AddItemToArray(fqdn, s);
 	cJSON *ss = NULL;
