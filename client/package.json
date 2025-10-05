@@ -6,7 +6,7 @@
   "description": "The MyDongle Cloud project",
   "scripts": {
     "ng": "ng",
-	"ionic:serve:before": "cd /work/ai.mydonglecloud/auth && npm run dev > /dev/tty 2>&1 &",
+    "ionic:serve:before": "/work/ai.mydonglecloud/auth/prepare.sh > /dev/tty 2>&1 &",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
