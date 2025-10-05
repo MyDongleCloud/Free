@@ -5,7 +5,7 @@ kernel/password.h
 private/img
 private/password-upgrade.bin.txt
 private/password-githubkey.txt
-rootfs/usr/local/modules/frp/password-token.txt
+rootfs/usr/local/modules/mydonglecloud/proxy-token.txt
 rootfs/usr/local/modules/mydonglecloud/modulesmeta.json
 client/.angular/
 client/node_modules/

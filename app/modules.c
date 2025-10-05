@@ -83,7 +83,7 @@ void modulesSetup(cJSON *space) {
 			if (pf) {
 				char token[64];
 				token[0] = '\0';
-				FILE *pft = fopen(LOCAL_PATH "frp/password-token.txt", "r");
+				FILE *pft = fopen(LOCAL_PATH "mydonglecloud/proxy-token.txt", "r");
 				if (pft) {
 					int ret = fread(token, 1, 64, pft);
 					if (ret >= 0)
@@ -141,17 +141,6 @@ localPort = %d\n", elModuleSj->string, type, localPort);
 		} else if (strcmp(elModule->string, "jitsimeet") == 0) {
 			if (firstTime)
 				;//system("find /etc -exec sed -i -e \"s/m_unique_d_unique_c/${SPACE}/\" {} \;");
-		} else if (strcmp(elModule->string, "osticket") == 0) {
-#ifndef DESKTOP
-			if (!fileExists(ADMIN_PATH "osticket/ost-config.php")) {
-				PRINTF("osTicket: Creation of ost-config.php\n");
-				mkdir(ADMIN_PATH "osticket", 0775);
-				if (!fileExists(ADMIN_PATH "osticket/ost-config.php")) {
-					copyFile(LOCAL_PATH "osticket/include/ost-sampleconfig.php", ADMIN_PATH "osticket/ost-config.php", NULL);
-					chmod(ADMIN_PATH "osticket/ost-config.php", 0666);
-				}
-			}
-#endif
 		} else if (strcmp(elModule->string, "roundcube") == 0) {
 			FILE *ipf = fopen("/tmp/config.inc.php.template", "r");
 			if (ipf) {
@@ -188,7 +177,7 @@ localPort = %d\n", elModuleSj->string, type, localPort);
 #else
 			if (firstTime) {
 				char sz[256];
-				snprintf(sz, sizeof(sz), "sudo /usr/local/modules/postfix/postfix.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
+				snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/scripts/postfix.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
 				system(sz);
 			}
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", ADMIN_PATH "mail/virtualalias.db");
