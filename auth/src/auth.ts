@@ -14,7 +14,7 @@ import * as jose from "jose";
 export const port = 8091;
 const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/.modules/";
 const secretPath = adminPath + "betterauth/secret.txt";
-const jwkPath = adminPath + "/mydonglecloud/jwk.pub";
+const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
 const spacePath = adminPath + "mydonglecloud/space.json";
 export const space = existsSync(spacePath) ? JSON.parse(readFileSync(spacePath, "utf-8")) : { name:"", domains: [] };

@@ -22,7 +22,7 @@ done
 cd `dirname $0`
 if [ $INSTALL = 1 ]; then
 	#During install only
-	rm -rf node_modules /disk/admin/.modules/mydonglecloud/jwk.pub /disk/admin/.modules/betterauth/
+	rm -rf node_modules betterauth /disk/admin/.modules/betterauth
 	mkdir /disk/admin/.modules/betterauth/
 	npm install
 	sed -i -e 's/PRODUCTION=false/PRODUCTION=true/' .env
@@ -36,13 +36,13 @@ if [ $INSTALL = 1 ]; then
 	exit 0
 elif [ $CLEAN = 1 ]; then
 	#On PC only
-	rm -rf node_modules ../rootfs/disk/admin/.modules/mydonglecloud/jwk.pub ../rootfs/disk/admin/.modules/betterauth/
+	rm -rf node_modules betterauth ../rootfs/disk/admin/.modules/betterauth
 	exit 0
 else
 	#On PC only
 	if [ ! -d ../rootfs/disk/admin/.modules/betterauth/ -o ! -d node_modules ]; then
-		rm -rf node_modules ../rootfs/disk/admin/.modules/mydonglecloud/jwk.pub ../rootfs/disk/admin/.modules/betterauth/
-		mkdir -p ../rootfs/disk/admin/.modules/betterauth/
+		rm -rf node_modules ../rootfs/disk/admin/.modules/betterauth
+		mkdir -p ../rootfs/disk/admin/.modules/betterauth
 		npm install
 		npx @better-auth/cli migrate -y
 		(sleep 3 && ./test.sh -c) &
