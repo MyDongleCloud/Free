@@ -1,9 +1,8 @@
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
-import { OnlineRet } from '../myinterface';
 
 @Component({
 	selector: 'app-login',
@@ -13,27 +12,19 @@ import { OnlineRet } from '../myinterface';
 })
 
 export class Login {
-public password1Show:boolean = false;
-public password2Show:boolean = false;
-public password4Show:boolean = false;
-public ready:boolean = false;
-public progress:boolean = false;
-public showRegistration:boolean = false;
-public showReseting:boolean = false;
-public showResetingCode:boolean = false;
-public showWrongLogin:boolean = false;
-public showWrongRegister:boolean = false;
-public showWrongReset:boolean = false;
-public showWrongResetCode:boolean = false;
-public formLogin: FormGroup;
-public formRegister: FormGroup;
-public formReset: FormGroup;
-public formResetCode: FormGroup;
-@ViewChild("email1Input") email1Input: IonInput;
-@ViewChild("email2Input") email2Input: IonInput;
-@ViewChild("email3Input") email3Input: IonInput;
-@ViewChild("password1Input") password1Input: IonInput;
-@ViewChild("resetCode4Input") resetCode4Input: IonInput;
+password1Show:boolean = false;
+password2Show:boolean = false;
+ready:boolean = false;
+progress:boolean = false;
+showLogin:boolean = true;
+showRegister:boolean = false;
+showForgotPassword: boolean = false;
+showForgotPasswordSent: boolean = false;
+formLogin: FormGroup;
+formRegister: FormGroup;
+formForgotPassword: FormGroup;
+hasBlurredOnce: boolean = false;
+errorSt = null;
 
 constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 	this.formLogin = fb.group({
@@ -41,34 +32,61 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 		"password1": ["", [Validators.required, Validators.minLength(6)]]
 	});
 	this.formRegister = fb.group({
-		'email2': ['', [Validators.required, Validators.email]],
-		'name2': ['', [Validators.required]],
-		'password2': ['', [Validators.required, Validators.minLength(2)]],
-		'passwordConfirm2': ['', [Validators.required, Validators.minLength(2)]],
+		"name2": ["", [Validators.required, Validators.minLength(2)]],
+		"email2": ["", [Validators.required, Validators.email]],
+		"password2": ["", [Validators.required, Validators.minLength(6)]],
+		"password2Confirm": ["", [Validators.required]],
+		"terms2": [false, Validators.requiredTrue]
 	}, { validator: this.checkPassword2 });
-	this.formReset = fb.group({
+	this.formForgotPassword = fb.group({
 		"email3": ["", [Validators.required, Validators.email]]
 	});
-	this.formResetCode = fb.group({
-		"resetCode4": ["", [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-		"password4": ["", [Validators.required, Validators.minLength(6)]],
-		"passwordConfirm4": ["", [Validators.required, Validators.minLength(6)]],
-	}, { validator: this.checkPassword4 });
+}
+
+handleBlur(event, element) {
+	const inputElement = event.target as HTMLInputElement;
+	if (!this.hasBlurredOnce) {
+		if (!inputElement.value)
+			element.markAsUntouched();
+		this.hasBlurredOnce = true;
+	}
+}
+
+passwordStrength(password) {
+	if (!password) return "weak";
+	let score = 0;
+	if (password.length >= 8) score += 1;
+	if (password.length >= 12) score += 1;
+	if (/[a-z]/.test(password)) score += 1;
+	if (/[A-Z]/.test(password)) score += 1;
+	if (/[0-9]/.test(password)) score += 1;
+	if (/[^A-Za-z0-9]/.test(password)) score += 1;
+	if (score <= 2) return "weak";
+	if (score <= 4) return "medium";
+	return "strong";
+}
+
+passwordStrengthPercentage(password) {
+    if (!password) return 0;
+    let score = 0;
+    if (password.length >= 8) score += 1;
+    if (password.length >= 12) score += 1;
+    if (/[a-z]/.test(password)) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[0-9]/.test(password)) score += 1;
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+    return Math.min((score / 6) * 100, 100);
 }
 
 checkPassword2(group: FormGroup) {
-	return group.controls.password2.value == group.controls.passwordConfirm2.value ? null : {'mismatch': true};
-}
-
-checkPassword4(group: FormGroup) {
-	return group.controls.password4.value == group.controls.passwordConfirm4.value ? null : {"mismatch": true};
+	return group.controls.password2.value == group.controls.password2Confirm.value ? null : {"mismatch": true};
 }
 
 async ionViewDidEnter() {
 	const params = new URLSearchParams(window.location.search);
 	const verify = params.get("verify");
 	if (params.has("verify")) {
-		await this.doMagicLinkVerify(verify);
+		await this.doForgotPasswordVerify(verify);
 		return;
 	}
 	let count = 20;
@@ -82,9 +100,9 @@ async ionViewDidEnter() {
 		email = this.global.getCookie("email");
 	if (email != null) {
 		this.formLogin.get("email1").setValue(email);
-		setTimeout(() => { this.password1Input.setFocus(); }, 100);
+		setTimeout(() => { (document.getElementById("password1") as HTMLInputElement).focus(); }, 100);
 	} else
-		setTimeout(() => { this.email1Input.setFocus(); }, 100);
+		setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
 }
 
 ionViewWillLeave() {
@@ -95,34 +113,29 @@ get password1() { return this.formLogin.get("password1"); }
 get email2() { return this.formRegister.get("email2"); }
 get name2() { return this.formRegister.get("name2"); }
 get password2() { return this.formRegister.get("password2"); }
-get passwordConfirm2() { return this.formRegister.get("passwordConfirm2"); }
-get email3() { return this.formReset.get("email3"); }
-get resetCode4() { return this.formResetCode.get("resetCode4"); }
-get password4() { return this.formResetCode.get("password4"); }
-get passwordConfirm4() { return this.formResetCode.get("passwordConfirm4"); }
+get password2Confirm() { return this.formRegister.get("password2Confirm"); }
+get terms2() { return this.formRegister.get("terms2"); }
+get email3() { return this.formForgotPassword.get("email3"); }
 
-validateEmail(e) {
-	const tempControl = new FormControl(e);
-	return e != "" && Validators.email(tempControl) == null;
-}
-
-showLogin() {
-	this.showRegistration = false;
-	this.showReseting = false;
-	this.showResetingCode = false;
+show_Login() {
+	this.showLogin = true;
+	this.showForgotPassword = false;
+	this.showRegister = false;
+	this.hasBlurredOnce = false;
+	setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
 	this.cdr.detectChanges();
 }
 
 async doLogin() {
 	this.progress = true;
+	this.errorSt = null;
 	const data = { email:this.email1.value, password: this.password1.value };
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/email", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		console.log("Auth sign-in/email: ", ret);
-	} catch(e) {}
+	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
-	this.showWrongLogin = ret == null;
 	if (ret != null) {
 		await this.global.getSession();
 		this.global.openPage("", false);
@@ -130,53 +143,28 @@ async doLogin() {
 		this.cdr.detectChanges();
 }
 
-async doMagicLink() {
-	this.progress = true;
-	const data = { email:this.email1.value, callbackURL:window.location.origin, errorCallbackURL:window.location.origin };
-	let ret = null;
-	try {
-		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/magic-link", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth sign-in/magic-link: ", ret);
-	} catch(e) {}
-	this.progress = false;
-	this.showWrongLogin = ret == null;
-	if (ret != null) {
-		await this.global.presentAlert("Success!", "An email has been sent with an automatic login link. Please use it to login.", "You can safely close this page now.");
-		this.global.openPage("login", false);
-	} else
-		this.cdr.detectChanges();
-}
-
-async doMagicLinkVerify(token) {
-	let ret = null;
-	try {
-		ret = await this.httpClient.get("/MyDongleCloud/Auth/magic-link/verify?token=" + token, {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth magic-link/verify: ", ret);
-	} catch(e) {}
-	if (ret != null) {
-		await this.global.getSession();
-		this.global.openPage("", false);
-	}
-}
-
-showRegister() {
-	this.showRegistration = true;
-	this.showReseting = false;
-	this.showResetingCode = false;
-	setTimeout(() => { this.email2Input.setFocus(); }, 100);
+show_Register() {
+	this.showLogin = false;
+	this.showForgotPassword = false;
+	this.showRegister = true;
+	const e = this.email1.value;
+	if (e != "")
+		this.email2.setValue(e);
+	setTimeout(() => { (document.getElementById("name2") as HTMLInputElement).focus(); }, 100);
+	this.hasBlurredOnce = false;
 	this.cdr.detectChanges();
 }
 
 async doRegister() {
 	this.progress = true;
+	this.errorSt = null;
 	const data = { email:this.email2.value, name:this.name2.value, password: this.password2.value };
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-up/email", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		console.log("Auth sign-up: ", ret);
-	} catch(e) {}
+	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
-	this.showWrongRegister = ret == null;
 	if (ret != null) {
 		await this.global.getSession();
 		this.global.openPage("", false);
@@ -184,58 +172,47 @@ async doRegister() {
 		this.cdr.detectChanges();
 }
 
-showReset() {
-	this.showRegistration = false;
-	this.showReseting = true;
-	this.showResetingCode = false;
-	setTimeout(() => { this.email3Input.setFocus(); }, 100);
+show_ForgotPassword() {
+	this.showLogin = false;
+	this.showForgotPassword = true;
+	this.showForgotPasswordSent = false;
+	this.showRegister = false;
+	const e = this.email1.value;
+	if (e != "")
+		this.email3.setValue(e);
+	setTimeout(() => { (document.getElementById("email3") as HTMLInputElement).focus(); }, 100);
+	this.hasBlurredOnce = false;
 	this.cdr.detectChanges();
 }
 
-async doReset() {
+async doForgotPassword() {
 	this.progress = true;
-	const data = { email:this.email3.value };
+	this.errorSt = null;
+	const data = { email:this.email3.value, callbackURL:window.location.origin, errorCallbackURL:window.location.origin };
 	let ret = null;
 	try {
-		ret = await this.httpClient.post("/MyDongleCloud/Auth/forget-password/email-otp", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth doReset: ", ret);
-	} catch(e) {}
+		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/magic-link", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth sign-in/magic-link: ", ret);
+	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
-	this.showWrongReset = ret == null;
-	if (ret != null) {
-		this.showReseting = false;
-		this.showResetingCode = true;
-		this.showWrongLogin = false;
-		this.showWrongReset = false;
-		this.showWrongResetCode = false;
-	}
-	this.cdr.detectChanges();
+	if (ret != null)
+		this.showForgotPasswordSent = true;
+		//await this.global.presentAlert("Success!", "An email has been sent with intructions. Please use them to login.", "You can safely close this page now.");
+		//this.global.openPage("login", false);
+	else
+		this.cdr.detectChanges();
 }
 
-showResetCode() {
-	this.showRegistration = false;
-	this.showReseting = false;
-	this.showResetingCode = true;
-	setTimeout(() => { this.resetCode4Input.setFocus(); }, 100);
-	this.cdr.detectChanges();
-}
-
-async doResetCode() {
-	this.progress = true;
-	const data = { email:this.email3.value, otp:this.resetCode4.value, password:this.password4.value };
+async doForgotPasswordVerify(token) {
 	let ret = null;
 	try {
-		ret = await this.httpClient.post("/MyDongleCloud/Auth/email-otp/reset-password", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth doResetCode: " , ret);
-	} catch(e) {}
-	this.progress = false;
-	this.showWrongResetCode = ret == null;
+		ret = await this.httpClient.get("/MyDongleCloud/Auth/magic-link/verify?token=" + token, {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth magic-link/verify: ", ret);
+	} catch(e) { this.errorSt = e.error.message; }
 	if (ret != null) {
-		this.showRegistration = false;
-		this.showReseting = false;
-		this.showResetingCode = false;
+		await this.global.getSession();
+		this.global.openPage("", false);
 	}
-	this.cdr.detectChanges();
 }
 
 }

@@ -1,150 +1,297 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-back-button></ion-back-button>
-		</ion-buttons>
-		<ion-title>{{global.mytranslate("Login")}}</ion-title>
-	</ion-toolbar>
-</ion-header>
-<ion-content [fullscreen]="true" [style]="ready ? 'display:none;' : 'display:block;'">
-<div style="display:flex; justify-content:center; align-items:center; height:100%;">
-		<img src="assets/loading.gif" style="width:10%; height:10%; max-width:64px; max-height:64px;">
+<div [style]="!ready ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50">
+	<img src="assets/loading.gif" style="width:10%; height:10%; max-width:64px; max-height:64px;">
 </div>
-</ion-content>
-<ion-content [fullscreen]="true" [style]="!ready || showRegistration || showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
-	<form class="input-group" [formGroup]="formLogin" (ngSubmit)="doLogin();">
-		<div style="display:flex; justify-content:center;">
-			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Login")}}</ion-label>
+<div [style]="ready && showLogin ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-md w-full">
+		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+			<div class="text-center mb-8 flex items-center flex-col">
+				<div class="flex items-center gap-2 mb-2">
+					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
+						<ion-icon name="person-outline" class="text-white w-10 h-10"></ion-icon>
+					</div>
+					<h1 class="text-3xl font-bold text-gray-900">Welcome<br>back</h1>
+				</div>
+				<p class="text-gray-600">Sign in to your account to continue</p>
+			</div>
+			<form [formGroup]="formLogin" (ngSubmit)="doLogin();" class="space-y-6">
+				<div>
+					<label for="email1" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="email1" (blur)="handleBlur($event, email1)" type="email" formControlName="email1" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your email" [class.border-red-300]="email1?.invalid && email1?.touched" [class.focus:ring-red-500]="email1?.invalid && email1?.touched">
+					</div>
+					@if (email1?.invalid && email1?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Please enter a valid email address
+					</div>
+					}
+				</div>
+				<div>
+					<label for="password1" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<div class="flex items-center gap-0">
+							<input id="password" formControlName="password1" autocomplete="current-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your password" [class.border-red-300]="password1?.invalid && password1?.touched" [class.focus:ring-red-500]="password1?.invalid && password1?.touched" [type]="password1Show ? 'text' : 'password'">
+							<button type="button" (click)="password1Show = !password1Show;" class="flex justify-center items-center bg-blue-500 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'" class="text-white"></ion-icon></button>
+						</div>
+					</div>
+					@if (password1?.invalid && password1?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 6 characters
+					</div>
+					}
+				</div>
+				<div class="flex items-center justify-between">
+					<div class="flex items-center">
+						<input id="remember-me" name="remember-me" type="checkbox" class="w-4 h-4 text-blue-600 focus:ring-blue-700 border-gray-300 rounded">
+						<label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+					</div>
+					<a class="text-sm text-blue-600 hover:text-blue-700 font-medium" (click)="show_ForgotPassword()" style="cursor:pointer;">Forgot password?</a>
+				</div>
+				@if (errorSt) {
+				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
+					<div class="flex items-center gap-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
+					</div>
+				</div>
+				}
+				<button type="submit" [disabled]="progress || formLogin.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+					@if (progress) {
+					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+					Signing in...
+					} @else {
+					<ion-icon name="log-in-outline" class="text-white w-6 h-6"></ion-icon>
+					Sign in
+					}
+				</button>
+			</form>
+			<div class="mt-8 text-center">
+				<p class="text-sm text-gray-600">Don't have an account? <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Register()" style="cursor:pointer;">Sign up!</a>
+				</p>
+			</div>
 		</div>
-		<ion-item>
-			<label for="email1" style="white-space:nowrap;">{{global.mytranslate("Email:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="john.smith@example.com" #email1Input formControlName="email1" (keyup.enter)="doLogin()"></ion-input>
-		</ion-item>
-		<div *ngIf="(email1.dirty || email1.touched) && email1.errors" class="errors">
-			<span *ngIf="email1.errors?.required">{{global.mytranslate("Email is required")}}</span>
-			<span *ngIf="email1.errors?.email">{{global.mytranslate("Email is invalid")}}</span>
+	</div>
+</div>
+<div [style]="ready && showRegister ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-md w-full">
+		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+			<div class="text-center mb-8 flex items-center flex-col">
+				<div class="flex items-center gap-2 mb-2">
+					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
+						<ion-icon name="person-add-outline" class="text-white w-10 h-10"></ion-icon>
+					</div>
+					<h1 class="text-3xl font-bold text-gray-900">Create<br>Account</h1>
+				</div>
+				<p class="text-gray-600">Join this MyDongle Cloud!</p>
+			</div>
+			<form [formGroup]="formRegister" (ngSubmit)="doRegister();" class="space-y-6">
+				<div>
+					<label for="name2" class="block text-sm font-medium text-gray-700 mb-2">Display name</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="person-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="name2" (blur)="handleBlur($event, name2)" type="text" formControlName="name2" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your full name" [class.border-red-300]="name2?.invalid && name2?.touched" [class.focus:ring-red-500]="name2?.invalid && name2?.touched">
+					</div>
+					@if (name2?.invalid && name2?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 2 characters
+					</div>
+					}
+					</div>
+				<div>
+					<label for="email2" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="email2" type="email" formControlName="email2" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your email" [class.border-red-300]="email2?.invalid && email2?.touched" [class.focus:ring-red-500]="email2?.invalid && email2?.touched">
+					</div>
+					@if (email2?.invalid && email2?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Please enter a valid email address
+					</div>
+					}
+				</div>
+				<div>
+					<label for="password2" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<div class="flex items-center gap-0">
+							<input id="password2" formControlName="password2" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Create a strong password" [class.border-red-300]="password2?.invalid && password2?.touched" [class.focus:ring-red-500]="password2?.invalid && password2?.touched" [type]="password2Show ? 'text' : 'password'">
+							<button (click)="password2Show = !password2Show;" class="flex justify-center items-center bg-blue-500 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password2Show ? 'eye-off-outline' : 'eye-outline'" class="text-white"></ion-icon></button>
+						</div>
+					</div>
+						@if (password2?.value) {
+						<div class="mt-3">
+							<div class="flex items-center justify-between text-sm mb-2">
+								<span class="text-gray-600">Password strength:</span>
+								<span class="font-medium" [class.text-red-500]="passwordStrength(password2?.value) === 'weak'" [class.text-yellow-500]="passwordStrength(password2?.value) === 'medium'" [class.text-green-500]="passwordStrength(password2?.value) === 'strong'">
+									{{ passwordStrength(password2?.value) | titlecase }}
+								</span>
+							</div>
+							<div class="w-full bg-gray-200 rounded-full h-2">
+								<div class="h-2 rounded-full transition-all duration-300" [class.bg-red-500]="passwordStrength(password2?.value) === 'weak'" [class.bg-yellow-500]="passwordStrength(password2?.value) === 'medium'" [class.bg-green-500]="passwordStrength(password2?.value) === 'strong'" [style.width.%]="passwordStrengthPercentage(password2?.value)">
+								</div>
+							</div>
+						</div>
+						}
+						@if (password2?.invalid && password2?.touched) {
+						<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+							Must be at least 6 characters
+						</div>
+						}
+				</div>
+				<div>
+					<label for="password2Confirm" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="password2Confirm" type="password" formControlName="password2Confirm" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Confirm password" [class.border-red-300]="password2Confirm?.touched && password2?.value != password2Confirm?.value" [class.focus:ring-red-500]="password2Confirm?.touched && password2?.value != password2Confirm?.value">
+					</div>
+					@if (password2Confirm?.touched && password2?.value != password2Confirm?.value) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Password must match
+					</div>
+					}
+				</div>
+				<div>
+					<div class="flex items-start">
+						<div class="flex items-center h-5">
+							<input id="terms2" name="terms2" type="checkbox" formControlName="terms2" required class="w-4 h-4 text-blue-600 focus:ring-blue-700 border-gray-300 rounded">
+						</div>
+						<div class="ml-3 text-sm">
+							<label for="terms2" class="text-gray-700">I agree to the <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Terms of Service</a> and <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Privacy Policy</a></label>
+						</div>
+					</div>
+					@if (terms2?.errors?.["required"] && terms2?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be agreed
+					</div>
+					}
+				</div>
+				@if (errorSt) {
+				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
+					<div class="flex items-center gap-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
+					</div>
+				</div>
+				}
+				<button type="submit" [disabled]="progress || formRegister.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+					@if (progress) {
+					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+					Creating account...
+					} @else {
+					<ion-icon name="person-add-outline" class="text-white w-6 h-6"></ion-icon>
+					Create account
+					}
+				</button>
+			</form>
+			<div class="mt-8 text-center">
+				<p class="text-sm text-gray-600">
+					Already have an account?
+					<a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Login()" style="cursor:pointer;">Sign in here</a>
+				</p>
+			</div>
 		</div>
-		<ion-item>
-			<label for="password1" style="white-space:nowrap;">{{global.mytranslate("Password:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input placeholder='{{global.mytranslate("Password")}}' #password1Input formControlName="password1" [type]="password1Show ? 'text' : 'password'" (keyup.enter)="doLogin()"></ion-input>&nbsp;&nbsp;<ion-button (click)="password1Show = !password1Show;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'"></ion-icon></ion-button>
-		</ion-item>
-		<div *ngIf="(password1.dirty || password1.touched) && password1.errors" class="errors">
-			<span *ngIf="password1.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="password1.errors?.minlength">{{global.mytranslate("Password needs to be 6 characters")}}</span>
+	</div>
+</div>
+<div [style]="ready && showForgotPassword ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-md w-full">
+		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+			@if (!showForgotPasswordSent) {
+			<div>
+				<div class="text-center mb-8 flex items-center flex-col">
+					<div class="flex items-center gap-2 mb-2">
+						<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
+							<ion-icon name="lock-closed-outline" class="text-white w-10 h-10"></ion-icon>
+						</div>
+						<h1 class="text-3xl font-bold text-gray-900">Forgot your<br>password?</h1>
+					</div>
+					<p class="text-gray-600">No worries! Enter your email to receive instructions.</p>
+				</div>
+				<form [formGroup]="formForgotPassword" (ngSubmit)="doForgotPassword()" class="space-y-6">
+					<div>
+						<label for="email3" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+						<div class="relative">
+							<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+								<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+							</div>
+							<input id="email3" (blur)="handleBlur($event, email3)" type="email" formControlName="email3" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+								placeholder="Enter your email address"
+								[class.border-red-300]="email3?.invalid && email3?.touched"
+								[class.focus:ring-red-500]="email3?.invalid && email3?.touched">
+						</div>
+						@if (email3?.invalid && email3?.touched) {
+						<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+							Please enter a valid email address
+						</div>
+						}
+					</div>
+					@if (errorSt) {
+					<div class="bg-red-50 border border-red-200 rounded-xl p-4">
+						<div class="flex items-center gap-2">
+							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+							<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
+						</div>
+					</div>
+					}
+					<button type="submit" [disabled]="progress || formForgotPassword.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+						@if (progress) {
+						<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+						Sending reset link...
+						} @else {
+						<ion-icon name="mail-unread-outline" class="text-white w-6 h-6"></ion-icon>
+						Send magic link
+						}
+					</button>
+				</form>
+				<div class="mt-8 text-center">
+					<p class="text-sm text-gray-600">
+						Remember your password?
+						<a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Login()" style="cursor:pointer;">Sign in here</a>
+					</p>
+				</div>
+			</div>
+			} @else {
+			<div class="text-center">
+				<div
+					class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+					<ion-icon name="checkmark-outline" class="text-white w-8 h-8"></ion-icon>
+				</div>
+				<h1 class="text-3xl font-bold text-gray-900 mb-4">Check your email</h1>
+				<p class="text-gray-600 mb-6">
+					A magic link has been sent to <span class="font-semibold text-gray-900">{{ email3.value }}</span>
+				</p>
+				<div class="space-y-3">
+					<button class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02]" (click)="show_ForgotPassword()" style="cursor:pointer;">
+						<ion-icon name="reload-outline" class="text-white w-6 h-6"></ion-icon>
+						Send another email
+					</button>
+					<a class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200" (click)="show_Login()" style="cursor:pointer;">
+						<ion-icon name="arrow-back-outline" class="text-black w-6 h-6"></ion-icon>
+						Back to sign in
+					</a>
+				</div>
+			</div>
+			}
 		</div>
-		<br/>
-		<ion-button expand="block" [disabled]="!formLogin.valid || progress" (click)="doLogin()">{{global.mytranslate("Log in with password")}}</ion-button>
-		<br/>
-		<ion-button expand="block" [disabled]="!validateEmail(email1Input.value) || progress" (click)="doMagicLink()">{{global.mytranslate("Receive link to login")}}</ion-button>
-		<div *ngIf="showWrongLogin" class="errors">{{global.mytranslate("Wrong credentials. Please try again.")}}</div>
-	</form>
-	<br/><br/><br/>
-	<br/><br/><br/>
-	<ion-button expand="block" (click)="showRegister()">{{global.mytranslate("Sign up!")}}</ion-button>
-	<br/><br/><br/>
-	<ion-button expand="block" (click)="showReset()">{{global.mytranslate("Reset password")}}</ion-button>
-</ion-content>
-<ion-content [fullscreen]="true" [style]="!ready || !showRegistration || showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
-	<form class="input-group" [formGroup]="formRegister">
-		<ion-button (click)="showLogin()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
-		<div style="display:flex; justify-content:center;">
-			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Sign up")}}</ion-label>
-		</div>
-		<ion-item>
-			<label for="email2" style="white-space:nowrap;">{{global.mytranslate("Email:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="john.smith@example.com" #email2Input formControlName="email2" (keyup.enter)="doRegister()"></ion-input>
-		</ion-item>
-		<div *ngIf="(email2.dirty || email2.touched) && email2.errors" class="errors">
-			<span *ngIf="email2.errors?.required">{{global.mytranslate("Email is required")}}</span>
-			<span *ngIf="email2.errors?.email">{{global.mytranslate("Email is invalid")}}</span>
-		</div>
-		<ion-item>
-			<label for="name2" style="white-space:nowrap;">{{global.mytranslate("Display Name:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="John" formControlName="name2" (keyup.enter)="doRegister()"></ion-input>
-		</ion-item>
-		<div *ngIf="(name2.dirty || name2.touched) && name2.errors" class="errors">
-			<span *ngIf="name2.errors?.required">{{global.mytranslate("Name is required")}}</span>
-		</div>
-		<ion-item>
-			<label for="password2" style="white-space:nowrap;">{{global.mytranslate("Password:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input placeholder='{{global.mytranslate("Password")}}' formControlName="password2" [type]="password2Show ? 'text' : 'password'" (keyup.enter)="doRegister()"></ion-input>&nbsp;&nbsp;<ion-button (click)="password2Show = !password2Show;"><ion-icon [name]="password2Show ? 'eye-off-outline' : 'eye-outline'"></ion-icon></ion-button>
-		</ion-item>
-		<div *ngIf="(password2.dirty || password2.touched) && password2.errors" class="errors">
-			<span *ngIf="password2.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="password2.errors?.minlength">{{global.mytranslate("Password needs to be 2 characters")}}</span>
-		</div>
-		<ion-item>
-			<label for="passwordConfirm2" style="white-space:nowrap;">Confirm:&nbsp;&nbsp;&nbsp;</label>
-			<ion-input placeholder='{{global.mytranslate("Password")}}' formControlName="passwordConfirm2" [type]="password2Show ? 'text' : 'password'" (keyup.enter)="doRegister()"></ion-input>
-		</ion-item>
-		<div *ngIf="(passwordConfirm2.dirty || passwordConfirm2.touched) && passwordConfirm2.errors" class="errors">
-			<span *ngIf="passwordConfirm2.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="passwordConfirm2.errors?.minlength">{{global.mytranslate("Password needs to be 2 characters")}}</span>
-		</div>
-		<div *ngIf="(password2.dirty || password2.touched || passwordConfirm2.dirty || passwordConfirm2.touched) && formRegister.errors?.['mismatch']" class="errors">
-			{{global.mytranslate("Passwords don't match")}}
-		</div>
-		<ion-button expand="block" [disabled]="!formRegister.valid || progress" (click)="doRegister()">{{global.mytranslate("Sign up")}}</ion-button>
-		<div *ngIf="showWrongRegister" class="errors">{{global.mytranslate("An error occured. Please try again.")}}</div>
-	</form>
-</ion-content>
-
-
-<ion-content [fullscreen]="true" [style]="!ready || showRegistration || !showReseting || showResetingCode ? 'display:none;' : 'display:block;'">
-	<form class="input-group" [formGroup]="formReset">
-		<ion-button (click)="showLogin()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
-		<div style="display:flex; justify-content:center;">
-			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Reset Password")}}</ion-label>
-		</div>
-		<ion-item>
-			<label for="email3" style="white-space:nowrap;">{{global.mytranslate("Email:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="john.smith@example.com" #email3Input formControlName="email3" (keyup.enter)="doReset()"></ion-input>
-		</ion-item>
-		<div *ngIf="(email3.dirty || email3.touched) && email3.errors" class="errors">
-			<span *ngIf="email3.errors?.required">{{global.mytranslate("Email is required")}}</span>
-			<span *ngIf="email3.errors?.email">{{global.mytranslate("Email is invalid")}}</span>
-		</div>
-		<ion-button expand="block" [disabled]="!formReset.valid || progress" (click)="doReset()">{{global.mytranslate("Reset Password")}}</ion-button>
-		<div *ngIf="showWrongReset" class="errors">{{global.mytranslate("An error occured. Please try again.")}}</div>
-	</form>
-</ion-content>
-<ion-content [fullscreen]="true" [style]="!ready || showRegistration || showReseting || !showResetingCode ? 'display:none;' : 'display:block;'">
-	<form class="input-group" [formGroup]="formResetCode" (ngSubmit)="doResetCode()">
-		<ion-button (click)="showLogin()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
-		<div style="display:flex; justify-content:center;">
-			<ion-label style="font-weight:bold; zoom:1.5;">{{global.mytranslate("Reset Password")}}</ion-label>
-		</div>
-		<br>
-		<br>
-		<ion-label>{{global.mytranslate("Enter the reset code sent to your email and your new password:")}}</ion-label>
-		<ion-item>
-			<label for="resetCode4" style="white-space:nowrap;">{{global.mytranslate("Reset Code:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input type="text" placeholder="123456" #resetCode4Input formControlName="resetCode4" (keyup.enter)="doResetCode()"></ion-input>
-		</ion-item>
-		<div *ngIf="(resetCode4.dirty || resetCode4.touched) && resetCode4.errors" class="errors">
-			<span *ngIf="resetCode4.errors?.required">{{global.mytranslate("Reset Code is required")}}</span>
-			<span *ngIf="resetCode4.errors?.minlength || resetCode4.errors?.maxlength">{{global.mytranslate("Reset code needs to be 6 figures")}}</span>
-		</div>
-		<ion-item>
-			<label for="password4" style="white-space:nowrap;">{{global.mytranslate("Password:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input placeholder='{{global.mytranslate("Password")}}' formControlName="password4" [type]="password4Show ? 'text' : 'password'" (keyup.enter)="doResetCode()"></ion-input>&nbsp;&nbsp;<ion-button (click)="password4Show = !password4Show;"><ion-icon [name]="password4Show ? 'eye-off-outline' : 'eye-outline'"></ion-icon></ion-button>
-		</ion-item>
-		<div *ngIf="(password4.dirty || password4.touched) && password4.errors" class="errors">
-			<span *ngIf="password4.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="password4.errors?.minlength">{{global.mytranslate("Password needs to be 6 characters")}}</span>
-		</div>
-		<ion-item>
-			<label for="passwordConfirm4" style="white-space:nowrap;">{{global.mytranslate("Confirm:")}}&nbsp;&nbsp;&nbsp;</label>
-			<ion-input placeholder='{{global.mytranslate("Password")}}' formControlName="passwordConfirm4" [type]="password4Show ? 'text' : 'password'" (keyup.enter)="doResetCode()"></ion-input>
-		</ion-item>
-		<div *ngIf="(passwordConfirm4.dirty || passwordConfirm4.touched) && passwordConfirm4.errors" class="errors">
-			<span *ngIf="passwordConfirm4.errors?.required">{{global.mytranslate("Password is required")}}</span>
-			<span *ngIf="passwordConfirm4.errors?.minlength">{{global.mytranslate("Password needs to be 6 characters")}}</span>
-		</div>
-		<div *ngIf="(password4.dirty || password4.touched || passwordConfirm4.dirty || passwordConfirm4.touched) && formResetCode.errors?.['mismatch']" class="errors">
-			{{global.mytranslate("Passwords don't match")}}
-		</div>
-		<ion-button expand="block" [disabled]="!formResetCode.valid || progress" (click)="doResetCode()">{{global.mytranslate("Reset password")}}</ion-button>
-		<div *ngIf="showWrongResetCode" class="errors">{{global.mytranslate("Wrong information. Please try again.")}}</div>
-	</form>
-</ion-content>
+	</div>
+</div>
