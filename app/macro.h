@@ -41,7 +41,7 @@
 #define NM_CONFIG_PATH "/etc/NetworkManager/system-connections/%s"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
-#define ZIGBEE_FIRMWARE "/usr/local/modules/zigbee2mqtt/CC2652R1_coordinator.bin"
+#define ZIGBEE_FIRMWARE "/usr/local/modules/mydonglecloud/CC2652R1_coordinator.bin"
 
 #define WIDTH 128	
 #define HEIGHT 128
