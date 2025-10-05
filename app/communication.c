@@ -53,8 +53,7 @@ void communicationConnection(int s) {
 		logicSlaveNotConnected();
 }
 
-int communicationJSON(void *el) {
-	char *sz = cJSON_Print((cJSON *)el);
+int communicationString(char *sz) {
 	int ret;
 #ifdef WEB
 	ret = serverWriteDataHtml(sz, strlen(sz));
@@ -64,6 +63,12 @@ int communicationJSON(void *el) {
 	else if (communicationConnected == 2)
 		ret = serverWriteDataWebSocket(sz, strlen(sz));
 #endif
+	return ret;
+}
+
+int communicationJSON(void *el) {
+	char *sz = cJSON_Print((cJSON *)el);
+	int ret = communicationString(sz);
 	free(sz);
 	return ret;
 }

@@ -6,6 +6,7 @@ extern int communicationConnected;
 
 //Functions
 void communicationConnection(int s);
+int communicationString(char *sz);
 int communicationJSON(void *el);
 int communicationState();
 void communicationDoState();
