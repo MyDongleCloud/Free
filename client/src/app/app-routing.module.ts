@@ -22,6 +22,15 @@ const routes: Routes = [
 		loadChildren: () => import('./home/home.module').then( m => m.HomeModule)
 	},
 	{
+		path: 'homeold',
+		canActivate: [Global],
+		loadChildren: () => import('./homeold/homeold.module').then( m => m.HomeOldModule)
+	},
+	{
+		path: 'loginold',
+		loadChildren: () => import('./loginold/loginold.module').then( m => m.LoginOldModule)
+	},
+	{
 		path: 'login',
 		loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
 	},
