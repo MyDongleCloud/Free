@@ -689,7 +689,7 @@ echo "MyDongleCloud stuff and rootfs"
 echo "################################"
 cd /home/mdc
 chown -R root:root rootfs
-chown -R admin:admin rootfs/disk/admin rootfs/var/log/mydonglecloud
+chown -R admin:admin rootfs/disk/admin
 cp -a rootfs/* /
 rm -rf rootfs
 cd /home/mdc/kernel
@@ -720,8 +720,8 @@ apt-get -y autoremove
 rm -rf /var/cache/apt/archives/*.deb /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz /home/mdc/.cache/*
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
 rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
-mkdir /var/cache-admin
-chown admin:admin /var/cache-admin
+mkdir /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt
+chown admin:admin /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt
 
 echo "################################"
 echo "Finish install"
