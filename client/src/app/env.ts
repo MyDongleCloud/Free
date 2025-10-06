@@ -300,7 +300,7 @@ review() {
 
 async getCertificate(space) {
 	const DOMAIN = "mydongle.cloud";
-	const STAGING = false;
+	const STAGING = true;
 	let acme = ACME.create({ maintainerEmail: "acme@" + DOMAIN, packageAgent: "MDC/2025-01-01", notify: function (ev, msg) { /*console.log(msg);*/ }, skipDryRun: true });
 	await acme.init("https://acme" + (STAGING ? "-staging" : "") + "-v02.api.letsencrypt.org/directory");
 
