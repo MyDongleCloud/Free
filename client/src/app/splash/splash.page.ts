@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Global } from '../env';
+import { BleService } from '../ble';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class Splash {
 showUpgrade: boolean = false;
 
-constructor(public global: Global, private httpClient: HttpClient) {}
+constructor(public global: Global, private bleService: BleService, private httpClient: HttpClient) {}
 
 ionViewDidEnter() {
 	this.forwardWhenReady();
