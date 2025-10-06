@@ -213,7 +213,7 @@ openBrowser(url: string) {
 }
 
 openPage(url: string, close: boolean) {
-	if (!close)
+//	if (!close)
 		this.navCtrl.setDirection('root');
 	this.router.navigate(["/" + url]);
 	if (close)
