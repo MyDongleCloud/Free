@@ -4,6 +4,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_public_" ],
+		"localPort": 80,
 		"localRanges": ["10", "172.16", "192.168"],
 		"path": "/disk/admin/Web",
 		"alias": [ "www" ]

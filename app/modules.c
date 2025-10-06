@@ -50,6 +50,8 @@ void modulesSetup(cJSON *space) {
 		modules = cJSON_CreateObject();
 	int firstTime = !cJSON_IsTrue(cJSON_GetObjectItem(modules, "initDone"));
 
+	int webViaFrp = 1;//FIXME: Is web traffic authorized to be and is routed via frp?
+
 	for (int i = 0; i < cJSON_GetArraySize(modulesDefault); i++) {
 		cJSON *elModule = cJSON_GetArrayItem(modulesDefault, i);
 		cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
@@ -59,7 +61,7 @@ void modulesSetup(cJSON *space) {
 			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
-				buildApache2Conf(modulesDefault, modules, space, fqdn);
+				buildApache2Conf(modulesDefault, modules, space, fqdn, webViaFrp);
 			PRINTF("Apache2: Reloading\n");
 #ifndef DESKTOP
 			serviceAction("apache2.service", "ReloadUnit");
@@ -112,9 +114,9 @@ webServer.port = 7400\n\n", port, token, cJSON_GetStringValue2(space, "name"), c
 						sprintf(sz, "\
 [[proxies]]\n\
 name = \"%s\"\n\
-type = \"%s\"\n\
+type = \"%s\"\n%s\
 localIP = \"localhost\"\n\
-localPort = %d\n", elModuleSj->string, type, localPort);
+localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "transport.proxyProtocolVersion = \"v2\"\n"  : "", localPort);
 						fwrite(sz, strlen(sz), 1, pf);
 						if (strncmp(type, "http", 4) == 0) {
 							strcpy(sz, "customDomains = [\n");

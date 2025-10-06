@@ -116,7 +116,7 @@ void rewrite(cJSON *el_Module, cJSON *el_Module2, int port, FILE *pfM) {
 			rewrite_(i->valuestring, port, pfM);
 }
 
-void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, cJSON *fqdn) {
+void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, cJSON *fqdn, int webViaFrp) {
 	PRINTF("Modules:Apache2: Enter\n");
 #ifdef DESKTOP
 	FILE *pfP = fopen("/tmp/ports.conf", "w");
@@ -125,7 +125,6 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, cJSON
 #endif
 	char sz[2048];
 	strcpy(sz, "\
-Listen 80\n\
 <IfModule ssl_module>\n\
 	Listen 443\n\
 </IfModule>\n");
@@ -280,24 +279,24 @@ MyDongleCloudJwkPem /disk/admin/.modules/betterauth/jwk-pub.pem\n\
 			strcpy(sz, "</Macro>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 
+			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "localPort"));
+			sprintf(sz, "Listen %d\n", localPort);
+			fwrite(sz, strlen(sz), 1, pfP);
+			snprintf(sz, sizeof(sz), "<VirtualHost *:%d>\n\tUse Macro_%s\n</VirtualHost>\n", localPort, elModule->string);
+			fwrite(sz, strlen(sz), 1, pfM);
+
 			strcpy(sz, "<VirtualHost *:80>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 			fillServer(1, elModule, elModule2, fqdn, pfM);
-			snprintf(sz, sizeof(sz), "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
+			snprintf(sz, sizeof(sz), "%s\tUse Macro_%s\n</VirtualHost>\n", webViaFrp ? "\tRemoteIPProxyProtocol On\n" : "", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 
 			strcpy(sz, "<IfModule mod_ssl.c>\n\t<VirtualHost *:443>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 			fillServer(2, elModule, elModule2, fqdn, pfM);
-			snprintf(sz, sizeof(sz), "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
+			snprintf(sz, sizeof(sz), "%s\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", webViaFrp ? "\t\tRemoteIPProxyProtocol On\n" : "", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
-			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "localPort"));
-			if (localPort > 0) {
-				snprintf(sz, sizeof(sz), "<VirtualHost *:%d>\n\tUse Macro_%s\n</VirtualHost>\n", localPort, elModule->string);
-				fwrite(sz, strlen(sz), 1, pfM);
-				sprintf(sz, "Listen %d\n", localPort);
-				fwrite(sz, strlen(sz), 1, pfP);
-			}
+
 			strcpy(sz, "\n\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 		}
