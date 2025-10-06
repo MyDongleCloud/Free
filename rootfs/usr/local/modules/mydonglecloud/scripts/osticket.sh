@@ -32,7 +32,7 @@ DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
 USERNAME="admin2"
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
-mysql --defaults-file=/disk/admin/.modules/mysql/my.cnf << EOF
+mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
 DROP DATABASE IF EXISTS osticketDB;
 CREATE DATABASE osticketDB;
 DROP USER IF EXISTS 'osticketUser'@'localhost';
