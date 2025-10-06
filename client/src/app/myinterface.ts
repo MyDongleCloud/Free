@@ -11,8 +11,3 @@ export interface Settings {
 	dontShowAgain: object,
 	currentUrl: string,
 }
-
-export interface OnlineRet {
-	error: number;
-	reason: string;
-}
