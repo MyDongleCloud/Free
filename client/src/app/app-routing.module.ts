@@ -46,7 +46,6 @@ const routes: Routes = [
 	},
 	{
 		path: 'setup',
-		canActivate: [Global],
 		loadChildren: () => import('./setup/setup.module').then( m => m.SetupModule)
 	},
 	{
