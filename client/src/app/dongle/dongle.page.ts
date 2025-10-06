@@ -20,6 +20,8 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: B
 	global.refreshUI.subscribe(event => {
 		this.cdr.detectChanges();
 	});
+	ble.communicationEvent.subscribe((event) => {
+	});
 }
 
 ngOnInit() {

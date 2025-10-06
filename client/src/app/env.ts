@@ -10,7 +10,7 @@ import { Device } from '@capacitor/device';
 import { Preferences } from '@capacitor/preferences';
 import { InAppReview } from '@capacitor-community/in-app-review';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Settings } from './myinterface';
 import { VERSION } from './version';
@@ -33,8 +33,6 @@ currentUrl: string;
 activateUrl: string;
 settings: Settings = {} as Settings;
 refreshUI:Subject<any> = new Subject();
-refreshO;
-refreshObs;
 firmwareServerVersion;
 session;
 
@@ -47,10 +45,6 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	translate.setDefaultLang("en");
 	console.log("Default browser language is: " + translate.getBrowserLang());
 	this.changeLanguage(this.translate.getBrowserLang());
-	this.refreshO = Observable.create((obs) => {
-		this.refreshObs = obs;
-		return () => {}
-	});
 	this.AuthHealth();
 	this.getSession();
 	this.settingsLoad();
@@ -187,7 +181,7 @@ async changeLanguage(st) {
 
 changeLanguageAndRefresh(l) {
 	this.changeLanguage(l);
-	this.refreshObs.next();
+	this.refreshUI.next(true);
 }
 
 mytranslateP(page, st) {

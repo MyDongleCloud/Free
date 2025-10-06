@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BleClient, textToDataView, numberToUUID, ScanResult, ConnectionPriority } from '@capacitor-community/bluetooth-le';
-import { HttpClient } from '@angular/common/http';
 import { Filesystem, Encoding } from '@capacitor/filesystem';
 import { Global } from './env';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 const BLE_NAME = "MyDongle-";
 const UUID_GATT = "0000fff0-0000-1000-8000-00805f9b34fb";
@@ -28,8 +27,9 @@ firmwareDeviceVersion: string;
 deviceAddr: string;
 lastTouch = null;
 bleClientInitialized: boolean = false;
+communicationEvent:Subject<any> = new Subject();
 
-constructor(private global: Global, private httpClient: HttpClient) {
+constructor(private global: Global) {
 	this.bleClientInitialize();
 }
 
@@ -47,11 +47,11 @@ connectToggle() {
 	else if (this.connectedBLE == 1) {
 		this.connectedBLE = 0;
 		this.global.refreshUI.next(true);
+		this.communicationEvent.next({ msg:"connection" });
 		this.stopScan();
 	} else
 		this.tryConnect();
 }
-
 
 async stopScan() {
 	console.log("Stop Scan");
@@ -62,6 +62,7 @@ async disconnect() {
 	await BleClient.disconnect(this.deviceID);
 	this.connectedBLE = 0;
 	this.global.refreshUI.next(true);
+	this.communicationEvent.next({ msg:"connection" });
 	await this.stopScan();
 }
 
@@ -69,6 +70,7 @@ async tryConnect() {
 	console.log("tryConnect");
 	this.connectedBLE = 1;
 	this.global.refreshUI.next(true);
+	this.communicationEvent.next({ msg:"connection" });
 	if (!this.bleClientInitialized)
 		await this.bleClientInitialize();
 	try {
@@ -87,6 +89,7 @@ async tryConnect() {
 		} catch(e) {
 			this.connectedBLE = 0;
 			this.global.refreshUI.next(true);
+			this.communicationEvent.next({ msg:"connection" });
 		}
 	} else {
 		await BleClient.requestLEScan({services:[]}, this.onBluetoothDeviceFound.bind(this));
@@ -137,9 +140,11 @@ async writeData(a) {
 }
 
 communicationReceive(st) {
-	const b = JSON.parse(st);
-	if (b.a === "state")
+	const data = JSON.parse(st);
+	if (data.a === "state")
 		appServerReceiveHtml(st, 0);
+	else
+		this.communicationEvent.next({ msg:"communication", data:data });
 }
 
 dataChunks;
@@ -178,12 +183,14 @@ async connectToBluetoothDevice(devId: string) {
 	if (err == 1) {
 		this.connectedBLE = 0;
 		this.global.refreshUI.next(true);
+		this.communicationEvent.next({ msg:"connection" });
 		return;
 	}
 	appCommunicationStatus(3);
 	console.log("connectToBluetoothDevice device success!");
 	this.connectedBLE = 2;
 	this.global.refreshUI.next(true);
+	this.communicationEvent.next({ msg:"connection" });
 	this.listServices(devId);
 	BleClient.startNotifications(devId, UUID_GATT, UUID_DATA, this.bleNotifyDataCb).catch(error => {
 		console.log("startNotifications UUID_DATA error: ", error)
@@ -201,6 +208,7 @@ onDeviceDisconnected(disconnectedDeviceId: string) {
 	this.deviceName = "";
 	this.connectedBLE = 0;
 	this.global.refreshUI.next(true);
+	this.communicationEvent.next({ msg:"connection" });
 	console.log("Disconnected device " + disconnectedDeviceId);
 	appCommunicationStatus(0);
 }

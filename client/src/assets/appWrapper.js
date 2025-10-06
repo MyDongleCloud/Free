@@ -20,14 +20,20 @@ function appInit(tb, log) {
 }
 
 function appButton(b, l) {
+	if (!initDone)
+		return;
 	Module._button(b, l);
 }
 
 function appCommunicationStatus(s) {
+	if (!initDone)
+		return;
 	Module._communicationStatus(s);
 }
 
 function appServerWriteDataHtml(data, isB64) {
+	if (!initDone)
+		return;
 	var st;
 	if (isB64)
 		st = atob(data);
@@ -41,6 +47,8 @@ function appServerWriteDataHtml(data, isB64) {
 }
 
 function appServerReceiveHtml(data, doB64) {
+	if (!initDone)
+		return;
 	//Module.print("(JS) appServerReceiveHtml: data#" + data + "#B64:" + doB64);
 	var st;
 	if (doB64)
@@ -55,6 +63,8 @@ function appServerReceiveHtml(data, doB64) {
 }
 
 function appConnectToggle() {
+	if (!initDone)
+		return;
 	if (socket != null) {
 		socket.close();
 		socket = null;
