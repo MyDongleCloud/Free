@@ -27,7 +27,7 @@
 		"Email:": "",
 		"Email is required": "",
 		"Email is invalid": "",
-		"Display Name:", "",
+		"Display Name": "",
 		"Password:": "",
 		"Password": "",
 		"Password is required": "",
@@ -40,8 +40,6 @@
 		"Reset Code:": "",
 		"Reset Code is required": "",
 		"Reset code needs to be 6 figures": "",
-		"Password is required": "",
-		"Password needs to be 2 characters": "",
 		"Confirm:": "",
 		"Passwords don't match": "",
 		"Wrong information. Please try again.": ""
