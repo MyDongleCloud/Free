@@ -549,7 +549,7 @@
 		"addConfig": "\tRewriteCond %{HTTP:Connection} Upgrade [NC]\n\tRewriteCond %{HTTP:Upgrade} websocket [NC]\n\tRewriteRule /(.*) ws://localhost:8099/$1 [P,L]",
 		"reverseProxy": [ {
 			"type": "http",
-			"port": 8099,
+			"port": 8095,
 			"path": "/"
 		} ]
 	}
