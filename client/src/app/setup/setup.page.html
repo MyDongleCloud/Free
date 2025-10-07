@@ -1,25 +1,317 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-back-button></ion-back-button>
-		</ion-buttons>
-		<ion-title>{{global.mytranslate("Setup")}}</ion-title>
-	</ion-toolbar>
-</ion-header>
-<ion-content [fullscreen]="true"><div style="padding:10px;">
-	<ion-button (click)="ble.connectToggle()" [color]="ble.connectedBLE == 2 ? 'success' : ble.connectedBLE == 1 ? 'danger' : 'primary'" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
-		<ion-icon src="assets/dongle.svg" style="height:32px;width:74px;"></ion-icon>
-		<br>{{ble.connectedBLE == 2 ? global.mytranslate("Connected") : ble.connectedBLE == 1 ? global.mytranslate("Searching") : global.mytranslate("Connect")}}
-		<br>
-	</div></ion-button>
-	<div *ngIf="ble.connectedBLE == 2">
-		<ion-button (click)="ble.shutdown()" color="primary" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
-			<ion-icon name="power-outline" style="width:24px; height:24px;"></ion-icon>
-			<br>{{global.mytranslate("Shutdown")}}
-		</div></ion-button>
-		<br>
-		<br>
-		<b>{{global.mytranslate("Device version:")}}</b> {{ble.firmwareDeviceVersion}}
+<ion-content>
+<div [style]="showDongle ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-md w-full">
+		<div class="text-center mb-8 flex items-center justify-center gap-2">
+			<ion-icon src="assets/1-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">Dongle</span>
+			&nbsp;&nbsp;&nbsp;
+			<ion-icon src="assets/2-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Admin</span>
+			&nbsp;&nbsp;&nbsp;
+			<ion-icon src="assets/3-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Wi-Fi</span>
+		</div>
+		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+			<div class="text-center mb-8 flex items-center flex-col">
+				<div class="flex items-center gap-2 mb-2">
+					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
+						<ion-icon name="settings-outline" class="text-white w-10 h-10"></ion-icon>
+					</div>
+					<h1 class="text-3xl font-bold text-left text-gray-900">Setup<br>Dongle</h1>
+				</div>
+				<p class="text-gray-600">Connect to your dongle and set it up</p>
+			</div>
+			<form [formGroup]="formDongle" (ngSubmit)="doDongle();" class="space-y-6">
+				<button type="button" (click)="connectToggle()" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]" [class]="ble.connectedBLE == 2 ? 'bg-green-600' : ble.connectedBLE == 1 ? 'bg-red-600' : 'bg-blue-600'" >
+					<img src="assets/dongle.svg" alt="Dongle" class="w-8 h-8" style="filter:invert(100%);"/>
+					Connect via Bluetooth
+				</button>
+				<div>
+					<label for="spacename1" class="block text-sm font-medium text-gray-700">Primary Cloud URL</label>
+					<label for="spacename1" class="block text-sm font-small text-gray-400 mb-2 italic">We recommend your full name (aka. johndoe)</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="globe-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="spacename1" type="text" formControlName="spacename1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter the dongle full name" [class.border-red-300]="spacename1?.invalid && spacename1?.touched" [class.focus:ring-red-500]="spacename1?.invalid && spacename1?.touched">
+					</div>
+					@if (spacename1?.invalid && (spacename1?.touched || spacename1?.value.length >= 1)) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 6 characters: a-z, 0-9, -, _
+					</div>
+					} @else if (spacename1?.value.length >= 6) {
+					<label for="spacename1" class="block text-sm font-medium text-gray-500 mt-1">https://{{spacename1?.value}}.mydongle.cloud</label>
+					}
+				</div>
+				<div>
+					<label for="shortname1" class="block text-sm font-medium text-gray-700">Cloud Short Link</label>
+					<label for="shortname1" class="block text-sm font-small text-gray-400 mb-2 italic">Make it short</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="globe-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="shortname1" type="text" formControlName="shortname1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your initials" [class.border-red-300]="shortname1?.invalid && shortname1?.touched" [class.focus:ring-red-500]="shortname1?.invalid && shortname1?.touched">
+					</div>
+					@if (shortname1?.invalid && (shortname1?.touched || shortname1?.value.length >= 1)) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 2 characters: a-z, 0-9, -, _
+					</div>
+					} @else if (shortname1?.value.length >= 2) {
+					<label for="shortname1" class="block text-sm font-medium text-gray-500 mt-1">https://{{shortname1?.value}}.myd.cd</label>
+					}
+				</div>
+				<div>
+					<label for="domain1" class="block text-sm font-medium text-gray-700">Bring Your Own Domain (optional)</label>
+					<label for="domain1" class="block text-sm font-small text-gray-400 mb-2 italic">DNS should point to ns1.mydongle.cloud</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="globe-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<div class="flex items-center gap-2">
+							<input id="domain1" type="text" formControlName="domain1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="example.com" [class.border-red-300]="domain1?.invalid && domain1?.touched" [class.focus:ring-red-500]="domain1?.invalid && domain1?.touched">
+							<button type="button" (click)="verifyDns(domain1?.value)" [disabled]="!checkDomain1(domain1?.value)" class="flex justify-center items-center py-3 px-2 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+								@if (progress) {
+								<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+								}
+								Verify
+							</button>
+						</div>
+					</div>
+					@if (domain1?.invalid && (domain1?.touched || domain1?.value.length >= 1)) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Failed. No worries. You can point the DNS later (or it can take time to propagate)
+					</div>
+					} @else if (domain1?.value.length >= 2) {
+					<label for="domain1" class="block text-sm font-medium text-gray-500 mt-1">https://{{domain1?.value}} and all subdomains</label>
+					}
+				</div>
+				<div>
+					<div class="flex items-start">
+						<div class="flex items-center h-5">
+							<input id="terms1" name="terms1" type="checkbox" formControlName="terms1" required class="w-4 h-4 text-blue-600 focus:ring-blue-700 border-gray-300 rounded">
+						</div>
+						<div class="ml-3 text-sm">
+							<label for="terms1" class="text-gray-700">I agree to the <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Terms of Service</a> and <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Privacy Policy</a></label>
+						</div>
+					</div>
+					@if (terms1?.errors?.["required"] && terms1?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be agreed
+					</div>
+					}
+				</div>
+				@if (errorSt) {
+				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
+					<div class="flex items-center gap-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
+					</div>
+				</div>
+				}
+				<button type="submit" [disabled]="progress || formDongle.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+					@if (progress) {
+					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+					Please wait...
+					} @else {
+					<ion-icon name="arrow-forward-outline" class="text-white w-6 h-6"></ion-icon>
+					Next
+					}
+				</button>
+			</form>
+		</div>
 	</div>
-<br><br><br><br>
-</div></ion-content>
+</div>
+<div [style]="showRegister ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-md w-full">
+		<div class="text-center mb-8 flex items-center justify-center gap-2">
+			<ion-icon src="assets/1-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Dongle</span>
+			&nbsp;&nbsp;&nbsp;
+			<ion-icon src="assets/2-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">Admin</span>
+			&nbsp;&nbsp;&nbsp;
+			<ion-icon src="assets/3-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Wi-Fi</span>
+		</div>
+		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+			<div class="text-center mb-8 flex items-center flex-col">
+				<div class="flex items-center gap-2 mb-2">
+					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
+						<ion-icon name="person-add-outline" class="text-white w-10 h-10"></ion-icon>
+					</div>
+					<h1 class="text-3xl font-bold text-left text-gray-900">Create<br>Account</h1>
+				</div>
+				<p class="text-gray-600">Set the admin account of this dongle</p>
+			</div>
+			<form [formGroup]="formRegister" (ngSubmit)="doRegister();" class="space-y-6">
+				<div>
+					<label for="name2" class="block text-sm font-medium text-gray-700 mb-2">Display name</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="person-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="name2" (blur)="handleBlur($event, name2)" type="text" formControlName="name2" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your full name" [class.border-red-300]="name2?.invalid && name2?.touched" [class.focus:ring-red-500]="name2?.invalid && name2?.touched">
+					</div>
+					@if (name2?.invalid && name2?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 2 characters
+					</div>
+					}
+				</div>
+				<div>
+					<label for="email2" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="email2" type="email" formControlName="email2" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your email" [class.border-red-300]="email2?.invalid && email2?.touched" [class.focus:ring-red-500]="email2?.invalid && email2?.touched">
+					</div>
+					@if (email2?.invalid && email2?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Please enter a valid email address
+					</div>
+					}
+				</div>
+				<div>
+					<label for="password2" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<div class="flex items-center gap-0">
+							<input id="password2" formControlName="password2" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Create a strong password" [class.border-red-300]="password2?.invalid && password2?.touched" [class.focus:ring-red-500]="password2?.invalid && password2?.touched" [type]="password2Show ? 'text' : 'password'">
+							<button (click)="password2Show = !password2Show;" class="flex justify-center items-center bg-blue-500 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password2Show ? 'eye-off-outline' : 'eye-outline'" class="text-white"></ion-icon></button>
+						</div>
+					</div>
+					@if (password2?.value) {
+					<div class="mt-3">
+						<div class="flex items-center justify-between text-sm mb-2">
+							<span class="text-gray-600">Password strength:</span>
+							<span class="font-medium" [class.text-red-500]="passwordStrength(password2?.value) === 'weak'" [class.text-yellow-500]="passwordStrength(password2?.value) === 'medium'" [class.text-green-500]="passwordStrength(password2?.value) === 'strong'">
+								{{ passwordStrength(password2?.value) | titlecase }}
+							</span>
+						</div>
+						<div class="w-full bg-gray-200 rounded-full h-2">
+							<div class="h-2 rounded-full transition-all duration-300" [class.bg-red-500]="passwordStrength(password2?.value) === 'weak'" [class.bg-yellow-500]="passwordStrength(password2?.value) === 'medium'" [class.bg-green-500]="passwordStrength(password2?.value) === 'strong'" [style.width.%]="passwordStrengthPercentage(password2?.value)">
+							</div>
+						</div>
+					</div>
+					}
+					@if (password2?.invalid && password2?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 6 characters
+					</div>
+					}
+				</div>
+				<div>
+					<label for="password2Confirm" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="password2Confirm" type="password" formControlName="password2Confirm" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Confirm password" [class.border-red-300]="password2Confirm?.touched && password2?.value != password2Confirm?.value" [class.focus:ring-red-500]="password2Confirm?.touched && password2?.value != password2Confirm?.value">
+					</div>
+					@if (password2Confirm?.touched && password2?.value != password2Confirm?.value) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Password must match
+					</div>
+					}
+				</div>
+				@if (errorSt) {
+				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
+					<div class="flex items-center gap-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
+					</div>
+				</div>
+				}
+				<button type="submit" [disabled]="progress || formRegister.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+					@if (progress) {
+					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+					Please wait...
+					} @else {
+					<ion-icon name="arrow-forward-outline" class="text-white w-6 h-6"></ion-icon>
+					Next
+					}
+				</button>
+			</form>
+			<div class="mt-8 text-center">
+				<p class="text-sm text-gray-600">Changed your mind on the previous step? <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Dongle()" style="cursor:pointer;">Go back</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div [style]="showWiFi ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-md w-full">
+		<div class="text-center mb-8 flex items-center justify-center gap-2">
+			<ion-icon src="assets/1-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Dongle</span>
+			&nbsp;&nbsp;&nbsp;
+			<ion-icon src="assets/2-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Admin</span>
+			&nbsp;&nbsp;&nbsp;
+			<ion-icon src="assets/3-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">Wi-Fi</span>
+		</div>
+		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+			<div class="text-center mb-8 flex items-center flex-col">
+				<div class="flex items-center gap-2 mb-2">
+					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
+						<ion-icon name="wifi-outline" class="text-white w-10 h-10"></ion-icon>
+					</div>
+					<h1 class="text-3xl font-bold text-left text-gray-900">Wi-Fi<br>Credentials</h1>
+				</div>
+				<p class="text-gray-600">Enter the credentials of the Wi-Fi to which the dongle will be connected</p>
+			</div>
+			<form [formGroup]="formWiFi" (ngSubmit)="doWiFi();" class="space-y-6">
+				<div>
+					<label for="ssid3" class="block text-sm font-medium text-gray-700 mb-2">Wi-Fi SSID</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="wifi-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<input id="ssid3" (blur)="handleBlur($event, ssid3)" type="text" formControlName="ssid3" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter the SSID" [class.border-red-300]="ssid3?.invalid && ssid3?.touched" [class.focus:ring-red-500]="ssid3?.invalid && ssid3?.touched">
+					</div>
+					@if (ssid3?.invalid && ssid3?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 2 characters
+					</div>
+					}
+				</div>
+				<div>
+					<label for="password3" class="block text-sm font-medium text-gray-700 mb-2">Wi-Fi Password</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
+						</div>
+						<div class="flex items-center gap-0">
+							<input id="password3" formControlName="password3" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter the password" [class.border-red-300]="password3?.invalid && password3?.touched" [class.focus:ring-red-500]="password3?.invalid && password3?.touched" [type]="password3Show ? 'text' : 'password'">
+							<button (click)="password3Show = !password3Show;" class="flex justify-center items-center bg-blue-500 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password3Show ? 'eye-off-outline' : 'eye-outline'" class="text-white"></ion-icon></button>
+						</div>
+					</div>
+					@if (password3?.invalid && password3?.touched) {
+					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						Must be at least 8 characters
+					</div>
+					}
+				</div>
+				<button type="submit" [disabled]="progress || formRegister.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+					@if (progress) {
+					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+					Please wait...
+					} @else {
+					<ion-icon name="arrow-forward-outline" class="text-white w-6 h-6"></ion-icon>
+					Finish
+					}
+				</button>
+			</form>
+			<div class="mt-8 text-center">
+				<p class="text-sm text-gray-600">Changed your mind on the previous step? <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Register()" style="cursor:pointer;">Go back</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+</ion-content>

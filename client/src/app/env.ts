@@ -293,6 +293,7 @@ review() {
 }
 
 async getCertificate(space) {
+	const ret = { accountKey:"", accountKeyId:"", fullChain:"", privateKey:"" };
 	const DOMAIN = "mydongle.cloud";
 	const STAGING = true;
 	let acme = ACME.create({ maintainerEmail: "acme@" + DOMAIN, packageAgent: "MDC/2025-01-01", notify: function (ev, msg) { /*console.log(msg);*/ }, skipDryRun: true });
@@ -300,20 +301,15 @@ async getCertificate(space) {
 
 	const accountKeypair = await Keypairs.generate({ kty: "EC", format: "jwk" });
 	const accountKey = accountKeypair.private;
-	const accountKeyPEM = await Keypairs.export({ jwk: accountKey });
-	console.log("# account.pem #################################");
-	console.log(accountKeyPEM);
-	console.log("##################################");
+	ret.accountKey = await Keypairs.export({ jwk: accountKey });
 	console.info("CERTIFICATE: Registering ACME account...");
 	const account = await acme.accounts.create({ subscriberEmail: "certificate@" + DOMAIN, agreeToTerms: true, accountKey: accountKey });
 	console.info("CERTIFICATE: Created account with id ", account.key.kid);
+	ret.accountKeyId = account.key.kid;
 
 	const serverKeypair = await Keypairs.generate({ kty: "RSA", format: "jwk" });
 	const serverKey = serverKeypair.private;
-	const serverKeyPEM = await Keypairs.export({ jwk: serverKey });
-	console.log("# privkey.pem #################################");
-	console.log(serverKeyPEM);
-	console.log("##################################");
+	ret.privateKey = await Keypairs.export({ jwk: serverKey });
 
 	let domains = [space + "." + DOMAIN, "*." + space + "." + DOMAIN];
 	domains = domains.map(function(name) {
@@ -360,11 +356,12 @@ async getCertificate(space) {
 	};
 	console.info("Validating domain authorization for " + domains.join(" "));
 	const pems = await acme.certificates.create({ account: account, accountKey: accountKey, csr: csr, domains: domains, challenges: challenges });
-	const fullchain = pems.cert + "\n" + pems.chain + "\n";
-	console.log("CERTIFICATE: " + pems.expires, pems);
-	console.log("# fullchain.pem #################################");
-	console.log(fullchain);
+	ret.fullChain = pems.cert + "\n" + pems.chain + "\n";
 	console.log("##################################");
+	console.log("CERTIFICATE: " + pems.expires, pems);
+	console.log(ret);
+	console.log("##################################");
+	return ret;
 }
 
 canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
