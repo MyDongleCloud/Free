@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { Login } from './login.page';
-import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
 	imports: [
@@ -14,7 +13,6 @@ import { ComponentsModule } from '../components/components.module';
 		TranslateModule,
 		FormsModule,
 		ReactiveFormsModule,
-		ComponentsModule,
 		LoginRoutingModule
 	],
 	declarations: [Login]
