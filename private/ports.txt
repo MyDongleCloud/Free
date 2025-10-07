@@ -44,10 +44,6 @@ Listening: 25 (email)
 bind9
 Listening: 53 (dns)
 
-***************
-????
-Listening: 3478, 3479
-
 
 
 ***************
