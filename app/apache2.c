@@ -139,6 +139,8 @@ void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *space, cJSON
 #Apache2->overwrite: true in /disk/admin/.modules/mydonglecloud/modules.json\n\n\
 LoadModule mydonglecloud_module /usr/local/modules/apache2/mod_mydonglecloud.so\n\
 MyDongleCloudJwkPem /disk/admin/.modules/betterauth/jwk-pub.pem\n\
+LoadModule mydonglecloud_ip_module /usr/local/modules/apache2/mod_mydonglecloud_ip.so\n\
+MyDongleCloudIPEnabled on\n\
 \n\
 <Macro Macro_Redirect $1>\n\
 	RewriteEngine On\n\
@@ -288,13 +290,13 @@ MyDongleCloudJwkPem /disk/admin/.modules/betterauth/jwk-pub.pem\n\
 			strcpy(sz, "<VirtualHost *:80>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 			fillServer(1, elModule, elModule2, fqdn, pfM);
-			snprintf(sz, sizeof(sz), "%s\tUse Macro_%s\n</VirtualHost>\n", webViaFrp ? "\tRemoteIPProxyProtocol On\n" : "", elModule->string);
+			snprintf(sz, sizeof(sz), "\tUse Macro_%s\n</VirtualHost>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 
 			strcpy(sz, "<IfModule mod_ssl.c>\n\t<VirtualHost *:443>\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 			fillServer(2, elModule, elModule2, fqdn, pfM);
-			snprintf(sz, sizeof(sz), "%s\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", webViaFrp ? "\t\tRemoteIPProxyProtocol On\n" : "", elModule->string);
+			snprintf(sz, sizeof(sz), "\t\tUse Macro_%s\n\t\tUse Macro_SSL\n\t</VirtualHost>\n</IfModule>\n", elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 
 			strcpy(sz, "\n\n");

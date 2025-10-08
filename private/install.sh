@@ -27,7 +27,7 @@ fi
 lsb_release -a | grep bookworm
 if [ $? = 0 ]; then
 #On PC
-#tar -cjpvf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ private/install.sh private/preseed*.cfg
+#tar -cjpvf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ moduleIpApache2/ private/install.sh private/preseed*.cfg
 #scp a.tbz2 private/img/clone.tbz2 mdc@192.168.10.41:/tmp
 #On device
 #tar -xjpvf /tmp/a.tbz2
