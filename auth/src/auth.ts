@@ -47,7 +47,7 @@ const sendOtpToDongle = (otp) => {
 	});
 }
 
-const rootPath = "/work/ai.mydonglecloud/app/";
+const rootPath = "/var/log/";
 const mdcEndpoints = () => {
 	return {
 		id: "mdcEndpoints",
@@ -58,12 +58,17 @@ const mdcEndpoints = () => {
 			}, async(ctx) => {
 				if (ctx.context.session?.user?.username != "admin")
 					return Response.json({}, { status: 200 });
-				const myPath = rootPath + ctx.body?.path;
-				const stats = fs.statSync(myPath);
+				let path = ctx.body?.path;
+				path = path.replace(/\/\/+/g, "/");
+				while (path.includes("/../"))
+					path = path.replace(/\/[^/]+\/\.\.\//g, "/");
+				path = path.replace(/^\/\.\.\/|\/\.\.\/?$/, "");
+				const fullPath = rootPath + path;
+				const stats = fs.statSync(fullPath);
 				if (stats.isDirectory())
-					return Response.json(folderAndChildren(myPath), { status: 200 });
+					return Response.json(folderAndChildren(fullPath), { status: 200 });
 				else
-					return new Response(fs.readFileSync(myPath, "utf8"), { status: 200 });
+					return new Response(fs.readFileSync(fullPath, "utf8"), { status: 200 });
 			}),
 
 			saveModules: createAuthEndpoint("/save-modules", {
