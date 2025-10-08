@@ -187,7 +187,12 @@ MyDongleCloudIPEnabled on\n\
 			snprintf(sz, sizeof(sz), "\
 <Macro Macro_%s>\n\
 	MyDongleCloudModule %s\n\
-	Use Macro_Redirect %s\n", elModule->string, elModule->string, elModule->string);
+	Use Macro_Redirect %s\n\
+	Header set Content-Security-Policy \"frame-ancestors 'self' *:9200", elModule->string, elModule->string, elModule->string);
+			fwrite(sz, strlen(sz), 1, pfM);
+			jsonPrintArray(0, " ", " ", "app", fqdn, "", pfM);
+			//jsonPrintArray(0, " ", " ", "mydonglecloud", fqdn, "", pfM);
+			strcpy(sz, ";\"\n");
 			fwrite(sz, strlen(sz), 1, pfM);
 			if (cJSON_HasObjectItem(elModule, "rewriteRule")) {
 				snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule, "rewriteRule"));
