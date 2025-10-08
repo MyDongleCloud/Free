@@ -10,6 +10,7 @@ import "dotenv/config";
 import fs from "fs";
 import * as net from "net";
 import * as jose from "jose";
+import * as os from 'os';
 
 export const port = 8091;
 const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/.modules/";
@@ -22,8 +23,27 @@ const modulesPath = adminPath + "mydonglecloud/modules.json";
 let modules = {};
 if (existsSync(modulesPath))
 	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
-const trustedOriginsDefault = [ "*.mydongle.cloud", "*.myd.cd" ];
-const trustedOrigins = process.env.PRODUCTION === "true" ? (space?.domains ? [ ...trustedOriginsDefault, ...space?.domains.map(domain => `*.${domain}`)] : [ ...trustedOriginsDefault ]) : [ "http://localhost:8100" ];
+
+function getInternalIpAddress() {
+	const networkInterfaces = os.networkInterfaces();
+	for (const name of Object.keys(networkInterfaces)) {
+		const addresses = networkInterfaces[name];
+		if (addresses)
+			for (const address of addresses)
+				if (address.family === 'IPv4' && !address.internal)
+					return address.address;
+	}
+	return undefined;
+}
+let trustedOrigins;
+if (process.env.PRODUCTION === "true") {
+	trustedOrigins = [ "*.mydongle.cloud", "*.myd.cd" ];
+	if (space?.domains)
+		space.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
+	const internalIP = getInternalIpAddress();
+	internalIP && trustedOrigins.push(internalIP);
+} else
+	trustedOrigins = [ "localhost" ];
 
 if (!existsSync(secretPath)) {
 	writeFileSync(secretPath, randomBytes(32).toString("base64"), "utf-8");
