@@ -44,7 +44,7 @@ static void *mergeConfig(apr_pool_t *p, void *basev, void *addv) {
 	conf->jwkPem = base->jwkPem;
 	conf->name = add->name;
 	conf->permissions = add->permissions;
-    return conf;
+	return conf;
 }
 
 void getJwkPemContent(server_rec *s, config *confD) {
@@ -122,22 +122,22 @@ int checkAccess(cJSON *elPermissions, const char *role, const char *username) {
 
 int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *elPermissions) {
 	int ret = 0;
-    jwt_t* jwt_decoded;
-    int result = jwt_decode(&jwt_decoded, token, (const unsigned char*)keyPem, strlen(keyPem));
-    if (result == 0) {
+	jwt_t* jwt_decoded;
+	int result = jwt_decode(&jwt_decoded, token, (const unsigned char*)keyPem, strlen(keyPem));
+	if (result == 0) {
 		time_t current_time = time(NULL);
 		time_t exp_time = (time_t)jwt_get_grant_int(jwt_decoded, "exp");
 		if (current_time < exp_time) {
-		    const char *jwtRole = jwt_get_grant(jwt_decoded, "role");
-		    const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
-		    //PRINTF("MDC: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
+			const char *jwtRole = jwt_get_grant(jwt_decoded, "role");
+			const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
+			//PRINTF("MDC: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
 			ret = checkAccess(elPermissions, jwtRole, jwtUsername);
 		}
-        jwt_free(jwt_decoded);
-    } else {
+		jwt_free(jwt_decoded);
+	} else {
 		//PRINTF("MDC: JWT verification failed: %d\n", result);
-    }
-    return ret;
+	}
+	return ret;
 }
 
 static int authorization(request_rec *r) {
@@ -162,7 +162,7 @@ static int authorization(request_rec *r) {
 	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
 		return DECLINED;
 	if (confD->name != NULL && strcmp(confD->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
-            return DECLINED;
+			return DECLINED;
 	//PRINTF("MDC: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confD->name, r->uri);
 	return HTTP_UNAUTHORIZED;
 }
