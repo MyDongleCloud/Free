@@ -82,7 +82,27 @@ closeContent() {
 }
 
 private buildFullPath(node: FileSystemNode): string {
-	return this.currentPath === "/" ? `/${node.name}` : `${this.currentPath}/${node.name}`;
+	if (this.nodes[0] === node)
+		return "";//`/${node.name}`;
+	const parentNode = this.findParentNode(node, this.nodes);
+	if (parentNode) {
+		const parentPath = this.buildFullPath(parentNode);
+		return `${parentPath}/${node.name}`;
+	}
+	return `/${node.name}`;
+}
+
+private findParentNode(nodeToFind: FileSystemNode, tree: FileSystemNode[]): FileSystemNode | null {
+	for (const node of tree) {
+		if (node.children && node.children.includes(nodeToFind))
+			return node;
+		if (node.children) {
+			const found = this.findParentNode(nodeToFind, node.children);
+			if (found)
+				return found;
+		}
+	}
+	return null;
 }
 
 toggleExpand(node: FileSystemNode) {
