@@ -3,20 +3,29 @@ var thisble;
 var initDone = false;
 var socket = null;
 
-function appInit(tb, log) {
-	if (initDone) return;
-	thisble = tb;
+function loadScript(src) {
+	return new Promise((resolve, reject) => {
+		const script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = src;
+		script.onload = () => resolve(script);
+		script.onerror = (error) => reject(error);
+		document.body.appendChild(script);
+	});
+}
+
+async function appInit(tb, log) {
+	if (!initDone) {
+		thisble = tb;
+		await loadScript("assets/app.js");
+		initDone = true;
+	}
 	Module = {
 		print: function(text) { if (log) console.log(text); },
-		canvas: (function() { return document.getElementById("canvas"); })(),
+		canvas: document.getElementById("canvas"),
 		arguments: ["-s"]
 	};
-
-	const script = document.createElement("script");
-	script.type = "text/javascript";
-	script.src = "assets/app.js";
-	document.body.appendChild(script);
-	initDone = true;
+	await appCreate(Module);
 }
 
 function appButton(b, l) {
@@ -55,9 +64,9 @@ function appServerReceiveHtml(data, doB64) {
 		st = btoa(data);
 	else
 		st = data;
-	var size = lengthBytesUTF8(st) + 1;
+	var size = Module.lengthBytesUTF8(st) + 1;
 	var ptr = Module._malloc(size);
-	stringToUTF8(st, ptr, size);
+	Module.stringToUTF8(st, ptr, size);
 	Module._serverReceiveHtml(ptr, doB64);
 	Module._free(ptr);
 }

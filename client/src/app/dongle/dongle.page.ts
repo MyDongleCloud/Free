@@ -33,11 +33,8 @@ button(k, l) {
 }
 
 ionViewWillLeave() {
-	this.global.settingsSave();
-}
-
-ionViewDidEnter() {
-	this.global.settingsSave();
+	if (this.ble.connectedBLE == 2)
+		this.ble.connectToggle();
 }
 
 connectToggle() {
