@@ -1,0 +1,147 @@
+<button (click)="showMobileMenu = !showMobileMenu" class="absolute mt-3 md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors user-mobile-button" aria-label="Toggle mobile menu">
+	<ion-icon name="menu-outline" class="w-6 h-6"></ion-icon>
+</button>
+@if (showMobileMenu) {
+<div (click)="showMobileMenu = true" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"></div>
+}
+<aside [class]="showMobileMenu ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border-sidebar-border transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 user-mobile-menu">
+	<div class="flex flex-col h-full border-r border-sidebar-border bg-sidebar w-64">
+		<div class="h-16 flex items-center justify-between px-6 border-b border-sidebar-border sticky top-0 bg-sidebar z-10">
+			<div class="flex items-center gap-2">
+				<img src="assets/icons/mydonglecloud.png" class="-ml-2 w-10 h-10 cursor-pointer" (click)="global.openPage('');"/>
+				<span class="text-lg font-bold tracking-tight text-sidebar-primary cursor-pointer" (click)="global.openPage('');"><span class="text-blue-800">My</span><span style class="text-blue-400">Dongle.</span><span  class="text-blue-800">Cloud</span></span>
+			<button (click)="showMobileMenu = false" class="md:hidden ml-2 rounded-md hover:bg-gray-100 transition-colors" aria-label="Close menu">
+				<ion-icon name="close-circle-outline" class="w-5 h-5 text-gray-600"></ion-icon>
+			</button>
+			</div>
+		</div>
+		<nav class="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
+
+			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider">APPS</div>
+			<a (click)="global.openPage('');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+					<ion-icon name="apps-outline" class="h-5 w-5"></ion-icon>
+				<span>Dashboard</span>
+				<span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full font-medium">70</span>
+			</a>
+			<div class="ml-2 flex flex-col rounded-lg border border-gray-200">
+				<div class="flex rounded-lg border border-gray-200 bg-gray-100 p-1">
+					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="modulesGroup" value="essentials" class="peer sr-only" checked/>
+						<span class="absolute inset-0 z-0 rounded-md bg-white opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Essentials</span>
+					</label>
+					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="modulesGroup" value="star"class="peer sr-only"/>
+						<span class="absolute inset-0 z-0 rounded-md bg-white opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
+							<ion-icon name="star-outline" class="w-5 h-5 text-yellow-500"></ion-icon>
+						</span>
+					</label>
+					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="modulesGroup" value="search" class="peer sr-only"/>
+						<span class="absolute inset-0 z-0 rounded-md bg-white opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
+							<ion-icon name="search-outline" class="h-5 w-5"></ion-icon>
+						</span>
+					</label>
+				</div>
+				<a (click)="global.openModule('roundcube');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+					<div class="w-5 h-5 flex items-center justify-center">
+						<ion-icon name="mail-outline" class="w-5 h-5"></ion-icon>
+					</div>
+					<span>Mail</span>
+					<span class="ml-auto bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-medium">5</span>
+				</a>
+				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+					<div class="w-5 h-5 flex items-center justify-center">
+						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+					</div>
+					<span>Chatbot</span>
+				</a>
+				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+					<div class="w-5 h-5 flex items-center justify-center">
+						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+					</div>
+					<span>Video Conference</span>
+				</a>
+				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+					<div class="w-5 h-5 flex items-center justify-center">
+						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+					</div>
+					<span>Home Automation</span>
+				</a>
+				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+					<div class="w-5 h-5 flex items-center justify-center">
+						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+					</div>
+					<span>Photos</span>
+				</a>
+			</div>
+
+			<div class="px-3 text-s text-black font-semibold text-muted-foreground tracking-wider mt-6 md:mt-12">SYSTEM</div>
+			<a (click)="global.openPage('settings');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<div class="w-5 h-5 flex items-center justify-center">
+					<ion-icon name="settings-outline" class="w-5 h-5"></ion-icon>
+				</div>
+				<span>Settings</span>
+			</a>
+			<a (click)="global.openModule('betterauthstudio');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<div class="w-5 h-5 flex items-center justify-center">
+					<ion-icon name="person-outline" class="w-5 h-5"></ion-icon>
+				</div>
+				<span>Users</span>
+			</a>
+			<a (click)="global.openPage('permissions');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<div class="w-5 h-5 flex items-center justify-center">
+					<ion-icon name="lock-closed-outline" class="w-5 h-5"></ion-icon>
+				</div>
+				<span>Permissions</span>
+			</a>
+			<a (click)="global.openPage('dongle');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<div class="w-5 h-5 flex items-center justify-center">
+					<img src="assets/dongle.svg" class="w-5 h-5"/>
+				</div>
+				<span>Dongle</span>
+			</a>
+			<a (click)="global.openPage('serverlog');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<div class="w-5 h-5 flex items-center justify-center">
+					<ion-icon name="document-text-outline" class="w-5 h-5"></ion-icon>
+				</div>
+				<span>System Logs</span>
+			</a>
+			<a (click)="global.openPage('backup');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<div class="w-5 h-5 flex items-center justify-center">
+					<ion-icon name="download-outline" class="w-5 h-5"></ion-icon>
+				</div>
+				<span>Backup & Restore</span>
+			</a>
+
+			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider mt-6 md:mt-12">STATUS</div>
+			<div class="px-3 py-2">
+				<div class="flex items-center justify-between text-xs">
+					<span class="text-muted-foreground">Storage</span>
+					<div class="flex items-center gap-1">
+						<div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+						<span class="text-yellow-500 font-medium">65%</span>
+					</div>
+				</div>
+				<div class="mt-2 w-full bg-gray-200 rounded-full h-1">
+					<div class="bg-yellow-500 h-1 rounded-full" style="width: 65%"></div>
+				</div>
+			</div>
+			<div class="px-3 py-2">
+				<div class="flex items-center justify-between text-xs">
+					<span class="text-muted-foreground">Last Backup</span>
+					<span class="text-muted-foreground">2h ago</span>
+				</div>
+			</div>
+
+			<div class="px-3 py-2">
+				<div class="flex items-center justify-between text-xs">
+					<span class="text-muted-foreground">Registered Users</span>
+					<span class="text-blue-600 font-medium">47</span>
+				</div>
+			</div>
+		</nav>
+	</div>
+</aside>
