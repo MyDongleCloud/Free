@@ -24,8 +24,8 @@ app.use(cors({
 	allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
 	credentials: true
 }));
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit:"50mb", extended:true }));
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ limit:"1mb", extended:true }));
 app.use(cookieParser());
 app.set("trust proxy", 1);
 app.use("/MyDongleCloud/Auth", toNodeHandler(handler));
