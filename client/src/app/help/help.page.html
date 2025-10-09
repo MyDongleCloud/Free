@@ -1,19 +1,20 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-back-button></ion-back-button>
-		</ion-buttons>
-		<ion-title>{{global.mytranslate("Help")}}</ion-title>
-	</ion-toolbar>
-</ion-header>
-<ion-content [fullscreen]="true" style="width:100%; height:100%;font-weight:bold;font-size:large;">
-<br><br>
-<div style="width:80%;">{{global.mytranslate("The support website has useful information. Perhaps your question is already answered there:")}}</div>
-<ion-button size="large" (click)="global.openBrowser('https://support.mydongle.cloud');">{{global.mytranslate("Open the support website")}}</ion-button>
-<br><br><br>
-<div style="width:80%;">{{global.mytranslate("If you own a device, you can open a helpdesk ticket:")}}</div>
-<ion-button size="large" (click)="global.openBrowser('https://helpdesk.mydongle.cloud');">{{global.mytranslate("Open a helpdesk ticket")}}</ion-button>
-<br><br><br>
-<div style="width:80%;">{{global.mytranslate("You can post in the forum/community website and start a new discussion there:")}}</div>
-<ion-button size="large" (click)="global.openBrowser('https://community.mydongle.cloud');">{{global.mytranslate("Open the forum website")}}</ion-button>
-</ion-content>
+<div class="flex bg-white">
+	<app-sidebar></app-sidebar>
+	<div class="flex-1 flex flex-col">
+		<app-topbar title="{{global.mytranslate('Help')}}"></app-topbar>
+		<div class="p-6	flex flex-col gap-3 items-start">
+			<div>{{global.mytranslate("The support website has useful information. Perhaps your question is already answered there:")}}</div>
+			<button (click)="global.openBrowser('https://support.mydongle.cloud');" class="bg-blue-600 inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium transition-colors mr-2 cursor-pointer">
+				<span class="text-lg">{{global.mytranslate("Open the support website")}}</span>
+			</button>
+			<div>{{global.mytranslate("If you own a device, you can open a helpdesk ticket:")}}</div>
+			<button (click)="global.openBrowser('https://helpdesk.mydongle.cloud');" class="bg-blue-600 inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium transition-colors mr-2 cursor-pointer">
+				<span class="text-lg">{{global.mytranslate("Open a helpdesk ticket")}}</span>
+			</button>
+			<div>{{global.mytranslate("You can post in the forum/community website and start a new discussion there:")}}</div>
+			<button (click)="global.openBrowser('https://community.mydongle.cloud');" class="bg-blue-600 inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium transition-colors mr-2 cursor-pointer">
+				<span class="text-lg">{{global.mytranslate("Open the forum website")}}</span>
+			</button>
+		</div>
+	</div>
+</div>

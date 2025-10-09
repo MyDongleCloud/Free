@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { ComponentsModule } from '../components/components.module';
 import { Help } from './help.page';
 import { HelpRoutingModule } from './help-routing.module';
 
@@ -10,6 +11,7 @@ import { HelpRoutingModule } from './help-routing.module';
 		CommonModule,
 		IonicModule,
 		TranslateModule,
+		ComponentsModule,
 		HelpRoutingModule
 	],
 	declarations: [Help]
