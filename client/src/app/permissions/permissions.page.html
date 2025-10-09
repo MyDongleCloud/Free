@@ -1,36 +1,60 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-back-button></ion-back-button>
-		</ion-buttons>
-		<ion-title>
-			<ion-button (click)="getData()" [disabled]="dResetSave"><ion-icon name="refresh-outline" size="medium"></ion-icon>&nbsp;&nbsp;Reset</ion-button>
-			&nbsp;&nbsp;
-			<ion-button (click)="save()" [disabled]="dResetSave"><ion-icon name="save-outline" size="medium"></ion-icon>&nbsp;&nbsp;Save</ion-button>
-		</ion-title>
-	</ion-toolbar>
-</ion-header>
-<ion-content [fullscreen]="true">
-<ion-list>
-	<ion-item-divider>
-		<ion-label style="flex:1;">Title <ion-icon size="small" style="margin-left:20px;"></ion-icon></ion-label>
-		<ion-label style="flex:1;">Open Source</ion-label>
-		<ion-label style="flex:3;">Description</ion-label>
-		<ion-label style="flex:1;">Disabled</ion-label>
-		<ion-label style="flex:1;">Public</ion-label>
-		<ion-label style="flex:1;">Local<br>Network</ion-label>
-		<ion-label style="flex:1;">Group<br>Admin</ion-label>
-		<ion-label style="flex:1;">Group<br>User</ion-label>
-	</ion-item-divider>
-	<ion-item *ngFor="let card of cards; let cc = index;">
-		<ion-label style="flex:1;"><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a></ion-label>
-		<ion-label style="flex:1;"><a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></ion-label>
-		<ion-label style="flex:3; display:flex; align-items:center;"><span>{{card.description}}</span></ion-label>
-		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bDisabled']" [disabled]="card['dDisabled']" (ionChange)="update(card)"></ion-checkbox></ion-label>
-		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bPublic']" [disabled]="card['dPublic']" (ionChange)="update(card)" style="{{'display:' + (card['dPublic'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
-		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (ionChange)="update(card)" style="{{'display:' + (card['dLocal'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
-		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (ionChange)="update(card)" style="{{'display:' + (card['dAdmin'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
-		<ion-label style="flex:1;"><ion-checkbox [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (ionChange)="update(card)" style="{{'display:' + (card['dUser'] ? 'none' : 'block')}}"></ion-checkbox></ion-label>
-	</ion-item>
-</ion-list>
-</ion-content>
+<div class="flex bg-sidebar text-sidebar-foreground h-screen">
+	<app-sidebar></app-sidebar>
+	<div class="flex-1 flex flex-col bg-white overflow-x-auto" id="a">
+		<app-topbar title="{{global.mytranslate('Permissions')}}"></app-topbar>
+		<div class="flex justify-end gap-3 mt-4 mr-4">
+			<button (click)="getData()" [disabled]="dResetSave" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer">
+				<ion-icon name="refresh-outline" class="w-4 h-4"></ion-icon>
+				Reset
+			</button>
+			<button (click)="save()" [disabled]="dResetSave" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer">
+				<ion-icon name="save-outline" class="w-4 h-4"></ion-icon>
+				Save
+			</button>
+		</div>
+		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1" id="b">
+			<table class="min-w-full divide-y divide-gray-300">
+				<thead class="bg-gray-50 sticky top-0 z-10">
+					<tr>
+						<th scope="col" class="px-6 py-3 text-start text-xs hidden md:table-cell font-medium text-gray-500 tracking-wider">TITLE</th>
+						<th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 tracking-wider">OPEN SOURCE</th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">DISABLED</th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">PUBLIC</th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">LOCAL<br>NETWORK</th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">GROUP<br>ADMIN</th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">GROUP<br>USER</th>
+						<th scope="col" class="px-6 py-3 text-start text-xs hidden xl:table-cell font-medium text-gray-500 tracking-wider">DESCRIPTION</th>
+					</tr>
+				</thead>
+				<tbody class="bg-white divide-y divide-gray-200">
+					<tr class="hover:bg-gray-50" *ngFor="let card of cards; let cc = index;">
+						<td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+							<div class="text-sm font-medium text-gray-900"><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text-gray-900"><a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text-gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bDisabled']" [disabled]="card['dDisabled']" (ionChange)="update(card)"></ion-checkbox></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text-gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bPublic']" [disabled]="card['dPublic']" (ionChange)="update(card)" style="{{'display:' + (card['dPublic'] ? 'none' : 'block')}}"></ion-checkbox></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text-gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (ionChange)="update(card)" style="{{'display:' + (card['dLocal'] ? 'none' : 'block')}}"></ion-checkbox></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text-gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (ionChange)="update(card)" style="{{'display:' + (card['dAdmin'] ? 'none' : 'block')}}"></ion-checkbox></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text-gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (ionChange)="update(card)" style="{{'display:' + (card['dUser'] ? 'none' : 'block')}}"></ion-checkbox></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap hidden xl:table-cell">
+							<div class="text-sm font-medium text-gray-900 max-w-xs truncate"><span>{{card.description}}</span></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
