@@ -8,6 +8,11 @@ const routes: Routes = [
 		loadChildren: () => import('./about/about.module').then( m => m.AboutModule)
 	},
 	{
+		path: 'backup',
+		canActivate: [Global],
+		loadChildren: () => import('./backup/backup.module').then( m => m.BackupModule)
+	},
+	{
 		path: 'dongle',
 		canActivate: [Global],
 		loadChildren: () => import('./dongle/dongle.module').then( m => m.DongleModule)
@@ -40,9 +45,19 @@ const routes: Routes = [
 		loadChildren: () => import('./permissions/permissions.module').then( m => m.PermissionsModule)
 	},
 	{
+		path: 'profile',
+		canActivate: [Global],
+		loadChildren: () => import('./profile/profile.module').then( m => m.ProfileModule)
+	},
+	{
 		path: 'serverlog',
 		canActivate: [Global],
 		loadChildren: () => import('./serverlog/serverlog.module').then( m => m.ServerLogModule)
+	},
+	{
+		path: 'settings',
+		canActivate: [Global],
+		loadChildren: () => import('./settings/settings.module').then( m => m.SettingsModule)
 	},
 	{
 		path: 'setup',
@@ -51,6 +66,11 @@ const routes: Routes = [
 	{
 		path: 'splash',
 		loadChildren: () => import('./splash/splash.module').then( m => m.SplashModule)
+	},
+	{
+		path: 'wrapper',
+		canActivate: [Global],
+		loadChildren: () => import('./wrapper/wrapper.module').then( m => m.WrapperModule)
 	},
 	{
 		path: '**',
