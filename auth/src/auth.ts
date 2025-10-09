@@ -43,7 +43,7 @@ if (process.env.PRODUCTION === "true") {
 	const internalIP = getInternalIpAddress();
 	internalIP && trustedOrigins.push(internalIP);
 } else
-	trustedOrigins = [ "localhost" ];
+	trustedOrigins = [ "http://localhost:8100" ];
 
 if (!existsSync(secretPath)) {
 	writeFileSync(secretPath, randomBytes(32).toString("base64"), "utf-8");
