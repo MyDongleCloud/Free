@@ -18,6 +18,10 @@ const routes: Routes = [
 		loadChildren: () => import('./dongle/dongle.module').then( m => m.DongleModule)
 	},
 	{
+		path: 'find',
+		loadChildren: () => import('./find/find.module').then( m => m.FindModule)
+	},
+	{
 		path: 'help',
 		loadChildren: () => import('./help/help.module').then( m => m.HelpModule)
 	},

@@ -1,0 +1,67 @@
+import { Component, ChangeDetectorRef, signal } from '@angular/core';
+import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
+import { IonInput } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { Global } from '../env';
+
+@Component({
+	selector: 'app-find',
+	templateUrl: 'find.page.html',
+	styleUrls: ['find.page.scss'],
+	standalone: false
+})
+
+export class Find {
+ready:boolean = false;
+progress:boolean = false;
+formFind: FormGroup;
+hasBlurredOnce: boolean = false;
+errorSt = null;
+
+constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
+	this.formFind = fb.group({
+		"email1": ["", [Validators.required, Validators.email]]
+	});
+}
+
+handleBlur(event, element) {
+	const inputElement = event.target as HTMLInputElement;
+	if (!this.hasBlurredOnce) {
+		if (!inputElement.value)
+			element.markAsUntouched();
+		this.hasBlurredOnce = true;
+	}
+}
+
+async ionViewDidEnter() {
+	let count = 20;
+	while (this.global.session === undefined && count-- > 0)
+		await this.global.sleepms(100);
+	if (this.global.session != null)
+		this.global.logout();
+	this.ready = true;
+	let email = this.global.settings.email ?? null;
+	if (email == null)
+		email = this.global.getCookie("email");
+	setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
+}
+
+get email1() { return this.formFind.get("email1"); }
+
+async doFind() {
+	this.progress = true;
+	this.errorSt = null;
+	const data = { email:this.email1.value };
+	let ret = null;
+	try {
+		ret = await this.httpClient.post("/MyDongleCloud/Auth/find", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth find: ", ret);
+	} catch(e) { console.log(e); this.errorSt = e.error?.message || e.statusText; }
+	this.progress = false;
+	if (ret != null)
+		window.location.href = ret["url"];
+	else
+		this.cdr.detectChanges();
+}
+form
+}
