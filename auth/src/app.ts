@@ -28,9 +28,6 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit:"50mb", extended:true }));
 app.use(cookieParser());
 app.set("trust proxy", 1);
-app.get("/MyDongleCloud/Auth", (req, res) => {
-	res.json({ status: "healthy", timestamp: new Date().toISOString() });
-});
 app.use("/MyDongleCloud/Auth", toNodeHandler(handler));
 app.listen(port, () => {
 	jwkInit();

@@ -72,6 +72,12 @@ const mdcEndpoints = () => {
 	return {
 		id: "mdcEndpoints",
 		endpoints: {
+			status: createAuthEndpoint("/status", {
+				method: "GET",
+			}, async(ctx) => {
+				return Response.json({ status: "healthy", timestamp: new Date().toISOString() }, { status: 200 });
+			}),
+
 			serverLog: createAuthEndpoint("/server-log", {
 				method: "POST",
 				use: [sensitiveSessionMiddleware]
@@ -95,13 +101,13 @@ const mdcEndpoints = () => {
 				method: "POST",
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
-				return Response.json({"success": true}, { status: 200 });
+				return Response.json({ "success": true }, { status: 200 });
 			}),
 
 			reset: createAuthEndpoint("/reset-module", {
 				method: "POST",
 			}, async(ctx) => {
-				return Response.json({"success": true}, { status: 200 });
+				return Response.json({ "success": true }, { status: 200 });
 			}),
 
 			jwksPem: createAuthEndpoint("/jwks-pem", {

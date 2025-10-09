@@ -45,7 +45,7 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	translate.setDefaultLang("en");
 	console.log("Default browser language is: " + translate.getBrowserLang());
 	this.changeLanguage(this.translate.getBrowserLang());
-	this.AuthHealth();
+	this.AuthStatus();
 	this.getSession();
 	this.settingsLoad();
 }
@@ -82,9 +82,9 @@ setCookie(name, value) {
 		document.cookie = `${name}=${value}; Domain=${domain}; Path=/;`;
 }
 
-async AuthHealth() {
-	const ret = await this.httpClient.get("/MyDongleCloud/Auth/", {headers:{"content-type": "application/json"}}).toPromise();
-	console.log("Auth Health: ", ret);
+async AuthStatus() {
+	const ret = await this.httpClient.get("/MyDongleCloud/Auth/status", {headers:{"content-type": "application/json"}}).toPromise();
+	console.log("Auth Status: ", ret);
 }
 
 async getSession() {
