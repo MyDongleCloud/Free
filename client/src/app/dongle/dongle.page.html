@@ -1,43 +1,34 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-back-button></ion-back-button>
-		</ion-buttons>
-		<ion-title>{{global.mytranslate("Dongle")}}</ion-title>
-	</ion-toolbar>
-</ion-header>
-<ion-content [fullscreen]="true"><div style="padding:10px;">
-	<ion-button (click)="connectToggle()" [color]="ble.connectedBLE == 2 ? 'success' : ble.connectedBLE == 1 ? 'danger' : 'primary'" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
-		<ion-icon src="assets/dongle.svg" style="height:32px;width:74px;"></ion-icon>
-		<br>{{ble.connectedBLE == 2 ? global.mytranslate("Connected") : ble.connectedBLE == 1 ? global.mytranslate("Searching") : global.mytranslate("Connect")}}
-		<br>
-		<br>
-	</div></ion-button>
-	<br><br>
-	<ion-checkbox [(ngModel)]="typeBluetooth" labelPlacement="end">Via Bluetooth</ion-checkbox>
-	<div *ngIf="ble.connectedBLE == 2">
-		<ion-button (click)="ble.shutdown()" color="primary" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
-			<ion-icon name="power-outline" style="width:24px; height:24px;"></ion-icon>
-			<br>{{global.mytranslate("Shutdown")}}
-		</div></ion-button>
-		<br>
-		<br>
-		<ion-button (click)="ble.passcode()" color="primary" style="height:auto; margin-left:10px; margin-right:10px;"><div style="margin-top:5px;margin-bottom:5px;">
-			<ion-icon name="log-in-outline" style="width:24px; height:24px;"></ion-icon>
-			<br>{{global.mytranslate("Login OTP")}}
-		</div></ion-button>
-		<br>
-		<br>
-		<b>{{global.mytranslate("Device version:")}}</b> {{ble.firmwareDeviceVersion}}
+<div class="flex bg-white">
+	<app-sidebar></app-sidebar>
+	<div class="flex-1 flex flex-col">
+		<app-topbar title="{{global.mytranslate('Dongle')}}"></app-topbar>
+		<div class="p-6	flex flex-col gap-3 items-start">
+			<button (click)="connectToggle()" [class]="ble.connectedBLE == 2 ? 'bg-green-600' : ble.connectedBLE == 1 ? 'bg-red-600' : 'bg-blue-600'" class="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium transition-colors">
+				<img src="assets/dongle.svg" alt="Dongle" class="w-6 h-6" style="filter:invert(100%);"/>
+				<span class="text-lg">{{ble.connectedBLE == 2 ? global.mytranslate("Connected") : ble.connectedBLE == 1 ? global.mytranslate("Searching") : global.mytranslate("Connect")}}</span>
+			</button>
+			<ion-checkbox [(ngModel)]="typeBluetooth" [disabled]="ble.connectedBLE != 0" labelPlacement="end">Via Bluetooth</ion-checkbox>
+			<div class="flex flex-col gap-3" *ngIf="ble.connectedBLE == 2">
+				<button (click)="ble.shutdown()" class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+					<ion-icon name="power-outline" class="text-white w-4 h-4"></ion-icon>
+					<span class="text-lg">{{global.mytranslate("Shutdown")}}</span>
+				</button>
+				<button (click)="ble.passcode()" class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-medium hover:bg-yellow-700 transition-colors">
+					<ion-icon name="lock-open-outline" class="text-white w-4 h-4"></ion-icon>
+					<span class="text-lg">{{global.mytranslate("Login OTP")}}</span>
+				</button>
+				<b>{{global.mytranslate("Device version:")}}</b> {{ble.firmwareDeviceVersion}}
+			</div>
+			<div class="-ml-5" style="position:relative;">
+				<img src="assets/dongle.png" style="height:640px;" alt="MyDongle dongle" usemap="#buttonsMap">
+				<map name="buttonsMap">
+					<area shape="rect" coords="15,360,55,400" alt="Left" href="javascript:;" (click)="button(105, 0);" long-press (press)="button(105, 1)">
+					<area shape="rect" coords="15,80,55,130" alt="Right" href="javascript:;" (click)="button(103, 0);" long-press (press)="button(103, 1)">
+					<area shape="rect" coords="440,360,490,400" alt="Up" href="javascript:;" (click)="button(106, 0);" long-press (press)="button(106, 1)">
+					<area shape="rect" coords="440,80,490,130" alt="Down" href="javascript:;" (click)="button(108, 0);" long-press (press)="button(108, 1)">
+				</map>
+				<canvas id="canvas" width=128 height=128 style="border:solid black 0px; width:300px; height:300px; position:absolute; left:102px; top:85px;"></canvas>
+			</div>
+		</div>
 	</div>
-	<div style="position:relative;">
-		<img src="assets/dongle.png" style="height:640px; margin-left:-12px;" alt="MyDongle dongle" usemap="#buttonsMap">
-		<map name="buttonsMap">
-			<area shape="rect" coords="15,360,55,400" alt="Left" href="javascript:;" (click)="button(105, 0);" long-press (press)="button(105, 1)">
-			<area shape="rect" coords="15,80,55,130" alt="Right" href="javascript:;" (click)="button(103, 0);" long-press (press)="button(103, 1)">
-			<area shape="rect" coords="440,360,490,400" alt="Up" href="javascript:;" (click)="button(106, 0);" long-press (press)="button(106, 1)">
-			<area shape="rect" coords="440,80,490,130" alt="Down" href="javascript:;" (click)="button(108, 0);" long-press (press)="button(108, 1)">
-		</map>
-		<canvas id="canvas" width=128 height=128 style="border:solid black 0px; width:300px; height:300px; position:absolute; left:90px; top:86px;"></canvas>
-	</div>
-</div></ion-content>
+</div>
