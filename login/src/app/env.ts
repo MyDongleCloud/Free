@@ -87,7 +87,7 @@ async logout() {
 async settingsSave() {
 }
 
-openPage(url: string, close: boolean) {
+openPage(url: string) {
 	console.log("openPage");
 	document.location.href = "/";
 }

@@ -124,7 +124,7 @@ async doLogin() {
 	this.showWrongLogin = ret == null;
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("", false);
+		this.global.openPage("");
 	} else
 		this.cdr.detectChanges();
 }
@@ -141,7 +141,7 @@ async doMagicLink() {
 	this.showWrongLogin = ret == null;
 	if (ret != null) {
 		await this.global.presentAlert("Success!", "An email has been sent with an automatic login link. Please use it to login.", "You can safely close this page now.");
-		this.global.openPage("login", false);
+		this.global.openPage("login");
 	} else
 		this.cdr.detectChanges();
 }
@@ -154,7 +154,7 @@ async doMagicLinkVerify(token) {
 	} catch(e) {}
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("", false);
+		this.global.openPage("");
 	}
 }
 
@@ -178,7 +178,7 @@ async doRegister() {
 	this.showWrongRegister = ret == null;
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("", false);
+		this.global.openPage("");
 	} else
 		this.cdr.detectChanges();
 }

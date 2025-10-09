@@ -40,9 +40,9 @@ async forwardWhenReady() {
 	let count = 20;
 	while (this.global.session === undefined && count-- > 0)
 		await this.global.sleepms(100);
-	if (this.global.activateUrl == "splash")
+	if (this.global.activateUrl === undefined || this.global.activateUrl == "splash")
 		this.global.activateUrl = "";
-	this.global.openPage(this.global.session != null || this.global.activateUrl == "/setup" ? this.global.activateUrl : "login", false);
+	this.global.openPage(this.global.session != null || this.global.activateUrl == "/setup" ? this.global.activateUrl : "login");
 }
 
 openUpgrade() {

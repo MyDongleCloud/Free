@@ -56,12 +56,12 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 async handleBleMessage(data) {
 	if (data.a === "space" && data.name !== null) {
 		await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
-		this.global.openPage("", false);
+		this.global.openPage("");
 	}
 	if (data.a === "setup") {
 		if (data.success === 1) {
 			await this.global.presentAlert("Success!", "Your dongle is setup and ready to use!", "You will be redirected to the dasboard now.");
-			this.global.openPage("", false);
+			this.global.openPage("");
 		} else {
 			this.errorSt = "An error occured, please try again.";
 			this.progress = false;

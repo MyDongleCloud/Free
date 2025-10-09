@@ -38,7 +38,7 @@
 						</div>
 						<div class="flex items-center gap-0">
 							<input id="password" formControlName="password1" autocomplete="current-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your password" [class.border-red-300]="password1?.invalid && password1?.touched" [class.focus:ring-red-500]="password1?.invalid && password1?.touched" [type]="password1Show ? 'text' : 'password'">
-							<button type="button" (click)="password1Show = !password1Show;" class="flex justify-center items-center bg-blue-500 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'" class="text-white"></ion-icon></button>
+							<button type="button" (click)="password1Show = !password1Show;" class="flex justify-center items-center bg-blue-600 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'" class="text-white"></ion-icon></button>
 						</div>
 					</div>
 					@if (password1?.invalid && password1?.touched) {

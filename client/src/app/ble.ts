@@ -19,7 +19,7 @@ declare var appCommunicationStatus: any;
 })
 
 export class BleService {
-connectedBLE: number;
+connectedBLE: number = 0;
 deviceID: string;
 deviceName: string;
 pairReceived: boolean;
@@ -235,7 +235,7 @@ async checkVersion() {
 		if (this.firmwareDeviceVersion < this.global.firmwareServerVersion && this.global.currentUrl != "upgrade") {
 			let ret = await this.global.presentQuestion("Upgrade needed", "Do you want to upgrade the device now?", "The firmware of the device is too old and not compatible with this app.");
 			if (ret)
-				this.global.openPage("upgrade", false);
+				this.global.openPage("upgrade");
 		}
 }
 

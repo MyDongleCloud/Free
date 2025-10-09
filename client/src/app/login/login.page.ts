@@ -138,7 +138,7 @@ async doLogin() {
 	this.progress = false;
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("", false);
+		this.global.openPage("");
 	} else
 		this.cdr.detectChanges();
 }
@@ -167,7 +167,7 @@ async doRegister() {
 	this.progress = false;
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("", false);
+		this.global.openPage("");
 	} else
 		this.cdr.detectChanges();
 }
@@ -198,7 +198,7 @@ async doForgotPassword() {
 	if (ret != null)
 		this.showForgotPasswordSent = true;
 		//await this.global.presentAlert("Success!", "An email has been sent with intructions. Please use them to login.", "You can safely close this page now.");
-		//this.global.openPage("login", false);
+		//this.global.openPage("login");
 	else
 		this.cdr.detectChanges();
 }
@@ -211,7 +211,7 @@ async doForgotPasswordVerify(token) {
 	} catch(e) { this.errorSt = e.error.message; }
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("", false);
+		this.global.openPage("");
 	}
 }
 

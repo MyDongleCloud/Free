@@ -98,11 +98,18 @@ async getSession() {
 
 async logout() {
 	this.setCookie("jwt", "");
-	const data = { token:this.session["session"]["token"] };
-	const ret = await this.httpClient.post("/MyDongleCloud/Auth/revoke-session", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-	console.log("Auth revoke-session: ", ret);
+	const data = { token:this.session?.session?.token };
+	try {
+		const ret = await this.httpClient.post("/MyDongleCloud/Auth/revoke-session", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth revoke-session: ", ret);
+	} catch(e) {}
 	this.session = null;
 	this.settingsSave();
+}
+
+async logoutRedirect() {
+	await this.logout();
+	this.openPage("/login");
 }
 
 async settingsLoad() {
@@ -206,12 +213,14 @@ openBrowser(url: string) {
 	window.open(url, "_blank");
 }
 
-openPage(url: string, close: boolean) {
-//	if (!close)
-		this.navCtrl.setDirection('root');
+openPage(url: string) {
+	this.navCtrl.setDirection('root');
 	this.router.navigate(["/" + url]);
-	if (close)
-		this.popoverController.dismiss();
+}
+
+openModule(module) {
+	this.navCtrl.setDirection('root');
+	this.router.navigate(["/wrapper"], { queryParams:{ module } });
 }
 
 async presentAlert(hd, st, msg, key:string = "") {
