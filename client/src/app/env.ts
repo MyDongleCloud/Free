@@ -27,6 +27,7 @@ import * as ENC from '@root/encoding/base64';
 
 export class Global implements CanActivate {
 splashDone = false;
+demo: boolean = false;
 VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
 currentUrl: string;
@@ -84,6 +85,8 @@ setCookie(name, value) {
 
 async AuthStatus() {
 	const ret = await this.httpClient.get("/MyDongleCloud/Auth/status", {headers:{"content-type": "application/json"}}).toPromise();
+	if (ret["demo"] === true)
+		this.demo = true;
 	console.log("Auth Status: ", ret);
 }
 

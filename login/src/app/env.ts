@@ -14,6 +14,7 @@ import { VERSION } from './version';
 })
 
 export class Global {
+demo: boolean = false;
 VERSION: string = VERSION;
 language;
 currentUrl: string = "login";

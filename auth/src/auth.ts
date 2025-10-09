@@ -13,6 +13,7 @@ import * as jose from "jose";
 import * as os from 'os';
 
 export const port = 8091;
+const statusDemo = process.env.PRODUCTION === "true" ? false : true;
 const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/.modules/";
 const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
@@ -75,7 +76,7 @@ const mdcEndpoints = () => {
 			status: createAuthEndpoint("/status", {
 				method: "GET",
 			}, async(ctx) => {
-				return Response.json({ status: "healthy", timestamp: new Date().toISOString() }, { status: 200 });
+				return Response.json({ status: "healthy", demo: statusDemo, timestamp: new Date().toISOString() }, { status: 200 });
 			}),
 
 			serverLog: createAuthEndpoint("/server-log", {

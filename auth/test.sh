@@ -46,7 +46,7 @@ done
 
 if [ $CREATE = 1 ]; then
 	echo "############### Create"
-	RET_CREATE=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-up/email -H "Content-Type: application/json" -d '{"email":"gregoire@gentil.com", "name":"Gregoire Gentil", "password":"gregoire"}' -c /tmp/cookie.txt`
+	RET_CREATE=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-up/email -H "Content-Type: application/json" -d '{"email":"john.doe@example.com", "name":"John Doe", "password":"demodemo"}' -c /tmp/cookie.txt`
 	echo $RET_CREATE
 fi
 if [ $UPDATE = 1 ]; then
@@ -55,7 +55,7 @@ if [ $UPDATE = 1 ]; then
 	echo $RET_UPDATE
 fi
 if [ $SIGNIN = 1 ]; then
-	RET_SIGNIN=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-in/username -H "Content-Type: application/json" -d '{"username":"admin", "password":"gregoire"}' -c /tmp/cookie.txt`
+	RET_SIGNIN=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-in/username -H "Content-Type: application/json" -d '{"username":"admin", "password":""demodemo"}' -c /tmp/cookie.txt`
 	echo $RET_SIGNIN
 fi
 if [ $LOGIN = 1 ]; then
@@ -65,7 +65,7 @@ if [ $LOGIN = 1 ]; then
 fi
 if [ $MAGIC = 1 ]; then
 	echo "############### Magic"
-	RET_MAGIC=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-in/magic-link -H "Content-Type: application/json" -d '{"email":"gregoire@gentil.com", "callbackURL":"http://localhost:8100" }'`
+	RET_MAGIC=`curl -s -X POST http://localhost:8091/MyDongleCloud/Auth/sign-in/magic-link -H "Content-Type: application/json" -d '{"email":"john.doe@example.com", "callbackURL":"http://localhost:8100" }'`
 	echo $RET_MAGIC
 fi
 if [ $TOKEN = 1 ]; then
@@ -88,6 +88,6 @@ if [ $SIGNOUT = 1 ]; then
 fi
 if [ $DELETE = 1 ]; then
 	echo "############### Delete"
-	RET_DELETE=`curl -s -b /tmp/cookie.txt -X POST http://localhost:8091/MyDongleCloud/Auth/delete-user -H "Content-Type: application/json" -d '{"password":"gregoire"}' -c /tmp/cookie.txt`
+	RET_DELETE=`curl -s -b /tmp/cookie.txt -X POST http://localhost:8091/MyDongleCloud/Auth/delete-user -H "Content-Type: application/json" -d '{"password":"demodemo"}' -c /tmp/cookie.txt`
 	echo $RET_DELETE
 fi

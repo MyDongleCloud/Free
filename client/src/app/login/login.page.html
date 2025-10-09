@@ -37,7 +37,7 @@
 							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
 						</div>
 						<div class="flex items-center gap-0">
-							<input id="password" formControlName="password1" autocomplete="current-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your password" [class.border-red-300]="password1?.invalid && password1?.touched" [class.focus:ring-red-500]="password1?.invalid && password1?.touched" [type]="password1Show ? 'text' : 'password'">
+							<input id="password1" formControlName="password1" autocomplete="current-password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" placeholder="Enter your password" [class.border-red-300]="password1?.invalid && password1?.touched" [class.focus:ring-red-500]="password1?.invalid && password1?.touched" [type]="password1Show ? 'text' : 'password'">
 							<button type="button" (click)="password1Show = !password1Show;" class="flex justify-center items-center bg-blue-600 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'" class="text-white"></ion-icon></button>
 						</div>
 					</div>
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				}
-				<button type="submit" [disabled]="progress || formLogin.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+				<button type="submit" id="submit1" [disabled]="progress || formLogin.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
 					Signing in...
