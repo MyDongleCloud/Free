@@ -1,0 +1,9 @@
+<div class="flex min-h-screen bg-sidebar text-sidebar-foreground">
+	<app-sidebar></app-sidebar>
+	<div class="flex-1 flex flex-col min-h-screen">
+		<app-topbar title="{{title}}" nameP="{{nameP}}"></app-topbar>
+		<ion-content>
+			<iframe id="iframeWrapper" [src]="safeUrl" class="min-w-full min-h-full"></iframe>
+		</ion-content>
+	</div>
+</div>
