@@ -7,11 +7,9 @@
 #include "backend.h"
 #include "settings.h"
 
-//Global variable
-unsigned char *fbPublic;
-
 //Private variables
-static unsigned char *fbPrivate;
+static lv_color_t buf1[WIDTH * HEIGHT * DEPTH];
+static unsigned char fbPublic[WIDTH * HEIGHT * DEPTH];
 static GdkPixbuf *pixPrivate;
 static GdkPixbuf *pixPrivateScaled;
 static GtkWidget *darea;
@@ -123,38 +121,18 @@ static void backendUpdate_plat(lv_disp_t *disp_drv, const lv_area_t *area, unsig
 		for (int xx = 0; xx < w; xx++) {
 			int posTx;
 			if (rot == 0)
-				posTx = ((yy + y) * WIDTH + xx + x) * 3;
+				posTx = ((yy + y) * WIDTH + (xx + x)) * DEPTH;
 			else if (rot == 1)
-				posTx = ((WIDTH - 1 - xx + x) * HEIGHT + yy + y) * 3;
+				posTx = ((WIDTH - 1 - xx - x) * HEIGHT + (yy + y)) * DEPTH;
 			else if (rot == 2)
-				posTx = ((HEIGHT - 1 - yy + y) * WIDTH + WIDTH - 1 - xx + x) * 3;
+				posTx = ((HEIGHT - 1 - yy - y) * WIDTH + (WIDTH - 1 - xx - x)) * DEPTH;
 			else if (rot == 3)
-				posTx = ((xx + x) * HEIGHT + HEIGHT - 1 - yy + y) * 3;
-			int posFb = (yy * w + xx) * DEPTH;
-			fbPrivate[posTx + 0] = fbPublic[posFb + 2];
-			fbPrivate[posTx + 1] = fbPublic[posFb + 1];
-			fbPrivate[posTx + 2] = fbPublic[posFb + 0];
+				posTx = ((xx + x) * HEIGHT + (HEIGHT - 1 - yy - y)) * DEPTH;
+			int posArea = (yy * w + xx) * DEPTH;
+			fbPublic[posTx + 0] = colorp[posArea + 2];
+			fbPublic[posTx + 1] = colorp[posArea + 1];
+			fbPublic[posTx + 2] = colorp[posArea + 0];
 		}
-#ifdef DEBUG_REDRAW
-	if (rot == 0) {
-		for (int yyy = 0; yyy < h; yyy++) {
-			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 0] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 1] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x) * 3 + 2] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x + w) * 3 + 0] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x + w) * 3 + 1] = 255;
-			fbPrivate[((yyy + y) * WIDTH + x + w) * 3 + 2] = 255;
-		}
-		for (int xxx = 0; xxx < w; xxx++) {
-			fbPrivate[(y * WIDTH + x + xxx) * 3 + 0] = 255;
-			fbPrivate[(y * WIDTH + x + xxx) * 3 + 1] = 255;
-			fbPrivate[(y * WIDTH + x + xxx) * 3 + 2] = 255;
-			fbPrivate[((y + h) * WIDTH + x + xxx) * 3 + 0] = 255;
-			fbPrivate[((y + h) * WIDTH + x + xxx) * 3 + 1] = 255;
-			fbPrivate[((y + h) * WIDTH + x + xxx) * 3 + 2] = 255;
-		}
-	}
-#endif
 	//gdk_pixbuf_save (pixPrivate, "/tmp/a.png", "png", NULL, NULL, NULL, NULL);
 	if (darea)
 		gtk_widget_queue_draw(darea);
@@ -167,9 +145,7 @@ void backendRotate_plat(int rot) {}
 void backendInit_plat(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 
-	fbPublic = (unsigned char *)malloc(WIDTH * HEIGHT * DEPTH);
-	fbPrivate = (unsigned char *)malloc(WIDTH * HEIGHT * 3);
-	pixPrivate = gdk_pixbuf_new_from_data(fbPrivate, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * 3, pixmap_destroy_notify, NULL);
+	pixPrivate = gdk_pixbuf_new_from_data(fbPublic, GDK_COLORSPACE_RGB, 0, 8, WIDTH, HEIGHT, WIDTH * DEPTH, pixmap_destroy_notify, NULL);
 	pixPrivateScaled = gdk_pixbuf_new(GDK_COLORSPACE_RGB, 0, 8, FACTOR * WIDTH, FACTOR * HEIGHT);
 
 	GtkWidget *mainW = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -200,7 +176,7 @@ void backendInit_plat(int argc, char *argv[]) {
 
 	lv_init();
 	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
-	lv_display_set_buffers(disp, fbPublic, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_FULL);
+	lv_display_set_buffers(disp, buf1, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
 	lv_display_set_flush_cb(disp, backendUpdate_plat);
 
 	backendInitPointer_plat();
