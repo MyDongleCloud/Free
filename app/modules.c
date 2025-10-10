@@ -50,8 +50,6 @@ void modulesSetup(cJSON *space) {
 		modules = cJSON_CreateObject();
 	int firstTime = !cJSON_IsTrue(cJSON_GetObjectItem(modules, "initDone"));
 
-	int webViaFrp = 1;//FIXME: Is web traffic authorized to be and is routed via frp?
-
 	for (int i = 0; i < cJSON_GetArraySize(modulesDefault); i++) {
 		cJSON *elModule = cJSON_GetArrayItem(modulesDefault, i);
 		cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
@@ -61,7 +59,7 @@ void modulesSetup(cJSON *space) {
 			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
-				buildApache2Conf(modulesDefault, modules, space, fqdn, webViaFrp);
+				buildApache2Conf(modulesDefault, modules, space, fqdn);
 			PRINTF("Apache2: Reloading\n");
 #ifndef DESKTOP
 			serviceAction("apache2.service", "ReloadUnit");
