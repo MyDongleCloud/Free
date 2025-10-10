@@ -14,14 +14,14 @@
 	<div class="flex items-center gap-4 -mr-4 md:-mr-2">
 		<div class="relative">
 			<button (click)="toggleUserMenu()" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 transition-colors user-menu-button" aria-label="User menu">
-				<div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+				<div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center cursor-pointer">
 					<span class="text-sm font-medium text-white">{{initials}}</span>
 				</div>
-				<div class="hidden md:block text-left">
+				<div class="hidden md:block text-left cursor-pointer">
 					<p class="text-sm font-medium text-gray-900">{{global.session?.user?.name}}</p>
 					<p class="text-xs text-gray-500">{{global.session?.user?.email}}</p>
 				</div>
-				<ion-icon name="chevron-down-outline" class="h-4 w-4 text-gray-400"></ion-icon>
+				<ion-icon name="chevron-down-outline" class="h-4 w-4 text-gray-400 cursor-pointer"></ion-icon>
 			</button>
 			@if (showUserMenu) {
 			<div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50 user-menu-dropdown">
