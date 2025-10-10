@@ -54,8 +54,8 @@ async doFind() {
 	const data = { email:this.email1.value };
 	let ret = null;
 	try {
-		ret = await this.httpClient.post("/MyDongleCloud/Auth/find", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth find: ", ret);
+		ret = await this.httpClient.post(this.global.SERVERURL + "/master/find.json", "email=" + encodeURIComponent(this.email1.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
+		console.log("Master find: ", ret);
 	} catch(e) { console.log(e); this.errorSt = e.error?.message || e.statusText; }
 	this.progress = false;
 	if (ret != null)
