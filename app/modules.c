@@ -30,6 +30,10 @@ static void serviceAction(const char *name, const char *action) {
 }
 
 void modulesSetup(cJSON *space) {
+	PRINTF("Modules:Setup: Enter\n");
+	if (space == NULL || !cJSON_HasObjectItem(space, "name"))
+		return;
+	PRINTF("Modules:Setup: Do\n");
 	char sz[256];
 	cJSON *fqdn = cJSON_CreateArray();
 	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(space, "name"), MAIN_DOMAIN);
@@ -60,9 +64,9 @@ void modulesSetup(cJSON *space) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
 				buildApache2Conf(modulesDefault, modules, space, fqdn);
-			PRINTF("Apache2: Reloading\n");
 #ifndef DESKTOP
-			serviceAction("apache2.service", "ReloadUnit");
+			PRINTF("Service: apache2 Restart\n");
+			serviceAction("apache2.service", "RestartUnit");
 #endif
 		} else if (strcmp(elModule->string, "frp") == 0) {
 			PRINTF("Modules:frp: Enter\n");
@@ -136,6 +140,7 @@ localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "tr
 			}
 			cJSON_Delete(elModule2Proxy);
 #ifndef DESKTOP
+			PRINTF("Service: frp Restart\n");
 			serviceAction("frp.service", "RestartUnit");
 #endif
 		} else if (strcmp(elModule->string, "jitsimeet") == 0) {

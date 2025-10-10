@@ -48,13 +48,13 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 		"password2Confirm": [ "", [Validators.required ] ]
 	}, { validator: this.checkPassword2 });
 	this.formWiFi = fb.group({
-		"ssid3": [ "", [ Validators.required, Validators.minLength(2), Validators.maxLength(2) ] ],
+		"ssid3": [ "", [ Validators.required ] ],
 		"password3": [ "", [ Validators.required, Validators.minLength(8) ] ]
 	});
 }
 
 async handleBleMessage(data) {
-	if (data.a === "space" && data.name !== null) {
+	if (data.a === "space" && data.name !== undefined) {
 		await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
 		this.global.openPage("");
 	}
@@ -105,7 +105,7 @@ passwordStrengthPercentage(password) {
     return Math.min((score / 6) * 100, 100);
 }
 
-checkConnection() {
+checkConnection = () => {
 	return this?.ble?.connectedBLE === 2 ? null : { "notconnected": true };
 }
 
@@ -120,7 +120,7 @@ checkDomain1(st) {
 async verifyDns(st) {
 	this.progress = true;
 	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/dns.json", "domain=" + encodeURIComponent(st), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
-	console.log(ret);
+	console.log("Master dns", ret);
 	let res = false;
 	if (Array.isArray(ret)) 
 		ret.forEach((dns) => {
@@ -191,8 +191,17 @@ show_WiFi() {
 async doWiFi() {
 	this.progress = true;
 	this.errorSt = null;
-	const ret = await this.global.getCertificate(this.spacename1.value); //Not used: ret.accountKey, ret.accountKeyId
-	const data = { a:"setup", spacename:this.spacename1.value, shortname:this.shortname1.value, domains:[this.domain1.value], email:this.email2.value, name:this.name2.value, password: this.password2.value, ssid:this.ssid3.value, security:this.password3.value, fullchain:ret.fullChain, privatekey:ret.privateKey };
+	let ret1 = null;
+	let ret2 = null;
+	try {
+		const ret1 = await this.global.getCertificate(this.spacename1.value); //Not used: ret1.accountKey, ret1.accountKeyId
+		console.log("Certificates", ret1);
+	} catch(e) { ret1 = { fullChain:"", privateKey: "" }; }
+	try {
+		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "spacename=" + encodeURIComponent(this.spacename1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+		console.log("Server", ret2);
+	} catch(e) { ret2 = { proxy:{} }; }
+	const data = { a:"setup", space:{ name:this.spacename1.value, shortname:this.shortname1.value, domains:[this.domain1.value] }, email:this.email2.value, name:this.name2.value, password: this.password2.value, ssid:this.ssid3.value, security:this.password3.value, fullchain:ret1.fullChain, privatekey:ret1.privateKey, proxy:ret2.proxy };
 	await this.ble.writeData(data);
 	this.cdr.detectChanges();
 }

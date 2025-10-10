@@ -11,3 +11,10 @@ Action=org.freedesktop.login1.*
 ResultAny=yes
 ResultInactive=yes
 ResultActive=yes
+
+[Allow admin group to use nm_client_add_and_activate_connection2]
+Identity=unix-group:admin
+Action=org.freedesktop.NetworkManager.settings.modify.system
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
