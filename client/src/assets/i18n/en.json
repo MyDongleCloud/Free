@@ -17,7 +17,9 @@
 	"modules": {
 		"_public_": "Public",
 		"_localnetwork_": "Local Network",
-		"_dongle_": "Dongle"
+		"_dongle_": "Dongle",
+		"_groupadmin_": "Group Admin",
+		"_groupuser_": "Group User"
 	},
 	"": {
 		"What do you want to do?": ""
