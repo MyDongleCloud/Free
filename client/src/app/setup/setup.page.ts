@@ -118,8 +118,18 @@ checkDomain1(st) {
 }
 
 async verifyDns(st) {
-	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/checkDns.json", "domain=" + encodeURIComponent(st), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+	this.progress = true;
+	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/dns.json", "domain=" + encodeURIComponent(st), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
 	console.log(ret);
+	let res = false;
+	if (Array.isArray(ret)) 
+		ret.forEach((dns) => {
+			if (/^ns[1-2]\.mydongle\.cloud$/i.test(dns?.target))
+				res = true;
+		});
+	this.errorSt = res ? null : "Domain DNS doesn't point correctly.";
+	this.progress = false;
+	this.cdr.detectChanges();
 }
 
 connectToggle() {
