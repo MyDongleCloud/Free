@@ -35,6 +35,8 @@ button(k, l) {
 ionViewWillLeave() {
 	if (this.ble.connectedBLE == 2)
 		this.ble.connectToggle();
+	if (socket)
+		appConnectToggle();
 }
 
 connectToggle() {
