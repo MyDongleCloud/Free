@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <sys/statvfs.h>
 #include <sys/mman.h>
+#include <systemd/sd-bus.h>
 #include <arpa/inet.h>
 #include <linux/wireless.h>
 #include <curl/curl.h>
@@ -462,4 +463,21 @@ int getLocalIP(char *szIPCurrent) {
 	PRINTF("Current IP address is %s\n", szIPCurrent);
 	close(sockInet);
 	return ret;
+}
+
+void serviceAction(const char *name, const char *action) {
+	sd_bus *bus = NULL;
+	int r = sd_bus_open_system(&bus);
+	if (r < 0) {
+		PRINTF("Failed to connect to system bus: %s\n", strerror(-r));
+		return;
+	}
+	sd_bus_error error = SD_BUS_ERROR_NULL;
+	r = sd_bus_call_method( bus, "org.freedesktop.systemd1", "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager", action, &error, NULL, "ss", name, "replace");
+
+	if (r < 0) {
+		PRINTF("Failed unit %s: %s\n", name, error.message);
+		sd_bus_error_free(&error);
+	}
+	sd_bus_close(bus);
 }

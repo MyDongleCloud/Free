@@ -171,6 +171,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-up/email", buf, "Content-Type: application/json", post);
 			free(post);
 			cJSON_Delete(data);
+			serviceAction("betterauth.service", "RestartUnit");
 			system("sudo /usr/local/modules/mydonglecloud/setup.sh");
 			spaceSetup();
 			communicationString("{\"status\":1}");
