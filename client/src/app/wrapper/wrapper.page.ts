@@ -26,6 +26,10 @@ constructor(public global: Global, private route: ActivatedRoute, private saniti
 }
 
 ngOnInit() {
+	if (this.global.demo) {
+		this.global.presentAlert("Limited demo", "Not accessible", "This app is not accessible in the limited demo. Download and run MyDongle.Cloud on your Raspberry Pi");
+		return;
+	}
 	const url = location.protocol + "//" + location.host + "/m/" + this.module;
 	this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 }
