@@ -96,9 +96,9 @@ async save() {
 				if (this.cards[i]["bLocal"])
 					this.modules[module]["permissions"].push("_localnetwork_");
 				if (this.cards[i]["bAdmin"])
-					this.modules[module]["permissions"].push("_admin_");
+					this.modules[module]["permissions"].push("_groupadmin_");
 				if (this.cards[i]["buser"])
-					this.modules[module]["permissions"].push("_user_");
+					this.modules[module]["permissions"].push("_groupuser_");
 			}
 		}
 	const ret = await this.httpClient.post("/MyDongleCloud/Auth/save-modules", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
@@ -126,8 +126,8 @@ async getData() {
 				value["bDisabled"] = value["enabled"] == false;
 				value["bPublic"] = value["permissions"][i] == "_public_";;
 				value["bLocal"] = value["permissions"][i] == "_localnetwork_";
-				value["bAdmin"] = value["permissions"][i] == "_admin_";
-				value["bUser"] = value["permissions"][i] == "_user_";
+				value["bAdmin"] = value["permissions"][i] == "_groupadmin_";
+				value["bUser"] = value["permissions"][i] == "_groupuser_";
 			}
 			this.cards.push(value);
 			this.update_(value);
