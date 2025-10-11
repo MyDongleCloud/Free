@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { BleService } from '../ble';
 import { Global } from '../env';
 
+declare var socket: any;
 declare var appInit: any;
 declare var appButton: any;
 declare var appConnectToggle: any;
@@ -15,6 +16,7 @@ declare var appConnectToggle: any;
 
 export class Dongle {
 typeBluetooth: boolean = true;
+public socket = socket;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
