@@ -25,7 +25,7 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: B
 }
 
 ngOnInit() {
-	appInit(this.ble, 1);
+	appInit(this.ble, "assets/app.js", true, true);
 }
 
 button(k, l) {
