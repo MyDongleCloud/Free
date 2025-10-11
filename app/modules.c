@@ -147,9 +147,17 @@ localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "tr
 			if (firstTime)
 				;//system("find /etc -exec sed -i -e \"s/m_unique_d_unique_c/${SPACE}/\" {} \;");
 		} else if (strcmp(elModule->string, "roundcube") == 0) {
+#ifdef DESKTOP
 			FILE *ipf = fopen("/tmp/config.inc.php.template", "r");
+#else
+			FILE *ipf = fopen("/etc/roundcube/config.inc.php.template", "r");
+#endif
 			if (ipf) {
+#ifdef DESKTOP
 				FILE *opf = fopen("/tmp/config.inc.php", "w");
+#else
+				FILE *opf = fopen("/etc/roundcube/config.inc.php", "w");
+#endif
 				if (opf) {
 					char *line = NULL;
 					size_t lineLen = 0;
