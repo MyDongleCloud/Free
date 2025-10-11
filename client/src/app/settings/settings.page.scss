@@ -1,0 +1,6 @@
+.modalLimitSize {
+&::part(content) {
+	max-width:550px;
+	max-height:650px;
+}
+}
