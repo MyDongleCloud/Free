@@ -427,6 +427,7 @@
 		"enabled": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
+		"rewriteRule": "RewriteRule ^/$ /autologin.php [R=301,L]",
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9248
 	},
