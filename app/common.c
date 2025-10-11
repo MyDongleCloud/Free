@@ -15,12 +15,10 @@
 #include <sys/stat.h>
 #include <sys/statvfs.h>
 #include <sys/mman.h>
-#ifndef WEB
 #include <arpa/inet.h>
 #include <linux/wireless.h>
 #include <curl/curl.h>
 #include <curl/easy.h>
-#endif
 #include "macro.h"
 #include "common.h"
 
@@ -259,7 +257,6 @@ void getSerialID() {
 #endif
 }
 
-#ifndef WEB
 int killOtherPids(char *sz) {
 	int ret = 0;
 	char line_[1024];
@@ -326,7 +323,6 @@ void logInit(int daemon) {
 		close(pipe_fd[1]);
 	}
 }
-#endif
 
 void logUninit() {
 	doLog = 0;
@@ -387,7 +383,6 @@ int hardwareVersion() {
 	return rv;
 }
 
-#ifndef WEB
 static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata) {
 	memcpy(userdata, ptr, MIN2(nmemb, 1024));
 	char *p = (char *)userdata;
@@ -419,7 +414,6 @@ int downloadURLBuffer(char *url, char *buf, char *header, char *post) {
 	}
 	return ret;
 }
-#endif
 
 int getLocalIP(char *szIPCurrent) {
 	int ret = 0;
