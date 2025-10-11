@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Input, ElementRef, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Global } from '../../env';
 
 @Component({
@@ -15,7 +15,7 @@ private documentClickListener: (() => void) | null = null;
 showUserMenu:boolean = false;
 initials: string = "";
 
-constructor(public global: Global, private elRef: ElementRef,private renderer: Renderer2) {}
+constructor(public global: Global, private cdr: ChangeDetectorRef, private elRef: ElementRef, private renderer: Renderer2) {}
 
 toggleUserMenu() {
 	this.showUserMenu = !this.showUserMenu;
@@ -34,8 +34,10 @@ ngAfterViewInit() {
 	this.documentClickListener = this.renderer.listen("document", "click", (event: Event) => {
 		const userMenuDropdown = this.elRef.nativeElement.querySelector(".user-menu-dropdown");
 		const userMenuButton = this.elRef.nativeElement.querySelector(".user-menu-button");
-		if (this.showUserMenu && userMenuDropdown && userMenuButton && !userMenuDropdown.contains(event.target) && !userMenuButton.contains(event.target))
+		if (this.showUserMenu && userMenuDropdown && userMenuButton && !userMenuDropdown.contains(event.target) && !userMenuButton.contains(event.target)) {
 			this.showUserMenu = false;
+			this.cdr.markForCheck();
+		}
 	});
 }
 
