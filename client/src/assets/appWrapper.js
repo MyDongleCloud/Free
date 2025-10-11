@@ -72,8 +72,6 @@ function appServerReceiveHtml(data, doB64) {
 }
 
 function appConnectToggle() {
-	//if (!initDone)
-		//return;
 	if (socket != null) {
 		socket.close();
 		socket = null;
