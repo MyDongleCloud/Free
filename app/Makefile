@@ -116,6 +116,7 @@ web_exec: $(OBJs_WEB)
 	@echo "{{{ SCRIPT }}}" > /tmp/a.js
 	$(MYLINKPP_WEB) $(DEBUG) $(OBJs_WEB) $(MYLDFLAGS_WEB) -o app.js
 ifeq ($(DEBUG),)
+	@sed -i -e "s|err('emscripten_set_main_loop_timing.*||" app.js
 	@cp app.js ../client/src/assets/
 endif
 
