@@ -2,14 +2,14 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for postfix [-h -r] spacename"
+echo "Usage for jitsi [-h -r] spacename"
 echo "h:		Print this usage and exit"
 echo "r:	Reset"
 exit 0
 }
 
-if [ "m`id -u`" != "m0" ]; then
-	echo "You need to be root"
+if [ "m`id -u`" = "m0" ]; then
+	echo "You should not be root"
 	exit 0
 fi
 
@@ -27,6 +27,5 @@ if [ $RESET != 1 ]; then
 fi
 shift `expr $OPTIND - 1`
 
-echo "#Reset postfix##################"
-echo "$1.mydongle.cloud" > /etc/mailname
-sed -i -e "s|^myhostname =.*|myhostname = smtp.$1.mydongle.cloud|" /etc/postfix/main.cf
+echo "#Reset Jitsi##################"
+#find /etc -exec sed -i -e "s/m_unique_d_unique_c/$1/" {} \;

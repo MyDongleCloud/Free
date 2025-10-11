@@ -4,12 +4,12 @@ helper() {
 echo "*******************************************************"
 echo "Usage for osticket [-h -r]"
 echo "h:	Print this usage and exit"
-echo "r:	Reset osticket"
+echo "r:	Reset"
 exit 0
 }
 
-if [ "m`id -u`" != "m0" ]; then
-	echo "You need to be root"
+if [ "m`id -u`" = "m0" ]; then
+	echo "You should not be root"
 	exit 0
 fi
 
@@ -26,6 +26,7 @@ if [ $RESET != 1 ]; then
 	exit 0
 fi
 
+echo "#Reset osticket##################"
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
@@ -79,6 +80,6 @@ http://localhost:9236/setup/install.php
 
 chmod 644 /disk/admin/.modules/osticket/ost-config.php
 
+rm -f /disk/admin/.modules/osticket/conf.txt
 echo "Ticket name: ${name}\nTicket email: ${email}\n\nAdmin email: ${admin_email}\nUsername: ${username}\nPassword: ${passwd}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/osticket/conf.txt
-chown admin:admin /disk/admin/.modules/osticket/conf.txt
 chmod 444 /disk/admin/.modules/osticket/conf.txt

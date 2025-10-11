@@ -4,7 +4,7 @@ helper() {
 echo "*******************************************************"
 echo "Usage for mysql [-h -r]"
 echo "h:	Print this usage and exit"
-echo "r:	Reset root password of mysql"
+echo "r:	Reset"
 exit 0
 }
 
@@ -26,6 +26,7 @@ if [ $RESET != 1 ]; then
 	exit 0
 fi
 
+echo "#Reset mysql##################"
 PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
 systemctl stop mysql
 mkdir -p /var/run/mysqld
@@ -51,5 +52,6 @@ EOF
 mysqladmin -u root -p"$PASSWORD" shutdown
 systemctl start mysql
 echo "[client]\nhost=localhost\nuser=root\npassword=${PASSWORD}" > /disk/admin/.modules/mysql/conf.txt
+chmod 755 /disk/admin/.modules/mysql
 chown admin:admin /disk/admin/.modules/mysql/conf.txt
 chmod 444 /disk/admin/.modules/mysql/conf.txt

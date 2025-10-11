@@ -52,8 +52,6 @@ void modulesSetup(cJSON *space) {
 	cJSON *modules = jsonRead(ADMIN_PATH "mydonglecloud/modules.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();
-	int firstTime = !cJSON_IsTrue(cJSON_GetObjectItem(modules, "initDone"));
-
 	for (int i = 0; i < cJSON_GetArraySize(modulesDefault); i++) {
 		cJSON *elModule = cJSON_GetArrayItem(modulesDefault, i);
 		cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
@@ -143,9 +141,6 @@ localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "tr
 			PRINTF("Service: frp Restart\n");
 			serviceAction("frp.service", "RestartUnit");
 #endif
-		} else if (strcmp(elModule->string, "jitsimeet") == 0) {
-			if (firstTime)
-				;//system("find /etc -exec sed -i -e \"s/m_unique_d_unique_c/${SPACE}/\" {} \;");
 		} else if (strcmp(elModule->string, "roundcube") == 0) {
 #ifdef DESKTOP
 			FILE *ipf = fopen("/tmp/config.inc.php.template", "r");
@@ -188,11 +183,6 @@ localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "tr
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", "/tmp/virtualalias.db");
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualmaps", "/tmp/virtualmaps.db");
 #else
-			if (firstTime) {
-				char sz[256];
-				snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/scripts/postfix.sh %s", cJSON_GetStringValue(cJSON_GetArrayItem(fqdn, 0)));
-				system(sz);
-			}
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", ADMIN_PATH "mail/virtualalias.db");
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualmaps", ADMIN_PATH "mail/virtualmaps.db");
 			system("sudo /usr/sbin/postfix reload");
@@ -200,8 +190,6 @@ localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "tr
 		}
 	}
 
-	if (firstTime)
-		cJSON_AddBoolToObject(modules, "initDone", cJSON_True);
 #ifndef DESKTOP
 	jsonWrite(modules, ADMIN_PATH "mydonglecloud/modules.json");
 #endif

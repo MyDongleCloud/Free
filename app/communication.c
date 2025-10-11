@@ -148,15 +148,16 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			//PRINTF("PAM: user:%s service:%s type:%s\n", user, service, type);
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
-			wiFiAddActivate(cJSON_GetStringValue2(el, "ssid"), cJSON_GetStringValue2(el, "security"));
+			if (cJSON_GetStringValue2(el, "ssid") && cJSON_GetStringValue2(el, "security"))
+				wiFiAddActivate(cJSON_GetStringValue2(el, "ssid"), cJSON_GetStringValue2(el, "security"));
 			jsonWrite(cJSON_GetObjectItem(el, "space"), ADMIN_PATH "mydonglecloud/space.json");
 			jsonWrite(cJSON_GetObjectItem(el, "proxy"), ADMIN_PATH "mydonglecloud/proxy.json");
-			FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain_.pem", "w");
+			FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
 			if (fpC) {
 				fwrite(cJSON_GetStringValue2(el, "fullchain"), strlen(cJSON_GetStringValue2(el, "fullchain")), 1, fpC);
 				fclose(fpC);
 			}
-			FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey_.pem", "w");
+			FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey.pem", "w");
 			if (fpK) {
 				fwrite(cJSON_GetStringValue2(el, "privatekey"), strlen(cJSON_GetStringValue2(el, "privatekey")), 1, fpK);
 				fclose(fpK);
@@ -170,8 +171,10 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-up/email", buf, "Content-Type: application/json", post);
 			free(post);
 			cJSON_Delete(data);
+			system("sudo /usr/local/modules/mydonglecloud/setup.sh");
 			spaceSetup();
 			communicationString("{\"status\":1}");
+			jingle();
 		} else if (strcmp(action, "space") == 0) {
 			cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
 			cJSON_AddStringToObject(space, "a", "space");

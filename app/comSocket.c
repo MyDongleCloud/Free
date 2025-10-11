@@ -56,7 +56,7 @@ static void *comSocket_t(void *arg) {
 		}
 		for (int i = 1; i < nfds; i++) {
 			if (fds[i].revents & (POLLIN | POLLHUP)) {
-				char buf[1024];
+				char buf[10240];
 				memset(buf, 0, sizeof(buf));
 				int nbytes = read(fds[i].fd, buf, sizeof(buf));
 				if (nbytes <= 0) {

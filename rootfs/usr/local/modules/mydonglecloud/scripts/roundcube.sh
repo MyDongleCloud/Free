@@ -1,0 +1,39 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for roundcube [-h -r] spacename"
+echo "h:	Print this usage and exit"
+echo "r:	Reset"
+exit 0
+}
+
+if [ "m`id -u`" = "m0" ]; then
+	echo "You should not be root"
+	exit 0
+fi
+
+RESET=0
+while getopts hr opt
+do
+	case "$opt" in
+		h) helper;;
+		r) RESET=1;;
+	esac
+done
+
+if [ $RESET != 1 ]; then
+	exit 0
+fi
+shift `expr $OPTIND - 1`
+
+echo "#Reset roundcube##################"
+sed -e "s|\$config['smtp_host'].*|\$config['smtp_host'] = 'ssl://localhost:465'; \$config['smtp_conn_options'] = [ 'ssl' => [ 'verify_peer' => false, 'verify_peer_name' => false ] ];|" /etc/roundcube/config.inc.php.template > /etc/roundcube/config.inc.php
+rm -rf /disk/admin/.modules/mail/$1.mydongle.cloud
+mkdir -p /disk/admin/.modules/mail/$1.mydongle.cloud/admin
+echo "admin@$1.mydongle.cloud $1.mydongle.cloud/admin/" > /disk/admin/.modules/mail/virtualmaps
+postmap /disk/admin/.modules/mail/virtualmaps
+echo "" > /disk/admin/.modules/mail/virtualalias
+postmap /disk/admin/.modules/mail/virtualalias
+PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
+echo "admin@$1.mydongle.cloud:{plain}$PASSWORD" > /disk/admin/.modules/mail/password-$1.mydongle.cloud
