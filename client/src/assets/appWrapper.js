@@ -78,7 +78,11 @@ function appConnectToggle() {
 		socket.close();
 		socket = null;
 	} else {
-		const ws = "ws" + (window.location.protocol === "https:" ? "s" : "") + "://" + (window.location.hostname == "" ? "127.0.0.1" : window.location.hostname) + ":8094/ws/";
+		const protocol = "ws" + (window.location.protocol === "https:" ? "s" : "") + "://";
+		const host = (window.location.hostname == "" ? "localhost" : window.location.hostname);
+		const ipv4Regex = /^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/gm;
+		const port = ipv4Regex.host || window.location.hostname == "" ? ":8094" : "";
+		const ws = protocol + host + port + "/ws/";
 		console.log("socketInit " + ws);
 		socket = new WebSocket(ws);
 		socket.binaryType = "arraybuffer";
