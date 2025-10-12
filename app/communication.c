@@ -182,6 +182,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_AddStringToObject(space, "a", "space");
 			communicationJSON(space);
 			cJSON_Delete(space);
+		} else if (strcmp(action, "update") == 0) {
+			PRINTF("communicationReceive: Update\n");
+			spaceSetup();
 #endif
 		} else if (strcmp(action, "connection") == 0) {
 			int c = (int)cJSON_GetNumberValue2(el, "c");

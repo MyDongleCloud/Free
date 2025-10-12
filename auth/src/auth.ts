@@ -56,10 +56,10 @@ export const jwkInit = async () => {
 	writeFileSync(jwkPath, fileContent, "utf-8");
 }
 
-const sendOtpToDongle = (otp) => {
+const sendToDongle = (data) => {
 	const client = net.createConnection({ host: "127.0.0.1", port: 8093 });
 	client.on("connect", () => {
-		client.write(JSON.stringify({ a: "passcode", v: parseInt(otp) }));
+		client.write(JSON.stringify(data));
 		client.end();
 	});
 	client.on("end", () => {
@@ -102,6 +102,7 @@ const mdcEndpoints = () => {
 				method: "POST",
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
+				sendToDongle({ a: "update" });
 				return Response.json({ "success": true }, { status: 200 });
 			}),
 
@@ -165,7 +166,7 @@ export const auth = betterAuth({
 		}),
 		emailOTP({
 			async sendVerificationOTP({ email, otp, type }) {
-				sendOtpToDongle(otp);
+				sendToDongle({ a: "passcode", v: parseInt(otp) });
 				if (type === "email-verification") {
 					await sendVerificationEmail(email, otp);
 				} else if (type === "sign-in") {
