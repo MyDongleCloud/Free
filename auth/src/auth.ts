@@ -98,17 +98,24 @@ const mdcEndpoints = () => {
 					return new Response(fs.readFileSync(fullPath, "utf8"), { status: 200 });
 			}),
 
-			saveModules: createAuthEndpoint("/save-modules", {
+			modulesPermissions: createAuthEndpoint("/modules-permissions", {
 				method: "POST",
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
 				return Response.json({ "success": true }, { status: 200 });
 			}),
 
-			reset: createAuthEndpoint("/reset-module", {
+			moduleReset: createAuthEndpoint("/module-reset", {
 				method: "POST",
 			}, async(ctx) => {
 				return Response.json({ "success": true }, { status: 200 });
+			}),
+
+			moduleConf: createAuthEndpoint("/module-conf", {
+				method: "POST",
+			}, async(ctx) => {
+				const conf = fs.readFileSync("/disk/admin/.modules/" + ctx.body?.module + "/conf.txt", "utf8");
+				return Response.json({ "conf":conf }, { status: 200 });
 			}),
 
 			jwksPem: createAuthEndpoint("/jwks-pem", {

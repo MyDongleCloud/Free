@@ -101,8 +101,8 @@ async save() {
 					this.modules[module]["permissions"].push("_groupuser_");
 			}
 		}
-	const ret = await this.httpClient.post("/MyDongleCloud/Auth/save-modules", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
-	console.log("Auth save-modules: ", ret);
+	const ret = await this.httpClient.post("/MyDongleCloud/Auth/modules-permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
+	console.log("Auth modules-permissions: ", ret);
 	this.dResetSave = true;
 }
 
