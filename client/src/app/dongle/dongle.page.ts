@@ -16,7 +16,6 @@ declare var appConnectToggle: any;
 
 export class Dongle {
 typeBluetooth: boolean = true;
-public socket = socket;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
@@ -37,7 +36,7 @@ button(k, l) {
 ionViewWillLeave() {
 	if (this.ble.connectedBLE == 2)
 		this.ble.connectToggle();
-	if (socket)
+	if (this.ble.connectedWS == 2)
 		appConnectToggle();
 }
 
