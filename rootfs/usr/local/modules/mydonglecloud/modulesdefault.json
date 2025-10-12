@@ -343,7 +343,7 @@
 		},
 		"symlinks": true,
 		"enabled": true,
-		"permissions": [ "_dongle_", "_groupadmin_" ],
+		"permissions": [ "_groupadmin_" ],
 		"localPort": 9236
 	},
 	"otg": {
