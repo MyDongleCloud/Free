@@ -20,6 +20,7 @@ declare var appCommunicationStatus: any;
 
 export class BleService {
 connectedBLE: number = 0;
+connectedWS: number = 0;
 deviceID: string;
 deviceName: string;
 pairReceived: boolean;

@@ -73,27 +73,31 @@ function appServerReceiveHtml(data, doB64) {
 
 function appConnectToggle() {
 	if (socket != null) {
+		socket.send(JSON.stringify({ a:"connection", c:0 });
 		socket.close();
 		socket = null;
+		if (thisble) thisble.connectedWS = 0;
 	} else {
+		if (thisble) thisble.connectedWS = 1;
 		const protocol = "ws" + (window.location.protocol === "https:" ? "s" : "") + "://";
-		const host = (window.location.hostname == "" ? "localhost" : window.location.hostname);
-		const ipv4Regex = /^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/gm;
-		const port = ipv4Regex.host || window.location.hostname == "" ? ":8094" : "";
-		const ws = protocol + host + port + "/ws/";
+		const host = window.location.hostname == "" || window.location.hostname == "localhost" ? "localhost:8094" : window.location.hostname;
+		const ws = protocol + host + "/ws/";
 		console.log("socketInit " + ws);
 		socket = new WebSocket(ws);
 		socket.binaryType = "arraybuffer";
 		socket.onopen = () => {
-			console.log("socket onopen");
+			console.log("Socket onopen");
+			if (thisble) thisble.connectedWS = 2;
 		}
 		socket.onerror = (e) => {
-			console.log("socket onerror " + JSON.stringify(e));
+			console.log("Socket onerror " + JSON.stringify(e));
 			socket = null;
+			if (thisble) thisble.connectedWS = 0;
 		}
 		socket.onclose = (e) => {
-			console.log("socket onclose " + JSON.stringify(e));
+			console.log("Socket onclose");
 			socket = null;
+			if (thisble) thisble.connectedWS = 0;
 		}
 		socket.onmessage = (msg) => {
 			appServerReceiveHtml(msg.data, 1);

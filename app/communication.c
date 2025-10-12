@@ -182,6 +182,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			communicationJSON(space);
 			cJSON_Delete(space);
 #endif
+		} else if (strcmp(action, "connection") == 0) {
+			int c = (int)cJSON_GetNumberValue2(el, "c");
+			communicationConnection(c);
 		} else if (strcmp(action, "date") == 0) {
 			;
 		} else {
