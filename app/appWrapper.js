@@ -104,3 +104,13 @@ function appConnectToggle() {
 		}
 	}
 }
+
+function appShutdown() {
+	if (socket != null)
+		socket.send(JSON.stringify({ a:"shutdown" }));
+}
+
+function appPasscode() {
+	if (socket != null)
+		socket.send(JSON.stringify({ a:"passcode", v:-1 }));
+}

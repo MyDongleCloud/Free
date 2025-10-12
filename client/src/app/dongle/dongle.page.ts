@@ -6,6 +6,8 @@ declare var socket: any;
 declare var appInit: any;
 declare var appButton: any;
 declare var appConnectToggle: any;
+declare var appShutdown: any;
+declare var appPasscode: any;
 
 @Component({
 	selector: 'app-dongle',
@@ -45,6 +47,20 @@ connectToggle() {
 		this.ble.connectToggle();
 	else
 		appConnectToggle();
+}
+
+shutdown() {
+	if (this.typeBluetooth)
+		this.ble.shutdown();
+	else
+		appShutdown();
+}
+
+passcode() {
+	if (this.typeBluetooth)
+		this.ble.passcode();
+	else
+		appPasscode();
 }
 
 }
