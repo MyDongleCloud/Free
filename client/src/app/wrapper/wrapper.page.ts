@@ -24,10 +24,11 @@ constructor(public global: Global, private route: ActivatedRoute, private saniti
 		this.page = params?.page;
 		this.title = modulesMeta[this.module].title;
 		this.nameP = " (" + modulesMeta[this.module].name + ")";
+		this.update();
 	});
 }
 
-ngOnInit() {
+update() {
 	let url;
 	if (this.global.demo) {
 		this.global.presentAlert("Limited demo", "Not accessible", "This app is not accessible in the limited demo. Download and run MyDongle.Cloud on your Raspberry Pi to access it.", "limitedDemo");
