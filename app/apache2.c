@@ -96,9 +96,7 @@ void rewrite_(char *st, int port, FILE *pfM) {
 		sprintf(port_, ":%d", port);
 	snprintf(sz, sizeof(sz), "\
 	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(:\\d+)?$\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%1%s [NC,L]\n\
-	RewriteCond %%{HTTP_HOST} ^(app\\.)?(.*)\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%s.%%2 [NC,L]\n", st, port_, st, st);
+	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%1%s [NC,L]\n", st, port_);
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
@@ -171,7 +169,10 @@ MyDongleCloudIPEnabled on\n\
 			rewrite(el_Module, el_Module2, localPort, pfM);
 		}
 	}
-	strcpy(sz, "</Macro>\n\n\n");
+	strcpy(sz, "\
+	RewriteCond %{HTTP_HOST} ^(app\\.)?(.*)\n\
+	RewriteRule ^/m/([^/]+)(.*) %{REQUEST_SCHEME}://$1.%2$2 [NC,L]\n\
+</Macro>\n\n\n");
 	fwrite(sz, strlen(sz), 1, pfM);
 	cJSON *elLocalRanges = cJSON_GetObjectItem(cJSON_GetObjectItem(modulesDefault, "Apache2"), "localRanges");
 

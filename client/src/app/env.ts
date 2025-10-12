@@ -221,9 +221,9 @@ openPage(url: string) {
 	this.router.navigate(["/" + url]);
 }
 
-openModule(module) {
+openModule(module, page) {
 	this.navCtrl.setDirection('root');
-	this.router.navigate(["/wrapper"], { queryParams:{ module } });
+	this.router.navigate(["/wrapper"], { queryParams:{ module, page } });
 }
 
 async presentAlert(hd, st, msg, key:string = "") {

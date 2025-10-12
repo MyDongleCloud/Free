@@ -436,7 +436,7 @@
 		"enabled": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
-		"rewriteRule": "RewriteRule ^/$ /autologin.php [R=301,L]",
+		"homepage": "/autologin.php",
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9248
 	},
@@ -518,7 +518,7 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9260,
 		"alias": [ "ssh" ],
-		"rewriteRule": "RewriteRule ^/$ /ssh/host/localhost [R=301,L]",
+		"homepage": "/ssh/host/localhost",
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 2222,
