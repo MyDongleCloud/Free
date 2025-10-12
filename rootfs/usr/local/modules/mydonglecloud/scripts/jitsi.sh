@@ -8,8 +8,8 @@ echo "r:	Reset"
 exit 0
 }
 
-if [ "m`id -u`" = "m0" ]; then
-	echo "You should not be root"
+if [ "m`id -u`" != "m0" ]; then
+	echo "You need to be root"
 	exit 0
 fi
 
