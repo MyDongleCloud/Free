@@ -310,7 +310,10 @@
 		"alias": [ "app", "mdc" ]
 	},
 	"mysql": {
-		"hasSettings": true
+		"settings": {
+			"reset": true,
+			"conf": true
+		}
 	},
 	"nginx": {},
 	"node": {},
@@ -334,7 +337,10 @@
 	},
 	"osticket": {
 		"web": true,
-		"hasSettings": true,
+		"settings": {
+			"reset": true,
+			"conf": true
+		},
 		"symlinks": true,
 		"enabled": true,
 		"permissions": [ "_dongle_", "_groupadmin_" ],
@@ -424,6 +430,9 @@
 	"rethinkdb": {},
 	"roundcube": {
 		"web": true,
+		"settings": {
+			"reset": true
+		},
 		"enabled": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
