@@ -60,23 +60,32 @@ dbname="osticketDB"
 dbuser="osticketUser"
 dbpass="${DBPASS}"
 timezone="America/Los_Angeles"
-curl -s -o /tmp/osticket-install.txt -X POST \
---data-urlencode "s=$s" \
---data-urlencode "name=$name" \
---data-urlencode "email=$email" \
---data-urlencode "fname=$fname" \
---data-urlencode "lname=$lname" \
---data-urlencode "admin_email=$admin_email" \
---data-urlencode "username=$username" \
---data-urlencode "passwd=$passwd" \
---data-urlencode "passwd2=$passwd" \
---data-urlencode "prefix=$prefix" \
---data-urlencode "dbhost=$dbhost" \
---data-urlencode "dbname=$dbname" \
---data-urlencode "dbuser=$dbuser" \
---data-urlencode "dbpass=$dbpass" \
---data-urlencode "timezone=$timezone" \
-http://localhost:9236/setup/install.php
+
+cd /usr/local/modules/osticket/include
+cat > /tmp/osticket.php << EOF
+<?php
+\$_POST['s'] = '$s';
+\$_POST['name'] = '$name';
+\$_POST['email'] = '$email';
+\$_POST['fname'] = '$fname';
+\$_POST['lname'] = '$lname';
+\$_POST['admin_email'] = '$admin_email';
+\$_POST['username'] = '$username';
+\$_POST['passwd'] = '$passwd';
+\$_POST['passwd2'] = '$passwd';
+\$_POST['prefix'] = '$prefix';
+\$_POST['dbhost'] = '$dbhost';
+\$_POST['dbname'] = '$dbname';
+\$_POST['dbuser'] = '$dbuser';
+\$_POST['dbpass'] = '$dbpass';
+\$_POST['timezone'] = '$timezone';
+
+\$_SERVER['REQUEST_METHOD'] = 'POST';
+
+include '/usr/local/modules/osticket/setup/install.php';
+?>
+EOF
+php /tmp/osticket.php > /tmp/osticket.log
 
 chmod 644 /disk/admin/.modules/osticket/ost-config.php
 
