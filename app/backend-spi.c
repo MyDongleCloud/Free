@@ -14,8 +14,8 @@
 //Define
 //#define NOMMAP
 
-//Global variable
-unsigned char *fbPublic;
+//Private variable
+static unsigned char *fbPublic;
 
 //Functions
 static unsigned int convert24to16(unsigned char r, unsigned char g, unsigned char b) {

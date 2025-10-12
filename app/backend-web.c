@@ -14,9 +14,10 @@
 #undef DEPTH
 #define DEPTH 4
 #define CSS_SIZE 300
+//#define GL
 
 //Private variables
-static lv_color_t buf1[WIDTH * HEIGHT * 3];
+static lv_color_t buf1[WIDTH * HEIGHT * DEPTH];
 static unsigned char fbPublic[WIDTH * HEIGHT * DEPTH];
 static SDL_Window *window;
 static SDL_Renderer *renderer;
@@ -50,22 +51,28 @@ void backendInit_plat(int argc, char *argv[]) {
 	sdlTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 
 	lv_init();
+#ifdef GL
 	lv_display_t *disp = lv_display_create(WIDTH, HEIGHT);
-	lv_display_set_buffers(disp, buf1, 0, WIDTH * HEIGHT * 3, LV_DISPLAY_RENDER_MODE_PARTIAL);
+	lv_display_set_buffers(disp, buf1, 0, WIDTH * HEIGHT * DEPTH, LV_DISPLAY_RENDER_MODE_PARTIAL);
 	lv_display_set_flush_cb(disp, backendUpdate_plat);
-
 	backendInitPointer_plat();
+#else
+	lv_display_t * disp = lv_sdl_window_create(WIDTH, HEIGHT);
+	lv_sdl_mouse_create();
+#endif
 }
 
 void backendRotate_plat(int rot) {}
 
 static void looping(void *arg) {
 	backendLoop();
+#ifdef GL
 	SDL_UpdateTexture(sdlTexture, NULL, fbPublic, WIDTH * DEPTH);
 	SDL_RenderClear(renderer);
 	SDL_Rect destRect = {0, 0, CSS_SIZE, CSS_SIZE};
 	SDL_RenderCopy(renderer, sdlTexture, NULL, &destRect);
 	SDL_RenderPresent(renderer);
+#endif
 }
 
 //HTML -> C
@@ -74,10 +81,9 @@ void button(int b, int l) {
 }
 
 void backendRun_plat() {
-	SDL_EventState(SDL_TEXTINPUT, SDL_DISABLE);
 	SDL_EventState(SDL_KEYDOWN, SDL_DISABLE);
 	SDL_EventState(SDL_KEYUP, SDL_DISABLE);
-	emscripten_set_main_loop_arg(looping, NULL, -1, true);
+	emscripten_set_main_loop_arg(looping, NULL, 0, true);
 	PRINTF("End of doLoop\n");
 }
 
