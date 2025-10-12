@@ -58,9 +58,10 @@ async doFind() {
 		console.log("Master find: ", ret);
 	} catch(e) { console.log(e); this.errorSt = e.error?.message || e.statusText; }
 	this.progress = false;
-	if (ret != null)
+	if (ret != null) {
+		this.global.setCookie("email", this.email1.value, "mydongle.cloud");
 		window.location.href = ret["url"];
-	else
+	} else
 		this.cdr.detectChanges();
 }
 form

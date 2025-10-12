@@ -74,9 +74,10 @@ domainFromFqdn(fqdn) {
 	return parts.slice(sliceIndex).join('.');
 }
 
-setCookie(name, value) {
+setCookie(name, value, domain = null) {
 	const host = window.location.hostname.replace(/^([^:]*)(?::\d+)?$/i, '$1');
-	const domain = this.domainFromFqdn(host);
+	if (domain == null)
+		domain = this.domainFromFqdn(host);
 	if (value == "")
 		document.cookie = `${name}=; Domain=${domain}; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 	else
