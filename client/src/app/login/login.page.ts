@@ -111,9 +111,6 @@ async ionViewDidEnter() {
 		setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
 }
 
-ionViewWillLeave() {
-}
-
 get email1() { return this.formLogin.get("email1"); }
 get password1() { return this.formLogin.get("password1"); }
 get email2() { return this.formRegister.get("email2"); }
@@ -128,6 +125,7 @@ show_Login() {
 	this.showForgotPassword = false;
 	this.showRegister = false;
 	this.hasBlurredOnce = false;
+	this.errorSt = null;
 	setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
 	this.cdr.detectChanges();
 }
@@ -158,6 +156,7 @@ show_Register() {
 		this.email2.setValue(e);
 	setTimeout(() => { (document.getElementById("name2") as HTMLInputElement).focus(); }, 100);
 	this.hasBlurredOnce = false;
+	this.errorSt = null;
 	this.cdr.detectChanges();
 }
 
@@ -188,6 +187,7 @@ show_ForgotPassword() {
 		this.email3.setValue(e);
 	setTimeout(() => { (document.getElementById("email3") as HTMLInputElement).focus(); }, 100);
 	this.hasBlurredOnce = false;
+	this.errorSt = null;
 	this.cdr.detectChanges();
 }
 
