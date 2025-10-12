@@ -242,8 +242,9 @@ void generateRandomHexString(char sz[33]) {
 	close(fd);
 	char ss[3];
 	int i;
+	sz[0] = '\0';
 	for (i = 0; i < 16; i++) {
-		sprintf(ss, "%02x", buffer[i]);
+		sprintf(ss, "%02x", buffer[i] & 0xff);
 		strcat(sz, ss);
 	}
 	sz[32] = '\0';
