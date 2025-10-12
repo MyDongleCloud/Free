@@ -173,6 +173,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_Delete(data);
 			serviceAction("betterauth.service", "RestartUnit");
 			system("sudo /usr/local/modules/mydonglecloud/setup.sh");
+			serviceAction("dovecot.service", "RestartUnit");
 			spaceSetup();
 			communicationString("{\"status\":1}");
 			jingle();
