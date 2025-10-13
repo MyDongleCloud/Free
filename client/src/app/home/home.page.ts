@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +9,7 @@ import modulesMeta from '../modulesmeta.json';
 	selector: 'app-home',
 	templateUrl: './home.page.html',
 	styleUrls: ['./home.page.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: false
 })
 
@@ -17,6 +18,7 @@ export class Home {
 @ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
 modules;
 moduleCur;
+moduleConf;
 cards;
 filteredCards;
 searchTerm: string = "";
@@ -31,14 +33,12 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	global.refreshUI.subscribe(event => {
 		this.cdr.detectChanges();
 	});	
-}
-
-async ionViewDidEnter() {
-	await this.getData();
+	this.getData();
 }
 
 async getData() {
 	this.modules = this.global.session?.["modules"] ?? {};
+console.log(this.modules);
 	this.cards = [];
 	const version = modulesDefault.version;
 	delete modulesDefault.version;
@@ -47,19 +47,24 @@ async getData() {
 			console.log("Error: " + key + " not in modulesmeta");
 			return;
 		}
-		if (value["web"] !== true)
-			value = { permissions:["admin"], web:false, enabled:true };
+console.log(this.modules[key]?.enabled);
 		value["enabled"] = this.modules[key]?.enabled ?? value["enabled"] ?? true;
 		value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
+		if (value["web"] !== true) {
+			value["permissions"] = ["_groupadmin_"];
+			value["web"] = false;
+			value["enabled"] = true;
+		}
 		value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
 		if (value["web"]) {
 			const ll = value["alias"].length > 0 ? value["alias"][0] : key;
 			value["link"] = location.protocol + "//" + location.host + "/m/" + ll;
 			value["link2"] = "https://" + ll + "." + (this.global.session?.["space"]?.["name"] ?? "") + ".mydongle.cloud";
 			value["link"] = value["link"].toLowerCase();
+			if (value["homepage"])
+				value["link"] += value["homepage"];
 			value["link2"] = value["link2"].toLowerCase();
 		}
-		if (modulesMeta[key] !== undefined)
 		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
 			value[key2] = value2;
 		});
@@ -70,6 +75,7 @@ async getData() {
 		return a["title"].localeCompare(b["title"]);
 	});
 	this.filterCards();
+	this.cdr.markForCheck();
 }
 
 filterCards() {
@@ -106,6 +112,34 @@ toggleSortDirection(p) {
 	this.sortCards();
 }
 
+colorWord(st) {
+	if (st == "_disabled_")
+		return "bg-red-100 text-red-800";
+
+	else if (st == "_public_")
+		return "bg-green-100 text-green-800";
+	else if (st == "_localnetwork_")
+		return "bg-orange-100 text-orange-800";
+	else if (st == "_groupadmin_")
+		return "bg-yellow-100 text-yellow-800";
+	else if (st == "_groupuser_")
+		return "bg-purple-100 text-purple-800";
+
+	else if (st == "Essential")
+		return "bg-purple-100 text-purple-800";
+	else if (st == "Personal")
+		return "bg-blue-100 text-blue-800";
+	else if (st == "Productivity")
+		return "bg-indigo-100 text-indigo-800";
+	else if (st == "Utils")
+		return "bg-cyan-100 text-cyan-800";
+	else if (st == "Developer")
+		return "bg-red-100 text-red-800";
+
+	else
+		return "bg-gray-100 text-gray-800";
+}
+
 findIdByModule(m) {
 	let ret = 0;
 	this.cards.forEach((card, index) => {
@@ -130,16 +164,25 @@ closeModuleInfo() {
 
 async settings(module) {
 	this.moduleCur = module;
+	if (this.cards[this.findIdByModule(this.moduleCur)].settings.conf)
+		await this.conf();
 	await this.modalModuleSettings.present();
 }
 
 async reset() {
 	if (await this.global.presentQuestion("Reinitialize \"" + modulesDefault[this.moduleCur].title + "\" (" + modulesDefault[this.moduleCur].name + ")", "WARNING! All data will be lost", "Are you absolutely sure to reinitialize this module?")) {
 		const data = { module:this.moduleCur };
-		const ret = await this.httpClient.post("/MyDongleCloud/Auth/reset-module", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth reset-module: ", ret);
+		const ret = await this.httpClient.post("/MyDongleCloud/Auth/module-reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+		console.log("Auth module-reset: ", ret);
 		this.modalModuleSettings.dismiss();
 	}
+}
+
+async conf() {
+	const data = { module:this.moduleCur };
+	const ret = await this.httpClient.post("/MyDongleCloud/Auth/module-conf", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+	console.log("Auth module-conf: ", ret);
+	this.moduleConf = ret["conf"];
 }
 
 closeModuleSettings() {
