@@ -222,9 +222,13 @@ openPage(url: string) {
 	this.router.navigate(["/" + url]);
 }
 
-openModule(module, page) {
-	this.navCtrl.setDirection('root');
-	this.router.navigate(["/wrapper"], { queryParams:{ module, page } });
+openModule(module, page, extract) {
+	if (extract && !this.demo)
+		window.open(location.protocol + "//" + location.host + "/m/" + module + (page ?? ""), "_blank");
+	else {
+		this.navCtrl.setDirection('root');
+		this.router.navigate(["/wrapper"], { queryParams:{ module, page } });
+	}
 }
 
 async presentAlert(hd, st, msg, key:string = "") {

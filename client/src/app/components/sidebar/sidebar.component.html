@@ -45,7 +45,7 @@
 						</span>
 					</label>
 				</div>
-				<a (click)="global.openModule('roundcube', '/autologin.php');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('roundcube', '/autologin.php', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="mail-outline" class="w-5 h-5"></ion-icon>
 					</div>
@@ -85,7 +85,7 @@
 				</div>
 				<span>Settings</span>
 			</a>
-			<a (click)="global.openModule('betterauthstudio', null);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+			<a (click)="global.openModule('betterauthstudio', null, false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="person-outline" class="w-5 h-5"></ion-icon>
 				</div>

@@ -112,6 +112,16 @@ toggleSortDirection(p) {
 	this.sortCards();
 }
 
+firstWords(st) {
+	const words = st.split(" ");
+	return words.slice(0, -1).join(" ");
+}
+
+lastWord(st) {
+	const words = st.split(" ");
+	return words[words.length - 1];
+}
+
 colorWord(st) {
 	if (st == "_disabled_")
 		return "bg-red-100 text-red-800";

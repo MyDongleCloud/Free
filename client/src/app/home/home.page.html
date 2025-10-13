@@ -69,21 +69,21 @@
 					<div class="rounded-xl border border-gray-200 p-3 shadow-sm flex flex-col" *ngFor="let card of filteredCards; let cc = index;" [class]="!card.enabled ? 'bg-red-50' : card.status != 'done' ? '' : card.web != true ? 'bg-indigo-50' : 'bg-gray-100'">
 						<div class="flex flex-col">
 							<div class="min-w-full flex items-center">
-								<p class="text-sm font-medium text-gray-600" (click)="global.openModule(card.module, card?.homepage);" style="cursor:pointer;">{{card.name}}</p>	
+								<p class="text-sm font-medium text-gray-600" (click)="global.openModule(card.module, card?.homepage, false);" style="cursor:pointer;">{{card.name}}</p>	
 								<div class="flex-1"></div>
 								<span class="text-sm mr-2" *ngIf="showDetails">Nº{{cc + 1}}</span>
-								<ion-icon name="bug-outline" class="w-5 h-5 mr-2" *ngIf="card.status != 'done'"></ion-icon>
+								<ion-icon name="bug-outline" class="w-5 h-5 mr-2" *ngIf="showDetails && card.status != 'done'"></ion-icon>
 								<ion-icon name="cloud-offline-outline" class="w-5 h-5 text-red-500 mr-2" *ngIf="!card.enabled"></ion-icon>
 								<ion-icon name="lock-open-outline" class="w-5 h-5 mr-2" [class]="colorWord(card.permissions[0])" *ngIf="card.enabled"></ion-icon>
 								<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.settings"></ion-icon>
 								<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 							</div>
-							<div class="min-w-full flex items-center mt-2 mb-2"><!---->
-								<p class="text-3xl font-bold text-gray-900"(click)="global.openModule(card.module, card?.homepage);" style="cursor:pointer;">{{card.title}}</p>
+							<div class="min-w-full flex items-center mt-2 mb-2">
+								<p class="text-3xl font-bold text-gray-900"><a class="cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);">{{firstWords(card.title)}} </a><span class="whitespace-nowrap"><a class="cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);">{{lastWord(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></span></p>
 								<div class="flex-1"></div>
 								<div class="ml-3 flex flex-col gap-2 items-end">
 									<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="colorWord(card.category)">
-										<img src="assets/icons/placeholder.png" onerror="this.onerror=null; this.src='assets/icons/placeholder.png';" class="w-14 h-14 cursor-pointer" (click)="global.openModule(card.module, card?.homepage);"/>
+										<img src="assets/icons/placeholder.png" onerror="this.onerror=null; this.src='assets/icons/placeholder.png';" class="w-14 h-14 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);"/>
 									</div>
 								</div>
 							</div>
@@ -132,10 +132,9 @@
 						<tbody class="bg-white divide-y divide-gray-200">
 							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;">
 								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a href="{{card.link}}" title="{{card.title}}" target="_blank" style="color:var(--ion-color-secondary);">{{card.title}}</a></div>
+									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{card.title}}" (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{card.title}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></div>
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a>
-								</td>
+								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{card.name}}</a></td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
 									<div class="-ml-2" *ngIf="!card.enabled">
 										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord('_disabled_')">Disabled</span>
@@ -151,7 +150,7 @@
 									<div class="text-sm text-gray-500 max-w-xs truncate" [class.line-through]="card?.completed">{{ card.description || 'No description' }}</div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
-									<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}}&nbsp;&nbsp;<ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);"></ion-icon>&nbsp;&nbsp;<span>{{approximateStars(card.githubStars)}}k</span></a>
+									<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}} (<span>{{approximateStars(card.githubStars)}}k</span>&nbsp;<ion-icon name="star-outline" class="h-4 w-4 cursor-pointer"></ion-icon>)</a>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 									<div class="-ml-2">
@@ -178,7 +177,7 @@
 				<tr><td colspan="3">
 					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="colorWord(cards[findIdByModule(moduleCur)].category)">
-							<img src="assets/icons/placeholder.png" onerror="this.onerror=null; this.src='assets/icons/placeholder.png';" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage);"/>
+							<img src="assets/icons/placeholder.png" onerror="this.onerror=null; this.src='assets/icons/placeholder.png';" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/>
 						</div>
 					</a>
 					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{cards[findIdByModule(moduleCur)].title}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
