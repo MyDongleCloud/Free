@@ -720,8 +720,8 @@ apt-get -y autoremove
 rm -rf /var/cache/apt/archives/*.deb /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz /home/mdc/.cache/*
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
 rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
-mkdir /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt
-chown admin:admin /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt
+mkdir /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes
+chown admin:admin /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes
 
 echo "################################"
 echo "Finish install"
