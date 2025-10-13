@@ -44,6 +44,7 @@ for ($i = 1; $i < count($modules); $i++) {
 		"module" => $m[gc("module")],
 		"title" => $m[gc("title")],
 		"name" => $m[gc("name")],
+		"status" => $m[gc("status")],
 		"githubUrl" => $m[gc("github")],
 		"githubLicense" => $github["license"]["name"] ?? "",
 		"githubDescription" => $github["description"] ?? "",
