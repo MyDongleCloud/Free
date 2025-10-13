@@ -66,7 +66,12 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9206
 	},
-	"discourse": {},
+	"discourse": {
+		"web": true,
+		"enabled": true,
+		"permissions": [ "_groupadmin_" ],
+		"localPort": 9269
+	},
 	"docker": {},
 	"doodle": {
 		"web": true,
@@ -99,7 +104,6 @@
 		"alias": [ "rss" ]
 	},
 	"frp": {
-		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9211,
