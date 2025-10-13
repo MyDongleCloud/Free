@@ -7,6 +7,8 @@ void uiScreenWelcome();
 void uiScreenSleep();
 void uiScreenHome();
 void uiScreenSetup();
+void uiScreenSetupSuccess();
+void uiScreenLogin();
 void uiScreenTips();
 void uiScreenShutdown();
 void uiScreenBye();

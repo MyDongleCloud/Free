@@ -176,6 +176,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			serviceAction("dovecot.service", "RestartUnit");
 			spaceSetup();
 			communicationString("{\"status\":1}");
+			logicSetupSuccess();
 			jingle();
 		} else if (strcmp(action, "space") == 0) {
 			cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");

@@ -76,11 +76,21 @@ void logicKey(int key, int longPress) {
 			smdc.setupDone = 1;
 			logicHome(0, 0);
 		}
+	} else if (lmdc.current == LOGIC_SETUP_SUCCESS) {//Done
+		if (key == LV_KEY_RIGHT) {
+			smdc.setupDone = 1;
+			logicHome(0, 0);
+		}
+	} else if (lmdc.current == LOGIC_LOGIN) {//Done
+		if (key == LV_KEY_RIGHT) {
+			smdc.setupDone = 1;
+			logicHome(0, 0);
+		}
 	} else if (lmdc.current == LOGIC_TIPS) {//Back, Setup, Previous, Next
 		if (key == LV_KEY_UP)
 			logicHome(-1, 0);
 		else if (key == LV_KEY_DOWN)
-			logicSetup();
+			logicLogin();
 		else if (key == LV_KEY_LEFT)
 			logicTips(-1, -1);
 		else if (key == LV_KEY_RIGHT)
@@ -115,6 +125,10 @@ void logicUpdate() {
 		uiScreenHome();
 	else if (lmdc.current == LOGIC_SETUP)
 		uiScreenSetup();
+	else if (lmdc.current == LOGIC_SETUP_SUCCESS)
+		uiScreenSetupSuccess();
+	else if (lmdc.current == LOGIC_LOGIN)
+		uiScreenLogin();
 	else if (lmdc.current == LOGIC_TIPS)
 		uiScreenTips();
 	else if (lmdc.current == LOGIC_SHUTDOWN)
@@ -163,6 +177,18 @@ void logicHome(int force, int incr) {
 void logicSetup() {
 	PRINTF("Logic: Setup\n");
 	lmdc.current = LOGIC_SETUP;
+	logicUpdate();
+}
+
+void logicSetupSuccess() {
+	PRINTF("Logic: Setup Success\n");
+	lmdc.current = LOGIC_SETUP_SUCCESS;
+	logicUpdate();
+}
+
+void logicLogin() {
+	PRINTF("Logic: Login\n");
+	lmdc.current = LOGIC_LOGIN;
 	logicUpdate();
 }
 

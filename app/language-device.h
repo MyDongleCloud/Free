@@ -13,6 +13,7 @@
 "Health","","","","","","","","","",
 "Hide","","","","","","","","","",
 "It's recommended to properly shutdown the device with a long press on the top right button.","","","","","","","","","",
+"Login","","","","","","","","","",
 "Mem","","","","","","","","","",
 "New module are constantly added. Check on the app regularly.","","","","","","","","","",
 "Next","","","","","","","","","",

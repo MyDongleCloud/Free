@@ -45,7 +45,8 @@ static char *szMessages[1] = {
 #define img_icon_sleep "img/icon_sleep.png"
 #define img_next "img/next.png"
 #define img_ok "img/ok.png"
-#define img_qrcode_download "img/qrcode_download.png"
+#define img_qrcode_setup "img/qrcode_setup.png"
+#define img_qrcode_login "img/qrcode_login.png"
 #define img_qrcode_scanme "img/qrcode_scanme.png"
 #define img_reset "img/reset.png"
 #define img_rotate "img/rotate.png"
@@ -66,7 +67,8 @@ static char *szMessages[1] = {
 #include "img/icon_sleep.h"
 #include "img/next.h"
 #include "img/ok.h"
-#include "img/qrcode_download.h"
+#include "img/qrcode_setup.h"
+#include "img/qrcode_login.h"
 #include "img/qrcode_scanme.h"
 #include "img/reset.h"
 #include "img/rotate.h"
@@ -533,7 +535,7 @@ void uiScreenHome() {
 		doubleText("Port smtps (465)", "OK", 84, 100);
 	}
 
-	button(LV_KEY_LEFT, smdc.setupDone ? L("Tips") : L("Setup"), NULL);
+	button(LV_KEY_LEFT, smdc.setupDone ? L("Tips") : L("Login"), NULL);
 	button(LV_KEY_RIGHT, L("Next"), NULL);
 	advancement(lmdc.homePos);
 }
@@ -545,10 +547,28 @@ void uiScreenSetup() {
 	lv_img_set_src(imgNav0, &img_qrcode_scanme);
 	lv_obj_set_pos(imgNav0, 2, 2);
 	lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
-	lv_img_set_src(imgNav1, &img_qrcode_download);
+	lv_img_set_src(imgNav1, &img_qrcode_login);
 	lv_obj_set_pos(imgNav1, 39, 14);
 
-	//button(LV_KEY_LEFT, L("Rot"), &img_icon_right2);
+	button(LV_KEY_RIGHT, L("Done"), NULL);
+}
+
+void uiScreenSetupSuccess() {
+	lv_obj_clean(lv_screen_active());
+
+	button(LV_KEY_RIGHT, L("Done"), NULL);
+}
+
+void uiScreenLogin() {
+	lv_obj_clean(lv_screen_active());
+
+	lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
+	lv_img_set_src(imgNav0, &img_qrcode_scanme);
+	lv_obj_set_pos(imgNav0, 2, 2);
+	lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
+	lv_img_set_src(imgNav1, &img_qrcode_login);
+	lv_obj_set_pos(imgNav1, 39, 14);
+
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
