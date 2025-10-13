@@ -11,13 +11,14 @@
 
 //Defines color
 #define COLOR_BACKGROUND 0xffffff
-#define COLOR_LIGHT_FORCED 0x0092ce
+#define COLOR_LIGHT_FORCED 0x51a2ff //TailwindCSS: bg-blue-400
 #if defined(WEB) || defined(DESKTOP)
-#define COLOR_LIGHT 0x0092ce
+#define COLOR_LIGHT 0x51a2ff //TailwindCSS: bg-blue-400
+#define COLOR_DARK 0x193cb8 //TailwindCSS: bg-blue-800
 #else
-#define COLOR_LIGHT 0x013d7b
+#define COLOR_LIGHT 0x0092ce //Less light blue for better readability
+#define COLOR_DARK 0x013d7b //Dark blue matching sticker v1.0
 #endif
-#define COLOR_DARK 0x013d7b
 #define COLOR_WHITE 0xffffff
 
 //Private variable
