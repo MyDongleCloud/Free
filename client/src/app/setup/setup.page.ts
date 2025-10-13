@@ -56,7 +56,7 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 async handleBleMessage(data) {
 	if (data.a === "space" && data.name !== undefined) {
 		await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
-		this.global.openPage("");
+		this.global.openPage("find");
 	}
 	if (data.a === "setup") {
 		if (data.success === 1) {
