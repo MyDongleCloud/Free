@@ -467,6 +467,7 @@ int getLocalIP(char *szIPCurrent) {
 }
 
 void serviceAction(const char *name, const char *action) {
+	PRINTF("Service: %s %s\n", name, action);
 	sd_bus *bus = NULL;
 	int r = sd_bus_open_system(&bus);
 	if (r < 0) {
@@ -475,7 +476,6 @@ void serviceAction(const char *name, const char *action) {
 	}
 	sd_bus_error error = SD_BUS_ERROR_NULL;
 	r = sd_bus_call_method( bus, "org.freedesktop.systemd1", "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager", action, &error, NULL, "ss", name, "replace");
-
 	if (r < 0) {
 		PRINTF("Failed unit %s: %s\n", name, error.message);
 		sd_bus_error_free(&error);

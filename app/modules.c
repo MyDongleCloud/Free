@@ -45,8 +45,7 @@ void modulesSetup(cJSON *space) {
 			} else
 				buildApache2Conf(modulesDefault, modules, space, fqdn);
 #ifndef DESKTOP
-			PRINTF("Service: apache2 Restart\n");
-			serviceAction("apache2.service", "RestartUnit");
+			serviceAction("apache2.service", "ReloadOrRestartUnit");
 #endif
 		} else if (strcmp(elModule->string, "frp") == 0) {
 			PRINTF("Modules:frp: Enter\n");
@@ -120,7 +119,6 @@ localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "tr
 			}
 			cJSON_Delete(elModule2Proxy);
 #ifndef DESKTOP
-			PRINTF("Service: frp Restart\n");
 			serviceAction("frp.service", "RestartUnit");
 #endif
 		} else if (strcmp(elModule->string, "roundcube") == 0) {
@@ -167,7 +165,7 @@ localPort = %d\n", elModuleSj->string, type, strncmp(type, "http", 4) == 0 ? "tr
 #else
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualalias", ADMIN_PATH "mail/virtualalias.db");
 			dbBerkeleyCreate(ADMIN_PATH "mail/virtualmaps", ADMIN_PATH "mail/virtualmaps.db");
-			system("sudo /usr/sbin/postfix reload");
+			serviceAction("postfix.service", "ReloadOrRestartUnit");
 #endif
 		}
 	}
