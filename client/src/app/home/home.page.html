@@ -104,7 +104,7 @@
 								<a href="https://github.com/{{card.github}}" title="GitHub {{card.github}}" class="mt-2 pl-2 flex items-center cursor-pointer" target="_blank" *ngIf="showDetails && card.githubUrl != ''">
 									<ion-icon name="logo-github" class="w-8 h-8 cursor-pointer" ></ion-icon>
 									<div class="flex flex-col items-center">
-										<ion-icon name="star-outline" class="w-5 h-5 text-gray-500"></ion-icon>
+										<span>⭐</span>
 										<span class="text-gray-500">{{approximateStars(card.githubStars)}}k</span>
 									</div>
 								</a>
@@ -150,7 +150,7 @@
 									<div class="text-sm text-gray-500 max-w-xs truncate" [class.line-through]="card?.completed">{{ card.description || 'No description' }}</div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
-									<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}} (<span>{{approximateStars(card.githubStars)}}k</span>&nbsp;<ion-icon name="star-outline" class="h-4 w-4 cursor-pointer"></ion-icon>)</a>
+									<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}} ({{approximateStars(card.githubStars)}}k ⭐)</a>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 									<div class="-ml-2">
@@ -202,7 +202,10 @@
 				<tr><td colspan="3" height="8"></td></tr>
 				<tr><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
 				<tr><td colspan="3" height="8"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td>GitHub <a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="GitHub {{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank"><ion-icon name="logo-github" style="margin-right:4px; color:var(--ion-color-secondary);"></ion-icon></a></td><td width="20"></td><td><a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank">{{cards[findIdByModule(moduleCur)].githubUrl}}</a>&nbsp;&nbsp;<ion-icon name="star-outline" size="small" style="color:var(--ion-color-warning);"></ion-icon>&nbsp;&nbsp;<span>{{approximateStars(cards[findIdByModule(moduleCur)].githubStars)}}k</span><br>Language: {{cards[findIdByModule(moduleCur)].githubLanguage}}<br>License: {{cards[findIdByModule(moduleCur)].githubLicense}}</td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''">
+					<td>GitHub <a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="GitHub {{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank"><ion-icon name="logo-github" class="w-5 h-5"></ion-icon></a></td>
+					<td width="20"></td><td><a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank">{{cards[findIdByModule(moduleCur)].githubUrl}}</a> {{approximateStars(cards[findIdByModule(moduleCur)].githubStars)}}k ⭐<br>Language: {{cards[findIdByModule(moduleCur)].githubLanguage}}<br>License: {{cards[findIdByModule(moduleCur)].githubLicense}}</td>
+				</tr>
 				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" height="8"></td></tr>
 				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" height="1" style="background-color:rgb(222, 222, 222);"></td></tr>
 				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" height="8"></td></tr>

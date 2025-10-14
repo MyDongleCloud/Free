@@ -33,21 +33,20 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	global.refreshUI.subscribe(event => {
 		this.cdr.detectChanges();
 	});	
+	const version = modulesDefault.version;
+	delete modulesDefault.version;
 	this.getData();
 }
 
 async getData() {
 	this.modules = this.global.session?.["modules"] ?? {};
-console.log(this.modules);
 	this.cards = [];
-	const version = modulesDefault.version;
-	delete modulesDefault.version;
-	Object.entries(modulesDefault).forEach(([key, value]) => {
+	const modulesDefault_ = { ...modulesDefault };
+	Object.entries(modulesDefault_).forEach(([key, value]) => {
 		if (modulesMeta[key] === undefined) {
 			console.log("Error: " + key + " not in modulesmeta");
 			return;
 		}
-console.log(this.modules[key]?.enabled);
 		value["enabled"] = this.modules[key]?.enabled ?? value["enabled"] ?? true;
 		value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
 		if (value["web"] !== true) {
@@ -180,7 +179,7 @@ async settings(module) {
 }
 
 async reset() {
-	if (await this.global.presentQuestion("Reinitialize \"" + modulesDefault[this.moduleCur].title + "\" (" + modulesDefault[this.moduleCur].name + ")", "WARNING! All data will be lost", "Are you absolutely sure to reinitialize this module?")) {
+	if (await this.global.presentQuestion("Reinitialize \"" + this.cards[this.findIdByModule(this.moduleCur)].title + "\" (" + this.cards[this.findIdByModule(this.moduleCur)].name + ")", "WARNING! All data will be lost", "Are you absolutely sure to reinitialize this module?")) {
 		const data = { module:this.moduleCur };
 		const ret = await this.httpClient.post("/MyDongleCloud/Auth/module-reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
 		console.log("Auth module-reset: ", ret);
