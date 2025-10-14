@@ -35,15 +35,13 @@ if [ $INSTALL = 1 ]; then
 	rm -rf /usr/local/modules/betterauth
 	cp -a betterauth /usr/local/modules
 	cp -a node_modules /usr/local/modules/betterauth
-	exit 0
 elif [ $CLEAN = 1 ]; then
 	#On PC only
 	rm -rf node_modules betterauth ../rootfs/disk/admin/.modules/betterauth
-	exit 0
 elif [ $CLEAN = 2 ]; then
 	#On PC only
 	rm -rf betterauth ../rootfs/disk/admin/.modules/betterauth
-	exit 0
+	./prepare.sh
 else
 	#On PC only
 	if [ ! -d node_modules ]; then
