@@ -11,14 +11,10 @@
 
 //Defines color
 #define COLOR_BACKGROUND 0xffffff
-#define COLOR_LIGHT_FORCED 0x51a2ff //TailwindCSS: bg-blue-400
-#if defined(WEB) || defined(DESKTOP)
-#define COLOR_LIGHT 0x51a2ff //TailwindCSS: bg-blue-400
-#define COLOR_DARK 0x193cb8 //TailwindCSS: bg-blue-800
-#else
-#define COLOR_LIGHT 0x0092ce //Less light blue for better readability
-#define COLOR_DARK 0x013d7b //Dark blue matching sticker v1.0
-#endif
+#define COLOR_TEXT 0x101828
+#define COLOR_LIGHT 0x0092ce
+#define COLOR_DARK 0x013d7b
+#define COLOR_EXTRA_DARK 0x011f5d
 #define COLOR_WHITE 0xffffff
 
 //Private variable
@@ -93,7 +89,7 @@ static void arc(int x, int y, int s, int p) {
 	lv_obj_set_pos(arc, x, y);
 	lv_obj_remove_style(arc, NULL, LV_PART_KNOB);
 	lv_obj_remove_flag(arc, LV_OBJ_FLAG_CLICKABLE);
-	lv_obj_set_style_arc_color(arc, lv_color_hex(COLOR_LIGHT_FORCED), LV_PART_MAIN);
+	lv_obj_set_style_arc_color(arc, lv_color_hex(COLOR_LIGHT), LV_PART_MAIN);
 	lv_obj_set_style_arc_color(arc, lv_color_hex(COLOR_DARK), LV_PART_INDICATOR);
 	lv_obj_set_style_arc_width(arc, 5, LV_PART_MAIN);
 	lv_obj_set_style_arc_width(arc, 5, LV_PART_INDICATOR);
@@ -312,7 +308,7 @@ static void uiBar() {
 
 void uiScreenInit() {
 	lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(COLOR_BACKGROUND), LV_PART_MAIN);
-	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_DARK), LV_PART_MAIN);
+	lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(COLOR_TEXT), LV_PART_MAIN);
 }
 
 void uiScreenWelcome() {
@@ -417,7 +413,7 @@ static void progressBar(int w, int y, char *sz, char *sz2, int p) {
 	if (style_indic.prop_cnt == 0)
 		lv_style_init(&style_indic);
 	lv_style_set_bg_opa(&style_indic, LV_OPA_COVER);
-	lv_style_set_bg_color(&style_indic, lv_color_hex(COLOR_LIGHT_FORCED));
+	lv_style_set_bg_color(&style_indic, lv_color_hex(COLOR_LIGHT));
 	lv_style_set_bg_grad_color(&style_indic, lv_palette_main(LV_PALETTE_RED));
 	lv_style_set_bg_grad_dir(&style_indic, LV_GRAD_DIR_HOR);
 	lv_style_set_radius(&style_indic, 2);
