@@ -57,7 +57,7 @@ export const jwkInit = async () => {
 }
 
 const sendToDongle = (data) => {
-	const client = net.createConnection({ host: "127.0.0.1", port: 8093 });
+	const client = net.createConnection({ host:"127.0.0.1", port:8093 });
 	client.on("connect", () => {
 		client.write(JSON.stringify(data));
 		client.end();
@@ -76,7 +76,7 @@ const mdcEndpoints = () => {
 			status: createAuthEndpoint("/status", {
 				method: "GET",
 			}, async(ctx) => {
-				return Response.json({ status: "healthy", demo: statusDemo, timestamp: new Date().toISOString() }, { status: 200 });
+				return Response.json({ status:"healthy", demo:statusDemo, timestamp:new Date().toISOString() }, { status:200 });
 			}),
 
 			serverLog: createAuthEndpoint("/server-log", {
@@ -102,21 +102,21 @@ const mdcEndpoints = () => {
 				method: "POST",
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
-				sendToDongle({ a: "update" });
-				return Response.json({ "success": true }, { status: 200 });
+				sendToDongle({ a:"update" });
+				return Response.json({ success:true }, { status:200 });
 			}),
 
 			moduleReset: createAuthEndpoint("/module-reset", {
 				method: "POST",
 			}, async(ctx) => {
-				return Response.json({ "success": true }, { status: 200 });
+				return Response.json({ success:true }, { status:200 });
 			}),
 
 			moduleConf: createAuthEndpoint("/module-conf", {
 				method: "POST",
 			}, async(ctx) => {
 				const conf = fs.readFileSync("/disk/admin/.modules/" + ctx.body?.module + "/conf.txt", "utf8");
-				return Response.json({ "conf":conf }, { status: 200 });
+				return Response.json({ conf:conf }, { status:200 });
 			}),
 
 			jwksPem: createAuthEndpoint("/jwks-pem", {
@@ -142,7 +142,7 @@ export const auth = betterAuth({
 			enabled: true,
 			beforeDelete: async (user, request) => {
 				if (user["username"] == "admin")
-					throw new APIError("BAD_REQUEST", { message: "Admin account can't be deleted" });
+					throw new APIError("BAD_REQUEST", { message:"Admin account can't be deleted" });
 			}
 		},
 		additionalFields: {
@@ -166,7 +166,7 @@ export const auth = betterAuth({
 		}),
 		emailOTP({
 			async sendVerificationOTP({ email, otp, type }) {
-				sendToDongle({ a: "passcode", v: parseInt(otp) });
+				sendToDongle({ a:"passcode", v:parseInt(otp) });
 				if (type === "email-verification") {
 					await sendVerificationEmail(email, otp);
 				} else if (type === "sign-in") {
@@ -182,7 +182,7 @@ export const auth = betterAuth({
 			},
 		}),
 		//twoFactor(),
-		//haveIBeenPwned({ customPasswordCompromisedMessage: "Please choose a more secure password." }),
+		//haveIBeenPwned({ customPasswordCompromisedMessage:"Please choose a more secure password." }),
 		//admin(),
 		jwt({
 			jwt: {
@@ -196,11 +196,7 @@ export const auth = betterAuth({
 					};
 				}
 			},
-			jwks: {
-				keyPairConfig: {
-					alg: "ES256",
-				},
-			}
+			jwks: { keyPairConfig:{ alg:"ES256" } }
 		}),
 		mdcEndpoints()
 	],
@@ -219,6 +215,7 @@ export const auth = betterAuth({
 				logBody = typeof responseBody === "string" ? responseBody : JSON.stringify(responseBody, null, 2);
 				console.log(`200 for ${ctx.method} ${ctx.path}:\n`, logBody);
 			}
+			console.log("###########################");
 		})
 */
 	},
