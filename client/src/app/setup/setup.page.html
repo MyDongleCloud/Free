@@ -80,7 +80,7 @@
 					@if (domain1?.invalid && (domain1?.touched || domain1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Failed. No worries. You can point the DNS later (or it can take time to propagate)
+						Invalid domain
 					</div>
 					} @else if (domain1?.value.length >= 2) {
 					<label for="domain1" class="block text-sm font-medium text-gray-500 mt-1">https://{{domain1?.value}} and all subdomains</label>

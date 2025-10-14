@@ -36,9 +36,9 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 			setTimeout(() => { this.ble.writeData({ a:"space" }); }, 2000);
 	});
 	this.formDongle = fb.group({
-		"spacename1": [ "", [ Validators.required, Validators.minLength(5), Validators.maxLength(20) ] ],
-		"shortname1": [ "", [ Validators.required, Validators.minLength(2), Validators.maxLength(20) ] ],
-		"domain1": [ "" ],
+		"spacename1": [ "", [ this.checkSpacename1 ] ],
+		"shortname1": [ "", [ this.checkShortname1 ] ],
+		"domain1": [ "", [ this.checkDomain1 ] ],
 		"terms1": [ false, Validators.requiredTrue ]
 	}, { validator: this.checkConnection });
 	this.formRegister = fb.group({
@@ -106,15 +106,25 @@ passwordStrengthPercentage(password) {
 }
 
 checkConnection = () => {
+	if (this?.ble?.connectedBLE !== 2 && this?.formDongle?.["controls"]?.["terms1"]?.value)
+		this.errorSt = "You need to connect to a dongle";
 	return this?.ble?.connectedBLE === 2 ? null : { "notconnected": true };
+}
+
+checkSpacename1(group: FormGroup) {
+	return /[a-z0-9-_]{5,20}$/i.test(group.value) ? null : {"invalid": true};
+}
+
+checkShortname1(group: FormGroup) {
+	return /[a-z0-9-_]{2,20}$/i.test(group.value) ? null : {"invalid": true};
+}
+
+checkDomain1(group: FormGroup) {
+	return group.value == "" || /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i.test(group.value) ? null : {"invalid": true};
 }
 
 checkPassword2(group: FormGroup) {
 	return group.controls.password2.value == group.controls.password2Confirm.value ? null : {"mismatch": true};
-}
-
-checkDomain1(st) {
-	return /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i.test(st);
 }
 
 async verifyDns(st) {
@@ -127,7 +137,7 @@ async verifyDns(st) {
 			if (/^ns[1-2]\.mydongle\.cloud$/i.test(dns?.target))
 				res = true;
 		});
-	this.errorSt = res ? null : "Domain DNS doesn't point correctly.";
+	this.errorSt = res ? null : "DNS doesn't point correctly. You can setup later (or it can take time to propagate)";
 	this.progress = false;
 	this.cdr.detectChanges();
 }
