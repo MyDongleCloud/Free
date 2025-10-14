@@ -224,8 +224,8 @@ async listServices(deviceId: string) {
 	}
 }
 
-async passcode() {
-	await this.writeData({ a:"passcode", v:-1 });
+async otp() {
+	await this.writeData({ a:"otp", v:-1 });
 }
 
 async shutdown() {

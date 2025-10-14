@@ -116,7 +116,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 	cJSON *el = cJSON_Parse(data);
 	if (el) {
 		char *action = cJSON_GetStringValue2(el, "a");
-		if (strcmp(action, "passcode") == 0) {
+		if (strcmp(action, "otp") == 0) {
 			PRINTF("communicationReceive: Passcode\n");
 			int v = -1;
 			if (cJSON_HasObjectItem(el, "v"))
