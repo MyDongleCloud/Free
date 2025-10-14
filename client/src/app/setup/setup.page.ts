@@ -36,8 +36,8 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 			setTimeout(() => { this.ble.writeData({ a:"space" }); }, 2000);
 	});
 	this.formDongle = fb.group({
-		"spacename1": [ "", [Validators.required, Validators.minLength(6) ] ],
-		"shortname1": [ "", [Validators.required, Validators.minLength(2) ] ],
+		"spacename1": [ "", [ Validators.required, Validators.minLength(5), Validators.maxLength(20) ] ],
+		"shortname1": [ "", [ Validators.required, Validators.minLength(2), Validators.maxLength(20) ] ],
 		"domain1": [ "" ],
 		"terms1": [ false, Validators.requiredTrue ]
 	}, { validator: this.checkConnection });
