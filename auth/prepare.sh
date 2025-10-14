@@ -2,8 +2,9 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for run [-c -h -i]"
+echo "Usage for run [-c -d -h -i]"
 echo "c:	Clean on PC"
+echo "d:	Light clean on PC"
 echo "h:	Print this usage and exit"
 echo "i:	Install during install"
 exit 0
@@ -11,9 +12,10 @@ exit 0
 
 CLEAN=0
 INSTALL=0
-while getopts chi opt; do
+while getopts cdhi opt; do
 	case "$opt" in
 		c) CLEAN=1;;
+		d) CLEAN=2;;
 		h) helper;;
 		i) INSTALL=1;;
 	esac
@@ -38,12 +40,17 @@ elif [ $CLEAN = 1 ]; then
 	#On PC only
 	rm -rf node_modules betterauth ../rootfs/disk/admin/.modules/betterauth
 	exit 0
+elif [ $CLEAN = 2 ]; then
+	#On PC only
+	rm -rf betterauth ../rootfs/disk/admin/.modules/betterauth
+	exit 0
 else
 	#On PC only
-	if [ ! -d ../rootfs/disk/admin/.modules/betterauth/ -o ! -d node_modules ]; then
-		rm -rf node_modules ../rootfs/disk/admin/.modules/betterauth
-		mkdir -p ../rootfs/disk/admin/.modules/betterauth
+	if [ ! -d node_modules ]; then
 		npm install
+	fi
+	if [ ! -d ../rootfs/disk/admin/.modules/betterauth/ ]; then
+		mkdir -p ../rootfs/disk/admin/.modules/betterauth
 		npx @better-auth/cli migrate -y
 		(sleep 3 && ./test.sh -c) &
 	fi
