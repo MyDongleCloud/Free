@@ -547,6 +547,15 @@ void uiScreenSetup() {
 	lv_img_set_src(imgNav1, &img_qrcode_login);
 	lv_obj_set_pos(imgNav1, 39, 14);
 
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, L("Setup"));
+	lv_obj_set_pos(label0, 3, 114);
+	static lv_style_t labelStyle0;
+	if (labelStyle0.prop_cnt == 0)
+		lv_style_init(&labelStyle0);
+	lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_10);
+	lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
+
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
@@ -565,6 +574,15 @@ void uiScreenLogin() {
 	lv_obj_t *imgNav1 = lv_image_create(lv_screen_active());
 	lv_img_set_src(imgNav1, &img_qrcode_login);
 	lv_obj_set_pos(imgNav1, 39, 14);
+
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, L("Login"));
+	lv_obj_set_pos(label0, 3, 114);
+	static lv_style_t labelStyle0;
+	if (labelStyle0.prop_cnt == 0)
+		lv_style_init(&labelStyle0);
+	lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_10);
+	lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
 
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
