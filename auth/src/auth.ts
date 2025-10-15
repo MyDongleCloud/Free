@@ -185,7 +185,7 @@ export const auth = betterAuth({
 			skipVerificationOnEnable:true,
 			otpOptions: {
 				async sendOTP({ user, otp }, request) {
-					sendToDongle({ a:"otp", v:parseInt(otp) });
+					sendToDongle({ a:"otp", v:parseInt(otp), e:user?.["email"] });
 					console.log(otp);
 				}
 			}

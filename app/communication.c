@@ -117,14 +117,15 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 	if (el) {
 		char *action = cJSON_GetStringValue2(el, "a");
 		if (strcmp(action, "otp") == 0) {
-			PRINTF("communicationReceive: OTP\n");
+			char *email = cJSON_GetStringValue2(el, "e");
+			PRINTF("communicationReceive: OTP by %s\n", email);
 			int v = -1;
 			if (cJSON_HasObjectItem(el, "v"))
 				v = (int)cJSON_GetNumberValue2(el, "v");
 			if (v == 0)
 				logicOtpFinished();
 			else
-				logicOtp(v);
+				logicOtp(v, email);
 		} else if (strcmp(action, "shutdown") == 0) {
 			PRINTF("communicationReceive: Shutdown\n");
 			logicShutdown();

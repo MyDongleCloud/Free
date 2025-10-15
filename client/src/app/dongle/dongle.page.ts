@@ -57,10 +57,11 @@ shutdown() {
 }
 
 otp() {
+	const email = this.global.session?.user?.email;
 	if (this.typeBluetooth)
-		this.ble.otp();
+		this.ble.otp(email);
 	else
-		appOtp();
+		appOtp(email);
 }
 
 }

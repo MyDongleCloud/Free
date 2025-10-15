@@ -224,8 +224,8 @@ async listServices(deviceId: string) {
 	}
 }
 
-async otp() {
-	await this.writeData({ a:"otp", v:-1 });
+async otp(email) {
+	await this.writeData({ a:"otp", v:-1, e:email });
 }
 
 async shutdown() {

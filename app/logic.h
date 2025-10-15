@@ -46,7 +46,7 @@ void logicTips(int force, int incr);
 void logicShutdown();
 void logicBye();
 void logicMessage(int m);
-void logicOtp(int forceOtp);
+void logicOtp(int forceOtp, char *email);
 void logicOtpFinished();
 void logicSlaveNotConnected();
 

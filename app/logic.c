@@ -236,9 +236,9 @@ void logicMessage(int m) {
 	logicUpdate();
 }
 
-void logicOtp(int v) {
+void logicOtp(int v, char *email) {
 #ifndef WEB
-	PRINTF("Logic: OTP%s\n", v != -1 ? " (forced)" : "(random)");
+	PRINTF("Logic: OTP%s %s\n", v != -1 ? " (forced)" : "(random)", email);
 	if (v != -1)
 		lmdc.otp = v;
 	else

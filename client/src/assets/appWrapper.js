@@ -110,7 +110,7 @@ function appShutdown() {
 		socket.send(JSON.stringify({ a:"shutdown" }));
 }
 
-function appOtp() {
+function appOtp(email) {
 	if (socket != null)
-		socket.send(JSON.stringify({ a:"otp", v:-1 }));
+		socket.send(JSON.stringify({ a:"otp", v:-1, e:email }));
 }
