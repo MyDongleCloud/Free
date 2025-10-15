@@ -107,7 +107,7 @@ void communicationDoState() {
 void communicationReceive(unsigned char *data, int size, char *orig) {
 	//PRINTF("communicationReceive: (%d)#%s# via %s\n", size, data, orig);
 //Examples:
-//{"a":"passcode"}
+//{"a":"otp"}
 //{"a":"sutdown"}
 //{"a":"key", "k":0, "l":0}
 //{"a":"state", "p":"blah_encoded64"}
@@ -117,14 +117,14 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 	if (el) {
 		char *action = cJSON_GetStringValue2(el, "a");
 		if (strcmp(action, "otp") == 0) {
-			PRINTF("communicationReceive: Passcode\n");
+			PRINTF("communicationReceive: OTP\n");
 			int v = -1;
 			if (cJSON_HasObjectItem(el, "v"))
 				v = (int)cJSON_GetNumberValue2(el, "v");
 			if (v == 0)
-				logicPasscodeFinished();
+				logicOtpFinished();
 			else
-				logicPasscode(v);
+				logicOtp(v);
 		} else if (strcmp(action, "shutdown") == 0) {
 			PRINTF("communicationReceive: Shutdown\n");
 			logicShutdown();
@@ -146,9 +146,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			char *service = cJSON_GetStringValue2(el, "s");
 			char *type = cJSON_GetStringValue2(el, "t");
 			char *arg1 = cJSON_GetStringValue2(el, "o");
-			PRINTF("PAM: user:%s service:%s type:%s oath:%s\n", user, service, type, arg1);
+			PRINTF("PAM: user:%s service:%s type:%s arg1:%s\n", user, service, type, arg1);
 			if (arg1 && strcmp(arg1, "oath_success") == 0)
-				logicPasscodeFinished();
+				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
 			if (cJSON_GetStringValue2(el, "ssid") && cJSON_GetStringValue2(el, "security"))

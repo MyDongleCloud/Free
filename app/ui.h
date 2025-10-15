@@ -13,7 +13,7 @@ void uiScreenTips();
 void uiScreenShutdown();
 void uiScreenBye();
 void uiScreenMessage();
-void uiScreenPasscode(int expiration);
+void uiScreenOtp(int expiration);
 void uiScreenSlaveNotConnected();
 void uiUpdate();
 

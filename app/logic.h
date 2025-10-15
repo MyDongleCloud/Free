@@ -9,7 +9,7 @@ typedef struct logics {
 	int homePos;
 	int tipsPos;
 	int messageM;
-	int passcode;
+	int otp;
 } logics;
 //#pragma pack(pop)
 
@@ -25,7 +25,7 @@ enum LOGIC_SCREEN {
 	LOGIC_SHUTDOWN,
 	LOGIC_BYE,
 	LOGIC_MESSAGE,
-	LOGIC_PASSCODE,
+	LOGIC_OTP,
 	LOGIC_SLAVENOTCONNECTED
 };
 
@@ -46,8 +46,8 @@ void logicTips(int force, int incr);
 void logicShutdown();
 void logicBye();
 void logicMessage(int m);
-void logicPasscode(int forcePasscode);
-void logicPasscodeFinished();
+void logicOtp(int forceOtp);
+void logicOtpFinished();
 void logicSlaveNotConnected();
 
 #endif

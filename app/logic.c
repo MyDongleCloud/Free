@@ -95,7 +95,7 @@ void logicKey(int key, int longPress) {
 			logicTips(-1, -1);
 		else if (key == LV_KEY_RIGHT)
 			logicTips(-1, 1);
-	} else if (lmdc.current == LOGIC_PASSCODE) {//Cancel, Hide
+	} else if (lmdc.current == LOGIC_OTP) {//Cancel, Hide
 		if (key == LV_KEY_LEFT)
 			logicHome(0, 0);
 		else if (key == LV_KEY_RIGHT)
@@ -137,8 +137,8 @@ void logicUpdate() {
 		uiScreenBye();
 	else if (lmdc.current == LOGIC_MESSAGE)
 		uiScreenMessage();
-	else if (lmdc.current == LOGIC_PASSCODE)
-		uiScreenPasscode(59);
+	else if (lmdc.current == LOGIC_OTP)
+		uiScreenOtp(59);
 	else if (lmdc.current == LOGIC_SLAVENOTCONNECTED)
 		uiScreenSlaveNotConnected();
 
@@ -236,23 +236,23 @@ void logicMessage(int m) {
 	logicUpdate();
 }
 
-void logicPasscode(int v) {
+void logicOtp(int v) {
 #ifndef WEB
-	PRINTF("Logic: Passcode%s\n", v != -1 ? " (forced)" : "(random)");
+	PRINTF("Logic: OTP%s\n", v != -1 ? " (forced)" : "(random)");
 	if (v != -1)
-		lmdc.passcode = v;
+		lmdc.otp = v;
 	else
-		lmdc.passcode = oathCreate();
+		lmdc.otp = oathCreate();
 	buzzer(1);
-	lmdc.current = LOGIC_PASSCODE;
+	lmdc.current = LOGIC_OTP;
 	logicUpdate();
 #endif
 }
 
-void logicPasscodeFinished() {
+void logicOtpFinished() {
 #ifndef WEB
-	PRINTF("Logic: Passcode finished\n");
-	lmdc.passcode = 0;
+	PRINTF("Logic: OTP finished\n");
+	lmdc.otp = 0;
 	oathDelete();
 	logicHome(0, 0);
 #endif

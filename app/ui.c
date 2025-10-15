@@ -663,7 +663,7 @@ void uiScreenMessage() {
 	button(LV_KEY_RIGHT, L("OK"), NULL);
 }
 
-void uiScreenPasscode(int expiration) {
+void uiScreenOtp(int expiration) {
 	static struct timespec start;
 	if (expiration != -1) {
 		clock_gettime(CLOCK_REALTIME, &start);
@@ -673,7 +673,7 @@ void uiScreenPasscode(int expiration) {
 	clock_gettime(CLOCK_REALTIME, &now);
 	int counter = start.tv_sec - now.tv_sec;
 	if (counter <= 1) {
-		logicPasscodeFinished();
+		logicOtpFinished();
 		return;
 	}
 
@@ -691,7 +691,7 @@ void uiScreenPasscode(int expiration) {
 
 	lv_obj_t *label1 = lv_label_create(lv_screen_active());
 	char sz2[16];
-	sprintf(sz2, "%03d %03d", (lmdc.passcode / 1000) % 1000, lmdc.passcode % 1000);
+	sprintf(sz2, "%03d %03d", (lmdc.otp / 1000) % 1000, lmdc.otp % 1000);
 	lv_label_set_text(label1, sz2);
 	lv_obj_set_width(label1, 128);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
@@ -738,6 +738,6 @@ void uiScreenSlaveNotConnected() {
 void uiUpdate() {
 	if (lmdc.current == LOGIC_WELCOME || lmdc.current == LOGIC_HOME)
 		uiBarTime();
-	else if (lmdc.current == LOGIC_PASSCODE)
-		uiScreenPasscode(-1);
+	else if (lmdc.current == LOGIC_OTP)
+		uiScreenOtp(-1);
 }
