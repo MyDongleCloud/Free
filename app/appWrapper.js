@@ -110,7 +110,7 @@ function appShutdown() {
 		socket.send(JSON.stringify({ a:"shutdown" }));
 }
 
-function appPasscode() {
+function appOtp() {
 	if (socket != null)
 		socket.send(JSON.stringify({ a:"passcode", v:-1 }));
 }
