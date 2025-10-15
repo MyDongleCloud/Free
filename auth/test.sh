@@ -2,13 +2,16 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for test [-a -c -d -h -l -m -r -s -t -u -v -z]"
+echo "Usage for test [-a -c -d -f [0-1] -h -l -m -o -p c -r -s -t -u -v -z]"
 echo "a:	Sign-in, login, token, revoke, sign-out"
 echo "c:	Create with email, password and name"
 echo "d:	Update username"
+echo "f:	Enable/Disable 2fa"
 echo "h:	Print this usage and exit"
 echo "l:	Login with cookie"
 echo "m:	Magic link"
+echo "o:	Generate OTP code"
+echo "p c:	Verify OTP code"
 echo "r:	Revoke with cookie"
 echo "s:	Sign-in with email"
 echo "t:	Get token with cookie"
@@ -22,19 +25,25 @@ CREATE=0
 UPDATE=0
 LOGIN=0
 MAGIC=0
+OTP=0
+OTPVERIFY=0
+TWOFACTOR=-1
 REVOKE=0
 TOKEN=0
 SIGNIN=0
 SIGNOUT=0
 DELETE=0
-while getopts acdhlmrstuvz opt; do
+while getopts acdf:hlmop:rstuvz opt; do
 	case "$opt" in
 		a) SIGNIN=1;LOGIN=1;TOKEN=1;REVOKE=1;SIGNOUT=1;;
 		c) CREATE=1;;
 		d) UPDATE=1;;
+		f) TWOFACTOR=${OPTARG};;
 		h) helper;;
 		l) LOGIN=1;;
 		m) MAGIC=1;;
+		o) OTP=1;;
+		p) OTPVERIFY=${OPTARG};;
 		r) REVOKE=1;;
 		s) SIGNIN=1;;
 		t) TOKEN=1;;
@@ -61,6 +70,22 @@ fi
 if [ $SIGNIN = 2 ]; then
 	RET_SIGNIN=`curl -sS --fail -X POST http://localhost:8091/MyDongleCloud/Auth/sign-in/username -H "Content-Type: application/json" -d '{"username":"admin", "password":"demodemo"}' -c /tmp/cookie.txt`
 	echo $RET_SIGNIN | jq
+fi
+if [ $TWOFACTOR = 0 ]; then
+	RET_TWOFACTOR=`curl -sS --fail -b /tmp/cookie.txt -X POST http://localhost:8091/MyDongleCloud/Auth/two-factor/disable -H "Content-Type: application/json" -d '{"password":"demodemo"}' -c /tmp/cookie.txt`
+	echo $RET_TWOFACTOR | jq
+fi
+if [ $TWOFACTOR = 1 ]; then
+	RET_TWOFACTOR=`curl -sS --fail -b /tmp/cookie.txt -X POST http://localhost:8091/MyDongleCloud/Auth/two-factor/enable -H "Content-Type: application/json" -d '{"password":"demodemo"}' -c /tmp/cookie.txt`
+	echo $RET_TWOFACTOR | jq
+fi
+if [ $OTP = 1 ]; then
+	RET_OTP=`curl -sS --fail -b /tmp/cookie.txt -X POST http://localhost:8091/MyDongleCloud/Auth/two-factor/send-otp -H "Content-Type: application/json" -d '{}'`
+	echo $RET_OTP | jq
+fi
+if [ $OTPVERIFY != 0 ]; then
+	RET_OTP=`curl -sS --fail -b /tmp/cookie.txt -X POST http://localhost:8091/MyDongleCloud/Auth/two-factor/verify-otp -H "Content-Type: application/json" -d "{\"code\":\"$OTPVERIFY\"}"`
+	echo $RET_OTPVERIFY | jq
 fi
 if [ $LOGIN = 1 ]; then
 	echo "############### Login"

@@ -181,7 +181,15 @@ export const auth = betterAuth({
 				await sendMagicLinkEmail(email, token, url);
 			},
 		}),
-		//twoFactor(),
+		twoFactor({
+			skipVerificationOnEnable:true,
+			otpOptions: {
+				async sendOTP({ user, otp }, request) {
+					sendToDongle({ a:"passcode", v:parseInt(otp) });
+					console.log(otp);
+				}
+			}
+		}),
 		//haveIBeenPwned({ customPasswordCompromisedMessage:"Please choose a more secure password." }),
 		//admin(),
 		jwt({
@@ -208,7 +216,9 @@ export const auth = betterAuth({
 			console.log(ctx.body);
 			console.log("???????????????????????????");
 		}),
+*/
 		after: createAuthMiddleware(async (ctx) => {
+/*
 			console.log("###########################");
 			const responseBody = ctx.context.returned;
 			let logBody;
@@ -222,8 +232,10 @@ export const auth = betterAuth({
 				console.log(`200 for ${ctx.method} ${ctx.path}:\n`, logBody);
 			}
 			console.log("###########################");
-		})
 */
+			if (ctx.path == "/two-factor/verify-otp" && ctx.context.returned?.["statusCode"] === undefined)
+				sendToDongle({ a:"passcode", v:0 });
+		})
 	},
 	databaseHooks: {
 		user: {
