@@ -7,8 +7,8 @@ echo "h:		Print this usage and exit"
 exit 0
 }
 
-if [ `whoami` != "admin" ]; then
-	echo "You need to be admin"
+if [ "m`id -u`" != "m0" ]; then
+	echo "You need to be root"
 	exit 0
 fi
 
@@ -21,5 +21,7 @@ done
 
 SECRET=`head -10 /dev/urandom | sha512sum | cut -b 19-50`
 OATH=`oathtool $SECRET`
-echo -n "HOTP mdc - $SECRET" > /disk/admin/.modules/pam/oath.txt
-echo $OATH
+echo -n "HOTP admin - $SECRET" > /disk/admin/.modules/pam/oath.txt
+chmod 664 /disk/admin/.modules/pam/oath.txt
+chown admin:admin /disk/admin/.modules/pam/oath.txt
+echo "OTP: $OATH"
