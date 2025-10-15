@@ -562,6 +562,12 @@ void uiScreenSetup() {
 void uiScreenSetupSuccess() {
 	lv_obj_clean(lv_screen_active());
 
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, L("Congratulations! MyDongle is now ready"));
+	lv_obj_set_width(label0, 128);
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_center(label0);
+
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
@@ -617,7 +623,7 @@ void uiScreenTips() {
 
 	button(LV_KEY_UP, L("Back"), NULL);
 	if (lmdc.tipsPos == 0)
-		button(LV_KEY_DOWN, L("Setup"), NULL);
+		button(LV_KEY_DOWN, L("Login"), NULL);
 	button(LV_KEY_LEFT, L("Prev."), NULL);
 	button(LV_KEY_RIGHT, L("Next"), NULL);
 }

@@ -68,7 +68,7 @@ void logicKey(int key, int longPress) {
 			if (smdc.setupDone)
 				logicTips(0, 0);
 			else
-				logicSetup();
+				logicLogin();
 		} else if (key == LV_KEY_RIGHT)
 			logicHome(-1, 1);
 	} else if (lmdc.current == LOGIC_SETUP) {//Done
