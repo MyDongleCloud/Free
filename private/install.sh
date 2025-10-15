@@ -92,9 +92,15 @@ adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
 sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/local/modules/mydonglecloud/setup.sh|' /etc/sudoers
 mkdir -p /usr/local/modules/pam && echo -e "#!/bin/sh\nexit 0" > /usr/local/modules/pam/pam.sh && chmod a+x /usr/local/modules/pam/pam.sh
-sed -i '1i auth sufficient pam_oath.so usersfile=/disk/admin/.modules/pam/oath.txt' /etc/pam.d/common-auth
-sed -i '2i auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so' /etc/pam.d/common-auth
-sed -i '3i session optional pam_exec.so /usr/local/modules/pam/pam.sh' /etc/pam.d/common-auth
+TT=`cat /etc/pam.d/common-auth`
+cat > /etc/pam.d/common-auth <<EOF
+auth [success=ignore default=1] pam_oath.so usersfile=/disk/admin/.modules/pam/oath.txt
+auth sufficient pam_exec.so /usr/local/modules/pam/pam.sh oath_success
+auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so
+session optional pam_exec.so /usr/local/modules/pam/pam.sh
+$TT
+EOF
+
 mkdir -p /usr/local/modules/mydonglecloud
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth mdc
 usermod -a -G sudo mdc

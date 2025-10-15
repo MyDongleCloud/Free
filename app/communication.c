@@ -145,7 +145,10 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			char *user = cJSON_GetStringValue2(el, "u");
 			char *service = cJSON_GetStringValue2(el, "s");
 			char *type = cJSON_GetStringValue2(el, "t");
-			//PRINTF("PAM: user:%s service:%s type:%s\n", user, service, type);
+			char *arg1 = cJSON_GetStringValue2(el, "o");
+			PRINTF("PAM: user:%s service:%s type:%s oath:%s\n", user, service, type, arg1);
+			if (arg1 && strcmp(arg1, "oath_success") == 0)
+				logicPasscodeFinished();
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
 			if (cJSON_GetStringValue2(el, "ssid") && cJSON_GetStringValue2(el, "security"))
