@@ -10,7 +10,7 @@ MYLINKPP = $(QUIETLINK)gcc
 PRE = ../build/_pam/
 MDC_VERSION=\"$(shell cat ../app/version.txt)\"
 
-OBJs := $(PRE)cJSON.o $(PRE)common.o $(PRE)pam.o
+OBJs := $(PRE)cJSON.o $(PRE)pam.o
 
 MYCFLAGS = $(CFLAGS) -DMDC_VERSION=$(MDC_VERSION) -fPIC
 MYLDFLAGS = -shared -fPIC -lcurl

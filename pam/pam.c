@@ -8,9 +8,39 @@
 #include <curl/easy.h>
 #include "cJSON.h"
 #include "macro.h"
-#include "common.h"
 
+//Functions
+static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata) {
+	memcpy(userdata, ptr, MIN2(nmemb, 1024));
+	char *p = (char *)userdata;
+	p[MIN2(nmemb, 1024)] = '\0';
+	return nmemb;
+}
 
+static int downloadURLBuffer(char *url, char *buf, char *header, char *post) {
+	int ret = -1;
+	CURL *curl = curl_easy_init();
+	if (curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		struct curl_slist *headers = NULL;
+		if (header) {
+			headers = curl_slist_append(headers, header);
+			curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+		}
+		if (post) {
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post);
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(post));
+		}
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, buf);
+		ret = curl_easy_perform(curl);
+		if (headers)
+		curl_slist_free_all(headers);
+		//PRINTF("Download (ret:%d) %s\n", ret, buf);
+		curl_easy_cleanup(curl);
+	}
+	return ret;
+}
 int authentify(const char *username, const char *password) {
 	char buf[1024];
 	char post[256];
