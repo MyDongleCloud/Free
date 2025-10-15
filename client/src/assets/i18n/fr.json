@@ -18,8 +18,8 @@
 		"_public_": "Public",
 		"_localnetwork_": "Réseau local",
 		"_dongle_": "Dongle",
-		"_groupadmin_": "Groupe Admin",
-		"_groupuser_": "Groupe Utilisateur"
+		"_groupadmin_": "Admin",
+		"_groupuser_": "Utilisateur"
 	},
 	"": {
 		"What do you want to do?": ""

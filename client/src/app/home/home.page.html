@@ -74,7 +74,7 @@
 								<span class="text-sm mr-2" *ngIf="showDetails">Nº{{cc + 1}}</span>
 								<ion-icon name="bug-outline" class="w-5 h-5 mr-2" *ngIf="showDetails && card.status != 'done'"></ion-icon>
 								<ion-icon name="cloud-offline-outline" class="w-5 h-5 text-red-500 mr-2" *ngIf="!card.enabled"></ion-icon>
-								<ion-icon name="lock-open-outline" class="w-5 h-5 mr-2" [class]="colorWord(card.permissions[0])" *ngIf="card.enabled"></ion-icon>
+								<ion-icon name="lock-open-outline" class="w-5 h-5 mr-2" [class]="global.colorWord(card.permissions[0])" *ngIf="card.enabled"></ion-icon>
 								<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.settings"></ion-icon>
 								<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 							</div>
@@ -82,7 +82,7 @@
 								<p class="text-3xl font-bold text-gray-900"><a class="cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);">{{firstWords(card.title)}} </a><span class="whitespace-nowrap"><a class="cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);">{{lastWord(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></span></p>
 								<div class="flex-1"></div>
 								<div class="ml-3 flex flex-col gap-2 items-end">
-									<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="colorWord(card.category)">
+									<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="global.colorWord(card.category)">
 										<img src="assets/icons/placeholder.png" onerror="this.onerror=null; this.src='assets/icons/placeholder.png';" class="w-14 h-14 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);"/>
 									</div>
 								</div>
@@ -92,15 +92,15 @@
 							<div class="flex flex-col">
 								<p class="text-s text-gray-500">{{card.description == "" ? "Placeholder of the description of this module" : card.description}}</p>
 								<div class="-ml-2" *ngIf="showDetails && !card.enabled">
-									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord('_disabled_')">Disabled</span>
+									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 								</div>
 								<div class="-ml-2" *ngIf="showDetails && card.enabled">
-									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord(pm)" *ngFor="let pm of card.permissions">{{global.mytranslateM(pm)}}</span>
+									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{global.mytranslateM(pm)}}</span>
 								</div>
 							</div>
 							<div class="flex-1 min-w-1"></div>
 							<div class="flex flex-col items-end">
-								<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="colorWord(card.category)" *ngIf="showDetails">{{card.category}}</span>
+								<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="global.colorWord(card.category)" *ngIf="showDetails">{{card.category}}</span>
 								<a href="https://github.com/{{card.github}}" title="GitHub {{card.github}}" class="mt-2 pl-2 flex items-center cursor-pointer" target="_blank" *ngIf="showDetails && card.githubUrl != ''">
 									<ion-icon name="logo-github" class="w-8 h-8 cursor-pointer" ></ion-icon>
 									<div class="flex flex-col items-center">
@@ -112,7 +112,7 @@
 						</div>
 						<div class="flex-1"></div>
 						<div class="-ml-2 mt-2" *ngIf="showDetails">
-							<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord(kw)" *ngFor="let kw of card.keywords">{{kw}}</span>
+							<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{kw}}</span>
 						</div>
 					</div>
 				</div>
@@ -137,14 +137,14 @@
 								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{card.name}}</a></td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
 									<div class="-ml-2" *ngIf="!card.enabled">
-										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord('_disabled_')">Disabled</span>
+										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 									</div>
 									<div class="-ml-2" *ngIf="card.enabled">
-										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord(pm)" *ngFor="let pm of card.permissions">{{global.mytranslateM(pm)}}</span>
+										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{global.mytranslateM(pm)}}</span>
 									</div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
-									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="colorWord(card.category)">{{card.category}}</span>
+									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="global.colorWord(card.category)">{{card.category}}</span>
 								</td>
 								<td class="px-6 py-4 text-left">
 									<div class="text-sm text-gray-500 max-w-xs truncate" [class.line-through]="card?.completed">{{ card.description || 'No description' }}</div>
@@ -154,7 +154,7 @@
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 									<div class="-ml-2">
-										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord(kw)" *ngFor="let kw of card.keywords">{{kw}}</span>
+										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{kw}}</span>
 									</div>
 								</td>
 							</tr>
@@ -176,7 +176,7 @@
 			<table class="ml-5 min-w-full">
 				<tr><td colspan="3">
 					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank">
-						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="colorWord(cards[findIdByModule(moduleCur)].category)">
+						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)">
 							<img src="assets/icons/placeholder.png" onerror="this.onerror=null; this.src='assets/icons/placeholder.png';" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/>
 						</div>
 					</a>
@@ -190,7 +190,7 @@
 				<tr><td colspan="3" height="16"></td></tr>
 				<tr><td>Category</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord(cards[findIdByModule(moduleCur)].category)" *ngIf="showDetails">{{cards[findIdByModule(moduleCur)].category}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)" *ngIf="showDetails">{{cards[findIdByModule(moduleCur)].category}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" height="8"></td></tr>
@@ -211,10 +211,10 @@
 				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" height="8"></td></tr>
 				<tr><td>Permissions</td><td width="20"></td><td>
 					<div class="-ml-2" *ngIf="!cards[findIdByModule(moduleCur)].enabled">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord('_disabled_')">Disabled</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
 					<div class="-ml-2" *ngIf="cards[findIdByModule(moduleCur)].enabled">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{global.mytranslateM(pm)}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{global.mytranslateM(pm)}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" height="8"></td></tr>
@@ -222,7 +222,7 @@
 				<tr><td colspan="3" height="8"></td></tr>
 				<tr><td>Keywords</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="colorWord(kw)" *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords">{{kw}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords">{{kw}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" height="8"></td></tr>

@@ -18,7 +18,7 @@
 					<span class="text-sm font-medium text-white">{{initials}}</span>
 				</div>
 				<div class="hidden md:block text-left cursor-pointer">
-					<p class="text-sm font-medium text-gray-900">{{global.session?.user?.name}}</p>
+					<p class="text-sm font-medium text-gray-900">{{global.session?.user?.name}} <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(global.session?.user?.role)">{{global.session?.user?.role}}</span></p>
 					<p class="text-xs text-gray-500">{{global.session?.user?.email}}</p>
 				</div>
 				<ion-icon name="chevron-down-outline" class="h-4 w-4 text-gray-400 cursor-pointer"></ion-icon>
