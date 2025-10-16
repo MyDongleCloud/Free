@@ -76,6 +76,7 @@ void logicKey(int key, int longPress) {
 			smdc.setupDone = 1;
 			logicHome(0, 0);
 		}
+	} else if (lmdc.current == LOGIC_SETUP_START) {
 	} else if (lmdc.current == LOGIC_SETUP_SUCCESS) {//Done
 		if (key == LV_KEY_RIGHT) {
 			smdc.setupDone = 1;
@@ -125,6 +126,8 @@ void logicUpdate() {
 		uiScreenHome();
 	else if (lmdc.current == LOGIC_SETUP)
 		uiScreenSetup();
+	else if (lmdc.current == LOGIC_SETUP_START)
+		uiScreenSetupStart();
 	else if (lmdc.current == LOGIC_SETUP_SUCCESS)
 		uiScreenSetupSuccess();
 	else if (lmdc.current == LOGIC_LOGIN)
@@ -177,6 +180,12 @@ void logicHome(int force, int incr) {
 void logicSetup() {
 	PRINTF("Logic: Setup\n");
 	lmdc.current = LOGIC_SETUP;
+	logicUpdate();
+}
+
+void logicSetupStart() {
+	PRINTF("Logic: Setup Start\n");
+	lmdc.current = LOGIC_SETUP_START;
 	logicUpdate();
 }
 

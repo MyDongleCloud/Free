@@ -152,6 +152,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
+			logicSetupStart();
 			if (cJSON_GetStringValue2(el, "ssid") && cJSON_GetStringValue2(el, "security"))
 				wiFiAddActivate(cJSON_GetStringValue2(el, "ssid"), cJSON_GetStringValue2(el, "security"));
 			jsonWrite(cJSON_GetObjectItem(el, "space"), ADMIN_PATH "mydonglecloud/space.json");
