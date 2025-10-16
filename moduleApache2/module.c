@@ -142,6 +142,9 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 
 static int authorization(request_rec *r) {
 	server_rec *s = r->server;
+	const char *current_uri = r->uri;
+	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
+		return DECLINED;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	//PRINTF("MDC: authorization1a jwkPemFile: %s", confD->jwkPemFile);
 	if (confD->jwkPem == NULL)
@@ -158,9 +161,6 @@ static int authorization(request_rec *r) {
 	//PRINTF("MDC: authorization2 cookieJwt: %s", cookieJwt);
 	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
 		return decodeAndCheck(s, cookieJwt, confD->jwkPem, confD->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
-	const char *current_uri = r->uri;
-	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
-		return DECLINED;
 	if (confD->name != NULL && strcmp(confD->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
 			return DECLINED;
 	//PRINTF("MDC: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confD->name, r->uri);
