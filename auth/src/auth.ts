@@ -234,7 +234,7 @@ export const auth = betterAuth({
 			console.log("###########################");
 */
 			if (ctx.path == "/two-factor/verify-otp" && ctx.context.returned?.["statusCode"] === undefined)
-				sendToDongle({ a:"passcode", v:0 });
+				sendToDongle({ a:"otp", v:0 });
 		})
 	},
 	databaseHooks: {
