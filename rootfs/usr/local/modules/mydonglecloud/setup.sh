@@ -22,12 +22,12 @@ do
 done
 
 SPACENAME=`jq -r ".name" /disk/admin/.modules/mydonglecloud/space.json`
-
 if [ $SPACENAME != "null" -a $SPACENAME != "" ]; then
 	echo "#Setup ##################"
-	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r $SPACENAME
+	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r
 	/usr/local/modules/mydonglecloud/scripts/mysql.sh -r
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
-	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r $SPACENAME"
-	/usr/local/modules/mydonglecloud/scripts/jitsi.sh -r $SPACENAME
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r"
+	/usr/local/modules/mydonglecloud/scripts/jitsi.sh -r
+	/usr/local/modules/mydonglecloud/scripts/webtrees.sh -r
 fi

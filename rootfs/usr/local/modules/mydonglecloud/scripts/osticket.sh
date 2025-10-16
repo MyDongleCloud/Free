@@ -30,7 +30,6 @@ echo "#Reset osticket##################"
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
-USERNAME="admin2"
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
 mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
@@ -52,7 +51,7 @@ email="support@${SPACENAME}.mydongle.cloud"
 fname="First Name"
 lname="Last Name"
 admin_email="admin@${SPACENAME}.mydongle.cloud"
-username="${SPACENAME}";
+username="${SPACENAME}"
 passwd="${PASSWD}"
 prefix="ost_"
 dbhost="localhost"
@@ -86,6 +85,7 @@ include '/usr/local/modules/osticket/setup/install.php';
 ?>
 EOF
 php /tmp/osticket.php > /tmp/osticket.log
+rm /tmp/osticket.php
 
 chmod 644 /disk/admin/.modules/osticket/ost-config.php
 

@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for postfix [-h -r] spacename"
+echo "Usage for postfix [-h -r]"
 echo "h:		Print this usage and exit"
 echo "r:	Reset"
 exit 0
@@ -25,8 +25,8 @@ done
 if [ $RESET != 1 ]; then
 	exit 0
 fi
-shift `expr $OPTIND - 1`
 
 echo "#Reset postfix##################"
-echo "$1.mydongle.cloud" > /etc/mailname
-sed -i -e "s|^myhostname =.*|myhostname = smtp.$1.mydongle.cloud|" /etc/postfix/main.cf
+SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
+echo "$SPACENAME.mydongle.cloud" > /etc/mailname
+sed -i -e "s|^myhostname =.*|myhostname = smtp.$SPACENAME.mydongle.cloud|" /etc/postfix/main.cf
