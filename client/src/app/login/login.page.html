@@ -297,4 +297,50 @@
 		</div>
 	</div>
 </div>
+<div [style]="ready && showOtp ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-md w-full">
+		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+			<div class="text-center mb-8 flex items-center flex-col">
+				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/icons/mydonglecloud.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text-blue-600">My</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></h1>
+				<div class="flex items-center gap-2 mb-2">
+					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
+						<ion-icon name="person-outline" class="text-white w-10 h-10"></ion-icon>
+					</div>
+					<h1 class="text-3xl font-bold text-left text-gray-900">Welcome<br>back</h1>
+				</div>
+				<p class="text-gray-600">Sign in to your account to continue</p>
+			</div>
+			<form [formGroup]="formOtp" (ngSubmit)="doOtp();" class="space-y-6">
+				<label for="otp14" class="block text-sm font-medium text-gray-700 mb-2">OTP (One-Time Password)</label>
+				<div class="flex flex-row gap-7">
+					<input #otpInput id="otp14" formControlName="otp14" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" (paste)="handlePaste($event, 1)">
+					<input #otpInput id="otp24" formControlName="otp24" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" (paste)="handlePaste($event, 2)">
+					<input #otpInput id="otp34" formControlName="otp34" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" (paste)="handlePaste($event, 3)">
+					<span class="mt-3">-</span>
+					<input #otpInput id="otp44" formControlName="otp44" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" (paste)="handlePaste($event, 4)">
+					<input #otpInput id="otp54" formControlName="otp54" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" (paste)="handlePaste($event, 5)">
+					<input #otpInput id="otp64" formControlName="otp64" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition-colors duration-200" (paste)="handlePaste($event, 6)">
+				</div>
+				@if (errorSt) {
+				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
+					<div class="flex items-center gap-2">
+						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
+					</div>
+				</div>
+				}
+				<button type="submit" id="submit4" [disabled]="progress || formOtp.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
+					@if (progress) {
+					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
+					Signing in...
+					} @else {
+					<ion-icon name="log-in-outline" class="text-white w-6 h-6"></ion-icon>
+					Enter OTP or click on link sent by email
+					}
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -11,25 +11,28 @@ import { Global } from '../env';
 	standalone: false
 })
 
-export class Login {
+export class Login implements AfterViewInit {
+@ViewChildren('otpInput') otpInputs: QueryList<ElementRef>;
 password1Show:boolean = false;
 password2Show:boolean = false;
 ready:boolean = false;
 progress:boolean = false;
 showLogin:boolean = true;
+showOtp:boolean = false;
 showRegister:boolean = false;
 showForgotPassword: boolean = false;
 showForgotPasswordSent: boolean = false;
 formLogin: FormGroup;
 formRegister: FormGroup;
 formForgotPassword: FormGroup;
+formOtp: FormGroup;
 hasBlurredOnce: boolean = false;
 errorSt = null;
 
 constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 	this.formLogin = fb.group({
-		"email1": ["", [Validators.required, Validators.email]],
-		"password1": ["", [Validators.required, Validators.minLength(6)]]
+		"email1": [ "", [ Validators.required, Validators.email ] ],
+		"password1": [ "", [ Validators.required, Validators.minLength(6) ] ]
 	});
 	this.formRegister = fb.group({
 		"name2": ["", [Validators.required, Validators.minLength(2)]],
@@ -40,6 +43,14 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 	}, { validator: this.checkPassword2 });
 	this.formForgotPassword = fb.group({
 		"email3": ["", [Validators.required, Validators.email]]
+	});
+	this.formOtp = fb.group({
+		"otp14": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ],
+		"otp24": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ],
+		"otp34": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ],
+		"otp44": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ],
+		"otp54": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ],
+		"otp64": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ]
 	});
 }
 
@@ -119,11 +130,18 @@ get password2() { return this.formRegister.get("password2"); }
 get password2Confirm() { return this.formRegister.get("password2Confirm"); }
 get terms2() { return this.formRegister.get("terms2"); }
 get email3() { return this.formForgotPassword.get("email3"); }
+get otp14() { return this.formOtp.get("otp14"); }
+get otp24() { return this.formOtp.get("otp24"); }
+get otp34() { return this.formOtp.get("otp34"); }
+get otp44() { return this.formOtp.get("otp44"); }
+get otp54() { return this.formOtp.get("otp54"); }
+get otp64() { return this.formOtp.get("otp64"); }
 
 show_Login() {
 	this.showLogin = true;
 	this.showForgotPassword = false;
 	this.showRegister = false;
+	this.showOtp = false;
 	this.hasBlurredOnce = false;
 	this.errorSt = null;
 	setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
@@ -141,8 +159,12 @@ async doLogin() {
 	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
 	if (ret != null) {
-		await this.global.getSession();
-		this.global.openPage("");
+		if (ret["twoFactorRedirect"] === true)
+			this.show_Otp();
+		else {
+			await this.global.getSession();
+			this.global.openPage("");
+		}
 	} else
 		this.cdr.detectChanges();
 }
@@ -151,6 +173,7 @@ show_Register() {
 	this.showLogin = false;
 	this.showForgotPassword = false;
 	this.showRegister = true;
+	this.showOtp = false;
 	const e = this.email1.value;
 	if (e != "")
 		this.email2.setValue(e);
@@ -182,6 +205,7 @@ show_ForgotPassword() {
 	this.showForgotPassword = true;
 	this.showForgotPasswordSent = false;
 	this.showRegister = false;
+	this.showOtp = false;
 	const e = this.email1.value;
 	if (e != "")
 		this.email3.setValue(e);
@@ -219,6 +243,74 @@ async doForgotPasswordVerify(token) {
 		await this.global.getSession();
 		this.global.openPage("");
 	}
+}
+
+handlePaste(event: ClipboardEvent, startIndex: number) {
+	event.preventDefault();
+	const pastedData = event.clipboardData?.getData("text").trim() || "";
+	const otpCode = pastedData.replace(/\s|-/g, "");
+	const inputs = this.otpInputs.toArray();
+	for (let i = 0; i < otpCode.length && i + startIndex <= 6; i++) {
+		const char = otpCode[i];
+		if (char.match(/^\d$/))
+			this.formOtp.get("otp" + (i + startIndex) + "4")?.setValue(char);
+	}
+	const lastPopulatedIndex = startIndex + otpCode.length - 1;
+	if (lastPopulatedIndex < 6)
+		inputs[lastPopulatedIndex]?.nativeElement.focus();
+	else if (lastPopulatedIndex == 6)
+		(document.getElementById("submit4") as HTMLInputElement).focus();
+}
+
+ngAfterViewInit() {
+	const inputs = this.otpInputs.toArray();
+	inputs.forEach((input: ElementRef, index: number) => {
+		input.nativeElement.addEventListener('input', (event) => {
+			if (event.target.value.length === 1) {
+				if (index < 5)
+					inputs[index + 1].nativeElement.focus();
+				else if (index == 5)
+					(document.getElementById("submit1") as HTMLInputElement).focus();
+			}
+		});
+		input.nativeElement.addEventListener('keydown', (event) => {
+		if (event.key === 'Backspace' && input.nativeElement.value.length === 0 && index > 0)
+			inputs[index - 1].nativeElement.focus();
+		});
+	});
+}
+
+async show_Otp() {
+	this.showLogin = false;
+	this.showForgotPassword = false;
+	this.showRegister = false;
+	this.showOtp = true;
+	this.hasBlurredOnce = false;
+	this.errorSt = null;
+	let ret = null;
+	try {
+		ret = await this.httpClient.post("/MyDongleCloud/Auth/two-factor/send-otp", "{}", {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth twofactor/send-otp: ", ret);
+	} catch(e) { this.errorSt = e.error.message; }
+	setTimeout(() => { (document.getElementById("otp14") as HTMLInputElement).focus(); }, 100);
+	this.cdr.detectChanges();
+}
+
+async doOtp() {
+	this.progress = true;
+	this.errorSt = null;
+	const data = { code:this.otp14.value + this.otp24.value + this.otp34.value + this.otp44.value + this.otp54.value + this.otp64.value };
+	let ret = null;
+	try {
+		ret = await this.httpClient.post("/MyDongleCloud/Auth/two-factor/verify-otp", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		console.log("Auth twofactor/verify-otp: ", ret);
+	} catch(e) { this.errorSt = e.error.message; }
+	this.progress = false;
+	if (ret != null) {
+		await this.global.getSession();
+		this.global.openPage("");
+	} else
+		this.cdr.detectChanges();
 }
 
 }
