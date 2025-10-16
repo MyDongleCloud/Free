@@ -172,7 +172,14 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_AddStringToObject(data, "password", cJSON_GetStringValue2(el, "password"));
 			char buf[1024];
 			char *post = cJSON_Print(data);
-			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-up/email", buf, "Content-Type: application/json", post);
+			char szPath[17];
+			generateUniqueId(szPath);
+			memcpy(szPath, "/tmp/cookie", strlen("/tmp/cookie"));
+			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, szPath);
+#ifdef DEFAULT_2FA
+			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/two-factor/enable", buf, "Content-Type: application/json", post, szPath, NULL);
+#endif
+			unlink(szPath);
 			free(post);
 			cJSON_Delete(data);
 			serviceAction("betterauth.service", "RestartUnit");
