@@ -392,7 +392,7 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdat
 	return nmemb;
 }
 
-int downloadURLBuffer(char *url, char *buf, char *header, char *post) {
+int downloadURLBuffer(char *url, char *buf, char *header, char *post, char *cookieI, char *cookieO) {
 	int ret = -1;
 	CURL *curl = curl_easy_init();
 	if (curl) {
@@ -406,6 +406,10 @@ int downloadURLBuffer(char *url, char *buf, char *header, char *post) {
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post);
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(post));
 		}
+		if (cookieI)
+			curl_easy_setopt(curl, CURLOPT_COOKIEFILE, cookieI);
+		if (cookieO)
+			curl_easy_setopt(curl, CURLOPT_COOKIEJAR, cookieO);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, buf);
 		ret = curl_easy_perform(curl);
