@@ -627,7 +627,7 @@ else
 	clone superset apache/superset 5.0.0
 	clone syncthing syncthing/syncthing v1.30.0
 	clone uptime louislam/uptime-kuma 1.23.16
-	clone webtrees fisharebest/webtrees 2.2.1
+	clone webtrees fisharebest/webtrees 2.1.25
 	clone yourls YOURLS/YOURLS 1.10.1
 fi
 
@@ -681,6 +681,14 @@ echo "################################"
 cd /usr/local/modules/osticket
 mkdir -p /disk/admin/.modules/osticket
 ln -sf /disk/admin/.modules/osticket/ost-config.php include/ost-config.php
+
+echo "################################"
+echo "webtrees"
+echo "################################"
+cd /usr/local/modules/webtrees
+composer -n install
+mv data data.bak
+ln -sf /disk/admin/.modules/webtrees/data
 
 echo "################################"
 echo "Better Auth"
