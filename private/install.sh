@@ -706,7 +706,7 @@ export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 cd ui
 npm ci
-node_modules/.bin/ng build --configuration production
+no | node_modules/.bin/ng build --configuration production
 mkdir /disk/admin/.modules/metube
 ln -sf /etc/systemd/system/metube.service /etc/systemd/system/multi-user.target.wants/metube.service
 
