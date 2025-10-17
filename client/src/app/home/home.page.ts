@@ -28,21 +28,21 @@ category: string = "All";
 presentation: string = "cards";
 showDetails: boolean = true;
 showNonWeb: boolean = false;
+static firstTime = true;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
 		this.cdr.detectChanges();
-	});	
-	const version = modulesDefault.version;
-	delete modulesDefault.version;
+	});
 	this.getData();
 }
 
 async getData() {
+	if (Home.firstTime)
+		delete modulesDefault.version;
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
-	const modulesDefault_ = { ...modulesDefault };
-	Object.entries(modulesDefault_).forEach(([key, value]) => {
+	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (modulesMeta[key] === undefined) {
 			console.log("Error: " + key + " not in modulesmeta");
 			return;
@@ -67,7 +67,8 @@ async getData() {
 		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
 			value[key2] = value2;
 		});
-		value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
+		if (Home.firstTime)
+			value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
 		this.cards.push(value);
 	});
 	this.cards.sort((a, b) => {
@@ -75,6 +76,7 @@ async getData() {
 	});
 	this.filterCards();
 	this.cdr.markForCheck();
+	Home.firstTime = false;
 }
 
 filterCards() {
