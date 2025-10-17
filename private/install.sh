@@ -132,7 +132,7 @@ if [ $OS = "ubuntu" ]; then
 	fi
 	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools device-tree-compiler nmap ncat fd-find ncdu
 fi
-apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9 acl jq telnet netcat-openbsd pamtester
+apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9 acl jq telnet netcat-openbsd pamtester nmap fd-find
 apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev apache2-dev libpam0g-dev libnm-dev libjwt-dev libsystemd-dev
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install libprotobuf32t64 libjpeg62-dev
