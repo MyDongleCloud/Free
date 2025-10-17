@@ -440,7 +440,8 @@
 	"roundcube": {
 		"web": true,
 		"settings": {
-			"reset": true
+			"reset": true,
+			"conf": true
 		},
 		"enabled": true,
 		"alias": [ "webmail" ],
