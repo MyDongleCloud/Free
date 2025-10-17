@@ -27,6 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset postfix##################"
+DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 echo "$SPACENAME.mydongle.cloud" > /etc/mailname
 sed -i -e "s|^myhostname =.*|myhostname = smtp.$SPACENAME.mydongle.cloud|" /etc/postfix/main.cf

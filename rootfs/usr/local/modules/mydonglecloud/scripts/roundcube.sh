@@ -27,6 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset roundcube##################"
+DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 EMAIL="admin@$SPACENAME.mydongle.cloud"
 sed -e "s|\$config['smtp_host'].*|\$config['smtp_host'] = 'ssl://localhost:465'; \$config['smtp_conn_options'] = [ 'ssl' => [ 'verify_peer' => false, 'verify_peer_name' => false ] ];|" /etc/roundcube/config.inc.php.template > /etc/roundcube/config.inc.php

@@ -27,6 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset osticket##################"
+DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
@@ -86,7 +87,7 @@ cat > /tmp/osticket.php << EOF
 include '/usr/local/modules/osticket/setup/install.php';
 ?>
 EOF
-php /tmp/osticket.php > /tmp/osticket.log
+php /tmp/osticket.php > /tmp/reset-osticket-$DATE.log
 rm /tmp/osticket.php
 
 chmod 644 /disk/admin/.modules/osticket/ost-config.php

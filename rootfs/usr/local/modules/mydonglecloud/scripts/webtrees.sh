@@ -27,6 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset webtrees##################"
+DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
@@ -84,7 +85,7 @@ include '/usr/local/modules/webtrees/index.php';
 EOF
 
 sed -i -e "s/'cli'/'cli2'/" /usr/local/modules/webtrees/index.php
-php /tmp/webtrees.php > /tmp/webtrees.log
+php /tmp/webtrees.php > / > /tmp/reset-webtrees-$DATE.log
 sed -i -e "s/'cli2'/'cli'/" /usr/local/modules/webtrees/index.php
 rm /tmp/webtrees.php
 

@@ -27,6 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset bugzilla##################"
+DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
@@ -53,8 +54,8 @@ send \"$passwd\n\"
 expect \"Please retype the password to verify:\"
 send \"$passwd\n\"
 expect eof
-" > /tmp/bugzilla.log 2>&1
-./checksetup.pl >> /tmp/bugzilla.log 2>&1
+" > /tmp/reset-bugzilla-$DATE.log 2>&1
+./checksetup.pl >> /tmp/reset-bugzilla-$DATE.log 2>&1
 
 rm -f /disk/admin/.modules/bugzilla/conf.txt
 echo "Email: ${email}\nUser: ${username}\nPassword: ${passwd}" > /disk/admin/.modules/bugzilla/conf.txt

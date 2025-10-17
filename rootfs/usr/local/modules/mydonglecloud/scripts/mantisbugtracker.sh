@@ -27,6 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset mantisbugtracker##################"
+DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
@@ -96,7 +97,7 @@ cat > /tmp/mantisbugtracker.php << EOF
 include '/usr/local/modules/mantisbugtracker/admin/install.php';
 ?>
 EOF
-php /tmp/mantisbugtracker.php > /tmp/mantisbugtracker.log
+php /tmp/mantisbugtracker.php > /tmp/reset-mantisbugtracker-$DATE.log
 rm /tmp/mantisbugtracker.php
 
 mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
