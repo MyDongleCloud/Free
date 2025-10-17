@@ -27,6 +27,7 @@ if [ $SPACENAME != "null" -a $SPACENAME != "" ]; then
 	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r
 	/usr/local/modules/mydonglecloud/scripts/mysql.sh -r
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/mantisbugtracker.sh -r"
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r"
 	/usr/local/modules/mydonglecloud/scripts/jitsi.sh -r
 	/usr/local/modules/mydonglecloud/scripts/webtrees.sh -r
