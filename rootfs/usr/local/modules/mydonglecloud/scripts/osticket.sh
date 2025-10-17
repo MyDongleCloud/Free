@@ -41,6 +41,8 @@ GRANT ALL PRIVILEGES ON osticketDB.* TO 'osticketUser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
+rm -rf /disk/admin/.modules/osticket
+mkdir -p /disk/admin/.modules/osticket
 cp /usr/local/modules/osticket/include/ost-sampleconfig.php /disk/admin/.modules/osticket/ost-config.php
 chmod 666 /disk/admin/.modules/osticket/ost-config.php
 sed -i -e "s|^define.*SECRET_SALT.*|define('SECRET_SALT','${SALT}');|" /disk/admin/.modules/osticket/ost-config.php
@@ -90,5 +92,5 @@ rm /tmp/osticket.php
 chmod 644 /disk/admin/.modules/osticket/ost-config.php
 
 rm -f /disk/admin/.modules/osticket/conf.txt
-echo "Ticket name: ${name}\nTicket email: ${email}\n\nAdmin email: ${admin_email}\nUsername: ${username}\nPassword: ${passwd}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/osticket/conf.txt
+echo "Ticket name: ${name}\nTicket email: ${email}\n\nEmail: ${admin_email}\nUser: ${username}\nPassword: ${passwd}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/osticket/conf.txt
 chmod 444 /disk/admin/.modules/osticket/conf.txt

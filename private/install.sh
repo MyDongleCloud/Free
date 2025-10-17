@@ -688,7 +688,6 @@ echo "################################"
 echo "osTicket"
 echo "################################"
 cd /usr/local/modules/osticket
-mkdir -p /disk/admin/.modules/osticket
 ln -sf /disk/admin/.modules/osticket/ost-config.php include/ost-config.php
 
 echo "################################"
