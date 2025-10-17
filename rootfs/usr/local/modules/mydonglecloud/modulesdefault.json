@@ -35,6 +35,12 @@
 	"bugzilla": {
 		"web": true,
 		"enabled": true,
+		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
+		"FollowSymLinks": true,
+		"settings": {
+			"reset": true,
+			"conf": true
+		},
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9202
 	},
