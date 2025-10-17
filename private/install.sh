@@ -629,7 +629,7 @@ else
 	clone syncthing syncthing/syncthing v1.30.0
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webtrees fisharebest/webtrees 2.1.25
-	clone yourls YOURLS/YOURLS 1.10.1
+	clone yourls YOURLS/YOURLS 1.9.2
 fi
 
 echo "################################"
@@ -732,6 +732,11 @@ cd /usr/local/modules/webtrees
 composer -n install
 mv data data.bak
 ln -sf /disk/admin/.modules/webtrees/data
+
+echo "################################"
+echo "yourls"
+echo "################################"
+ln -sf /disk/admin/.modules/yourls/user/config.php /usr/local/modules/yourls/user/config.php
 
 echo "################################"
 echo "Better Auth"

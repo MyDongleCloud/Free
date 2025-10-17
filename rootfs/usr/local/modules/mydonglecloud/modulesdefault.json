@@ -571,7 +571,12 @@
 	"yourls": {
 		"web": true,
 		"enabled": true,
+		"settings": {
+			"reset": true,
+			"conf": true
+		},
 		"permissions": [ "_groupadmin_" ],
+		"homepage": "/admin",
 		"localPort": 9264
 	},
 	"youtubedl": {},
