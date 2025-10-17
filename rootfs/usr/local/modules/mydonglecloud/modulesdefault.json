@@ -298,7 +298,12 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9231
+		"localPort": 9231,
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 8089,
+			"path": "/"
+		} ]
 	},
 	"minio": {
 		"web": true,
