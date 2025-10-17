@@ -62,7 +62,7 @@ db_table_plugin_prefix="plugin"
 db_table_suffix="_table"
 path="https://mantisbugtracker.$SPACENAME.mydongle.cloud/"
 log_queries="0"
-username="administrator"
+username="$SPACENAME"
 email="admin@${SPACENAME}.mydongle.cloud"
 passwd="${PASSWD}"
 
@@ -102,7 +102,7 @@ rm /tmp/mantisbugtracker.php
 
 mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
 USE mantisbugtrackerDB;
-UPDATE ${db_table_prefix}_user${db_table_suffix} SET password=MD5('${passwd}'), email='${email}' WHERE username='administrator';
+UPDATE ${db_table_prefix}_user${db_table_suffix} SET username='${username}', password=MD5('${passwd}'), email='${email}' WHERE username='administrator';
 EOF
 
 rm -f /disk/admin/.modules/mantisbugtracker/conf.txt
