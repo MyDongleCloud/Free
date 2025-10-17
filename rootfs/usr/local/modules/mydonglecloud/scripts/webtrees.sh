@@ -41,19 +41,8 @@ FLUSH PRIVILEGES;
 EOF
 
 rm -rf /disk/admin/.modules/webtrees
-mkdir -p /disk/admin/.modules/webtrees/data
-
-cat > /disk/admin/.modules/webtrees/data/index.php << EOF
-<?php
-declare(strict_types=1);
-header('Location: ../index.php');
-?>
-EOF
-
-cat > /disk/admin/.modules/webtrees/data/.htaccess << EOF
-order allow,deny
-deny from all
-EOF
+mkdir /disk/admin/.modules/webtrees
+cp -a /usr/local/modules/webtrees/data.bak /disk/admin/.modules/webtrees/data
 
 wtname="${SPACENAME}"
 wtuser="${SPACENAME}"
@@ -100,7 +89,7 @@ sed -i -e "s/'cli2'/'cli'/" /usr/local/modules/webtrees/index.php
 rm /tmp/webtrees.php
 
 rm -f /disk/admin/.modules/webtrees/conf.txt
-echo "Admin email: ${wtemail}\nUsername: ${wtuser}\nPassword: ${wtpass}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/webtrees/conf.txt
+echo "Admin email: ${wtemail}\nUser: ${wtuser}\nPassword: ${wtpass}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/webtrees/conf.txt
 chmod 444 /disk/admin/.modules/webtrees/conf.txt
 
 chown -R admin:admin /disk/admin/.modules/webtrees
