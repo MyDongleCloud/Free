@@ -93,4 +93,4 @@ echo "Admin email: ${wtemail}\nUser: ${wtuser}\nPassword: ${wtpass}\n\nDB name: 
 chmod 444 /disk/admin/.modules/webtrees/conf.txt
 
 chown -R admin:admin /disk/admin/.modules/webtrees
-chown -R www-data:www-data /disk/admin/.modules/webtrees/data
+chown -R www-data:admin /disk/admin/.modules/webtrees/data
