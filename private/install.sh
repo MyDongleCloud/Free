@@ -747,7 +747,7 @@ cd /home/mdc/pam
 make
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
-chown -R www-data:www-data /disk/admin/.modules/roundcube
+chown -R www-data:admin /disk/admin/.modules/roundcube
 mv /var/lib/mysql /disk/admin/.modules
 chown mysql:mysql /disk/admin/.modules/mysql
 ln -sf /disk/admin/.modules/mysql /var/lib/mysql
