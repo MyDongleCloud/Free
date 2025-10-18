@@ -727,7 +727,29 @@ mkdir /disk/admin/.modules/metube
 ln -sf /etc/systemd/system/metube.service /etc/systemd/system/multi-user.target.wants/metube.service
 
 echo "################################"
-echo "webtrees"
+echo "Stirling-PDF"
+echo "################################"
+apt-get install -y libleptonica-dev zlib1g-dev openjdk-17-jdk openjdk-17-jre libreoffice-writer libreoffice-calc libreoffice-impress unpaper ocrmypdf
+mv /usr/local/modules/stirlingpdf /home/mdc/build
+mkdir /usr/local/modules/stirlingpdf
+cd /home/mdc/build/stirlingpdf
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/stirlingpdf -v 3.12 -s
+echo "PATH before any modif: $PATH"
+PATHOLD=$PATH
+PATH=/usr/local/modules/stirlingpdf/bin:$PATHOLD
+export PATH=/usr/local/modules/stirlingpdf/bin:$PATHOLD
+echo "PATH new: $PATH python: `python --version`"
+pip install uno opencv-python-headless unoconv pngquant WeasyPrint
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64
+./gradlew build
+cp -a scripts stirling-pdf/build/libs/Stirling-PDF-*.jar /usr/local/modules/stirlingpdf
+PATH=$PATHOLD
+export PATH=$PATHOLD
+echo "PATH restored: $PATH"
+ln -sf /etc/systemd/system/stirlingpdf.service /etc/systemd/system/multi-user.target.wants/stirlingpdf.service
+
+echo "################################"
+echo "Web Trees"
 echo "################################"
 cd /usr/local/modules/webtrees
 composer -n install

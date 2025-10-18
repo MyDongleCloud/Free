@@ -103,7 +103,7 @@ sonarr;Sonarr;Smart PVR;Personal;yes;;Smart PVR for newsgroup and bittorrent use
 sqlite;SQLite;Embedded SQL Database;Developer;;done;Self-contained, serverless, zero-configuration, transactional SQL database engine.;Database|SQL|Serverless|Embedded;Microsoft SQL Server Compact;apt;3.40.1;sqlite/sqlite
 squashfstools;Squashfs Tools;Squashfs Tools;Utils;;done;To do;To do;;deb;;plougher/squashfs-tools
 stackedit;Stack Edit;Markdown Editor;Developer;yes;;In-browser Markdown editor.;Markdown|Editor|Browser|Writing;Typora;clone;v5.15.4;benweet/stackedit
-stirlingpdf;Stirling PDF;PDF Manipulation Tool;Utils;yes;;Powerful locally hosted web-based PDF manipulation tool.;PDF|Tool|Web|Manipulation;Adobe Acrobat;clone;v1.0.2;Stirling-Tools/Stirling-PDF
+stirlingpdf;Stirling PDF;PDF Manipulation Tool;Utils;yes;done;Powerful locally hosted web-based PDF manipulation tool.;PDF|Tool|Web|Manipulation;Adobe Acrobat;clone;v1.0.2;Stirling-Tools/Stirling-PDF
 sunrisecms;Sunrise CMS;Municipal CMS;Productivity;yes;;Simple CMS for small municipal websites.;CMS|Municipal|Web|Simple;WordPress;clone;v1.0.0-alpha.19;cityssm/sunrise-cms
 superset;Superset;Data Visualization Platform;Productivity;yes;;Modern data exploration and visualization platform.;Data|Visualization|BI|Analytics;Tableau;clone;5.0.0;apache/superset
 syncthing;Syncthing;File Sync Tool;Utils;yes;;Continuous file synchronization program.;File|Sync|P2P|Backup;Dropbox|Google Drive;clone;1.30.0;syncthing/syncthing

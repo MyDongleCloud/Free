@@ -499,7 +499,12 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9251
+		"localPort": 9251,
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 8096,
+			"path": "/"
+		} ]
 	},
 	"sunrisecms": {
 		"web": true,
