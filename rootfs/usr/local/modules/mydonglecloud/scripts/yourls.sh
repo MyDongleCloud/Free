@@ -52,13 +52,16 @@ dbname="yourlsDB"
 site="https://yourls.${SPACENAME}.mydongle.cloud"
 username="${SPACENAME}"
 passwd="${PASSWD}"
+saltpass=$(tr -dc '1-9' < /dev/urandom | head -c 5)
+md5=`echo -n "$saltpass$passwd" | md5sum | cut -d ' ' -f 1`
+passwdMd5="md5:$saltpass:$md5"
 
 sed -i -e "s|define( 'YOURLS_DB_USER',.*|define( 'YOURLS_DB_USER', '$dbuser' );|" /disk/admin/.modules/yourls/config.php
 sed -i -e "s|define( 'YOURLS_DB_PASS',.*|define( 'YOURLS_DB_PASS', '$dbpass' );|" /disk/admin/.modules/yourls/config.php
 sed -i -e "s|define( 'YOURLS_DB_NAME',.*|define( 'YOURLS_DB_NAME', '$dbname' );|" /disk/admin/.modules/yourls/config.php
 sed -i -e "s|define( 'YOURLS_SITE',.*|define( 'YOURLS_SITE', '$site' );|" /disk/admin/.modules/yourls/config.php
 sed -i -e "s|define( 'YOURLS_COOKIEKEY',.*|define( 'YOURLS_COOKIEKEY', '$SALT' );|" /disk/admin/.modules/yourls/config.php
-sed -i -e "s|	'username' => 'password',.*|	'$username' => '$passwd',|" /disk/admin/.modules/yourls/config.php
+sed -i -e "s|	'username' => 'password',.*|	'$username' => '$passwdMd5',|" /disk/admin/.modules/yourls/config.php
 
 cd /usr/local/modules/yourls
 cat > /tmp/yourls.php << EOF
