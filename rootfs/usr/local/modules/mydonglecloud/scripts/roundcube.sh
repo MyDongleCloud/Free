@@ -30,6 +30,8 @@ echo "#Reset roundcube##################"
 DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 EMAIL="admin@$SPACENAME.mydongle.cloud"
+PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
+
 sed -e "s|\$config['smtp_host'].*|\$config['smtp_host'] = 'ssl://localhost:465'; \$config['smtp_conn_options'] = [ 'ssl' => [ 'verify_peer' => false, 'verify_peer_name' => false ] ];|" /etc/roundcube/config.inc.php.template > /etc/roundcube/config.inc.php
 rm -rf /disk/admin/.modules/mail/$SPACENAME.mydongle.cloud
 mkdir -p /disk/admin/.modules/mail/$SPACENAME.mydongle.cloud/admin
@@ -37,9 +39,8 @@ echo "$EMAIL $SPACENAME.mydongle.cloud/admin/" > /disk/admin/.modules/mail/virtu
 postmap /disk/admin/.modules/mail/virtualmaps
 echo "" > /disk/admin/.modules/mail/virtualalias
 postmap /disk/admin/.modules/mail/virtualalias
-PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
-echo "$EMAIL:{plain}$PASSWORD" > /disk/admin/.modules/mail/password-$SPACENAME.mydongle.cloud
+echo "$EMAIL:{plain}$PASSWD" > /disk/admin/.modules/mail/password-$SPACENAME.mydongle.cloud
 
 rm -f /disk/admin/.modules/roundcube/conf.txt
-echo "User: ${EMAIL}\nPassword: ${PASSWORD}" > /disk/admin/.modules/roundcube/conf.txt
+echo "User: ${EMAIL}\nPassword: ${PASSWD}" > /disk/admin/.modules/roundcube/conf.txt
 chmod 444 /disk/admin/.modules/roundcube/conf.txt
