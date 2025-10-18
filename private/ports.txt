@@ -9,7 +9,27 @@ Listening: 22 (ssh)
 
 ***************
 dovecot
-Listening: 993 (imap), 995 (pop3)
+Listening: 993 (imaps), 995 (pop3s), 110 (pop3), 143 (imap)
+
+***************
+rspamd
+Listening: 11332, 11333, 11334
+
+***************
+networkmanager
+Listening: 546 (dhcpv6)
+
+***************
+redis
+Listening: 6379
+
+***************
+dns
+Listening: 53, 953
+
+***************
+mysql
+Listening: 3306, 33060
 
 ***************
 frp
@@ -17,7 +37,7 @@ Outgoing: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx
 
 ***************
 apache2
-Listening: 80 (http), 443 (https), 9201-9268 (modules)
+Listening: 80 (http), 443 (https), 9200-9271 (modules)
 
 ***************
 others
