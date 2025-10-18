@@ -176,6 +176,7 @@ elif [ $OS = "pios" ]; then
 	dpkg -i libicu70* libprotobuf-lite23* mysql-common*
 	dpkg -i mysql-client* mysql-server*
 	cd ..
+	apt-mark hold mariadb-common
 fi
 
 echo "################################"
