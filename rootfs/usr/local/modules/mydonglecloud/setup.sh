@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for setup [-h -r]"
+echo "Usage for setup [-h]"
 echo "h:		Print this usage and exit"
 exit 0
 }
@@ -12,25 +12,29 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
-RESET=0
-while getopts hr opt
+while getopts h opt
 do
 	case "$opt" in
 		h) helper;;
-		r) RESET=1;;
 	esac
 done
 
-SPACENAME=`jq -r ".name" /disk/admin/.modules/mydonglecloud/space.json`
-if [ $SPACENAME != "null" -a $SPACENAME != "" ]; then
-	echo "#Setup ##################"
+if [ $1 = "postfix" ]; then
 	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r
+elif [ $1 = "mysql" ]; then
 	/usr/local/modules/mydonglecloud/scripts/mysql.sh -r
-	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
-	su admin -c "/usr/local/modules/mydonglecloud/scripts/mantisbugtracker.sh -r"
-	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r"
-	su admin -c "/usr/local/modules/mydonglecloud/scripts/yourls.sh -r"
+elif [ $1 = "bugzilla" ]; then
 	/usr/local/modules/mydonglecloud/scripts/bugzilla.sh -r
+elif [ $1 = "jitsi" ]; then
 	/usr/local/modules/mydonglecloud/scripts/jitsi.sh -r
+elif [ $1 = "mantisbugtracker" ]; then
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/mantisbugtracker.sh -r"
+elif [ $1 = "osticket" ]; then
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
+elif [ $1 = "roundcube" ]; then
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r"
+elif [ $1 = "yourls" ]; then
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/yourls.sh -r"
+elif [ $1 = "webtrees" ]; then
 	/usr/local/modules/mydonglecloud/scripts/webtrees.sh -r
 fi

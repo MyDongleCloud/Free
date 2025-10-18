@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	}
 	logInit(daemon);
 #ifndef WEB
-	spaceSetup();
+	spaceInit();
 	getSerialID();
 	PRINTF("Version:%s Serial:%s\n", MDC_VERSION, szSerial);
 #else

@@ -8,7 +8,8 @@ typedef struct logics {
 	int previous;
 	int homePos;
 	int tipsPos;
-	int messageM;
+	char *messageM;
+	int messageOK;
 	int otp;
 } logics;
 //#pragma pack(pop)
@@ -41,13 +42,11 @@ void logicWelcome();
 void logicSleep(int autoSleep);
 void logicHome(int force, int incr);
 void logicSetup();
-void logicSetupStart();
-void logicSetupSuccess();
 void logicLogin();
 void logicTips(int force, int incr);
 void logicShutdown();
 void logicBye();
-void logicMessage(int m);
+void logicMessage(char *msg, int ok);
 void logicOtp(int forceOtp, char *email);
 void logicOtpFinished();
 void logicSlaveNotConnected();

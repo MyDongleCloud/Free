@@ -38,7 +38,7 @@ static int autoSleep = -1;
 //Functions
 int backendRotate(int incr) {
 #ifdef WEB
-	logicMessage(0);
+	logicMessage(0, 1);
 	return -1;
 #endif
 	smdc.rotation = (smdc.rotation + 4 + incr) % 4;

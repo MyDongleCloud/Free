@@ -126,10 +126,6 @@ void logicUpdate() {
 		uiScreenHome();
 	else if (lmdc.current == LOGIC_SETUP)
 		uiScreenSetup();
-	else if (lmdc.current == LOGIC_SETUP_START)
-		uiScreenSetupStart();
-	else if (lmdc.current == LOGIC_SETUP_SUCCESS)
-		uiScreenSetupSuccess();
 	else if (lmdc.current == LOGIC_LOGIN)
 		uiScreenLogin();
 	else if (lmdc.current == LOGIC_TIPS)
@@ -183,18 +179,6 @@ void logicSetup() {
 	logicUpdate();
 }
 
-void logicSetupStart() {
-	PRINTF("Logic: Setup Start\n");
-	lmdc.current = LOGIC_SETUP_START;
-	logicUpdate();
-}
-
-void logicSetupSuccess() {
-	PRINTF("Logic: Setup Success\n");
-	lmdc.current = LOGIC_SETUP_SUCCESS;
-	logicUpdate();
-}
-
 void logicLogin() {
 	PRINTF("Logic: Login\n");
 	lmdc.current = LOGIC_LOGIN;
@@ -238,8 +222,9 @@ void logicBye() {
 	logicUpdate();
 }
 
-void logicMessage(int m) {
-	lmdc.messageM = m;
+void logicMessage(char *msg, int ok) {
+	lmdc.messageM = msg;
+	lmdc.messageOK = ok;
 	PRINTF("Logic: Message\n");
 	lmdc.current = LOGIC_MESSAGE;
 	logicUpdate();

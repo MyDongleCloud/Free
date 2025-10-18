@@ -26,9 +26,6 @@ static char *szTips[6] = {
 "You can recover a bricked dongle with the recovery tool (available on Windows, Linux and Mac).",
 "Press both bottom buttons at the same time for 10 seconds to reset and delete all the dongle data." };
 
-static char *szMessages[1] = {
-"Rotation is not supported on the web demo." };
-
 //Functions
 //#define USE_IMG_FILE
 #ifdef USE_IMG_FILE
@@ -559,28 +556,6 @@ void uiScreenSetup() {
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
-void uiScreenSetupStart() {
-	lv_obj_clean(lv_screen_active());
-
-	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, L("Setup is in progress. Please wait..."));
-	lv_obj_set_width(label0, 128);
-	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_center(label0);
-}
-
-void uiScreenSetupSuccess() {
-	lv_obj_clean(lv_screen_active());
-
-	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, L("Congratulations! MyDongle is now ready"));
-	lv_obj_set_width(label0, 128);
-	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_center(label0);
-
-	button(LV_KEY_RIGHT, L("Done"), NULL);
-}
-
 void uiScreenLogin() {
 	lv_obj_clean(lv_screen_active());
 
@@ -665,12 +640,17 @@ void uiScreenMessage() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, L(szMessages[lmdc.messageM]));
+#ifdef WEB
+	lv_label_set_text(label0, L("Rotation is not supported on the web demo."));
+#else
+	lv_label_set_text(label0, L(lmdc.messageM));
+#endif
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_center(label0);
 
-	button(LV_KEY_RIGHT, L("OK"), NULL);
+	if (lmdc.messageOK)
+		button(LV_KEY_RIGHT, L("OK"), NULL);
 }
 
 void uiScreenOtp(int expiration) {

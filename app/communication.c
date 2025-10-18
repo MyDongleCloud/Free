@@ -152,44 +152,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
-			logicSetupStart();
-			if (cJSON_GetStringValue2(el, "ssid") && cJSON_GetStringValue2(el, "security"))
-				wiFiAddActivate(cJSON_GetStringValue2(el, "ssid"), cJSON_GetStringValue2(el, "security"));
-			jsonWrite(cJSON_GetObjectItem(el, "space"), ADMIN_PATH "mydonglecloud/space.json");
-			jsonWrite(cJSON_GetObjectItem(el, "proxy"), ADMIN_PATH "mydonglecloud/proxy.json");
-			FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
-			if (fpC) {
-				fwrite(cJSON_GetStringValue2(el, "fullchain"), strlen(cJSON_GetStringValue2(el, "fullchain")), 1, fpC);
-				fclose(fpC);
-			}
-			FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey.pem", "w");
-			if (fpK) {
-				fwrite(cJSON_GetStringValue2(el, "privatekey"), strlen(cJSON_GetStringValue2(el, "privatekey")), 1, fpK);
-				fclose(fpK);
-			}
-			cJSON *data = cJSON_CreateObject();
-			cJSON_AddStringToObject(data, "email", cJSON_GetStringValue2(el, "email"));
-			cJSON_AddStringToObject(data, "name", cJSON_GetStringValue2(el, "name"));
-			cJSON_AddStringToObject(data, "password", cJSON_GetStringValue2(el, "password"));
-			char buf[1024];
-			char *post = cJSON_Print(data);
-			char szPath[17];
-			generateUniqueId(szPath);
-			memcpy(szPath, "/tmp/cookie", strlen("/tmp/cookie"));
-			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, szPath);
-#ifdef DEFAULT_2FA
-			downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/two-factor/enable", buf, "Content-Type: application/json", post, szPath, NULL);
-#endif
-			unlink(szPath);
-			free(post);
-			cJSON_Delete(data);
-			serviceAction("betterauth.service", "RestartUnit");
-			system("sudo /usr/local/modules/mydonglecloud/setup.sh");
-			serviceAction("dovecot.service", "RestartUnit");
-			spaceSetup();
-			communicationString("{\"status\":1}");
-			logicSetupSuccess();
-			jingle();
+			spaceSetup(el);
 		} else if (strcmp(action, "space") == 0) {
 			cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
 			cJSON_AddStringToObject(space, "a", "space");
@@ -197,7 +160,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_Delete(space);
 		} else if (strcmp(action, "update") == 0) {
 			PRINTF("communicationReceive: Update\n");
-			spaceSetup();
+			spaceInit();
 #endif
 		} else if (strcmp(action, "connection") == 0) {
 			int c = (int)cJSON_GetNumberValue2(el, "c");
