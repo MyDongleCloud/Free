@@ -63,3 +63,4 @@ chmod 444 /disk/admin/.modules/bugzilla/conf.txt
 
 chown -R admin:admin /disk/admin/.modules/bugzilla
 chown -R www-data:admin /disk/admin/.modules/bugzilla/data
+chown -R www-data:admin /disk/admin/.modules/bugzilla/localconfig
