@@ -147,7 +147,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			char *service = cJSON_GetStringValue2(el, "s");
 			char *type = cJSON_GetStringValue2(el, "t");
 			char *arg1 = cJSON_GetStringValue2(el, "o");
-			PRINTF("PAM: user:%s service:%s type:%s arg1:%s\n", user, service, type, arg1);
+			//PRINTF("PAM: user:%s service:%s type:%s arg1:%s\n", user, service, type, arg1);
 			if (arg1 && strcmp(arg1, "oath_success") == 0)
 				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
