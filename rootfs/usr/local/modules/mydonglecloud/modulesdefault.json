@@ -87,7 +87,7 @@
 		"localPort": 9207
 	},
 	"dovecot": {},
-	"fd": {},
+	"fdfind": {},
 	"ffmpeg": {},
 	"fileflows": {
 		"web": true,
@@ -351,6 +351,8 @@
 			"conf": true
 		}
 	},
+	"ncat": {},
+	"ncdu": {},
 	"nginx": {},
 	"nmap": {},
 	"node": {},
