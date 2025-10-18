@@ -736,7 +736,8 @@ ln -sf /disk/admin/.modules/webtrees/data
 echo "################################"
 echo "yourls"
 echo "################################"
-ln -sf /disk/admin/.modules/yourls/config.php /usr/local/modules/yourls/user/config.php
+cd /usr/local/modules/yourls
+ln -sf /disk/admin/.modules/yourls/config.php user/config.php
 
 echo "################################"
 echo "Better Auth"
