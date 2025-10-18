@@ -57,7 +57,7 @@ void spaceSetup(cJSON *el) {
 	serviceAction("betterauth.service", "RestartUnit");
 	char sz[256];
 	for (int i = 0; i < RESETS; i++) {
-		snprintf(sz, sizeof(sz), "Setting is preparing\n%s\nPlease wait...", szResets[i]);
+		snprintf(sz, sizeof(sz), "Setting is configuring\n%s\n%d/%d\nPlease wait...", szResets[i], i, RESETS);
 		logicMessage(sz, 0);
 		snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", szResets[i]);
 		communicationString(sz);
