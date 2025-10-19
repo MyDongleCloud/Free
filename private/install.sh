@@ -24,13 +24,13 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
-lsb_release -a | grep bookworm
-if [ $? = 0 ]; then
 #On PC
-#tar -cjpvf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ moduleIpApache2/ private/install.sh private/preseed*.cfg
-#scp a.tbz2 private/img/clone.tbz2 mdc@192.168.10.41:/tmp
+#tar -cjpf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ moduleIpApache2/ private/install.sh private/preseed*.cfg
+#scp a.tbz2 private/img/clone.tbz2 mdc@192.168.10.8:/tmp
 #On device
-#tar -xjpvf /tmp/a.tbz2
+#tar -xjpf /tmp/a.tbz2
+lsb_release -a | grep trixie
+if [ $? = 0 ]; then
 	OS="pios"
 fi
 lsb_release -a | grep noble
@@ -115,9 +115,6 @@ echo "################################"
 echo "Upgrade"
 echo "################################"
 apt-get update
-if [ $OS = "pios" ]; then
-	apt-get -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-confdef" install initramfs-tools-core
-fi
 apt-get -y upgrade
 
 echo "################################"
@@ -133,7 +130,7 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install bzip2 zip gpiod net-tools wireless-tools build-essential curl wget nano initramfs-tools device-tree-compiler
 fi
 apt-get -y install evtest qrencode dos2unix lrzsz squashfs-tools libpam-oath oathtool cryptsetup-bin cmake lsof hdparm screen figlet toilet composer network-manager bind9 acl jq telnet netcat-openbsd pamtester nmap ncat fd-find ncdu expect
-apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev apache2-dev libpam0g-dev libnm-dev libjwt-dev libsystemd-dev
+apt-get -y install liboath-dev libinput-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-filesystem-dev libcurl4-openssl-dev libssl-dev libbluetooth-dev libturbojpeg0-dev libldap-dev libsasl2-dev apache2-dev libpam0g-dev libnm-dev libjwt-dev libsystemd-dev libdb-dev
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install libprotobuf32t64 libjpeg62-dev
 elif [ $OS = "pios" ]; then
@@ -143,7 +140,7 @@ fi
 echo "################################"
 echo "Python"
 echo "################################"
-if [ $OS = "pios" ]; then
+if [ $OS = "0" ]; then
 	wget -nv https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
 	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
 Types: deb
@@ -155,7 +152,7 @@ EOF
 	apt-get update
 	apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
 fi
-apt-get -y install python3-venv python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-appdirs python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
+apt-get -y install python3-venv python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
 
 echo "################################"
 echo "Mysql"
@@ -164,8 +161,9 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install mysql-server-8.0
 	apt-get -y install mysql-server
 elif [ $OS = "pios" ]; then
-	apt-get -y install libaio1 libevent-pthreads-2.1-7 libmecab2
+	apt-get -y install libevent-pthreads-2.1-7 libmecab2
 	cd /home/mdc/build
+	wget -nv https://ports.ubuntu.com/pool/main/liba/libaio/libaio1_0.3.112-13build1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.1.1ubuntu1_all.deb
@@ -173,7 +171,7 @@ elif [ $OS = "pios" ]; then
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	dpkg -i libicu70* libprotobuf-lite23* mysql-common*
+	dpkg -i libaio1* libicu70* libprotobuf-lite23* mysql-common*
 	dpkg -i mysql-client* mysql-server*
 	cd ..
 	apt-mark hold mariadb-common
@@ -188,7 +186,7 @@ apt-get -y install postfix swaks s-nail
 echo "################################"
 echo "Modules via apt"
 echo "################################"
-apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libapache2-mod-authnz-external libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-imap php-curl php-zip php-apcu php-memcache php-redis php-ldap procmail rspamd sqlite3 php-imagick
+apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libapache2-mod-authnz-external libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-curl php-zip php-apcu php-memcache php-redis php-ldap procmail rspamd sqlite3 php-imagick
 
 echo "################################"
 echo "Apache2"
@@ -221,11 +219,9 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install cpp-14-aarch64-linux-gnu gcc-14 gcc-14-aarch64-linux-gnu libgcc-14-dev pahole
 	dpkg -i linux-*.deb
 elif [ $OS = "pios" ]; then
-	apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 raspi-utils-core raspi-utils-dt
-	apt-get -y purge linux-headers*rpi-v8 linux-image*rpi-v8 linux-headers-6.12.25* linux-kbuild-6.12.25*
-	rm -rf /lib/modules/6.12.25+rpt-rpi-* /lib/modules/6.12.34+rpt-rpi-v8
-	rm -f /boot/cmdline.txt /boot/issue.txt /boot/config.txt /boot/overlays /boot/*6.12.25* /boot/*-v8
-	rm -f /boot/firmware/bcm2710* /boot/firmware/bcm2711* /boot/firmware/kernel8.img /boot/firmware/initramfs8 /boot/firmware/LICENCE.broadcom /boot/firmware/issue.txt
+	apt-get -y purge linux-headers*rpi-v8 linux-image*rpi-v8
+	rm -f /boot/cmdline.txt /boot/issue.txt /boot/config.txt
+	rm -f /boot/firmware/LICENCE.broadcom /boot/firmware/issue.txt
 fi
 
 echo "################################"
@@ -235,11 +231,16 @@ curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/doc
 if [ $OS = "ubuntu" ]; then
 	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
 elif [ $OS = "pios" ]; then
-	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list
+	echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian trixie stable" > /etc/apt/sources.list.d/docker.list
 fi
 apt-get update
 apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 usermod -aG docker admin
+
+echo "################################"
+echo "Java"
+echo "################################"
+apt-get -y install openjdk-21-jdk openjdk-21-jre openjdk-21-jre-headless
 
 echo "################################"
 echo "Jitsi"
@@ -264,7 +265,7 @@ echo "devmem2"
 echo "################################"
 cd /home/mdc/build
 wget -nv https://bootlin.com/pub/mirror/devmem2.c
-gcc -o /usr/bin/local/devmem2 devmem2.c
+gcc -o /usr/local/bin/devmem2 devmem2.c
 
 echo "################################"
 echo "frp"
@@ -282,7 +283,7 @@ echo "################################"
 cd /home/mdc/build
 wget -nv https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
 mkdir /usr/local/modules/livecodes
-tar -xpvf livecodes-v46.tar.gz -C /usr/local/modules/livecodes --strip-components=1
+tar -xpf livecodes-v46.tar.gz -C /usr/local/modules/livecodes --strip-components=1
 cd ..
 
 echo "################################"
@@ -384,7 +385,7 @@ echo "################################"
 echo "HomeAssistant"
 echo "################################"
 cd /home/mdc
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeassistant -v 3.12 -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeassistant -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/homeassistant/bin:$PATHOLD
@@ -493,22 +494,7 @@ echo "PATH restored: $PATH"
 echo "################################"
 echo "Transmission"
 echo "################################"
-if [ $OS = "ubuntu" ]; then
-	apt-get -y install transmission-common transmission-daemon transmission-cli
-elif [ $OS = "pios" ]; then
-	cd /home/mdc/build
-	apt-get -y install libpsl-dev libminiupnpc-dev libnatpmp-dev libevent-dev googletest libdeflate-dev libutfcpp-dev
-	git clone https://github.com/transmission/transmission
-	cd transmission
-	git checkout 4.0.6
-	git submodule init
-	git submodule update
-	rm -rf .git
-	cmake -B build -DCMAKE_BUILD_TYPE=Release
-	cd build
-	make
-	make install
-fi
+apt-get -y install transmission-common transmission-daemon transmission-cli
 
 echo "################################"
 echo "uMTP"
@@ -550,7 +536,7 @@ echo "Acme.sh"
 echo "################################"
 cd /usr/local/modules
 mkdir /usr/local/modules/acme
-cd Acme
+cd acme
 wget -nv https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1.1/acme.sh
 chmod a+x acme.sh
 
@@ -562,7 +548,7 @@ git clone https://code.antopie.org/miraty/libreqr.git libreqr
 cd libreqr
 git checkout 2.0.1
 rm -rf .git
-chmod 777 /usr/local/modules/libreqr/css
+chown www-data:www-data /usr/local/modules/libreqr/css
 
 if [ -f "/tmp/clone.tbz2" ]; then
 	echo "################################"
@@ -630,7 +616,7 @@ else
 	clone syncthing syncthing/syncthing v1.30.0
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webtrees fisharebest/webtrees 2.1.25
-	clone yourls YOURLS/YOURLS 1.9.2
+	clone yourls YOURLS/YOURLS 1.10.2
 fi
 
 echo "################################"
@@ -710,7 +696,7 @@ echo "################################"
 echo "MeTube"
 echo "################################"
 cd /usr/local/modules/metube
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/metube/env -v 3.12 -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/metube/env -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/metube/env/bin:$PATHOLD
@@ -729,20 +715,20 @@ ln -sf /etc/systemd/system/metube.service /etc/systemd/system/multi-user.target.
 echo "################################"
 echo "Stirling-PDF"
 echo "################################"
-apt-get install -y libleptonica-dev zlib1g-dev openjdk-17-jdk openjdk-17-jre libreoffice-writer libreoffice-calc libreoffice-impress unpaper ocrmypdf
+apt-get install -y libleptonica-dev zlib1g-dev libreoffice-writer libreoffice-calc libreoffice-impress unpaper ocrmypdf
 mv /usr/local/modules/stirlingpdf /home/mdc/build
 mkdir /usr/local/modules/stirlingpdf
 cd /home/mdc/build/stirlingpdf
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/stirlingpdf -v 3.12 -s
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/stirlingpdf -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/stirlingpdf/bin:$PATHOLD
 export PATH=/usr/local/modules/stirlingpdf/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install uno opencv-python-headless unoconv pngquant WeasyPrint
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-arm64
 ./gradlew build
-cp -a scripts stirling-pdf/build/libs/Stirling-PDF-*.jar /usr/local/modules/stirlingpdf
+cp -a scripts stirling-pdf/build/libs/stirling-pdf-*.jar /usr/local/modules/stirlingpdf
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
@@ -795,6 +781,7 @@ chown -R www-data:admin /disk/admin/.modules/roundcube
 mv /var/lib/mysql /disk/admin/.modules
 chown mysql:mysql /disk/admin/.modules/mysql
 ln -sf /disk/admin/.modules/mysql /var/lib/mysql
+chown -R admin:admin /disk/admin/.modules/metube
 
 echo "################################"
 echo "Cleanup"
@@ -803,6 +790,9 @@ if [ $OS = "pios" ]; then
 	apt-get -y purge python3-rpi-lgpio rpicam-apps-core rpicam-apps-lite
 fi
 apt-get -y autoremove
+rm -f /etc/systemd/system/multi-user.target.wants/nginx.service
+rm -f /usr/lib/systemd/system/named.service
+rm -f /usr/lib/systemd/system/sshswitch.service
 rm -rf /var/cache/apt/archives/*.deb /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz /home/mdc/.cache/*
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
 rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
