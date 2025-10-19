@@ -791,8 +791,8 @@ if [ $OS = "pios" ]; then
 fi
 apt-get -y autoremove
 rm -f /etc/systemd/system/multi-user.target.wants/nginx.service
-rm -f /usr/lib/systemd/system/named.service
-rm -f /usr/lib/systemd/system/sshswitch.service
+rm -f /etc/systemd/system/multi-user.target.wants/named.service
+rm -f /etc/systemd/system/multi-user.target.wants/sshswitch.service
 rm -rf /var/cache/apt/archives/*.deb /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz /home/mdc/.cache/*
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
 rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
