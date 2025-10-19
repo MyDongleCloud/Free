@@ -535,7 +535,12 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9255
+		"localPort": 9255,
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 8097,
+			"path": "/"
+		} ]
 	},
 	"triliumnotes": {
 		"web": true,

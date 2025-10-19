@@ -107,7 +107,7 @@ stirlingpdf;Stirling PDF;PDF Manipulation Tool;Utils;yes;done;Powerful locally h
 sunrisecms;Sunrise CMS;Municipal CMS;Productivity;yes;;Simple CMS for small municipal websites.;CMS|Municipal|Web|Simple;WordPress;clone;v1.0.0-alpha.19;cityssm/sunrise-cms
 superset;Superset;Data Visualization Platform;Productivity;yes;;Modern data exploration and visualization platform.;Data|Visualization|BI|Analytics;Tableau;clone;5.0.0;apache/superset
 syncthing;Syncthing;File Sync Tool;Utils;yes;;Continuous file synchronization program.;File|Sync|P2P|Backup;Dropbox|Google Drive;clone;1.30.0;syncthing/syncthing
-transmission;Transmission;BitTorrent Client;Utils;yes;;Fast, easy, and free BitTorrent client.;BitTorrent|Client|P2P|Download;qBittorrent;clone;4.0.6;transmission/transmission
+transmission;Transmission;BitTorrent Client;Utils;yes;done;Fast, easy, and free BitTorrent client.;BitTorrent|Client|P2P|Download;qBittorrent;clone;4.0.6;transmission/transmission
 triliumnotes;Trilium Notes;Hierarchical Notes App;Productivity;yes;done;Hierarchical note taking application.;Notes|Hierarchical|Knowledge|Base;Evernote;tar;v0.95.0;TriliumNext/Notes
 tubearchivist;Tube Archivist;YouTube Media Server;Personal;yes;;YouTube media server.;YouTube|Archive|Media;Plex;clone;v0.5.4;tubearchivist/tubearchivist
 typescript;TypeScript;Enhanced JavaScript;Developer;;done;Typed superset of JavaScript that compiles to plain JavaScript.;JavaScript|Typed|Compiler|Web;;;;microsoft/TypeScript
