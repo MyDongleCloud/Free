@@ -2,13 +2,12 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for firmware [-c -d disk -f -h -l NB -n]"
+echo "Usage for firmware [-c -d disk -f -h -l NB]"
 echo "c:	Clean build"
 echo "d disk:	set /dev/disk[1-2] (sda or mmcblk0p)"
 echo "f:	Create final binaries"
 echo "h:	Print this usage and exit"
 echo "l:	Set loop number"
-echo "n:	Not native (via chroot)"
 exit 0
 }
 
@@ -17,15 +16,13 @@ LOSETUP=/dev/loop3
 POSTNAME=""
 FINAL=0
 CLEAN=0
-NATIVE=1
-while getopts cd:fhl:n opt; do
+while getopts cd:fhl: opt; do
 	case "$opt" in
 		c) CLEAN=1;;
 		d) DISK="/dev/${OPTARG}";;
 		f) POSTNAME="-final";FINAL=1;;
 		h) helper;;
 		l) LOSETUP=/dev/loop${OPTARG};;
-		n) NATIVE=0;;
 	esac
 done
 
@@ -37,27 +34,23 @@ cd `dirname $0`
 echo "Current directory is now `pwd`"
 PP=`pwd`
 
-if [ $NATIVE = 1 ]; then
-	umount ${DISK}*
-	umount ${DISK}*
-	sync
-	if [ ! -b ${DISK}1 ]; then
-		echo "No /dev${DISK}1..."
-		exit 0
-	fi
-
-	umount ${DISK}*
-	umount ${DISK}*
-	rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin img/partition1.zip
-	mount ${DISK}1 /tmp/1
-	mount ${DISK}2 /tmp/2
-	cd /tmp/1
-	zip -q -r ${PP}/img/partition1.zip ./bcm2712-rpi-5-b.dtb ./bcm2712-rpi-cm5-cm5io.dtb ./cmdline.txt ./config.txt ./kernel_2712.img ./overlays/overlay_map.dtb ./overlays/bcm2712d0.dtbo ./overlays/dwc2.dtbo ./overlays/mydonglecloud.dtbo ./overlays/st7735s.dtbo ./overlays/buttons.dtbo ./overlays/leds.dtbo ./overlays/uart0-pi5.dtbo ./overlays/uart2-pi5.dtbo ./Image ./mydonglecd.dtb
-	cd ${PP}
-	ROOTFS=/tmp/2
-else
-	ROOTFS=../build/rootfs
+umount ${DISK}*
+umount ${DISK}*
+sync
+if [ ! -b ${DISK}1 ]; then
+	echo "No /dev${DISK}1..."
+	exit 0
 fi
+
+umount ${DISK}*
+umount ${DISK}*
+rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin img/partition1.zip
+mount ${DISK}1 /tmp/1
+mount ${DISK}2 /tmp/2
+cd /tmp/1
+zip -q -r ${PP}/img/partition1.zip ./bcm2712-rpi-5-b.dtb ./bcm2712-rpi-cm5-cm5io.dtb ./cmdline.txt ./config.txt ./kernel_2712.img ./overlays/overlay_map.dtb ./overlays/bcm2712d0.dtbo ./overlays/dwc2.dtbo ./overlays/mydonglecloud.dtbo ./overlays/st7735s.dtbo ./overlays/buttons.dtbo ./overlays/leds.dtbo ./overlays/uart0-pi5.dtbo ./overlays/uart2-pi5.dtbo ./Image ./mydonglecd.dtb
+cd ${PP}
+ROOTFS=/tmp/2
 if [ $CLEAN = 1 ]; then
 	rm -f /tmp/mdc${POSTNAME}.img
 fi
@@ -112,11 +105,9 @@ EOF
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' ${ROOTFS}/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
 fi
-if [ $NATIVE = 1 ]; then
-	sync
-	umount ${DISK}*
-	umount ${DISK}*
-fi
+sync
+umount ${DISK}*
+umount ${DISK}*
 
 dd if=img/sdcard-bootdelay1-m-s of=img/flasher-m${POSTNAME}-s.img bs=1024
 SIZE=$((`stat -c %s /tmp/mdc${POSTNAME}.img` * 125 / 100 / 1024))
