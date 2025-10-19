@@ -1,6 +1,6 @@
 module;name;title;category;web;status;description;keywords;proprietary;installMethod;version;github
 acme;Acme;ACME Shell Script;Utils;;;A pure Unix shell script implementing ACME client protocol.;ACME|SSL|TLS|Certificates;DigiCert CertCentral;wget;3.1.1;acmesh-official/acme.sh
-acme.js;ACME.js;JavaScript ACME Client;Backend;;done;JavaScript ACME client for Let's Encrypt.;ACME|Let's Encrypt|SSL|JavaScript;Sectigo;npm;3.1.0;therootcompany/acme.js
+acmejs;ACME.js;JavaScript ACME Client;Backend;;done;JavaScript ACME client for Let's Encrypt.;ACME|Let's Encrypt|SSL|JavaScript;Sectigo;npm;3.1.0;therootcompany/acme.js
 angular;Angular;Web App Framework;Developer;;done;Platform for building mobile and desktop web applications.;Web|Framework|TypeScript|SPA;React;dev;6.7.5;angular/angular
 apache2;Apache2;Website;Essential;yes;done;The Apache HTTP Server Project's goal is to build a secure, efficient and extensible HTTP server.;HTTP|Server|Web|Apache;Microsoft IIS;apt;2.4.62;apache/httpd
 audiobookshelf;Audio Bookshelf;Audiobook Podcast Server;Personal;yes;;Audiobook and podcast server.;Audiobooks|Podcasts|Streaming;Audible;clone;v2.26.2;advplyr/audiobookshelf

@@ -1,5 +1,8 @@
 {
 	"version":	1,
+	"acme": {},
+	"acmejs": {},
+	"angular": {},
 	"apache2": {
 		"web": true,
 		"enabled": true,
@@ -205,6 +208,7 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9217
 	},
+	"ionic": {},
 	"iopaint": {
 		"web": true,
 		"enabled": true,
@@ -356,6 +360,7 @@
 	"nginx": {},
 	"nmap": {},
 	"node": {},
+	"ohmyzsh": {},
 	"ollama": {
 		"web": true,
 		"enabled": true,
@@ -487,6 +492,8 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9249
 	},
+	"rust": {},
+	"stackedit": {},
 	"sonarr": {
 		"web": true,
 		"enabled": true,
@@ -547,6 +554,7 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9257
 	},
+	"typescript": {},
 	"unmanic": {
 		"web": true,
 		"enabled": true,
