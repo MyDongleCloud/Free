@@ -24,7 +24,7 @@ done
 cd `dirname $0`
 if [ $INSTALL = 1 ]; then
 	#During install only
-	rm -rf node_modules betterauth /disk/admin/.modules/betterauth
+	rm -rf betterauth /disk/admin/.modules/betterauth
 	mkdir /disk/admin/.modules/betterauth/
 	npm install
 	sed -i -e 's/PRODUCTION=false/PRODUCTION=true/' .env
