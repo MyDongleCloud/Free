@@ -1,5 +1,10 @@
 server:
   port: 8096
-pipeline:
-  watchedFoldersDir: "/disk/admin/Documents"
-  finishedFoldersDir: "/disk/admin/Documents"
+
+system:
+  enableAnalytics: false
+
+customPaths:
+  pipeline:
+    watchedFoldersDir: "/disk/admin/Documents"
+    finishedFoldersDir: "/disk/admin/Documents"
