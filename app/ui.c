@@ -640,6 +640,7 @@ void uiScreenMessage() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_long_mode(label0, LV_LABEL_LONG_DOT);
 #ifdef WEB
 	lv_label_set_text(label0, L("Rotation is not supported on the web demo."));
 #else
