@@ -1,2 +1,5 @@
 server:
   port: 8096
+pipeline:
+  watchedFoldersDir: "/disk/admin/Documents"
+  finishedFoldersDir: "/disk/admin/Documents"

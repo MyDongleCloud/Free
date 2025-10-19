@@ -5,8 +5,8 @@ After=network.target
 [Service]
 Environment=PATH=/usr/local/modules/stirlingpdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Type=simple
-ExecStart=java -jar stirling-pdf-1.0.2.jar
-WorkingDirectory=/disk/admin/.modules/stirlingpdf
+ExecStart=java -Dspring.config.location=file:/disk/admin/.modules/stirlingpdf/configs/ -jar stirling-pdf-1.0.2.jar
+WorkingDirectory=/usr/local/modules/stirlingpdf
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
