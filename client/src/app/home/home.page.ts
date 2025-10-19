@@ -42,6 +42,12 @@ async getData() {
 		delete modulesDefault.version;
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
+	Object.entries(modulesMeta).forEach(([key, value]) => {
+		if (modulesDefault[key] === undefined) {
+			console.log("Error: " + key + " not in modulesdefault");
+			return;
+		}
+	});
 	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (modulesMeta[key] === undefined) {
 			console.log("Error: " + key + " not in modulesmeta");
