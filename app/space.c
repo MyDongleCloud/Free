@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "macro.h"
 #include "cJSON.h"
 #include "json.h"
@@ -28,6 +29,7 @@ void spaceSetup(cJSON *el) {
 		wiFiAddActivate(cJSON_GetStringValue2(el, "ssid"), cJSON_GetStringValue2(el, "security"));
 	jsonWrite(cJSON_GetObjectItem(el, "space"), ADMIN_PATH "mydonglecloud/space.json");
 	jsonWrite(cJSON_GetObjectItem(el, "proxy"), ADMIN_PATH "mydonglecloud/proxy.json");
+	mkdir(ADMIN_PATH "letsencrypt", 0775);
 	FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
 	if (fpC) {
 		fwrite(cJSON_GetStringValue2(el, "fullchain"), strlen(cJSON_GetStringValue2(el, "fullchain")), 1, fpC);
