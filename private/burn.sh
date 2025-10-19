@@ -13,7 +13,7 @@ exit 0
 DISK=/dev/sda
 POSTNAME=""
 EXTRACT=0
-while getopts d:e:fh opt; do
+while getopts d:efh opt; do
 	case "$opt" in
 		d) DISK="/dev/${OPTARG}";;
 		e) EXTRACT=1;;
