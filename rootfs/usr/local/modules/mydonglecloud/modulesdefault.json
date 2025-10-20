@@ -453,6 +453,7 @@
 	"projectsend": {
 		"web": true,
 		"enabled": true,
+		"FollowSymLinks": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9245
 	},

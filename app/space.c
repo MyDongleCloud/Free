@@ -13,8 +13,8 @@
 #include "communication.h"
 
 //Private variable
-#define RESETS 9
-static char *szResets[RESETS] = { "postfix", "roundcube", "mysql", "bugzilla", "jitsi", "mantisbugtracker", "osticket", "webtrees", "yourls" };
+#define RESETS 10
+static char *szResets[RESETS] = { "postfix", "roundcube", "mysql", "bugzilla", "jitsi", "mantisbugtracker", "osticket", "projectsend", "webtrees", "yourls" };
 
 //Functions
 void spaceInit() {

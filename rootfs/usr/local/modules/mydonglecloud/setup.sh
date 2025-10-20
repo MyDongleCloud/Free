@@ -31,6 +31,8 @@ elif [ $1 = "mantisbugtracker" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/mantisbugtracker.sh -r"
 elif [ $1 = "osticket" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
+elif [ $1 = "projectsend" ]; then
+	/usr/local/modules/mydonglecloud/scripts/projectsend.sh -r
 elif [ $1 = "roundcube" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r"
 elif [ $1 = "yourls" ]; then

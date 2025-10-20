@@ -88,7 +88,7 @@ phpsandbox;PHP Sandbox;PHP Online Editor;Developer;yes;;PHP online editor and sa
 pihole;Pihole;Network Ad Blocker;Utils;yes;;Network-wide ad blocking via your own Linux hardware.;Ad|Blocking|DNS|Network;NextDNS;clone;v.6.1.4;pi-hole/pi-hole
 postfix;Postfix;Mail Server;Essential;;done;Mail transfer agent for routing and delivering electronic mail.;Email|SMTP|Server|Mail;Microsoft Exchange;apt;3.7.11;
 privatebin;Private Bin;Private Pastebin;Utils;yes;done;Minimalist, open source online pastebin where the server has zero knowledge of pasted data.;Pastebin|Privacy|Zero-knowledge|Web;Pastebin;clone;1.7.8;PrivateBin/PrivateBin
-projectsend;Project Send;File Sharing Platform;Productivity;yes;;File sharing solution.;File|Sharing|Upload;Dropbox;clone;r1720;projectsend/projectsend
+projectsend;Project Send;File Sharing Platform;Productivity;yes;done;File sharing solution.;File|Sharing|Upload;Dropbox;clone;r1720;projectsend/projectsend
 pymcuprog;Py MCU Prog;Microchip Programmer;Developer;;done;Python library for programming Microchip microcontrollers.;Microchip|Programming|Python|Microcontroller;MPLAB X IDE;;3.19.4.61;microchip-pic-avr-tools/pymcuprog
 python;Python;Python Language;Developer;;done;Python language.;Language|Interpreter;ActivePython;apt;3.11.2, 3.12.9;
 qdrant;Qdrant;Vector Search Engine;Utils;;done;Vector similarity search engine.;Vector|Search|Similarity|Engine;Pinecone;tar;v1.14.1;qdrant/qdrant
