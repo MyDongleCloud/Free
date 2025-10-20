@@ -114,7 +114,7 @@ typescript;TypeScript;Enhanced JavaScript;Developer;;done;Typed superset of Java
 unmanic;Unmanic;Media Library Optimizer;Utils;yes;;Library optimizer for removing unused metadata from media files.;Media|Optimizer|Metadata|Library;;pip;;Unmanic/unmanic
 uptime;Uptime;Monitoring Service;Utils;yes;;Monitoring, uptime, status tool and checker.;Monitoring|Uptime|Status;Pingdom;clone;1.23.16;louislam/uptime-kuma
 webssh2;WebSSH2;Web SSH Client;Utils;yes;done;SSH client to MyDongle.Cloud in a browser.;SSH|Web|Terminal|Client;;clone;v0.2.24;billchurch/webssh2
-webtrees;Webtrees;Online Genealogy;Personal;yes;done;Online genealogy application.;Genealogy|Family|Tree|Web;Ancestry.com;clone;2.2.1;fisharebest/webtrees
+webtrees;Webtrees;Online Genealogy;Personal;yes;done;Online genealogy application.;Genealogy|Family|Tree|Web;Ancestry.com;clone;2.2.4;fisharebest/webtrees
 wget;wget;Get Url;Utils;;done;Download a url;Download/URL;;deb;;mirror/wget
 wordpress;Word Press;Content Management System;Personal;yes;;Content Management System for creating websites and blogs.;CMS|Blog|Web|Publishing;Wix|Squarespace;;;
 writeas;Write.As;Privacy Blogging Platform;Personal;yes;;Minimalist, privacy-focused blogging platform.;Blog|Privacy|Writing|Minimalist;Medium;;;
