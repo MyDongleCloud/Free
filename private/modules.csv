@@ -118,7 +118,7 @@ webtrees;Webtrees;Online Genealogy;Personal;yes;done;Online genealogy applicatio
 wget;wget;Get Url;Utils;;done;Download a url;Download/URL;;deb;;mirror/wget
 wordpress;Word Press;Content Management System;Personal;yes;;Content Management System for creating websites and blogs.;CMS|Blog|Web|Publishing;Wix|Squarespace;;;
 writeas;Write.As;Privacy Blogging Platform;Personal;yes;;Minimalist, privacy-focused blogging platform.;Blog|Privacy|Writing|Minimalist;Medium;;;
-yourls;YOURLS;URL Shortener;Utils;yes;done;Your Own URL Shortener.;URL|Shortener|Web;Bitly;clone;1.9.2;YOURLS/YOURLS
+yourls;YOURLS;URL Shortener;Utils;yes;done;Your Own URL Shortener.;URL|Shortener|Web;Bitly;clone;1.10.2;YOURLS/YOURLS
 youtubedl;Youtube-dl;YouTube Downloader;Utils;;;Command-line program to download videos from YouTube and other sites.;YouTube|Download|Video|CLI;4K Video Downloader;pip;2025.6.30;ytdl-org/youtube-dl
 ytdlp;yt-dlp;YouTube Downloader Fork;Utils;;;Fork of youtube-dl with additional features and fixes.;YouTube|Download|Video|CLI;4K Video Downloader;pip;2025.6.30;yt-dlp/yt-dlp
 zigbee2mqtt;Zigbee2MQTT;Zigbee MQTT Bridge;Personal;yes;done;Zigbee to MQTT bridge.;Zigbee|MQTT|Bridge|IoT;Philips Hue Bridge;npm;2.5.1;Koenkk/zigbee2mqtt
