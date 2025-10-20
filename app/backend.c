@@ -71,21 +71,17 @@ static void dbus(const char *action) {
 void cleanExit(int todo) {
 	PRINTF("cleanExit mode:%d\n", todo);
 #ifndef WEB
-	doLoop = 0;
-	logUninit();
 #ifndef DESKTOP
-	if (todo == 3) {
-		FILE *pf = fopen("/tmp/softreset", "w+");
-		if (pf)
-			fclose(pf);
-	} else if (todo == 2) {
-		system("sync;");
+	if (todo == 2) {
+		system("sync");
 		dbus("Reboot");
 	} else if (todo == 1) {
-		system("sync;");
+		system("sync");
 		dbus("PowerOff");
 	}
 #endif
+	doLoop = 0;
+	logUninit();
 #endif
 }
 
