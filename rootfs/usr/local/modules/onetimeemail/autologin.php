@@ -84,7 +84,7 @@ function login($email, $password, $url) {
 		"_action" => "login",
 		"_timezone" => "",
 		"_url" => "_task=login",
-		"_host" => "localhost",
+		"_host" => "",
 		"_user" => $email,
 		"_pass" => $password
 	);
@@ -135,15 +135,11 @@ if ($email == "") {
 	exit;
 }
 
-$ar = explode("@", $email);
-$domain = $ar[1];
-$baseDir = "/disk/admin/.modules/mail/";
-$handle = fopen($baseDir . "password-" . $domain, "r");
+$handle = fopen("/disk/admin/.modules/roundcube/conf.txt", "r");
 $password = "";
 while (($line = fgets($handle)) !== false) {
-	if (str_starts_with($line, $email)) {
-		$line_ = explode(":", trim($line));
-		$password = str_replace("{plain}", "", $line_[1]);
+	if (str_starts_with($line, "Password: ")) {
+		$password = trim(substr($line, 10));
 		break;
 	}
 }
