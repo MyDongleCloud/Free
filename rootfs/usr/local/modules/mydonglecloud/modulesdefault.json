@@ -16,7 +16,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9201,
+		"localPort": 9401,
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8092,
@@ -28,7 +28,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9266,
+		"localPort": 9402,
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 3002,
@@ -45,7 +45,7 @@
 			"conf": true
 		},
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9202
+		"localPort": 9403
 	},
 	"busybox": {},
 	"certbot": {},
@@ -53,7 +53,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9203
+		"localPort": 9404
 	},
 	"clang": {},
 	"cmake": {},
@@ -61,33 +61,33 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9204
+		"localPort": 9405
 	},
 	"convertx": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9205
+		"localPort": 9406
 	},
 	"curl": {},
 	"cyberchef": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9206
+		"localPort": 9407
 	},
 	"discourse": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9269
+		"localPort": 9408
 	},
 	"docker": {},
 	"doodle": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9207
+		"localPort": 9409
 	},
 	"dovecot": {},
 	"fdfind": {},
@@ -96,20 +96,20 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9208
+		"localPort": 9410
 	},
 	"flarum": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9209,
+		"localPort": 9411,
 		"path": "/usr/local/modules/flarum/public"
 	},
 	"freshrss": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9210,
+		"localPort": 9412,
 		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
 		"path": "/usr/local/modules/freshrss/p",
 		"alias": [ "rss" ]
@@ -118,7 +118,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9211,
+		"localPort": 9413,
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 7400,
@@ -163,27 +163,27 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9212
+		"localPort": 9414
 	},
 	"go": {},
 	"goaccess": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9213
+		"localPort": 9415
 	},
 	"goodip": {},
 	"grav": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9214
+		"localPort": 9416
 	},
 	"homeassistant": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9215,
+		"localPort": 9417,
 		"addConfig": "RewriteCond %{HTTP:Upgrade} websocket [NC]\n\t\tRewriteCond %{HTTP:Connection} upgrade [NC]\n\t\tRewriteRule ^/api/websocket ws://localhost:8123/api/websocket [P,L]",
 		"reverseProxy": [ {
 			"type": "http",
@@ -195,7 +195,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9216
+		"localPort": 9418
 	},
 	"hugo": {},
 	"imagemagick": {},
@@ -203,83 +203,83 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9217
+		"localPort": 9419
 	},
 	"ionic": {},
 	"iopaint": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9218
+		"localPort": 9420
 	},
 	"ittools": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9271
+		"localPort": 9421
 	},
 	"java": {},
 	"jellyfin": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9219
+		"localPort": 9422
 	},
 	"jitsimeet": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9220
+		"localPort": 9423
 	},
 	"joomla": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9221
+		"localPort": 9424
 	},
 	"joplin": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9222
+		"localPort": 9425
 	},
 	"jq": {},
 	"jstinker": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9267
+		"localPort": 9426
 	},
 	"karakeep": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9223
+		"localPort": 9427
 	},
 	"kernel": {},
 	"librephotos": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9224
+		"localPort": 9428
 	},
 	"libreqr": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9225
+		"localPort": 9429
 	},
 	"limesurvey": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9226
+		"localPort": 9430
 	},
 	"livecodes": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9268
+		"localPort": 9431
 	},
 	"make": {},
 	"mantisbugtracker": {
@@ -291,37 +291,37 @@
 			"conf": true
 		},
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9227
+		"localPort": 9432
 	},
 	"markdowneditor": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9228
+		"localPort": 9433
 	},
 	"mastodon": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9270
+		"localPort": 9434
 	},
 	"maybe": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9229
+		"localPort": 9435
 	},
 	"mermaid": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9230
+		"localPort": 9436
 	},
 	"metube": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9231,
+		"localPort": 9437,
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8089,
@@ -332,7 +332,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9232
+		"localPort": 9438
 	},
 	"mongodb": {},
 	"mosquitto": {},
@@ -340,7 +340,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9200,
+		"localPort": 9400,
 		"addConfig": "ProxyPass /ws/ ws://localhost:8094/ws/",
 		"path": "/usr/local/modules/mydonglecloud/web",
 		"addLineInDirectory": "RewriteBase /\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . /index.html [L]",
@@ -362,19 +362,19 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9233
+		"localPort": 9439
 	},
 	"onetimeemail": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9234
+		"localPort": 9440
 	},
 	"openwebui": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9235
+		"localPort": 9441
 	},
 	"osticket": {
 		"web": true,
@@ -385,11 +385,11 @@
 		"symlinks": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9236
+		"localPort": 9442
 	},
 	"otg": {
 		"enabled": "true",
-		"features": ["serial", "mtp"],
+		"features": [ "serial", "mtp" ],
 		"mtp": {
 			"show_hidden_files": true,
 			"path": "/disk/admin",
@@ -400,59 +400,59 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9237
+		"localPort": 9443
 	},
 	"photoprism": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9238
+		"localPort": 9444
 	},
 	"photoview": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9239
+		"localPort": 9445
 	},
 	"php": {},
 	"phpbb": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9240
+		"localPort": 9446
 	},
 	"phplist": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9241,
+		"localPort": 9447,
 		"path": "/usr/local/modules/phplist/public_html"
 	},
 	"phpsandbox": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9242
+		"localPort": 9448
 	},
 	"pihole": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9243
+		"localPort": 9449
 	},
 	"postfix": {},
 	"privatebin": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9244
+		"localPort": 9450
 	},
 	"projectsend": {
 		"web": true,
 		"enabled": true,
 		"FollowSymLinks": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9245
+		"localPort": 9451
 	},
 	"pymcuprog": {},
 	"python": {},
@@ -462,13 +462,13 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9246
+		"localPort": 9452
 	},
 	"radaar": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9247
+		"localPort": 9453
 	},
 	"rethinkdb": {},
 	"roundcube": {
@@ -482,13 +482,13 @@
 		"path": "/usr/share/roundcube",
 		"homepage": "/autologin.php",
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9248
+		"localPort": 9454
 	},
 	"rspamd": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9249
+		"localPort": 9455
 	},
 	"rust": {},
 	"stackedit": {},
@@ -496,7 +496,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9250
+		"localPort": 9456
 	},
 	"sqlite": {},
 	"squashfstools": {},
@@ -504,7 +504,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9251,
+		"localPort": 9457,
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8096,
@@ -515,25 +515,25 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9252
+		"localPort": 9458
 	},
 	"superset": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9253
+		"localPort": 9459
 	},
 	"syncthing": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9254
+		"localPort": 9460
 	},
 	"transmission": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9255,
+		"localPort": 9461,
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8097,
@@ -544,7 +544,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9256,
+		"localPort": 9462,
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8090,
@@ -555,26 +555,26 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9257
+		"localPort": 9463
 	},
 	"typescript": {},
 	"unmanic": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9258
+		"localPort": 9464
 	},
 	"uptime": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9259
+		"localPort": 9465
 	},
 	"webssh2": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9260,
+		"localPort": 9466,
 		"alias": [ "ssh" ],
 		"homepage": "/ssh/host/localhost",
 		"reverseProxy": [ {
@@ -591,20 +591,20 @@
 			"conf": true
 		},
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9261
+		"localPort": 9467
 	},
 	"wget": {},
 	"wordpress": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9262
+		"localPort": 9468
 	},
 	"writeas": {
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9263
+		"localPort": 9469
 	},
 	"yourls": {
 		"web": true,
@@ -615,7 +615,7 @@
 		},
 		"permissions": [ "_groupadmin_" ],
 		"homepage": "/admin",
-		"localPort": 9264
+		"localPort": 9470
 	},
 	"youtubedl": {},
 	"ytdlp": {},
@@ -623,7 +623,7 @@
 		"web": true,
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
-		"localPort": 9265,
+		"localPort": 9471,
 		"addConfig": "\tRewriteCond %{HTTP:Connection} Upgrade [NC]\n\tRewriteCond %{HTTP:Upgrade} websocket [NC]\n\tRewriteRule /(.*) ws://localhost:8099/$1 [P,L]",
 		"reverseProxy": [ {
 			"type": "http",

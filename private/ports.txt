@@ -37,7 +37,7 @@ Outgoing: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx
 
 ***************
 apache2
-Listening: 80 (http), 443 (https), 9200-9271 (modules)
+Listening: 80 (http), 443 (https), 9400-9471 (modules)
 
 ***************
 others
