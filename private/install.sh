@@ -549,7 +549,8 @@ git clone https://code.antopie.org/miraty/libreqr.git libreqr
 cd libreqr
 git checkout 2.0.1
 rm -rf .git
-chown www-data:www-data /usr/local/modules/libreqr/css
+composer -n install
+chown www-data:www-data css
 
 if [ -f "/tmp/clone.tbz2" ]; then
 	echo "################################"
@@ -619,13 +620,6 @@ else
 	clone webtrees fisharebest/webtrees 2.1.25
 	clone yourls YOURLS/YOURLS 1.10.2
 fi
-
-echo "################################"
-echo "libreqr"
-echo "################################"
-cd /usr/local/modules/libreqr
-composer -n install
-chown www-data:www-data css
 
 echo "################################"
 echo "audiobookshelf"
