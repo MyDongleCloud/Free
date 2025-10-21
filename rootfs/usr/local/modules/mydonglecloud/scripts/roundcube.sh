@@ -40,7 +40,7 @@ echo "$EMAIL $SPACENAME.mydongle.cloud/admin/" > /disk/admin/.modules/mail/virtu
 postmap /disk/admin/.modules/mail/virtualmaps
 echo "" > /disk/admin/.modules/mail/virtualalias
 postmap /disk/admin/.modules/mail/virtualalias
-echo "$EMAIL:{SHA512-CRYPT}$PWD" > /disk/admin/.modules/mail/password-$SPACENAME.mydongle.cloud
+echo "$EMAIL:$PWD" > /disk/admin/.modules/mail/password-$SPACENAME.mydongle.cloud
 
 rm -f /disk/admin/.modules/roundcube/conf.txt
 echo "User: ${EMAIL}\nPassword: ${PASSWD}" > /disk/admin/.modules/roundcube/conf.txt
