@@ -138,7 +138,7 @@ elif [ $OS = "pios" ]; then
 fi
 
 echo "################################"
-echo "Python"
+echo "python"
 echo "################################"
 if [ $OS = "0" ]; then
 	wget -nv https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
@@ -155,7 +155,7 @@ fi
 apt-get -y install python3-venv python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
 
 echo "################################"
-echo "Mysql"
+echo "mysql"
 echo "################################"
 if [ $OS = "ubuntu" ]; then
 	apt-get -y install mysql-server-8.0
@@ -178,7 +178,7 @@ elif [ $OS = "pios" ]; then
 fi
 
 echo "################################"
-echo "Postfix"
+echo "postfix"
 echo "################################"
 cat /home/mdc/private/preseed_postfix.cfg | debconf-set-selections
 apt-get -y install postfix swaks s-nail
@@ -189,14 +189,14 @@ echo "################################"
 apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libapache2-mod-authnz-external libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-sqlite3 php-xml php-yaml php-curl php-zip php-apcu php-memcache php-redis php-ldap procmail rspamd sqlite3 php-imagick
 
 echo "################################"
-echo "Apache2"
+echo "apache2"
 echo "################################"
 apt-get -y install apache2
 rm -f /etc/apache2/sites-enabled/*
 rm -f /etc/apache2/ports.conf
 
 echo "################################"
-echo "Roundcube"
+echo "roundcube"
 echo "################################"
 cat /home/mdc/private/preseed_roundcube.cfg | debconf-set-selections
 apt-get -y install roundcube
@@ -206,7 +206,7 @@ chmod 644 /etc/roundcube/config.inc.php.template
 ln -sf /usr/local/modules/onetimeemail/autologin.php /usr/share/roundcube
 
 echo "################################"
-echo "Kernel (Dongle Pro)"
+echo "kernel (Dongle Pro)"
 echo "################################"
 if [ $OS = "ubuntu" ]; then
 	echo "apt-get -y install linux-headers-rpi-2712 linux-image-rpi-2712 linux-headers-6.12.34+rpt-common-rpi linux-headers-6.12.34+rpt-rpi-2712 linux-image-6.12.34+rpt-rpi-2712 linux-kbuild-6.12.34+rpt"
@@ -225,7 +225,7 @@ elif [ $OS = "pios" ]; then
 fi
 
 echo "################################"
-echo "Docker"
+echo "docker"
 echo "################################"
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 if [ $OS = "ubuntu" ]; then
@@ -238,12 +238,12 @@ apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 usermod -aG docker admin
 
 echo "################################"
-echo "Java"
+echo "java"
 echo "################################"
 apt-get -y install openjdk-21-jdk openjdk-21-jre openjdk-21-jre-headless
 
 echo "################################"
-echo "Jitsi"
+echo "jitsi"
 echo "################################"
 curl https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor > /usr/share/keyrings/jitsi-keyring.gpg
 echo "deb [arch=arm64 signed-by=/usr/share/keyrings/jitsi-keyring.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi-stable.list
@@ -253,7 +253,7 @@ apt-get -y install jitsi-videobridge2 jitsi-meet-web-config jitsi-meet-web
 #apt-get -y install jitsi-meet
 
 echo "################################"
-echo "RethinkDB"
+echo "rethinkdb"
 echo "################################"
 cd /home/mdc/build
 wget -nv https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
@@ -278,7 +278,7 @@ mv frp_*_linux_arm64/frpc /usr/local/modules/frp
 cd ..
 
 echo "################################"
-echo "LiveCodes"
+echo "livecodes"
 echo "################################"
 cd /home/mdc/build
 wget -nv https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
@@ -287,7 +287,7 @@ tar -xpf livecodes-v46.tar.gz -C /usr/local/modules/livecodes --strip-components
 cd ..
 
 echo "################################"
-echo "Qdrant"
+echo "qdrant"
 echo "################################"
 cd /home/mdc/build
 wget -nv https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
@@ -298,7 +298,7 @@ mv qdrant /usr/local/modules/qdrant
 cd ..
 
 echo "################################"
-echo "Trilium Notes"
+echo "triliumnotes"
 echo "################################"
 cd /home/mdc/build
 wget -nv https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
@@ -308,7 +308,7 @@ rm -rf /usr/local/modules/triliumnotes/node
 ln -sf /etc/systemd/system/triliumnotes.service /etc/systemd/system/multi-user.target.wants/triliumnotes.service
 
 echo "################################"
-echo "Node.js"
+echo "node"
 echo "################################"
 cd /home/mdc/build
 FILENODE=`wget -q -O - https://nodejs.org/dist/latest-v22.x/ | grep "\-linux\-arm64\.tar\.xz" | sed -E "s|.*>([^<]*)<.*|\1|"`
@@ -318,12 +318,12 @@ cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local
 cd ..
 
 echo "################################"
-echo "npm packages"
+echo "npm Packages"
 echo "################################"
 npm -g install @angular/cli @ionic/cli @vue/cli cordova-res
 
 echo "################################"
-echo "Zigbee2MQTT"
+echo "zigbee2mqtt"
 echo "################################"
 mkdir /usr/local/modules/zigbee2mqtt
 cd /usr/local/modules/zigbee2mqtt
@@ -332,7 +332,7 @@ rm -rf /usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt/data
 ln -sf /etc/systemd/system/zigbee2mqtt.service /etc/systemd/system/multi-user.target.wants/zigbee2mqtt.service
 
 echo "################################"
-echo "phpList"
+echo "phplist"
 echo "################################"
 cd /usr/local/modules
 wget -nv https://versaweb.dl.sourceforge.net/project/phplist/phplist/3.6.16/phplist-3.6.16.tgz
@@ -355,7 +355,7 @@ elif [ $OS = "pios" ]; then
 fi
 
 echo "################################"
-echo "PyMCUProg"
+echo "pymcuprog"
 echo "################################"
 cd /home/mdc/build
 git clone https://github.com/microchip-pic-avr-tools/pymcuprog
@@ -369,7 +369,7 @@ python3 setup.py install
 cd ../..
 
 echo "################################"
-echo "postfix-parser"
+echo "postfixparser"
 echo "################################"
 cd /home/mdc/build
 git clone https://github.com/Privex/python-loghelper
@@ -382,7 +382,7 @@ python3 setup.py install
 cd ../..
 
 echo "################################"
-echo "HomeAssistant"
+echo "homeassistant"
 echo "################################"
 cd /home/mdc
 /home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeassistant -s
@@ -443,7 +443,7 @@ echo "PATH restored: $PATH"
 ln -sf /etc/systemd/system/homeassistant.service /etc/systemd/system/multi-user.target.wants/homeassistant.service
 
 echo "################################"
-echo "TubeArchivist"
+echo "tubearchivist"
 echo "################################"
 cd /home/mdc
 /home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubearchivist -s
@@ -477,7 +477,7 @@ export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 
 echo "################################"
-echo "Unmanic"
+echo "unmanic"
 echo "################################"
 cd /home/mdc
 /home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/unmanic -s
@@ -492,13 +492,13 @@ export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 
 echo "################################"
-echo "Transmission"
+echo "transmission"
 echo "################################"
 apt-get -y install transmission-common transmission-daemon transmission-cli
 sed -i -e "s|^User=.*|User=admin\nEnvironment=TRANSMISSION_HOME=/disk/admin/.modules/transmission|" /usr/lib/systemd/system/transmission-daemon.service
 
 echo "################################"
-echo "uMTP"
+echo "umtp"
 echo "################################"
 cd /home/mdc/build
 git clone https://github.com/viveris/uMTP-Responder
@@ -520,7 +520,7 @@ cp cc2538-prog /usr/local/bin/
 cd ../..
 
 echo "################################"
-echo "WebSSH2"
+echo "webssh2"
 echo "################################"
 cd /usr/local/modules
 git clone https://github.com/billchurch/webssh2 webssh2
@@ -533,7 +533,7 @@ cd ../..
 ln -sf /etc/systemd/system/webssh2.service /etc/systemd/system/multi-user.target.wants/webssh2.service
 
 echo "################################"
-echo "Acme.sh"
+echo "acme"
 echo "################################"
 cd /usr/local/modules
 mkdir /usr/local/modules/acme
@@ -542,7 +542,7 @@ wget -nv https://raw.githubusercontent.com/acmesh-official/acme.sh/refs/tags/3.1
 chmod a+x acme.sh
 
 echo "################################"
-echo "Libreqr"
+echo "libreqr"
 echo "################################"
 cd /usr/local/modules
 git clone https://code.antopie.org/miraty/libreqr.git libreqr
@@ -621,20 +621,20 @@ else
 fi
 
 echo "################################"
-echo "Libreqr"
+echo "libreqr"
 echo "################################"
 cd /usr/local/modules/libreqr
 composer -n install
 chown www-data:www-data css
 
 echo "################################"
-echo "Audiobookshelf"
+echo "audiobookshelf"
 echo "################################"
 cd /usr/local/modules/audiobookshelf
 npm install
 
 echo "################################"
-echo "Bugzilla"
+echo "bugzilla"
 echo "################################"
 apt-get -y install libcgi-pm-perl libemail-mime-perl libemail-sender-perl libemail-address-perl libmath-random-isaac-perl liblist-moreutils-perl libjson-xs-perl libdatetime-timezone-perl libdbi-perl libtest-taint-perl libdbd-sqlite3-perl libencode-detect-perl libio-stringy-perl libxml-twig-perl libwww-perl libtext-multimarkdown-perl liburi-db-perl libfile-copy-recursive-perl libfile-which-perl libpod-pom-view-restructured-perl libhtml-scrubber-perl libemail-reply-perl libhtml-formattext-withlinks-perl libjson-rpc-perl libcache-memcached-fast-perl libchart-perl libgd-perl libgd-graph-perl libgd-text-perl libtemplate-plugin-gd-perl libmoox-strictconstructor-perl libtype-tiny-perl libdaemon-generic-perl libtheschwartz-perl libapache2-mod-perl2 libdbd-pg-perl libfile-mimeinfo-perl libsoap-lite-perl libxmlrpc-lite-perl
 cd /usr/local/modules/bugzilla
@@ -649,38 +649,38 @@ make
 make install
 
 echo "################################"
-echo "Flarum"
+echo "flarum"
 echo "################################"
 cd /usr/local/modules/flarum
 composer -n install
 
 echo "################################"
-echo "FreshRSS"
+echo "freshrss"
 echo "################################"
 cd /usr/local/modules/freshrss
 npm install
 
 echo "################################"
-echo "Gitea"
+echo "gitea"
 echo "################################"
 cd /usr/local/modules/gitea
 npm install
 
 echo "################################"
-echo "Grav"
+echo "grav"
 echo "################################"
 cd /usr/local/modules/grav
 bin/grav install
 
 echo "################################"
-echo "Joomla"
+echo "joomla"
 echo "################################"
 cd /usr/local/modules/joomla
 composer -n install
 npm ci
 
 echo "################################"
-echo "MantisBugTracker"
+echo "mantisbugtracker"
 echo "################################"
 cd /usr/local/modules/mantisbugtracker
 composer -n install
@@ -688,13 +688,13 @@ mv config config.bak
 ln -sf /disk/admin/.modules/mantisbugtracker/config
 
 echo "################################"
-echo "osTicket"
+echo "osticket"
 echo "################################"
 cd /usr/local/modules/osticket
 ln -sf /disk/admin/.modules/osticket/ost-config.php include/ost-config.php
 
 echo "################################"
-echo "ProjectSend"
+echo "projectsend"
 echo "################################"
 cd /usr/local/modules/projectsend
 composer -n install
@@ -710,7 +710,7 @@ rm -rf cache
 ln -sf /disk/admin/.modules/projectsend/cache
 
 echo "################################"
-echo "MeTube"
+echo "metube"
 echo "################################"
 cd /usr/local/modules/metube
 /home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/metube/env -s
@@ -730,7 +730,7 @@ mkdir /disk/admin/.modules/metube
 ln -sf /etc/systemd/system/metube.service /etc/systemd/system/multi-user.target.wants/metube.service
 
 echo "################################"
-echo "Stirling-PDF"
+echo "stirlingpdf"
 echo "################################"
 apt-get install -y libleptonica-dev zlib1g-dev libreoffice-writer libreoffice-calc libreoffice-impress unpaper ocrmypdf
 mv /usr/local/modules/stirlingpdf /home/mdc/build
@@ -752,7 +752,7 @@ echo "PATH restored: $PATH"
 ln -sf /etc/systemd/system/stirlingpdf.service /etc/systemd/system/multi-user.target.wants/stirlingpdf.service
 
 echo "################################"
-echo "Web Trees"
+echo "webtrees"
 echo "################################"
 cd /usr/local/modules/webtrees
 composer -n install
@@ -766,7 +766,7 @@ cd /usr/local/modules/yourls
 ln -sf /disk/admin/.modules/yourls/config.php user/config.php
 
 echo "################################"
-echo "Better Auth"
+echo "betterauth"
 echo "################################"
 ln -sf /etc/systemd/system/betterauth.service /etc/systemd/system/multi-user.target.wants/betterauth.service
 ln -sf /etc/systemd/system/betterauth-studio.service /etc/systemd/system/multi-user.target.wants/betterauth-studio.service
@@ -774,7 +774,7 @@ cd /home/mdc/auth
 ./prepare.sh -i
 
 echo "################################"
-echo "MyDongleCloud stuff and rootfs"
+echo "mydonglecloud and rootfs"
 echo "################################"
 cd /home/mdc
 chown -R root:root rootfs
