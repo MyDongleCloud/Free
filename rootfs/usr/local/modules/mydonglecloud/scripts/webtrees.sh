@@ -84,9 +84,9 @@ include '/usr/local/modules/webtrees/index.php';
 ?>
 EOF
 
-sed -i -e "s/'cli'/'cli2'/" /usr/local/modules/webtrees/index.php
+sed -i -e "s/'cli'/'cli2'/" /usr/local/modules/webtrees/app/Webtrees.php
 php /tmp/webtrees.php > /tmp/reset-webtrees-$DATE.log
-sed -i -e "s/'cli2'/'cli'/" /usr/local/modules/webtrees/index.php
+sed -i -e "s/'cli2'/'cli'/" /usr/local/modules/webtrees/app/Webtrees.php
 rm /tmp/webtrees.php
 
 rm -f /disk/admin/.modules/webtrees/conf.txt
@@ -95,3 +95,5 @@ chmod 444 /disk/admin/.modules/webtrees/conf.txt
 
 chown -R admin:admin /disk/admin/.modules/webtrees
 chown -R www-data:admin /disk/admin/.modules/webtrees/data
+
+sed -i -e "s|if (str_starts_with(\$content_type, 'text/')) {|if (str_starts_with(\$content_type, 'text/')) {return false;|" /usr/local/modules/webtrees/app/Http/Middleware/CompressResponse.php
