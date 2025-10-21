@@ -97,7 +97,7 @@ cat > /tmp/mantisbugtracker.php << EOF
 include '/usr/local/modules/mantisbugtracker/admin/install.php';
 ?>
 EOF
-php /tmp/mantisbugtracker.php > /tmp/reset-mantisbugtracker-$DATE.log
+php /tmp/mantisbugtracker.php > /tmp/reset-mantisbugtracker-$DATE.log 2>&1
 rm /tmp/mantisbugtracker.php
 
 mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF

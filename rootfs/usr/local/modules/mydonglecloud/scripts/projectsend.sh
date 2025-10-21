@@ -76,7 +76,7 @@ cat > /tmp/projectsend.php << EOF
 include '/usr/local/modules/projectsend/install/index.php';
 ?>
 EOF
-php /tmp/projectsend.php > /tmp/reset-projectsend-$DATE.log
+php /tmp/projectsend.php > /tmp/reset-projectsend-$DATE.log 2>&1
 rm /tmp/projectsend.php
 
 mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF

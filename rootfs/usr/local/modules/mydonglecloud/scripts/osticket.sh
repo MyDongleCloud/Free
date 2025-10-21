@@ -87,7 +87,7 @@ cat > /tmp/osticket.php << EOF
 include '/usr/local/modules/osticket/setup/install.php';
 ?>
 EOF
-php /tmp/osticket.php > /tmp/reset-osticket-$DATE.log
+php /tmp/osticket.php > /tmp/reset-osticket-$DATE.log 2>&1
 rm /tmp/osticket.php
 
 chmod 644 /disk/admin/.modules/osticket/ost-config.php

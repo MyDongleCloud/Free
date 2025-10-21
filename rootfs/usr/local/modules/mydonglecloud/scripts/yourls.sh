@@ -73,7 +73,7 @@ cat > /tmp/yourls.php << EOF
 include '/usr/local/modules/yourls/admin/install.php';
 ?>
 EOF
-php /tmp/yourls.php > /tmp/reset-yourls-$DATE.log
+php /tmp/yourls.php > /tmp/reset-yourls-$DATE.log 2>&1
 rm /tmp/yourls.php
 
 rm -f /disk/admin/.modules/yourls/conf.txt

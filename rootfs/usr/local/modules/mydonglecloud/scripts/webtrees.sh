@@ -85,7 +85,7 @@ include '/usr/local/modules/webtrees/index.php';
 EOF
 
 sed -i -e "s/'cli'/'cli2'/" /usr/local/modules/webtrees/app/Webtrees.php
-php /tmp/webtrees.php > /tmp/reset-webtrees-$DATE.log
+php /tmp/webtrees.php > /tmp/reset-webtrees-$DATE.log 2>&1
 sed -i -e "s/'cli2'/'cli'/" /usr/local/modules/webtrees/app/Webtrees.php
 rm /tmp/webtrees.php
 
