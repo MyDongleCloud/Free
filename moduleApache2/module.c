@@ -3,12 +3,12 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <jwt.h>
-#include "util_cookies.h"
 #include "http_request.h"
 #include "http_log.h"
 #include "apr_strings.h"
 #include "macro.h"
 #include "cJSON.h"
+#include "login.h"
 
 //Struct
 typedef struct {
@@ -140,11 +140,8 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 	return ret;
 }
 
-static int authorization(request_rec *r) {
+int authorization2(request_rec *r) {
 	server_rec *s = r->server;
-	const char *current_uri = r->uri;
-	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
-		return DECLINED;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	//PRINTF("MDC: authorization1a jwkPemFile: %s", confD->jwkPemFile);
 	if (confD->jwkPem == NULL)
@@ -161,6 +158,18 @@ static int authorization(request_rec *r) {
 	//PRINTF("MDC: authorization2 cookieJwt: %s", cookieJwt);
 	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
 		return decodeAndCheck(s, cookieJwt, confD->jwkPem, confD->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
+	return -2;
+}
+
+static int authorization(request_rec *r) {
+	server_rec *s = r->server;
+	const char *current_uri = r->uri;
+	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
+		return DECLINED;
+	int ret = authorization2(r);
+	if (ret != -2)
+		return ret;
+	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
 	if (confD->name != NULL && strcmp(confD->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
 			return DECLINED;
 	//PRINTF("MDC: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confD->name, r->uri);
@@ -176,6 +185,7 @@ static const command_rec directives[] = {
 
 static void registerHooks(apr_pool_t *p) {
 	ap_hook_access_checker(authorization, NULL, NULL, APR_HOOK_FIRST);
+	registerFilter();
 }
 
 module AP_MODULE_DECLARE_DATA mydonglecloud_module = {
