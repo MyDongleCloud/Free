@@ -109,7 +109,6 @@ superset;Superset;Data Visualization Platform;Productivity;yes;;Modern data expl
 syncthing;Syncthing;File Sync Tool;Utils;yes;;Continuous file synchronization program.;File|Sync|P2P|Backup;Dropbox|Google Drive;clone;1.30.0;syncthing/syncthing
 transmission;Transmission;BitTorrent Client;Utils;yes;done;Fast, easy, and free BitTorrent client.;BitTorrent|Client|P2P|Download;qBittorrent;clone;4.0.6;transmission/transmission
 triliumnotes;Trilium Notes;Hierarchical Notes App;Productivity;yes;done;Hierarchical note taking application.;Notes|Hierarchical|Knowledge|Base;Evernote;tar;v0.95.0;TriliumNext/Notes
-tubearchivist;Tube Archivist;YouTube Media Server;Personal;yes;;YouTube media server.;YouTube|Archive|Media;Plex;clone;v0.5.4;tubearchivist/tubearchivist
 typescript;TypeScript;Enhanced JavaScript;Developer;;done;Typed superset of JavaScript that compiles to plain JavaScript.;JavaScript|Typed|Compiler|Web;;;;microsoft/TypeScript
 unmanic;Unmanic;Media Library Optimizer;Utils;yes;;Library optimizer for removing unused metadata from media files.;Media|Optimizer|Metadata|Library;;pip;;Unmanic/unmanic
 uptime;Uptime;Monitoring Service;Utils;yes;;Monitoring, uptime, status tool and checker.;Monitoring|Uptime|Status;Pingdom;clone;1.23.16;louislam/uptime-kuma

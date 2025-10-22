@@ -551,12 +551,6 @@
 			"path": "/"
 		} ]
 	},
-	"tubearchivist": {
-		"web": true,
-		"enabled": true,
-		"permissions": [ "_groupadmin_" ],
-		"localPort": 9463
-	},
 	"typescript": {},
 	"unmanic": {
 		"web": true,
