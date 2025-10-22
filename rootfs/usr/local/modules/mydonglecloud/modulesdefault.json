@@ -9,7 +9,7 @@
 		"permissions": [ "_public_" ],
 		"localPort": 80,
 		"localRanges": ["10", "172.16", "192.168"],
-		"path": "/disk/admin/Web",
+		"path": "/disk/admin/.modules/apache2/www",
 		"alias": [ "www" ]
 	},
 	"audiobookshelf": {
