@@ -562,6 +562,18 @@
 			"path": "/"
 		} ]
 	},
+	"tubesync": {
+		"web": true,
+		"enabled": true,
+		"addConfig": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
+		"permissions": [ "_groupadmin_" ],
+		"localPort": 9463,
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 8098,
+			"path": "/"
+		} ]
+	},
 	"typescript": {},
 	"unmanic": {
 		"web": true,

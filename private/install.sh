@@ -540,6 +540,7 @@ else
 	clone sunrisecms cityssm/sunrise-cms v1.0.0-alpha.19
 	clone superset apache/superset 5.0.0
 	clone syncthing syncthing/syncthing v1.30.0
+	clone tubesync meeb/tubesync v0.15.10
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webtrees fisharebest/webtrees 2.1.25
 	clone yourls YOURLS/YOURLS 1.10.2
@@ -668,6 +669,30 @@ PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 ln -sf /etc/systemd/system/stirlingpdf.service /etc/systemd/system/multi-user.target.wants/stirlingpdf.service
+
+echo "################################"
+echo "tubesync"
+echo "################################"
+apt-get -y install libonig-dev
+cd /usr/local/modules/tubesync
+/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubesync/env -s
+echo "PATH before any modif: $PATH"
+PATHOLD=$PATH
+PATH=/usr/local/modules/tubesync/env/bin:$PATHOLD
+export PATH=/usr/local/modules/tubesync/env/bin:$PATHOLD
+echo "PATH new: $PATH python: `python --version`"
+pip install django django-huey django-sass-processor pillow whitenoise gunicorn httptools django-basicauth psycopg PySocks urllib3 requests yt-dlp emoji brotli html5lib bgutil-ytdlp-pot-provider babi curl-cffi libsass django-compressor
+PATH=$PATHOLD
+export PATH=$PATHOLD
+echo "PATH restored: $PATH"
+cd tubesync
+cp tubesync/local_settings.py.example tubesync/local_settings.py
+echo "ALLOWED_HOSTS = ['*']" >> tubesync/local_settings.py
+sed -i -e 's|import yt_dlp.patch|#import yt_dlp.patch|' sync/youtube.py
+./manage.py migrate
+./manage.py compilescss
+./manage.py collectstatic
+ln -sf /etc/systemd/system/tubesync.service /etc/systemd/system/multi-user.target.wants/tubesync.service
 
 echo "################################"
 echo "webtrees"
