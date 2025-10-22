@@ -13,8 +13,8 @@
 #include "communication.h"
 
 //Private variable
-#define RESETS 10
-static char *szResets[RESETS] = { "postfix", "roundcube", "mysql", "bugzilla", "jitsi", "mantisbugtracker", "osticket", "projectsend", "webtrees", "yourls" };
+#define RESETS sizeof(szResets) / sizeof(szResets[0])
+static char *szResets[] = { "postfix", "roundcube", "mysql", "bugzilla", "jitsi", "mantisbugtracker", "osticket", "projectsend", "webtrees", "yourls" };
 
 //Functions
 void spaceInit() {
@@ -59,7 +59,7 @@ void spaceSetup(cJSON *el) {
 	serviceAction("betterauth.service", "RestartUnit");
 	char sz[256];
 	for (int i = 0; i < RESETS; i++) {
-		snprintf(sz, sizeof(sz), "Setting is configuring\n%s\n%d/%d\nPlease wait...", szResets[i], i + 1, RESETS + 1);
+		snprintf(sz, sizeof(sz), "Setting is configuring\n%s\n%d/%lu\nPlease wait...", szResets[i], i + 1, RESETS + 1);
 		logicMessage(sz, 0);
 		snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", szResets[i]);
 		communicationString(sz);
