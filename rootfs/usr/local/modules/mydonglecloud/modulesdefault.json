@@ -648,7 +648,7 @@
 		}, {
 			"type": "ws",
 			"port": 8095,
-			"path": "/api/websocket"
+			"path": "/api"
 		} ]
 	}
 }
