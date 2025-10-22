@@ -29,6 +29,7 @@ fi
 echo "#Reset tubesync##################"
 DATE=`date +%s`
 
+systemctl stop tubesync.service
 rm -rf /disk/admin/.modules/tubesync
 mkdir /disk/admin/.modules/tubesync
 cp /usr/local/modules/tubesync/tubesync/db.sqlite3 /disk/admin/.modules/tubesync/
@@ -36,3 +37,4 @@ mkdir /disk/admin/.modules/tubesync/downloads
 mkdir /disk/admin/.modules/tubesync/downloads/audio
 mkdir /disk/admin/.modules/tubesync/downloads/video
 mkdir /disk/admin/.modules/tubesync/tasks
+systemctl start tubesync.service
