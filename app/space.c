@@ -19,7 +19,7 @@ static char *szResets[] = { "postfix", "roundcube", "mysql", "apache2", "bugzill
 //Functions
 void spaceInit() {
 	cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
-	modulesSetup(space);
+	modulesInit(space);
 	cJSON_Delete(space);
 }
 

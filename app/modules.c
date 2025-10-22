@@ -11,7 +11,7 @@
 #include "dbBerkeley.h"
 
 //Functions
-void modulesSetup(cJSON *space) {
+void modulesInit(cJSON *space) {
 	PRINTF("Modules:Setup: Enter\n");
 	if (space == NULL || !cJSON_HasObjectItem(space, "name"))
 		return;
