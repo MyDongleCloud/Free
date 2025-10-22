@@ -641,11 +641,14 @@
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9471,
-		"addConfig": "\tRewriteCond %{HTTP:Connection} Upgrade [NC]\n\tRewriteCond %{HTTP:Upgrade} websocket [NC]\n\tRewriteRule /(.*) ws://localhost:8099/$1 [P,L]",
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8095,
 			"path": "/"
+		}, {
+			"type": "ws",
+			"port": 8095,
+			"path": "/api/websocket"
 		} ]
 	}
 }
