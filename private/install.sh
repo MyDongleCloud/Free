@@ -171,8 +171,11 @@ elif [ $OS = "pios" ]; then
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/libmysqlclient-dev_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/libmysqlclient21_8.0.43-0ubuntu0.22.04.1_arm64.deb
 	dpkg -i libaio1* libicu70* libprotobuf-lite23* mysql-common*
 	dpkg -i mysql-client* mysql-server*
+	dpkg -i libmysqlclient*
 	cd ..
 	apt-mark hold mariadb-common
 fi
