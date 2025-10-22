@@ -20,7 +20,7 @@ do
 done
 
 if [ $1 = "apache2" ]; then
-	/usr/local/modules/mydonglecloud/scripts/apache2.sh -r
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/apache2.sh -r"
 elif [ $1 = "postfix" ]; then
 	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r
 elif [ $1 = "mysql" ]; then

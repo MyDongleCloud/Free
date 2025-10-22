@@ -29,7 +29,7 @@ fi
 echo "#Reset apache2##################"
 DATE=`date +%s`
 
-rm -rf /disk/admin/.modules/apache2
+rm -rf /disk/admin/.modules/apache2/www
 mkdir -p /disk/admin/.modules/apache2/www
 cat > /disk/admin/.modules/apache2/www/index.html <<EOF
 <html>
