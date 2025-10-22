@@ -35,6 +35,8 @@ elif [ $1 = "projectsend" ]; then
 	/usr/local/modules/mydonglecloud/scripts/projectsend.sh -r
 elif [ $1 = "roundcube" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r"
+elif [ $1 = "tubesync" ]; then
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/tubesync.sh -r"
 elif [ $1 = "yourls" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/yourls.sh -r"
 elif [ $1 = "webtrees" ]; then

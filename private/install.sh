@@ -683,11 +683,24 @@ export PATH=/usr/local/modules/tubesync/env/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install django django-huey django-sass-processor pillow whitenoise gunicorn httptools django-basicauth psycopg PySocks urllib3 requests yt-dlp emoji brotli html5lib bgutil-ytdlp-pot-provider babi curl-cffi libsass django-compressor
 cd tubesync
-cp tubesync/local_settings.py.example tubesync/local_settings.py
-echo "ALLOWED_HOSTS = ['*']" >> tubesync/local_settings.py
-sed -i -e 's|DOWNLOAD_ROOT = .*|DOWNLOAD_ROOT = "/disk/admin/.modules/tubesync"|' tubesync/local_settings.py
+sed -i -e 's|/config/tasks/|/disk/admin/.modules/tubesync/tasks/|' common/huey.py
 sed -i -e 's|import yt_dlp.patch|#import yt_dlp.patch|' sync/youtube.py
+cp tubesync/local_settings.py.example tubesync/local_settings.py
+cat >> tubesync/local_settings.py <<EOF
+DOWNLOAD_ROOT = Path('/disk/admin/.modules/tubesync/downloads')
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['*']
+EOF
 ./manage.py migrate
+cat >> tubesync/local_settings.py <<EOF
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': Path('/disk/admin/.modules/tubesync/db.sqlite3'),
+    }
+}
+DATABASE_CONNECTION_STR = f'sqlite at "{DATABASES["default"]["NAME"]}"'
+EOF
 ./manage.py compilescss
 ./manage.py collectstatic
 PATH=$PATHOLD
