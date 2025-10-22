@@ -682,16 +682,17 @@ PATH=/usr/local/modules/tubesync/env/bin:$PATHOLD
 export PATH=/usr/local/modules/tubesync/env/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install django django-huey django-sass-processor pillow whitenoise gunicorn httptools django-basicauth psycopg PySocks urllib3 requests yt-dlp emoji brotli html5lib bgutil-ytdlp-pot-provider babi curl-cffi libsass django-compressor
-PATH=$PATHOLD
-export PATH=$PATHOLD
-echo "PATH restored: $PATH"
 cd tubesync
 cp tubesync/local_settings.py.example tubesync/local_settings.py
 echo "ALLOWED_HOSTS = ['*']" >> tubesync/local_settings.py
+sed -i -e 's|DOWNLOAD_ROOT = .*|DOWNLOAD_ROOT = "/disk/admin/.modules/tubesync"|' tubesync/local_settings.py
 sed -i -e 's|import yt_dlp.patch|#import yt_dlp.patch|' sync/youtube.py
 ./manage.py migrate
 ./manage.py compilescss
 ./manage.py collectstatic
+PATH=$PATHOLD
+export PATH=$PATHOLD
+echo "PATH restored: $PATH"
 ln -sf /etc/systemd/system/tubesync.service /etc/systemd/system/multi-user.target.wants/tubesync.service
 
 echo "################################"
