@@ -212,20 +212,24 @@ MyDongleCloudIPEnabled on\n\
 				if (cJSON_HasObjectItem(elModule2, "permissions"))
 					elPermissions = cJSON_GetObjectItem(elModule2, "permissions");
 
+				int dirProxy = 0;
 				if (cJSON_HasObjectItem(elModule, "reverseProxy")) {
 					cJSON *elReverseProxy = cJSON_GetObjectItem(elModule, "reverseProxy");
 					for (int j = 0; j < cJSON_GetArraySize(elReverseProxy); j++) {
 						cJSON *elReverseProxy_ = cJSON_GetArrayItem(elReverseProxy, j);
 						char *type_ = cJSON_GetStringValue2(elReverseProxy_, "type");
-						char *url_ = cJSON_GetStringValue2(elReverseProxy_, "url");
 						char *path_ = cJSON_GetStringValue2(elReverseProxy_, "path");
 						int reversePort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elReverseProxy_, "port"));
-						if (url_ != NULL)
-							snprintf(sz, sizeof(sz), "\tProxyPass %s %s%s\n\tProxyPassReverse %s %s%s\n", path_, url_, path_, path_, url_, path_);
-						else
-							snprintf(sz, sizeof(sz), "\tProxyPass %s %s://localhost:%d%s\n\tProxyPassReverse %s %s://localhost:%d%s\n", path_, type_, reversePort, path_, path_, type_, reversePort, path_);
+						if (strcmp(type_, "http") == 0) {
+							snprintf(sz, sizeof(sz), "\tProxyPass %s http://localhost:%d%s\n\tProxyPassReverse %s http://localhost:%d%s\n", path_, reversePort, path_, path_, reversePort, path_);
+							dirProxy = 1;
+						}
+						else if (strcmp(type_, "ws") == 0)
+							snprintf(sz, sizeof(sz), "\tRewriteCond %%{HTTP:Upgrade} websocket [NC]\n\tRewriteCond %%{HTTP:Connection} upgrade [NC]\n\tRewriteRule ^%s(.*) ws://localhost:%d%s$1 [P,L]\n", path_, reversePort, path_);
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
+				}
+				if (dirProxy == 1) {
 					strcpy(sz, "\t<Proxy *>\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				} else {
@@ -254,7 +258,7 @@ MyDongleCloudIPEnabled on\n\
 				else if (cJSON_GetObjectItem(elModule, "Indexes"))
 					writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "Indexes")), pfM);
 
-				if (cJSON_HasObjectItem(elModule, "reverseProxy"))
+				if (dirProxy)
 					strcpy(sz, "\t</Proxy>\n");
 				else
 					strcpy(sz, "\t</Directory>\n");

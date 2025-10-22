@@ -184,11 +184,14 @@
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9417,
-		"addConfig": "RewriteCond %{HTTP:Upgrade} websocket [NC]\n\t\tRewriteCond %{HTTP:Connection} upgrade [NC]\n\t\tRewriteRule ^/api/websocket ws://localhost:8123/api/websocket [P,L]",
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 8123,
 			"path": "/"
+		}, {
+			"type": "ws",
+			"port": 8123,
+			"path": "/api/websocket"
 		} ]
 	},
 	"html5qrcode": {
@@ -326,6 +329,10 @@
 			"type": "http",
 			"port": 8089,
 			"path": "/"
+		}, {
+			"type": "ws",
+			"port": 8089,
+			"path": "/socket.io"
 		} ]
 	},
 	"minio": {
@@ -341,9 +348,13 @@
 		"enabled": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9400,
-		"addConfig": "ProxyPass /ws/ ws://localhost:8094/ws/",
 		"path": "/usr/local/modules/mydonglecloud/web",
 		"addLineInDirectory": "RewriteBase /\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . /index.html [L]",
+		"reverseProxy": [ {
+			"type": "ws",
+			"port": 8094,
+			"path": "/ws"
+		} ],
 		"alias": [ "app", "mdc" ]
 	},
 	"mysql": {
