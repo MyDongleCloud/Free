@@ -29,6 +29,8 @@ elif [ $1 = "jitsi" ]; then
 	/usr/local/modules/mydonglecloud/scripts/jitsi.sh -r
 elif [ $1 = "mantisbugtracker" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/mantisbugtracker.sh -r"
+elif [ $1 = "metube" ]; then
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/metube.sh -r"
 elif [ $1 = "osticket" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
 elif [ $1 = "projectsend" ]; then

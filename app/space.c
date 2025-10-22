@@ -14,7 +14,7 @@
 
 //Private variable
 #define RESETS sizeof(szResets) / sizeof(szResets[0])
-static char *szResets[] = { "postfix", "roundcube", "mysql", "bugzilla", "jitsi", "mantisbugtracker", "osticket", "projectsend", "tubesync", "webtrees", "yourls" };
+static char *szResets[] = { "postfix", "roundcube", "mysql", "bugzilla", "jitsi", "mantisbugtracker", "metube", "osticket", "projectsend", "tubesync", "webtrees", "yourls" };
 
 //Functions
 void spaceInit() {
