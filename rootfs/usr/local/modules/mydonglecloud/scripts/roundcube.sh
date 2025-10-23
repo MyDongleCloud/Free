@@ -33,7 +33,9 @@ EMAIL="admin@$SPACENAME.mydongle.cloud"
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PWD=`doveadm pw -s SHA512-CRYPT -p "$PASSWD"`
 
+
 sed -e "s|\$config['smtp_host'].*|\$config['smtp_host'] = 'ssl://localhost:465'; \$config['smtp_conn_options'] = [ 'ssl' => [ 'verify_peer' => false, 'verify_peer_name' => false ] ];|" /etc/roundcube/config.inc.php.template > /etc/roundcube/config.inc.php
+mkdir /disk/admin/.modules/mail
 rm -rf /disk/admin/.modules/mail/$SPACENAME.mydongle.cloud
 mkdir -p /disk/admin/.modules/mail/$SPACENAME.mydongle.cloud/admin
 echo "$EMAIL $SPACENAME.mydongle.cloud/admin/" > /disk/admin/.modules/mail/virtualmaps
