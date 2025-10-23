@@ -21,10 +21,6 @@ done
 
 if [ $1 = "apache2" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/apache2.sh -r"
-elif [ $1 = "postfix" ]; then
-	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r
-elif [ $1 = "mysql" ]; then
-	/usr/local/modules/mydonglecloud/scripts/mysql.sh -r
 elif [ $1 = "bugzilla" ]; then
 	/usr/local/modules/mydonglecloud/scripts/bugzilla.sh -r
 elif [ $1 = "homeassistant" ]; then
@@ -35,8 +31,12 @@ elif [ $1 = "mantisbugtracker" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/mantisbugtracker.sh -r"
 elif [ $1 = "metube" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/metube.sh -r"
+elif [ $1 = "mysql" ]; then
+	/usr/local/modules/mydonglecloud/scripts/mysql.sh -r
 elif [ $1 = "osticket" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
+elif [ $1 = "postfix" ]; then
+	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r
 elif [ $1 = "projectsend" ]; then
 	/usr/local/modules/mydonglecloud/scripts/projectsend.sh -r
 elif [ $1 = "roundcube" ]; then
