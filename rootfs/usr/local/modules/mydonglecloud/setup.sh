@@ -43,10 +43,10 @@ elif [ $1 = "roundcube" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/roundcube.sh -r"
 elif [ $1 = "tubesync" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/tubesync.sh -r"
-elif [ $1 = "yourls" ]; then
-	su admin -c "/usr/local/modules/mydonglecloud/scripts/yourls.sh -r"
 elif [ $1 = "webtrees" ]; then
 	/usr/local/modules/mydonglecloud/scripts/webtrees.sh -r
+elif [ $1 = "yourls" ]; then
+	su admin -c "/usr/local/modules/mydonglecloud/scripts/yourls.sh -r"
 else
 	echo "#Doing nothing for $1##################"
 fi
