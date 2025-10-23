@@ -186,7 +186,6 @@ void backendInit(int daemon) {
 		fdStdin = fileno(stdin);
 	}
 	eventFdUI = eventfd(0, 0);
-PRINTF("Gregoire eventFdUI= %d\n", eventFdUI);
 #ifndef DESKTOP
 	fdButton = open(BUTTON_PATH, O_RDONLY);
 #endif

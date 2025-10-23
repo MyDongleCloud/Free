@@ -8,9 +8,9 @@ typedef struct logics {
 	int previous;
 	int homePos;
 	int tipsPos;
-	char *messageM;
 	int messageOK;
 	int otp;
+	char *messageM;
 } logics;
 //#pragma pack(pop)
 

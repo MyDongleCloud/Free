@@ -644,7 +644,7 @@ void uiScreenMessage() {
 #ifdef WEB
 	lv_label_set_text(label0, L("Rotation is not supported on the web demo."));
 #else
-	lv_label_set_text(label0, L(lmdc.messageM));
+	lv_label_set_text(label0, lmdc.messageM);
 #endif
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);

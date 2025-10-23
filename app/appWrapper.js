@@ -112,5 +112,5 @@ function appShutdown() {
 
 function appOtp(email) {
 	if (socket != null)
-		socket.send(JSON.stringify({ a:"passcode", v:-1, e:email }));
+		socket.send(JSON.stringify({ a:"otp", v:-1, e:email }));
 }
