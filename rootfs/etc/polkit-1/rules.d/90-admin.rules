@@ -1,5 +1,7 @@
 polkit.addRule(function(action, subject) {
 	if (subject.isInGroup("admin")) {
+		if (action.id == "org.freedesktop.systemd1.manage-unit-files")
+			return polkit.Result.YES;
 		if (action.id == "org.freedesktop.systemd1.manage-units")
 			return polkit.Result.YES;
 		if (action.id.indexOf("org.freedesktop.login1.") === 0)
@@ -11,5 +13,7 @@ polkit.addRule(function(action, subject) {
 
 polkit.addRule(function(action, subject) {
 	if (action.id == "org.freedesktop.systemd1.manage-units" && subject.user == "root" && subject.active == false && subject.session == "unix-system")
+		return polkit.Result.YES;
+	if (action.id == "org.freedesktop.systemd1.manage-unit-files" && subject.user == "root" && subject.active == false && subject.session == "unix-system")
 		return polkit.Result.YES;
 });
