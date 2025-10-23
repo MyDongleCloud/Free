@@ -36,6 +36,7 @@ void spaceSetup(cJSON *elSpace) {
 		wiFiAddActivate(cJSON_GetStringValue2(elSpace, "ssid"), cJSON_GetStringValue2(elSpace, "security"));
 	jsonWrite(cJSON_GetObjectItem(elSpace, "space"), ADMIN_PATH "mydonglecloud/space.json");
 	jsonWrite(cJSON_GetObjectItem(elSpace, "proxy"), ADMIN_PATH "mydonglecloud/proxy.json");
+	mkdir(ADMIN_PATH "_config_", 0775);
 	mkdir(ADMIN_PATH "letsencrypt", 0775);
 	FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
 	if (fpC) {
