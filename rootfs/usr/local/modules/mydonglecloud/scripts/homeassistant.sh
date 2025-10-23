@@ -27,8 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset homeassistant##################"
-DATE=`date +%s`
-
 systemctl stop homeassistant.service
 rm -rf /disk/admin/.modules/homeassistant
 mkdir /disk/admin/.modules/homeassistant

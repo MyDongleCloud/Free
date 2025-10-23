@@ -27,8 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset tubesync##################"
-DATE=`date +%s`
-
 systemctl stop tubesync.service
 rm -rf /disk/admin/.modules/tubesync
 mkdir /disk/admin/.modules/tubesync

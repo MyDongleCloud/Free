@@ -27,7 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset roundcube##################"
-DATE=`date +%s`
 SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
 EMAIL="admin@$SPACENAME.mydongle.cloud"
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)

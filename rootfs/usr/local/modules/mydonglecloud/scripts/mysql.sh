@@ -27,7 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset mysql##################"
-DATE=`date +%s`
 PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 systemctl stop mysql
 mkdir -p /var/run/mysqld

@@ -27,8 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset metube##################"
-DATE=`date +%s`
-
 systemctl stop metube.service
 rm -rf /disk/admin/.modules/metube
 mkdir /disk/admin/.modules/metube
