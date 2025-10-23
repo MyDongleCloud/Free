@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for jitsi [-h -r]"
+echo "Usage for jitsimeet [-h -r]"
 echo "h:		Print this usage and exit"
 echo "r:	Reset"
 exit 0
@@ -26,6 +26,4 @@ if [ $RESET != 1 ]; then
 	exit 0
 fi
 
-echo "#Reset Jitsi##################"
-SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
-#find /etc -exec sed -i -e "s/m_unique_d_unique_c/$1/" {} \;
+echo "#Reset jitsimeet##################"

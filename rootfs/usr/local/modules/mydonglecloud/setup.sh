@@ -25,8 +25,8 @@ elif [ $1 = "bugzilla" ]; then
 	/usr/local/modules/mydonglecloud/scripts/bugzilla.sh -r
 elif [ $1 = "homeassistant" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/homeassistant.sh -r"
-elif [ $1 = "jitsi" ]; then
-	/usr/local/modules/mydonglecloud/scripts/jitsi.sh -r
+elif [ $1 = "jitsimeet" ]; then
+	/usr/local/modules/mydonglecloud/scripts/jitsimeet.sh -r
 elif [ $1 = "mantisbugtracker" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/mantisbugtracker.sh -r"
 elif [ $1 = "metube" ]; then
