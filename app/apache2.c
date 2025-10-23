@@ -151,7 +151,7 @@ MyDongleCloudIPEnabled on\n\
 		Require all granted\n\
 	</Directory>\n\
 	ErrorDocument 401 /MyDongleCloud/unauthorized.php?m=$1\n\
-	ProxyPass /MyDongleCloud/unauthorized.php !\n\
+	ProxyPass /MyDongleCloud/ !\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
 	Include /usr/local/modules/apache2/options-ssl-apache.conf\n\
