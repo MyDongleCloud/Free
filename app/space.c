@@ -21,7 +21,7 @@ void spaceInit() {
 
 static void setup(int i, int total, char *name) {
 	char sz2[256];
-	snprintf(sz2, sizeof(sz2), "Setting is configuring\n%s\n%d/%d\nPlease wait...", name, i, total);
+	snprintf(sz2, sizeof(sz2), "Setup is configuring\n%s\n%d/%d\nPlease wait...", name, i, total);
 	logicMessage(sz2, 0);
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", name);
@@ -68,16 +68,15 @@ void spaceSetup(cJSON *elSpace) {
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
 	cJSON *elModule;
 	int i = 1;
-	int total = 0;
-	cJSON_ArrayForEach(elModule, modulesDefault)
-		if (cJSON_HasObjectItem(elModule, "reset"))
-			total++;
+	int total = cJSON_GetArraySize(modulesDefault);
 	cJSON_ArrayForEach(elModule, modulesDefault)
 		if (cJSON_HasObjectItem(elModule, "reset") && cJSON_HasObjectItem(elModule, "resetPriority"))
 			setup(i++, total, elModule->string);
-	cJSON_ArrayForEach(elModule, modulesDefault)
+	cJSON_ArrayForEach(elModule, modulesDefault) {
 		if (cJSON_HasObjectItem(elModule, "reset") && !cJSON_HasObjectItem(elModule, "resetPriority"))
-			setup(i++, total, elModule->string);
+			setup(i, total, elModule->string);
+		i++;
+	}
 	logicMessage("Setup is finishing. Please wait...", 0);
 	communicationString("{\"status\":2}");
 	serviceAction("dovecot.service", "RestartUnit");
