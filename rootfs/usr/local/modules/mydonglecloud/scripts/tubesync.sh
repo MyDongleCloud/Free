@@ -38,3 +38,4 @@ mkdir /disk/admin/.modules/tubesync/downloads/audio
 mkdir /disk/admin/.modules/tubesync/downloads/video
 mkdir /disk/admin/.modules/tubesync/tasks
 systemctl start tubesync.service
+systemctl enable tubesync.service

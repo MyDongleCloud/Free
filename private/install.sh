@@ -398,7 +398,6 @@ pip install homeassistant==2025.10.3 isal==1.8.0 zlib_ng==1.0.0 pyotp==2.9.0 pyq
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
-ln -sf /etc/systemd/system/homeassistant.service /etc/systemd/system/multi-user.target.wants/homeassistant.service
 
 echo "################################"
 echo "unmanic"
@@ -646,7 +645,6 @@ cd ui
 npm ci
 no | node_modules/.bin/ng build --configuration production
 mkdir /disk/admin/.modules/metube
-ln -sf /etc/systemd/system/metube.service /etc/systemd/system/multi-user.target.wants/metube.service
 
 echo "################################"
 echo "stirlingpdf"
@@ -706,7 +704,6 @@ EOF
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
-ln -sf /etc/systemd/system/tubesync.service /etc/systemd/system/multi-user.target.wants/tubesync.service
 
 echo "################################"
 echo "webtrees"

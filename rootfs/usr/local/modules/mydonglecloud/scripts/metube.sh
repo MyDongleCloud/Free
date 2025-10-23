@@ -33,3 +33,4 @@ systemctl stop metube.service
 rm -rf /disk/admin/.modules/metube
 mkdir /disk/admin/.modules/metube
 systemctl start metube.service
+systemctl enable metube.service

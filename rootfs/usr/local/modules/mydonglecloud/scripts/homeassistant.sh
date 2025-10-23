@@ -44,3 +44,4 @@ http:
     - ::1
 EOF
 systemctl start homeassistant.service
+systemctl enable homeassistant.service
