@@ -256,7 +256,7 @@
 				<tr><td colspan="3" height="8"></td></tr>
 				<tr><td></td><td width="20"></td><td><ion-button (click)="reset()" *ngIf="cards[findIdByModule(moduleCur)].settings.reset"><ion-icon name="refresh-outline" size="medium"></ion-icon>Reinitialize</ion-button></td></tr>
 				<tr><td colspan="3" height="8"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].settings.conf"><td></td><td width="20"></td><td><pre>{{moduleConf}}</pre></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].settings.conf"><td></td><td width="20"></td><td><pre>{{ moduleConfig | json }}</pre></td></tr>
 			</table>
 	</ng-template>
 </ion-modal>

@@ -112,11 +112,11 @@ const mdcEndpoints = () => {
 				return Response.json({ success:true }, { status:200 });
 			}),
 
-			moduleConf: createAuthEndpoint("/module-conf", {
+			moduleConfig: createAuthEndpoint("/module-config", {
 				method: "POST",
 			}, async(ctx) => {
-				const conf = fs.readFileSync("/disk/admin/.modules/" + ctx.body?.module + "/conf.txt", "utf8");
-				return Response.json({ conf:conf }, { status:200 });
+				const config = fs.readFileSync("/disk/admin/.modules/_config_/" + ctx.body?.module + ".json", "utf8");
+				return Response.json(JSON.parse(config), { status:200 });
 			}),
 
 			jwksPem: createAuthEndpoint("/jwks-pem", {

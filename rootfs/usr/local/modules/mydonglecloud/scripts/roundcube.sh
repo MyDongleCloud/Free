@@ -44,5 +44,4 @@ postmap /disk/admin/.modules/mail/virtualalias
 echo "$EMAIL:$PWD" > /disk/admin/.modules/mail/password-$SPACENAME.mydongle.cloud
 
 rm -f /disk/admin/.modules/roundcube/conf.txt
-echo "User: ${EMAIL}\nPassword: ${PASSWD}" > /disk/admin/.modules/roundcube/conf.txt
-chmod 444 /disk/admin/.modules/roundcube/conf.txt
+echo "{\"email\":\"${EMAIL}\", \"user\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/.modules/_config_/roundcube.json

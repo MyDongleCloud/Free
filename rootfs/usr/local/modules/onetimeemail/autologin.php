@@ -135,14 +135,11 @@ if ($email == "") {
 	exit;
 }
 
-$handle = fopen("/disk/admin/.modules/roundcube/conf.txt", "r");
-$password = "";
-while (($line = fgets($handle)) !== false) {
-	if (str_starts_with($line, "Password: ")) {
-		$password = trim(substr($line, 10));
-		break;
-	}
-}
+$path = "/disk/admin/.modules/_config_/roundcube.json";
+$handle = fopen($path, "r");
+$info = json_decode(fread($h, filesize($path)), true);
+$email = $info["email"];
+$password = $info["password"];
 fclose($handle);
 
 $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on" ? "https" : "http";

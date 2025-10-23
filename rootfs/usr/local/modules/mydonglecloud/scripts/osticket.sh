@@ -93,5 +93,4 @@ rm /tmp/osticket.php
 chmod 644 /disk/admin/.modules/osticket/ost-config.php
 
 rm -f /disk/admin/.modules/osticket/conf.txt
-echo "Ticket name: ${name}\nTicket email: ${email}\n\nEmail: ${admin_email}\nUser: ${username}\nPassword: ${passwd}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/osticket/conf.txt
-chmod 444 /disk/admin/.modules/osticket/conf.txt
+echo "{\"other\":\"name: ${name}, email: ${email}\", \"email\":\"${admin_email}\", \"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/.modules/_config_/osticket.json

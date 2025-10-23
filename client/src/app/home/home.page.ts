@@ -18,7 +18,7 @@ export class Home {
 @ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
 modules;
 moduleCur;
-moduleConf;
+moduleConfig;
 cards;
 filteredCards;
 searchTerm: string = "";
@@ -167,9 +167,8 @@ async reset() {
 
 async conf() {
 	const data = { module:this.moduleCur };
-	const ret = await this.httpClient.post("/MyDongleCloud/Auth/module-conf", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
-	console.log("Auth module-conf: ", ret);
-	this.moduleConf = ret["conf"];
+	this.moduleConfig = await this.httpClient.post("/MyDongleCloud/Auth/module-config", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+	console.log("Auth module-config: ", this.moduleConfig);
 }
 
 closeModuleSettings() {

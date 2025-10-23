@@ -39,6 +39,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"resetConfig": true,
 		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
 		"FollowSymLinks": true,
 		"permissions": [ "_groupadmin_" ],
@@ -288,6 +289,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"resetConfig": true,
 		"addConfig": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9432
@@ -356,6 +358,7 @@
 	},
 	"mysql": {
 		"reset": true,
+		"resetConfig": true,
 		"resetPriority": true
 	},
 	"ncat": {},
@@ -386,6 +389,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"resetConfig": true,
 		"symlinks": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9442
@@ -454,6 +458,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"resetConfig": true,
 		"FollowSymLinks": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9451
@@ -479,6 +484,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"resetConfig": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
 		"homepage": "/autologin.php",
@@ -595,6 +601,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"resetConfig": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9467
 	},
@@ -615,6 +622,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"resetConfig": true,
 		"permissions": [ "_groupadmin_" ],
 		"homepage": "/admin",
 		"localPort": 9470

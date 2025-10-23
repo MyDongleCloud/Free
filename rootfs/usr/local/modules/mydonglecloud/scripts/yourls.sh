@@ -77,5 +77,4 @@ php /tmp/yourls.php > /tmp/reset-yourls-$DATE.log 2>&1
 rm /tmp/yourls.php
 
 rm -f /disk/admin/.modules/yourls/conf.txt
-echo "User: ${username}\nPassword: ${passwd}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/yourls/conf.txt
-chmod 444 /disk/admin/.modules/yourls/conf.txt
+echo "{\"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/.modules/_config_/yourls.json

@@ -105,6 +105,4 @@ USE mantisbugtrackerDB;
 UPDATE ${db_table_prefix}_user${db_table_suffix} SET username='${username}', password=MD5('${passwd}'), email='${email}' WHERE username='administrator';
 EOF
 
-rm -f /disk/admin/.modules/mantisbugtracker/conf.txt
-echo "User: ${username}\nPassword: ${passwd}\n\nDB name: ${database_name}\nDB user: ${db_username}\nDB password: ${db_password}\n" > /disk/admin/.modules/mantisbugtracker/conf.txt
-chmod 444 /disk/admin/.modules/mantisbugtracker/conf.txt
+echo "{\"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${database_name}\", \"dbuser\":\"${db_username}\", \"dbpass\":\"${db_password}\"}" > /disk/admin/.modules/_config_/mantisbugtracker.json

@@ -54,4 +54,5 @@ systemctl start mysql
 echo "[client]\nhost=localhost\nuser=root\npassword=${PASSWORD}" > /disk/admin/.modules/mysql/conf.txt
 chmod 755 /disk/admin/.modules/mysql
 chown admin:admin /disk/admin/.modules/mysql/conf.txt
-chmod 444 /disk/admin/.modules/mysql/conf.txt
+echo "{\"user\":\"root\", \"password\":\"${PASSWORD}\"}" > /disk/admin/.modules/_config_/mysql.json
+chown admin:admin /disk/admin/.modules/_config_/mysql.json

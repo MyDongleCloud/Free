@@ -85,8 +85,8 @@ INSERT INTO tbl_options (name, value) VALUES ('show_upgrade_success_message', tr
 EOF
 
 rm -f /disk/admin/.modules/projectsend/conf.txt
-echo "Email: ${email}\nUser: ${username}\nPassword: ${passwd}\n\nDB name: ${dbname}\nDB user: ${dbuser}\nDB password: ${dbpass}\n" > /disk/admin/.modules/projectsend/conf.txt
-chmod 444 /disk/admin/.modules/projectsend/conf.txt
+echo "{\"mail\":\"${email}\", \"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/.modules/_config_/projectsend.json
+chown admin:admin /disk/admin/.modules/_config_/projectsend.json
 
 
 chown -R admin:admin /disk/admin/.modules/projectsend
