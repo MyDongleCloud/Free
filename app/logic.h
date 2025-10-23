@@ -36,6 +36,7 @@ extern logics lmdc;
 extern int slaveMode;
 
 //Functions
+void logicUIThread();
 void logicUpdate();
 void logicKey(int key, int longPress);
 void logicWelcome();

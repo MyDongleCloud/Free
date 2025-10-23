@@ -10,7 +10,7 @@
 //ble.ts			writeData, BleClient.write (potentially split in chunks)
 //OVER-THE-AIR browser->dongle
 //comBle.c			le_callback
-//communication.c	communicationReceive, write(eventFdBle)
+//communication.c	communicationReceive, logicKey
 //backend.c			logicKey
 //logic.c			logicUpdate
 //communication.c	communicationState, communicationJSON
@@ -100,8 +100,8 @@ static void *communicationState_t(void *arg) {
 }
 
 void communicationDoState() {
-		pthread_t pth;
-		pthread_create(&pth, NULL, communicationState_t, NULL);
+	pthread_t pth;
+	pthread_create(&pth, NULL, communicationState_t, NULL);
 }
 
 void communicationReceive(unsigned char *data, int size, char *orig) {
@@ -132,8 +132,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 		} else if (strcmp(action, "key") == 0) {
 			int k = (int)cJSON_GetNumberValue2(el, "k");
 			int l = (int)cJSON_GetNumberValue2(el, "l");
-			uint64_t value = (k << 8) + l;
-			write(eventFdBle, &value, sizeof(value));
+			logicKey(k, l);
 		} else if (strcmp(action, "state") == 0) {
 			unsigned long decsize;
 			unsigned char *payload = b64_decode_ex(cJSON_GetStringValue2(el, "p"), &decsize);

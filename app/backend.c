@@ -26,7 +26,7 @@
 
 //Public variable
 int doLoop = 0;
-int eventFdBle;
+int eventFdUI = 0;
 
 //Private variables
 static lv_indev_t *indevK;
@@ -171,6 +171,7 @@ void processInput(unsigned char c) {
 }
 
 void backendInit(int daemon) {
+	logicUIThread();
 	doLoop = 1;
 	if (slaveMode) {
 		PRINTF("In SlaveMode\n");
@@ -184,7 +185,8 @@ void backendInit(int daemon) {
 		enterInputMode();
 		fdStdin = fileno(stdin);
 	}
-	eventFdBle = eventfd(0, 0);
+	eventFdUI = eventfd(0, 0);
+PRINTF("Gregoire eventFdUI= %d\n", eventFdUI);
 #ifndef DESKTOP
 	fdButton = open(BUTTON_PATH, O_RDONLY);
 #endif
@@ -192,7 +194,7 @@ void backendInit(int daemon) {
 	pollfd[0].events = POLLIN;
 	pollfd[1].fd = fdButton;
 	pollfd[1].events = POLLIN;
-	pollfd[2].fd = eventFdBle;
+	pollfd[2].fd = eventFdUI;
 	pollfd[2].events = POLLIN;
 #endif
 }
@@ -243,9 +245,9 @@ void backendLoop() {
 			}
 	}
 	if (pollfd[2].revents & POLLIN) {
-		uint64_t value;
+		unsigned long value;
 		read(pollfd[2].fd, &value, sizeof(value));
-		logicKey(value >> 8, value & 0xff);
+		logicUpdate();
 	}
 #endif
 	static int count = 0;

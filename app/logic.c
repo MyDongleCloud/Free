@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <pthread.h>
+//_Thread_local
 #include "lvgl.h"
 #include "macro.h"
 #include "common.h"
@@ -20,7 +22,14 @@
 logics lmdc;
 int slaveMode = 0;
 
+//Private variables
+_Thread_local static int mainUIThread = 0;
+
 //Functions
+void logicUIThread() {
+	mainUIThread = 1;
+}
+
 void logicKey(int key, int longPress) {
 	if (slaveMode) {
 		cJSON *el = cJSON_CreateObject();
@@ -113,6 +122,13 @@ void logicKey(int key, int longPress) {
 }
 
 void logicUpdate() {
+#ifndef WEB
+	if (!mainUIThread) {
+		unsigned long value = 1;
+		int ret = write(eventFdUI, &value, sizeof(value));
+		return;
+	}
+#endif
 	static int first = 1;
 	if (first) {
 		uiScreenInit();

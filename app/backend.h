@@ -3,7 +3,7 @@
 
 //Global variables
 extern int doLoop;
-extern int eventFdBle;
+extern int eventFdUI;
 
 //Functions
 int backendRotate(int incr);
