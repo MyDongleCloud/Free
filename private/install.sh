@@ -701,6 +701,7 @@ DATABASE_CONNECTION_STR = f'sqlite at "{DATABASES["default"]["NAME"]}"'
 EOF
 ./manage.py compilescss
 ./manage.py collectstatic
+chown -R admin:admin /disk/admin/modules/tubesync
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
