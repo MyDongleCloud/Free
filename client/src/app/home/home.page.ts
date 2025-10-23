@@ -38,8 +38,6 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 }
 
 async getData() {
-	if (Home.firstTime)
-		delete modulesDefault.version;
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
 	Object.entries(modulesMeta).forEach(([key, value]) => {

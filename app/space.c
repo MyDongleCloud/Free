@@ -12,10 +12,6 @@
 #include "common.h"
 #include "communication.h"
 
-//Private variable
-#define RESETS sizeof(szResets) / sizeof(szResets[0])
-static char *szResets[] = { "postfix", "roundcube", "mysql", "apache2", "bugzilla", "homeassistant", "jitsi", "mantisbugtracker", "metube", "osticket", "projectsend", "tubesync", "webtrees", "yourls" };
-
 //Functions
 void spaceInit() {
 	cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
@@ -23,27 +19,38 @@ void spaceInit() {
 	cJSON_Delete(space);
 }
 
-void spaceSetup(cJSON *el) {
+static void setup(int i, int total, char *name) {
+	char sz2[256];
+	snprintf(sz2, sizeof(sz2), "Setting is configuring\n%s\n%d/%d\nPlease wait...", name, i, total);
+	logicMessage(sz2, 0);
+	char sz[256];
+	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", name);
+	communicationString(sz);
+	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh %s", name);
+	system(sz);
+}
+
+void spaceSetup(cJSON *elSpace) {
 	logicMessage("Setup is starting. Please wait...", 0);
-	if (cJSON_GetStringValue2(el, "ssid") && cJSON_GetStringValue2(el, "security"))
-		wiFiAddActivate(cJSON_GetStringValue2(el, "ssid"), cJSON_GetStringValue2(el, "security"));
-	jsonWrite(cJSON_GetObjectItem(el, "space"), ADMIN_PATH "mydonglecloud/space.json");
-	jsonWrite(cJSON_GetObjectItem(el, "proxy"), ADMIN_PATH "mydonglecloud/proxy.json");
+	if (cJSON_GetStringValue2(elSpace, "ssid") && cJSON_GetStringValue2(elSpace, "security"))
+		wiFiAddActivate(cJSON_GetStringValue2(elSpace, "ssid"), cJSON_GetStringValue2(elSpace, "security"));
+	jsonWrite(cJSON_GetObjectItem(elSpace, "space"), ADMIN_PATH "mydonglecloud/space.json");
+	jsonWrite(cJSON_GetObjectItem(elSpace, "proxy"), ADMIN_PATH "mydonglecloud/proxy.json");
 	mkdir(ADMIN_PATH "letsencrypt", 0775);
 	FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
 	if (fpC) {
-		fwrite(cJSON_GetStringValue2(el, "fullchain"), strlen(cJSON_GetStringValue2(el, "fullchain")), 1, fpC);
+		fwrite(cJSON_GetStringValue2(elSpace, "fullchain"), strlen(cJSON_GetStringValue2(elSpace, "fullchain")), 1, fpC);
 		fclose(fpC);
 	}
 	FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey.pem", "w");
 	if (fpK) {
-		fwrite(cJSON_GetStringValue2(el, "privatekey"), strlen(cJSON_GetStringValue2(el, "privatekey")), 1, fpK);
+		fwrite(cJSON_GetStringValue2(elSpace, "privatekey"), strlen(cJSON_GetStringValue2(elSpace, "privatekey")), 1, fpK);
 		fclose(fpK);
 	}
 	cJSON *data = cJSON_CreateObject();
-	cJSON_AddStringToObject(data, "email", cJSON_GetStringValue2(el, "email"));
-	cJSON_AddStringToObject(data, "name", cJSON_GetStringValue2(el, "name"));
-	cJSON_AddStringToObject(data, "password", cJSON_GetStringValue2(el, "password"));
+	cJSON_AddStringToObject(data, "email", cJSON_GetStringValue2(elSpace, "email"));
+	cJSON_AddStringToObject(data, "name", cJSON_GetStringValue2(elSpace, "name"));
+	cJSON_AddStringToObject(data, "password", cJSON_GetStringValue2(elSpace, "password"));
 	char buf[1024];
 	char *post = cJSON_Print(data);
 	char szPath[17];
@@ -57,15 +64,19 @@ void spaceSetup(cJSON *el) {
 	free(post);
 	cJSON_Delete(data);
 	serviceAction("betterauth.service", "RestartUnit");
-	char sz[256];
-	for (int i = 0; i < RESETS; i++) {
-		snprintf(sz, sizeof(sz), "Setting is configuring\n%s\n%d/%lu\nPlease wait...", szResets[i], i + 1, RESETS + 1);
-		logicMessage(sz, 0);
-		snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", szResets[i]);
-		communicationString(sz);
-		snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh %s", szResets[i]);
-		system(sz);
-	}
+	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
+	cJSON *elModule;
+	int i = 1;
+	int total = 0;
+	cJSON_ArrayForEach(elModule, modulesDefault)
+		if (cJSON_HasObjectItem(elModule, "reset"))
+			total++;
+	cJSON_ArrayForEach(elModule, modulesDefault)
+		if (cJSON_HasObjectItem(elModule, "reset") && cJSON_HasObjectItem(elModule, "resetPriority"))
+			setup(i++, total, elModule->string);
+	cJSON_ArrayForEach(elModule, modulesDefault)
+		if (cJSON_HasObjectItem(elModule, "reset") && !cJSON_HasObjectItem(elModule, "resetPriority"))
+			setup(i++, total, elModule->string);
 	logicMessage("Setup is finishing. Please wait...", 0);
 	communicationString("{\"status\":2}");
 	serviceAction("dovecot.service", "RestartUnit");

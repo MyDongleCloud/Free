@@ -1,11 +1,11 @@
 {
-	"version":	1,
 	"acme": {},
 	"acmejs": {},
 	"angular": {},
 	"apache2": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"permissions": [ "_public_" ],
 		"localPort": 80,
 		"localRanges": ["10", "172.16", "192.168"],
@@ -38,12 +38,9 @@
 	"bugzilla": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
 		"FollowSymLinks": true,
-		"settings": {
-			"reset": true,
-			"conf": true
-		},
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9403
 	},
@@ -182,6 +179,7 @@
 	"homeassistant": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9417,
 		"reverseProxy": [ {
@@ -231,6 +229,7 @@
 	"jitsimeet": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9423
 	},
@@ -288,11 +287,8 @@
 	"mantisbugtracker": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"addConfig": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
-		"settings": {
-			"reset": true,
-			"conf": true
-		},
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9432
 	},
@@ -323,6 +319,7 @@
 	"metube": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9437,
 		"reverseProxy": [ {
@@ -358,10 +355,8 @@
 		"alias": [ "app", "mdc" ]
 	},
 	"mysql": {
-		"settings": {
-			"reset": true,
-			"conf": true
-		}
+		"reset": true,
+		"resetPriority": true
 	},
 	"ncat": {},
 	"ncdu": {},
@@ -389,12 +384,9 @@
 	},
 	"osticket": {
 		"web": true,
-		"settings": {
-			"reset": true,
-			"conf": true
-		},
-		"symlinks": true,
 		"enabled": true,
+		"reset": true,
+		"symlinks": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9442
 	},
@@ -461,6 +453,7 @@
 	"projectsend": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"FollowSymLinks": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9451
@@ -484,11 +477,8 @@
 	"rethinkdb": {},
 	"roundcube": {
 		"web": true,
-		"settings": {
-			"reset": true,
-			"conf": true
-		},
 		"enabled": true,
+		"reset": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
 		"homepage": "/autologin.php",
@@ -565,6 +555,7 @@
 	"tubesync": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
 		"addConfig": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9463,
@@ -603,10 +594,7 @@
 	"webtrees": {
 		"web": true,
 		"enabled": true,
-		"settings": {
-			"reset": true,
-			"conf": true
-		},
+		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9467
 	},
@@ -626,10 +614,7 @@
 	"yourls": {
 		"web": true,
 		"enabled": true,
-		"settings": {
-			"reset": true,
-			"conf": true
-		},
+		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"homepage": "/admin",
 		"localPort": 9470

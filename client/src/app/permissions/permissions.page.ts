@@ -109,8 +109,6 @@ async save() {
 async getData() {
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
-	const version = modulesDefault.version;
-	delete modulesDefault.version;
 	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (value["web"] === true) {
 			value["module"] = modulesMeta[key]["module"];
