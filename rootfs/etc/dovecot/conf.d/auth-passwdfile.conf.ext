@@ -2,7 +2,7 @@ passdb passwd-file {
 	driver = passwd-file
 	default_password_scheme = CRYPT
 	auth_username_format = %{user|username}@%{user|domain}
-	passwd_file_path = /disk/admin/.modules/mail/password-%{user|domain}
+	passwd_file_path = /disk/admin/modules/mail/password-%{user|domain}
 }
 
 userdb static {
@@ -10,6 +10,6 @@ userdb static {
 	fields {
 		uid = admin
 		gid = admin
-		home = /disk/admin/.modules/mail/%{user|domain}/%{user|username}
+		home = /disk/admin/modules/mail/%{user|domain}/%{user|username}
 	}
 }

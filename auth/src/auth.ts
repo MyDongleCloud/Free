@@ -14,7 +14,7 @@ import * as os from 'os';
 
 export const port = 8091;
 const statusDemo = process.env.PRODUCTION === "true" ? false : true;
-const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/.modules/";
+const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/modules/";
 const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
@@ -115,7 +115,7 @@ const mdcEndpoints = () => {
 			moduleConfig: createAuthEndpoint("/module-config", {
 				method: "POST",
 			}, async(ctx) => {
-				const config = fs.readFileSync("/disk/admin/.modules/_config_/" + ctx.body?.module + ".json", "utf8");
+				const config = fs.readFileSync("/disk/admin/modules/_config_/" + ctx.body?.module + ".json", "utf8");
 				return Response.json(JSON.parse(config), { status:200 });
 			}),
 

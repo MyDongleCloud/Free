@@ -24,31 +24,31 @@ done
 cd `dirname $0`
 if [ $INSTALL = 1 ]; then
 	#During install only
-	rm -rf betterauth /disk/admin/.modules/betterauth
-	mkdir /disk/admin/.modules/betterauth/
+	rm -rf betterauth /disk/admin/modules/betterauth
+	mkdir /disk/admin/modules/betterauth/
 	npm install
 	sed -i -e 's/PRODUCTION=false/PRODUCTION=true/' .env
 	npx @better-auth/cli migrate -y
-	rm -f /disk/admin/.modules/betterauth/secret.txt
-	chown -R admin:admin /disk/admin/.modules/betterauth
+	rm -f /disk/admin/modules/betterauth/secret.txt
+	chown -R admin:admin /disk/admin/modules/betterauth
 	npm run build
 	rm -rf /usr/local/modules/betterauth
 	cp -a betterauth /usr/local/modules
 	cp -a node_modules /usr/local/modules/betterauth
 elif [ $CLEAN = 1 ]; then
 	#On PC only
-	rm -rf node_modules betterauth ../rootfs/disk/admin/.modules/betterauth
+	rm -rf node_modules betterauth ../rootfs/disk/admin/modules/betterauth
 elif [ $CLEAN = 2 ]; then
 	#On PC only
-	rm -rf betterauth ../rootfs/disk/admin/.modules/betterauth
+	rm -rf betterauth ../rootfs/disk/admin/modules/betterauth
 	./prepare.sh
 else
 	#On PC only
 	if [ ! -d node_modules ]; then
 		npm install
 	fi
-	if [ ! -d ../rootfs/disk/admin/.modules/betterauth/ ]; then
-		mkdir -p ../rootfs/disk/admin/.modules/betterauth
+	if [ ! -d ../rootfs/disk/admin/modules/betterauth/ ]; then
+		mkdir -p ../rootfs/disk/admin/modules/betterauth
 		npx @better-auth/cli migrate -y
 		(sleep 3 && ./test.sh -c) &
 	fi

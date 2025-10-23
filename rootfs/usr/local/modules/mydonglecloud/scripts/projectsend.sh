@@ -28,11 +28,11 @@ fi
 
 echo "#Reset projectsend##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
+SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
-mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
 DROP DATABASE IF EXISTS projectsendDB;
 CREATE DATABASE projectsendDB;
 DROP USER IF EXISTS 'projectsendUser'@'localhost';
@@ -41,12 +41,12 @@ GRANT ALL PRIVILEGES ON projectsendDB.* TO 'projectsendUser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
-rm -rf /disk/admin/.modules/projectsend
-mkdir /disk/admin/.modules/projectsend
-mkdir /disk/admin/.modules/projectsend/cache
-cp -a /usr/local/modules/projectsend/upload/files.bak /disk/admin/.modules/projectsend/files
-cp -a /usr/local/modules/projectsend/upload/temp.bak /disk/admin/.modules/projectsend/temp
-cp -a /usr/local/modules/projectsend/includes/sys.config.sample.php /disk/admin/.modules/projectsend/sys.config.php
+rm -rf /disk/admin/modules/projectsend
+mkdir /disk/admin/modules/projectsend
+mkdir /disk/admin/modules/projectsend/cache
+cp -a /usr/local/modules/projectsend/upload/files.bak /disk/admin/modules/projectsend/files
+cp -a /usr/local/modules/projectsend/upload/temp.bak /disk/admin/modules/projectsend/temp
+cp -a /usr/local/modules/projectsend/includes/sys.config.sample.php /disk/admin/modules/projectsend/sys.config.php
 
 dbname="projectsendDB"
 dbuser="projectsendUser"
@@ -57,9 +57,9 @@ email="admin@${SPACENAME}.mydongle.cloud"
 username="${SPACENAME}"
 passwd="${PASSWD}"
 
-sed -i -e "s|define('DB_NAME',.*|define('DB_NAME', '$dbname');|" /disk/admin/.modules/projectsend/sys.config.php
-sed -i -e "s|define('DB_USER',.*|define('DB_USER', '$dbuser');|" /disk/admin/.modules/projectsend/sys.config.php
-sed -i -e "s|define('DB_PASSWORD',.*|define('DB_PASSWORD', '$dbpass');|" /disk/admin/.modules/projectsend/sys.config.php
+sed -i -e "s|define('DB_NAME',.*|define('DB_NAME', '$dbname');|" /disk/admin/modules/projectsend/sys.config.php
+sed -i -e "s|define('DB_USER',.*|define('DB_USER', '$dbuser');|" /disk/admin/modules/projectsend/sys.config.php
+sed -i -e "s|define('DB_PASSWORD',.*|define('DB_PASSWORD', '$dbpass');|" /disk/admin/modules/projectsend/sys.config.php
 
 
 cd /usr/local/modules/projectsend
@@ -79,15 +79,15 @@ EOF
 php /tmp/projectsend.php > /tmp/reset-projectsend-$DATE.log 2>&1
 rm /tmp/projectsend.php
 
-mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
 USE projectsendDB;
 INSERT INTO tbl_options (name, value) VALUES ('show_upgrade_success_message', true);
 EOF
 
-rm -f /disk/admin/.modules/projectsend/conf.txt
-echo "{\"mail\":\"${email}\", \"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/.modules/_config_/projectsend.json
-chown admin:admin /disk/admin/.modules/_config_/projectsend.json
+rm -f /disk/admin/modules/projectsend/conf.txt
+echo "{\"mail\":\"${email}\", \"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/projectsend.json
+chown admin:admin /disk/admin/modules/_config_/projectsend.json
 
 
-chown -R admin:admin /disk/admin/.modules/projectsend
-chown -R www-data:admin /disk/admin/.modules/projectsend/sys.config.php /disk/admin/.modules/projectsend/files /disk/admin/.modules/projectsend/temp /disk/admin/.modules/projectsend/cache
+chown -R admin:admin /disk/admin/modules/projectsend
+chown -R www-data:admin /disk/admin/modules/projectsend/sys.config.php /disk/admin/modules/projectsend/files /disk/admin/modules/projectsend/temp /disk/admin/modules/projectsend/cache

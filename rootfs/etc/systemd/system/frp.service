@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/modules/frp/frpc -c /disk/admin/.modules/frp/frpc.toml
+ExecStart=/usr/local/modules/frp/frpc -c /disk/admin/modules/frp/frpc.toml
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

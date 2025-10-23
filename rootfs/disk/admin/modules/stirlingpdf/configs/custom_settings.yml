@@ -1,0 +1,10 @@
+server:
+  port: 8096
+
+system:
+  enableAnalytics: false
+
+customPaths:
+  pipeline:
+    watchedFoldersDir: "/disk/admin/modules/stirlingpdf/documents"
+    finishedFoldersDir: "/disk/admin/modules/stirlingpdf/documents"

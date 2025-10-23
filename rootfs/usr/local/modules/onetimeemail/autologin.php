@@ -135,7 +135,7 @@ if ($email == "") {
 	exit;
 }
 
-$path = "/disk/admin/.modules/_config_/roundcube.json";
+$path = "/disk/admin/modules/_config_/roundcube.json";
 $handle = fopen($path, "r");
 $info = json_decode(fread($h, filesize($path)), true);
 $email = $info["email"];

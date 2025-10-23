@@ -21,7 +21,7 @@ done
 
 SECRET=`head -10 /dev/urandom | sha512sum | cut -b 19-50`
 OATH=`oathtool $SECRET`
-echo -n "HOTP admin - $SECRET" > /disk/admin/.modules/pam/oath.txt
-chmod 664 /disk/admin/.modules/pam/oath.txt
-chown admin:admin /disk/admin/.modules/pam/oath.txt
+echo -n "HOTP admin - $SECRET" > /disk/admin/modules/pam/oath.txt
+chmod 664 /disk/admin/modules/pam/oath.txt
+chown admin:admin /disk/admin/modules/pam/oath.txt
 echo "OTP: $OATH"

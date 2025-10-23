@@ -36,14 +36,14 @@ do
 done
 
 if [ $OPTIND = 1 ]; then
-	if [ -f /disk/admin/.modules/mydonglecloud/modules.json ]; then
-		L=`jq -r ".otg.features | length" /disk/admin/.modules/mydonglecloud/modules.json`
+	if [ -f /disk/admin/modules/mydonglecloud/modules.json ]; then
+		L=`jq -r ".otg.features | length" /disk/admin/modules/mydonglecloud/modules.json`
 		if [ $L != 0 ]; then
-			jq -r ".otg.features" /disk/admin/.modules/mydonglecloud/modules.json | grep -qi serial
+			jq -r ".otg.features" /disk/admin/modules/mydonglecloud/modules.json | grep -qi serial
 			if [ $? = 0 ]; then
 				SERIAL=1
 			fi
-			jq -r ".otg.features" /disk/admin/.modules/mydonglecloud/modules.json | grep -qi mtp
+			jq -r ".otg.features" /disk/admin/modules/mydonglecloud/modules.json | grep -qi mtp
 			if [ $? = 0 ]; then
 				MTP=1
 			fi
@@ -162,7 +162,7 @@ if [ $MTP = 1 ]; then
 	ln -s functions/$FFS configs/c.1/
 	mkdir -p /dev/ffs-mtp
 	mount -t functionfs mtp /dev/ffs-mtp
-	/usr/local/modules/mtp/umtprd -conf /disk/admin/.modules/mtp/umtprd.conf &
+	/usr/local/modules/mtp/umtprd -conf /disk/admin/modules/mtp/umtprd.conf &
 	sleep 1
 fi
 ls /sys/class/udc/ > $PATHg1/UDC

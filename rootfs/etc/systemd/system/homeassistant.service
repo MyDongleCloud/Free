@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Environment=PATH=/usr/local/modules/homeassistant/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Type=simple
-ExecStart=/usr/local/modules/homeassistant/bin/hass --config /disk/admin/.modules/homeassistant/
+ExecStart=/usr/local/modules/homeassistant/bin/hass --config /disk/admin/modules/homeassistant/
 WorkingDirectory=/disk/admin
 StandardOutput=inherit
 StandardError=inherit

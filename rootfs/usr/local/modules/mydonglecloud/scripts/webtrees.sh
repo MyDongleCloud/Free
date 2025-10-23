@@ -28,11 +28,11 @@ fi
 
 echo "#Reset webtrees##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
+SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
-mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
 DROP DATABASE IF EXISTS webtreesDB;
 CREATE DATABASE webtreesDB;
 DROP USER IF EXISTS 'webtreesUser'@'localhost';
@@ -41,9 +41,9 @@ GRANT ALL PRIVILEGES ON webtreesDB.* TO 'webtreesUser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
-rm -rf /disk/admin/.modules/webtrees
-mkdir /disk/admin/.modules/webtrees
-cp -a /usr/local/modules/webtrees/data.bak /disk/admin/.modules/webtrees/data
+rm -rf /disk/admin/modules/webtrees
+mkdir /disk/admin/modules/webtrees
+cp -a /usr/local/modules/webtrees/data.bak /disk/admin/modules/webtrees/data
 
 wtname="${SPACENAME}"
 wtuser="${SPACENAME}"
@@ -89,11 +89,11 @@ php /tmp/webtrees.php > /tmp/reset-webtrees-$DATE.log 2>&1
 sed -i -e "s/'cli2'/'cli'/" /usr/local/modules/webtrees/app/Webtrees.php
 rm /tmp/webtrees.php
 
-rm -f /disk/admin/.modules/webtrees/conf.txt
-echo "{\"email\":\"${wtemail}\", \"user\":\"${wtuser}\", \"password\":\"${wtpass}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/.modules/_config_/webtrees.json
-chown admin:admin /disk/admin/.modules/_config_/bugzilla.json
+rm -f /disk/admin/modules/webtrees/conf.txt
+echo "{\"email\":\"${wtemail}\", \"user\":\"${wtuser}\", \"password\":\"${wtpass}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/webtrees.json
+chown admin:admin /disk/admin/modules/_config_/bugzilla.json
 
-chown -R admin:admin /disk/admin/.modules/webtrees
-chown -R www-data:admin /disk/admin/.modules/webtrees/data
+chown -R admin:admin /disk/admin/modules/webtrees
+chown -R www-data:admin /disk/admin/modules/webtrees/data
 
 sed -i -e "s|if (str_starts_with(\$content_type, 'text/')) {|if (str_starts_with(\$content_type, 'text/')) {return false;|" /usr/local/modules/webtrees/app/Http/Middleware/CompressResponse.php

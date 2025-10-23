@@ -94,7 +94,7 @@ sed -i -e 's|# User privilege specification|# User privilege specification\nadmi
 mkdir -p /usr/local/modules/pam && echo -e "#!/bin/sh\nexit 0" > /usr/local/modules/pam/pam.sh && chmod a+x /usr/local/modules/pam/pam.sh
 TT=`cat /etc/pam.d/common-auth`
 cat > /etc/pam.d/common-auth <<EOF
-auth [success=ignore default=1] pam_oath.so usersfile=/disk/admin/.modules/pam/oath.txt
+auth [success=ignore default=1] pam_oath.so usersfile=/disk/admin/modules/pam/oath.txt
 auth sufficient pam_exec.so /usr/local/modules/pam/pam.sh oath_success
 auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so
 session optional pam_exec.so /usr/local/modules/pam/pam.sh
@@ -418,7 +418,7 @@ echo "################################"
 echo "transmission"
 echo "################################"
 apt-get -y install transmission-common transmission-daemon transmission-cli
-sed -i -e "s|^User=.*|User=admin\nEnvironment=TRANSMISSION_HOME=/disk/admin/.modules/transmission|" /usr/lib/systemd/system/transmission-daemon.service
+sed -i -e "s|^User=.*|User=admin\nEnvironment=TRANSMISSION_HOME=/disk/admin/modules/transmission|" /usr/lib/systemd/system/transmission-daemon.service
 
 echo "################################"
 echo "umtp"
@@ -556,8 +556,8 @@ echo "bugzilla"
 echo "################################"
 apt-get -y install libcgi-pm-perl libemail-mime-perl libemail-sender-perl libemail-address-perl libmath-random-isaac-perl liblist-moreutils-perl libjson-xs-perl libdatetime-timezone-perl libdbi-perl libtest-taint-perl libdbd-sqlite3-perl libencode-detect-perl libio-stringy-perl libxml-twig-perl libwww-perl libtext-multimarkdown-perl liburi-db-perl libfile-copy-recursive-perl libfile-which-perl libpod-pom-view-restructured-perl libhtml-scrubber-perl libemail-reply-perl libhtml-formattext-withlinks-perl libjson-rpc-perl libcache-memcached-fast-perl libchart-perl libgd-perl libgd-graph-perl libgd-text-perl libtemplate-plugin-gd-perl libmoox-strictconstructor-perl libtype-tiny-perl libdaemon-generic-perl libtheschwartz-perl libapache2-mod-perl2 libdbd-pg-perl libfile-mimeinfo-perl libsoap-lite-perl libxmlrpc-lite-perl
 cd /usr/local/modules/bugzilla
-ln -sf /disk/admin/.modules/bugzilla/data
-ln -sf /disk/admin/.modules/bugzilla/localconfig
+ln -sf /disk/admin/modules/bugzilla/data
+ln -sf /disk/admin/modules/bugzilla/localconfig
 cd /home/mdc/build
 wget https://cpan.metacpan.org/authors/id/A/AB/ABW/Template-Toolkit-3.101.tar.gz
 tar -xzf Template-Toolkit-3.101.tar.gz
@@ -603,13 +603,13 @@ echo "################################"
 cd /usr/local/modules/mantisbugtracker
 composer -n install
 mv config config.bak
-ln -sf /disk/admin/.modules/mantisbugtracker/config
+ln -sf /disk/admin/modules/mantisbugtracker/config
 
 echo "################################"
 echo "osticket"
 echo "################################"
 cd /usr/local/modules/osticket
-ln -sf /disk/admin/.modules/osticket/ost-config.php include/ost-config.php
+ln -sf /disk/admin/modules/osticket/ost-config.php include/ost-config.php
 
 echo "################################"
 echo "projectsend"
@@ -619,13 +619,13 @@ composer -n install
 npm install gulp-cli
 ./node_modules/.bin/gulp build
 rm -rf node_modules
-ln -sf /disk/admin/.modules/projectsend/sys.config.php includes/sys.config.php
+ln -sf /disk/admin/modules/projectsend/sys.config.php includes/sys.config.php
 mv upload/files upload/files.bak
-ln -sf /disk/admin/.modules/projectsend/files upload/
+ln -sf /disk/admin/modules/projectsend/files upload/
 mv upload/temp upload/temp.bak
-ln -sf /disk/admin/.modules/projectsend/temp upload/
+ln -sf /disk/admin/modules/projectsend/temp upload/
 rm -rf cache
-ln -sf /disk/admin/.modules/projectsend/cache
+ln -sf /disk/admin/modules/projectsend/cache
 
 echo "################################"
 echo "metube"
@@ -644,7 +644,7 @@ echo "PATH restored: $PATH"
 cd ui
 npm ci
 no | node_modules/.bin/ng build --configuration production
-mkdir /disk/admin/.modules/metube
+mkdir /disk/admin/modules/metube
 
 echo "################################"
 echo "stirlingpdf"
@@ -681,20 +681,20 @@ export PATH=/usr/local/modules/tubesync/env/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install django django-huey django-sass-processor pillow whitenoise gunicorn httptools django-basicauth psycopg PySocks urllib3 requests yt-dlp emoji brotli html5lib bgutil-ytdlp-pot-provider babi curl-cffi libsass django-compressor
 cd tubesync
-sed -i -e 's|/config/tasks/|/disk/admin/.modules/tubesync/tasks/|' common/huey.py
+sed -i -e 's|/config/tasks/|/disk/admin/modules/tubesync/tasks/|' common/huey.py
 sed -i -e 's|import yt_dlp.patch|#import yt_dlp.patch|' sync/youtube.py
 cp tubesync/local_settings.py.example tubesync/local_settings.py
 cat >> tubesync/local_settings.py <<EOF
-DOWNLOAD_ROOT = Path('/disk/admin/.modules/tubesync/downloads')
+DOWNLOAD_ROOT = Path('/disk/admin/modules/tubesync/downloads')
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+#CSRF_TRUSTED_ORIGINS = ['*']
 EOF
 ./manage.py migrate
 cat >> tubesync/local_settings.py <<EOF
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': Path('/disk/admin/.modules/tubesync/db.sqlite3'),
+        'NAME': Path('/disk/admin/modules/tubesync/db.sqlite3'),
     }
 }
 DATABASE_CONNECTION_STR = f'sqlite at "{DATABASES["default"]["NAME"]}"'
@@ -711,13 +711,13 @@ echo "################################"
 cd /usr/local/modules/webtrees
 composer -n install
 mv data data.bak
-ln -sf /disk/admin/.modules/webtrees/data
+ln -sf /disk/admin/modules/webtrees/data
 
 echo "################################"
 echo "yourls"
 echo "################################"
 cd /usr/local/modules/yourls
-ln -sf /disk/admin/.modules/yourls/config.php user/config.php
+ln -sf /disk/admin/modules/yourls/config.php user/config.php
 
 echo "################################"
 echo "betterauth"
@@ -748,11 +748,11 @@ cd /home/mdc/pam
 make
 chown -R root:root /usr/local
 chown -R mdc:mdc /home/mdc
-chown -R www-data:admin /disk/admin/.modules/roundcube
-mv /var/lib/mysql /disk/admin/.modules
-chown mysql:mysql /disk/admin/.modules/mysql
-ln -sf /disk/admin/.modules/mysql /var/lib/mysql
-chown -R admin:admin /disk/admin/.modules/metube
+chown -R www-data:admin /disk/admin/modules/roundcube
+mv /var/lib/mysql /disk/admin/modules
+chown mysql:mysql /disk/admin/modules/mysql
+ln -sf /disk/admin/modules/mysql /var/lib/mysql
+chown -R admin:admin /disk/admin/modules/metube
 
 echo "################################"
 echo "Cleanup"

@@ -28,9 +28,9 @@ fi
 
 echo "#Reset homeassistant##################"
 systemctl stop homeassistant.service
-rm -rf /disk/admin/.modules/homeassistant
-mkdir /disk/admin/.modules/homeassistant
-cat > /disk/admin/.modules/homeassistant/configuration.yaml <<EOF
+rm -rf /disk/admin/modules/homeassistant
+mkdir /disk/admin/modules/homeassistant
+cat > /disk/admin/modules/homeassistant/configuration.yaml <<EOF
 default_config:
 
 frontend:

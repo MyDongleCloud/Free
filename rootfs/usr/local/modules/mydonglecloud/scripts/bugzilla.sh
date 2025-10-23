@@ -28,11 +28,11 @@ fi
 
 echo "#Reset bugzilla##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
+SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
-rm -rf /disk/admin/.modules/bugzilla
-mkdir -p /disk/admin/.modules/bugzilla/data
+rm -rf /disk/admin/modules/bugzilla
+mkdir -p /disk/admin/modules/bugzilla/data
 
 name="Administrator"
 email="admin@${SPACENAME}.mydongle.cloud"
@@ -57,10 +57,10 @@ expect eof
 " > /tmp/reset-bugzilla-$DATE.log 2>&1
 ./checksetup.pl >> /tmp/reset-bugzilla-$DATE.log 2>&1
 
-rm -f /disk/admin/.modules/bugzilla/conf.txt
-echo "{\"email\":\"${email}\", \"user\":\"${username}\", \"password\":\"${passwd}\"}" > /disk/admin/.modules/_config_/bugzilla.json
-chown admin:admin /disk/admin/.modules/_config_/bugzilla.json
+rm -f /disk/admin/modules/bugzilla/conf.txt
+echo "{\"email\":\"${email}\", \"user\":\"${username}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/bugzilla.json
+chown admin:admin /disk/admin/modules/_config_/bugzilla.json
 
-chown -R admin:admin /disk/admin/.modules/bugzilla
-chown -R www-data:admin /disk/admin/.modules/bugzilla/data
-chown -R www-data:admin /disk/admin/.modules/bugzilla/localconfig
+chown -R admin:admin /disk/admin/modules/bugzilla
+chown -R www-data:admin /disk/admin/modules/bugzilla/data
+chown -R www-data:admin /disk/admin/modules/bugzilla/localconfig

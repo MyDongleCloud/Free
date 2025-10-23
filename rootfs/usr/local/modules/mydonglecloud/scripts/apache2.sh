@@ -27,12 +27,12 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset apache2##################"
-rm -rf /disk/admin/.modules/apache2/www
-mkdir -p /disk/admin/.modules/apache2/www
-cat > /disk/admin/.modules/apache2/www/index.html <<EOF
+rm -rf /disk/admin/modules/apache2/www
+mkdir -p /disk/admin/modules/apache2/www
+cat > /disk/admin/modules/apache2/www/index.html <<EOF
 <html>
 <body>
-You can edit this file in the folder: /disk/admin/.modules/apache2/www<br><br>
+You can edit this file in the folder: /disk/admin/modules/apache2/www<br><br>
 Go to <a href="/m/app">App</a>
 </body>
 </html>

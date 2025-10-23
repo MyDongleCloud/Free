@@ -28,12 +28,12 @@ fi
 
 echo "#Reset yourls##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
+SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
-mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
 DROP DATABASE IF EXISTS yourlsDB;
 CREATE DATABASE yourlsDB;
 DROP USER IF EXISTS 'yourlsUser'@'localhost';
@@ -42,9 +42,9 @@ GRANT ALL PRIVILEGES ON yourlsDB.* TO 'yourlsUser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
-rm -rf /disk/admin/.modules/yourls
-mkdir /disk/admin/.modules/yourls
-cp /usr/local/modules/yourls/user/config-sample.php /disk/admin/.modules/yourls/config.php
+rm -rf /disk/admin/modules/yourls
+mkdir /disk/admin/modules/yourls
+cp /usr/local/modules/yourls/user/config-sample.php /disk/admin/modules/yourls/config.php
 
 dbuser="yourlsUser"
 dbpass="${DBPASS}"
@@ -56,12 +56,12 @@ saltpass=$(tr -dc '1-9' < /dev/urandom | head -c 5)
 md5=`echo -n "$saltpass$passwd" | md5sum | cut -d ' ' -f 1`
 passwdMd5="md5:$saltpass:$md5"
 
-sed -i -e "s|define( 'YOURLS_DB_USER',.*|define( 'YOURLS_DB_USER', '$dbuser' );|" /disk/admin/.modules/yourls/config.php
-sed -i -e "s|define( 'YOURLS_DB_PASS',.*|define( 'YOURLS_DB_PASS', '$dbpass' );|" /disk/admin/.modules/yourls/config.php
-sed -i -e "s|define( 'YOURLS_DB_NAME',.*|define( 'YOURLS_DB_NAME', '$dbname' );|" /disk/admin/.modules/yourls/config.php
-sed -i -e "s|define( 'YOURLS_SITE',.*|define( 'YOURLS_SITE', '$site' );|" /disk/admin/.modules/yourls/config.php
-sed -i -e "s|define( 'YOURLS_COOKIEKEY',.*|define( 'YOURLS_COOKIEKEY', '$SALT' );|" /disk/admin/.modules/yourls/config.php
-sed -i -e "s|	'username' => 'password',.*|	'$username' => '$passwdMd5',|" /disk/admin/.modules/yourls/config.php
+sed -i -e "s|define( 'YOURLS_DB_USER',.*|define( 'YOURLS_DB_USER', '$dbuser' );|" /disk/admin/modules/yourls/config.php
+sed -i -e "s|define( 'YOURLS_DB_PASS',.*|define( 'YOURLS_DB_PASS', '$dbpass' );|" /disk/admin/modules/yourls/config.php
+sed -i -e "s|define( 'YOURLS_DB_NAME',.*|define( 'YOURLS_DB_NAME', '$dbname' );|" /disk/admin/modules/yourls/config.php
+sed -i -e "s|define( 'YOURLS_SITE',.*|define( 'YOURLS_SITE', '$site' );|" /disk/admin/modules/yourls/config.php
+sed -i -e "s|define( 'YOURLS_COOKIEKEY',.*|define( 'YOURLS_COOKIEKEY', '$SALT' );|" /disk/admin/modules/yourls/config.php
+sed -i -e "s|	'username' => 'password',.*|	'$username' => '$passwdMd5',|" /disk/admin/modules/yourls/config.php
 
 cd /usr/local/modules/yourls
 cat > /tmp/yourls.php << EOF
@@ -76,5 +76,5 @@ EOF
 php /tmp/yourls.php > /tmp/reset-yourls-$DATE.log 2>&1
 rm /tmp/yourls.php
 
-rm -f /disk/admin/.modules/yourls/conf.txt
-echo "{\"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/.modules/_config_/yourls.json
+rm -f /disk/admin/modules/yourls/conf.txt
+echo "{\"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/yourls.json

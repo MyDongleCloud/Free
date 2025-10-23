@@ -28,12 +28,12 @@ fi
 
 echo "#Reset osticket##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/.modules/mydonglecloud/space.json | jq -r ".name"`
+SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
-mysql --defaults-file=/disk/admin/.modules/mysql/conf.txt << EOF
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
 DROP DATABASE IF EXISTS osticketDB;
 CREATE DATABASE osticketDB;
 DROP USER IF EXISTS 'osticketUser'@'localhost';
@@ -42,11 +42,11 @@ GRANT ALL PRIVILEGES ON osticketDB.* TO 'osticketUser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
-rm -rf /disk/admin/.modules/osticket
-mkdir -p /disk/admin/.modules/osticket
-cp /usr/local/modules/osticket/include/ost-sampleconfig.php /disk/admin/.modules/osticket/ost-config.php
-chmod 666 /disk/admin/.modules/osticket/ost-config.php
-sed -i -e "s|^define.*SECRET_SALT.*|define('SECRET_SALT','${SALT}');|" /disk/admin/.modules/osticket/ost-config.php
+rm -rf /disk/admin/modules/osticket
+mkdir -p /disk/admin/modules/osticket
+cp /usr/local/modules/osticket/include/ost-sampleconfig.php /disk/admin/modules/osticket/ost-config.php
+chmod 666 /disk/admin/modules/osticket/ost-config.php
+sed -i -e "s|^define.*SECRET_SALT.*|define('SECRET_SALT','${SALT}');|" /disk/admin/modules/osticket/ost-config.php
 
 s="install"
 name="Support Center"
@@ -90,7 +90,7 @@ EOF
 php /tmp/osticket.php > /tmp/reset-osticket-$DATE.log 2>&1
 rm /tmp/osticket.php
 
-chmod 644 /disk/admin/.modules/osticket/ost-config.php
+chmod 644 /disk/admin/modules/osticket/ost-config.php
 
-rm -f /disk/admin/.modules/osticket/conf.txt
-echo "{\"other\":\"name: ${name}, email: ${email}\", \"email\":\"${admin_email}\", \"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/.modules/_config_/osticket.json
+rm -f /disk/admin/modules/osticket/conf.txt
+echo "{\"other\":\"name: ${name}, email: ${email}\", \"email\":\"${admin_email}\", \"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/osticket.json

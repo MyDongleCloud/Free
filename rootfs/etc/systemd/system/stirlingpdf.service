@@ -6,7 +6,7 @@ After=network.target
 Environment=PATH=/usr/local/modules/stirlingpdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Type=simple
 ExecStart=java -jar /usr/local/modules/stirlingpdf/stirling-pdf-1.0.2.jar
-WorkingDirectory=/disk/admin/.modules/stirlingpdf
+WorkingDirectory=/disk/admin/modules/stirlingpdf
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

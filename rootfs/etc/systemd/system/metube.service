@@ -5,8 +5,8 @@ After=network.target
 [Service]
 Environment=PATH=/usr/local/modules/metube/env/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Environment=PORT=8089
-Environment=DOWNLOAD_DIR=/disk/admin/.modules/metube
-Environment=STATE_DIR=/disk/admin/.modules/metube/.state
+Environment=DOWNLOAD_DIR=/disk/admin/modules/metube
+Environment=STATE_DIR=/disk/admin/modules/metube/.state
 Environment=TEMP_DIR=/tmp
 Type=simple
 ExecStart=/usr/local/modules/metube/env/bin/python3 app/main.py

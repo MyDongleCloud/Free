@@ -1,5 +1,5 @@
 <?php
-$baseDir = "/disk/admin/.modules/mail/";
+$baseDir = "/disk/admin/modules/mail/";
 $domain = "mail2.cloud";
 $accountCur = "";
 
