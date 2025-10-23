@@ -6,5 +6,5 @@ system:
 
 customPaths:
   pipeline:
-    watchedFoldersDir: "/disk/admin/Documents"
-    finishedFoldersDir: "/disk/admin/Documents"
+    watchedFoldersDir: "/disk/admin/.modules/stirlingpdf/documents"
+    finishedFoldersDir: "/disk/admin/.modules/stirlingpdf/documents"
