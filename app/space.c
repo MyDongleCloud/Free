@@ -11,6 +11,7 @@
 #include "wifi.h"
 #include "common.h"
 #include "communication.h"
+#include "language.h"
 
 //Functions
 void spaceInit() {
@@ -20,9 +21,7 @@ void spaceInit() {
 }
 
 static void setup(int i, int total, char *name) {
-	char sz2[256];
-	snprintf(sz2, sizeof(sz2), "Setup is configuring\n%s\n%d/%d\nPlease wait...", name, i, total);
-	logicMessage(sz2, 0);
+	logicSetup(name, i * 100 / total);
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", name);
 	communicationString(sz);
@@ -31,7 +30,7 @@ static void setup(int i, int total, char *name) {
 }
 
 void spaceSetup(cJSON *elSpace) {
-	logicMessage("Setup is starting. Please wait...", 0);
+	logicSetup(L("Initialization"), 0);
 	if (cJSON_GetStringValue2(elSpace, "ssid") && cJSON_GetStringValue2(elSpace, "security"))
 		wiFiAddActivate(cJSON_GetStringValue2(elSpace, "ssid"), cJSON_GetStringValue2(elSpace, "security"));
 	jsonWrite(cJSON_GetObjectItem(elSpace, "space"), ADMIN_PATH "mydonglecloud/space.json");
@@ -76,12 +75,11 @@ void spaceSetup(cJSON *elSpace) {
 		if (cJSON_HasObjectItem(elModule, "reset") && !cJSON_HasObjectItem(elModule, "resetPriority"))
 			setup(i, total, elModule->string);
 		i++;
-	}
-	logicMessage("Setup is finishing. Please wait...", 0);
+	} 
+	logicSetup(L("Finalization"), 100);
 	communicationString("{\"status\":2}");
-	serviceAction("dovecot.service", "RestartUnit");
 	spaceInit();
-	logicMessage("Congratulations! MyDongle is now ready", 1);
+	logicMessage(1, 1);
 	communicationString("{\"status\":3}");
 	jingle();
 }

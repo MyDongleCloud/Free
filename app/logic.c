@@ -77,21 +77,16 @@ void logicKey(int key, int longPress) {
 			if (smdc.setupDone)
 				logicTips(0, 0);
 			else
-				logicLogin();
+				logicQrLogin();
 		} else if (key == LV_KEY_RIGHT)
 			logicHome(-1, 1);
-	} else if (lmdc.current == LOGIC_SETUP) {//Done
+	} else if (lmdc.current == LOGIC_SETUP) {
+	} else if (lmdc.current == LOGIC_QR_SETUP) {//Done
 		if (key == LV_KEY_RIGHT) {
 			smdc.setupDone = 1;
 			logicHome(0, 0);
 		}
-	} else if (lmdc.current == LOGIC_SETUP_START) {
-	} else if (lmdc.current == LOGIC_SETUP_SUCCESS) {//Done
-		if (key == LV_KEY_RIGHT) {
-			smdc.setupDone = 1;
-			logicHome(0, 0);
-		}
-	} else if (lmdc.current == LOGIC_LOGIN) {//Done
+	} else if (lmdc.current == LOGIC_QR_LOGIN) {//Done
 		if (key == LV_KEY_RIGHT) {
 			smdc.setupDone = 1;
 			logicHome(0, 0);
@@ -100,7 +95,7 @@ void logicKey(int key, int longPress) {
 		if (key == LV_KEY_UP)
 			logicHome(-1, 0);
 		else if (key == LV_KEY_DOWN)
-			logicLogin();
+			logicQrLogin();
 		else if (key == LV_KEY_LEFT)
 			logicTips(-1, -1);
 		else if (key == LV_KEY_RIGHT)
@@ -142,8 +137,10 @@ void logicUpdate() {
 		uiScreenHome();
 	else if (lmdc.current == LOGIC_SETUP)
 		uiScreenSetup();
-	else if (lmdc.current == LOGIC_LOGIN)
-		uiScreenLogin();
+	else if (lmdc.current == LOGIC_QR_SETUP)
+		uiScreenQrSetup();
+	else if (lmdc.current == LOGIC_QR_LOGIN)
+		uiScreenQrLogin();
 	else if (lmdc.current == LOGIC_TIPS)
 		uiScreenTips();
 	else if (lmdc.current == LOGIC_SHUTDOWN)
@@ -189,15 +186,23 @@ void logicHome(int force, int incr) {
 	logicUpdate();
 }
 
-void logicSetup() {
+void logicSetup(char *string, int percentage) {
+	lmdc.setupPercentage = percentage;
+	lmdc.string = string;
 	PRINTF("Logic: Setup\n");
 	lmdc.current = LOGIC_SETUP;
 	logicUpdate();
 }
 
-void logicLogin() {
-	PRINTF("Logic: Login\n");
-	lmdc.current = LOGIC_LOGIN;
+void logicQrSetup() {
+	PRINTF("Logic: QR Setup\n");
+	lmdc.current = LOGIC_QR_SETUP;
+	logicUpdate();
+}
+
+void logicQrLogin() {
+	PRINTF("Logic: QR Login\n");
+	lmdc.current = LOGIC_QR_LOGIN;
 	logicUpdate();
 }
 
@@ -238,8 +243,8 @@ void logicBye() {
 	logicUpdate();
 }
 
-void logicMessage(char *msg, int ok) {
-	lmdc.messageM = msg;
+void logicMessage(int message, int ok) {
+	lmdc.messageNb = message;
 	lmdc.messageOK = ok;
 	PRINTF("Logic: Message\n");
 	lmdc.current = LOGIC_MESSAGE;

@@ -18,13 +18,19 @@
 #define COLOR_WHITE 0xffffff
 
 //Private variable
-static char *szTips[6] = {
-"Press the top right button to access the Setup qrcode. Communication will be over Bluetooth.",
+static char *szTips[] = {
+"Press the top right button to access the Login qrcode of the web app.",
 "It's recommended to properly shutdown the device with a long press on the top right button.",
 "A long press on the top left button will sleep the screen and the led. The dongle will still function.",
 "New module are constantly added. Check on the app regularly.",
 "You can recover a bricked dongle with the recovery tool (available on Windows, Linux and Mac).",
-"Press both bottom buttons at the same time for 10 seconds to reset and delete all the dongle data." };
+"Press both bottom buttons at the same time for 10 seconds to reset and delete all the dongle data.",
+};
+
+static char *szString[] = {
+"Rotation is not supported on the web demo.",
+"Congratulations! MyDongle is now ready",
+};
 
 //Functions
 //#define USE_IMG_FILE
@@ -437,7 +443,7 @@ void uiScreenHome() {
 		lv_obj_set_pos(label0, 2, 26);
 		static lv_style_t labelStyle0;
 		if (labelStyle0.prop_cnt == 0)
-				lv_style_init(&labelStyle0);
+			lv_style_init(&labelStyle0);
 		lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_14);
 		lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
 
@@ -451,7 +457,7 @@ void uiScreenHome() {
 		lv_obj_set_pos(label1, 12, 60);
 		static lv_style_t labelStyle1;
 		if (labelStyle1.prop_cnt == 0)
-				lv_style_init(&labelStyle1);
+			lv_style_init(&labelStyle1);
 		lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_14);
 		lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
@@ -464,7 +470,7 @@ void uiScreenHome() {
 		lv_obj_set_pos(label2, 2, 95);
 		static lv_style_t labelStyle2;
 		if (labelStyle2.prop_cnt == 0)
-				lv_style_init(&labelStyle2);
+			lv_style_init(&labelStyle2);
 		lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_10);
 		lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
 
@@ -489,7 +495,7 @@ void uiScreenHome() {
 		lv_obj_set_pos(label4, 76, 60);
 		static lv_style_t labelStyle4;
 		if (labelStyle4.prop_cnt == 0)
-				lv_style_init(&labelStyle4);
+			lv_style_init(&labelStyle4);
 		lv_style_set_text_font(&labelStyle4, &lv_font_montserrat_14);
 		lv_obj_add_style(label4, &labelStyle4, LV_STATE_DEFAULT);
 
@@ -534,7 +540,71 @@ void uiScreenHome() {
 	advancement(lmdc.homePos);
 }
 
+
+
 void uiScreenSetup() {
+	lv_obj_clean(lv_screen_active());
+
+	arc(40, 44, 46, lmdc.setupPercentage);
+	char sz[8];
+	sprintf(sz, L("%d%%"), 99);//lmdc.setupPercentage);
+	lv_obj_t *label0 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label0, sz);
+	lv_obj_set_width(label0, 128);
+	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_set_pos(label0, 0, 57);
+	static lv_style_t labelStyle0;
+	if (labelStyle0.prop_cnt == 0)
+		lv_style_init(&labelStyle0);
+	lv_style_set_text_font(&labelStyle0, &lv_font_montserrat_16);
+	lv_obj_add_style(label0, &labelStyle0, LV_STATE_DEFAULT);
+
+	lv_obj_t *label1 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label1, L("Setup"));
+	lv_obj_set_width(label1, 128);
+	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_set_pos(label1, 0, 2);
+	static lv_style_t labelStyle1;
+	if (labelStyle1.prop_cnt == 0)
+		lv_style_init(&labelStyle1);
+	lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_18);
+	lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
+
+	lv_obj_t *label2 = lv_label_create(lv_screen_active());
+	if (lmdc.setupPercentage == 0)
+		lv_label_set_text(label2, L("Starting procedure"));
+	else if (lmdc.setupPercentage == 0)
+		lv_label_set_text(label2, L("Finishing process"));
+	else
+		lv_label_set_text(label2, L("Preparing module"));
+	lv_obj_set_width(label2, 128);
+	lv_obj_set_style_text_align(label2, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_set_pos(label2, 0, 25);
+	static lv_style_t labelStyle2;
+	if (labelStyle2.prop_cnt == 0)
+		lv_style_init(&labelStyle2);
+	lv_style_set_text_font(&labelStyle2, &lv_font_montserrat_12);
+	lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
+
+	lv_obj_t *label3 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label3, lmdc.string);
+	lv_obj_set_width(label3, 128);
+	lv_obj_set_style_text_align(label3, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_set_pos(label3, 0, 94);
+	static lv_style_t labelStyle3;
+	if (labelStyle3.prop_cnt == 0)
+		lv_style_init(&labelStyle3);
+	lv_style_set_text_font(&labelStyle3, &lv_font_montserrat_12);
+	lv_obj_add_style(label3, &labelStyle3, LV_STATE_DEFAULT);
+
+	lv_obj_t *label4 = lv_label_create(lv_screen_active());
+	lv_label_set_text(label4, L("Please wait..."));
+	lv_obj_set_width(label4, 128);
+	lv_obj_set_style_text_align(label4, LV_TEXT_ALIGN_CENTER, 0);
+	lv_obj_set_pos(label4, 0, 110);
+}
+
+void uiScreenQrSetup() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
@@ -556,7 +626,7 @@ void uiScreenSetup() {
 	button(LV_KEY_RIGHT, L("Done"), NULL);
 }
 
-void uiScreenLogin() {
+void uiScreenQrLogin() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *imgNav0 = lv_image_create(lv_screen_active());
@@ -640,12 +710,7 @@ void uiScreenMessage() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_long_mode(label0, LV_LABEL_LONG_DOT);
-#ifdef WEB
-	lv_label_set_text(label0, L("Rotation is not supported on the web demo."));
-#else
-	lv_label_set_text(label0, lmdc.messageM);
-#endif
+	lv_label_set_text(label0, L(szString[lmdc.messageNb]));
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_center(label0);
