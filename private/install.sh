@@ -443,19 +443,6 @@ cp cc2538-prog /usr/local/bin/
 cd ../..
 
 echo "################################"
-echo "webssh2"
-echo "################################"
-cd /usr/local/modules
-git clone https://github.com/billchurch/webssh2 webssh2
-cd webssh2
-git checkout v0.2.24
-rm -rf .git
-cd app
-npm install --production
-cd ../..
-ln -sf /etc/systemd/system/webssh2.service /etc/systemd/system/multi-user.target.wants/webssh2.service
-
-echo "################################"
 echo "acme"
 echo "################################"
 cd /usr/local/modules
@@ -542,6 +529,7 @@ else
 	clone tubesync meeb/tubesync v0.15.10
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webtrees fisharebest/webtrees 2.1.25
+	clone webssh2 billchurch/webssh2 webssh2-server-v2.3.4
 	clone yourls YOURLS/YOURLS 1.10.2
 fi
 
@@ -705,6 +693,29 @@ chown -R admin:admin /disk/admin/modules/tubesync
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
+
+echo "################################"
+echo "webssh2"
+echo "################################"
+cd /usr/local/modules/webssh2
+npm install --production
+node scripts/prestart.js
+cat > config.json <<EOF
+{
+	"listen": {
+		"ip": "127.0.0.1",
+		"port": 2222
+	},
+	"ssh": {
+		"host": "localhost",
+		"port": 22
+	},
+	"auth": {
+		"method": "post"
+	}
+}
+EOF
+ln -sf /etc/systemd/system/webssh2.service /etc/systemd/system/multi-user.target.wants/webssh2.service
 
 echo "################################"
 echo "webtrees"

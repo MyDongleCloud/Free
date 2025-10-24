@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=npm start
-WorkingDirectory=/usr/local/modules/webssh2/app
+ExecStart=node dist/index.js
+WorkingDirectory=/usr/local/modules/webssh2
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

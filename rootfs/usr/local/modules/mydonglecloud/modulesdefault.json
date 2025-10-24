@@ -590,11 +590,16 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9466,
 		"alias": [ "ssh" ],
-		"homepage": "/ssh/host/localhost",
+		"addConfig": "Alias /access /usr/local/modules/webssh2/access\n\t<Directory /usr/local/modules/webssh2/access>\n\t\tRequire all granted\n\t</Directory>\n\tProxyPass /access !",
+		"homepage": "/access",
 		"reverseProxy": [ {
 			"type": "http",
 			"port": 2222,
 			"path": "/"
+		}, {
+			"type": "ws",
+			"port": 2222,
+			"path": "/ssh/socket\\.io"
 		} ]
 	},
 	"webtrees": {
