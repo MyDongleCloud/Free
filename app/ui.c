@@ -540,14 +540,12 @@ void uiScreenHome() {
 	advancement(lmdc.homePos);
 }
 
-
-
 void uiScreenSetup() {
 	lv_obj_clean(lv_screen_active());
 
 	arc(40, 44, 46, lmdc.setupPercentage);
 	char sz[8];
-	sprintf(sz, L("%d%%"), 99);//lmdc.setupPercentage);
+	sprintf(sz, L("%d%%"), lmdc.setupPercentage);
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
 	lv_label_set_text(label0, sz);
 	lv_obj_set_width(label0, 128);
