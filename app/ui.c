@@ -543,14 +543,31 @@ void uiScreenHome() {
 void uiScreenSetup() {
 	lv_obj_clean(lv_screen_active());
 
-	arc(40, 44, 46, lmdc.setupPercentage);
+	lv_obj_t * spinner = lv_spinner_create(lv_screen_active());
+	static lv_style_t arcStyle0;
+	if (arcStyle0.prop_cnt == 0)
+		lv_style_init(&arcStyle0);
+	lv_style_set_arc_width(&arcStyle0, 8);
+	lv_style_set_arc_color(&arcStyle0, lv_color_hex(COLOR_LIGHT));
+	static lv_style_t arcStyle1;
+	if (arcStyle1.prop_cnt == 0)
+		lv_style_init(&arcStyle1);
+	lv_style_set_arc_width(&arcStyle1, 8);
+	lv_style_set_arc_color(&arcStyle1, lv_color_hex(0xDDDDDD));
+	lv_obj_set_size(spinner, 92, 92);
+	lv_obj_center(spinner);
+	lv_spinner_set_anim_params(spinner, 1000, 200);
+	lv_obj_add_style(spinner, &arcStyle0, LV_PART_INDICATOR);
+	lv_obj_add_style(spinner, &arcStyle1, LV_PART_MAIN);
+
+	arc(41, 41, 46, lmdc.setupPercentage);
 	char sz[8];
 	sprintf(sz, L("%d%%"), lmdc.setupPercentage);
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
 	lv_label_set_text(label0, sz);
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_set_pos(label0, 0, 57);
+	lv_obj_center(label0);
 	static lv_style_t labelStyle0;
 	if (labelStyle0.prop_cnt == 0)
 		lv_style_init(&labelStyle0);
@@ -561,11 +578,10 @@ void uiScreenSetup() {
 	lv_label_set_text(label1, L("Setup"));
 	lv_obj_set_width(label1, 128);
 	lv_obj_set_style_text_align(label1, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_set_pos(label1, 0, 2);
+	lv_obj_set_pos(label1, 0, 0);
 	static lv_style_t labelStyle1;
 	if (labelStyle1.prop_cnt == 0)
 		lv_style_init(&labelStyle1);
-	lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_18);
 	lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
 	lv_obj_t *label2 = lv_label_create(lv_screen_active());
@@ -577,7 +593,7 @@ void uiScreenSetup() {
 		lv_label_set_text(label2, L("Preparing module"));
 	lv_obj_set_width(label2, 128);
 	lv_obj_set_style_text_align(label2, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_set_pos(label2, 0, 25);
+	lv_obj_set_pos(label2, 0, 22);
 	static lv_style_t labelStyle2;
 	if (labelStyle2.prop_cnt == 0)
 		lv_style_init(&labelStyle2);
@@ -588,7 +604,7 @@ void uiScreenSetup() {
 	lv_label_set_text(label3, lmdc.string);
 	lv_obj_set_width(label3, 128);
 	lv_obj_set_style_text_align(label3, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_set_pos(label3, 0, 94);
+	lv_obj_set_pos(label3, 0, 90);
 	static lv_style_t labelStyle3;
 	if (labelStyle3.prop_cnt == 0)
 		lv_style_init(&labelStyle3);
@@ -599,7 +615,7 @@ void uiScreenSetup() {
 	lv_label_set_text(label4, L("Please wait..."));
 	lv_obj_set_width(label4, 128);
 	lv_obj_set_style_text_align(label4, LV_TEXT_ALIGN_CENTER, 0);
-	lv_obj_set_pos(label4, 0, 110);
+	lv_obj_set_pos(label4, 0, 112);
 }
 
 void uiScreenQrSetup() {
