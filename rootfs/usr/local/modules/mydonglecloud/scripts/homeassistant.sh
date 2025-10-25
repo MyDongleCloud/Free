@@ -43,3 +43,4 @@ http:
 EOF
 systemctl start homeassistant.service
 systemctl enable homeassistant.service
+sleep 5 && /usr/local/modules/mydonglecloud/scripts/homeassistant-user.sh &
