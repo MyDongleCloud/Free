@@ -51,3 +51,4 @@ EOF
 echo "$EMAIL:$PWD" > /disk/admin/modules/mail/password-$SPACENAME.mydongle.cloud
 echo "{\"email\":\"${EMAIL}\", \"user\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/roundcube.json
 systemctl restart postfix.service
+systemctl restart dovecot.service
