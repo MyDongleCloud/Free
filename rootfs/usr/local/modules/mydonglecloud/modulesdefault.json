@@ -632,7 +632,6 @@
 		"homepage": "/admin",
 		"localPort": 9470
 	},
-	"youtubedl": {},
 	"ytdlp": {},
 	"zigbee2mqtt": {
 		"web": true,

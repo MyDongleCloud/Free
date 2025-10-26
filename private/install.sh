@@ -311,6 +311,14 @@ rm -rf /usr/local/modules/triliumnotes/node
 ln -sf /etc/systemd/system/triliumnotes.service /etc/systemd/system/multi-user.target.wants/triliumnotes.service
 
 echo "################################"
+echo "ytdlp"
+echo "################################"
+curl -L -sS --fail https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux_aarch64 -o /usr/local/bin/yt-dlp
+chmod a+x /usr/local/bin/yt-dlp
+chown admin:admin /usr/local/bin/yt-dlp
+ln -sf /usr/local/bin/yt-dlp /usr/local/bin/youtube-dl
+
+echo "################################"
 echo "node"
 echo "################################"
 cd /home/mdc/build
