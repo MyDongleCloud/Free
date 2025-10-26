@@ -235,7 +235,7 @@ static void *bye_t(void *arg) {
 
 void logicBye() {
 	PRINTF("Logic: Bye\n");
-#ifndef WEB
+#if !defined(DESKTOP) && !defined(WEB)
 	pthread_t pth;
 	pthread_create(&pth, NULL, bye_t, NULL);
 #endif
