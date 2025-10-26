@@ -73,6 +73,7 @@ sed -i -e "s/^\\\$g_database_name.*/\\\$g_database_name = '$database_name';/" /d
 sed -i -e "s/^\\\$g_db_type.*/\\\$g_db_type = '$db_type';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
 sed -i -e "s/^\\\$g_crypto_master_salt.*/\\\$g_crypto_master_salt = '$SALT';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
 echo "\$g_path = '$path';" >> /disk/admin/modules/mantisbugtracker/config/config_inc.php
+echo "define( 'COMPRESSION_DISABLED', true );" >> /disk/admin/modules/mantisbugtracker/config/config_inc.php
 
 cd /usr/local/modules/mantisbugtracker
 cat > /tmp/mantisbugtracker.php << EOF
