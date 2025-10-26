@@ -21,8 +21,8 @@ cJSON *jsonRead(char *path) {
 	strcpy(sz, "");
 	FILE *f = fopen(path, "r");
 	if (f) {
-		fread(sz, size, 1, f);
-		sz[size] = '\0';
+		int ret2 = fread(sz, 1, size, f);
+		sz[ret2] = '\0';
 		fclose(f);
 	}
 	cJSON *ret = cJSON_Parse(sz);
