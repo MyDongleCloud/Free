@@ -12,6 +12,7 @@ MDC_VERSION=\"$(shell cat ../app/version.txt)\"
 
 OBJs := $(PRE)module.o \
 	$(PRE)cJSON.o \
+	$(PRE)json.o \
 	$(PRE)login.o
 
 MYCFLAGS = $(CFLAGS) -DMDC_VERSION=$(MDC_VERSION) -Wformat-truncation -O2 -flto=auto -ffat-lto-objects -I/usr/include/apache2 -fPIC -DPIC `pkg-config --cflags apr-1`
