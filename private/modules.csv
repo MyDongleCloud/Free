@@ -1,14 +1,14 @@
 module;name;title;category;web;status;description;keywords;proprietary;installMethod;version;github
-acme;Acme;ACME Shell Script;Utils;;;A pure Unix shell script implementing ACME client protocol.;ACME|SSL|TLS|Certificates;DigiCert CertCentral;wget;3.1.1;acmesh-official/acme.sh
-acmejs;ACME.js;JavaScript ACME Client;Backend;;done;JavaScript ACME client for Let's Encrypt.;ACME|Let's Encrypt|SSL|JavaScript;Sectigo;npm;3.1.0;therootcompany/acme.js
-angular;Angular;Web App Framework;Developer;;done;Platform for building mobile and desktop web applications.;Web|Framework|TypeScript|SPA;React;dev;6.7.5;angular/angular
-apache2;Apache2;Website;Essential;yes;done;The Apache HTTP Server Project's goal is to build a secure, efficient and extensible HTTP server.;HTTP|Server|Web|Apache;Microsoft IIS;apt;2.4.62;apache/httpd
-audiobookshelf;Audio Bookshelf;Audiobook Podcast Server;Personal;yes;;Audiobook and podcast server.;Audiobooks|Podcasts|Streaming;Audible;clone;v2.26.2;advplyr/audiobookshelf
+acme;Acme;ACME Shell Script;Utils;;;A pure Unix shell script implementing ACME client protocol.;ACME|LetsEncrypt|SSL|TLS|Script|Certificates;DigiCert CertCentral;wget;3.1.1;acmesh-official/acme.sh
+acmejs;ACME.js;JavaScript ACME Client;Backend;;done;The JavaScript ACME client for Let's Encrypt.;ACME|LetsEncrypt|SSL|TLS|JavaScript|Certificates;Sectigo;npm;3.1.0;therootcompany/acme.js
+angular;Angular;Web App Framework;Backend;;done;A platform for building mobile and desktop web applications.;Web|Framework|TypeScript|SPA;React;dev;6.7.5;angular/angular
+apache2;Apache2;Website;Essential;yes;done;The most comprehensive HTTP Server Project built with security, efficiency and extensibility in mind.;HTTP|Server|Web|Apache;Microsoft IIS;apt;2.4.62;apache/httpd
+audiobookshelf;Audio Bookshelf;Audiobook Podcast Server;Personal;yes;;An Audiobook and podcast server to organize audio files;Audiobooks|Podcasts|Streaming;Audible;clone;v2.26.2;advplyr/audiobookshelf
 betterauth;Better Auth;Identity Backend;Backend;;done;The backend of users identity management;Identity|Backend;;npm;1.3.12;better-auth/better-auth
-betterauthstudio;Better Auth Studio;Identity Management;Backend;yes;done;The frontend of users identity management;Identity|Frontend;;npm;1.0.19;
-bugzilla;Bugzilla;Bug Tracking;Developer;yes;done;Web-based general-purpose bugtracker and testing tool.;Bug|Tracker|Testing|Web;Jira;clone;release-5.3.3;bugzilla/bugzilla
-busybox;Busybox;Unix Suite;Utils;;done;Lightweight set of Unix utilities in a single executable.;Unix|Utilities|Lightweight|Embedded;;apt;1.35.0;mirror/busybox
-certbot;Certbot;HTTPS Certificate Generator;Utils;;done;Automatically enable HTTPS on your website with EFF's Certbot.;HTTPS|SSL|Certificates|Automation;DigiCert CertCentral;apt;2.1.0;certbot/certbot
+betterauthstudio;Better Auth Studio;Identity Management;Backend;yes;done;A frontend of users identity management;Identity|Frontend;;npm;1.0.19;
+bugzilla;Bugzilla;Bug Tracking;Developer;yes;done;The Web-based general-purpose bugtracker and testing tool.;Bug|Tracker|Testing|Web;Jira;clone;release-5.3.3;bugzilla/bugzilla
+busybox;Busybox;Unix Suite;Utils;;done;A lightweight set of Unix utilities in a single executable.;Unix|Utilities|Lightweight|Embedded;;apt;1.35.0;mirror/busybox
+certbot;Certbot;HTTPS Certificate Generator;Utils;;done;The leading automatic generation of HTTPS certificates leverarging EFF.;HTTPS|SSL|Certificates|Automation;DigiCert CertCentral;apt;2.1.0;certbot/certbot
 changedetection;Change Detection;Web Change Tracker;Productivity;yes;;Tool for tracking changes on web pages.;Change|Detection|Web|Tracking;Visualping;clone;0.50.7;dgtlmoon/changedetection.io
 clang;Clang;C Compiler Frontend;Developer;;done;C language family frontend for LLVM.;Compiler|C|LLVM|Frontend;Microsoft Visual C++;apt;14.0.6;llvm/llvm-project
 cmake;CMake;Cross-Platform Build;Developer;;done;Cross-platform open-source build system.;Build|System|Cross-platform|Automation;Microsoft Visual Studio;apt;3.25.1;Kitware/CMake
@@ -24,7 +24,7 @@ fdfind;Fd Find;Find Tool;Utils;;done;To do;To do;;deb;;sharkdp/fd
 ffmpeg;FFmpeg;Audio Video Tool;Utils;;done;Complete solution to record, convert and stream audio and video.;Video|Audio|Streaming|Conversion;Adobe Media Encoder;apt;5.1.6;FFmpeg/FFmpeg
 fileflows;Fileflows;File Automation Platform;Utils;yes;;Automation platform for processing and managing files.;Automation|File|Workflow|Processing;Zapier;;;
 flarum;Flarum;Simple Forum Software;Productivity;yes;;Simple forum software for building great communities.;Forum|Community|Discussion|Web;Discourse;clone;v1.8.1;flarum/flarum
-freshrss;Fresh RSS;RSS Feed Aggregator;Personal;yes;done;RSS feed aggregator.;RSS|Feed|Aggregator;Feedly;clone;1.26.3;FreshRSS/FreshRSS
+freshrss;Fresh RSS;RSS Feed Aggregator;Personal;yes;;RSS feed aggregator.;RSS|Feed|Aggregator;Feedly;clone;1.26.3;FreshRSS/FreshRSS
 frp;frp;Reverse Proxy Tool;Backend;yes;done;Fast reverse proxy to expose a local server behind a NAT or firewall to the internet.;Proxy|Reverse|NAT|Tunnel;Ngrok;clone;v0.63.0;fatedier/frp
 fscrypt;fscrypt;Linux Encryption Tool;Utils;;done;Tool for managing Linux filesystem encryption.;Encryption|Filesystem|Linux|Security;BitLocker;apt;0.3.3;google/fscrypt
 gcc;GCC;GNU Compiler Collection;Developer;;done;GNU Compiler Collection.;Compiler|GNU|C|C++;Intel C++ Compiler;apt;12.2.0;gcc-mirror/gcc
@@ -49,7 +49,7 @@ joomla;Joomla;Content Management System;Productivity;yes;;Content Management Sys
 joplin;Joplin;Note Taking App;Productivity;yes;;Note taking and to-do application with synchronization capabilities.;Notes|To-do|Sync|Markdown;Evernote|OneNote;clone;server-v3.4.1;laurent22/joplin
 jq;jq;JSON parser;Utils;;done;To do;To do;;deb;;jqlang/jq
 jstinker;JS Tinker;Javascript Sandbox;Developer;yes;done;A sandbox for Javascript.;Sandbox|Editor|Online;JsFiddle;clone;master;johncipponeri/jstinker
-karakeep;Karakeep;Karaoke;Personal;yes;;Karaoke app.;Karaoke|Music|App;Smule;clone;v0.26.0;karakeep-app/karakeep
+karakeep;Karakeep;Karaoke;Personal;yes;;To do;Karaoke|Music|App;Smule;clone;v0.26.0;karakeep-app/karakeep
 kernel;Kernel;Linux Kernel;Backend;;done;Linux kernel source tree.;Linux|Kernel|OS|Source;Microsoft Windows;apt;6.12.34;torvalds/linux
 librephotos;Libre Photos;Photos Management Service;Personal;yes;;Photos and medias management service.;Photos|Alternative|Gallery;Google Photos;clone;;LibrePhotos/librephotos
 libreqr;Libreqr;QR Code Generator;Utils;yes;done;Tool for generating and managing QR codes.;QR|Code|Generator|Utility;QR Code Generator;git;2.0.1;
@@ -109,7 +109,7 @@ superset;Superset;Data Visualization Platform;Productivity;yes;;Modern data expl
 syncthing;Syncthing;File Sync Tool;Utils;yes;;Continuous file synchronization program.;File|Sync|P2P|Backup;Dropbox|Google Drive;clone;1.30.0;syncthing/syncthing
 transmission;Transmission;BitTorrent Client;Utils;yes;done;Fast, easy, and free BitTorrent client.;BitTorrent|Client|P2P|Download;qBittorrent;clone;4.0.6;transmission/transmission
 triliumnotes;Trilium Notes;Hierarchical Notes App;Productivity;yes;done;Hierarchical note taking application.;Notes|Hierarchical|Knowledge|Base;Evernote;tar;v0.95.0;TriliumNext/Notes
-tubesync;TubeSync;YouTube Manager;Utils;yes;;Web GUI for youtube-dl, allowing you to download videos from YouTube and other sites.;YouTube|Download|GUI|Video;4K Video Downloader;clone;v0.15.10;meeb/tubesync
+tubesync;TubeSync;YouTube Manager;Utils;yes;done;Web GUI for youtube-dl, allowing you to download videos from YouTube and other sites.;YouTube|Download|GUI|Video;4K Video Downloader;clone;v0.15.10;meeb/tubesync
 typescript;TypeScript;Enhanced JavaScript;Developer;;done;Typed superset of JavaScript that compiles to plain JavaScript.;JavaScript|Typed|Compiler|Web;;;;microsoft/TypeScript
 unmanic;Unmanic;Media Library Optimizer;Utils;yes;;Library optimizer for removing unused metadata from media files.;Media|Optimizer|Metadata|Library;;pip;;Unmanic/unmanic
 uptime;Uptime;Monitoring Service;Utils;yes;;Monitoring, uptime, status tool and checker.;Monitoring|Uptime|Status;Pingdom;clone;1.23.16;louislam/uptime-kuma
@@ -119,6 +119,5 @@ wget;wget;Get Url;Utils;;done;Download a url;Download/URL;;deb;;mirror/wget
 wordpress;Word Press;Content Management System;Personal;yes;;Content Management System for creating websites and blogs.;CMS|Blog|Web|Publishing;Wix|Squarespace;;;
 writeas;Write.As;Privacy Blogging Platform;Personal;yes;;Minimalist, privacy-focused blogging platform.;Blog|Privacy|Writing|Minimalist;Medium;;;
 yourls;YOURLS;URL Shortener;Utils;yes;done;Your Own URL Shortener.;URL|Shortener|Web;Bitly;clone;1.10.2;YOURLS/YOURLS
-youtubedl;Youtube-dl;YouTube Downloader;Utils;;;Command-line program to download videos from YouTube and other sites.;YouTube|Download|Video|CLI;4K Video Downloader;pip;2025.6.30;ytdl-org/youtube-dl
-ytdlp;yt-dlp;YouTube Downloader Fork;Utils;;;Fork of youtube-dl with additional features and fixes.;YouTube|Download|Video|CLI;4K Video Downloader;pip;2025.6.30;yt-dlp/yt-dlp
+ytdlp;yt-dlp;YouTube Downloader Fork;Utils;;done;Fork of youtube-dl with additional features and fixes.;YouTube|Download|Video|CLI;4K Video Downloader;pip;2025.10.24;yt-dlp/yt-dlp
 zigbee2mqtt;Zigbee2MQTT;Zigbee MQTT Bridge;Personal;yes;done;Zigbee to MQTT bridge.;Zigbee|MQTT|Bridge|IoT;Philips Hue Bridge;npm;2.5.1;Koenkk/zigbee2mqtt
