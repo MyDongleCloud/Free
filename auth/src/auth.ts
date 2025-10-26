@@ -1,4 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
+import { execSync } from 'child_process';
 import { randomBytes } from "crypto";
 import { betterAuth } from "better-auth";
 import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
@@ -106,17 +107,31 @@ const mdcEndpoints = () => {
 				return Response.json({ success:true }, { status:200 });
 			}),
 
-			moduleReset: createAuthEndpoint("/module-reset", {
+			moduleReset: createAuthEndpoint("/module/reset", {
 				method: "POST",
 			}, async(ctx) => {
-				return Response.json({ success:true }, { status:200 });
+				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh " + ctx.body?.module;
+				let ret;
+				try {
+					const output = execSync(tbe);
+					console.log("Output:\n", output);
+					ret = '{ "status":"success" }';
+				} catch (error) {
+					ret = '{ "status":"error" }';
+				}
+				return Response.json(JSON.parse(ret), { status:200 });
 			}),
 
-			moduleConfig: createAuthEndpoint("/module-config", {
+			moduleConfig: createAuthEndpoint("/module/config", {
 				method: "POST",
 			}, async(ctx) => {
-				const config = fs.readFileSync("/disk/admin/modules/_config_/" + ctx.body?.module + ".json", "utf8");
-				return Response.json(JSON.parse(config), { status:200 });
+				let ret;
+				try {
+					ret = fs.readFileSync("/disk/admin/modules/_config_/" + ctx.body?.module + ".json", "utf8");
+				} catch (e) {
+					ret = '{ "status":"error" }';
+				}
+				return Response.json(JSON.parse(ret), { status:200 });
 			}),
 
 			jwksPem: createAuthEndpoint("/jwks-pem", {
