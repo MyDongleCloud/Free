@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "http_request.h"
 #include "http_log.h"
+#include "apr_strings.h"
 #include "module.h"
 #include "cJSON.h"
 #include "json.h"
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => { document.body.insertA
 
 //Private variables
 static char *html[][3] = {
+	{ "bugzilla", "/index.cgi", "[id=\"mini_login_top\"]" },
 	{ "homeassistant", "/auth/authorize", "" },
 	{ "mantisbugtracker", "/login_page.php", "[id=\"login-form\"]" },
 	{ "mantisbugtracker", "/login_password_page.php", "[id=\"login-form\"]" },
@@ -39,8 +41,9 @@ static char *html[][3] = {
 };
 
 static char *post[][4] = {
+	{ "bugzilla", "/index.cgi", "Bugzilla_login", "Bugzilla_password" },
 	{ "homeassistant", "/auth/login_flow", "username", "password" },
-	{ "mantisbugtracker", "/login_password_page.php", "username", "" },
+	{ "mantisbugtracker", "/login_password_page.php", "username", NULL },
 	{ "mantisbugtracker", "/login.php", "username", "password" },
 	{ "osticket", "/scp/login.php", "userid", "passwd" },
 	{ "projectsend", "/index.php", "username", "password" },
@@ -52,9 +55,10 @@ static char *post[][4] = {
 //Functions
 static apr_status_t mydonglecloud_html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 	filter_ctx *ctx = (filter_ctx *)f->ctx;
-	//PRINTFc("MDC: Output %lu", (long unsigned int)ctx);
 	if (!ctx)
 		return ap_pass_brigade(f->next, bb);
+	//PRINTFc("MDC: Html %lu %d", (long unsigned int)ctx, ctx->processedHtml);
+	apr_status_t rv = 0;
 	if (ctx->processedHtml)
 		goto end;
 	if (authorization2(f->r) != DECLINED)
@@ -65,38 +69,38 @@ static apr_status_t mydonglecloud_html_filter(ap_filter_t *f, apr_bucket_brigade
 	for (b = APR_BRIGADE_FIRST(bb); b != APR_BRIGADE_SENTINEL(bb); b = APR_BUCKET_NEXT(b)) {
 		if (APR_BUCKET_IS_EOS(b))
 			break;
+		if (APR_BUCKET_IS_FLUSH(b) || APR_BUCKET_IS_METADATA(b))
+			continue;
 		const char *data;
 		apr_size_t len;
-		apr_status_t status = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
-		if (status != APR_SUCCESS) {
+		rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
+		if (rv != APR_SUCCESS) {
 			//PRINTFc("MDC: Error apr_bucket_read %d", status);
 			goto end;
 		}
+		//PRINTFc("%.*s", len, data);
 		char *pos = strstr(data, "<head>");
-		if (pos) {
-			apr_size_t offset = (pos - data) + strlen("<head>");
-			apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
-			apr_bucket_split(b, offset);
-			APR_BUCKET_INSERT_BEFORE(APR_BUCKET_NEXT(b), inject_b);
-			goto end;
-		}
+		if (!pos)
+			continue;
+		apr_size_t offset = (pos - data) + 6;
+		apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
+		apr_bucket_split(b, offset);
+		APR_BUCKET_INSERT_BEFORE(APR_BUCKET_NEXT(b), inject_b);
 	}
-	return ap_pass_brigade(f->next, bb);
 end:
 	ctx->processedHtml = 1;
-	return ap_pass_brigade(f->next, bb);
+	return rv != 0 ? rv : ap_pass_brigade(f->next, bb);
 }
 
 int replace(ap_filter_t *f, const char *input, int type, const char *name1, const char *value1, const char *name2, const char *value2, char **output) {
 	int ret = 0;
 	int count = 0;
 	const char *p = input + type;
-	char delimiter = type == 1 ? ',' : '&';
-	char *delimiter_ = type == 1 ? "," : "&";
+	char *delimiter = type == 1 ? "," : "&";
 	char *separator = type == 1 ? ":" : "=";
 	char *encadrator = type == 1 ? "\"" : "";
 	while (*p) {
-		if (*p == delimiter)
+		if (*p == delimiter[0])
 			count++;
 		p++;
 	}
@@ -104,7 +108,7 @@ int replace(ap_filter_t *f, const char *input, int type, const char *name1, cons
 	char **pairs = malloc(count * sizeof(char *));
 	p = input + type;
 	for (int i = 0; i < count; i++) {
-		const char *end = strchr(p, delimiter);
+		const char *end = strchr(p, delimiter[0]);
 		if (!end) end = p + strlen(p);
 
 		int len = end - p;
@@ -115,28 +119,30 @@ int replace(ap_filter_t *f, const char *input, int type, const char *name1, cons
 		p = end + 1;
 	}
 	for (int i = 0; i < count; i++) {
-		if (name1 && strncmp(pairs[i] + type, name1, strlen(name1)) == 0) {
+		if (name1 && strncmp(pairs[i] + type, name1, strlen(name1)) == 0 && pairs[i][type + strlen(name1) + type] == separator[0]) {
 			free(pairs[i]);
-			pairs[i] = malloc(strlen(name1) + strlen(value1) + 2);
+			pairs[i] = malloc(strlen(name1) + strlen(value1) + 8);
 			sprintf(pairs[i], "%s%s%s%s%s%s%s", encadrator, name1, encadrator, separator, encadrator, value1, encadrator);
 			ret++;
 		}
-		if (name2 && strncmp(pairs[i] + type, name2, strlen(name2)) == 0) {
+		if (name2 && strncmp(pairs[i] + type, name2, strlen(name2)) == 0 && pairs[i][type + strlen(name2) + type] == separator[0]) {
 			free(pairs[i]);
-			pairs[i] = malloc(strlen(name2) + strlen(value2) + 2);
+			pairs[i] = malloc(strlen(name2) + strlen(value2) + 8);
 			sprintf(pairs[i], "%s%s%s%s%s%s%s", encadrator, name2, encadrator, separator, encadrator, value2, encadrator);
 			ret++;
 		}
 	}
-	int total_len = 1024 + count;
-	for (int i = 0; i < count; i++)
-		total_len += strlen(pairs[i]);
-	*output = apr_pcalloc(f->r->pool, total_len);
-	strcpy(*output, type == 1 ? "{" : "");
-	for (int i = 0; i < count; i++) {
-		strcat(*output, pairs[i]);
-		if (i < count - 1)
-			strcat(*output, delimiter_);
+	if (ret != 0) {
+		int total_len = 16 + count;
+		for (int i = 0; i < count; i++)
+			total_len += strlen(pairs[i]);
+		*output = apr_pcalloc(f->r->pool, total_len);
+		strcpy(*output, type == 1 ? "{" : "");
+		for (int i = 0; i < count; i++) {
+			strcat(*output, pairs[i]);
+			if (i < count - 1)
+				strcat(*output, delimiter);
+		}
 	}
 	for (int i = 0; i < count; i++)
 		free(pairs[i]);
@@ -146,41 +152,21 @@ int replace(ap_filter_t *f, const char *input, int type, const char *name1, cons
 
 static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input_mode_t mode, apr_read_type_e block, apr_off_t readbytes) {
 	filter_ctx *ctx = (filter_ctx *)f->ctx;
-	//PRINTFc("MDC: Input %lu %d", (long unsigned int)ctx, ctx->processedPost);
 	if (!ctx)
-		goto end;
+		return ap_get_brigade(f->next, bb, mode, block, readbytes);
+	//PRINTFc("MDC: Post %lu %d", (long unsigned int)ctx, ctx->processedPost);
+	apr_status_t rv = 0;
+	apr_bucket_brigade *tmp_bb = NULL;
+	cJSON *el = NULL;
 	if (ctx->processedPost)
 		goto end;
 	if (authorization2(f->r) != DECLINED)
 		goto end;
 	if (mode != AP_MODE_READBYTES || f->r->method_number != M_POST)
 		goto end;
-	apr_bucket_brigade *tmp_bb = apr_brigade_create(f->r->pool, f->c->bucket_alloc);
-	apr_status_t rv = ap_get_brigade(f->next, tmp_bb, mode, block, readbytes);
-	if (rv != APR_SUCCESS) {
-		ctx->processedPost = 1;
-		return rv;
-	}
-	apr_off_t len = 0;
-	rv = apr_brigade_length(tmp_bb, 1, &len);
-	if (rv != APR_SUCCESS || len == 0) {
-		apr_brigade_destroy(tmp_bb);
-		ctx->processedPost = 1;
-		return rv;
-	}
-	char *buffer = apr_pcalloc(f->r->pool, len + 1);
-	rv = apr_brigade_flatten(tmp_bb, buffer, &len);
-	if (rv != APR_SUCCESS) {
-		apr_brigade_destroy(tmp_bb);
-		ctx->processedPost = 1;
-		return rv;
-	}
-	buffer[len] = '\0';
-	//PRINTFc("MDC: Before ##%s##", buffer);
-
 	char szTmp[128];
 	snprintf(szTmp, sizeof(szTmp), CONF_PATH, post[ctx->foundPost][0]);
-	cJSON *el = jsonRead(szTmp);
+	el = jsonRead(szTmp);
 	char *username = NULL;
 	char *password = NULL;
 	if (el) {
@@ -189,28 +175,47 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 	}
 	if (!username || !password)
 		goto end;
-	char *newBuffer = NULL;
-	int ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], username, post[ctx->foundPost][3], password, &newBuffer);
-	if (ret) {
-		len = strlen(newBuffer);
-		//PRINTFc("MDC: After %d##%s##", ret, newBuffer);
-		apr_bucket *b = apr_bucket_transient_create(newBuffer, len, f->c->bucket_alloc);
-		APR_BRIGADE_INSERT_TAIL(bb, b);
-		f->r->remaining = len;
-		char *len_str = apr_palloc(f->r->pool, 32);
-		snprintf(len_str, 32, "%ld", (long)len);
-		apr_table_setn(f->r->headers_in, "Content-Length", len_str);
-		apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
-	} else {
-		apr_bucket *b = apr_bucket_transient_create(buffer, len, f->c->bucket_alloc);
-		APR_BRIGADE_INSERT_TAIL(bb, b);
+	tmp_bb = apr_brigade_create(f->r->pool, f->c->bucket_alloc);
+	rv = ap_get_brigade(f->next, tmp_bb, mode, block, readbytes);
+	if (rv != APR_SUCCESS)
+		goto end;
+	apr_bucket *b;
+	while ((b = APR_BRIGADE_FIRST(tmp_bb)) != APR_BRIGADE_SENTINEL(tmp_bb)) {
+		APR_BUCKET_REMOVE(b);
+		if (APR_BUCKET_IS_EOS(b)) {
+			APR_BRIGADE_INSERT_TAIL(bb, b);
+			break;
+		}
+		const char *data;
+		apr_size_t len;
+		rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
+		if (rv != APR_SUCCESS)
+			goto end;
+		char *buffer = apr_pstrndup(f->r->pool, data, len);
+		//PRINTFc("MDC: Post Before ##%s##", buffer);
+		char *newBuffer = NULL;
+		int ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], username, post[ctx->foundPost][3], password, &newBuffer);
+		//PRINTFc("MDC: Post After %d##%s##", ret, newBuffer);
+		apr_bucket *reinsert_b;
+		if (ret == 0)
+			newBuffer = buffer;
+		else {
+			len = strlen(newBuffer);
+			char *len_str = apr_palloc(f->r->pool, 8);
+			snprintf(len_str, 8, "%d", len);
+			apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
+		}
+		reinsert_b = apr_bucket_transient_create(newBuffer, len, f->c->bucket_alloc);
+		APR_BRIGADE_INSERT_TAIL(bb, reinsert_b);
+		apr_bucket_destroy(b);
 	}
-	apr_brigade_destroy(tmp_bb);
-	ctx->processedPost = 1;
-	return ap_pass_brigade(f->next, bb);
 end:
+	if (tmp_bb)
+		apr_brigade_destroy(tmp_bb);
+	if (el)
+		cJSON_Delete(el);
 	ctx->processedPost = 1;
-	return ap_get_brigade(f->next, bb, mode, block, readbytes);
+	return rv != 0 ? rv : ap_get_brigade(f->next, bb, mode, block, readbytes);
 }
 
 static void mydonglecloud_insert_filter(request_rec *r) {
