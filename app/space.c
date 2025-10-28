@@ -21,7 +21,7 @@ void spaceInit() {
 }
 
 static void setup(int i, int total, char *name) {
-	logicSetup(name, i * 100 / total);
+	logicSetup(name, MAX2(1, i * 100 / total));
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", name);
 	communicationString(sz);
