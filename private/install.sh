@@ -199,6 +199,17 @@ rm -f /etc/apache2/sites-enabled/*
 rm -f /etc/apache2/ports.conf
 
 echo "################################"
+echo "postgresql"
+echo "################################"
+apt-get -y install postgresql
+
+echo "################################"
+echo "redis"
+echo "################################"
+apt-get -y install redis-server
+redis-cli ping
+
+echo "################################"
 echo "roundcube"
 echo "################################"
 cat /home/mdc/private/preseed_roundcube.cfg | debconf-set-selections
