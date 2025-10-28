@@ -189,7 +189,7 @@ MyDongleCloudIPEnabled on\n\
 <Macro Macro_%s>\n\
 	MyDongleCloudModule %s\n\
 	Use Macro_Redirect %s\n\
-	Header set Content-Security-Policy \"frame-ancestors 'self' *:9200", elModule->string, elModule->string, elModule->string);
+	Header set Content-Security-Policy \"frame-ancestors 'self' *:9400", elModule->string, elModule->string, elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 			jsonPrintArray(0, " ", " ", "app", fqdn, "", pfM);
 			//jsonPrintArray(0, " ", " ", "mydonglecloud", fqdn, "", pfM);
