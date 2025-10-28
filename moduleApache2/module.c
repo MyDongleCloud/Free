@@ -9,14 +9,7 @@
 #include "macro.h"
 #include "cJSON.h"
 #include "login.h"
-
-//Struct
-typedef struct {
-	const char *jwkPemFile;
-	const char *jwkPem;
-	const char *name;
-	cJSON *permissions;
-} config;
+#include "module.h"
 
 //Defines
 #undef PRINTF_
@@ -25,8 +18,6 @@ typedef struct {
 #define PRINTF(format, ...) PRINTF_(APLOG_ERR, format, ##__VA_ARGS__)
 
 //Functions
-module AP_MODULE_DECLARE_DATA mydonglecloud_module;
-
 static void *createConfig(apr_pool_t *p, server_rec *s) {
 	config *confD = apr_pcalloc(p, sizeof(config));
 	confD->jwkPemFile = NULL;

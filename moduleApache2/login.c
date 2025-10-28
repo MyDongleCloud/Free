@@ -3,8 +3,8 @@
 #include "http_request.h"
 #include "http_log.h"
 #include "apr_strings.h"
-#include "module.h"
 #include "cJSON.h"
+#include "module.h"
 #include "json.h"
 
 //Struct
@@ -23,8 +23,9 @@ typedef struct {
 
 #define CONF_PATH "/disk/admin/modules/_config_/%s.json"
 #define INJECTION "<script>\n\
-window.mdcCredentials = function() { s = document.querySelector('form%s'); if (s !== null) HTMLFormElement.prototype.submit.call(s); };\n\
-document.addEventListener('DOMContentLoaded', (event) => { document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px;\" onclick=\"mdcCredentials()\">Automatic<br>Login</button></div>'); });\n\
+var mdcSubmit;\n\
+window.mdcCredentials = function() { HTMLFormElement.prototype.submit.call(mdcSubmit); };\n\
+document.addEventListener('DOMContentLoaded', (event) => { mdcSubmit = document.querySelector('form%s'); if (mdcSubmit !== null) document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px;\" onclick=\"mdcCredentials()\">Automatic<br>Login</button></div>'); });\n\
 </script>"
 
 //Private variables
@@ -36,7 +37,7 @@ static char *html[][3] = {
 	{ "osticket", "/scp/login.php", "[id=\"login\"]" },
 	{ "projectsend", "/index.php", "[id=\"login_form\"]" },
 	{ "roundcube", "/index.php", "[id=\"login-form\"]" },
-	{ "webtrees", "/index.php", "[method=\"post\"]" },
+	{ "webtrees", "/index.php", "[class=\"wt-page-options wt-page-options-login\"]" },
 	{ "yourls", "/admin/index.php", "[method=\"post\"]" },
 };
 
@@ -201,8 +202,8 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 			newBuffer = buffer;
 		else {
 			len = strlen(newBuffer);
-			char *len_str = apr_palloc(f->r->pool, 8);
-			snprintf(len_str, 8, "%d", len);
+			char *len_str = apr_palloc(f->r->pool, 32);
+			snprintf(len_str, 32, "%lu", len);
 			apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
 		}
 		reinsert_b = apr_bucket_transient_create(newBuffer, len, f->c->bucket_alloc);
@@ -219,13 +220,18 @@ end:
 }
 
 static void mydonglecloud_insert_filter(request_rec *r) {
-	//PRINTFr("MDC: Filtering? %s %s", r->hostname, r->uri);
+	server_rec *s = r->server;
+	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	//PRINTFr("MDC: Filtering? %s %s %s", r->hostname, r->uri, confD->name);
 	filter_ctx *ctx = NULL;
 	int ret, ii;
 	ret = 0;
 	ii = sizeof(html) / sizeof(html[0]);
-	for (int i = 0; i < ii; i++)
-		if (strncmp(r->hostname, html[i][0], strlen(html[i][0])) == 0 && strncmp(r->uri, html[i][1], strlen(html[i][1])) == 0) {
+	for (int i = 0; i < ii; i++) {
+		int c = strcmp(confD->name, html[i][0]);
+		if (c < 0)
+			break;
+		if (c == 0 && strncmp(r->uri, html[i][1], strlen(html[i][1])) == 0) {
 			if (!ctx)
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundHtml = i;
@@ -234,10 +240,14 @@ static void mydonglecloud_insert_filter(request_rec *r) {
 			ap_add_output_filter("MYDONGLECLOUD_OUTPUT_FILTER", ctx, r, r->connection);
 			break;
 		}
+	}
 	ret = 0;
 	ii = sizeof(post) / sizeof(post[0]);
-	for (int i = 0; i < ii; i++)
-		if (strncmp(r->hostname, post[i][0], strlen(post[i][0])) == 0 && strncmp(r->uri, post[i][1], strlen(post[i][1])) == 0) {
+	for (int i = 0; i < ii; i++) {
+		int c = strcmp(confD->name, post[i][0]);
+		if (c < 0)
+			break;
+		if (c == 0 && strncmp(r->uri, post[i][1], strlen(post[i][1])) == 0) {
 			if (!ctx)
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundPost = i;
@@ -246,6 +256,7 @@ static void mydonglecloud_insert_filter(request_rec *r) {
 			ap_add_input_filter("MYDONGLECLOUD_INPUT_FILTER", ctx, r, r->connection);
 			break;
 		}
+	}
 }
 
 void registerFilter() {
