@@ -67,6 +67,12 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9406
 	},
+	"croodle": {
+		"web": true,
+		"enabled": true,
+		"permissions": [ "_groupadmin_" ],
+		"localPort": 9409
+	},
 	"curl": {},
 	"cyberchef": {
 		"web": true,
@@ -81,12 +87,6 @@
 		"localPort": 9408
 	},
 	"docker": {},
-	"doodle": {
-		"web": true,
-		"enabled": true,
-		"permissions": [ "_groupadmin_" ],
-		"localPort": 9409
-	},
 	"dovecot": {},
 	"fdfind": {},
 	"ffmpeg": {},
@@ -284,6 +284,7 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9431
 	},
+	"lvgl": {},
 	"make": {},
 	"mantisbugtracker": {
 		"web": true,
@@ -448,6 +449,7 @@
 		"localPort": 9449
 	},
 	"postfix": {},
+	"postgresql": {},
 	"privatebin": {
 		"web": true,
 		"enabled": true,
@@ -479,6 +481,7 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9453
 	},
+	"redisserver": {},
 	"rethinkdb": {},
 	"roundcube": {
 		"web": true,
