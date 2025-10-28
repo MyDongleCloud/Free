@@ -1,5 +1,7 @@
 <html>
+<head>
 <meta http-equiv="refresh" content="0; url=/MyDongleCloud/login/">
+</head>
 <body>
 <div style="display:none;" id="msg"><b>Unauthorized access for module "<?=$_GET["m"];?>"</b>. Please login <a href="/MyDongleCloud/login/">here</a>. You will be redirected now...</div>
 <script>
