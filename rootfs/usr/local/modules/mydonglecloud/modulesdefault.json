@@ -450,7 +450,9 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9449
 	},
-	"postfix": {},
+	"postfix": {
+		"reset": true
+	},
 	"postgresql": {},
 	"privatebin": {
 		"web": true,

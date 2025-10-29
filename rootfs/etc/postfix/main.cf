@@ -1,4 +1,4 @@
-myhostname = mail.m_unique_d_unique_c.mydongle.cloud
+myhostname = smtp.placeholder.mydongle.cloud
 smtpd_banner = $myhostname ESMTP $mail_name
 biff = no
 append_dot_mydomain = no
@@ -26,7 +26,6 @@ virtual_uid_maps = static:1001
 virtual_gid_maps = static:1001
 myorigin = /etc/mailname
 mydestination = localhost.localdomain, localhost
-relayhost = 
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 mailbox_command = procmail -a "$EXTENSION"
 mailbox_size_limit = 0
@@ -34,3 +33,11 @@ recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
 message_size_limit = 20480000
+
+relayhost = [server.mydongle.cloud]:466
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/disk/admin/modules/mail/relay
+smtp_sasl_security_options = noanonymous
+smtp_sasl_tls_security_options = noanonymous
+
+smtp_tls_loglevel = 2

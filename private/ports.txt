@@ -67,13 +67,17 @@ Listening: 53 (dns)
 
 
 ***************
-Traffic paths
+Traffic paths outside->dongle
 ***************
-22: haproxy -> frps -/-> frpc -> openssh
-25: postfix -/-> postfix
-80: frps -/-> frpc -> apache2
-443: frps -/-> frpc -> apache2
-465: haproxy -> frps -/-> frpc -> postfix
-993: haproxy -> frps -/-> frpc -> dovecot
-995: haproxy -> frps -/-> frpc -> dovecot
+22: haproxy -> frps (19022)		-/-> frpc (22) -> openssh
+25: postfix -> frps (19025)		-/-> frpc (25) -> postfix
+80: frps						-/-> frpc (80) -> apache2
+443: frps						-/-> frpc (443) -> apache2
+465: haproxy -> frps (19465)	-/-> frpc (465) -> postfix
+993: haproxy -> frps (19993)	-/-> frpc (993) -> dovecot
+995: haproxy -> frps (19995)	-/-> frpc (995) -> dovecot
 
+***************
+Traffic paths dongle->outside
+***************
+465: postfix 					-/-> postfix (466)
