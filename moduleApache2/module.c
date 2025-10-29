@@ -35,6 +35,7 @@ static void *mergeConfig(apr_pool_t *p, void *basev, void *addv) {
 	conf->jwkPem = base->jwkPem;
 	conf->name = add->name;
 	conf->permissions = add->permissions;
+	conf->autologin = base->autologin;
 	return conf;
 }
 
@@ -80,6 +81,14 @@ static const char *modulePermissionSet(cmd_parms *cmd, void *mconfig, const char
 	if (confD->permissions == NULL)
 		confD->permissions = cJSON_CreateObject();
 	cJSON_AddBoolToObject(confD->permissions, arg, cJSON_True);
+	return NULL;
+}
+
+static const char *moduleAutoLoginSet(cmd_parms *cmd, void *mconfig, const char *arg) {
+	server_rec *s = cmd->server;
+	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	confD->autologin = strcmp(arg, "on") == 0 ? 1 : 0;
+	PRINTF("MyDongleCloudAutoLogin: %s", arg);
 	return NULL;
 }
 
@@ -171,6 +180,7 @@ static const command_rec directives[] = {
 	AP_INIT_TAKE1("MyDongleCloudJwkPem", moduleJwkPemFileSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloud Jwt Key"),
 	AP_INIT_TAKE1("MyDongleCloudModule", moduleNameSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloud module name"),
 	AP_INIT_ITERATE("MyDongleCloudModulePermission", modulePermissionSet, NULL, RSRC_CONF | ACCESS_CONF, "Permission for MyDongleCloud module"),
+	AP_INIT_TAKE1("MyDongleCloudALEnabled", moduleAutoLoginSet, NULL, RSRC_CONF | ACCESS_CONF, "AutoLogin Enabled"),
 	{NULL}
 };
 

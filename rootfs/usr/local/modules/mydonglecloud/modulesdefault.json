@@ -8,6 +8,8 @@
 		"reset": true,
 		"permissions": [ "_public_" ],
 		"localPort": 80,
+		"updateRemoteIP": true,
+		"autoLogin": true,
 		"localRanges": ["10", "172.16", "192.168"],
 		"path": "/disk/admin/modules/apache2/www",
 		"alias": [ "www" ]
@@ -490,7 +492,6 @@
 		"resetConfig": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
-		"homepage": "/autologin.php",
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9454
 	},

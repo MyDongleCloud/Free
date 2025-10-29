@@ -222,6 +222,8 @@ end:
 static void mydonglecloud_insert_filter(request_rec *r) {
 	server_rec *s = r->server;
 	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	if (confD->autologin == 0)
+		return;
 	//PRINTFr("MDC: Filtering? %s %s %s", r->hostname, r->uri, confD->name);
 	filter_ctx *ctx = NULL;
 	int ret, ii;

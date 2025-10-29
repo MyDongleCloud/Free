@@ -7,6 +7,7 @@ typedef struct {
 	const char *jwkPem;
 	const char *name;
 	cJSON *permissions;
+	int autologin;
 } config;
 
 //Global variable
