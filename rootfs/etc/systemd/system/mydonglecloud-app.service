@@ -1,16 +1,15 @@
 [Unit]
 Description=MyDongleCloud app
 After=systemd-modules-load.service
-#After=network.target
-#StartLimitIntervalSec=0
 
 [Service]
 Type=oneshot
-RestartSec=1
 User=admin
 ExecStart=/usr/local/modules/mydonglecloud/app -d
 StandardOutput=inherit
 StandardError=inherit
+Restart=always
+RestartSec=1s
 
 [Install]
 WantedBy=multi-user.target
