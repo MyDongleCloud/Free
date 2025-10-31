@@ -14,6 +14,7 @@ import modulesMeta from '../modulesmeta.json';
 })
 
 export class Home {
+developer = window.location.hostname == "localhost" && window.location.port == "8101";
 @ViewChild("modalModuleInfo") modalModuleInfo: IonModal;
 @ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
 modules;
@@ -23,11 +24,13 @@ cards;
 filteredCards;
 searchTerm: string = "";
 sortProperty: string = "title";
-sortDirection: "asc" | "desc" = "asc";
+sortDirection = { title:"asc", name:"asc", category:"asc" };
 category: string = "All";
 presentation: string = "cards";
-showDetails: boolean = true;
-showNonWeb: boolean = false;
+showDetails: boolean = false;
+showTerminal: boolean = false;
+showDone: boolean = true;
+showNotDone: boolean = true;
 static firstTime = true;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
@@ -73,10 +76,8 @@ async getData() {
 		});
 		if (Home.firstTime)
 			value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
+		value["bookmark"] = false;
 		this.cards.push(value);
-	});
-	this.cards.sort((a, b) => {
-		return a["title"].localeCompare(b["title"]);
 	});
 	this.filterCards();
 	this.cdr.markForCheck();
@@ -86,7 +87,11 @@ async getData() {
 filterCards() {
 	const term = this.searchTerm.toLowerCase();
 	this.filteredCards = this.cards.filter( card => {
-		if (this.showNonWeb == false && card.web == false)
+		if (this.showTerminal == false && card.web == false)
+			return false;
+		if (this.showDone == false && card.status == "done")
+			return false;
+		if (this.showNotDone == false && card.status != "done")
 			return false;
 		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term));
 		return this.category == "All" ? ret : (ret && card.category.includes(this.category));
@@ -99,22 +104,23 @@ filterCategory(c) {
 	this.filterCards();
 }
 
-filterNonWeb() {
-	this.filterCards();
-}
-
 sortCards() {
 	this.filteredCards.sort((a, b) => {
 		const aValue = a[this.sortProperty];
 		const bValue = b[this.sortProperty];
-		return this.sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+		return this.sortDirection[this.sortProperty] === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
 	});
 }
 
 toggleSortDirection(p) {
+	if (this.sortProperty == p)
+		this.sortDirection[this.sortProperty] = this.sortDirection[this.sortProperty] === "asc" ? "desc" : "asc";
 	this.sortProperty = p;
-	this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
 	this.sortCards();
+}
+
+bookmark(m) {
+	this.cards[this.findIdByModule(m)]["bookmark"] = !this.cards[this.findIdByModule(m)]["bookmark"];
 }
 
 firstWords(st) {
@@ -151,23 +157,24 @@ closeModuleInfo() {
 
 async settings(module) {
 	this.moduleCur = module;
-	if (this.cards[this.findIdByModule(this.moduleCur)].settings.conf)
-		await this.conf();
+	if (this.cards[this.findIdByModule(this.moduleCur)].reset)
+		await this.config();
 	await this.modalModuleSettings.present();
 }
 
 async reset() {
-	if (await this.global.presentQuestion("Reinitialize \"" + this.cards[this.findIdByModule(this.moduleCur)].title + "\" (" + this.cards[this.findIdByModule(this.moduleCur)].name + ")", "WARNING! All data will be lost", "Are you absolutely sure to reinitialize this module?")) {
-		const data = { module:this.moduleCur };
-		const ret = await this.httpClient.post("/MyDongleCloud/Auth/module-reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
-		console.log("Auth module-reset: ", ret);
-		this.modalModuleSettings.dismiss();
-	}
+	if (await this.global.presentQuestion("Reset \"" + this.cards[this.findIdByModule(this.moduleCur)].title + "\" (" + this.cards[this.findIdByModule(this.moduleCur)].name + ")", "WARNING! All data will be lost", "Are you sure to reset this module?"))
+		if (await this.global.presentQuestion("Reset \"" + this.cards[this.findIdByModule(this.moduleCur)].title + "\" (" + this.cards[this.findIdByModule(this.moduleCur)].name + ")", "WARNING! All data will be lost", "This is your last chance. All data of this module will be erased and won't be recoverable. Are you absolutely sure to reset this module?")) {
+			const data = { module:this.moduleCur };
+			const ret = await this.httpClient.post("/MyDongleCloud/Auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+			console.log("Auth module-reset: ", ret);
+			this.modalModuleSettings.dismiss();
+		}
 }
 
-async conf() {
+async config() {
 	const data = { module:this.moduleCur };
-	this.moduleConfig = await this.httpClient.post("/MyDongleCloud/Auth/module-config", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+	this.moduleConfig = await this.httpClient.post("/MyDongleCloud/Auth/module/config", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
 	console.log("Auth module-config: ", this.moduleConfig);
 }
 

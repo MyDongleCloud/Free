@@ -4,3 +4,7 @@
 	max-height:650px;
 }
 }
+
+.bg-repeatline {
+	@apply bg-[repeating-linear-gradient(-45deg,_#eeeeee_0,_#eeeeee_1px,_transparent_1px,_transparent_15px)];
+}
