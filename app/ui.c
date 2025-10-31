@@ -512,9 +512,9 @@ void uiScreenHome() {
 		lv_obj_add_style(label5, &labelStyle5, LV_STATE_DEFAULT);
 	} else if (lmdc.homePos == 1) {
 		doubleText("Name", "Dongle-cat", 28, 40);
-		doubleText(NULL, "https://gregoiregentil.mydongle.cloud", 42, 40);
-		doubleText(NULL, "https://g2.myd.cd", 56, 40);
-		doubleText("Wi-Fi", "Gregoire", 70, 40);
+		doubleText(NULL, "https://demo.mydongle.cloud", 42, 40);
+		doubleText(NULL, "https://dm.myd.cd", 56, 40);
+		doubleText("Wi-Fi", "Family-Doe", 70, 40);
 		doubleText("Local", "192.168.10.21", 84, 40);
 		doubleText("Ext", "166.23.45.165", 98, 40);
 	} else if (lmdc.homePos == 2) {
