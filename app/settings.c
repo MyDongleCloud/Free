@@ -99,3 +99,8 @@ void settingsSave() {
 	}
 #endif
 }
+
+void settingsLanguage(int l) {
+	smdc.language = l;
+	settingsSave();
+}

@@ -21,4 +21,6 @@ void settingsDefault();
 void settingsDump();
 void settingsLoad();
 void settingsSave();
+void settingsLanguage(int l);
+
 #endif
