@@ -14,7 +14,6 @@ import modulesMeta from '../modulesmeta.json';
 })
 
 export class Home {
-developer = window.location.hostname == "localhost" && window.location.port == "8101";
 @ViewChild("modalModuleInfo") modalModuleInfo: IonModal;
 @ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
 modules;

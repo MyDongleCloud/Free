@@ -36,6 +36,7 @@ settings: Settings = {} as Settings;
 refreshUI:Subject<any> = new Subject();
 firmwareServerVersion;
 session;
+developer: boolean = false;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	console.log("%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
@@ -49,6 +50,7 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	this.AuthStatus();
 	this.getSession();
 	this.settingsLoad();
+	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
 }
 
 getCookie(name) {
