@@ -99,12 +99,12 @@ const mdcEndpoints = () => {
 					return new Response(fs.readFileSync(fullPath, "utf8"), { status: 200 });
 			}),
 
-			modulesPermissions: createAuthEndpoint("/modules-permissions", {
+			modulesPermissions: createAuthEndpoint("/module/permissions", {
 				method: "POST",
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
 				sendToDongle({ a:"update" });
-				return Response.json({ success:true }, { status:200 });
+				return Response.json({ "status":"success" }, { status:200 });
 			}),
 
 			moduleReset: createAuthEndpoint("/module/reset", {

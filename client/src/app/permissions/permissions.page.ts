@@ -15,16 +15,17 @@ export class Permissions {
 modules;
 cards;
 cardsOrig;
+filteredCards;
+searchTerm: string = "";
+sortProperty: string = "title";
+sortDirection = { title:"asc", name:"asc", category:"asc" };
 dResetSave: boolean = true;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
 		this.cdr.detectChanges();
 	});
-}
-
-async ionViewDidEnter() {
-	await this.getData();
+	this.getData();
 }
 
 compare(i) {
@@ -101,7 +102,7 @@ async save() {
 					this.modules[module]["permissions"].push("_groupuser_");
 			}
 		}
-	const ret = await this.httpClient.post("/MyDongleCloud/Auth/modules-permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
+	const ret = await this.httpClient.post("/MyDongleCloud/Auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
 	console.log("Auth modules-permissions: ", ret);
 	this.dResetSave = true;
 }
@@ -136,6 +137,31 @@ async getData() {
 	});
 	this.cardsOrig = structuredClone(this.cards);
 	this.dResetSave = true;
+	this.filterCards();
+}
+
+filterCards() {
+	const term = this.searchTerm.toLowerCase();
+	this.filteredCards = this.cards.filter( card => {
+		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term));
+		return ret;
+	});
+	this.sortCards();
+}
+
+sortCards() {
+	this.filteredCards.sort((a, b) => {
+		const aValue = a[this.sortProperty];
+		const bValue = b[this.sortProperty];
+		return this.sortDirection[this.sortProperty] === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+	});
+}
+
+toggleSortDirection(p) {
+	if (this.sortProperty == p)
+		this.sortDirection[this.sortProperty] = this.sortDirection[this.sortProperty] === "asc" ? "desc" : "asc";
+	this.sortProperty = p;
+	this.sortCards();
 }
 
 }
