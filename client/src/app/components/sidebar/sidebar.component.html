@@ -17,62 +17,67 @@
 		</div>
 		<nav class="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
 
-			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider">APPS</div>
+			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider">MODULES</div>
 			<a (click)="global.openPage('');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<ion-icon name="apps-outline" class="h-5 w-5"></ion-icon>
 				<span>Dashboard</span>
-				<span class="ml-auto bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full font-medium">70</span>
+				<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{modulesTotal ?? 125}}</span>
 			</a>
 			<div class="ml-2 flex flex-col rounded-lg border border-gray-200">
 				<div class="flex rounded-lg border border-gray-200 bg-gray-100 p-1">
 					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="modulesGroup" value="essentials" class="peer sr-only" checked/>
-						<span class="absolute inset-0 z-0 rounded-md bg-white opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Essentials</span>
+						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
+							<ion-icon name="star-outline" class="w-5 h-5"></ion-icon>
+							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">Essential</span>
+						</span>
 					</label>
 					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="modulesGroup" value="star"class="peer sr-only"/>
-						<span class="absolute inset-0 z-0 rounded-md bg-white opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-							<ion-icon name="star-outline" class="w-5 h-5 text-yellow-500"></ion-icon>
+						<input type="radio" name="modulesGroup" value="star" class="peer sr-only"/>
+						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
+							<ion-icon name="bookmarks-outline" class="w-5 h-5"></ion-icon>
+							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">Tag</span>
 						</span>
 					</label>
 					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="modulesGroup" value="search" class="peer sr-only"/>
-						<span class="absolute inset-0 z-0 rounded-md bg-white opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-							<ion-icon name="search-outline" class="h-5 w-5"></ion-icon>
+						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
+							<ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
+							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">Find</span>
 						</span>
 					</label>
 				</div>
 				<a (click)="global.openModule('roundcube', '/autologin.php', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
-					<div class="w-5 h-5 flex items-center justify-center">
-						<ion-icon name="mail-outline" class="w-5 h-5"></ion-icon>
+					<div class="w-5 h-5 flex items-cent/.pnger justify-center">
+						<img src="assets/icons_modules/roundcube.png" class="w-5 h-5"/>
 					</div>
 					<span>Mail</span>
 					<span class="ml-auto bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-medium">5</span>
 				</a>
-				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('openwebui', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+						<img src="assets/icons_modules/openwebui.png" class="w-5 h-5"/>
 					</div>
 					<span>Chatbot</span>
 				</a>
-				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('jitsimeet', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+						<img src="assets/icons_modules/jitsimeet.png" class="w-5 h-5"/>
 					</div>
 					<span>Video Conference</span>
 				</a>
-				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('homeassistant', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+						<img src="assets/icons_modules/homeassistant.png" class="w-5 h-5"/>
 					</div>
 					<span>Home Automation</span>
 				</a>
-				<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('photoview', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons/placeholder.png" class="w-5 h-5"/>
+						<img src="assets/icons_modules/photoview.png" class="w-5 h-5"/>
 					</div>
 					<span>Photos</span>
 				</a>
@@ -87,7 +92,7 @@
 			</a>
 			<a (click)="global.openModule('betterauthstudio', null, false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
-					<ion-icon name="person-outline" class="w-5 h-5"></ion-icon>
+					<ion-icon name="people-outline" class="w-5 h-5"></ion-icon>
 				</div>
 				<span>Users</span>
 			</a>
@@ -102,6 +107,12 @@
 					<img src="assets/dongle.svg" class="w-5 h-5"/>
 				</div>
 				<span>Dongle</span>
+			</a>
+			<a (click)="global.openModule('webssh2', '/access', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<div class="w-5 h-5 flex items-center justify-center">
+					<ion-icon name="terminal-outline" class="w-5 h-5"></ion-icon>
+				</div>
+				<span>Terminal</span>
 			</a>
 			<a (click)="global.openPage('serverlog');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">

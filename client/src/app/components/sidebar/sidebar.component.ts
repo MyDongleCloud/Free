@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef, Input } from '@angular/core';
 import { Global } from '../../env';
 
 @Component({
@@ -10,6 +10,7 @@ import { Global } from '../../env';
 
 export class SidebarComponent implements AfterViewInit, OnDestroy {
 showMobileMenu: boolean = false;
+@Input() public modulesTotal = null;
 private documentClickListener: (() => void) | null = null;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private elRef: ElementRef, private renderer: Renderer2) {}
