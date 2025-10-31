@@ -303,6 +303,23 @@ getMonth(a) {
 	return "";
 }
 
+iconCategory(st) {
+	if (st == "Backend")
+		return "aperture-outline";
+	else if (st == "Developer")
+		return "code-slash-outline";
+	else if (st == "Essential")
+		return "star-outline";
+	else if (st == "Personal")
+		return "person-outline";
+	else if (st == "Productivity")
+		return "attach-outline";
+	else if (st == "Utils")
+		return "hammer-outline";
+	else
+		return null;
+}
+
 colorWord(st) {
 	if (st == "_disabled_")
 		return "bg-red-100 text-red-800";
