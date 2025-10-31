@@ -26,8 +26,9 @@ import * as ENC from '@root/encoding/base64';
 })
 
 export class Global implements CanActivate {
-splashDone = false;
+developer: boolean = false;
 demo: boolean = false;
+splashDone = false;
 VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
 currentUrl: string;
@@ -36,21 +37,25 @@ settings: Settings = {} as Settings;
 refreshUI:Subject<any> = new Subject();
 firmwareServerVersion;
 session;
-developer: boolean = false;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
-	console.log("%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
-	console.log("%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
-	console.log("%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
-	console.log("Platform: " + this.plt.platforms());
+	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
+	this.consolelog(0, "%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
+	this.consolelog(0, "%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
+	this.consolelog(0, "%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
+	this.consolelog(1, "Platform: " + this.plt.platforms());
 	navCtrl.setDirection("forward");
 	translate.setDefaultLang("en");
-	console.log("Default browser language is: " + translate.getBrowserLang());
+	this.consolelog(1, "Default browser language is: " + translate.getBrowserLang());
 	this.changeLanguage(this.translate.getBrowserLang());
 	this.AuthStatus();
 	this.getSession();
 	this.settingsLoad();
-	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
+}
+
+consolelog(level, ...st) {
+	if (level == 0 || this.developer)
+		console.log(...st);
 }
 
 getCookie(name) {
@@ -90,12 +95,12 @@ async AuthStatus() {
 	const ret = await this.httpClient.get("/MyDongleCloud/Auth/status", {headers:{"content-type": "application/json"}}).toPromise();
 	if (ret["demo"] === true)
 		this.demo = true;
-	console.log("Auth Status: ", ret);
+	this.consolelog(2, "Auth Status: ", ret);
 }
 
 async getSession() {
 	this.session = await this.httpClient.get("/MyDongleCloud/Auth/get-session", {headers:{"content-type": "application/json"}}).toPromise();
-	console.log("Auth get-session: ", this.session);
+	this.consolelog(2, "Auth get-session: ", this.session);
 	if (this.session != null) {
 		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
 		this.setCookie("jwt", jwt["token"]);
@@ -107,7 +112,7 @@ async logout() {
 	const data = { token:this.session?.session?.token };
 	try {
 		const ret = await this.httpClient.post("/MyDongleCloud/Auth/revoke-session", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth revoke-session: ", ret);
+		this.consolelog(2, "Auth revoke-session: ", ret);
 	} catch(e) {}
 	this.session = null;
 	this.settingsSave();
@@ -119,7 +124,7 @@ async logoutRedirect() {
 }
 
 async settingsLoad() {
-	console.log("settingsLoad: Enter");
+	this.consolelog(1, "settingsLoad: Enter");
 	const { value } = await Preferences.get({key: "settings"});
 	if (value != null)
 		this.settings = JSON.parse(value);
@@ -138,7 +143,7 @@ async settingsLoad() {
 }
 
 async settingsSave() {
-	console.log("settingsSave: Enter");
+	this.consolelog(1, "settingsSave: Enter");
 	let st = JSON.stringify(this.settings);
 	await Preferences.set({key: "settings", value: st});
 }
@@ -360,7 +365,7 @@ async getCertificate(cloud) {
 	const ret = { accountKey:"", accountKeyId:"", fullChain:"", privateKey:"" };
 	const DOMAIN = "mydongle.cloud";
 	const STAGING = true;
-	let acme = ACME.create({ maintainerEmail: "acme@" + DOMAIN, packageAgent: "MDC/2025-01-01", notify: function (ev, msg) { /*console.log(msg);*/ }, skipDryRun: true });
+	let acme = ACME.create({ maintainerEmail: "acme@" + DOMAIN, packageAgent: "MDC/2025-01-01", notify: function (ev, msg) { /*this.consolelog(1, msg);*/ }, skipDryRun: true });
 	await acme.init("https://acme" + (STAGING ? "-staging" : "") + "-v02.api.letsencrypt.org/directory");
 
 	const accountKeypair = await Keypairs.generate({ kty: "EC", format: "jwk" });
@@ -387,32 +392,32 @@ async getCertificate(cloud) {
 				return null;
 			},
 			zones: async ({ challenge }) => {
-				console.log("CERTIFICATE: Zones: ", challenge.dnsHosts);
+				this.consolelog(1, "CERTIFICATE: Zones: ", challenge.dnsHosts);
 				return [DOMAIN];
 			},
 			set: async ({ challenge }) => {
 				for (let i = 0; i < challenge.challenges.length; i++)
 					if (challenge.challenges[i]["type"] == "dns-01") {
-						console.log("CERTIFICATE: Set" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
+						this.consolelog(1, "CERTIFICATE: Set" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
 					}
-				console.log(challenge.keyAuthorizationDigest);
+				this.consolelog(1, challenge.keyAuthorizationDigest);
 				const data = { cloud: cloud, action: "set", text: challenge.keyAuthorizationDigest };
 				const ret = await this.httpClient.post(this.SERVERURL + "/master/domain.json", data).toPromise();
-				console.log(ret);
+				this.consolelog(1, ret);
 				//alert(challenge.keyAuthorizationDigest);
 			},
 			get: async (args) => {
-				console.log("CERTIFICATE Get: ", args);
+				this.consolelog(1, "CERTIFICATE Get: ", args);
 			},
 			remove: async ({ challenge }) => {
 				for (let i = 0; i < challenge.challenges.length; i++)
 					if (challenge.challenges[i]["type"] == "dns-01") {
-						console.log("CERTIFICATE: Remove" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
+						this.consolelog(1, "CERTIFICATE: Remove" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
 					}
-				console.log(challenge.keyAuthorizationDigest);
+				this.consolelog(1, challenge.keyAuthorizationDigest);
 				const data = { cloud: cloud, action: "remove", text: challenge.keyAuthorizationDigest };
 				const ret = await this.httpClient.post(this.SERVERURL + "/master/domain.json", data).toPromise();
-				console.log(ret);
+				this.consolelog(1, ret);
 				//alert(challenge.keyAuthorizationDigest);
 			},
 			propagationDelay: 5000
@@ -421,10 +426,10 @@ async getCertificate(cloud) {
 	console.info("Validating domain authorization for " + domains.join(" "));
 	const pems = await acme.certificates.create({ account: account, accountKey: accountKey, csr: csr, domains: domains, challenges: challenges });
 	ret.fullChain = pems.cert + "\n" + pems.chain + "\n";
-	console.log("##################################");
-	console.log("CERTIFICATE: " + pems.expires, pems);
-	console.log(ret);
-	console.log("##################################");
+	this.consolelog(1, "##################################");
+	this.consolelog(1, "CERTIFICATE: " + pems.expires, pems);
+	this.consolelog(1, ret);
+	this.consolelog(1, "##################################");
 	return ret;
 }
 

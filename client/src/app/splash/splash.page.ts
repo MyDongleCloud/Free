@@ -24,16 +24,16 @@ async forwardWhenReady() {
 			this.httpClient.post(this.global.SERVERURL + "/master/version.json", "", {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise()
 		]);
 		if (response === undefined)
-			console.log("forwardWhenReady: Timeout");
+			this.global.consolelog(1, "forwardWhenReady: Timeout");
 		else {
 			const appVersionRequired = response["version"] ?? "";
-			console.log("Required App Version: " + appVersionRequired);
+			this.global.consolelog(1, "Required App Version: " + appVersionRequired);
 			if (this.global.VERSION < appVersionRequired) {
 				this.showUpgrade = true;
 				return;
 			}
 		}
-	} catch(e) { console.log("forwardWhenReady: " + e); }
+	} catch(e) { this.global.consolelog(1, "forwardWhenReady: " + e); }
 	this.global.splashDone = true;
 	let count = 20;
 	while (this.global.session === undefined && count-- > 0)

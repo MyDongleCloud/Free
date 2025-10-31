@@ -103,7 +103,7 @@ async save() {
 			}
 		}
 	const ret = await this.httpClient.post("/MyDongleCloud/Auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
-	console.log("Auth modules-permissions: ", ret);
+	this.global.consolelog(2, "Auth modules-permissions: ", ret);
 	this.dResetSave = true;
 }
 

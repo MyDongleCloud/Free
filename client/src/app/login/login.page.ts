@@ -157,7 +157,7 @@ async doLogin() {
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/email", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth sign-in/email: ", ret);
+		this.global.consolelog(2, "Auth sign-in/email: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
 	if (ret != null) {
@@ -192,7 +192,7 @@ async doRegister() {
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-up/email", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth sign-up: ", ret);
+		this.global.consolelog(2, "Auth sign-up: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
 	if (ret != null) {
@@ -224,7 +224,7 @@ async doForgotPassword() {
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/magic-link", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth sign-in/magic-link: ", ret);
+		this.global.consolelog(2, "Auth sign-in/magic-link: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
 	if (ret != null)
@@ -239,7 +239,7 @@ async doForgotPasswordVerify(token) {
 	let ret = null;
 	try {
 		ret = await this.httpClient.get("/MyDongleCloud/Auth/magic-link/verify?token=" + token, {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth magic-link/verify: ", ret);
+		this.global.consolelog(2, "Auth magic-link/verify: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
 	if (ret != null) {
 		await this.global.getSession();
@@ -292,7 +292,7 @@ async show_Otp() {
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/two-factor/send-otp", "{}", {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth twofactor/send-otp: ", ret);
+		this.global.consolelog(2, "Auth twofactor/send-otp: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
 	setTimeout(() => { (document.getElementById("otp14") as HTMLInputElement).focus(); }, 100);
 	this.cdr.detectChanges();
@@ -305,7 +305,7 @@ async doOtp() {
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/two-factor/verify-otp", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
-		console.log("Auth twofactor/verify-otp: ", ret);
+		this.global.consolelog(2, "Auth twofactor/verify-otp: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;
 	if (ret != null) {

@@ -55,8 +55,8 @@ async doFind() {
 	let ret = null;
 	try {
 		ret = await this.httpClient.post(this.global.SERVERURL + "/master/find.json", "email=" + encodeURIComponent(this.email1.value), {headers:{"content-type": "application/x-www-form-urlencoded"}}).toPromise();
-		console.log("Master find: ", ret);
-	} catch(e) { console.log(e); this.errorSt = e.error?.message || e.statusText; }
+		this.global.consolelog(1, "Master find: ", ret);
+	} catch(e) { this.global.consolelog(1, e); this.errorSt = e.error?.message || e.statusText; }
 	this.progress = false;
 	if (ret != null) {
 		this.global.setCookie("email", this.email1.value, "mydongle.cloud");

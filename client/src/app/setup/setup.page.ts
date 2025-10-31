@@ -130,7 +130,7 @@ checkPassword2(group: FormGroup) {
 async verifyDns(st) {
 	this.progress = true;
 	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/dns.json", "domain=" + encodeURIComponent(st), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
-	console.log("Master dns", ret);
+	this.global.consolelog(1, "Master dns", ret);
 	let res = false;
 	if (Array.isArray(ret)) 
 		ret.forEach((dns) => {
@@ -205,11 +205,11 @@ async doWiFi() {
 	let ret2 = null;
 	try {
 		const ret1 = await this.global.getCertificate(this.name1.value); //Not used: ret1.accountKey, ret1.accountKeyId
-		console.log("Certificates", ret1);
+		this.global.consolelog(1, "Certificates", ret1);
 	} catch(e) { ret1 = { fullChain:"", privateKey: "" }; }
 	try {
 		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "name=" + encodeURIComponent(this.name1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
-		console.log("Server", ret2);
+		this.global.consolelog(1, "Server", ret2);
 	} catch(e) { ret2 = { frp:{}, ollama:{}, postfix:{} }; }
 	const data = { a:"setup", cloud:{ all:{ name:this.name1.value, shortname:this.shortname1.value, domains:[this.domain1.value] }, frp:ret2.frp, ollama:ret2.ollama, postfix:ret2.postfix }, betterauth:{ email:this.email2.value, name:this.name2.value, password:this.password2.value }, wifi:{ ssid:this.ssid3.value, password:this.password3.value }, letsencrypt: { fullchain:ret1.fullChain, privatekey:ret1.privateKey } };
 	await this.ble.writeData(data);

@@ -14,6 +14,7 @@ import { VERSION } from './version';
 })
 
 export class Global {
+developer: boolean = false;
 demo: boolean = false;
 VERSION: string = VERSION;
 language;
@@ -23,16 +24,22 @@ DONGLEURL: string;
 session;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private translate: TranslateService, private httpClient: HttpClient) {
-	console.log("%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
-	console.log("%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
-	console.log("%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
-	console.log("Platform: " + this.plt.platforms());
+	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
+	this.consolelog(0, "%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
+	this.consolelog(0, "%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
+	this.consolelog(0, "%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
+	this.consolelog(1, "Platform: " + this.plt.platforms());
 	this.getSession();
 	navCtrl.setDirection("forward");
 	translate.setDefaultLang("en");
-	console.log("Default browser language is: " + translate.getBrowserLang());
+	this.consolelog(1, "Default browser language is: " + translate.getBrowserLang());
 	this.changeLanguage(this.translate.getBrowserLang());
 	this.AuthStatus();
+}
+
+consolelog(level, ...st) {
+	if (level == 0 || this.developer)
+		console.log(...st);
 }
 
 getCookie(name) {
@@ -69,12 +76,12 @@ setCookie(name, value) {
 
 async AuthStatus() {
 	const ret = await this.httpClient.get("/MyDongleCloud/Auth/status", {headers:{"content-type": "application/json"}}).toPromise();
-	console.log("Auth Status: ", ret);
+	this.consolelog(2, "Auth Status: ", ret);
 }
 
 async getSession() {
 	this.session = await this.httpClient.get("/MyDongleCloud/Auth/get-session", {headers:{"content-type": "application/json"}}).toPromise();
-	console.log("Auth get-session: ", this.session);
+	this.consolelog(2, "Auth get-session: ", this.session);
 	if (this.session != null) {
 		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
 		this.setCookie("jwt", jwt["token"]);
@@ -82,7 +89,7 @@ async getSession() {
 }
 
 async logout() {
-	console.log("logout");
+	this.consolelog(1, "logout");
 	document.location.href = "/";
 }
 
@@ -90,7 +97,7 @@ async settingsSave() {
 }
 
 openPage(url: string) {
-	console.log("openPage");
+	this.consolelog(1, "openPage");
 	document.location.href = "/";
 }
 

@@ -44,13 +44,13 @@ async getData() {
 	this.cards = [];
 	Object.entries(modulesMeta).forEach(([key, value]) => {
 		if (modulesDefault[key] === undefined) {
-			console.log("Error: " + key + " not in modulesdefault");
+			this.global.consolelog(1, "Error: " + key + " not in modulesdefault");
 			return;
 		}
 	});
 	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (modulesMeta[key] === undefined) {
-			console.log("Error: " + key + " not in modulesmeta");
+			this.global.consolelog(1, "Error: " + key + " not in modulesmeta");
 			return;
 		}
 		value["enabled"] = this.modules[key]?.enabled ?? value["enabled"] ?? true;
@@ -166,7 +166,7 @@ async reset() {
 		if (await this.global.presentQuestion("Reset \"" + this.cards[this.findIdByModule(this.moduleCur)].title + "\" (" + this.cards[this.findIdByModule(this.moduleCur)].name + ")", "WARNING! All data will be lost", "This is your last chance. All data of this module will be erased and won't be recoverable. Are you absolutely sure to reset this module?")) {
 			const data = { module:this.moduleCur };
 			const ret = await this.httpClient.post("/MyDongleCloud/Auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
-			console.log("Auth module-reset: ", ret);
+			this.global.consolelog(2, "Auth module-reset: ", ret);
 			this.modalModuleSettings.dismiss();
 		}
 }
@@ -174,7 +174,7 @@ async reset() {
 async config() {
 	const data = { module:this.moduleCur };
 	this.moduleConfig = await this.httpClient.post("/MyDongleCloud/Auth/module/config", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
-	console.log("Auth module-config: ", this.moduleConfig);
+	this.global.consolelog(2, "Auth module-config: ", this.moduleConfig);
 }
 
 closeModuleSettings() {

@@ -55,7 +55,7 @@ connectToggle() {
 }
 
 async stopScan() {
-	console.log("Stop Scan");
+	this.global.consolelog(1, "Stop Scan");
 	await BleClient.stopLEScan();
 }
 
@@ -68,7 +68,7 @@ async disconnect() {
 }
 
 async tryConnect() {
-	console.log("tryConnect");
+	this.global.consolelog(1, "tryConnect");
 	this.connectedBLE = 1;
 	this.global.refreshUI.next(true);
 	this.communicationEvent.next({ msg:"connection" });
@@ -78,9 +78,9 @@ async tryConnect() {
 		if (!await BleClient.isEnabled())
 			await BleClient.requestEnable();
 	} catch(e) {
-		console.log("BLE enable() not working " + e.message);
+		this.global.consolelog(1, "BLE enable() not working " + e.message);
 	}
-	console.log("BLE isEnabled:" + await BleClient.isEnabled());
+	this.global.consolelog(1, "BLE isEnabled:" + await BleClient.isEnabled());
 	if (!this.global.plt.is("android") && !this.global.plt.is("ios")) {
 		try {
 			const bled = await BleClient.requestDevice({optionalServices:[UUID_GATT]});
@@ -98,7 +98,7 @@ async tryConnect() {
 }
 
 async onBluetoothDeviceFound(result) {
-	console.log("onBluetoothDeviceFound " + JSON.stringify(result));
+	this.global.consolelog(1, "onBluetoothDeviceFound " + JSON.stringify(result));
 	if (result.device.name != undefined && result.device.name.startsWith(BLE_NAME)) {
 		if (this.deviceID != "") {
 			await this.stopScan();
@@ -107,8 +107,8 @@ async onBluetoothDeviceFound(result) {
 		}
 		this.deviceID = result.device.deviceId;
 		this.deviceName = result.device.name;
-		console.log("onBluetoothDeviceFound " + result.device.deviceId);
-		console.log("Found device Connecting to " + this.deviceID + " (" + this.deviceName + ")...");
+		this.global.consolelog(1, "onBluetoothDeviceFound " + result.device.deviceId);
+		this.global.consolelog(1, "Found device Connecting to " + this.deviceID + " (" + this.deviceName + ")...");
 		await this.stopScan();
 		await this.connectToBluetoothDevice(result.device.deviceId);
 	}
@@ -178,7 +178,7 @@ bleNotifyDataCb = ((value) => {
 async connectToBluetoothDevice(devId: string) {
 	let err = 0;
 	const a = await BleClient.connect(devId, (dId) => {this.onDeviceDisconnected(dId);}).catch(error => {
-		console.log("connect error: ", error);
+		this.global.consolelog(1, "connect error: ", error);
 		err = 1;
 	});
 	if (err == 1) {
@@ -188,18 +188,18 @@ async connectToBluetoothDevice(devId: string) {
 		return;
 	}
 	appCommunicationStatus(3);
-	console.log("connectToBluetoothDevice device success!");
+	this.global.consolelog(1, "connectToBluetoothDevice device success!");
 	this.connectedBLE = 2;
 	this.global.refreshUI.next(true);
 	this.communicationEvent.next({ msg:"connection" });
 	this.listServices(devId);
 	BleClient.startNotifications(devId, UUID_GATT, UUID_DATA, this.bleNotifyDataCb).catch(error => {
-		console.log("startNotifications UUID_DATA error: ", error)
+		this.global.consolelog(1, "startNotifications UUID_DATA error: ", error)
 	});
 	await this.version();
 	await this.syncDate();
 	if (this.global.plt.is("android")) {
-		console.log("Request HIGH ConnectionPriority for interval");
+		this.global.consolelog(1, "Request HIGH ConnectionPriority for interval");
 		BleClient.requestConnectionPriority(devId, ConnectionPriority.CONNECTION_PRIORITY_HIGH);
 	}
 }
@@ -210,17 +210,17 @@ onDeviceDisconnected(disconnectedDeviceId: string) {
 	this.connectedBLE = 0;
 	this.global.refreshUI.next(true);
 	this.communicationEvent.next({ msg:"connection" });
-	console.log("Disconnected device " + disconnectedDeviceId);
+	this.global.consolelog(1, "Disconnected device " + disconnectedDeviceId);
 	appCommunicationStatus(0);
 }
 
 async listServices(deviceId: string) {
 	try {
 		await BleClient.getServices(deviceId).then((value) => {
-			console.log("services " + JSON.stringify(value));
+			this.global.consolelog(1, "services " + JSON.stringify(value));
 		});
 	} catch (e) {
-	  console.log("getServices Error " + e.message());
+	  this.global.consolelog(1, "getServices Error " + e.message());
 	}
 }
 
@@ -250,7 +250,7 @@ async version() {
 	await BleClient.read(this.deviceID, UUID_GATT, UUID_VERSION).then(value => {
 		const ar = new Uint8Array(value.buffer);
 		this.firmwareDeviceVersion = new TextDecoder().decode(ar);
-		console.log("Device version " + this.firmwareDeviceVersion);
+		this.global.consolelog(1, "Device version " + this.firmwareDeviceVersion);
 		this.global.refreshUI.next(true);
 		this.checkVersion();
 	});

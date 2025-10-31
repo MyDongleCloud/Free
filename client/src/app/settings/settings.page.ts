@@ -160,7 +160,7 @@ async getData() {
 			await new Promise(resolve => setTimeout(resolve, 1000));
 			
 			// TODO: Implement actual settings save logic
-			console.log('Saving settings:', this.settings());
+			this.global.consolelog(1, 'Saving settings:', this.settings());
 			
 			this.showMessage('Settings saved successfully!', 'success');
 		} catch (error) {
