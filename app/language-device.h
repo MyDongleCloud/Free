@@ -1,7 +1,7 @@
 "%d warnings","","","","","","","","","",
 "A long press on the top left button will sleep the screen and the led. The dongle will still function.","","","","","","","","","",
 "Are you sure to shutdown the dongle?","","","","","","","","","",
-"Back","Retour","","","","","","","","",
+"Back","","","","","","","","","",
 "Bye now!","","","","","","","","","",
 "CPU","","","","","","","","","",
 "Cancel","","","","","","","","","",

@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	int daemon = 0;
 	int ble = 1;
 	int forceRotation = -1;
-	while ((option = getopt(argc, argv, "bdhr:s")) != -1) {
+	while ((option = getopt(argc, argv, "bdhr:st")) != -1) {
 		switch (option) {
 		case 'b':
 			ble = 0;
@@ -36,12 +36,13 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'h':
 			PRINTF("*******************************************************\n");
-			PRINTF("Usage for app [-b -d -r rot -s]\n");
+			PRINTF("Usage for app [-b -d -p -r rot -s -t]\n");
 			PRINTF("b:	Don't start ble\n");
 			PRINTF("d:	Set daemon mode\n");
 			PRINTF("h:	Print this usage and exit\n");
 			PRINTF("r:	Force rotation\n");
 			PRINTF("s:	Put in slave mode\n");
+			PRINTF("t:	Prepare translation header\n");
 			exit(0);
 			break;
 		case 'r':
@@ -49,6 +50,12 @@ int main(int argc, char *argv[]) {
 			break;
 		case 's':
 			slaveMode =  1;
+			break;
+		case 't':
+#ifndef WEB
+			languagePrepare();
+#endif
+			exit(0);
 			break;
 		default:
 			break;

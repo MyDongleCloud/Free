@@ -1,3 +1,4 @@
+app/translation.h
 auth/betterauth/
 auth/node_modules/
 build

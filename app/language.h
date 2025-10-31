@@ -17,5 +17,6 @@ extern mylanguage mylanguages[NB_LANG];
 unsigned char *LL(unsigned char *a, int b);
 unsigned char *L(unsigned char *a);
 void languageTest();
+void languagePrepare();
 
 #endif

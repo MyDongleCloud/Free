@@ -4,6 +4,8 @@
 #include <time.h>
 #include "settings.h"
 #include "language.h"
+#include "cJSON.h"
+#include "json.h"
 #include "macro.h"
 
 //Global variable
@@ -22,7 +24,7 @@ mylanguage mylanguages[NB_LANG] = {
 
 //Private variables
 static unsigned char *strings[][NB_LANG] = {
-#include "language-device.h"
+#include "translation.h"
 };
 static int stringsSize = sizeof(strings) / (sizeof(unsigned char *) * NB_LANG);
 
@@ -46,6 +48,45 @@ unsigned char *L(unsigned char *a) {
 		return a;
 	else
 		return LL(a, smdc.language);
+}
+
+void languagePrepare() {
+	cJSON *el[NB_LANG];
+	cJSON *elApp[NB_LANG];
+	PRINTF("Prepare translation\n");
+	for (int i = 0; i < NB_LANG; i++) {
+		char sz[128];
+		snprintf(sz, sizeof(sz), "i18n/%s.json", mylanguages[i].code);
+		elApp[i] = NULL;
+		el[i] = jsonRead(sz);
+		if (el[i])
+			elApp[i] = cJSON_GetObjectItem(el[i], "app");
+	}
+	FILE *fp = fopen("translation.h", "w");
+	if (fp) {
+		cJSON *item;
+		PRINTF("%d items to translate in %d languages\n", cJSON_GetArraySize(elApp[0]), NB_LANG);
+		for (int j = 0; j < cJSON_GetArraySize(elApp[0]); j++) {
+			char sz[2048];
+			strcpy(sz, "");
+			for (int i = 0; i < NB_LANG; i++) {
+				strcat(sz, "\"");
+				cJSON *el = NULL;
+				if (elApp[i])
+					el = cJSON_GetArrayItem(elApp[i], j);
+				if (i == 0)
+					strcat(sz, el->string);
+				else {
+					if (el)
+						strcat(sz, el->valuestring);
+				}
+				strcat(sz, "\",");
+			}
+			strcat(sz, "\n");
+			fwrite(sz, strlen(sz), 1, fp);
+		}
+		fclose(fp);
+	}
 }
 
 void languageTest() {
