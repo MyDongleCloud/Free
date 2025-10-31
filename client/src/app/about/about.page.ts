@@ -11,6 +11,7 @@ import { Global } from '../env';
 
 export class About {
 isDevCheckbox: boolean;
+_(st) { return this.global.mytranslate(st); }
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {}
 

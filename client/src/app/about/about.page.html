@@ -1,19 +1,25 @@
 <div class="flex bg-white">
 	<app-sidebar></app-sidebar>
 	<div class="flex-1 flex flex-col">
-		<app-topbar title="{{global.mytranslate('About MyDongle.Cloud')}}"></app-topbar>
+		<app-topbar title="{{_('About MyDongle.Cloud')}}"></app-topbar>
 		<div class="p-6	flex flex-col gap-3 items-start">
 			<div long-press (press)="longCopyright()" class="font-bold">&copy; {{global.mytranslate("Copyright")}} MyDongle.Cloud 2025.</div>
 			<div>{{global.mytranslate("App Version:")}} {{global.VERSION}} {{global.mytranslate(global.getMonth(global.VERSION))}}</div>
 			<div>{{global.mytranslate("Device Version:")}} {{ble.firmwareDeviceVersion}} {{global.mytranslate(global.getMonth(ble.firmwareDeviceVersion))}}</div>
-			<div>
+			<div class="flex flex-row items-center gap-3">
 				{{global.mytranslate("Languages:")}}
-				<button (click)="changeLanguageAndRefresh('fr')" [disabled]="global.settings.language=='fr'" class="bg-blue-600 inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium transition-colors mr-2 cursor-pointer">
-					<span class="text-lg">FR</span>
-				</button>
-				<button (click)="changeLanguageAndRefresh('en')" [disabled]="global.settings.language=='en'" class="bg-blue-600 inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium transition-colors mr-2 cursor-pointer">
-					<span class="text-lg">EN</span>
-				</button>
+				<div class="flex rounded-lg border border-gray-200 bg-white p-1">
+					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="language" value="en" class="peer sr-only" checked (click)="changeLanguageAndRefresh('en');"/>
+						<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text-gray-900">🇺🇸<br>EN</span>
+					</label>
+					<label class="relative flex flex-col grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="language" value="fr" class="peer sr-only"  (click)="changeLanguageAndRefresh('fr');"/>
+						<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text-gray-900">🇫🇷<br>FR</span>
+					</label>
+				</div>
 			</div>
 			<div>{{global.mytranslate("ADVANCED USER MODE")}}<br>{{global.mytranslate("(dangerous, use with cautious)")}}<br><br><ion-checkbox slot="start" labelPlacement="end" [(ngModel)]="global.settings.powerUser"> {{global.mytranslate("Power User Mode")}}</ion-checkbox></div>
 			<br><div *ngIf="global.settings.isDev != 0" style="width:80%;"><ion-checkbox slot="start" labelPlacement="end" justify="start" (ionChange)="isDevChange()" [(ngModel)]="isDevCheckbox"> {{global.mytranslate("Development Mode")}}</ion-checkbox></div>
