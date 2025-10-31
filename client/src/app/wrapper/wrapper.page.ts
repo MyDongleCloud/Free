@@ -29,12 +29,7 @@ constructor(public global: Global, private route: ActivatedRoute, private saniti
 }
 
 update() {
-	let url;
-	if (this.global.demo) {
-		this.global.presentAlert("Limited demo", "Not accessible", "This app is not accessible in the limited demo. Download and run MyDongle.Cloud on your Raspberry Pi to access it.", "limitedDemo");
-		url = "about:blank";
-	}else
-		url = location.protocol + "//" + location.host + "/m/" + this.module + (this.page ?? "");
+	const url = location.protocol + "//" + location.host + "/m/" + this.module + (this.page ?? "");
 	this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 }
 
