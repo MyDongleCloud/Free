@@ -28,7 +28,7 @@ fi
 
 echo "#Reset osticket##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
@@ -50,11 +50,11 @@ sed -i -e "s|^define.*SECRET_SALT.*|define('SECRET_SALT','${SALT}');|" /disk/adm
 
 s="install"
 name="Support Center"
-email="support@${SPACENAME}.mydongle.cloud"
+email="support@${CLOUDNAME}.mydongle.cloud"
 fname="First Name"
 lname="Last Name"
-admin_email="admin@${SPACENAME}.mydongle.cloud"
-username="${SPACENAME}"
+admin_email="admin@${CLOUDNAME}.mydongle.cloud"
+username="${CLOUDNAME}"
 passwd="${PASSWD}"
 prefix="ost_"
 dbhost="localhost"

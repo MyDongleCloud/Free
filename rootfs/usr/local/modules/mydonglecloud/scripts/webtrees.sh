@@ -28,7 +28,7 @@ fi
 
 echo "#Reset webtrees##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
@@ -45,10 +45,10 @@ rm -rf /disk/admin/modules/webtrees
 mkdir /disk/admin/modules/webtrees
 cp -a /usr/local/modules/webtrees/data.bak /disk/admin/modules/webtrees/data
 
-wtname="${SPACENAME}"
-wtuser="${SPACENAME}"
+wtname="${CLOUDNAME}"
+wtuser="${CLOUDNAME}"
 wtpass="${PASSWD}"
-wtemail="admin@${SPACENAME}.mydongle.cloud"
+wtemail="admin@${CLOUDNAME}.mydongle.cloud"
 prefix="ost_"
 dbhost="localhost"
 dbname="webtreesDB"

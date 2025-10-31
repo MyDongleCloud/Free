@@ -114,7 +114,7 @@ async getData() {
 	// Settings data
 	settings = signal<AppSettings>({
 		general: {
-			appName: this.global.session.space.name,
+			appName: this.global.session.cloud.all.name,
 			appDescription: 'A modern admin dashboard for managing your application',
 			timezone: 'UTC',
 			language: 'en'

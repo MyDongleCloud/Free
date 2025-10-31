@@ -38,7 +38,7 @@
 #include "json.h"
 #include "wifi.h"
 #include "common.h"
-#include "space.h"
+#include "cloud.h"
 #endif
 #include "base64.h"
 #include "logic.h"
@@ -111,8 +111,8 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 //{"a":"sutdown"}
 //{"a":"key", "k":0, "l":0}
 //{"a":"state", "p":"blah_encoded64"}
-//{"a":"setup", "space":{}, "email":"", "name":"", "password":"", "ssid":"", "security":"", "fullchain":"", "privatekey":"", "proxy":{} }
-//{"a":"space"} -> {"a":"space", inline space.json }
+//{"a":"setup", "betterauth": {"email":"", "name":"", "password":""}, "cloud":{"all":{}, "ollama":{}, "frp":{}, "postfix":{}}, "ssid":"", "security":"", "fullchain":"", "privatekey":"" }
+//{"a":"cloud"} -> {"a":"cloud", _cloud_.json }
 	cJSON *el = cJSON_Parse(data);
 	if (el) {
 		char *action = cJSON_GetStringValue2(el, "a");
@@ -151,15 +151,15 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
-			spaceSetup(el);
-		} else if (strcmp(action, "space") == 0) {
-			cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
-			cJSON_AddStringToObject(space, "a", "space");
-			communicationJSON(space);
-			cJSON_Delete(space);
+			cloudSetup(el);
+		} else if (strcmp(action, "cloud") == 0) {
+			cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
+			cJSON_AddStringToObject(cloud, "a", "cloud");
+			communicationJSON(cloud);
+			cJSON_Delete(cloud);
 		} else if (strcmp(action, "update") == 0) {
 			PRINTF("communicationReceive: Update\n");
-			spaceInit();
+			cloudInit();
 #endif
 		} else if (strcmp(action, "connection") == 0) {
 			int c = (int)cJSON_GetNumberValue2(el, "c");

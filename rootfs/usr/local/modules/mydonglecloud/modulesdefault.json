@@ -128,30 +128,37 @@
 		"services": {
 			"http": {
 				"type": "http",
+				"enabled": true,
 				"localPort": 80
 			},
 			"https": {
 				"type": "https",
+				"enabled": true,
 				"localPort": 443
 			},
 			"ssh": {
 				"type": "tcp",
+				"enabled": false,
 				"localPort": 22
 			},
 			"mail": {
 				"type": "tcp",
+				"enabled": true,
 				"localPort": 25
 			},
 			"smtp": {
 				"type": "tcp",
+				"enabled": false,
 				"localPort": 465
 			},
 			"pop3": {
 				"type": "tcp",
+				"enabled": false,
 				"localPort": 995
 			},
 			"imap": {
 				"type": "tcp",
+				"enabled": false,
 				"localPort": 993
 			}
 		}

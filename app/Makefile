@@ -19,6 +19,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)bluetoothAddr.o \
 	$(PRE)btlib.o \
 	$(PRE)certificate.o \
+	$(PRE)cloud.o \
 	$(PRE)cJSON.o \
 	$(PRE)common.o \
 	$(PRE)communication.o \
@@ -34,7 +35,6 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)sbl.o \
 	$(PRE)sbl2.o \
 	$(PRE)settings.o \
-	$(PRE)space.o \
 	$(PRE)ui.o \
 	$(PRE)wifi.o \
 	$(PRE)wsServer/base64.o \

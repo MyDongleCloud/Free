@@ -15,7 +15,7 @@
 #include "comSocket.h"
 #include "comWebSocket.h"
 #endif
-#include "space.h"
+#include "cloud.h"
 #include "common.h"
 #include "communication.h"
 #include "password.h"
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	}
 	logInit(daemon);
 #ifndef WEB
-	spaceInit();
+	cloudInit();
 	getSerialID();
 	PRINTF("Version:%s Serial:%s\n", MDC_VERSION, szSerial);
 #else

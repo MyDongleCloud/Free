@@ -36,7 +36,7 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 			setTimeout(() => { this.ble.writeData({ a:"space" }); }, 2000);
 	});
 	this.formDongle = fb.group({
-		"spacename1": [ "", [ this.checkSpacename1 ] ],
+		"name1": [ "", [ this.checkname1 ] ],
 		"shortname1": [ "", [ this.checkShortname1 ] ],
 		"domain1": [ "", [ this.checkDomain1 ] ],
 		"terms1": [ false, Validators.requiredTrue ]
@@ -54,7 +54,7 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 }
 
 async handleBleMessage(data) {
-	if (data.a === "space" && data.name !== undefined) {
+	if (data.a === "cloud" && data.all.name !== undefined) {
 		await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
 		this.global.openPage("find");
 	}
@@ -111,7 +111,7 @@ checkConnection = () => {
 	return this?.ble?.connectedBLE === 2 ? null : { "notconnected": true };
 }
 
-checkSpacename1(group: FormGroup) {
+checkname1(group: FormGroup) {
 	return /[a-z0-9-_]{5,20}$/i.test(group.value) ? null : {"invalid": true};
 }
 
@@ -146,7 +146,7 @@ connectToggle() {
 	this.ble.connectToggle();
 }
 
-get spacename1() { return this.formDongle.get("spacename1"); }
+get name1() { return this.formDongle.get("name1"); }
 get shortname1() { return this.formDongle.get("shortname1"); }
 get domain1() { return this.formDongle.get("domain1"); }
 get terms1() { return this.formDongle.get("terms1"); }
@@ -162,14 +162,14 @@ show_Dongle() {
 	this.showRegister = false;
 	this.showWiFi = false;
 	this.hasBlurredOnce = false;
-	setTimeout(() => { (document.getElementById("spacename1") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { (document.getElementById("name1") as HTMLInputElement).focus(); }, 100);
 	this.cdr.detectChanges();
 }
 
 async doDongle() {
 	this.progress = true;
 	this.errorSt = null;
-	const data = { a:"setup", name:this.spacename1.value, alias:this.shortname1.value, domains:[this.domain1.value] };
+	const data = { a:"setup", name:this.name1.value, alias:this.shortname1.value, domains:[this.domain1.value] };
 	this.show_Register();
 	this.progress = false;
 }
@@ -204,14 +204,14 @@ async doWiFi() {
 	let ret1 = null;
 	let ret2 = null;
 	try {
-		const ret1 = await this.global.getCertificate(this.spacename1.value); //Not used: ret1.accountKey, ret1.accountKeyId
+		const ret1 = await this.global.getCertificate(this.name1.value); //Not used: ret1.accountKey, ret1.accountKeyId
 		console.log("Certificates", ret1);
 	} catch(e) { ret1 = { fullChain:"", privateKey: "" }; }
 	try {
-		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "spacename=" + encodeURIComponent(this.spacename1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "name=" + encodeURIComponent(this.name1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
 		console.log("Server", ret2);
-	} catch(e) { ret2 = { proxy:{} }; }
-	const data = { a:"setup", space:{ name:this.spacename1.value, shortname:this.shortname1.value, domains:[this.domain1.value] }, email:this.email2.value, name:this.name2.value, password: this.password2.value, ssid:this.ssid3.value, security:this.password3.value, fullchain:ret1.fullChain, privatekey:ret1.privateKey, proxy:ret2.proxy };
+	} catch(e) { ret2 = { frp:{}, ollama:{}, postfix:{} }; }
+	const data = { a:"setup", cloud:{ all:{ name:this.name1.value, shortname:this.shortname1.value, domains:[this.domain1.value] }, frp:ret2.frp, ollama:ret2.ollama, postfix:ret2.postfix }, betterauth:{ email:this.email2.value, name:this.name2.value, password:this.password2.value }, wifi:{ ssid:this.ssid3.value, password:this.password3.value }, letsencrypt: { fullchain:ret1.fullChain, privatekey:ret1.privateKey } };
 	await this.ble.writeData(data);
 	this.cdr.detectChanges();
 }

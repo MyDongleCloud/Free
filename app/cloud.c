@@ -14,10 +14,10 @@
 #include "language.h"
 
 //Functions
-void spaceInit() {
-	cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
-	modulesInit(space);
-	cJSON_Delete(space);
+void cloudInit() {
+	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
+	modulesInit(cloud);
+	cJSON_Delete(cloud);
 }
 
 static void setup(int i, int total, char *name) {
@@ -29,30 +29,29 @@ static void setup(int i, int total, char *name) {
 	system(sz);
 }
 
-void spaceSetup(cJSON *elSpace) {
+void cloudSetup(cJSON *el) {
 	logicSetup(L("Initialization"), 0);
-	if (cJSON_GetStringValue2(elSpace, "ssid") && cJSON_GetStringValue2(elSpace, "security"))
-		wiFiAddActivate(cJSON_GetStringValue2(elSpace, "ssid"), cJSON_GetStringValue2(elSpace, "security"));
-	jsonWrite(cJSON_GetObjectItem(elSpace, "space"), ADMIN_PATH "mydonglecloud/space.json");
-	jsonWrite(cJSON_GetObjectItem(elSpace, "proxy"), ADMIN_PATH "mydonglecloud/proxy.json");
-	mkdir(ADMIN_PATH "_config_", 0775);
-	mkdir(ADMIN_PATH "letsencrypt", 0775);
-	FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
-	if (fpC) {
-		fwrite(cJSON_GetStringValue2(elSpace, "fullchain"), strlen(cJSON_GetStringValue2(elSpace, "fullchain")), 1, fpC);
-		fclose(fpC);
+	cJSON *elWifi = cJSON_GetObjectItem(el, "wifi");
+	if (elWifi && cJSON_GetStringValue2(elWifi, "ssid") && cJSON_GetStringValue2(elWifi, "password"))
+		wiFiAddActivate(cJSON_GetStringValue2(elWifi, "ssid"), cJSON_GetStringValue2(elWifi, "password"));
+	jsonWrite(cJSON_GetObjectItem(el, "cloud"), ADMIN_PATH "_config_/_cloud_.json");
+	cJSON *elLetsencrypt = cJSON_GetObjectItem(el, "letsencrypt");
+	if (elLetsencrypt) {
+		mkdir(ADMIN_PATH "letsencrypt", 0775);
+		FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
+		if (fpC) {
+			fwrite(cJSON_GetStringValue2(elLetsencrypt, "fullchain"), strlen(cJSON_GetStringValue2(elLetsencrypt, "fullchain")), 1, fpC);
+			fclose(fpC);
+		}
+		FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey.pem", "w");
+		if (fpK) {
+			fwrite(cJSON_GetStringValue2(elLetsencrypt, "privatekey"), strlen(cJSON_GetStringValue2(elLetsencrypt, "privatekey")), 1, fpK);
+			fclose(fpK);
+		}
 	}
-	FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey.pem", "w");
-	if (fpK) {
-		fwrite(cJSON_GetStringValue2(elSpace, "privatekey"), strlen(cJSON_GetStringValue2(elSpace, "privatekey")), 1, fpK);
-		fclose(fpK);
-	}
-	cJSON *data = cJSON_CreateObject();
-	cJSON_AddStringToObject(data, "email", cJSON_GetStringValue2(elSpace, "email"));
-	cJSON_AddStringToObject(data, "name", cJSON_GetStringValue2(elSpace, "name"));
-	cJSON_AddStringToObject(data, "password", cJSON_GetStringValue2(elSpace, "password"));
+	cJSON * elBetterauth = cJSON_GetObjectItem(el, "betterauth");
 	char buf[1024];
-	char *post = cJSON_Print(data);
+	char *post = cJSON_Print(elBetterauth);
 	char szPath[17];
 	generateUniqueId(szPath);
 	memcpy(szPath, "/tmp/cookie", strlen("/tmp/cookie"));
@@ -62,7 +61,6 @@ void spaceSetup(cJSON *elSpace) {
 #endif
 	unlink(szPath);
 	free(post);
-	cJSON_Delete(data);
 	serviceAction("betterauth.service", "RestartUnit");
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
 	cJSON *elModule;
@@ -78,7 +76,7 @@ void spaceSetup(cJSON *elSpace) {
 	} 
 	logicSetup(L("Finalization"), 100);
 	communicationString("{\"status\":2}");
-	spaceInit();
+	cloudInit();
 	logicMessage(1, 1);
 	communicationString("{\"status\":3}");
 	jingle();

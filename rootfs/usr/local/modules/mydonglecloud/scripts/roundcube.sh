@@ -27,31 +27,31 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset roundcube##################"
-SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
-SHORTNAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".shortname"`
-DOMAINS=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".domains[]"`
-EMAIL="admin@$SPACENAME.mydongle.cloud"
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
+SHORTNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.shortname"`
+DOMAINS=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.domains[]"`
+EMAIL="admin@$CLOUDNAME.mydongle.cloud"
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PWD=`doveadm pw -s SHA512-CRYPT -p "$PASSWD"`
 
 
 sed -e "s|^\$config\\['smtp_host'\\].*|\$config['smtp_host'] = 'ssl://localhost:465'; \$config['smtp_conn_options'] = [ 'ssl' => [ 'verify_peer' => false, 'verify_peer_name' => false ] ];|" /etc/roundcube/config.inc.php.template > /etc/roundcube/config.inc.php
 rm -rf /disk/admin/modules/mail
-mkdir -p /disk/admin/modules/mail/$SPACENAME.mydongle.cloud/admin
-echo "$EMAIL $SPACENAME.mydongle.cloud/admin/" > /disk/admin/modules/mail/virtualmaps
+mkdir -p /disk/admin/modules/mail/$CLOUDNAME.mydongle.cloud/admin
+echo "$EMAIL $CLOUDNAME.mydongle.cloud/admin/" > /disk/admin/modules/mail/virtualmaps
 postmap /disk/admin/modules/mail/virtualmaps
 echo "" > /disk/admin/modules/mail/virtualalias
 postmap /disk/admin/modules/mail/virtualalias
 cat > /disk/admin/modules/mail/virtualhosts <<EOF
-$SPACENAME.mydongle.cloud
-$SPACENAME.mondongle.cloud
+$CLOUDNAME.mydongle.cloud
+$CLOUDNAME.mondongle.cloud
 $SHORTNAME.myd.cd
 $DOMAINS
 EOF
-PASSWD2=`cat /disk/admin/modules/mydonglecloud/proxy.json | jq -r ".frp.token"`
+PASSWD2=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".postfix.token"`
 echo "[server.mydongle.cloud]:466 $EMAIL:$PASSWD2" > /disk/admin/modules/mail/relay
 postmap /disk/admin/modules/mail/relay
-echo "$EMAIL:$PWD" > /disk/admin/modules/mail/password-$SPACENAME.mydongle.cloud
+echo "$EMAIL:$PWD" > /disk/admin/modules/mail/password-$CLOUDNAME.mydongle.cloud
 echo "{\"email\":\"${EMAIL}\", \"user\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/roundcube.json
 ln -sf roundcube.json /disk/admin/modules/_config_/postfix.json
 systemctl restart postfix.service

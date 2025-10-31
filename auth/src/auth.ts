@@ -19,9 +19,9 @@ const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/dis
 const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
-const spacePath = adminPath + "mydonglecloud/space.json";
-export const space = existsSync(spacePath) ? JSON.parse(readFileSync(spacePath, "utf-8")) : { name:"", domains: [] };
-const modulesPath = adminPath + "mydonglecloud/modules.json";
+const cloudPath = adminPath + "mydonglecloud/cloud.json";
+export const cloud = existsSync(cloudPath) ? JSON.parse(readFileSync(cloudPath, "utf-8")) : { name:"", domains: [] };
+const modulesPath = adminPath + "_config/_modules_.json";
 let modules = {};
 if (existsSync(modulesPath))
 	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
@@ -40,8 +40,8 @@ function getInternalIpAddress() {
 let trustedOrigins;
 if (process.env.PRODUCTION === "true") {
 	trustedOrigins = [ "*.mydongle.cloud", "*.myd.cd" ];
-	if (space?.domains)
-		space.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
+	if (cloud?.domains)
+		cloud.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
 	const internalIP = getInternalIpAddress();
 	internalIP && trustedOrigins.push(internalIP);
 } else
@@ -177,7 +177,7 @@ export const auth = betterAuth({
 	plugins: [
 		username(),
 		customSession(async ({ user, session }) => {
-			return { session, user, space, modules };
+			return { session, user, cloud, modules };
 		}),
 		emailOTP({
 			async sendVerificationOTP({ email, otp, type }) {
@@ -214,7 +214,7 @@ export const auth = betterAuth({
 					return {
 						role: "admin",
 						username: user["username"],
-						spacename: space["name"],
+						cloudname: cloud["name"],
 						user
 					};
 				}

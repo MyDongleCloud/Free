@@ -28,15 +28,15 @@ fi
 
 echo "#Reset bugzilla##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
 rm -rf /disk/admin/modules/bugzilla
 mkdir -p /disk/admin/modules/bugzilla/data
 
 name="Administrator"
-email="admin@${SPACENAME}.mydongle.cloud"
-username="${SPACENAME}"
+email="admin@${CLOUDNAME}.mydongle.cloud"
+username="${CLOUDNAME}"
 passwd="${PASSWD}"
 
 cd /usr/local/modules/bugzilla

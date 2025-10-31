@@ -28,7 +28,7 @@ fi
 
 echo "#Reset mantisbugtracker##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
@@ -60,10 +60,10 @@ admin_password=""
 db_table_prefix="mantis"
 db_table_plugin_prefix="plugin"
 db_table_suffix="_table"
-path="https://mantisbugtracker.$SPACENAME.mydongle.cloud/"
+path="https://mantisbugtracker.$CLOUDNAME.mydongle.cloud/"
 log_queries="0"
-username="$SPACENAME"
-email="admin@${SPACENAME}.mydongle.cloud"
+username="$CLOUDNAME"
+email="admin@${CLOUDNAME}.mydongle.cloud"
 passwd="${PASSWD}"
 
 sed -i -e "s/^\\\$g_hostname.*/\\\$g_hostname = '$hostname';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php

@@ -2,6 +2,6 @@
 #define MODULES_H
 
 //Global function
-void modulesInit(cJSON *space);
+void modulesInit(cJSON *cloud);
 
 #endif

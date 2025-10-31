@@ -354,7 +354,7 @@ review() {
 	InAppReview.requestReview();
 }
 
-async getCertificate(space) {
+async getCertificate(cloud) {
 	const ret = { accountKey:"", accountKeyId:"", fullChain:"", privateKey:"" };
 	const DOMAIN = "mydongle.cloud";
 	const STAGING = true;
@@ -373,7 +373,7 @@ async getCertificate(space) {
 	const serverKey = serverKeypair.private;
 	ret.privateKey = await Keypairs.export({ jwk: serverKey });
 
-	let domains = [space + "." + DOMAIN, "*." + space + "." + DOMAIN];
+	let domains = [cloud + "." + DOMAIN, "*." + cloud + "." + DOMAIN];
 	domains = domains.map(function(name) {
 		return name;//toASCII(name);
 	});
@@ -394,7 +394,7 @@ async getCertificate(space) {
 						console.log("CERTIFICATE: Set" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
 					}
 				console.log(challenge.keyAuthorizationDigest);
-				const data = { space: space, action: "set", text: challenge.keyAuthorizationDigest };
+				const data = { cloud: cloud, action: "set", text: challenge.keyAuthorizationDigest };
 				const ret = await this.httpClient.post(this.SERVERURL + "/master/domain.json", data).toPromise();
 				console.log(ret);
 				//alert(challenge.keyAuthorizationDigest);
@@ -408,7 +408,7 @@ async getCertificate(space) {
 						console.log("CERTIFICATE: Remove" + ("wildcard" in challenge ? " (.*)" : ""), challenge);
 					}
 				console.log(challenge.keyAuthorizationDigest);
-				const data = { space: space, action: "remove", text: challenge.keyAuthorizationDigest };
+				const data = { cloud: cloud, action: "remove", text: challenge.keyAuthorizationDigest };
 				const ret = await this.httpClient.post(this.SERVERURL + "/master/domain.json", data).toPromise();
 				console.log(ret);
 				//alert(challenge.keyAuthorizationDigest);

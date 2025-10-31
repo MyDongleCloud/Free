@@ -22,11 +22,11 @@ done
 echo "#Create user homeassistant##################"
 DATE=`date +%s`
 URL="http://localhost:8123"
-SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
-name="$SPACENAME"
-username="${SPACENAME}"
+name="$CLOUDNAME"
+username="${CLOUDNAME}"
 passwd="${PASSWD}"
 language="en"
 clientid="myclientid"

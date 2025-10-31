@@ -36,14 +36,14 @@ do
 done
 
 if [ $OPTIND = 1 ]; then
-	if [ -f /disk/admin/modules/mydonglecloud/modules.json ]; then
-		L=`jq -r ".otg.features | length" /disk/admin/modules/mydonglecloud/modules.json`
+	if [ -f /disk/admin/modules/_config_/_modules_.json ]; then
+		L=`jq -r ".otg.features | length" /disk/admin/modules/_config_/_modules_.json`
 		if [ $L != 0 ]; then
-			jq -r ".otg.features" /disk/admin/modules/mydonglecloud/modules.json | grep -qi serial
+			jq -r ".otg.features" /disk/admin/modules/_config_/_modules_.json | grep -qi serial
 			if [ $? = 0 ]; then
 				SERIAL=1
 			fi
-			jq -r ".otg.features" /disk/admin/modules/mydonglecloud/modules.json | grep -qi mtp
+			jq -r ".otg.features" /disk/admin/modules/_config_/_modules_.json | grep -qi mtp
 			if [ $? = 0 ]; then
 				MTP=1
 			fi

@@ -28,7 +28,7 @@ fi
 
 echo "#Reset yourls##################"
 DATE=`date +%s`
-SPACENAME=`cat /disk/admin/modules/mydonglecloud/space.json | jq -r ".name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
 SALT=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 32)
 DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
@@ -49,8 +49,8 @@ cp /usr/local/modules/yourls/user/config-sample.php /disk/admin/modules/yourls/c
 dbuser="yourlsUser"
 dbpass="${DBPASS}"
 dbname="yourlsDB"
-site="https://yourls.${SPACENAME}.mydongle.cloud"
-username="${SPACENAME}"
+site="https://yourls.${CLOUDNAME}.mydongle.cloud"
+username="${CLOUDNAME}"
 passwd="${PASSWD}"
 saltpass=$(tr -dc '1-9' < /dev/urandom | head -c 5)
 md5=`echo -n "$saltpass$passwd" | md5sum | cut -d ' ' -f 1`

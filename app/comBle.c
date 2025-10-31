@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/stat.h>
 #include <bluetooth/bluetooth.h>
 #include "btlib.h"
 #include "bluetoothAddr.h"
@@ -99,17 +100,18 @@ static int le_callback(int clientnode, int operation, int cticn) {
 static void *bleStart_t(void *arg) {
 #ifndef DESKTOP
 	bluetoothAddr(bluetoothClassicAddr, 0);
+	mkdir(ADMIN_PATH "mydonglecloud", 0775);
 	FILE *pf = fopen(ADMIN_PATH "mydonglecloud/blecfg.txt", "w");
 	if (pf) {
 		char sz[1024];
 		char nn[128];
 		snprintf(nn, sizeof(nn), "MyDongle-%s", "1234567890");
-		cJSON *space = jsonRead(ADMIN_PATH "mydonglecloud/space.json");
-		if (space && cJSON_HasObjectItem(space, "name"))
-			snprintf(nn, 27, "MyDongle-%s", cJSON_GetStringValue2(space, "name"));
+		cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
+		if (cloud && cJSON_HasObjectItem(cloud, "all") && cJSON_HasObjectItem(cJSON_GetObjectItem(cloud, "all"), "name"))
+			snprintf(nn, 27, "MyDongle-%s", cJSON_GetStringValue2(cJSON_GetObjectItem(cloud, "all"), "name"));
 		else
 			snprintf(nn, 27, "MyDongle-%s", szSerial);
-		cJSON_Delete(space);
+		cJSON_Delete(cloud);
 		snprintf(sz, sizeof(sz), "DEVICE=%s type=mesh node=2 address=%s\n", nn, bluetoothClassicAddr);
 		fwrite(sz, strlen(sz), 1, pf);
 		char szTplt[] = "\
