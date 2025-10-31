@@ -32,7 +32,8 @@ errorSt = null;
 constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 	this.formLogin = fb.group({
 		"email1": [ "", [ Validators.required, Validators.email ] ],
-		"password1": [ "", [ Validators.required, Validators.minLength(6) ] ]
+		"password1": [ "", [ Validators.required, Validators.minLength(6) ] ],
+		"rememberme1": [ false, [ ] ]
 	});
 	this.formRegister = fb.group({
 		"name2": ["", [Validators.required, Validators.minLength(2)]],
@@ -124,6 +125,7 @@ async ionViewDidEnter() {
 
 get email1() { return this.formLogin.get("email1"); }
 get password1() { return this.formLogin.get("password1"); }
+get rememberme1() { return this.formLogin.get("rememberme1"); }
 get email2() { return this.formRegister.get("email2"); }
 get name2() { return this.formRegister.get("name2"); }
 get password2() { return this.formRegister.get("password2"); }
@@ -151,7 +153,7 @@ show_Login() {
 async doLogin() {
 	this.progress = true;
 	this.errorSt = null;
-	const data = { email:this.email1.value, password: this.password1.value };
+	const data = { email:this.email1.value, password: this.password1.value, rememberme: this.rememberme1.value };
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/MyDongleCloud/Auth/sign-in/email", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
