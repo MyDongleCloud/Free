@@ -8,7 +8,6 @@
 #include "cJSON.h"
 #include "json.h"
 #include "apache2.h"
-#include "dbBerkeley.h"
 
 //Functions
 void modulesInit(cJSON *space) {
