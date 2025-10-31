@@ -13,9 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class Splash {
 showUpgrade: boolean = false;
 
-constructor(public global: Global, private bleService: BleService, private httpClient: HttpClient) {}
-
-ionViewDidEnter() {
+constructor(public global: Global, private bleService: BleService, private httpClient: HttpClient) {
 	this.forwardWhenReady();
 }
 
