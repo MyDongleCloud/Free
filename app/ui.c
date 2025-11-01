@@ -346,7 +346,7 @@ void uiScreenWelcome() {
 	lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
 	lv_obj_align(label2, LV_ALIGN_TOP_LEFT, 0, 73);
 
-	button(LV_KEY_LEFT, L("Rot"), &img_icon_right2);
+	button(LV_KEY_LEFT, L("Rot."), &img_icon_right2);
 	button(LV_KEY_RIGHT, L("OK"), NULL);
 }
 
@@ -449,7 +449,7 @@ void uiScreenHome() {
 
 		arc(10, 46, 44, 241 * 100 / 1024);
 
-		sprintf(sz, L("%d%%"), 241 * 100 / 1024);
+		sprintf(sz, "%d%%", 241 * 100 / 1024);
 		lv_obj_t *label1 = lv_label_create(lv_screen_active());
 		lv_label_set_text(label1, sz);
 		lv_obj_set_width(label1, 40);
@@ -461,7 +461,7 @@ void uiScreenHome() {
 		lv_style_set_text_font(&labelStyle1, &lv_font_montserrat_14);
 		lv_obj_add_style(label1, &labelStyle1, LV_STATE_DEFAULT);
 
-		sprintf(sz, L("%dGB/%dTB"), 241, 1);
+		sprintf(sz, "%dGB/%dTB", 241, 1);
 //		circulaText(sz, 2, 95, 60);
 		lv_obj_t *label2 = lv_label_create(lv_screen_active());
 		lv_label_set_text(label2, sz);
@@ -487,7 +487,7 @@ void uiScreenHome() {
 
 		arc(74, 46, 44, 80);
 
-		sprintf(sz, L("%d%%"), 90);
+		sprintf(sz, "%d%%", 90);
 		lv_obj_t *label4 = lv_label_create(lv_screen_active());
 		lv_label_set_text(label4, sz);
 		lv_obj_set_width(label4, 40);
@@ -665,7 +665,7 @@ void uiScreenTips() {
 	lv_obj_clean(lv_screen_active());
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, szTips[lmdc.tipsPos]);
+	lv_label_set_text(label0, L(szTips[lmdc.tipsPos]));
 	lv_obj_set_width(label0, 128);
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	static lv_style_t labelStyle0;

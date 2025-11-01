@@ -56,7 +56,7 @@ void languagePrepare() {
 	PRINTF("Prepare translation\n");
 	for (int i = 0; i < NB_LANG; i++) {
 		char sz[128];
-		snprintf(sz, sizeof(sz), "i18n/%s.json", mylanguages[i].code);
+		snprintf(sz, sizeof(sz), "i18n/app-%s.json", mylanguages[i].code);
 		elApp[i] = NULL;
 		el[i] = jsonRead(sz);
 		if (el[i])

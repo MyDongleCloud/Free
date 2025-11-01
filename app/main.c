@@ -54,6 +54,9 @@ int main(int argc, char *argv[]) {
 		case 't':
 #ifndef WEB
 			languagePrepare();
+			unlink("../build/_app/language.o");
+			unlink("../build/_app/language_.o");
+			unlink("../build/_app/language__.o");
 #endif
 			exit(0);
 			break;
