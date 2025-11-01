@@ -39,7 +39,7 @@ function getInternalIpAddress() {
 }
 let trustedOrigins;
 if (process.env.PRODUCTION === "true") {
-	trustedOrigins = [ "*.mydongle.cloud", "*.myd.cd" ];
+	trustedOrigins = [ "*.mydongle.cloud", "*.mondongle.cloud", "*.myd.cd" ];
 	if (cloud?.domains)
 		cloud.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
 	const internalIP = getInternalIpAddress();

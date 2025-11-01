@@ -61,7 +61,7 @@ domainFromFqdn(fqdn) {
 		return fqdn;
 	if (!isNaN(parts[parts.length - 1]))
 		return fqdn;
-	const sliceIndex = (parts[parts.length - 2] === "mydongle" || parts[parts.length - 2] === "myd") ? -3 : -2;
+	const sliceIndex = (parts[parts.length - 2] === "mydongle" || parts[parts.length - 2] === "mondongle" || parts[parts.length - 2] === "myd") ? -3 : -2;
 	return parts.slice(sliceIndex).join('.');
 }
 
