@@ -28,6 +28,11 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)comWebSocket.o \
 	$(PRE)json.o \
 	$(PRE)language.o \
+	$(PRE)lv_font_montserrat_10.o \
+	$(PRE)lv_font_montserrat_12.o \
+	$(PRE)lv_font_montserrat_14.o \
+	$(PRE)lv_font_montserrat_16.o \
+	$(PRE)lv_font_montserrat_30.o \
 	$(PRE)logic.o \
 	$(PRE)main.o \
 	$(PRE)modules.o \
@@ -60,6 +65,11 @@ OBJs_WEB := $(PRE)backend__.o \
 	$(PRE)communication__.o \
 	$(PRE)comHtml__.o \
 	$(PRE)language__.o \
+	$(PRE)lv_font_montserrat_10__.o \
+	$(PRE)lv_font_montserrat_12__.o \
+	$(PRE)lv_font_montserrat_14__.o \
+	$(PRE)lv_font_montserrat_16__.o \
+	$(PRE)lv_font_montserrat_30__.o \
 	$(PRE)logic__.o \
 	$(PRE)main__.o \
 	$(PRE)settings__.o \
