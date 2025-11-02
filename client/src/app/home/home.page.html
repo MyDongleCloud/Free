@@ -135,7 +135,7 @@
 									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">{{L("Disabled")}}</span>
 								</div>
 								<div class="-ml-2" *ngIf="showDetails && card.enabled">
-									<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(pm)}}</span></a>
+									<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(global.permissions(pm))}}</span></a>
 								</div>
 							</div>
 							<div class="flex-1 min-w-1"></div>
@@ -180,7 +180,7 @@
 										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 									</div>
 									<div class="-ml-2" *ngIf="card.enabled">
-										<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(pm)}}</span></a>
+										<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(global.permissions(pm))}}</span></a>
 									</div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
@@ -256,7 +256,7 @@
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
 					<div class="-ml-2" *ngIf="cards[findIdByModule(moduleCur)].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(pm)}}</span></a>
+						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(global.permissions(pm))}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
@@ -309,7 +309,7 @@
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
 					<div class="-ml-2" *ngIf="cards[findIdByModule(moduleCur)].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(pm)}}</span></a>
+						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(global.permissions(pm))}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>

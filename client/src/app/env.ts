@@ -338,6 +338,20 @@ iconCategory(st) {
 		return null;
 }
 
+permissions(st) {
+	else if (st == "_public_")
+		return "Public";
+	else if (st == "_localnetwork_")
+		return "Local Network";
+	else if (st == "_dongle_")
+		return "Dongle";
+	else if (st == "_groupadmin_" || st == "admin")
+		return "Group Admin";
+	else if (st == "_groupuser_" || st == "users")
+		return "Group User";
+	else
+		return null;
+
 colorWord(st) {
 	if (st == "_disabled_")
 		return "bg-red-100 text-red-800";
