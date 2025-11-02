@@ -339,7 +339,7 @@ iconCategory(st) {
 }
 
 permissions(st) {
-	else if (st == "_public_")
+	if (st == "_public_")
 		return "Public";
 	else if (st == "_localnetwork_")
 		return "Local Network";
@@ -351,6 +351,7 @@ permissions(st) {
 		return "Group User";
 	else
 		return null;
+}
 
 colorWord(st) {
 	if (st == "_disabled_")
