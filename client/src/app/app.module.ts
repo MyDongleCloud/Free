@@ -4,9 +4,32 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { provideHttpClient } from '@angular/common/http';
-import { TranslateModule } from '@ngx-translate/core';
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideHttpClient, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { forkJoin, Observable, map } from 'rxjs';
+
+export class MultiHttpLoader implements TranslateLoader {
+constructor(private http: HttpClient, private configs: { prefix: string, suffix: string }[]) {}
+
+getTranslation(lang: string): Observable<any> {
+	const requests = this.configs.map(config => {
+		const path = `${config.prefix}${lang}${config.suffix}`;
+		return this.http.get(path);
+	});
+	return forkJoin(requests).pipe(map(responses => {
+		return responses.reduce((acc, current) => ({ ...acc, ...current }), {});
+	}));
+}
+
+}
+
+export function createMultiHttpLoader(http: HttpClient) {
+	return new MultiHttpLoader(http, [
+		{ prefix: 'assets/i18n/global-', suffix: '.json' },
+		{ prefix: 'assets/i18n/pages-', suffix: '.json' },
+		{ prefix: 'assets/i18n/modules-', suffix: '.json' }
+	]);
+}
 
 @NgModule({
 	declarations: [AppComponent],
@@ -15,10 +38,11 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 		IonicModule.forRoot(),
 		AppRoutingModule,
 		TranslateModule.forRoot({
-			loader: provideTranslateHttpLoader({
-				prefix: "assets/i18n/",
-				suffix: ".json",
-			}),
+			loader: {
+				provide: TranslateLoader,
+				useFactory: createMultiHttpLoader,
+				deps: [HttpClient]
+			},
 			fallbackLang: "en"
 		})],
 	providers: [
