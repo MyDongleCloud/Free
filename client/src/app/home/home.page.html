@@ -170,7 +170,7 @@
 							</tr>
 						</thead>
 						<tbody class="bg-white divide-y divide-gray-200">
-							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;">
+							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg-red-50' : card.web != true ? 'bg-teal-50' : ''">
 								<td class="px-6 py-4 whitespace-nowrap">
 									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></div>
 								</td>
