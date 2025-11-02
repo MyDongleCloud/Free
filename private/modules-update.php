@@ -17,6 +17,8 @@ $modules = explode("\n", $data);
 fclose($h);
 $starsTotal = 0;
 $modulesMeta = array();
+$modulesTranslationTitle = array();
+$modulesTranslationDescription = array();
 for ($i = 1; $i < count($modules); $i++) {
 	$stars = 0;
 	if (strlen($modules[$i]) == 0)
@@ -56,7 +58,11 @@ for ($i = 1; $i < count($modules); $i++) {
 		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")]),
 		"proprietary" => empty($m[gc("proprietary")]) ? array() : explode("|", $m[gc("proprietary")])
 	);
+	$modulesTranslationTitle[$m[gc("title")]] = "";
+	$modulesTranslationDescription[$m[gc("description")]] = "";
 }
 echo "Github stars: " . $starsTotal . "\n";
 file_put_contents(__DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/modulesmeta.json", json_encode($modulesMeta, JSON_PRETTY_PRINT));
+$modulesTranslation = array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription));
+file_put_contents(__DIR__ . "/../client/src/assets/i18n/modules-en.json", json_encode($modulesTranslation, JSON_PRETTY_PRINT));
 ?>
