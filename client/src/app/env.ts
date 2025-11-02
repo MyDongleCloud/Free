@@ -46,8 +46,11 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	this.consolelog(1, "Platform: " + this.plt.platforms());
 	navCtrl.setDirection("forward");
 	translate.setDefaultLang("en");
-	this.consolelog(1, "Default browser language is: " + translate.getBrowserLang());
-	this.changeLanguage(this.translate.getBrowserLang());
+	this.consolelog(1, "Default browser language: " + translate.getBrowserLang());
+	if (window.location.hostname.indexOf("mondongle.cloud") != -1)
+		this.changeLanguage("fr");
+	else
+		this.changeLanguage(this.translate.getBrowserLang());
 	this.AuthStatus();
 	this.getSession();
 	this.settingsLoad();
@@ -205,15 +208,23 @@ changeLanguageAndRefresh(l) {
 mytranslateP(page, st) {
 	const inp = page + "." + st;
 	const ret = this.translate.instant(page + "." + st);
-	return ret == "" ? (this.settings.isDev == 2 && this.settings.language != "en" ? ("##" + st + "##") : st) : ret == inp ? (this.settings.isDev == 2 ? ("##" + st + "##") : st) : ret;
+	return ret == "" ? (this.developer && this.settings.language != "en" ? ("##" + st + "##") : st) : ret == inp ? (this.developer ? ("##" + st + "##") : st) : ret;
 }
 
 mytranslate(st) {
 	return this.mytranslateP(this.currentUrl, st);
 }
 
-mytranslateM(st) {
-	return this.mytranslateP("modules", st);
+mytranslateG(st) {
+	return this.mytranslateP("global", st);
+}
+
+mytranslateMT(st) {
+	return this.mytranslateP("modules.title", st);
+}
+
+mytranslateMD(st) {
+	return this.mytranslateP("modules.description", st);
 }
 
 async sleepms(ms) {
