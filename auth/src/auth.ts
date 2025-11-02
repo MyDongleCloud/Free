@@ -84,7 +84,7 @@ const mdcEndpoints = () => {
 				method: "POST",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
-				if (ctx.context.session?.user?.username != "admin")
+				if (ctx.context.session?.user?.role != "admin")
 					return Response.json({}, { status: 200 });
 				let path = ctx.body?.path;
 				path = path.replace(/\/\/+/g, "/");
@@ -157,7 +157,7 @@ export const auth = betterAuth({
 			enabled: true,
 			beforeDelete: async (user, request) => {
 				if (user["username"] == "admin")
-					throw new APIError("BAD_REQUEST", { message:"Admin account can't be deleted" });
+					throw new APIError("BAD_REQUEST", { message:"Account username==admin can't be deleted" });
 			}
 		},
 		additionalFields: {
@@ -212,7 +212,7 @@ export const auth = betterAuth({
 				expirationTime: "1d",
 				definePayload: ({ user }) => {
 					return {
-						role: "admin",
+						role: user["role"],
 						username: user["username"],
 						cloudname: cloud["name"],
 						user
