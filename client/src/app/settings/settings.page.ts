@@ -70,6 +70,8 @@ interface AppSettings {
 })
 
 export class Settings {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 dResetSave: boolean = true;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
@@ -114,7 +116,7 @@ async getData() {
 	// Settings data
 	settings = signal<AppSettings>({
 		general: {
-			appName: this.global.session.cloud.all.name,
+			appName: this.global.session.cloud.name,
 			appDescription: 'A modern admin dashboard for managing your application',
 			timezone: 'UTC',
 			language: 'en'

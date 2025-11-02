@@ -1,7 +1,7 @@
 <div class="flex items-center justify-between h-16 px-6 bg-white border-b border-sidebar-border">
 	<div class="flex items-center space-x-2 text-sm ml-4 md:ml-0">
-		<a (click)="global.openPage('');" class="text-gray-700 text-lg hover:text-gray-900 transition-colors font-medium cursor-pointer cursor-pointer">Dashboard</a>
-		@if (title != "Dashboard") {
+		<a (click)="global.openPage('');" class="text-gray-700 text-lg hover:text-gray-900 transition-colors font-medium cursor-pointer cursor-pointer">{{LG("Dashboard")}}</a>
+		@if (title != LG("Dashboard")) {
 		<ion-icon name="chevron-forward-outline" class="w-4 h-4 text-gray-700"></ion-icon>
 		<span class="text-gray-700 font-medium text-lg">
 			{{title}}{{nameP}}
@@ -32,25 +32,25 @@
 				<div class="py-2">
 					<a (click)="global.openPage('');" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer">
 						<ion-icon name="apps-outline" class="h-4 w-4"></ion-icon>
-						Dashboard
+						{{LG("Dashboard")}}
 					</a>
 					<a (click)="global.openPage('profile');" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer">
 						<ion-icon name="person-outline" class="h-4 w-4"></ion-icon>
-						Profile
+						{{LG("Profile")}}
 					</a>
 					<a (click)="global.openPage('help');" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer">
 						<ion-icon name="help-outline" class="h-4 w-4"></ion-icon>
-						{{global.mytranslateP("rightMenu", "Help")}}
+						{{LG("Help")}}
 					</a>
 					<a (click)="global.openPage('about');" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer">
 						<ion-icon name="information-outline" class="h-4 w-4"></ion-icon>
-						{{global.mytranslateP("rightMenu", "About")}}
+						{{LG("About")}}
 					</a>
 				</div>
 				<div class="border-t border-gray-200 py-2">
 					<button (click)="global.logoutRedirect();" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left cursor-pointer">
 						<ion-icon name="log-out-outline" class="h-4 w-4"></ion-icon>
-						Log out
+						{{LG("Log out")}}
 					</button>
 				</div>
 			</div>

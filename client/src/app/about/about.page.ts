@@ -10,8 +10,9 @@ import { Global } from '../env';
 })
 
 export class About {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 isDevCheckbox: boolean;
-_(st) { return this.global.mytranslate(st); }
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {}
 

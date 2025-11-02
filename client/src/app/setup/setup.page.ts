@@ -13,6 +13,8 @@ import { BleService } from '../ble';
 })
 
 export class Setup {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 password2Show:boolean = false;
 password3Show:boolean = true;
 progress:boolean = false;

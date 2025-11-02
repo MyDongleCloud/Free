@@ -12,6 +12,8 @@ import { Global } from '../env';
 })
 
 export class Find {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 ready:boolean = false;
 progress:boolean = false;
 formFind: FormGroup;

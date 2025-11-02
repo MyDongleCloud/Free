@@ -1,7 +1,7 @@
 <div class="flex min-h-screen bg-sidebar text-sidebar-foreground">
 	<app-sidebar></app-sidebar>
 	<div class="flex-1 flex flex-col min-h-screen">
-		<app-topbar title="{{global.mytranslate('System Logs')}}"></app-topbar>
+		<app-topbar title="{{L('System Logs')}}"></app-topbar>
 		<ion-content>
 			<main class="flex-1 p-6 bg-background space-y-6">
 				<div class="mt-6 overflow-hidden shadow md:rounded-lg">
@@ -46,7 +46,7 @@
 
 <ion-modal #modalContent class="file-content-modal">
 	<ng-template>
-		<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeContent()">Content of {{ modalContentMeta }}<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
+		<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeContent()">{{L("Content of")}} {{modalContentMeta }}<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
 		<pre style="white-space:pre-wrap; word-wrap:break-word; font-family:monospace; ; overflow-y:auto;">{{ modalContentText }}</pre>
 	</ng-template>
 </ion-modal>

@@ -9,6 +9,8 @@ import { Global } from '../env';
 })
 
 export class Backup {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 
 constructor(public global: Global, private cdr: ChangeDetectorRef) {}
 

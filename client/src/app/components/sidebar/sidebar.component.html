@@ -9,7 +9,7 @@
 		<div class="h-16 flex items-center justify-between px-6 border-b border-sidebar-border sticky top-0 bg-sidebar z-10">
 			<div class="flex items-center gap-2">
 				<img src="assets/mydonglecloud.png" class="-ml-2 w-10 h-10 cursor-pointer" (click)="global.openPage('');"/>
-				<span class="text-lg font-bold tracking-tight text-sidebar-primary cursor-pointer" (click)="global.openPage('');"><span class="text-blue-600">My</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></span>
+				<span class="text-lg font-bold tracking-tight text-sidebar-primary cursor-pointer" (click)="global.openPage('');"><span class="text-blue-600">{{LG("My")}}</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></span>
 			<button (click)="showMobileMenu = false" class="md:hidden ml-2 rounded-md hover:bg-gray-100 transition-colors" aria-label="Close menu">
 				<ion-icon name="close-circle-outline" class="w-5 h-5 text-gray-600"></ion-icon>
 			</button>
@@ -17,10 +17,10 @@
 		</div>
 		<nav class="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
 
-			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider">MODULES</div>
+			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider">{{LG("MODULES")}}</div>
 			<a (click)="global.openPage('');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<ion-icon name="apps-outline" class="h-5 w-5"></ion-icon>
-				<span>Dashboard</span>
+				<span>{{LG("Dashboard")}}</span>
 				<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{modulesTotal ?? 125}}</span>
 			</a>
 			<div class="ml-2 flex flex-col rounded-lg border border-gray-200">
@@ -30,7 +30,7 @@
 						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 							<ion-icon name="star-outline" class="w-5 h-5"></ion-icon>
-							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">Essential</span>
+							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Essential")}}</span>
 						</span>
 					</label>
 					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
@@ -38,7 +38,7 @@
 						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 							<ion-icon name="bookmarks-outline" class="w-5 h-5"></ion-icon>
-							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">Tag</span>
+							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Tag")}}</span>
 						</span>
 					</label>
 					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
@@ -46,7 +46,7 @@
 						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 							<ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
-							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">Find</span>
+							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Find")}}</span>
 						</span>
 					</label>
 				</div>
@@ -83,54 +83,54 @@
 				</a>
 			</div>
 
-			<div class="px-3 text-s text-black font-semibold text-muted-foreground tracking-wider mt-6 md:mt-12">SYSTEM</div>
+			<div class="px-3 text-s text-black font-semibold text-muted-foreground tracking-wider mt-6 md:mt-12">{{LG("SYSTEM")}}</div>
 			<a (click)="global.openPage('settings');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="settings-outline" class="w-5 h-5"></ion-icon>
 				</div>
-				<span>Settings</span>
+				<span>{{LG("Settings")}}</span>
 			</a>
 			<a (click)="global.openModule('betterauthstudio', null, false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="people-outline" class="w-5 h-5"></ion-icon>
 				</div>
-				<span>Users</span>
+				<span>{{LG("Users")}}</span>
 			</a>
 			<a (click)="global.openPage('permissions');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="lock-closed-outline" class="w-5 h-5"></ion-icon>
 				</div>
-				<span>Permissions</span>
+				<span>{{LG("Permissions")}}</span>
 			</a>
 			<a (click)="global.openPage('dongle');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<img src="assets/dongle.svg" class="w-5 h-5"/>
 				</div>
-				<span>Dongle</span>
+				<span>{{LG("Dongle")}}</span>
 			</a>
 			<a (click)="global.openModule('webssh2', '/access', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="terminal-outline" class="w-5 h-5"></ion-icon>
 				</div>
-				<span>Terminal</span>
+				<span>{{LG("Terminal")}}</span>
 			</a>
 			<a (click)="global.openPage('serverlog');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="document-text-outline" class="w-5 h-5"></ion-icon>
 				</div>
-				<span>System Logs</span>
+				<span>{{LG("System Logs")}}</span>
 			</a>
 			<a (click)="global.openPage('backup');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="download-outline" class="w-5 h-5"></ion-icon>
 				</div>
-				<span>Backup & Restore</span>
+				<span>{{LG("Backup & Restore")}}</span>
 			</a>
 
-			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider mt-6 md:mt-12">STATUS</div>
+			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider mt-6 md:mt-12">{{LG("STATUS")}}</div>
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
-					<span class="text-muted-foreground">Storage</span>
+					<span class="text-muted-foreground">{{LG("Storage")}}</span>
 					<div class="flex items-center gap-1">
 						<div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
 						<span class="text-yellow-500 font-medium">65%</span>
@@ -142,14 +142,14 @@
 			</div>
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
-					<span class="text-muted-foreground">Last Backup</span>
+					<span class="text-muted-foreground">{{LG("Last Backup")}}</span>
 					<span class="text-muted-foreground">2h ago</span>
 				</div>
 			</div>
 
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
-					<span class="text-muted-foreground">Registered Users</span>
+					<span class="text-muted-foreground">{{LG("Active Users")}}</span>
 					<span class="text-blue-600 font-medium">47</span>
 				</div>
 			</div>

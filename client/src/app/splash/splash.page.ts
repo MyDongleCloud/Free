@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class Splash {
+L(st) { return this.global.mytranslate(st); }
 showUpgrade: boolean = false;
 
 constructor(public global: Global, private bleService: BleService, private httpClient: HttpClient) {

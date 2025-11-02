@@ -2,31 +2,31 @@
 <div [style]="showDongle ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
 	<div class="max-w-md w-full">
 		<div class="text-center mb-8 flex items-center justify-center gap-2">
-			<ion-icon src="assets/1-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">Dongle</span>
+			<ion-icon src="assets/1-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">{{L("Dongle")}}</span>
 			&nbsp;&nbsp;&nbsp;
-			<ion-icon src="assets/2-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Admin</span>
+			<ion-icon src="assets/2-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">{{L("Admin")}}</span>
 			&nbsp;&nbsp;&nbsp;
-			<ion-icon src="assets/3-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Wi-Fi</span>
+			<ion-icon src="assets/3-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">{{L("Wi-Fi")}}</span>
 		</div>
 		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
 			<div class="text-center mb-8 flex items-center flex-col">
-				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/mydonglecloud.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text-blue-600">My</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></h1>
+				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/mydonglecloud.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text-blue-600">{{L("My")}}</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></h1>
 				<div class="flex items-center gap-2 mb-2">
 					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 						<ion-icon name="settings-outline" class="text-white w-10 h-10"></ion-icon>
 					</div>
-					<h1 class="text-3xl font-bold text-left text-gray-900">Setup<br>Dongle</h1>
+					<h1 class="text-3xl font-bold text-left text-gray-900">{{L("Setup")}}<br>{{L("Dongle")}}</h1>
 				</div>
-				<p class="text-gray-600">Connect to your dongle and set it up</p>
+				<p class="text-gray-600">{{L("Connect to your dongle and set it up")}}</p>
 			</div>
 			<form [formGroup]="formDongle" (ngSubmit)="doDongle();" class="space-y-6">
 				<button type="button" (click)="connectToggle()" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]" [class]="ble.connectedBLE == 2 ? 'bg-green-600' : ble.connectedBLE == 1 ? 'bg-red-600' : 'bg-blue-600'" >
 					<img src="assets/dongle.svg" alt="Dongle" class="w-8 h-8" style="filter:invert(100%);"/>
-					Connect via Bluetooth
+					{{L("Connect via Bluetooth")}}
 				</button>
 				<div>
-					<label for="name1" class="block text-sm font-medium text-gray-700">Primary Cloud URL</label>
-					<label for="name1" class="block text-sm font-small text-gray-400 mb-2 italic">We recommend your full name (aka. johndoe)</label>
+					<label for="name1" class="block text-sm font-medium text-gray-700">{{L("Primary Cloud UR")}}L</label>
+					<label for="name1" class="block text-sm font-small text-gray-400 mb-2 italic">{{L("We recommend your full name (aka. johndoe)")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="globe-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -36,15 +36,15 @@
 					@if (name1?.invalid && (name1?.touched || name1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must have 5-20 characters: a-z, 0-9, -, _
+						{{L("Must have 5-20 characters: a-z, 0-9, -, _")}}
 					</div>
 					} @else if (name1?.value.length >= 6) {
-					<label for="name1" class="block text-sm font-medium text-gray-500 mt-1">https://{{name1?.value}}.mydongle.cloud</label>
+					<label for="name1" class="block text-sm font-medium text-gray-500 mt-1">https://{{name1?.value}}.{{L("my")}}dongle.cloud</label>
 					}
 				</div>
 				<div>
-					<label for="shortname1" class="block text-sm font-medium text-gray-700">Cloud Short Link</label>
-					<label for="shortname1" class="block text-sm font-small text-gray-400 mb-2 italic">Make it short</label>
+					<label for="shortname1" class="block text-sm font-medium text-gray-700">{{L("Cloud Short Link")}}</label>
+					<label for="shortname1" class="block text-sm font-small text-gray-400 mb-2 italic">{{L("Make it short")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="globe-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -54,15 +54,15 @@
 					@if (shortname1?.invalid && (shortname1?.touched || shortname1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must have 2-20 characters: a-z, 0-9, -, _
+						{{L("Must have 2-20 characters: a-z, 0-9, -, _")}}
 					</div>
 					} @else if (shortname1?.value.length >= 2) {
 					<label for="shortname1" class="block text-sm font-medium text-gray-500 mt-1">https://{{shortname1?.value}}.myd.cd</label>
 					}
 				</div>
 				<div>
-					<label for="domain1" class="block text-sm font-medium text-gray-700">Bring Your Own Domain (optional)</label>
-					<label for="domain1" class="block text-sm font-small text-gray-400 mb-2 italic">DNS should point to ns1.mydongle.cloud</label>
+					<label for="domain1" class="block text-sm font-medium text-gray-700">{{L("Bring Your Own Domain (optional)")}}</label>
+					<label for="domain1" class="block text-sm font-small text-gray-400 mb-2 italic">{{L("DNS should point to")}} ns1.mydongle.cloud</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="globe-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -73,17 +73,17 @@
 								@if (progress) {
 								<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
 								}
-								Verify
+								{{L("Verify")}}
 							</button>
 						</div>
 					</div>
 					@if (domain1?.invalid && (domain1?.touched || domain1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Invalid domain
+						{{L("Invalid domain")}}
 					</div>
 					} @else if (domain1?.value.length >= 2) {
-					<label for="domain1" class="block text-sm font-medium text-gray-500 mt-1">https://{{domain1?.value}} and all subdomains</label>
+					<label for="domain1" class="block text-sm font-medium text-gray-500 mt-1">https://{{domain1?.value}} {{L("and all subdomains")}}</label>
 					}
 				</div>
 				<div>
@@ -92,13 +92,13 @@
 							<input id="terms1" name="terms1" type="checkbox" formControlName="terms1" required class="w-4 h-4 text-blue-600 focus:ring-blue-700 border-gray-300 rounded">
 						</div>
 						<div class="ml-3 text-sm">
-							<label for="terms1" class="text-gray-700">I agree to the <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Terms of Service</a> and <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Privacy Policy</a></label>
+							<label for="terms1" class="text-gray-700">{{L("I agree to the")}} <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">{{L("Terms of Service")}}</a> and <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">{{L("Privacy Policy")}}</a></label>
 						</div>
 					</div>
 					@if (terms1?.errors?.["required"] && terms1?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be agreed
+						{{L("Must be agreed")}}
 					</div>
 					}
 				</div>
@@ -113,15 +113,15 @@
 				<button type="submit" [disabled]="progress || formDongle.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
-					Please wait...
+					{{L("Please wait...")}}
 					} @else {
 					<ion-icon name="arrow-forward-outline" class="text-white w-6 h-6"></ion-icon>
-					Next
+					{{L("Next")}}
 					}
 				</button>
 			</form>
 			<div class="mt-8 text-center">
-				<p class="text-sm text-gray-600">Already have a dongle? <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="global.openPage('find')" style="cursor:pointer;">Login!</a>
+				<p class="text-sm text-gray-600">{{L("Already have a dongle?")}} <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="global.openPage('find')" style="cursor:pointer;">{{L("Login!")}}</a>
 				</p>
 			</div>
 		</div>
@@ -130,11 +130,11 @@
 <div [style]="showRegister ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
 	<div class="max-w-md w-full">
 		<div class="text-center mb-8 flex items-center justify-center gap-2">
-			<ion-icon src="assets/1-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Dongle</span>
+			<ion-icon src="assets/1-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">{{L("Dongle")}}</span>
 			&nbsp;&nbsp;&nbsp;
-			<ion-icon src="assets/2-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">Admin</span>
+			<ion-icon src="assets/2-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">{{L("Admin")}}</span>
 			&nbsp;&nbsp;&nbsp;
-			<ion-icon src="assets/3-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Wi-Fi</span>
+			<ion-icon src="assets/3-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">{{L("Wi-Fi")}}</span>
 		</div>
 		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
 			<div class="text-center mb-8 flex items-center flex-col">
@@ -142,13 +142,13 @@
 					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 						<ion-icon name="person-add-outline" class="text-white w-10 h-10"></ion-icon>
 					</div>
-					<h1 class="text-3xl font-bold text-left text-gray-900">Create<br>Account</h1>
+					<h1 class="text-3xl font-bold text-left text-gray-900">{{L("Create")}}<br>{{L("Account")}}</h1>
 				</div>
-				<p class="text-gray-600">Set the admin account of this dongle</p>
+				<p class="text-gray-600">{{L("Set the admin account of this dongle")}}</p>
 			</div>
 			<form [formGroup]="formRegister" (ngSubmit)="doRegister();" class="space-y-6">
 				<div>
-					<label for="name2" class="block text-sm font-medium text-gray-700 mb-2">Display name</label>
+					<label for="name2" class="block text-sm font-medium text-gray-700 mb-2">{{L("Display name")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="person-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -158,12 +158,12 @@
 					@if (name2?.invalid && name2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be at least 2 characters
+						{{L("Must be at least 2 characters")}}
 					</div>
 					}
 				</div>
 				<div>
-					<label for="email2" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+					<label for="email2" class="block text-sm font-medium text-gray-700 mb-2">{{L("Email address")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -173,12 +173,12 @@
 					@if (email2?.invalid && email2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Please enter a valid email address
+						{{L("Please enter a valid email address")}}
 					</div>
 					}
 				</div>
 				<div>
-					<label for="password2" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+					<label for="password2" class="block text-sm font-medium text-gray-700 mb-2">{{L("Password")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -205,12 +205,12 @@
 					@if (password2?.invalid && password2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be at least 6 characters
+						{{L("Must be at least 6 characters")}}
 					</div>
 					}
 				</div>
 				<div>
-					<label for="password2Confirm" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+					<label for="password2Confirm" class="block text-sm font-medium text-gray-700 mb-2">{{L("Confirm Password")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -220,7 +220,7 @@
 					@if (password2Confirm?.touched && password2?.value != password2Confirm?.value) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Password must match
+						{{L("Password must match")}}
 					</div>
 					}
 				</div>
@@ -235,15 +235,15 @@
 				<button type="submit" [disabled]="progress || formRegister.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
-					Please wait...
+					{{L("Please wait...")}}
 					} @else {
 					<ion-icon name="arrow-forward-outline" class="text-white w-6 h-6"></ion-icon>
-					Next
+					{{L("Next")}}
 					}
 				</button>
 			</form>
 			<div class="mt-8 text-center">
-				<p class="text-sm text-gray-600">Changed your mind on the previous step? <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Dongle()" style="cursor:pointer;">Go back</a>
+				<p class="text-sm text-gray-600">{{L("Changed your mind on the previous step?")}} <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Dongle()" style="cursor:pointer;">{{L("Go back")}}</a>
 				</p>
 			</div>
 		</div>
@@ -252,11 +252,11 @@
 <div [style]="showWiFi ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
 	<div class="max-w-md w-full">
 		<div class="text-center mb-8 flex items-center justify-center gap-2">
-			<ion-icon src="assets/1-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Dongle</span>
+			<ion-icon src="assets/1-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">{{L("Dongle")}}</span>
 			&nbsp;&nbsp;&nbsp;
-			<ion-icon src="assets/2-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">Admin</span>
+			<ion-icon src="assets/2-circle.svg" class="text-gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-gray-400">{{L("Admin")}}</span>
 			&nbsp;&nbsp;&nbsp;
-			<ion-icon src="assets/3-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">Wi-Fi</span>
+			<ion-icon src="assets/3-circle.svg" class="text-blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text-blue-600">{{L("Wi-Fi")}}</span>
 		</div>
 		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
 			<div class="text-center mb-8 flex items-center flex-col">
@@ -264,13 +264,13 @@
 					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 						<ion-icon name="wifi-outline" class="text-white w-10 h-10"></ion-icon>
 					</div>
-					<h1 class="text-3xl font-bold text-left text-gray-900">Wi-Fi<br>Credentials</h1>
+					<h1 class="text-3xl font-bold text-left text-gray-900">{{L("Wi-Fi")}}<br>{{L("Credentials")}}</h1>
 				</div>
-				<p class="text-gray-600">Enter the credentials of the Wi-Fi to which the dongle will be connected</p>
+				<p class="text-gray-600">{{L("Enter the credentials of the Wi-Fi to which the dongle will be connected")}}</p>
 			</div>
 			<form [formGroup]="formWiFi" (ngSubmit)="doWiFi();" class="space-y-6">
 				<div>
-					<label for="ssid3" class="block text-sm font-medium text-gray-700 mb-2">Wi-Fi SSID</label>
+					<label for="ssid3" class="block text-sm font-medium text-gray-700 mb-2">{{L("Wi-Fi SSID")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="wifi-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -280,12 +280,12 @@
 					@if (ssid3?.invalid && ssid3?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be at least 2 characters
+						{{L("Must be at least 2 characters")}}
 					</div>
 					}
 				</div>
 				<div>
-					<label for="password3" class="block text-sm font-medium text-gray-700 mb-2">Wi-Fi Password</label>
+					<label for="password3" class="block text-sm font-medium text-gray-700 mb-2">{{L("Wi-Fi Password")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -298,22 +298,22 @@
 					@if (password3?.invalid && password3?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be at least 8 characters
+						{{L("Must be at least 8 characters")}}
 					</div>
 					}
 				</div>
 				<button type="submit" [disabled]="progress || formRegister.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
-					Please wait...
+					{{L("Please wait...")}}
 					} @else {
 					<ion-icon name="arrow-forward-outline" class="text-white w-6 h-6"></ion-icon>
-					Finish
+					{{L("Finish")}}
 					}
 				</button>
 			</form>
 			<div class="mt-8 text-center">
-				<p class="text-sm text-gray-600">Changed your mind on the previous step? <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Register()" style="cursor:pointer;">Go back</a>
+				<p class="text-sm text-gray-600">{{L("Changed your mind on the previous step?")}} <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Register()" style="cursor:pointer;">{{L("Go back")}}</a>
 				</p>
 			</div>
 		</div>

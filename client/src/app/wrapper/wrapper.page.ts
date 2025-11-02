@@ -12,6 +12,8 @@ import modulesMeta from '../modulesmeta.json';
 })
 
 export class Wrapper {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 module: string = "";
 page: string = "";
 title: string = "";

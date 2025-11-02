@@ -6,18 +6,18 @@
 	<div class="max-w-md w-full">
 		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
 			<div class="text-center mb-8 flex items-center flex-col">
-				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/mydonglecloud.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text-blue-600">My</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></h1>
+				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/mydonglecloud.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text-blue-600">{{L("My")}}</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></h1>
 				<div class="flex items-center gap-2 mb-2">
 					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 						<ion-icon name="person-outline" class="text-white w-10 h-10"></ion-icon>
 					</div>
-					<h1 class="text-3xl font-bold text-left text-gray-900">Welcome<br>back</h1>
+					<h1 class="text-3xl font-bold text-left text-gray-900 whitespace-pre-wrap">{{L("Welcome\nback!")}}</h1>
 				</div>
-				<p class="text-gray-600">Sign in to your account to continue</p>
+				<p class="text-gray-600">{{L("Sign in to your account to continue")}}</p>
 			</div>
 			<form [formGroup]="formLogin" (ngSubmit)="doLogin();" class="space-y-6">
 				<div>
-					<label for="email1" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+					<label for="email1" class="block text-sm font-medium text-gray-700 mb-2">{{L("Email address")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -27,12 +27,12 @@
 					@if (email1?.invalid && email1?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Please enter a valid email address
+						{{L("Please enter a valid email address")}}
 					</div>
 					}
 				</div>
 				<div>
-					<label for="password1" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+					<label for="password1" class="block text-sm font-medium text-gray-700 mb-2">{{L("Password")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -45,16 +45,16 @@
 					@if (password1?.invalid && password1?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be at least 6 characters
+						{{L("Must be at least 6 characters")}}
 					</div>
 					}
 				</div>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center">
 						<input id="rememberme1" formControlName="rememberme1" type="checkbox" class="w-4 h-4 text-blue-600 focus:ring-blue-700 border-gray-300 rounded">
-						<label for="rememberme1" class="ml-2 block text-sm text-gray-700">Remember me</label>
+						<label for="rememberme1" class="ml-2 block text-sm text-gray-700">{{L("Remember me")}}</label>
 					</div>
-					<a class="text-sm text-blue-600 hover:text-blue-700 font-medium" (click)="show_ForgotPassword()" style="cursor:pointer;">Forgot password?</a>
+					<a class="text-sm text-blue-600 hover:text-blue-700 font-medium" (click)="show_ForgotPassword()" style="cursor:pointer;">{{L("Forgot password?")}}</a>
 				</div>
 				@if (errorSt) {
 				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
@@ -67,15 +67,15 @@
 				<button type="submit" id="submit1" [disabled]="progress || formLogin.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
-					Signing in...
+					{{L("Signing in...")}}
 					} @else {
 					<ion-icon name="log-in-outline" class="text-white w-6 h-6"></ion-icon>
-					Sign in
+					{{L("Sign in")}}
 					}
 				</button>
 			</form>
 			<div class="mt-8 text-center">
-				<p class="text-sm text-gray-600">Don't have an account? <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Register()" style="cursor:pointer;">Sign up!</a>
+				<p class="text-sm text-gray-600">{{L("Don't have an account?")}} <a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Register()" style="cursor:pointer;">{{L("Sign up!")}}</a>
 				</p>
 			</div>
 		</div>
@@ -89,13 +89,13 @@
 					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 						<ion-icon name="person-add-outline" class="text-white w-10 h-10"></ion-icon>
 					</div>
-					<h1 class="text-3xl font-bold text-left text-gray-900">Create<br>Account</h1>
+					<h1 class="text-3xl font-bold text-left text-gray-900">{{L("Create\nAccount")}}</h1>
 				</div>
-				<p class="text-gray-600">Join this MyDongle Cloud!</p>
+				<p class="text-gray-600">{{L("Join this MyDongle Cloud!")}}</p>
 			</div>
 			<form [formGroup]="formRegister" (ngSubmit)="doRegister();" class="space-y-6">
 				<div>
-					<label for="name2" class="block text-sm font-medium text-gray-700 mb-2">Display name</label>
+					<label for="name2" class="block text-sm font-medium text-gray-700 mb-2">{{L("Display name")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="person-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -105,12 +105,12 @@
 					@if (name2?.invalid && name2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be at least 2 characters
+						{{L("Must be at least 2 characters")}}
 					</div>
 					}
 					</div>
 				<div>
-					<label for="email2" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+					<label for="email2" class="block text-sm font-medium text-gray-700 mb-2">{{L("Email address")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -120,12 +120,12 @@
 					@if (email2?.invalid && email2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Please enter a valid email address
+						{{L("Please enter a valid email address")}}
 					</div>
 					}
 				</div>
 				<div>
-					<label for="password2" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+					<label for="password2" class="block text-sm font-medium text-gray-700 mb-2">{{L("Password")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -152,12 +152,12 @@
 						@if (password2?.invalid && password2?.touched) {
 						<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-							Must be at least 6 characters
+							{{L("Must be at least 6 characters")}}
 						</div>
 						}
 				</div>
 				<div>
-					<label for="password2Confirm" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+					<label for="password2Confirm" class="block text-sm font-medium text-gray-700 mb-2">{{L("Confirm Password")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="lock-closed-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -167,7 +167,7 @@
 					@if (password2Confirm?.touched && password2?.value != password2Confirm?.value) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Password must match
+						{{L("Password must match")}}
 					</div>
 					}
 				</div>
@@ -177,13 +177,13 @@
 							<input id="terms2" name="terms2" type="checkbox" formControlName="terms2" required class="w-4 h-4 text-blue-600 focus:ring-blue-700 border-gray-300 rounded">
 						</div>
 						<div class="ml-3 text-sm">
-							<label for="terms2" class="text-gray-700">I agree to the <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Terms of Service</a> and <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Privacy Policy</a></label>
+							<label for="terms2" class="text-gray-700">{{L("I agree to the")}} <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">{{L("Terms of Service")}}</a> and <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">{{L("Privacy Policy")}}</a></label>
 						</div>
 					</div>
 					@if (terms2?.errors?.["required"] && terms2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-						Must be agreed
+						{{L("Must be agreed")}}
 					</div>
 					}
 				</div>
@@ -198,17 +198,17 @@
 				<button type="submit" [disabled]="progress || formRegister.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
-					Creating account...
+					{{L("Creating account...")}}
 					} @else {
 					<ion-icon name="person-add-outline" class="text-white w-6 h-6"></ion-icon>
-					Create account
+					{{L("Create account")}}
 					}
 				</button>
 			</form>
 			<div class="mt-8 text-center">
 				<p class="text-sm text-gray-600">
-					Already have an account?
-					<a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Login()" style="cursor:pointer;">Sign in here</a>
+					{{L("Already have an account?")}}
+					<a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Login()" style="cursor:pointer;">{{L("Sign in here")}}</a>
 				</p>
 			</div>
 		</div>
@@ -224,13 +224,13 @@
 						<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 							<ion-icon name="lock-closed-outline" class="text-white w-10 h-10"></ion-icon>
 						</div>
-						<h1 class="text-3xl font-bold text-left text-gray-900">Forgot your<br>password?</h1>
+						<h1 class="text-3xl font-bold text-left text-gray-900">{{L("Forgot your\nPassword?")}}</h1>
 					</div>
-					<p class="text-gray-600">No worries! Enter your email to receive instructions.</p>
+					<p class="text-gray-600">{{L("No worries! Enter your email to receive instructions.")}}</p>
 				</div>
 				<form [formGroup]="formForgotPassword" (ngSubmit)="doForgotPassword()" class="space-y-6">
 					<div>
-						<label for="email3" class="block text-sm font-medium text-gray-700 mb-2">Email address</label>
+						<label for="email3" class="block text-sm font-medium text-gray-700 mb-2">{{L("Email address")}}</label>
 						<div class="relative">
 							<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 								<ion-icon name="at-outline" class="text-gray-500 w-4 h-4"></ion-icon>
@@ -243,7 +243,7 @@
 						@if (email3?.invalid && email3?.touched) {
 						<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
 							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
-							Please enter a valid email address
+							{{L("Please enter a valid email address")}}
 						</div>
 						}
 					</div>
@@ -258,17 +258,17 @@
 					<button type="submit" [disabled]="progress || formForgotPassword.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 						@if (progress) {
 						<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
-						Sending reset link...
+						{{L("Sending reset link...")}}
 						} @else {
 						<ion-icon name="mail-unread-outline" class="text-white w-6 h-6"></ion-icon>
-						Send magic link
+						{{L("Send magic link")}}
 						}
 					</button>
 				</form>
 				<div class="mt-8 text-center">
 					<p class="text-sm text-gray-600">
-						Remember your password?
-						<a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Login()" style="cursor:pointer;">Sign in here</a>
+						{{L("Remember your password?")}}
+						<a class="font-semibold text-blue-600 hover:text-blue-700 transition-colors" (click)="show_Login()" style="cursor:pointer;">{{L("Sign in here")}}</a>
 					</p>
 				</div>
 			</div>
@@ -278,18 +278,18 @@
 					class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
 					<ion-icon name="checkmark-outline" class="text-white w-8 h-8"></ion-icon>
 				</div>
-				<h1 class="text-3xl font-bold text-gray-900 mb-4">Check your email</h1>
+				<h1 class="text-3xl font-bold text-gray-900 mb-4">{{L("Check your email")}}</h1>
 				<p class="text-gray-600 mb-6">
-					A magic link has been sent to <span class="font-semibold text-gray-900">{{ email3.value }}</span>
+					{{L("A magic link has been sent to")}} <span class="font-semibold text-gray-900">{{ email3.value }}</span>
 				</p>
 				<div class="space-y-3">
 					<button class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02]" (click)="show_ForgotPassword()" style="cursor:pointer;">
 						<ion-icon name="reload-outline" class="text-white w-6 h-6"></ion-icon>
-						Send another email
+						{{L("Send another email")}}
 					</button>
 					<a class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200" (click)="show_Login()" style="cursor:pointer;">
 						<ion-icon name="arrow-back-outline" class="text-black w-6 h-6"></ion-icon>
-						Back to sign in
+						{{L("Back to sign in")}}
 					</a>
 				</div>
 			</div>
@@ -301,14 +301,14 @@
 	<div class="max-w-md w-full">
 		<div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
 			<div class="text-center mb-8 flex items-center flex-col">
-				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/mydonglecloud.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text-blue-600">My</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></h1>
+				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/mydonglecloud.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text-blue-600">{{L("My")}}</span><span style class="text-blue-200">Dongle.</span><span class="text-blue-600">Cloud</span></h1>
 				<div class="flex items-center gap-2 mb-2">
 					<div class="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 						<ion-icon name="person-outline" class="text-white w-10 h-10"></ion-icon>
 					</div>
-					<h1 class="text-3xl font-bold text-left text-gray-900">Welcome<br>back</h1>
+					<h1 class="text-3xl font-bold text-left text-gray-900">{{L("Welcome\nback!")}}</h1>
 				</div>
-				<p class="text-gray-600">Sign in to your account to continue</p>
+				<p class="text-gray-600">{{L("Sign in to your account to continue")}}</p>
 			</div>
 			<form [formGroup]="formOtp" (ngSubmit)="doOtp();" class="space-y-6">
 				<label for="otp14" class="block text-sm font-medium text-gray-700 mb-2">OTP (One-Time Password)</label>
@@ -332,10 +332,10 @@
 				<button type="submit" id="submit4" [disabled]="progress || formOtp.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text-white w-6 h-6"></ion-icon>
-					Signing in...
+					{{L("Signing in...")}}
 					} @else {
 					<ion-icon name="log-in-outline" class="text-white w-6 h-6"></ion-icon>
-					Enter OTP or click on link sent by email
+					{{L("Enter OTP or click on link sent by email")}}
 					}
 				</button>
 			</form>

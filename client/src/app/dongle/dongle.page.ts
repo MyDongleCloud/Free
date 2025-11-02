@@ -17,6 +17,8 @@ declare var appOtp: any;
 })
 
 export class Dongle {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 typeBluetooth: boolean = true;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {

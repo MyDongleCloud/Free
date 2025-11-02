@@ -1,13 +1,13 @@
 <div class="flex bg-white">
 	<app-sidebar></app-sidebar>
 	<div class="flex-1 flex flex-col">
-		<app-topbar title="{{_('About MyDongle.Cloud')}}"></app-topbar>
+		<app-topbar title="{{L('About MyDongle.Cloud')}}"></app-topbar>
 		<div class="p-6	flex flex-col gap-3 items-start">
-			<div long-press (press)="longCopyright()" class="font-bold">&copy; {{global.mytranslate("Copyright")}} MyDongle.Cloud 2025.</div>
-			<div>{{global.mytranslate("App Version:")}} {{global.VERSION}} {{global.mytranslate(global.getMonth(global.VERSION))}}</div>
-			<div>{{global.mytranslate("Device Version:")}} {{ble.firmwareDeviceVersion}} {{global.mytranslate(global.getMonth(ble.firmwareDeviceVersion))}}</div>
+			<div long-press (press)="longCopyright()" class="font-bold">&copy; {{L("Copyright")}} {{L("My")}}Dongle.Cloud 2025.</div>
+			<div>{{L("App Version:")}} {{global.VERSION}} ({{LG(global.getMonth(global.VERSION))}})</div>
+			<div>{{L("Device Version:")}} {{ble.firmwareDeviceVersion}} {{LG(global.getMonth(ble.firmwareDeviceVersion))}}</div>
 			<div class="flex flex-row items-center gap-3">
-				{{global.mytranslate("Languages:")}}
+				{{L("Languages:")}}
 				<div class="flex rounded-lg border border-gray-200 bg-white p-1">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="language" value="en" class="peer sr-only" checked (click)="changeLanguageAndRefresh('en');"/>
@@ -21,8 +21,8 @@
 					</label>
 				</div>
 			</div>
-			<div>{{global.mytranslate("ADVANCED USER MODE")}}<br>{{global.mytranslate("(dangerous, use with cautious)")}}<br><br><ion-checkbox slot="start" labelPlacement="end" [(ngModel)]="global.settings.powerUser"> {{global.mytranslate("Power User Mode")}}</ion-checkbox></div>
-			<br><div *ngIf="global.settings.isDev != 0" style="width:80%;"><ion-checkbox slot="start" labelPlacement="end" justify="start" (ionChange)="isDevChange()" [(ngModel)]="isDevCheckbox"> {{global.mytranslate("Development Mode")}}</ion-checkbox></div>
+			<div>{{L("ADVANCED USER MODE")}}<br>({{L("dangerous, use with cautious")}})<br><br><ion-checkbox slot="start" labelPlacement="end" [(ngModel)]="global.settings.powerUser"> {{L("Power User Mode")}}</ion-checkbox></div>
+			<br><div *ngIf="global.settings.isDev != 0" style="width:80%;"><ion-checkbox slot="start" labelPlacement="end" justify="start" (ionChange)="isDevChange()" [(ngModel)]="isDevCheckbox"> {{L("Development Mode")}}</ion-checkbox></div>
 		</div>
 	</div>
 </div>

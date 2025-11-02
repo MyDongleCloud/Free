@@ -4,7 +4,7 @@
 		<app-topbar title="{{title}}" nameP="{{nameP}}"></app-topbar>
 		<ion-content>
 			@if (this.global.demo) {
-			<div class="p-5 min-w-full min-h-full">This module is not accessible in the web demo. Download and run MyDongle.Cloud on your Raspberry Pi to get access to the whole demo.</div>
+			<div class="p-5 min-w-full min-h-full">{{L("This module is not accessible in the web demo. Download and run MyDongle.Cloud on your Raspberry Pi to get access to the whole demo.")}}</div>
 			} @else {
 			<iframe id="iframeWrapper" [src]="safeUrl" class="min-w-full min-h-full"></iframe>
 			}

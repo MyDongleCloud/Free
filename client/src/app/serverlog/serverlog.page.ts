@@ -23,6 +23,8 @@ interface FileSystemNode {
 })
 
 export class ServerLog {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 nodes: FileSystemNode[] = [];
 expandedNodes = new Set<string>();
 currentPath: string = "/";

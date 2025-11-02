@@ -1,27 +1,27 @@
 <div class="flex bg-sidebar text-sidebar-foreground h-screen">
 	<app-sidebar [modulesTotal]="this.filteredCards.length"></app-sidebar>
 	<div class="flex-1 flex flex-col bg-white overflow-x-auto">
-		<app-topbar title="{{global.mytranslate('Dashboard')}}"></app-topbar>
+		<app-topbar title="{{L('Dashboard')}}"></app-topbar>
 			<div>
 				<div class="flex gap-3 mx-4 mt-4">
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
 						</div>
-						<input type="text" [(ngModel)]="searchTerm" (input)="filterCards()" placeholder="Find modules..." class="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors">
+						<input type="text" [(ngModel)]="searchTerm" (input)="filterCards()" placeholder="{{L('Find modules...')}}" class="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors">
 					</div>
 					<div class="flex-1"></div>
 <div class="flex items-center" [class]="global.developer ? '' : 'hidden'">
-<ion-checkbox [(ngModel)]="showDone" labelPlacement="end" (ionChange)="filterCards()" >Done</ion-checkbox>&nbsp;&nbsp;&nbsp;&nbsp;
-<ion-checkbox [(ngModel)]="showNotDone" labelPlacement="end" (ionChange)="filterCards()">Not yet done</ion-checkbox>
+<ion-checkbox [(ngModel)]="showDone" labelPlacement="end" (ionChange)="filterCards()" >{{L("Done")}}</ion-checkbox>&nbsp;&nbsp;&nbsp;&nbsp;
+<ion-checkbox [(ngModel)]="showNotDone" labelPlacement="end" (ionChange)="filterCards()">{{L("Not yet done")}}</ion-checkbox>
 </div>
 					<button (click)="showDetails = !showDetails;" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 cursor-pointer" [ngClass]="showDetails ? 'bg-gray-100': ''" [style]="showDetails ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
 						<ion-icon name="aperture-outline" class="w-4 h-4"></ion-icon>
-						Details
+						{{L("Details")}}
 					</button>
 					<button (click)="showTerminal = !showTerminal; filterCards();" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 cursor-pointer" [ngClass]="showTerminal ? 'bg-teal-50': ''" [style]="showTerminal ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
 						<ion-icon name="terminal-outline" class="w-4 h-4"></ion-icon>
-						Terminal&nbsp;modules
+						<span class="whitespace-pre-wrap">{{L("Terminal modules")}}</span>
 					</button>
 				</div>
 				<div class="flex gap-3 mx-4 mt-4">
@@ -32,7 +32,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="apps-outline" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">All</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{L("All")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
@@ -41,7 +41,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="star-outline" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Essential</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Essential")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
@@ -50,7 +50,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="person-outline" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Personal</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Personal")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
@@ -59,7 +59,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="attach-outline" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Productivity</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Productivity")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
@@ -68,7 +68,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="hammer-outline" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Utils</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Utils")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
@@ -77,7 +77,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="code-slash-outline" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Developer</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Developer")}}</span>
 						</label>
 					</div>
 					<div class="flex rounded-lg border border-gray-200 bg-white p-1">
@@ -87,7 +87,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="apps-outline" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Cards</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{L("Cards")}}</span>
 						</label>
 						<label class="relative flex flex-col grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="presentation" [(ngModel)]="presentation" value="table" class="peer sr-only"/>
@@ -95,7 +95,7 @@
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 								<ion-icon name="list" class="w-5 h-5"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">Table</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{L("Table")}}</span>
 						</label>
 					</div>
 					<div class="flex-1"></div>
@@ -111,7 +111,7 @@
 									<ion-icon size="small" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon>
 								</p>
 								<div class="flex-1"></div>
-								<span class="text-sm mr-2" *ngIf="showDetails">Nº{{cc + 1}}</span>
+								<span class="text-sm mr-2" *ngIf="showDetails">{{L("Nº")}}{{cc + 1}}</span>
 								<ion-icon [name]="card?.bookmark ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="bookmark(card.module)" [class]="card?.bookmark ? '' : 'text-gray-300'" *ngIf="card.enabled"></ion-icon>
 								<ion-icon name="cloud-offline-outline" class="w-5 h-5 text-red-500 mr-2" *ngIf="!card.enabled"></ion-icon>
 								<ion-icon name="lock-open-outline" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0])" *ngIf="card.enabled"></ion-icon>
@@ -119,10 +119,10 @@
 								<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 							</div>
 							<div class="min-w-full flex items-center mt-2 mb-2">
-								<p class="text-3xl font-bold text-gray-900"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{firstWords(card.title)}} </a><span class="whitespace-nowrap"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{lastWord(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" *ngIf="card.web" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon><ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon></span></p>
+								<p class="text-3xl font-bold text-gray-900"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{firstWords(LMT(card.title))}} </a><span class="whitespace-nowrap"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{lastWord(LMT(card.title))}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" *ngIf="card.web" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon><ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon></span></p>
 								<div class="flex-1"></div>
 								<div class="ml-3 flex flex-col gap-2 items-end">
-									<div class="w-16 h-16 rounded-lg flex items-center justify-center" >
+									<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="global.colorWord(card.category)">
 										<img src="assets/icons_modules/{{card.module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);">
 									</div>
 								</div>
@@ -130,17 +130,17 @@
 						</div>
 						<div class="flex justify-start">
 							<div class="flex flex-col">
-								<p class="text-s text-gray-500">{{card.description == "" ? "Placeholder of the description of this module" : card.description}}</p>
+								<p class="text-s text-gray-500">{{LMD(card.description)}}</p>
 								<div class="-ml-2" *ngIf="showDetails && !card.enabled">
-									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
+									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">{{L("Disabled")}}</span>
 								</div>
 								<div class="-ml-2" *ngIf="showDetails && card.enabled">
-									<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{global.mytranslateM(pm)}}</span></a>
+									<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(pm)}}</span></a>
 								</div>
 							</div>
 							<div class="flex-1 min-w-1"></div>
 							<div class="flex flex-col items-end">
-								<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="global.colorWord(card.category)" *ngIf="showDetails">{{card.category}}</span>
+								<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="global.colorWord(card.category)" *ngIf="showDetails">{{LG(card.category)}}</span>
 								<a href="https://github.com/{{card.github}}" title="GitHub {{card.github}}" class="mt-2 pl-2 flex items-center cursor-pointer" target="_blank" *ngIf="showDetails && card.githubUrl != ''">
 									<ion-icon name="logo-github" class="w-6 h-6 cursor-pointer" ></ion-icon>
 									<div class="flex flex-col items-center">
@@ -152,7 +152,7 @@
 						</div>
 						<div class="flex-1"></div>
 						<div class="-ml-2 mt-2" *ngIf="showDetails">
-							<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{kw}}</span>
+							<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{LG(kw)}}</span>
 						</div>
 					</div>
 				</div>
@@ -160,19 +160,19 @@
 					<table class="min-w-full divide-y divide-gray-300">
 						<thead class="bg-gray-50">
 							<tr>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">TITLE<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">OPEN-SOURCE<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">PERMISSIONS</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">CAT<ion-icon *ngIf="category == 'All'" class="w-5 h-5 ml-2" (click)="toggleSortDirection('category')" [name]="sortDirection['category'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">DESCRIPTION</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider" *ngIf="showDetails">GITHUB</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider" *ngIf="showDetails">KEYWORDS</th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("TITLE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("OPEN-SOURCE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("PERMISSIONS")}}</th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("CAT.")}}<ion-icon *ngIf="category == 'All'" class="w-5 h-5 ml-2" (click)="toggleSortDirection('category')" [name]="sortDirection['category'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("DESCRIPTION")}}</th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider" *ngIf="showDetails">{{L("GITHUB")}}</th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider" *ngIf="showDetails">{{L("KEYWORDS")}}</th>
 							</tr>
 						</thead>
 						<tbody class="bg-white divide-y divide-gray-200">
 							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;">
 								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{card.title}}" (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{card.title}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></div>
+									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{card.name}}</a></td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
@@ -180,21 +180,21 @@
 										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 									</div>
 									<div class="-ml-2" *ngIf="card.enabled">
-										<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{global.mytranslateM(pm)}}</span></a>
+										<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(pm)}}</span></a>
 									</div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
-									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="global.colorWord(card.category)">{{card.category}}</span>
+									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="global.colorWord(card.category)">{{LG(card.category)}}</span>
 								</td>
 								<td class="px-6 py-4 text-left">
-									<div class="text-sm text-gray-500 max-w-xs truncate" [class.line-through]="card?.completed">{{ card.description || 'No description' }}</div>
+									<div class="text-sm text-gray-500 max-w-xs truncate" [class.line-through]="card?.completed">{{LMD(card.description)}}</div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 									<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}} ({{approximateStars(card.githubStars)}}k ⭐)</a>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 									<div class="-ml-2">
-										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{kw}}</span>
+										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{LG(kw)}}</span>
 									</div>
 								</td>
 							</tr>
@@ -210,29 +210,29 @@
 <ion-modal #modalModuleInfo class="modalLimitSize">
 	<ng-template>
 			<h3 class="flex justify-between bg-blue-600 pt-2 pb-2 text-white" (click)="closeModuleInfo()">
-				<span class="mx-auto font-bold">Details of "{{cards[findIdByModule(moduleCur)].title}}"</span>
+				<span class="mx-auto font-bold">{{L("Details of")}} "{{LMT(cards[findIdByModule(moduleCur)].title)}}"</span>
 				<ion-icon name="close-circle-outline" class="w-6 h-6 cursor-pointer mr-3"></ion-icon>
 			</h3>
 			<br>
 			<div class="mx-5"><table class="w-full">
 				<tr><td colspan="3">
-					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank">
+					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)">
-							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
+							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
 						</div>
 					</a>
-					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{cards[findIdByModule(moduleCur)].title}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
+					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[findIdByModule(moduleCur)].title)}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
 					</a>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td colspan="3"><span style="color:black;">{{cards[findIdByModule(moduleCur)].description}}</span></td></tr>
+				<tr><td colspan="3"><span style="color:black;">{{LMD(cards[findIdByModule(moduleCur)].description)}}</span></td></tr>
 				<tr><td colspan="3" height="10"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Category</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)" *ngIf="showDetails">{{cards[findIdByModule(moduleCur)].category}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)" *ngIf="showDetails">{{LG(cards[findIdByModule(moduleCur)].category)}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
@@ -256,7 +256,7 @@
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
 					<div class="-ml-2" *ngIf="cards[findIdByModule(moduleCur)].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{global.mytranslateM(pm)}}</span></a>
+						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(pm)}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
@@ -264,7 +264,7 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Keywords</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords">{{kw}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords">{{LG(kw)}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
@@ -278,15 +278,22 @@
 <ion-modal #modalModuleSettings class="modalLimitSize">
 	<ng-template>
 			<h3 class="flex justify-between bg-blue-600 pt-2 pb-2 text-white" (click)="closeModuleSettings()">
-				<span class="mx-auto">Settings of "{{cards[findIdByModule(moduleCur)].title}}"</span>
+				<span class="mx-auto">{{L("Settings of")}} "{{cards[findIdByModule(moduleCur)].title}}"</span>
 				<ion-icon name="close-circle-outline" class="w-6 h-6 cursor-pointer mr-3"></ion-icon>
 			</h3>
 			<br>
 			<div class="mx-5"><table class="w-full">
-				<tr><td colspan="3"><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
-				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{cards[findIdByModule(moduleCur)].title}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].title}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}</a></td></tr>
+				<tr><td colspan="3">
+					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank">
+						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)">
+							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
+						</div>
+					</a>
+					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[findIdByModule(moduleCur)].title)}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
+					</a>
+				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td colspan="3"><span style="color:black;">{{cards[findIdByModule(moduleCur)].description}}</span></td></tr>
+				<tr><td colspan="3"><span style="color:black;">{{LMD(cards[findIdByModule(moduleCur)].description)}}</span></td></tr>
 				<tr><td colspan="3" height="10"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
@@ -302,7 +309,7 @@
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
 					<div class="-ml-2" *ngIf="cards[findIdByModule(moduleCur)].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{global.mytranslateM(pm)}}</span></a>
+						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(pm)}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>

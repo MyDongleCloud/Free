@@ -12,6 +12,8 @@ import { Global } from '../env';
 })
 
 export class Login implements AfterViewInit {
+L(st) { return this.global.mytranslate(st); }
+LG(st) { return this.global.mytranslateG(st); }
 @ViewChildren('otpInput') otpInputs: QueryList<ElementRef>;
 password1Show:boolean = false;
 password2Show:boolean = false;

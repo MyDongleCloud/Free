@@ -9,6 +9,7 @@ import { Global } from '../../env';
 })
 
 export class TopbarComponent implements AfterViewInit, OnDestroy {
+LG(st) { return this.global.mytranslateG(st); }
 @Input() title: string = "";
 @Input() nameP: string = "";
 private documentClickListener: (() => void) | null = null;
