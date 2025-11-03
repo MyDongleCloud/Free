@@ -58,4 +58,4 @@ echo "mqtt created_at: $created_at"
 response=`curl -sS --fail -X POST $URL/api/onboarding/analytics -H "Authorization: $bearer" -H "Content-Type: application/json"`
 echo "analytics: $response"
 
-echo "{\"user\":\"${username}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/homeassistant.json
+echo "{\"username\":\"${username}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/homeassistant.json

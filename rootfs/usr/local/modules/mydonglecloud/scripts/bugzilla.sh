@@ -58,7 +58,7 @@ expect eof
 ./checksetup.pl >> /tmp/reset-bugzilla-$DATE.log 2>&1
 
 rm -f /disk/admin/modules/bugzilla/conf.txt
-echo "{\"email\":\"${email}\", \"user\":\"${username}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/bugzilla.json
+echo "{\"email\":\"${email}\", \"username\":\"${username}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/bugzilla.json
 chown admin:admin /disk/admin/modules/_config_/bugzilla.json
 
 chown -R admin:admin /disk/admin/modules/bugzilla

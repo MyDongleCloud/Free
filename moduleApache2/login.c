@@ -183,7 +183,7 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 	char *username = NULL;
 	char *password = NULL;
 	if (el) {
-		username = cJSON_GetStringValue2(el, "user");
+		username = cJSON_GetStringValue2(el, "username");
 		password = cJSON_GetStringValue2(el, "password");
 	}
 	if (!username || !password)

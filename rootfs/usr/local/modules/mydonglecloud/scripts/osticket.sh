@@ -92,4 +92,4 @@ rm /tmp/osticket.php
 
 chmod 644 /disk/admin/modules/osticket/ost-config.php
 
-echo "{\"other\":\"name: ${name}, email: ${email}\", \"email\":\"${admin_email}\", \"user\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/osticket.json
+echo "{\"other\":\"name: ${name}, email: ${email}\", \"email\":\"${admin_email}\", \"username\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/osticket.json

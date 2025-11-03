@@ -52,7 +52,7 @@ PASSWD2=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".postfix.token"`
 echo "[server.mydongle.cloud]:466 $EMAIL:$PASSWD2" > /disk/admin/modules/mail/relay
 postmap /disk/admin/modules/mail/relay
 echo "$EMAIL:$PWD" > /disk/admin/modules/mail/password-$CLOUDNAME.mydongle.cloud
-echo "{\"email\":\"${EMAIL}\", \"user\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/roundcube.json
+echo "{\"email\":\"${EMAIL}\", \"username\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/roundcube.json
 ln -sf roundcube.json /disk/admin/modules/_config_/postfix.json
 systemctl restart postfix.service
 systemctl restart dovecot.service
