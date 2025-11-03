@@ -37,6 +37,8 @@ elif [ $1 = "osticket" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/osticket.sh -r"
 elif [ $1 = "postfix" ]; then
 	/usr/local/modules/mydonglecloud/scripts/postfix.sh -r
+elif [ $1 = "privatebin" ]; then
+	/usr/local/modules/mydonglecloud/scripts/privatebin.sh -r
 elif [ $1 = "projectsend" ]; then
 	/usr/local/modules/mydonglecloud/scripts/projectsend.sh -r
 elif [ $1 = "roundcube" ]; then
