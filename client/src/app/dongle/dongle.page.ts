@@ -8,6 +8,7 @@ declare var appButton: any;
 declare var appConnectToggle: any;
 declare var appShutdown: any;
 declare var appOtp: any;
+declare var appLanguage: any;
 
 @Component({
 	selector: 'app-dongle',
@@ -64,6 +65,13 @@ otp() {
 		this.ble.otp(email);
 	else
 		appOtp(email);
+}
+
+language(la) {
+	if (this.typeBluetooth)
+		this.ble.language(la);
+	else
+		appLanguage(la);
 }
 
 }

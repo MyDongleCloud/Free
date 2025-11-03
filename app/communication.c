@@ -113,7 +113,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 //{"a":"state", "p":"blah_encoded64"}
 //{"a":"setup", "betterauth": {"email":"", "name":"", "password":""}, "cloud":{"all":{}, "ollama":{}, "frp":{}, "postfix":{}}, "ssid":"", "security":"", "fullchain":"", "privatekey":"" }
 //{"a":"cloud"} -> {"a":"cloud", _cloud_.json }
-//{"a":"translation", "l":0}
+//{"a":"language", "l":""}
 	cJSON *el = cJSON_Parse(data);
 	if (el) {
 		char *action = cJSON_GetStringValue2(el, "a");
@@ -134,9 +134,10 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			int k = (int)cJSON_GetNumberValue2(el, "k");
 			int l = (int)cJSON_GetNumberValue2(el, "l");
 			logicKey(k, l);
-		} else if (strcmp(action, "translation") == 0) {
-			int l = (int)cJSON_GetNumberValue2(el, "l");
-			settingsLanguage(l);
+		} else if (strcmp(action, "language") == 0) {
+			char *l = cJSON_GetStringValue2(el, "l");
+			settingsLanguage(strcmp(l, "fr") == 0);
+			logicUpdate();
 		} else if (strcmp(action, "state") == 0) {
 			unsigned long decsize;
 			unsigned char *payload = b64_decode_ex(cJSON_GetStringValue2(el, "p"), &decsize);

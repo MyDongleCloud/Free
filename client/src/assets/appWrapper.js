@@ -20,10 +20,15 @@ async function appInit(tb, path, log, slave) {
 		await loadScript(path);
 		initDone = true;
 	}
+	var argCmdLine = [];
+	if (window.location.hostname.indexOf("mondongle.cloud") != -1)
+		argCmdLine = [ "-l", "fr" ];
+	else if (navigator.language.startsWith("fr"))
+		argCmdLine = [ "-l", "fr" ];
 	Module = {
 		print: function(text) { if (log) console.log(text); },
 		canvas: document.getElementById("canvas"),
-		arguments: slave ? ["-s"] : []
+		arguments: slave ? [ "-s" ] : argCmdLine
 	};
 	await appCreate(Module);
 }
@@ -116,4 +121,9 @@ function appShutdown() {
 function appOtp(email) {
 	if (socket != null)
 		socket.send(JSON.stringify({ a:"otp", v:-1, e:email }));
+}
+
+function appLanguage(la) {
+	if (socket != null)
+		socket.send(JSON.stringify({ a:"language", l:la }));
 }

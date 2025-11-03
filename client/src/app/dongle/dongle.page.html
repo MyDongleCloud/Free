@@ -17,6 +17,18 @@
 					<ion-icon name="lock-open-outline" class="text-white w-4 h-4"></ion-icon>
 					<span class="text-lg">{{L("Login OTP")}}</span>
 				</button>
+				<div class="flex rounded-lg border border-gray-200 bg-white p-1">
+					<label class="relative flex flex-col grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="language" value="en" class="peer sr-only" checked (click)="language('en');"/>
+						<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text-gray-900">🇺🇸<br>EN</span>
+					</label>
+					<label class="relative flex flex-col grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="language" value="fr" class="peer sr-only"  (click)="language('fr');"/>
+						<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text-gray-900">🇫🇷<br>FR</span>
+					</label>
+				</div>
 				<b>{{L("Device version:")}}</b> {{ble.firmwareDeviceVersion}}
 			</div>
 			<div class="-ml-5" style="position:relative;">

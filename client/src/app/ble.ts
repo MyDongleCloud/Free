@@ -228,6 +228,10 @@ async otp(email) {
 	await this.writeData({ a:"otp", v:-1, e:email });
 }
 
+async language(la) {
+	await this.writeData({ a:"language", l:la });
+}
+
 async shutdown() {
 	await this.writeData({ a:"shutdown" });
 }

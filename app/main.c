@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 #include <unistd.h>
 #include <getopt.h>
 #include "macro.h"
@@ -26,7 +27,8 @@ int main(int argc, char *argv[]) {
 	int daemon = 0;
 	int ble = 1;
 	int forceRotation = -1;
-	while ((option = getopt(argc, argv, "bdhr:st")) != -1) {
+	int forceLanguage = -1;
+	while ((option = getopt(argc, argv, "bdhl:r:st")) != -1) {
 		switch (option) {
 		case 'b':
 			ble = 0;
@@ -36,14 +38,21 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'h':
 			PRINTF("*******************************************************\n");
-			PRINTF("Usage for app [-b -d -p -r rot -s -t]\n");
+			PRINTF("Usage for app [-b -d -l la -r rot -s -t]\n");
 			PRINTF("b:	Don't start ble\n");
 			PRINTF("d:	Set daemon mode\n");
 			PRINTF("h:	Print this usage and exit\n");
+			PRINTF("l:	Force language\n");
 			PRINTF("r:	Force rotation\n");
 			PRINTF("s:	Put in slave mode\n");
 			PRINTF("t:	Prepare translation header\n");
 			exit(0);
+			break;
+		case 'l':
+			if (strcmp(optarg, "en") == 0)
+				forceLanguage = 0;
+			else if (strcmp(optarg, "fr") == 0)
+				forceLanguage = 1;
 			break;
 		case 'r':
 			sscanf(optarg, "%d", &forceRotation);
@@ -64,22 +73,26 @@ int main(int argc, char *argv[]) {
 			break;
 		}
 	}
-#ifndef WEB
+#ifdef WEB
+	if (forceLanguage != -1)
+		smdc.language = forceLanguage;
+	PRINTF("Version:%s\n", MDC_VERSION);
+#else
 	if (killOtherPids("app")) {
 		fprintf(stderr, "Exiting because process already exists\n");
 		return 0;
 	}
 	logInit(daemon);
-#ifndef WEB
 	cloudInit();
 	getSerialID();
 	PRINTF("Version:%s Serial:%s\n", MDC_VERSION, szSerial);
-#else
-	PRINTF("Version:%s\n", MDC_VERSION);
-#endif
 	settingsLoad();
 	if (forceRotation != -1) {
 		smdc.rotation = forceRotation;
+		settingsSave();
+	}
+	if (forceLanguage != -1) {
+		smdc.language = forceLanguage;
 		settingsSave();
 	}
 #endif
