@@ -5,6 +5,8 @@
 	"adminer": {
 		"web": true,
 		"enabled": true,
+		"reset": true,
+		"resetConfig": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9472,
 		"DirectoryIndex": "conf.php",
