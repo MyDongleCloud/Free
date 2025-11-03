@@ -24,7 +24,7 @@ constructor(public global: Global, private location: Location, public router: Ro
 
 	router.events.subscribe((event: Event) => {
 		if (event instanceof NavigationEnd) {
-			this.global.currentUrl = this.router.url.substr(1);
+			this.global.currentUrl = this.router.url.replace(/^\/|(\?).*$/g, "");
 		}
 	});
 }
