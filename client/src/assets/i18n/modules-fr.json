@@ -1,6 +1,6 @@
 {
-    "modules": {
-        "title": {
+	"modules": {
+		"title": {
 			"ACME Shell Script": "Script shell ACME",
 			"JavaScript ACME Client": "Client ACME JavaScript",
 			"MySQL Web Viewer": "Visualisateur web de MySQL",
@@ -126,8 +126,8 @@
 			"URL Shortener": "Raccourcisseur d'URL",
 			"YouTube Downloader Fork": "Téléchargeur YouTube Fork",
 			"Zigbee MQTT Bridge": "Pont MQTT Zigbee"
-        },
-        "description": {
+		},
+		"description": {
 			"A pure Unix shell script implementing ACME client protocol.": "Un script shell Unix pur implémentant le protocole client ACME.",
 			"The JavaScript ACME client for Let's Encrypt.": "Le client ACME JavaScript pour Let's Encrypt.",
 			"A tool to browse MySQL databases.": "Un outil pour browser des bases de données MySQL",
@@ -253,6 +253,6 @@
 			"Your Own URL Shortener.": "Votre propre raccourcisseur d'URL.",
 			"Fork of youtube-dl with additional features and fixes.": "Fork de youtube-dl avec des fonctionnalités et des correctifs supplémentaires.",
 			"Zigbee to MQTT bridge.": "Passerelle Zigbee vers MQTT."
-	   }
+		}
 	}
 }
