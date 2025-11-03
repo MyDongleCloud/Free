@@ -43,7 +43,7 @@ static char *html[][3] = {
 };
 
 static char *post[][4] = {
-	{ "adminer", "/conf.php", "auth[username]", "auth[password]" },
+	{ "adminer", "/conf.php", "auth%5Busername%5D", "auth%5Bpassword%5D" },
 	{ "bugzilla", "/index.cgi", "Bugzilla_login", "Bugzilla_password" },
 	{ "homeassistant", "/auth/login_flow", "username", "password" },
 	{ "mantisbugtracker", "/login_password_page.php", "username", NULL },
