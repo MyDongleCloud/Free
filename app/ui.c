@@ -403,7 +403,7 @@ static void doubleText(char *sz, char *sz2, int y, int x2) {
 }
 
 static void progressBar(int w, int y, char *sz, char *sz2, int p) {
-	doubleText(sz, sz2, y, 35);
+	doubleText(sz, sz2, y, 45);
 
 	static lv_style_t style_bg;
 	if (style_bg.prop_cnt == 0)
@@ -511,21 +511,21 @@ void uiScreenHome() {
 		lv_style_set_text_font(&labelStyle5, &lv_font_montserrat_10);
 		lv_obj_add_style(label5, &labelStyle5, LV_STATE_DEFAULT);
 	} else if (lmdc.homePos == 1) {
-		doubleText("Name", "Dongle-cat", 28, 40);
-		doubleText(NULL, "https://demo.mydongle.cloud", 42, 40);
-		doubleText(NULL, "https://dm.myd.cd", 56, 40);
-		doubleText("Wi-Fi", "Family-Doe", 70, 40);
-		doubleText("Local", "192.168.10.21", 84, 40);
-		doubleText("Ext", "166.23.45.165", 98, 40);
+		doubleText(L("Serial"), "4a18eb02", 28, 50);
+		doubleText(NULL, "https://demo.mydongle.cloud", 42, 50);
+		doubleText(NULL, "https://dm.myd.cd", 56, 50);
+		doubleText(L("Wi-Fi"), "Family-Doe", 70, 50);
+		doubleText(L("Local"), "192.168.10.21", 84, 50);
+		doubleText(L("Externe"), "166.23.45.165", 98, 50);
 	} else if (lmdc.homePos == 2) {
 		char sz[32];
-		sprintf(sz, L("%d%% (%d°C)"), 3, 55);
+		sprintf(sz, "%d%%, %d°C", 3, 55);
 		progressBar(120, 28, L("CPU"), sz, 3);
 
-		sprintf(sz, L("%d%% (%d proc)"), 10, 145);
+		sprintf(sz, "%d%%, %d proc", 10, 145);
 		progressBar(120, 54, L("Mem"), sz, 10);
 
-		sprintf(sz, L("%d%% (%dGB/%dTB)"), 241 * 100 / 1024, 241, 1);
+		sprintf(sz, "%d%%, %dGB/%dTB", 241 * 100 / 1024, 241, 1);
 		progressBar(120, 82, L("Disk"), sz, 241 * 100 / 1024);
 	} else if (lmdc.homePos == 3) {
 		doubleText("Port https (443)", "OK", 28, 100);
@@ -650,7 +650,7 @@ void uiScreenQrLogin() {
 	lv_obj_set_pos(imgNav1, 39, 14);
 
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, L("Login"));
+	lv_label_set_text(label0, L("Login "));
 	lv_obj_set_pos(label0, 3, 114);
 	static lv_style_t labelStyle0;
 	if (labelStyle0.prop_cnt == 0)

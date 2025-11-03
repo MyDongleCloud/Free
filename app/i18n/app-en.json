@@ -12,10 +12,13 @@
 		"Disk": "",
 		"Done": "",
 		"Exit": "",
+		"Extern": "",
 		"Health": "",
 		"Hide": "",
 		"It's recommended to properly shutdown the device with a long press on the top right button.": "",
+		"Local": "",
 		"Login": "",
+		"Login ": "",
 		"Mem": "",
 		"New module are constantly added. Check on the app regularly.": "",
 		"Next": "",
@@ -33,16 +36,16 @@
 		"Prev.": "",
 		"Rot.": "",
 		"Rotation is not supported on the web demo.": "",
+		"Serial": "",
 		"Setup": "",
 		"Sleeping...": "",
 		"Storage": "",
 		"Tips": "",
 		"Use the buttons (except OK) to rotate the screen.": "",
 		"Welcome!": "",
+		"Wi-Fi": "",
 		"Yes": "",
 		"You can recover a bricked dongle with the recovery tool (available on Windows, Linux and Mac).": "",
 		"Your code is": ""
 	}
 }
-
-
