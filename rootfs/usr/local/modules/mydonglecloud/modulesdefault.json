@@ -2,6 +2,14 @@
 	"acme": {},
 	"acmejs": {},
 	"angular": {},
+	"adminer": {
+		"web": true,
+		"enabled": true,
+		"permissions": [ "_groupadmin_" ],
+		"localPort": 9472,
+		"DirectoryIndex": "conf.php",
+		"path": "/etc/adminer"
+	},
 	"apache2": {
 		"web": true,
 		"enabled": true,

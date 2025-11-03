@@ -181,6 +181,11 @@ elif [ $OS = "pios" ]; then
 fi
 
 echo "################################"
+echo "adminer"
+echo "################################"
+apt-get -y install adminer
+
+echo "################################"
 echo "postfix"
 echo "################################"
 cat /home/mdc/private/preseed_postfix.cfg | debconf-set-selections

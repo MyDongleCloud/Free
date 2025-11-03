@@ -3,6 +3,7 @@
         "title": {
             "ACME Shell Script": "",
             "JavaScript ACME Client": "",
+            "MySQL Web Viewer": "",
             "Web App Framework": "",
             "Website": "",
             "Audiobook Podcast Server": "",
@@ -129,6 +130,7 @@
         "description": {
             "A pure Unix shell script implementing ACME client protocol.": "",
             "The JavaScript ACME client for Let's Encrypt.": "",
+            "A tool to browser MySQL databases.": "",
             "A platform for building mobile and desktop web applications.": "",
             "The most comprehensive HTTP Server Project built with security, efficiency and extensibility in mind.": "",
             "An Audiobook and podcast server to organize audio files": "",

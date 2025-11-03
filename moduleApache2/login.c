@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', (event) => { mdcSubmit = document.
 
 //Private variables
 static char *html[][3] = {
+	{ "adminer", "/conf.php", "[method=\"post\"]" },
 	{ "bugzilla", "/index.cgi", "[id=\"mini_login_top\"]" },
 	{ "homeassistant", "/auth/authorize", "" },
 	{ "mantisbugtracker", "/login_page.php", "[id=\"login-form\"]" },
@@ -42,6 +43,7 @@ static char *html[][3] = {
 };
 
 static char *post[][4] = {
+	{ "adminer", "/conf.php", "auth[username]", "auth[password]" },
 	{ "bugzilla", "/index.cgi", "Bugzilla_login", "Bugzilla_password" },
 	{ "homeassistant", "/auth/login_flow", "username", "password" },
 	{ "mantisbugtracker", "/login_password_page.php", "username", NULL },

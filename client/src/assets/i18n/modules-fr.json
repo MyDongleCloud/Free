@@ -3,6 +3,7 @@
         "title": {
 			"ACME Shell Script": "Script shell ACME",
 			"JavaScript ACME Client": "Client ACME JavaScript",
+			"MySQL Web Viewer": "Visualisateur web de MySQL",
 			"Web App Framework": "Cadre d'application web",
 			"Website": "Site web",
 			"Audiobook Podcast Server": "Serveur de podcast d'audiolivres",
@@ -129,6 +130,7 @@
         "description": {
 			"A pure Unix shell script implementing ACME client protocol.": "Un script shell Unix pur implémentant le protocole client ACME.",
 			"The JavaScript ACME client for Let's Encrypt.": "Le client ACME JavaScript pour Let's Encrypt.",
+			"A tool to browse MySQL databases.": "Un outil pour browser des bases de données MySQL",
 			"A platform for building mobile and desktop web applications.": "Une plateforme pour construire des applications Web mobiles et de bureau.",
 			"The most comprehensive HTTP Server Project built with security, efficiency and extensibility in mind.": "Le projet de serveur HTTP le plus complet conçu avec la sécurité, l'efficacité et l'extensibilité à l'esprit.",
 			"An Audiobook and podcast server to organize audio files": "Un serveur de livres audio et de podcasts pour organiser les fichiers audio",

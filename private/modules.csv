@@ -1,6 +1,7 @@
 module;name;title;category;web;status;description;keywords;proprietary;installMethod;version;github
 acme;Acme;ACME Shell Script;Utils;;;A pure Unix shell script implementing ACME client protocol.;ACME|LetsEncrypt|SSL|TLS|Script|Certificates;DigiCert CertCentral;wget;3.1.1;acmesh-official/acme.sh
 acmejs;ACME.js;JavaScript ACME Client;Backend;;done;The JavaScript ACME client for Let's Encrypt.;ACME|LetsEncrypt|SSL|TLS|JavaScript|Certificates;Sectigo;npm;3.1.0;therootcompany/acme.js
+adminer;Adminer;MySQL Web Viewer;Developer;yes;done;A tool to browse MySQL databases.;MySQL|Viewer|Web;;deb;;vrana/adminer
 angular;Angular;Web App Framework;Backend;;done;A platform for building mobile and desktop web applications.;Web|Framework|TypeScript|SPA;React;dev;6.7.5;angular/angular
 apache2;Apache2;Website;Essential;yes;done;The most comprehensive HTTP Server Project built with security, efficiency and extensibility in mind.;HTTP|Server|Web|Apache;Microsoft IIS;apt;2.4.62;apache/httpd
 audiobookshelf;Audio Bookshelf;Audiobook Podcast Server;Personal;yes;;An Audiobook and podcast server to organize audio files;Audiobooks|Podcasts|Streaming;Audible;clone;v2.26.2;advplyr/audiobookshelf
