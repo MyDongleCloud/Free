@@ -104,20 +104,18 @@
 		"Welcome\nback!": "Ravi de\nvous revoir"
 	},
 	"permissions": {
-		"ADMIN": "ADMIN",
 		"DESCRIPTION": "DESCRIPTION",
 		"DISABLED": "DÉSACTIVÉ",
 		"Find modules...": "Rechercher des modules...",
-		"GROUP": "GROUPE",
-		"LOCAL": "LOCAL",
-		"name": "nom",
-		"NETWORK": "RÉSEAU",
+		"GROUP\nADMIN": "GROUPE\nADMIN",
+		"GROUP\nUSER": "GROUPE\nUTILISATEUR",
+		"LOCAL\nNETWORK": "LOCAL\nRÉSEAU",
+		"OPEN SOURCE": "OPEN SOURCE",
 		"Permissions": "Autorisations",
 		"PUBLIC": "PUBLIC",
 		"Reset": "Réinitialiser",
 		"Save": "Enregistrer",
-		"title": "titre",
-		"USER": "UTILISATEUR"
+		"TITLE": "TITRE"
 	},
 	"profile": {
 		"Reset": "Réinitialiser",

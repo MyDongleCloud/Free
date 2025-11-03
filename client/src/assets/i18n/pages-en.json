@@ -104,20 +104,18 @@
 		"Welcome\nback!": ""
 	},
 	"permissions": {
-		"ADMIN": "",
 		"DESCRIPTION": "",
 		"DISABLED": "",
 		"Find modules...": "",
-		"GROUP": "",
-		"LOCAL": "",
-		"name": "",
-		"NETWORK": "",
+		"GROUP\nADMIN": "",
+		"GROUP\nUSER": "",
+		"LOCAL\nNETWORK": "",
+		"OPEN SOURCE": "",
 		"Permissions": "",
 		"PUBLIC": "",
 		"Reset": "",
 		"Save": "",
-		"title": "",
-		"USER": ""
+		"TITLE": ""
 	},
 	"profile": {
 		"Reset": "",
