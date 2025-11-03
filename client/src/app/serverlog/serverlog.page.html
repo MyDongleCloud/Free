@@ -5,15 +5,14 @@
 		<ion-content>
 			<main class="flex-1 p-6 bg-background space-y-6">
 				<div class="mt-6 overflow-hidden shadow md:rounded-lg">
-
 					<ion-list lines="none">
 						<ng-template #recursiveTree let-nodes="nodes" let-depth="depth">
 							<ng-container *ngFor="let node of nodes">
-								<ion-item (click)="node.type === 'file' ? viewFileContent(node) : toggleExpand(node)" detail=false>
+								<ion-item (click)="node.type === 'file' ? viewFileContent(node) : toggleExpand(node)" detail=false  class="cursor-pointer">
 									<ion-icon [name]="node.type === 'directory' ? (isExpanded(node) ? 'folder-open' : 'folder') : node.type === 'symlink' ? 'link' : 'document'" slot="start" [color]="node.type === 'directory' ? 'primary' : 'medium'"></ion-icon>
 									&nbsp;
 									<ion-label>
-										<h3 style="cursor:pointer;">
+										<h3>
 											{{ node.name }}
 											<ion-note color="medium" *ngIf="node.type !== 'file'">
 												{{ node.permissions }} · {{ node.owner }}:{{ node.group }}
@@ -22,7 +21,7 @@
 												</ion-note>
 											</ion-note>
 										</h3>
-										<p *ngIf="node.type === 'file'" style="cursor:pointer;">
+										<p *ngIf="node.type === 'file'">
 											{{ node.permissions }} · {{ node.owner }}:{{ node.group }} · {{ getSizeString(node.size) }}
 											<ion-note *ngIf="node.modified" color="medium" class="ion-float-right">
 												{{ node.modified | date:'short' }}
@@ -43,7 +42,6 @@
 		</ion-content>
 	</div>
 </div>
-
 <ion-modal #modalContent class="file-content-modal">
 	<ng-template>
 		<h3 style="position:relative; background-color:#3880ff; color:white; padding-top:5px; padding-bottom:5px; text-align:center; width:100%;" (click)="closeContent()">{{L("Content of")}} {{modalContentMeta }}<ion-icon name="close-circle-outline" style="position:absolute; right:10px; width:24px; height:24px; cursor:pointer;"></ion-icon></h3>
