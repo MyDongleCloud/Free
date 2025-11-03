@@ -83,8 +83,18 @@ static apr_status_t mydonglecloud_html_filter(ap_filter_t *f, apr_bucket_brigade
 		}
 		//PRINTFc("%.*s", len, data);
 		char *pos = strstr(data, "<head>");
-		if (!pos)
-			continue;
+		if (pos == NULL) {
+			pos = strstr(data, "<html>");
+			if (pos == NULL) {
+					pos = strstr(data, "<html");
+					if (pos == NULL)
+						continue;
+					pos = strstr(pos, ">");
+					if (pos == NULL)
+						continue;
+					pos -= 5;
+			}
+		}
 		apr_size_t offset = (pos - data) + 6;
 		apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
 		apr_bucket_split(b, offset);
