@@ -19,7 +19,7 @@ const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/dis
 const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
-const cloudPath = adminPath + "mydonglecloud/cloud.json";
+const cloudPath = adminPath + "_config/_cloud_.json";
 export const cloud = existsSync(cloudPath) ? JSON.parse(readFileSync(cloudPath, "utf-8")) : { name:"", domains: [] };
 const modulesPath = adminPath + "_config/_modules_.json";
 let modules = {};
