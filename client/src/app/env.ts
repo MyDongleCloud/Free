@@ -221,12 +221,13 @@ openPage(url: string) {
 	this.router.navigate(["/" + url]);
 }
 
-openModule(module, page, extract) {
+openModule(module, alias, page, extract) {
+	const subdomain = alias[0] ?? module;
 	if (extract && !this.demo)
-		window.open(location.protocol + "//" + location.host + "/m/" + module + (page ?? ""), "_blank");
+		window.open(location.protocol + "//" + location.host + "/m/" + subdomain + (page ?? ""), "_blank");
 	else {
 		this.navCtrl.setDirection('root');
-		this.router.navigate(["/wrapper"], { queryParams:{ module, page } });
+		this.router.navigate(["/wrapper"], { queryParams:{ module, subdomain, page } });
 	}
 }
 

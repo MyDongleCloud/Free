@@ -50,32 +50,32 @@
 						</span>
 					</label>
 				</div>
-				<a (click)="global.openModule('roundcube', '/autologin.php', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('roundcube', [ 'webmail' ], '/autologin.php', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-cent/.pnger justify-center">
 						<img src="assets/icons_modules/roundcube.png" class="w-5 h-5"/>
 					</div>
 					<span>Mail</span>
 					<span class="ml-auto bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-medium">5</span>
 				</a>
-				<a (click)="global.openModule('openwebui', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('openwebui', [ 'chatbot' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<img src="assets/icons_modules/openwebui.png" class="w-5 h-5"/>
 					</div>
 					<span>Chatbot</span>
 				</a>
-				<a (click)="global.openModule('jitsimeet', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('jitsimeet', [ 'conference' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<img src="assets/icons_modules/jitsimeet.png" class="w-5 h-5"/>
 					</div>
 					<span>Video Conference</span>
 				</a>
-				<a (click)="global.openModule('homeassistant', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('homeassistant', [ 'home' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<img src="assets/icons_modules/homeassistant.png" class="w-5 h-5"/>
 					</div>
 					<span>Home Automation</span>
 				</a>
-				<a (click)="global.openModule('photoview', '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+				<a (click)="global.openModule('photoview', [ 'photos' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<img src="assets/icons_modules/photoview.png" class="w-5 h-5"/>
 					</div>
@@ -90,7 +90,7 @@
 				</div>
 				<span>{{LG("Settings")}}</span>
 			</a>
-			<a (click)="global.openModule('betterauthstudio', null, false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+			<a (click)="global.openModule('betterauthstudio', [ 'identity' ], null, false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="people-outline" class="w-5 h-5"></ion-icon>
 				</div>
@@ -108,7 +108,7 @@
 				</div>
 				<span>{{LG("Dongle")}}</span>
 			</a>
-			<a (click)="global.openModule('webssh2', '/access', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+			<a (click)="global.openModule('webssh2', [ 'ssh' ], '/access', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="terminal-outline" class="w-5 h-5"></ion-icon>
 				</div>

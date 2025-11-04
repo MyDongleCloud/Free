@@ -15,6 +15,7 @@ export class Wrapper {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
 module: string = "";
+subdomain: string = "";
 page: string = "";
 title: string = "";
 nameP: string = "";
@@ -23,6 +24,7 @@ safeUrl: SafeResourceUrl;
 constructor(public global: Global, private route: ActivatedRoute, private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef) {
 	this.route.queryParams.subscribe((params) => {
 		this.module = params?.module;
+		this.subdomain = params?.subdomain;
 		this.page = params?.page;
 		this.title = modulesMeta[this.module].title;
 		this.nameP = " (" + modulesMeta[this.module].name + ")";
@@ -31,7 +33,8 @@ constructor(public global: Global, private route: ActivatedRoute, private saniti
 }
 
 update() {
-	const url = location.protocol + "//" + location.host + "/m/" + this.module + (this.page ?? "");
+	const tmp = this.subdomain ?? this.module;
+	const url = location.protocol + "//" + location.host + "/m/" + tmp + (this.page ?? "");
 	this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 }
 

@@ -110,7 +110,7 @@
 						<div class="flex flex-col">
 							<div class="min-w-full flex items-center">
 								<p class="text-sm font-medium text-gray-600 cursor-pointer">
-									<a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{card.name}}</a>
+									<a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">{{card.name}}</a>
 									<ion-icon size="small" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon>
 								</p>
 								<div class="flex-1"></div>
@@ -122,11 +122,11 @@
 								<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 							</div>
 							<div class="min-w-full flex items-center mt-2 mb-2 overflow-hidden">
-								<p class="text-3xl font-bold text-gray-900"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{firstWords(LMT(card.title))}} </a><span class="whitespace-nowrap"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{lastWord(LMT(card.title))}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" *ngIf="card.web" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon><ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon></span></p>
+								<p class="text-3xl font-bold text-gray-900"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">{{firstWords(LMT(card.title))}} </a><span class="whitespace-nowrap"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">{{lastWord(LMT(card.title))}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" *ngIf="card.web" (click)="global.openModule(card.module, card?.alias, card?.homepage, true);"></ion-icon><ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon></span></p>
 								<div class="flex-1"></div>
 								<div class="ml-3 flex flex-col gap-2 items-end">
 									<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="global.colorWord(card.category)">
-										<img src="assets/icons_modules/{{card.module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, false);">
+										<img src="assets/icons_modules/{{card.module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">
 									</div>
 								</div>
 							</div>
@@ -175,9 +175,9 @@
 						<tbody class="bg-white divide-y divide-gray-200">
 							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg-red-50' : card.web != true ? 'bg-indigo-50' : ''">
 								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></div>
+									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.alias, card?.homepage, true);"></ion-icon></div>
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{card.name}}</a></td>
+								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a (click)="global.openModule(card.module, card?.alias, card?.homepage, false);" class="cursor-pointer">{{card.name}}</a></td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
 									<div class="-ml-2" *ngIf="!card.enabled">
 										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
@@ -221,7 +221,7 @@
 				<tr><td colspan="3">
 					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)">
-							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
+							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.alias, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
 						</div>
 					</a>
 					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[findIdByModule(moduleCur)].title)}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
@@ -289,7 +289,7 @@
 				<tr><td colspan="3">
 					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)">
-							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
+							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.alias, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
 						</div>
 					</a>
 					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[findIdByModule(moduleCur)].title)}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
