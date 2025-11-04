@@ -27,7 +27,9 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
 	this.consolelog(0, "%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
 	this.consolelog(0, "%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
-	this.consolelog(0, "%cVersion: " + this.VERSION, "background-color:rgb(100, 100, 100); border-radius:5px; padding:5px;");
+	this.consolelog(0, "%cVersion: " + this.VERSION, "background-color:#646464; border-radius:5px; padding:5px;");
+	this.consolelog(0, "%cPlease give a ⭐ to this project at:", "color:black; background-color:#fef9c2; border-radius:5px; padding:5px;");
+	this.consolelog(0, "%chttps://github.com/mydonglecloud/free", "border:1px solid white; border-radius:5px; padding:5px; font-weight:bold;");
 	this.consolelog(1, "Platform: " + this.plt.platforms());
 	this.getSession();
 	navCtrl.setDirection("forward");
