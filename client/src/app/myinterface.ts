@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface Settings {
-	language: string,
+	lang: string,
 	powerUser: boolean,
-	isDev: number,
-	deviceId: string,
-	email: string,
-	welcomeSeen: boolean,
-	reviewRequestLastTime,
-	dontShowAgain: object,
-	currentUrl: string,
+	dontShowAgain: object
 }

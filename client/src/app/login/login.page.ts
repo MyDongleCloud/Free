@@ -110,7 +110,7 @@ async ionViewDidEnter() {
 		this.global.logout();
 	this.ready = true;
 	if (this.global.demo) {
-		if (this.global.settings.language == "fr")
+		if (this.global.settings.lang == "fr")
 			this.formLogin.get("email1").setValue("jean.dupont@exemple.fr");
 		else
 			this.formLogin.get("email1").setValue("john.doe@example.com");
@@ -118,9 +118,7 @@ async ionViewDidEnter() {
 		setTimeout(() => { (document.getElementById("submit1") as HTMLInputElement).focus(); }, 100);
 		return;
 	}
-	let email = this.global.settings.email ?? null;
-	if (email == null)
-		email = this.global.getCookie("email");
+	let email = this.global.getCookie("email");
 	if (email != null) {
 		this.formLogin.get("email1").setValue(email);
 		setTimeout(() => { (document.getElementById("password1") as HTMLInputElement).focus(); }, 100);

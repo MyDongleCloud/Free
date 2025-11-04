@@ -42,9 +42,6 @@ async ionViewDidEnter() {
 	if (this.global.session != null)
 		this.global.logout();
 	this.ready = true;
-	let email = this.global.settings.email ?? null;
-	if (email == null)
-		email = this.global.getCookie("email");
 	setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
 }
 

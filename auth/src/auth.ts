@@ -167,10 +167,10 @@ export const auth = betterAuth({
 				defaultValue: "user",
 				input: false
 			},
-			lang: {
+			settings: {
 				type: "string",
 				required: true,
-				defaultValue: "en"
+				defaultValue: JSON.stringify({ lang:"en", powerUser:false, dontShowAgain:{} })
 			}
 		}
 	},

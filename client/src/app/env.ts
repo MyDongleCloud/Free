@@ -33,7 +33,7 @@ VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
 currentUrl: string;
 activateUrl: string;
-settings: Settings = {} as Settings;
+settings: Settings = { lang:"en" } as Settings;
 refreshUI:Subject<any> = new Subject();
 firmwareServerVersion;
 session;
@@ -54,7 +54,6 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 		this.changeLanguage(this.translate.getBrowserLang());
 	this.AuthStatus();
 	this.getSession();
-	this.settingsLoad();
 }
 
 consolelog(level, ...st) {
@@ -108,6 +107,8 @@ async getSession() {
 	if (this.session != null) {
 		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
 		this.setCookie("jwt", jwt["token"]);
+		this.settings = JSON.parse(this.session.user.settings);
+		await this.translate.use(this.settings.lang);
 	}
 }
 
@@ -119,7 +120,6 @@ async logout() {
 		this.consolelog(2, "Auth revoke-session: ", ret);
 	} catch(e) {}
 	this.session = null;
-	this.settingsSave();
 }
 
 async logoutRedirect() {
@@ -127,29 +127,7 @@ async logoutRedirect() {
 	this.openPage("/login");
 }
 
-async settingsLoad() {
-	this.consolelog(1, "settingsLoad: Enter");
-	const { value } = await Preferences.get({key: "settings"});
-	if (value != null)
-		this.settings = JSON.parse(value);
-	if (this.settings.powerUser === undefined)
-		this.settings.powerUser = false;
-	if (this.settings.isDev === undefined)
-		this.settings.isDev = 0;
-	if (this.settings.dontShowAgain === undefined)
-		this.settings.dontShowAgain = Object();
-	if (this.settings.deviceId === undefined)
-		this.settings.deviceId = await Device.getId()["identifier"];
-	const e = this.getCookie("email");
-	if (e !== undefined)
-		this.settings.email = e;
-	await this.translate.use(this.settings.language);
-}
-
 async settingsSave() {
-	this.consolelog(1, "settingsSave: Enter");
-	let st = JSON.stringify(this.settings);
-	await Preferences.set({key: "settings", value: st});
 }
 
 async backButtonAlert() {
@@ -195,9 +173,9 @@ async presentQuestion(hd, st, msg, key:string = "") {
 }
 
 async changeLanguage(st) {
-	if (st != this.settings.language) {
-		this.settings.language = st;
-		await this.translate.use(this.settings.language);
+	if (st != this.settings.lang) {
+		this.settings.lang = st;
+		await this.translate.use(this.settings.lang);
 	}
 }
 
@@ -209,7 +187,7 @@ changeLanguageAndRefresh(l) {
 mytranslateP(page, st) {
 	const inp = page + "." + st;
 	const ret = this.translate.instant(page + "." + st);
-	return ret == "" ? (this.developer && this.settings.language != "en" ? ("##" + st + "##") : st) : ret == inp ? (this.developer ? ("##" + st + "##") : st) : ret;
+	return ret == "" ? (this.developer && this.settings.lang != "en" ? ("##" + st + "##") : st) : ret == inp ? (this.developer ? ("##" + st + "##") : st) : ret;
 }
 
 mytranslate(st) {
@@ -366,7 +344,7 @@ colorWord(st, bckgd = true) {
 }
 
 review() {
-	this.settings.reviewRequestLastTime = Date.now();
+	//this.settings.reviewRequestLastTime = Date.now();
 	this.settingsSave();
 	InAppReview.requestReview();
 }

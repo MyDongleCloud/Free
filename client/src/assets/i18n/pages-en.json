@@ -1,15 +1,10 @@
 {
 	"about": {
 		"About MyDongle.Cloud": "",
-		"ADVANCED USER MODE": "",
 		"App Version:": "",
 		"Copyright": "",
-		"dangerous, use with cautious": "",
-		"Development Mode": "",
-		"Device Version:": "",
-		"Languages:": "",
-		"My": "",
-		"Power User Mode": ""
+		"Dongle Version:": "",
+		"My": ""
 	},
 	"backup": {
 		"Backup": "",
@@ -120,17 +115,41 @@
 		"TITLE": ""
 	},
 	"profile": {
-		"Reset": "",
-		"Save": ""
+		"Email": "",
+		"Enable": "",
+		"General": "",
+		"General Settings": "",
+		"Identity": "",
+		"Language": "",
+		"Name": "",
+		"Power User Mode": "",
+		"Profile": "",
+		"Security": "",
+		"Security Settings": "",
+		"Two-Factor Authentication": "",
+		"Username": "",
+		"Web App": ""
 	},
 	"serverlog": {
 		"System Logs": "",
 		"Content of": ""
 	},
 	"settings": {
-		"Reset": "",
-		"Save": "",
-		"Settings": ""
+		"Admin account has sudo rights": "",
+		"BYO Domains (Bring Your Own Domains)": "",
+		"Cloud Name": "",
+		"Domains": "",
+		"Dongle Settings": "",
+		"General": "",
+		"General Settings": "",
+		"Language": "",
+		"Security": "",
+		"Security Settings": "",
+		"Settings": "",
+		"Short Name": "",
+		"SSH Settings": "",
+		"SSH settings can be tuned in the SSH module.": "",
+		"Sudo": ""
 	},
 	"setup": {
 		"Account": "",

@@ -1,15 +1,10 @@
 {
 	"about": {
 		"About MyDongle.Cloud": "À propos de MonDongle.Cloud",
-		"ADVANCED USER MODE": "MODE UTILISATEUR AVANCÉ",
 		"App Version:": "Version de l'app :",
 		"Copyright": "Droits d'auteur",
-		"dangerous, use with cautious": "dangereux, utilisez avec prudence",
-		"Development Mode": "Mode de développement",
-		"Device Version:": "Version de l'appareil :",
-		"Languages:": "Langues :",
-		"My": "Mon",
-		"Power User Mode": "Mode utilisateur avancé"
+		"Dongle Version:": "Version de l'appareil :",
+		"My": "Mon"
 	},
 	"backup": {
 		"Backup": "Sauvegarde",
@@ -120,17 +115,41 @@
 		"TITLE": "TITRE"
 	},
 	"profile": {
-		"Reset": "Réinitialiser",
-		"Save": "Enregistrer"
+		"Email": "Email",
+		"Enable" : "Activer",
+		"General" : "Général",
+		"General Settings" : "Paramètres généraux",
+		"Identity": "Identité",
+		"Language" : "Langue",
+		"Name": "Nom",
+		"Power User Mode" : "Mode utilisateur avancé",
+		"Profile" : "Profil",
+		"Security" : "Sécurité",
+		"Security Settings" : "Paramètres de sécurité",
+		"Two-Factor Authentication" : "Authentification à deux facteurs",
+		"Username": "Nom d'utilisateur",
+		"Web App" : "Application Web"
 	},
 	"serverlog": {
 		"System Logs": "Journaux du système",
 		"Content of": "Contenu de"
 	},
 	"settings": {
-		"Reset": "Réinitialiser",
-		"Save": "Enregistrer",
-		"Settings": "Paramètres"
+		"Admin account has sudo rights" : "Le compte administrateur a des droits sudo",
+		"BYO Domains (Bring Your Own Domains)" : "APV Domaines (Apportez Vos Propres Domaines)",
+		"Cloud Name" : "Nom du cloud",
+		"Domains" : "Domaines",
+		"Dongle Settings" : "Paramètres du dongle",
+		"General" : "Général",
+		"General Settings" : "Paramètres généraux",
+		"Language" : "Langue",
+		"Security" : "Sécurité",
+		"Security Settings" : "Paramètres de sécurité",
+		"Settings" : "Paramètres",
+		"Short Name" : "Nom court",
+		"SSH Settings" : "Paramètres SSH",
+		"SSH settings can be tuned in the SSH module." : "Les paramètres SSH peuvent être ajustés dans le module SSH.",
+		"Sudo" : "Sudo"
 	},
 	"setup": {
 		"Account": "Compte",

@@ -12,7 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class Profile {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
-dResetSave: boolean = true;
+activeTab = "general";
+TwoFA;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
@@ -20,14 +21,10 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	});
 }
 
-async ionViewDidEnter() {
-	await this.getData();
-}
-
-async save() {
-}
-
-async getData() {
+async changeLanguageAndRefresh(l: string) {
+	await this.global.changeLanguage(l);
+	this.cdr.detectChanges();
+	setTimeout(() => {this.cdr.detectChanges();}, 500);
 }
 
 }
