@@ -38,6 +38,7 @@
 	"betterauthstudio": {
 		"web": true,
 		"enabled": true,
+		"alias": [ "identities", "identity" ],
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9402,
 		"reverseProxy": [ {
@@ -199,6 +200,7 @@
 		"web": true,
 		"enabled": true,
 		"reset": true,
+		"alias": [ "home" ],
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9417,
 		"reverseProxy": [ {
@@ -401,6 +403,7 @@
 	"openwebui": {
 		"web": true,
 		"enabled": true,
+		"alias": [ "chatbot", "chat" ],
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9441
 	},
@@ -437,6 +440,7 @@
 	"photoview": {
 		"web": true,
 		"enabled": true,
+		"alias": [ "photos", "photo" ],
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9445
 	},
