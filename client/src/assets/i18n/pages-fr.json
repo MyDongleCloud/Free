@@ -47,6 +47,7 @@
 	"": {
 		"All": "Tous",
 		"Cards": "Cartes",
+		"CAT.": "CAT.",
 		"category": "catégorie",
 		"Dashboard": "Tableau de bord",
 		"DESCRIPTION": "DESCRIPTION",
@@ -60,11 +61,12 @@
 		"name": "nom",
 		"Nº": "Nº",
 		"Not yet done": "Pas encore terminé",
+		"OPEN SOURCE": "OPEN SOURCE",
 		"PERMISSIONS": "AUTORISATIONS",
 		"Settings of": "Paramètres de",
 		"Table": "Tableau",
 		"Terminal modules": "Modules de terminal",
-		"title": "titre"
+		"TITLE": "TITRE"
 	},
 	"login": {
 		"Already have an account?": "Avez-vous déjà un compte ?",

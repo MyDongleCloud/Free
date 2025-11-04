@@ -82,6 +82,7 @@ async getData() {
 		value["bookmark"] = false;
 		this.cards.push(value);
 	});
+	this.global.modulesCount = this.cards.length;
 	this.filterCards();
 	this.cdr.markForCheck();
 	Home.firstTime = false;
@@ -160,7 +161,7 @@ closeModuleInfo() {
 
 async settings(module) {
 	this.moduleCur = module;
-	if (this.cards[this.findIdByModule(this.moduleCur)].reset)
+	if (this.cards[this.findIdByModule(this.moduleCur)].resetConfig)
 		await this.config();
 	await this.modalModuleSettings.present();
 }

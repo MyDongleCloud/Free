@@ -37,6 +37,7 @@ settings: Settings = {} as Settings;
 refreshUI:Subject<any> = new Subject();
 firmwareServerVersion;
 session;
+modulesCount = 0;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
@@ -336,32 +337,32 @@ permissions(st) {
 		return null;
 }
 
-colorWord(st) {
+colorWord(st, bckgd = true) {
 	if (st == "_disabled_")
-		return "bg-red-100 text-red-800";
+		return (bckgd ? "bg-red-100 " : "") + "text-red-800";
 
 	else if (st == "_public_")
-		return "bg-green-100 text-green-800";
+		return (bckgd ? "bg-green-100 " : "") + "text-green-800";
 	else if (st == "_localnetwork_")
-		return "bg-orange-100 text-orange-800";
+		return (bckgd ? "bg-anber-100 " : "") + "text-amber-800";
 	else if (st == "_groupadmin_" || st == "admin")
-		return "bg-yellow-100 text-yellow-800";
+		return (bckgd ? "bg-orange-100 " : "") + "text-orange-800";
 	else if (st == "_groupuser_" || st == "users")
-		return "bg-purple-100 text-purple-800";
+		return (bckgd ? "bg-purple-100 " : "") + "text-purple-800";
 
 	else if (st == "Essential")
-		return "bg-purple-100 text-purple-800";
+		return (bckgd ? "bg-yellow-100 " : "") + "text-yellow-800";
 	else if (st == "Personal")
-		return "bg-blue-100 text-blue-800";
+		return (bckgd ? "bg-blue-100 " : "") + "text-blue-800";
 	else if (st == "Productivity")
-		return "bg-indigo-100 text-indigo-800";
+		return (bckgd ? "bg-purple-100 " : "") + "text-purple-800";
 	else if (st == "Utils")
-		return "bg-cyan-100 text-cyan-800";
+		return (bckgd ? "bg-cyan-100 " : "") + "text-cyan-800";
 	else if (st == "Developer")
-		return "bg-red-100 text-red-800";
+		return (bckgd ? "bg-red-100 " : "") + "text-red-800";
 
 	else
-		return "bg-gray-100 text-gray-800";
+		return (bckgd ? "bg-gray-100 " : "") + "text-gray-800";
 }
 
 review() {

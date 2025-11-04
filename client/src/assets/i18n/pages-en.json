@@ -47,6 +47,7 @@
 	"": {
 		"All": "",
 		"Cards": "",
+		"CAT.": "",
 		"category": "",
 		"Dashboard": "",
 		"DESCRIPTION": "",
@@ -60,11 +61,12 @@
 		"name": "",
 		"Nº": "",
 		"Not yet done": "",
+		"OPEN SOURCE": "",
 		"PERMISSIONS": "",
 		"Settings of": "",
 		"Table": "",
 		"Terminal modules": "",
-		"title": ""
+		"TITLE": ""
 	},
 	"login": {
 		"Already have an account?": "",

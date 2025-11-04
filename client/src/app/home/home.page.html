@@ -10,16 +10,19 @@
 						</div>
 						<input type="text" [(ngModel)]="searchTerm" (input)="filterCards()" placeholder="{{L('Find modules...')}}" class="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors">
 					</div>
+					<button (click)="searchTerm = ''; filterCards()" class="hidden items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer" [class]="searchTerm != '' ? 'inline-flex' : ''" [style]="showDetails ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
+						<ion-icon name="refresh-outline" class="w-4 h-4"></ion-icon>
+					</button>
 					<div class="flex-1"></div>
-<div class="flex items-center" [class]="global.developer ? '' : 'hidden'">
-<ion-checkbox [(ngModel)]="showDone" labelPlacement="end" (ionChange)="filterCards()" >{{L("Done")}}</ion-checkbox>&nbsp;&nbsp;&nbsp;&nbsp;
-<ion-checkbox [(ngModel)]="showNotDone" labelPlacement="end" (ionChange)="filterCards()">{{L("Not yet done")}}</ion-checkbox>
-</div>
-					<button (click)="showDetails = !showDetails;" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 cursor-pointer" [ngClass]="showDetails ? 'bg-gray-100': ''" [style]="showDetails ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
+					<div class="flex items-center" [class]="global.developer ? '' : 'hidden'">
+						<ion-checkbox [(ngModel)]="showDone" labelPlacement="end" (ionChange)="filterCards()" >{{L("Done")}}</ion-checkbox>&nbsp;&nbsp;&nbsp;&nbsp;
+						<ion-checkbox [(ngModel)]="showNotDone" labelPlacement="end" (ionChange)="filterCards()">{{L("Not yet done")}}</ion-checkbox>
+					</div>
+					<button (click)="showDetails = !showDetails;" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer" [class]="showDetails ? 'bg-gray-100': ''" [style]="showDetails ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
 						<ion-icon name="aperture-outline" class="w-4 h-4"></ion-icon>
 						{{L("Details")}}
 					</button>
-					<button (click)="showTerminal = !showTerminal; filterCards();" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 cursor-pointer" [ngClass]="showTerminal ? 'bg-teal-50': ''" [style]="showTerminal ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
+					<button (click)="showTerminal = !showTerminal; filterCards();" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-indigo-200 transition-colors cursor-pointer" [class]="showTerminal ? 'bg-indigo-50': ''" [style]="showTerminal ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
 						<ion-icon name="terminal-outline" class="w-4 h-4"></ion-icon>
 						<span class="whitespace-pre-wrap">{{L("Terminal modules")}}</span>
 					</button>
@@ -39,45 +42,45 @@
 							<input type="radio" name="category" [(ngModel)]="category" value="Essential" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="star-outline" class="w-5 h-5"></ion-icon>
+								<ion-icon name="star-outline" class="w-5 h-5" [class]="global.colorWord('Essential')"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Essential")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Essential')">{{LG("Essential")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Personal" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="person-outline" class="w-5 h-5"></ion-icon>
+								<ion-icon name="person-outline" class="w-5 h-5" [class]="global.colorWord('Personal')"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Personal")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Personal')">{{LG("Personal")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Productivity" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="attach-outline" class="w-5 h-5"></ion-icon>
+								<ion-icon name="attach-outline" class="w-5 h-5" [class]="global.colorWord('Productivity')"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Productivity")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Productivity')">{{LG("Productivity")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Utils" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="hammer-outline" class="w-5 h-5"></ion-icon>
+								<ion-icon name="hammer-outline" class="w-5 h-5" [class]="global.colorWord('Utils')"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Utils")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Utils')">{{LG("Utils")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Developer" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="code-slash-outline" class="w-5 h-5"></ion-icon>
+								<ion-icon name="code-slash-outline" class="w-5 h-5" [class]="global.colorWord('Developer')"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Developer")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Developer')">{{LG("Developer")}}</span>
 						</label>
 					</div>
 					<div class="flex rounded-lg border border-gray-200 bg-white p-1">
@@ -103,7 +106,7 @@
 			</div>
 			<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" *ngIf="presentation == 'cards'">
-					<div class="rounded-xl border border-gray-200 p-3 shadow-sm flex flex-col" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg-red-50' : card.web != true ? 'bg-teal-50' : ''">
+					<div class="rounded-xl border border-gray-200 p-3 shadow-sm flex flex-col" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg-red-50' : card.web != true ? 'bg-indigo-50' : ''">
 						<div class="flex flex-col">
 							<div class="min-w-full flex items-center">
 								<p class="text-sm font-medium text-gray-600 cursor-pointer">
@@ -114,11 +117,11 @@
 								<span class="text-sm mr-2" *ngIf="showDetails">{{L("Nº")}}{{cc + 1}}</span>
 								<ion-icon [name]="card?.bookmark ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="bookmark(card.module)" [class]="card?.bookmark ? '' : 'text-gray-300'" *ngIf="card.enabled"></ion-icon>
 								<ion-icon name="cloud-offline-outline" class="w-5 h-5 text-red-500 mr-2" *ngIf="!card.enabled"></ion-icon>
-								<ion-icon name="lock-open-outline" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0])" *ngIf="card.enabled"></ion-icon>
-								<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.reset"></ion-icon>
+								<ion-icon name="lock-open-outline" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.enabled"></ion-icon>
+								<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.resetConfig"></ion-icon>
 								<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 							</div>
-							<div class="min-w-full flex items-center mt-2 mb-2">
+							<div class="min-w-full flex items-center mt-2 mb-2 overflow-hidden">
 								<p class="text-3xl font-bold text-gray-900"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{firstWords(LMT(card.title))}} </a><span class="whitespace-nowrap"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.homepage, false);">{{lastWord(LMT(card.title))}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" *ngIf="card.web" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon><ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon></span></p>
 								<div class="flex-1"></div>
 								<div class="ml-3 flex flex-col gap-2 items-end">
@@ -161,7 +164,7 @@
 						<thead class="bg-gray-50">
 							<tr>
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("TITLE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("OPEN-SOURCE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("OPEN SOURCE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("PERMISSIONS")}}</th>
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("CAT.")}}<ion-icon *ngIf="category == 'All'" class="w-5 h-5 ml-2" (click)="toggleSortDirection('category')" [name]="sortDirection['category'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">{{L("DESCRIPTION")}}</th>
@@ -170,7 +173,7 @@
 							</tr>
 						</thead>
 						<tbody class="bg-white divide-y divide-gray-200">
-							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg-red-50' : card.web != true ? 'bg-teal-50' : ''">
+							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg-red-50' : card.web != true ? 'bg-indigo-50' : ''">
 								<td class="px-6 py-4 whitespace-nowrap">
 									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module, card?.homepage, false);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.homepage, true);"></ion-icon></div>
 								</td>
@@ -316,10 +319,10 @@
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Config</td><td width="20"></td><td><pre>{{ moduleConfig | json }}</pre></td></tr>
-				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
-				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td>Reset</td><td width="20"></td><td><ion-button (click)="reset()"><ion-icon name="refresh-outline" size="medium"></ion-icon>Reset</ion-button></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td colspan="3" class="h-px bg-gray-300"></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td>Reset</td><td width="20"></td><td><ion-button (click)="reset()"><ion-icon name="refresh-outline" size="medium"></ion-icon>Reset</ion-button></td></tr>
 			</table></div>
 	</ng-template>
 </ion-modal>
