@@ -20,7 +20,7 @@ declare var appLanguage: any;
 export class Dongle {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
-typeBluetooth: boolean = true;
+typeBluetooth: boolean = false;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
