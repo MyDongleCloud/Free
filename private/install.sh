@@ -280,6 +280,15 @@ dpkg -i rethinkdb*.deb
 cd ..
 
 echo "################################"
+echo "mongodb"
+echo "################################"
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg --dearmor -o /etc/apt/keyrings/mongodb.gpg
+echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/mongodb.gpg] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.2 multiverse" > /etc/apt/sources.list.d/mongodb.list
+apt-get update
+apt-get install -y mongodb-org
+ln -sf /etc/systemd/system/mongodb.service /etc/systemd/system/multi-user.target.wants/mongodb.service
+
+echo "################################"
 echo "devmem2"
 echo "################################"
 cd /home/mdc/build
@@ -304,6 +313,18 @@ wget -nv https://github.com/live-codes/livecodes/releases/download/v46/livecodes
 mkdir /usr/local/modules/livecodes
 tar -xpf livecodes-v46.tar.gz -C /usr/local/modules/livecodes --strip-components=1
 cd ..
+
+echo "################################"
+echo "meilisearch"
+echo "################################"
+cd /home/mdc/build
+curl -L https://install.meilisearch.com | sh
+chmod a+x meilisearch
+mv meilisearch /usr/local/bin/
+adduser --system --no-create-home --group meilisearch
+mkdir /var/lib/meilisearch
+chown -R meilisearch:meilisearch /var/lib/meilisearch
+ln -sf /etc/systemd/system/meilisearch.service /etc/systemd/system/multi-user.target.wants/meilisearch.service
 
 echo "################################"
 echo "qdrant"
@@ -525,6 +546,7 @@ else
 	clone joplin laurent22/joplin server-v3.4.1
 	clone jstinker johncipponeri/jstinker master
 	clone karakeep karakeep-app/karakeep v0.26.0
+	clone librechat danny-avila/LibreChat v0.7.9
 	clone librephotos LibrePhotos/librephotos HEAD
 	clone limesurvey LimeSurvey/LimeSurvey 6.15.3+250708
 	clone mantisbugtracker mantisbt/mantisbt release-2.27.1
@@ -609,6 +631,16 @@ echo "################################"
 cd /usr/local/modules/joomla
 composer -n install
 npm ci
+
+echo "################################"
+echo "librechat"
+echo "################################"
+cd /usr/local/modules/librechat
+npm install
+npm install @smithy/signature-v4 @smithy/eventstream-codec
+npm run frontend
+ln -sf /disk/admin/modules/librechat/env .env
+ln -sf /disk/admin/modules/librechat/logs api/
 
 echo "################################"
 echo "mantisbugtracker"

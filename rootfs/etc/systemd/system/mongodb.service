@@ -1,0 +1,16 @@
+[Unit]
+Description=MongoDB Database Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/mongod --config /etc/mongod.conf
+PIDFile=/var/run/mongodb/mongod.pid
+Type=forking
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=2s
+User=mongodb
+
+[Install]
+WantedBy=multi-user.target

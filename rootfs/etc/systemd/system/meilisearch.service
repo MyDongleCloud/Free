@@ -1,0 +1,13 @@
+[Unit]
+Description=Meilisearch
+After=systemd-user-sessions.service
+
+[Service]
+Type=simple
+WorkingDirectory=/var/lib/meilisearch
+ExecStart=/usr/local/bin/meilisearch --db-path /var/lib/meilisearch/data.ms --master-key="YOUR_SECURE_MASTER_KEY"
+User=meilisearch
+Group=meilisearch
+
+[Install]
+WantedBy=multi-user.target

@@ -53,6 +53,7 @@ jq;jq;JSON parser;Utils;;done;A parser of json file;JSON|File|Parser|Config;;deb
 jstinker;JS Tinker;Javascript Sandbox;Developer;yes;done;A sandbox for Javascript.;Sandbox|Editor|Online;JsFiddle;clone;master;johncipponeri/jstinker
 karakeep;Karakeep;Karaoke;Personal;yes;;A bookmark manager.;Bookmark|Manager;;clone;v0.26.0;karakeep-app/karakeep
 kernel;Kernel;Linux Kernel;Backend;;done;Linux kernel source tree.;Linux|Kernel|OS|Source;Microsoft Windows;apt;6.12.34;torvalds/linux
+librechat;LibreChat;Libre Chatbot;Essential;yes;done;A chatbot.;Chat|Chatbot;;clone;v0.8.0;danny-avila/LibreChat
 librephotos;Libre Photos;Photos Management Service;Personal;yes;;Photos and medias management service.;Photos|Alternative|Gallery;Google Photos;clone;;LibrePhotos/librephotos
 libreqr;Libreqr;QR Code Generator;Utils;yes;done;Tool for generating and managing QR codes.;QR|Code|Generator|Utility;QR Code Generator;git;2.0.1;
 limesurvey;Lime Survey;Survey Management Service;Productivity;yes;;Powerful open-source survey tool.;Survey|Tool|Questionnaire|Research;SurveyMonkey;clone;6.15.3+250708;LimeSurvey/LimeSurvey
@@ -65,8 +66,9 @@ mastodon;Mastodon;Decentralized Network;Personal;yes;;A decentralized social net
 maybe;Maybe;Personal Finance Tool;Personal;yes;;Personal finance tool.;Finance|Personal|Budget|Tool;Mint|YNAB;clone;v0.5.0;maybe-finance/maybe
 mermaid;Mermaid;Diagram Visualization Tool;Productivity;yes;;Generation of diagrams and visualizations using text and code.;Diagram|Visualization|Text|Code;Lucidchart;clone;mermaid@11.9.0;mermaid-js/mermaid
 metube;MeTube;YouTube Downloader;Utils;yes;done;Web GUI for youtube-dl, allowing you to download videos from YouTube and other sites.;YouTube|Download|GUI|Video;4K Video Downloader;clone;20250721;alexta69/metube
+meilisearch;meilisearch;Fast Search Engine;Utils;;done;A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.;Search|Engine;;wget;;meilisearch/meilisearch
 minio;MinIO;Object Storage Server;Developer;yes;;High Performance Object Storage.;Storage|Object|S3|Cloud;Amazon S3;clone;RELEASE.2025-07-18T21-56-31Z;minio/minio
-mongodb;Mongo DB;NoSQL Database;Developer;;;General-purpose, document-based, distributed database.;Database|NoSQL|Document|Distributed;MongoDB Atlas;apt (source);;mongodb/mongo
+mongodb;Mongo DB;NoSQL Database;Developer;;;General-purpose, document-based, distributed database.;Database|NoSQL|Document|Distributed;;apt (source);;mongodb/mongo
 mosquitto;Mosquitto;MQTT Broker;Utils;;done;Open source message broker that implements MQTT protocol.;MQTT|Broker|IoT|Messaging;HiveMQ;apt;2.0.11;eclipse-mosquitto/mosquitto
 mydonglecloud;MyDongle.Cloud;MyDongle.Cloud App;Utils;yes;done;MyDongle.Cloud app.;MyDongle|Cloud;;clone;2025-09-09;MyDongleCloud/free
 mysql;MySQL;MySQL Database;Developer;;done;Open-source relational database management system.;Database|RDBMS|SQL;Oracle Database;apt;8.0.42;mysql/mysql-server

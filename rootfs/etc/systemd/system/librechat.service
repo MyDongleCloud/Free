@@ -1,0 +1,16 @@
+[Unit]
+Description=LibreChat
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=npm run backend
+WorkingDirectory=/usr/local/modules/librechat
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

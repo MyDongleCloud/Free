@@ -286,6 +286,18 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9428
 	},
+	"librechat": {
+		"web": true,
+		"enabled": true,
+		"reset": true,
+		"permissions": [ "_groupadmin_" ],
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 3080,
+			"path": "/"
+		} ],
+		"localPort": 9473
+	},
 	"libreqr": {
 		"web": true,
 		"enabled": true,
@@ -333,6 +345,7 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9435
 	},
+	"meilisearch": {},
 	"mermaid": {
 		"web": true,
 		"enabled": true,

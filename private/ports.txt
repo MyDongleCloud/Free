@@ -32,12 +32,24 @@ mysql
 Listening: 3306, 33060
 
 ***************
+mongodb
+Listening: 27017
+
+***************
+meilisearch
+Listening: 7700
+
+***************
+librechat
+Listening: 3080
+
+***************
 frp
 Outgoing: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx995 (pop3)
 
 ***************
 apache2
-Listening: 80 (http), 443 (https), 9400-9472 (modules)
+Listening: 80 (http), 443 (https), 9400-9473 (modules)
 
 ***************
 others
