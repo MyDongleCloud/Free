@@ -14,6 +14,8 @@ import { Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Settings } from './myinterface';
 import { VERSION } from './version';
+import modulesDefault from './modulesdefault.json';
+import modulesMeta from './modulesmeta.json';
 //import { toASCII } from 'punycode';
 import * as ACME from '@root/acme';
 import * as Keypairs from '@root/keypairs';
@@ -37,7 +39,9 @@ settings: Settings = { lang:"en" } as Settings;
 refreshUI:Subject<any> = new Subject();
 firmwareServerVersion;
 session;
-modulesCount = 0;
+modulesData;
+sidebarFilterType = "";
+sidebarSearchTerm = "";
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
@@ -111,6 +115,7 @@ async getSession() {
 		this.setCookie("jwt", jwt["token"]);
 		this.settings = JSON.parse(this.session.user.settings);
 		await this.translate.use(this.settings.lang);
+		await this.modulesDataPrepare();
 	}
 }
 
@@ -221,13 +226,17 @@ openPage(url: string) {
 	this.router.navigate(["/" + url]);
 }
 
-openModule(module, alias, page, extract) {
-	const subdomain = alias[0] ?? module;
+openModule(identifier:number|string, extract:boolean = false, page:string = null) {
+	let id = identifier;
+	if (typeof identifier == "string")
+		id = this.modulesDataFindId(identifier);
+	const subdomain = this.modulesData[id].alias[0] ?? this.modulesData[id].module;
+	const page_ = page ?? this.modulesData[id].homepage ?? "";
 	if (extract && !this.demo)
-		window.open(location.protocol + "//" + location.host + "/m/" + subdomain + (page ?? ""), "_blank");
+		window.open(location.protocol + "//" + location.host + "/m/" + subdomain + page_, "_blank");
 	else {
 		this.navCtrl.setDirection('root');
-		this.router.navigate(["/wrapper"], { queryParams:{ module, subdomain, page } });
+		this.router.navigate(["/wrapper"], { queryParams:{ module:this.modulesData[id].module, subdomain, page:page_ } });
 	}
 }
 
@@ -332,18 +341,82 @@ colorWord(st, bckgd = true) {
 		return (bckgd ? "bg-purple-100 " : "") + "text-purple-800";
 
 	else if (st == "Essential")
-		return (bckgd ? "bg-yellow-100 " : "") + "text-yellow-800";
+		return (bckgd ? "bg-yellow-100 " : "") + "text-yellow-600";
 	else if (st == "Personal")
-		return (bckgd ? "bg-blue-100 " : "") + "text-blue-800";
+		return (bckgd ? "bg-blue-100 " : "") + "text-blue-600";
 	else if (st == "Productivity")
-		return (bckgd ? "bg-purple-100 " : "") + "text-purple-800";
+		return (bckgd ? "bg-purple-100 " : "") + "text-purple-600";
 	else if (st == "Utils")
-		return (bckgd ? "bg-cyan-100 " : "") + "text-cyan-800";
+		return (bckgd ? "bg-cyan-100 " : "") + "text-cyan-600";
 	else if (st == "Developer")
-		return (bckgd ? "bg-red-100 " : "") + "text-red-800";
+		return (bckgd ? "bg-red-100 " : "") + "text-red-600";
 
 	else
-		return (bckgd ? "bg-gray-100 " : "") + "text-gray-800";
+		return (bckgd ? "bg-gray-100 " : "") + "text-gray-600";
+}
+
+colorWord2(st) {
+	if (st == "Essential")
+		return "drop-shadow-[0px_1000px_0_var(--color-yellow-600)]";
+	else if (st == "Personal")
+		return "drop-shadow-[0px_1000px_0_var(--color-blue-600)]";
+	else if (st == "Productivity")
+		return "drop-shadow-[0px_1000px_0_var(--color-purple-600)]";
+	else if (st == "Utils")
+		return "drop-shadow-[0px_1000px_0_var(--color-cyan-600)]";
+	else if (st == "Developer")
+		return "drop-shadow-[0px_1000px_0_var(--color-red-600)]";
+	else
+		return "drop-shadow-[0px_1000px_0_var(--color-gray-600)]";
+}
+
+async modulesDataPrepare() {
+	const modules = this.session?.["modules"] ?? {};
+	this.modulesData = [];
+	Object.entries(modulesMeta).forEach(([key, value]) => {
+		if (modulesDefault[key] === undefined) {
+			this.consolelog(1, "Error: " + key + " not in modulesdefault");
+			return;
+		}
+	});
+	Object.entries(modulesDefault).forEach(([key, value]) => {
+		if (modulesMeta[key] === undefined) {
+			this.consolelog(1, "Error: " + key + " not in modulesmeta");
+			return;
+		}
+		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
+		value["permissions"] = modules[key]?.permissions ?? value["permissions"];
+		if (value["web"] !== true) {
+			value["permissions"] = ["_groupadmin_"];
+			value["web"] = false;
+			value["enabled"] = true;
+		}
+		value["alias"] = [...(value["alias"] ?? []), ...(modules[key]?.alias ?? [])];
+		if (value["web"]) {
+			const ll = value["alias"].length > 0 ? value["alias"][0] : key;
+			value["link"] = location.protocol + "//" + location.host + "/m/" + ll;
+			value["link2"] = "https://" + ll + "." + (this.session?.["cloud"]?.["all"]?.["name"] ?? "") + ".mydongle.cloud";
+			value["link"] = value["link"].toLowerCase();
+			if (value["homepage"])
+				value["link"] += value["homepage"];
+			value["link2"] = value["link2"].toLowerCase();
+		}
+		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
+			value[key2] = value2;
+		});
+		value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
+		value["bookmark"] = false;
+		this.modulesData.push(value);
+	});
+}
+
+modulesDataFindId(m) {
+	let ret = 0;
+	this.modulesData.forEach((data, index) => {
+		if (data["module"] == m)
+			ret = index;
+	});
+	return ret;
 }
 
 review() {

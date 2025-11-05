@@ -21,20 +21,20 @@
 			<a (click)="global.openPage('');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<ion-icon name="apps-outline" class="h-5 w-5"></ion-icon>
 				<span>{{LG("Dashboard")}}</span>
-				<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{modulesTotal ?? global.modulesCount}}</span>
+				<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{modulesTotal ?? global.modulesData.length}}</span>
 			</a>
 			<div class="ml-2 flex flex-col rounded-lg border border-gray-200">
 				<div class="flex rounded-lg border border-gray-200 bg-gray-100 p-1">
 					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="modulesGroup" value="essentials" class="peer sr-only" checked/>
+						<input type="radio" name="modulesGroup" [(ngModel)]="global.sidebarFilterType" (click)="filterClick('essentials')" (change)="filterCards()" value="essentials" class="peer sr-only" checked/>
 						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-							<ion-icon name="star-outline" class="w-5 h-5"></ion-icon>
-							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900">{{LG("Essential")}}</span>
+							<ion-icon name="star-outline" class="w-5 h-5" [class]="global.colorWord('Essential', false)"></ion-icon>
+							<span class="relative z-10 text-xs font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Essential', false)">{{LG("Essential")}}</span>
 						</span>
 					</label>
 					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="modulesGroup" value="star" class="peer sr-only"/>
+						<input type="radio" name="modulesGroup" [(ngModel)]="global.sidebarFilterType" (click)="filterClick('bookmarks')" (change)="filterCards()" value="bookmarks" class="peer sr-only"/>
 						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 							<ion-icon name="bookmarks-outline" class="w-5 h-5"></ion-icon>
@@ -42,7 +42,7 @@
 						</span>
 					</label>
 					<label class="relative flex grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="modulesGroup" value="search" class="peer sr-only"/>
+						<input type="radio" name="modulesGroup" [(ngModel)]="global.sidebarFilterType" (click)="filterClick('search')" (change)="filterCards()" value="search" class="peer sr-only"/>
 						<span class="absolute inset-0 z-0 rounded-md bg-gray-200 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative flex flex-col items-center z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
 							<ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
@@ -50,37 +50,20 @@
 						</span>
 					</label>
 				</div>
-				<a (click)="global.openModule('roundcube', [ 'webmail' ], '/autologin.php', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
-					<div class="w-5 h-5 flex items-cent/.pnger justify-center">
-						<img src="assets/icons_modules/roundcube.png" class="w-5 h-5"/>
-					</div>
-					<span>Mail</span>
-					<span class="ml-auto bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-medium">5</span>
-				</a>
-				<a (click)="global.openModule('openwebui', [ 'chatbot' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
-					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons_modules/openwebui.png" class="w-5 h-5"/>
-					</div>
-					<span>Chatbot</span>
-				</a>
-				<a (click)="global.openModule('jitsimeet', [ 'conference' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
-					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons_modules/jitsimeet.png" class="w-5 h-5"/>
-					</div>
-					<span>Video Conference</span>
-				</a>
-				<a (click)="global.openModule('homeassistant', [ 'home' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
-					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons_modules/homeassistant.png" class="w-5 h-5"/>
-					</div>
-					<span>Home Automation</span>
-				</a>
-				<a (click)="global.openModule('photoview', [ 'photos' ], '', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
-					<div class="w-5 h-5 flex items-center justify-center">
-						<img src="assets/icons_modules/photoview.png" class="w-5 h-5"/>
-					</div>
-					<span>Photos</span>
-				</a>
+				<div class="m-3 text-sm" [class]="global.sidebarFilterType == 'bookmarks' && global.settings.bookmarks.length == 0 ? '' : 'hidden'">
+					No bookmarked module
+				</div>
+				<div [class]="global.sidebarFilterType == 'search' ? '' : 'hidden'">
+					<input type="text" [(ngModel)]="global.sidebarSearchTerm" (input)="filterCards()" placeholder="Find Modules..." class="m-1 pl-2 py-1 w-40 border border-gray-300 text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors">
+				</div>
+				<div class="overflow-y-auto max-h-50" [class]="global.sidebarFilterType != '' ? '' : 'hidden'">
+					<a (click)="global.openModule(data.module);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer" *ngFor="let data of filteredModules; let dd = index;">
+						<div class="w-5 h-5 flex items-center justify-center">
+							<div class="overflow-hidden"><img src="assets/icons_modules/{{data.module}}.png" class="w-5 h-5 translate-y-[-1000px]" [class]="global.colorWord2(data.category)"></div>
+						</div>
+						<span>{{data?.['title']}}</span>
+					</a>
+				</div>
 			</div>
 
 			<div class="px-3 text-s text-black font-semibold text-muted-foreground tracking-wider mt-6 md:mt-12">{{LG("SYSTEM")}}</div>
@@ -90,7 +73,7 @@
 				</div>
 				<span>{{LG("Settings")}}</span>
 			</a>
-			<a (click)="global.openModule('betterauthstudio', [ 'identity' ], null, false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+			<a (click)="global.openModule('betterauthstudio');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="people-outline" class="w-5 h-5"></ion-icon>
 				</div>
@@ -108,7 +91,7 @@
 				</div>
 				<span>{{LG("Dongle")}}</span>
 			</a>
-			<a (click)="global.openModule('webssh2', [ 'ssh' ], '/access', false);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
+			<a (click)="global.openModule('webssh2');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 				<div class="w-5 h-5 flex items-center justify-center">
 					<ion-icon name="terminal-outline" class="w-5 h-5"></ion-icon>
 				</div>
@@ -132,12 +115,12 @@
 				<div class="flex items-center justify-between text-xs">
 					<span class="text-muted-foreground">{{LG("Storage")}}</span>
 					<div class="flex items-center gap-1">
-						<div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
-						<span class="text-yellow-500 font-medium">65%</span>
+						<div class="w-2 h-2 bg-gray-500 rounded-full"></div>
+						<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">65%</span>
 					</div>
 				</div>
 				<div class="mt-2 w-full bg-gray-200 rounded-full h-1">
-					<div class="bg-yellow-500 h-1 rounded-full" style="width: 65%"></div>
+					<div class="bg-gray-500 h-1 rounded-full" style="width: 65%"></div>
 				</div>
 			</div>
 			<div class="px-3 py-2">
@@ -150,7 +133,7 @@
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
 					<span class="text-muted-foreground">{{LG("Active Users")}}</span>
-					<span class="text-blue-600 font-medium">47</span>
+					<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">47</span>
 				</div>
 			</div>
 		</nav>

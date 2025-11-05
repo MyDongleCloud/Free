@@ -42,45 +42,45 @@
 							<input type="radio" name="category" [(ngModel)]="category" value="Essential" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="star-outline" class="w-5 h-5" [class]="global.colorWord('Essential')"></ion-icon>
+								<ion-icon name="star-outline" class="w-5 h-5" [class]="global.colorWord('Essential', false)"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Essential')">{{LG("Essential")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Essential', false)">{{LG("Essential")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Personal" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="person-outline" class="w-5 h-5" [class]="global.colorWord('Personal')"></ion-icon>
+								<ion-icon name="person-outline" class="w-5 h-5" [class]="global.colorWord('Personal', false)"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Personal')">{{LG("Personal")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Personal', false)">{{LG("Personal")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Productivity" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="attach-outline" class="w-5 h-5" [class]="global.colorWord('Productivity')"></ion-icon>
+								<ion-icon name="attach-outline" class="w-5 h-5" [class]="global.colorWord('Productivity', false)"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Productivity')">{{LG("Productivity")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Productivity', false)">{{LG("Productivity")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Utils" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="hammer-outline" class="w-5 h-5" [class]="global.colorWord('Utils')"></ion-icon>
+								<ion-icon name="hammer-outline" class="w-5 h-5" [class]="global.colorWord('Utils', false)"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Utils')">{{LG("Utils")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Utils', false)">{{LG("Utils")}}</span>
 						</label>
 
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 							<input type="radio" name="category" [(ngModel)]="category" value="Developer" class="peer sr-only" (change)="filterCards()" />
 							<span class="absolute inset-0 z-0 rounded-md bg-gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900">
-								<ion-icon name="code-slash-outline" class="w-5 h-5" [class]="global.colorWord('Developer')"></ion-icon>
+								<ion-icon name="code-slash-outline" class="w-5 h-5" [class]="global.colorWord('Developer', false)"></ion-icon>
 							</span>
-							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Developer')">{{LG("Developer")}}</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text-gray-900" [class]="global.colorWord('Developer', false)">{{LG("Developer")}}</span>
 						</label>
 					</div>
 					<div class="flex rounded-lg border border-gray-200 bg-white p-1">
@@ -110,7 +110,7 @@
 						<div class="flex flex-col">
 							<div class="min-w-full flex items-center">
 								<p class="text-sm font-medium text-gray-600 cursor-pointer">
-									<a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">{{card.name}}</a>
+									<a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module);">{{card.name}}</a>
 									<ion-icon size="small" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon>
 								</p>
 								<div class="flex-1"></div>
@@ -122,11 +122,12 @@
 								<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 							</div>
 							<div class="min-w-full flex items-center mt-2 mb-2 overflow-hidden">
-								<p class="text-3xl font-bold text-gray-900"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">{{firstWords(LMT(card.title))}} </a><span class="whitespace-nowrap"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">{{lastWord(LMT(card.title))}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" *ngIf="card.web" (click)="global.openModule(card.module, card?.alias, card?.homepage, true);"></ion-icon><ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon></span></p>
+								<p class="text-3xl font-bold text-gray-900"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module);">{{firstWords(LMT(card.title))}} </a><span class="whitespace-nowrap"><a [class]="card.web ? 'cursor-pointer' : ''" (click)="global.openModule(card.module);">{{lastWord(LMT(card.title))}}</a><ion-icon name="open-outline" class="ml-2 h-6 w-6 cursor-pointer" *ngIf="card.web" (click)="global.openModule(card.module, true);"></ion-icon><ion-icon size="small" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" class="ml-2 cursor-pointer" *ngIf="showDetails && cc == 0"></ion-icon></span></p>
 								<div class="flex-1"></div>
-								<div class="ml-3 flex flex-col gap-2 items-end">
-									<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="global.colorWord(card.category)">
-										<img src="assets/icons_modules/{{card.module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);">
+								<!-- [class]="global.colorWord(card.category, false)" -->
+								<div class="ml-3 flex flex-col items-end">
+									<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="global.colorWord(card.category, false)">
+										<div class="overflow-hidden"><img src="assets/icons_modules/{{card.module}}.png" class="w-14 h-14 cursor-pointer translate-y-[-1000px]" [class]="global.colorWord2(card.category)" (click)="global.openModule(card.module);"></div>
 									</div>
 								</div>
 							</div>
@@ -175,9 +176,9 @@
 						<tbody class="bg-white divide-y divide-gray-200">
 							<tr class="hover:bg-gray-50" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg-red-50' : card.web != true ? 'bg-indigo-50' : ''">
 								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module, card?.alias, card?.homepage, false);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, card?.alias, card?.homepage, true);"></ion-icon></div>
+									<div class="text-sm font-medium text-gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, true);"></ion-icon></div>
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a (click)="global.openModule(card.module, card?.alias, card?.homepage, false);" class="cursor-pointer">{{card.name}}</a></td>
+								<td class="px-6 py-4 whitespace-nowrap text-left text-sm"><a (click)="global.openModule(card.module);" class="cursor-pointer">{{card.name}}</a></td>
 								<td class="px-6 py-4 whitespace-nowrap text-left">
 									<div class="-ml-2" *ngIf="!card.enabled">
 										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
@@ -213,53 +214,53 @@
 <ion-modal #modalModuleInfo class="modalLimitSize">
 	<ng-template>
 			<h3 class="flex justify-between bg-blue-600 pt-2 pb-2 text-white" (click)="closeModuleInfo()">
-				<span class="mx-auto font-bold">{{L("Details of")}} "{{LMT(cards[findIdByModule(moduleCur)].title)}}"</span>
+				<span class="mx-auto font-bold">{{L("Details of")}} "{{LMT(cards[cardIdCur].title)}}"</span>
 				<ion-icon name="close-circle-outline" class="w-6 h-6 cursor-pointer mr-3"></ion-icon>
 			</h3>
 			<br>
 			<div class="mx-5"><table class="w-full">
 				<tr><td colspan="3">
-					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank">
-						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)">
-							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.alias, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
+					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank">
+						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[cardIdCur].category)">
+							<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[cardIdCur].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cardIdCur);"/></a>
 						</div>
 					</a>
-					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[findIdByModule(moduleCur)].title)}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
+					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[cardIdCur].title)}}</a><br><a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].name}}
 					</a>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td colspan="3"><span style="color:black;">{{LMD(cards[findIdByModule(moduleCur)].description)}}</span></td></tr>
+				<tr><td colspan="3"><span style="color:black;">{{LMD(cards[cardIdCur].description)}}</span></td></tr>
 				<tr><td colspan="3" height="10"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Category</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)" *ngIf="showDetails">{{LG(cards[findIdByModule(moduleCur)].category)}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(cards[cardIdCur].category)" *ngIf="showDetails">{{LG(cards[cardIdCur].category)}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Links</td><td width="20"></td><td>
-				<a href="{{cards[findIdByModule(moduleCur)].link2}}" title="{{cards[findIdByModule(moduleCur)].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link2}}</a><br>
-				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link}}</a></td></tr>
+				<a href="{{cards[cardIdCur].link2}}" title="{{cards[cardIdCur].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link2}}</a><br>
+				<a href="{{cards[cardIdCur].link}}" title="{{cards[cardIdCur].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link}}</a></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''">
-					<td>GitHub <a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="GitHub {{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank"><ion-icon name="logo-github" class="w-5 h-5"></ion-icon></a></td>
-					<td width="20"></td><td><a href="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" title="https://github.com/{{cards[findIdByModule(moduleCur)].githubUrl}}" target="_blank">{{cards[findIdByModule(moduleCur)].githubUrl}}</a> {{approximateStars(cards[findIdByModule(moduleCur)].githubStars)}}k ⭐<br>Language: {{cards[findIdByModule(moduleCur)].githubLanguage}}<br>License: {{cards[findIdByModule(moduleCur)].githubLicense}}</td>
+				<tr *ngIf="cards[cardIdCur].githubUrl != ''">
+					<td>GitHub <a href="https://github.com/{{cards[cardIdCur].githubUrl}}" title="GitHub {{cards[cardIdCur].githubUrl}}" target="_blank"><ion-icon name="logo-github" class="w-5 h-5"></ion-icon></a></td>
+					<td width="20"></td><td><a href="https://github.com/{{cards[cardIdCur].githubUrl}}" title="https://github.com/{{cards[cardIdCur].githubUrl}}" target="_blank">{{cards[cardIdCur].githubUrl}}</a> {{approximateStars(cards[cardIdCur].githubStars)}}k ⭐<br>Language: {{cards[cardIdCur].githubLanguage}}<br>License: {{cards[cardIdCur].githubLicense}}</td>
 				</tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" class="h-px bg-gray-300"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-px bg-gray-300"></td></tr>
+				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Permissions</td><td width="20"></td><td>
-					<div class="-ml-2" *ngIf="!cards[findIdByModule(moduleCur)].enabled">
+					<div class="-ml-2" *ngIf="!cards[cardIdCur].enabled">
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
-					<div class="-ml-2" *ngIf="cards[findIdByModule(moduleCur)].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(global.permissions(pm))}}</span></a>
+					<div class="-ml-2" *ngIf="cards[cardIdCur].enabled">
+						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[cardIdCur].permissions">{{LG(global.permissions(pm))}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
@@ -267,13 +268,13 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Keywords</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of cards[findIdByModule(moduleCur)].keywords">{{LG(kw)}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of cards[cardIdCur].keywords">{{LG(kw)}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td>Proprietary<br>equivalent</td><td width="20"></td><td>{{cards[findIdByModule(moduleCur)].proprietary}}</td></tr>
+				<tr><td>Proprietary<br>equivalent</td><td width="20"></td><td>{{cards[cardIdCur].proprietary}}</td></tr>
 			</table></div>
 	</ng-template>
 </ion-modal>
@@ -281,48 +282,48 @@
 <ion-modal #modalModuleSettings class="modalLimitSize">
 	<ng-template>
 			<h3 class="flex justify-between bg-blue-600 pt-2 pb-2 text-white" (click)="closeModuleSettings()">
-				<span class="mx-auto">{{L("Settings of")}} "{{cards[findIdByModule(moduleCur)].title}}"</span>
+				<span class="mx-auto">{{L("Settings of")}} "{{cards[cardIdCur].title}}"</span>
 				<ion-icon name="close-circle-outline" class="w-6 h-6 cursor-pointer mr-3"></ion-icon>
 			</h3>
 			<br>
 			<div class="mx-5"><table class="w-full">
 				<tr><td colspan="3">
-					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank">
-						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[findIdByModule(moduleCur)].category)">
-							<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[findIdByModule(moduleCur)].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cards[findIdByModule(moduleCur)].module, cards[findIdByModule(moduleCur)]?.alias, cards[findIdByModule(moduleCur)]?.homepage, false);"/></a>
+					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank">
+						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[cardIdCur].category)">
+							<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[cardIdCur].module}}.png" class="w-14 h-14 cursor-pointer" (click)="global.openModule(cardIdCur);"/></a>
 						</div>
 					</a>
-					<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[findIdByModule(moduleCur)].title)}}</a><br><a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{LMT(cards[findIdByModule(moduleCur)].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].name}}
+					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[cardIdCur].title)}}</a><br><a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].name}}
 					</a>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td colspan="3"><span style="color:black;">{{LMD(cards[findIdByModule(moduleCur)].description)}}</span></td></tr>
+				<tr><td colspan="3"><span style="color:black;">{{LMD(cards[cardIdCur].description)}}</span></td></tr>
 				<tr><td colspan="3" height="10"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Links</td><td width="20"></td><td>
-				<a href="{{cards[findIdByModule(moduleCur)].link2}}" title="{{cards[findIdByModule(moduleCur)].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link2}}</a><br>
-				<a href="{{cards[findIdByModule(moduleCur)].link}}" title="{{cards[findIdByModule(moduleCur)].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[findIdByModule(moduleCur)].link}}</a></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" class="h-px bg-gray-300"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
+				<a href="{{cards[cardIdCur].link2}}" title="{{cards[cardIdCur].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link2}}</a><br>
+				<a href="{{cards[cardIdCur].link}}" title="{{cards[cardIdCur].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link}}</a></td></tr>
+				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-px bg-gray-300"></td></tr>
+				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Permissions</td><td width="20"></td><td>
-					<div class="-ml-2" *ngIf="!cards[findIdByModule(moduleCur)].enabled">
+					<div class="-ml-2" *ngIf="!cards[cardIdCur].enabled">
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
-					<div class="-ml-2" *ngIf="cards[findIdByModule(moduleCur)].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[findIdByModule(moduleCur)].permissions">{{LG(global.permissions(pm))}}</span></a>
+					<div class="-ml-2" *ngIf="cards[cardIdCur].enabled">
+						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[cardIdCur].permissions">{{LG(global.permissions(pm))}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg-gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td>Config</td><td width="20"></td><td><pre>{{ moduleConfig | json }}</pre></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td colspan="3" class="h-px bg-gray-300"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[findIdByModule(moduleCur)].reset"><td>Reset</td><td width="20"></td><td><ion-button (click)="reset()"><ion-icon name="refresh-outline" size="medium"></ion-icon>Reset</ion-button></td></tr>
+				<tr><td>Config</td><td width="20"></td><td><pre>{{ cardConfig | json }}</pre></td></tr>
+				<tr *ngIf="cards[cardIdCur].reset"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].reset"><td colspan="3" class="h-px bg-gray-300"></td></tr>
+				<tr *ngIf="cards[cardIdCur].reset"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].reset"><td>Reset</td><td width="20"></td><td><ion-button (click)="reset()"><ion-icon name="refresh-outline" size="medium"></ion-icon>Reset</ion-button></td></tr>
 			</table></div>
 	</ng-template>
 </ion-modal>
