@@ -42,17 +42,17 @@ static char *html[][3] = {
 	{ "yourls", "/admin/index.php", "[method=\"post\"]" },
 };
 
-static char *post[][4] = {
-	{ "adminer", "/conf.php", "auth%5Busername%5D", "auth%5Bpassword%5D" },
-	{ "bugzilla", "/index.cgi", "Bugzilla_login", "Bugzilla_password" },
-	{ "homeassistant", "/auth/login_flow", "username", "password" },
-	{ "mantisbugtracker", "/login_password_page.php", "username", NULL },
-	{ "mantisbugtracker", "/login.php", "username", "password" },
-	{ "osticket", "/scp/login.php", "userid", "passwd" },
-	{ "projectsend", "/index.php", "username", "password" },
-	{ "roundcube", "/index.php", "_user", "_pass" },
-	{ "webtrees", "/index.php", "username", "password" },
-	{ "yourls", "/admin/index.php", "username", "password" }
+static char *post[][5] = {
+	{ "adminer", "/conf.php", "auth%5Busername%5D", "auth%5Bpassword%5D", NULL },
+	{ "bugzilla", "/index.cgi", "Bugzilla_login", "Bugzilla_password", NULL },
+	{ "homeassistant", "/auth/login_flow", "username", "password", NULL },
+	{ "mantisbugtracker", "/login_password_page.php", "username", NULL, NULL },
+	{ "mantisbugtracker", "/login.php", "username", "password", NULL },
+	{ "osticket", "/scp/login.php", "userid", "passwd", NULL },
+	{ "projectsend", "/index.php", "username", "password", NULL },
+	{ "roundcube", "/index.php", "_user", "_pass", NULL },
+	{ "webtrees", "/index.php", "username", "password", NULL },
+	{ "yourls", "/admin/index.php", "username", "password", NULL }
 };
 
 //Functions
@@ -181,12 +181,13 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 	snprintf(szTmp, sizeof(szTmp), CONF_PATH, post[ctx->foundPost][0]);
 	el = jsonRead(szTmp);
 	char *username = NULL;
+	char *email = NULL;
 	char *password = NULL;
 	if (el) {
 		username = cJSON_GetStringValue2(el, "username");
+		email = cJSON_GetStringValue2(el, "email");
 		password = cJSON_GetStringValue2(el, "password");
-	}
-	if (!username || !password)
+	} else
 		goto end;
 	tmp_bb = apr_brigade_create(f->r->pool, f->c->bucket_alloc);
 	rv = ap_get_brigade(f->next, tmp_bb, mode, block, readbytes);
@@ -207,7 +208,7 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 		char *buffer = apr_pstrndup(f->r->pool, data, len);
 		//PRINTFc("MDC: Post Before ##%s##", buffer);
 		char *newBuffer = NULL;
-		int ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], username, post[ctx->foundPost][3], password, &newBuffer);
+		int ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], post[ctx->foundPost][4] ? email : username, post[ctx->foundPost][3], password, &newBuffer);
 		//PRINTFc("MDC: Post After %d##%s##", ret, newBuffer);
 		apr_bucket *reinsert_b;
 		if (ret == 0)
