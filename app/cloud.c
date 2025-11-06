@@ -79,5 +79,6 @@ void cloudSetup(cJSON *el) {
 	cloudInit();
 	logicMessage(1, 1);
 	communicationString("{\"status\":3}");
+	sync();
 	jingle();
 }
