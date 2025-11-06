@@ -9,7 +9,7 @@ Type=forking
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
-RestartSec=2s
+RestartSec=5s
 User=mongodb
 
 [Install]
