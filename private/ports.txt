@@ -1,80 +1,51 @@
 ***************
-postfix
-Listening: 25 (mail), 465 (smtp)
-Outgoing: 25 (mail)
+Listening ports
+***************
+ssh: 22
+postfix: 25 (mail), 465 (smtp)
+dns: 53, 953
+apache: 80 (http), 443 (https), 9400-9473 (modules)
+dovecot imaps: 110 (imaps), 143 (pop3s), 993 (imaps), 995 (pop3s)
+networkmanager: 546 (dhcpv6)
+mosquitto: 1883 (zigbee2mqtt)
+homeassistant: 1900, 5353, 8123 (reverseproxy)
+webssh2: 2222 (reverseproxy)
+betterauthstudio: 3002 (reverseproxy)
+librechat: 3080 (reverseproxy)
+mysql: 3306, 33060
+avahi: 5353 (mdns)
+postgres: 5432
+redis: 6379
+frp: 7400 (reverseproxy)
+meilisearch: 7700
+metube: 8089 (reverseproxy)
+triliumnotes: 8090 (reverseproxy)
+betterauth: 8091 (reverseproxy)
+audiobookshelf: 8092 (reverseproxy)
+mydongecloud app: 8093 (socket), 8094 (reverseproxy)
+zigbee2mqtt: 8095 (reverseproxy)
+stirlingpdf: 8096 (reverseproxy)
+transmission: 8097 (reverseproxy), 51413
+tubesync: 8098 (reverseproxy)
+rspamd: 11332, 11333, 11334
+mongodb: 27017
 
 ***************
-openssh
-Listening: 22 (ssh)
-
+Outgoing ports
 ***************
-dovecot
-Listening: 993 (imaps), 995 (pop3s), 110 (pop3), 143 (imap)
-
-***************
-rspamd
-Listening: 11332, 11333, 11334
-
-***************
-networkmanager
-Listening: 546 (dhcpv6)
-
-***************
-redis
-Listening: 6379
-
-***************
-dns
-Listening: 53, 953
-
-***************
-mysql
-Listening: 3306, 33060
-
-***************
-mongodb
-Listening: 27017
-
-***************
-meilisearch
-Listening: 7700
-
-***************
-librechat
-Listening: 3080
-
-***************
-frp
-Outgoing: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx995 (pop3)
-
-***************
-apache2
-Listening: 80 (http), 443 (https), 9400-9473 (modules)
-
-***************
-others
-Listening: 1883 (zigbee2mqtt), 2222 (webssh2), 3002 (betterauthstudio), 7400 (frp stats), 8089 (metube), 8090 (triliumnotes), 8091 (betterauth), 8092 (audiobookshelf), 8093 (mydongecloud app socket), 8094 (mydongecloud app websocket), 8095 (zigbee2mqtt frontend), 8096 (stirlingpdf), 8097 (transmission), 8098 (tubesync), 8123 (homeassistant)
+frp: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx995 (pop3)
+postfix: 466
 
 
 
 ***************
 server.mydongle.cloud
+Listening ports
 ***************
-***************
-frp
-Listening: 80 (http), 443 (https), 7000 (clients), 7500 (stats)
-
-***************
-haproxy
-Listening: 22 (ssh), 465 (smtp), 993 (imap), 995 (pop3)
-
-***************
-postfix
-Listening: 25 (email)
-
-***************
-bind9
-Listening: 53 (dns)
+frp: 80 (http), 443 (https), 7000 (clients), 7500 (stats)
+haproxy: 22 (ssh), 465 (smtp), 993 (imap), 995 (pop3)
+postfix: 25 (email)
+bind9: 53 (dns)
 
 
 
