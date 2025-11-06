@@ -72,13 +72,11 @@ void cleanExit(int todo) {
 	PRINTF("cleanExit mode:%d\n", todo);
 #ifndef WEB
 #ifndef DESKTOP
-	if (todo == 2) {
-		system("sync");
+	sync();
+	if (todo == 2)
 		dbus("Reboot");
-	} else if (todo == 1) {
-		system("sync");
+	else if (todo == 1)
 		dbus("PowerOff");
-	}
 #endif
 	doLoop = 0;
 	logUninit();
