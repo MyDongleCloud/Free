@@ -318,13 +318,9 @@ echo "################################"
 echo "meilisearch"
 echo "################################"
 cd /home/mdc/build
-curl -L https://install.meilisearch.com | sh
+curl -L -sS --fail https://install.meilisearch.com | sh
 chmod a+x meilisearch
 mv meilisearch /usr/local/bin/
-adduser --system --no-create-home --group meilisearch
-mkdir /var/lib/meilisearch
-chown -R meilisearch:meilisearch /var/lib/meilisearch
-ln -sf /etc/systemd/system/meilisearch.service /etc/systemd/system/multi-user.target.wants/meilisearch.service
 
 echo "################################"
 echo "qdrant"
