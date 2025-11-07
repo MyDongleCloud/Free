@@ -519,6 +519,7 @@
 	"privatebin": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9450
