@@ -204,6 +204,13 @@ rm -f /etc/apache2/sites-enabled/*
 rm -f /etc/apache2/ports.conf
 
 echo "################################"
+echo "cockpit"
+echo "################################"
+echo "deb http://deb.debian.org/debian trixie-backports main" > /etc/apt/sources.list.d/backports.list
+apt-get update
+apt-get -y -t trixie-backports install cockpit
+
+echo "################################"
 echo "postgresql"
 echo "################################"
 apt-get -y install postgresql

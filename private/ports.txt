@@ -27,6 +27,7 @@ zigbee2mqtt: 8095 (reverseproxy)
 stirlingpdf: 8096 (reverseproxy)
 transmission: 8097 (reverseproxy), 51413
 tubesync: 8098 (reverseproxy)
+cockpit: 9090
 rspamd: 11332, 11333, 11334
 mongodb: 27017
 

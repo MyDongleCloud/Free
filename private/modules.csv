@@ -13,6 +13,7 @@ certbot;Certbot;HTTPS Certificate Generator;Utils;;done;The leading automatic ge
 changedetection;Change Detection;Web Change Tracker;Productivity;yes;;Tool for tracking changes on web pages.;Change|Detection|Web|Tracking;Visualping;clone;0.50.7;dgtlmoon/changedetection.io
 clang;Clang;C Compiler Frontend;Developer;;done;C language family frontend for LLVM.;Compiler|C|LLVM|Frontend;Microsoft Visual C++;apt;14.0.6;llvm/llvm-project
 cmake;CMake;Cross-Platform Build;Developer;;done;Cross-platform open-source build system.;Build|System|Cross-platform|Automation;Microsoft Visual Studio;apt;3.25.1;Kitware/CMake
+cockpit;Cockpit;Server Health;Backend;yes;done;Server Health of the Dongle.;Server|Health;;deb;;cockpit-project/cockpit
 collaboraonline;Collabora Online;Office Suite;Productivity;yes;;Online office suite for collaborative editing.;Office|Collaboration|Online|Suite;Microsoft 365;;;
 convertx;ConvertX;File Converter Tool;Utils;yes;;A simple, fast, and reliable currency converter.;Currency|Converter|Exchange|Rates;XE Currency;clone;v0.14.1;C4illin/ConvertX
 croodle;Croodle;Meeting Scheduler;Productivity;yes;;Simple scheduling tool for organizing meetings and polls.;Scheduling|Poll|Meeting|Calendar;Calendly|Doodle;;;jelhan/croodle

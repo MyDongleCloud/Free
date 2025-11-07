@@ -69,6 +69,17 @@
 	},
 	"clang": {},
 	"cmake": {},
+	"cockpit": {
+		"web": true,
+		"enabled": true,
+		"permissions": [ "_groupadmin_" ],
+		"reverseProxy": [ {
+			"type": "http",
+			"port": 9090,
+			"path": "/"
+		} ],
+		"localPort": 9439
+	},
 	"collaboraonline": {
 		"web": true,
 		"enabled": true,
