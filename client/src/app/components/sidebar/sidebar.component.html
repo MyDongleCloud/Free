@@ -59,7 +59,7 @@
 				<div class="overflow-y-auto max-h-50" [class]="global.sidebarFilterType != '' ? '' : 'hidden'">
 					<a (click)="global.openModule(data.module);" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer" *ngFor="let data of filteredModules; let dd = index;">
 						<div class="w-5 h-5 flex items-center justify-center">
-							<div class="overflow-hidden"><img src="assets/icons_modules/{{data.module}}.png" class="w-5 h-5 translate-y-[-1000px]" [class]="global.colorWord2(data.category)"></div>
+							<div class="overflow-hidden"><img src="assets/icons_modules/{{data.module}}.png" class="w-5 h-5" [class]="global.colorWord2(data.category)"></div>
 						</div>
 						<span>{{data?.['title']}}</span>
 					</a>
