@@ -5,7 +5,7 @@ After=network.target
 [Service]
 ExecStart=/usr/bin/mongod --config /etc/mongod.conf
 PIDFile=/var/run/mongodb/mongod.pid
-Type=forking
+Type=simple
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

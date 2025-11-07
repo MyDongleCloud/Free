@@ -35,6 +35,8 @@ elif [ $1 = "meilisearch" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/meilisearch.sh -r"
 elif [ $1 = "metube" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/metube.sh -r"
+elif [ $1 = "mongodb" ]; then
+	/usr/local/modules/mydonglecloud/scripts/mongodb.sh -r
 elif [ $1 = "mysql" ]; then
 	/usr/local/modules/mydonglecloud/scripts/mysql.sh -r
 elif [ $1 = "osticket" ]; then
