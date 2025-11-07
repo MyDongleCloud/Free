@@ -286,9 +286,9 @@ curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg --dearmo
 echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/mongodb.gpg] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.2 multiverse" > /etc/apt/sources.list.d/mongodb.list
 apt-get update
 apt-get install -y mongodb-org
-+sed -i -e "s|^  dbPath:.*|  dbPath: /disk/admin/modules/mongodb|" /etc/mongod.conf
-+echo "security.authorization: enabled" >> /etc/mongod.conf
-+rm -f /usr/lib/systemd/system/mongod.service
+sed -i -e "s|^  dbPath:.*|  dbPath: /disk/admin/modules/mongodb|" /etc/mongod.conf
+echo "security.authorization: enabled" >> /etc/mongod.conf
+rm -f /usr/lib/systemd/system/mongod.service
 
 echo "################################"
 echo "devmem2"
@@ -636,8 +636,12 @@ echo "################################"
 cd /usr/local/modules/librechat
 npm install
 npm install @smithy/signature-v4 @smithy/eventstream-codec
+echo 3 > /proc/sys/vm/drop_caches
 npm run frontend
-ln -sf /disk/admin/modules/librechat/env .env
+echo 3 > /proc/sys/vm/drop_caches
+ln -sf /disk/admin/modules/librechat/.env
+ln -sf /disk/admin/modules/librechat/logs
+ln -sf /disk/admin/modules/librechat/librechat.yaml
 ln -sf /disk/admin/modules/librechat/logs api/
 
 echo "################################"
