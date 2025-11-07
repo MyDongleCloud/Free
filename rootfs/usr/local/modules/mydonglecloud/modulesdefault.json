@@ -5,7 +5,7 @@
 	"adminer": {
 		"web": true,
 		"enabled": true,
-		"resetConfig": true,
+		"config": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9472,
 		"DirectoryIndex": "conf.php",
@@ -14,6 +14,7 @@
 	"apache2": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
 		"permissions": [ "_public_" ],
 		"localPort": 80,
@@ -50,8 +51,9 @@
 	"bugzilla": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
-		"resetConfig": true,
+		"config": true,
 		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
 		"FollowSymLinks": true,
 		"permissions": [ "_groupadmin_" ],
@@ -199,6 +201,7 @@
 	"homeassistant": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
 		"alias": [ "home" ],
 		"permissions": [ "_groupadmin_" ],
@@ -250,6 +253,7 @@
 	"jitsimeet": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9423
@@ -289,7 +293,9 @@
 	"librechat": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
+		"config": true,
 		"permissions": [ "_groupadmin_" ],
 		"reverseProxy": [ {
 			"type": "http",
@@ -321,8 +327,9 @@
 	"mantisbugtracker": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
-		"resetConfig": true,
+		"config": true,
 		"addConfig": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9432
@@ -345,7 +352,11 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9435
 	},
-	"meilisearch": {},
+	"meilisearch": {
+		"setup": true,
+		"setupPriority": true,
+		"config": true
+	},
 	"mermaid": {
 		"web": true,
 		"enabled": true,
@@ -355,6 +366,7 @@
 	"metube": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9437,
@@ -374,7 +386,11 @@
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9438
 	},
-	"mongodb": {},
+	"mongodb": {
+		"setup": true,
+		"setupPriority": true,
+		"config": true
+	},
 	"mosquitto": {},
 	"mydonglecloud": {
 		"web": true,
@@ -391,9 +407,9 @@
 		"alias": [ "app", "mdc" ]
 	},
 	"mysql": {
-		"reset": true,
-		"resetConfig": true,
-		"resetPriority": true
+		"setup": true,
+		"setupPriority": true,
+		"config": true
 	},
 	"ncat": {},
 	"ncdu": {},
@@ -401,12 +417,7 @@
 	"nmap": {},
 	"node": {},
 	"ohmyzsh": {},
-	"ollama": {
-		"web": true,
-		"enabled": true,
-		"permissions": [ "_groupadmin_" ],
-		"localPort": 9439
-	},
+	"ollama": {},
 	"onetimeemail": {
 		"web": true,
 		"enabled": true,
@@ -423,8 +434,9 @@
 	"osticket": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
-		"resetConfig": true,
+		"config": true,
 		"symlinks": true,
 		"alias": [ "helpdesk", "support" ],
 		"permissions": [ "_groupadmin_" ],
@@ -485,9 +497,14 @@
 		"localPort": 9449
 	},
 	"postfix": {
+		"setup": true,
 		"reset": true
 	},
-	"postgresql": {},
+	"postgresql": {
+		"setup": true,
+		"setupPriority": true,
+		"config": true
+	},
 	"privatebin": {
 		"web": true,
 		"enabled": true,
@@ -498,8 +515,9 @@
 	"projectsend": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
-		"resetConfig": true,
+		"config": true,
 		"FollowSymLinks": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9451
@@ -525,8 +543,9 @@
 	"roundcube": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
-		"resetConfig": true,
+		"config": true,
 		"alias": [ "webmail" ],
 		"path": "/usr/share/roundcube",
 		"permissions": [ "_groupadmin_" ],
@@ -602,6 +621,7 @@
 	"tubesync": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
 		"addConfig": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
 		"permissions": [ "_groupadmin_" ],
@@ -646,8 +666,9 @@
 	"webtrees": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
-		"resetConfig": true,
+		"config": true,
 		"permissions": [ "_groupadmin_" ],
 		"localPort": 9467
 	},
@@ -667,8 +688,9 @@
 	"yourls": {
 		"web": true,
 		"enabled": true,
+		"setup": true,
 		"reset": true,
-		"resetConfig": true,
+		"config": true,
 		"permissions": [ "_groupadmin_" ],
 		"homepage": "/admin",
 		"localPort": 9470

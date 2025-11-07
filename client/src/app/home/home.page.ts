@@ -107,7 +107,7 @@ closeModuleInfo() {
 
 async settings(module) {
 	this.cardIdCur = this.global.modulesDataFindId(module);
-	if (this.cards[this.cardIdCur].resetConfig)
+	if (this.cards[this.cardIdCur].config)
 		await this.config();
 	await this.modalModuleSettings.present();
 }

@@ -67,10 +67,10 @@ void cloudSetup(cJSON *el) {
 	int i = 1;
 	int total = cJSON_GetArraySize(modulesDefault);
 	cJSON_ArrayForEach(elModule, modulesDefault)
-		if (cJSON_HasObjectItem(elModule, "reset") && cJSON_HasObjectItem(elModule, "resetPriority"))
+		if (cJSON_HasObjectItem(elModule, "setup") && cJSON_HasObjectItem(elModule, "setupPriority"))
 			setup(i++, total, elModule->string);
 	cJSON_ArrayForEach(elModule, modulesDefault) {
-		if (cJSON_HasObjectItem(elModule, "reset") && !cJSON_HasObjectItem(elModule, "resetPriority"))
+		if (cJSON_HasObjectItem(elModule, "setup") && !cJSON_HasObjectItem(elModule, "setupPriority"))
 			setup(i, total, elModule->string);
 		i++;
 	} 
