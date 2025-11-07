@@ -686,7 +686,7 @@ export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 cd ui
 npm ci
-no | node_modules/.bin/ng build --configuration production
+yes no | node_modules/.bin/ng build --configuration production
 mkdir /disk/admin/modules/metube
 
 echo "################################"
