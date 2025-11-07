@@ -156,6 +156,7 @@ int replace(ap_filter_t *f, const char *input, int type, const char *name1, cons
 			if (i < count - 1)
 				strcat(*output, delimiter);
 		}
+		strcat(*output, type == 1 ? "}" : "");
 	}
 	for (int i = 0; i < count; i++)
 		free(pairs[i]);
