@@ -28,12 +28,12 @@ fi
 
 echo "#Reset mysql##################"
 PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
-systemctl stop mysql
+systemctl stop mysql.service
 mkdir -p /var/run/mysqld
 chown mysql:mysql /var/run/mysqld
 mysqld_safe --skip-grant-tables --skip-networking &
-TIMEOUT=30
-echo "30 seconds to watch mysql starting..."
+TIMEOUT=10
+echo "10 seconds to watch mysql starting..."
 while [ $TIMEOUT -gt 0 ]; do
     sleep 1
     TIMEOUT=$((TIMEOUT - 1))
@@ -43,6 +43,7 @@ while [ $TIMEOUT -gt 0 ]; do
 		break
 	fi
 done
+echo "Done"
 mysql -u root <<-EOF
 FLUSH PRIVILEGES;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$PASSWORD';
@@ -50,7 +51,7 @@ DROP DATABASE IF EXISTS test;
 FLUSH PRIVILEGES;
 EOF
 mysqladmin -u root -p"$PASSWORD" shutdown
-systemctl start mysql
+systemctl start mysql.service
 echo "[client]\nhost=localhost\nuser=root\npassword=${PASSWORD}" > /disk/admin/modules/mysql/conf.txt
 chmod 755 /disk/admin/modules/mysql
 chown admin:admin /disk/admin/modules/mysql/conf.txt
