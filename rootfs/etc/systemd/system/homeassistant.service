@@ -1,5 +1,5 @@
 [Unit]
-Description=HomeAssistant
+Description=Home Assistant (MyDongleCloud)
 After=network.target
 
 [Service]

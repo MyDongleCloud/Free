@@ -1,5 +1,5 @@
 [Unit]
-Description=Better Auth Studio
+Description=Better Auth Studio (MyDongleCloud)
 After=BetterAuth.serivce
 Requires=betterauth.serivce
 

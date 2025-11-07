@@ -1,5 +1,5 @@
 [Unit]
-Description=TriliumNotes
+Description=Trilium Notes (MyDongleCloud)
 After=network.target
 
 [Service]

@@ -1,5 +1,5 @@
 [Unit]
-Description=Zigbee2MQTT
+Description=Zigbee2MQTT (MyDongleCloud)
 After=network.target
 
 [Service]

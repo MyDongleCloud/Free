@@ -1,5 +1,5 @@
 [Unit]
-Description=TubeSync
+Description=TubeSync (MyDongleCloud)
 After=network.target
 
 [Service]

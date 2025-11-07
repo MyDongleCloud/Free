@@ -1,5 +1,5 @@
 [Unit]
-Description=WebSSH2
+Description=WebSSH2 (MyDongleCloud)
 After=network.target
 
 [Service]

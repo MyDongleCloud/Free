@@ -1,5 +1,5 @@
 [Unit]
-Description=LibreChat
+Description=Libre Chat (MyDongleCloud)
 After=network.target
 
 [Service]

@@ -1,5 +1,5 @@
 [Unit]
-Description=Better Auth
+Description=Better Auth (MyDongleCloud)
 After=network.target
 
 [Service]
