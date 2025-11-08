@@ -2,23 +2,26 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for burn [-d disk -e -f -h]"
+echo "Usage for burn [-d disk -e -f -h -z]"
 echo "d disk:	Set /dev/disk (default: /dev/sda or mmcblk0p)"
 echo "e:	Extract image"
 echo "f:	Use final image"
 echo "h:		Print this usage and exit"
+echo "z:	Force if disk size is not the usual"
 exit 0
 }
 
 DISK=/dev/sda
 POSTNAME=""
 EXTRACT=0
-while getopts d:efh opt; do
+FORCE=0
+while getopts d:efhz opt; do
 	case "$opt" in
 		d) DISK="/dev/${OPTARG}";;
 		e) EXTRACT=1;;
 		f) POSTNAME="-final";;
 		h) helper;;
+		z) FORCE=1;;
 	esac
 done
 IMG=img/flasher-m${POSTNAME}-s.img
@@ -31,6 +34,12 @@ if [ ! -b ${DISK}1 ]; then
 	echo "No /dev${DISK}1..."
 	exit 0
 fi
+
+if [ $FORCE = 0 -a "m`blockdev --getsize64 ${DISK}`" != "m1024209543168" ]; then
+	echo "Disk doesn't have the usual size. Are you sure? You can force with option -z"
+	exit 0
+fi
+
 cd `dirname $0`
 echo "Current directory is now `pwd`"
 

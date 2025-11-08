@@ -2,12 +2,13 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for firmware [-c -d disk -f -h -l NB]"
+echo "Usage for firmware [-c -d disk -f -h -l NB -z]"
 echo "c:	Clean build"
 echo "d disk:	set /dev/disk[1-2] (sda or mmcblk0p)"
 echo "f:	Create final binaries"
 echo "h:	Print this usage and exit"
 echo "l:	Set loop number"
+echo "z:	Force if disk size is not the usual"
 exit 0
 }
 
@@ -16,13 +17,15 @@ LOSETUP=/dev/loop3
 POSTNAME=""
 FINAL=0
 CLEAN=0
-while getopts cd:fhl: opt; do
+FORCE=0
+while getopts cd:fhl:z opt; do
 	case "$opt" in
 		c) CLEAN=1;;
 		d) DISK="/dev/${OPTARG}";;
 		f) POSTNAME="-final";FINAL=1;;
 		h) helper;;
 		l) LOSETUP=/dev/loop${OPTARG};;
+		z) FORCE=1;;
 	esac
 done
 
@@ -39,6 +42,11 @@ umount ${DISK}*
 sync
 if [ ! -b ${DISK}1 ]; then
 	echo "No /dev${DISK}1..."
+	exit 0
+fi
+
+if [ $FORCE = 0 -a "m`blockdev --getsize64 ${DISK}`" != "m128035676160" ]; then
+	echo "Disk doesn't have the usual size. Are you sure? You can force with option -z"
 	exit 0
 fi
 
