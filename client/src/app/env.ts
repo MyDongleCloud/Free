@@ -42,6 +42,9 @@ session;
 modulesData;
 sidebarFilterType = "";
 sidebarSearchTerm = "";
+statsIntervalId;
+statsPeriod;
+statsData;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
@@ -116,6 +119,10 @@ async getSession() {
 		this.settings = JSON.parse(this.session.user.settings);
 		await this.translate.use(this.settings.lang);
 		await this.modulesDataPrepare();
+		if (this.session.user.role == "admin") {
+			this.statsPeriod = this.developer ? 1 : 10;
+			this.statsStartPolling();
+		}
 	}
 }
 
@@ -370,6 +377,15 @@ colorWord2(st) {
 		return "translate-y-[-96px] drop-shadow-[0px_96px_0_var(--color-gray-600)]";
 }
 
+colorPercent(p, limits = [ 80, 50 ]) {
+	if (p >= limits[0])
+		return "bg-red-400";
+	else if (p >= limits[1])
+		return "bg-yellow-400";
+	else
+		return "bg-green-400";
+}
+
 async modulesDataPrepare() {
 	const modules = this.session?.["modules"] ?? {};
 	this.modulesData = [];
@@ -423,6 +439,42 @@ review() {
 	//this.settings.reviewRequestLastTime = Date.now();
 	this.settingsSave();
 	InAppReview.requestReview();
+}
+
+async statsPolling() {
+	this.statsData = await this.httpClient.get("/MyDongleCloud/Auth/stats", {headers:{"content-type": "application/json"}}).toPromise();
+}
+
+statsPeriodChange(incDir) {
+	if (incDir > 0) {
+		if (this.statsPeriod >= 10)
+			this.statsPeriod = 30;
+		else if (this.statsPeriod >= 5)
+			this.statsPeriod = 10;
+		else if (this.statsPeriod >= 1)
+			this.statsPeriod = 5;
+		else
+			this.statsPeriod = 1;
+	} else {
+		if (this.statsPeriod >= 30)
+			this.statsPeriod = 10;
+		else if (this.statsPeriod >= 10)
+			this.statsPeriod = 5;
+		else if (this.statsPeriod >= 5)
+			this.statsPeriod = 1;
+	}
+	this.statsStopPolling();
+	this.statsStartPolling();
+}
+
+statsStartPolling() {
+	this.statsPolling();
+	this.statsIntervalId = setInterval(async () => { this.statsPolling(); }, 1000 * this.statsPeriod);
+}
+
+statsStopPolling() {
+	if (this.statsIntervalId)
+		clearInterval(this.statsIntervalId);
 }
 
 async getCertificate(cloud) {

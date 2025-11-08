@@ -17,7 +17,7 @@
 		</div>
 		<nav class="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
 
-			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider">{{LG("MODULES")}}</div>
+			<div class="px-3 text-s font-semibold text-muted-foreground tracking-wider">{{LG("MODULES")}}</div>
 			<a (click)="global.openPage('');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 group cursor-pointer">
 					<ion-icon name="apps-outline" class="h-5 w-5"></ion-icon>
 				<span>{{LG("Dashboard")}}</span>
@@ -61,7 +61,7 @@
 						<div class="w-5 h-5 flex items-center justify-center">
 							<div class="overflow-hidden"><img src="assets/icons_modules/{{data.module}}.png" class="w-5 h-5" [class]="global.colorWord2(data.category)"></div>
 						</div>
-						<span>{{data?.['title']}}</span>
+						<span>{{data['title']}}</span>
 					</a>
 				</div>
 			</div>
@@ -110,30 +110,50 @@
 				<span>{{LG("Backup & Restore")}}</span>
 			</a>
 
-			<div class="px-3 text-s font-semibold text-muted-foreground uppercase tracking-wider mt-6 md:mt-12">{{LG("STATUS")}}</div>
+			<div class="px-3 text-s font-semibold text-muted-foreground tracking-wider mt-6 md:mt-12 flex items-center">
+				{{LG("STATUS")}}<ion-icon name="remove-circle-outline" class="w-5 h-5 ml-3" [class]="global.statsPeriod <= 1 ? 'text-gray-200' : ' cursor-pointer'" (click)="global.statsPeriodChange(-1);"></ion-icon><ion-icon name="add-circle-outline" class="w-5 h-5 ml-2" [class]="global.statsPeriod >= 30 ? 'text-gray-200' : ' cursor-pointer'" (click)="global.statsPeriodChange(1);"></ion-icon><span class="ml-2 text-xs">{{global.statsPeriod}}s</span>
+			</div>
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
-					<span class="text-muted-foreground">{{LG("Storage")}}</span>
+					<span class="text-muted-foreground">{{LG("Storage")}} ({{(global.statsData.storage.available / 1024).toFixed(0)}} GB)</span>
 					<div class="flex items-center gap-1">
-						<div class="w-2 h-2 bg-gray-500 rounded-full"></div>
-						<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">65%</span>
+						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent(global.statsData.storage.usage)" ></div>
+						<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{global.statsData.storage.usage.toFixed(0)}}%</span>
 					</div>
 				</div>
-				<div class="mt-2 w-full bg-gray-200 rounded-full h-1">
-					<div class="bg-gray-500 h-1 rounded-full" style="width: 65%"></div>
+				<div class="mt-2 w-full bg-gray-200 rounded-full h-1 flex">
+					<div class="h-1 rounded-full" [class]="global.colorPercent(global.statsData.storage.usage)" style="width:{{global.statsData.storage.usage}}%"></div>
 				</div>
 			</div>
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
-					<span class="text-muted-foreground">{{LG("Last Backup")}}</span>
-					<span class="text-muted-foreground">2h ago</span>
+					<span class="text-muted-foreground">{{LG("CPU")}}</span>
+					<div class="flex items-center gap-1">
+						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent(global.statsData.cpu.current.user + global.statsData.cpu.current.system, [ 50, 20 ])" ></div>
+						<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{(global.statsData.cpu.current.user + global.statsData.cpu.current.system).toFixed(2)}}%</span>
+					</div>
+				</div>
+				<div class="mt-2 w-full bg-gray-200 rounded-full h-1 flex">
+					<div class="bg-green-800 h-1 rounded-full" style="width:{{global.statsData.cpu.current.user}}%"></div>
+					<div class="bg-green-600 h-1 rounded-full" style="width:{{global.statsData.cpu.current.system}}%"></div>
 				</div>
 			</div>
-
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
-					<span class="text-muted-foreground">{{LG("Active Users")}}</span>
-					<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">47</span>
+					<span class="text-muted-foreground">{{LG("Network")}}</span>
+					<div class="flex items-center gap-1">
+						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent((global.statsData.network.current.rx + global.statsData.network.current.tx) / 1024, [ 1024, 512 ])" ></div>
+						<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{((global.statsData.network.current.rx + global.statsData.network.current.tx) / 1024).toFixed(0)}} kB</span>
+					</div>
+				</div>
+			</div>
+			<div class="px-3 py-2">
+				<div class="flex items-center justify-between text-xs">
+					<span class="text-muted-foreground">{{LG("Users")}}</span>
+					<div class="flex items-center gap-1">
+						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent(global.statsData.users.count, [ 1000, 100 ])" ></div>
+						<span class="ml-auto bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{global.statsData.users.count}}</span>
+					</div>
 				</div>
 			</div>
 		</nav>

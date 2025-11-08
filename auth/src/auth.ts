@@ -12,6 +12,7 @@ import fs from "fs";
 import * as net from "net";
 import * as jose from "jose";
 import * as os from 'os';
+import * as si from 'systeminformation';
 
 export const port = 8091;
 const statusDemo = process.env.PRODUCTION === "true" ? false : true;
@@ -69,6 +70,9 @@ const sendToDongle = (data) => {
 	});
 }
 
+si.networkStats();
+let usersNb = 0;
+
 const rootPath = "/var/log/";
 const mdcEndpoints = () => {
 	return {
@@ -78,6 +82,56 @@ const mdcEndpoints = () => {
 				method: "GET",
 			}, async(ctx) => {
 				return Response.json({ status:"healthy", demo:statusDemo, timestamp:new Date().toISOString() }, { status:200 });
+			}),
+
+			stats: createAuthEndpoint("/stats", {
+				method: "GET",
+			}, async(ctx) => {
+				const ret = {};
+				if (usersNb == 0) {
+					const countStatement = ctx?.context.options.database.prepare("SELECT COUNT(*) AS count FROM user");
+					const result = countStatement.get();
+					usersNb = result?.count;
+				}
+				ret["users"] = { count: usersNb };
+				const dataLoad = await si.currentLoad();
+				ret["cpu"] = {
+					current: {
+						user: parseFloat(dataLoad.currentLoadUser.toFixed(2)), //%
+						system: parseFloat(dataLoad.currentLoadSystem.toFixed(2)), //%
+						usersystem: parseFloat((dataLoad.currentLoadUser + dataLoad.currentLoadSystem).toFixed(2)), //%
+						idle: parseFloat(dataLoad.currentLoadIdle.toFixed(2)) //%
+					},
+					average: parseFloat(dataLoad.avgLoad.toFixed(2)) //%
+				};
+				const dataStorage_ = await si.fsSize();
+				const dataStorage = dataStorage_.find(fs => fs.mount === "/");
+				if (dataStorage)
+					ret["storage"] = {
+						usage: parseFloat(dataStorage.use.toFixed(2)), //%
+						size: parseFloat((dataStorage.size / (1024 * 1024)).toFixed(0)), //MB
+						used: parseFloat((dataStorage.used / (1024 * 1024)).toFixed(0)), //MB
+						available: parseFloat((dataStorage.available / (1024 * 1024)).toFixed(0)) //MB
+					};
+				const dataNetwork_ = await si.networkStats();
+				let dataNetwork;
+				dataNetwork = dataNetwork_.find(nw => nw.iface === "wlan0");
+				if (!dataNetwork)
+					dataNetwork = dataNetwork_.find(nw => nw.iface === "eth0");
+				if (!dataNetwork)
+					dataNetwork = dataNetwork_.find(nw => nw.iface === "wlo1");
+				if (dataNetwork)
+					ret["network"] = {
+						total: {
+							rx: dataNetwork.rx_bytes ?? 0, //B
+							tx: dataNetwork.tx_bytes ?? 0 //B
+						},
+						current: {
+							rx: dataNetwork.rx_sec ?? 0, //B
+							tx: dataNetwork.tx_sec ?? 0, //B
+						}
+					};
+				return Response.json(ret, { status:200 });
 			}),
 
 			serverLog: createAuthEndpoint("/server-log", {
