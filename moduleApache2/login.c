@@ -26,8 +26,26 @@ typedef struct {
 #define CONF_PATH "/disk/admin/modules/_config_/%s.json"
 #define INJECTION "<script>\n\
 var mdcSubmit;\n\
-window.mdcCredentials = function() { HTMLFormElement.prototype.submit.call(mdcSubmit); };\n\
-document.addEventListener('DOMContentLoaded', (event) => { mdcSubmit = document.querySelector('form%s'); if (mdcSubmit !== null) document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px;\" onclick=\"mdcCredentials()\">Automatic<br>Login</button></div>'); });\n\
+function mdcCredentials() {\n\
+	var input = document.createElement('input');\n\
+	input.type = 'hidden';\n\
+	input.name = 'mdcAL';\n\
+	input.value = 1;\n\
+	mdcSubmit.appendChild(input);\n\
+	HTMLFormElement.prototype.submit.call(mdcSubmit);\n\
+};\n\
+var mdcTries = 0;\n\
+function mdcInsert() {\n\
+	if (mdcTries++ > 2)\n\
+		return;\n\
+	mdcSubmit = document.querySelector('form%s');\n\
+	if (mdcSubmit !== null)\n\
+		document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px;\" onclick=\"mdcCredentials();\">Automatic<br>Login</button></div>');\n\
+	else\n\
+		setTimeout(mdcInsert, 1000);\n\
+}\n\
+\n\
+document.addEventListener('DOMContentLoaded', (event) => { mdcInsert(); });\n\
 </script>"
 
 //Private variables
@@ -182,18 +200,6 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 		goto end;
 	if (mode != AP_MODE_READBYTES || f->r->method_number != M_POST)
 		goto end;
-	char szTmp[128];
-	snprintf(szTmp, sizeof(szTmp), CONF_PATH, post[ctx->foundPost][0]);
-	el = jsonRead(szTmp);
-	char *username = NULL;
-	char *email = NULL;
-	char *password = NULL;
-	if (el) {
-		username = cJSON_GetStringValue2(el, "username");
-		email = cJSON_GetStringValue2(el, "email");
-		password = cJSON_GetStringValue2(el, "password");
-	} else
-		goto end;
 	tmp_bb = apr_brigade_create(f->r->pool, f->c->bucket_alloc);
 	rv = ap_get_brigade(f->next, tmp_bb, mode, block, readbytes);
 	if (rv != APR_SUCCESS)
@@ -213,9 +219,22 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 		char *buffer = apr_pstrndup(f->r->pool, data, len);
 		//PRINTFc("MDC: Post Before ##%s##", buffer);
 		char *newBuffer = NULL;
-		int ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], post[ctx->foundPost][4] ? email : username, post[ctx->foundPost][3], password, &newBuffer);
-		//PRINTFc("MDC: Post After %d##%s##", ret, newBuffer);
-		apr_bucket *reinsert_b;
+		int ret = 0;
+		if (strstr(buffer, "mdcAL") != NULL) {
+			char szTmp[128];
+			snprintf(szTmp, sizeof(szTmp), CONF_PATH, post[ctx->foundPost][0]);
+			el = jsonRead(szTmp);
+			char *username = NULL;
+			char *email = NULL;
+			char *password = NULL;
+			if (el) {
+				username = cJSON_GetStringValue2(el, "username");
+				email = cJSON_GetStringValue2(el, "email");
+				password = cJSON_GetStringValue2(el, "password");
+				ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], post[ctx->foundPost][4] ? email : username, post[ctx->foundPost][3], password, &newBuffer);
+				PRINTFc("MDC: Post After %d##%s##", ret, newBuffer);
+			}
+		}
 		if (ret == 0)
 			newBuffer = buffer;
 		else {
@@ -224,7 +243,7 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 			snprintf(len_str, 32, "%lu", len);
 			apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
 		}
-		reinsert_b = apr_bucket_transient_create(newBuffer, len, f->c->bucket_alloc);
+		apr_bucket *reinsert_b = apr_bucket_transient_create(newBuffer, len, f->c->bucket_alloc);
 		APR_BRIGADE_INSERT_TAIL(bb, reinsert_b);
 		apr_bucket_destroy(b);
 	}
