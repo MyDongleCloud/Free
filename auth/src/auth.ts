@@ -20,8 +20,8 @@ const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/dis
 const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
-const cloudPath = adminPath + "_config/_cloud_.json";
-export const cloud = existsSync(cloudPath) ? JSON.parse(readFileSync(cloudPath, "utf-8")) : { name:"", domains: [] };
+const cloudPath = adminPath + "_config_/_cloud_.json";
+export const cloud = existsSync(cloudPath) ? JSON.parse(readFileSync(cloudPath, "utf-8")) : { all: { name:"", domains: [] } };
 const modulesPath = adminPath + "_config/_modules_.json";
 let modules = {};
 if (existsSync(modulesPath))
@@ -42,7 +42,7 @@ let trustedOrigins;
 if (process.env.PRODUCTION === "true") {
 	trustedOrigins = [ "*.mydongle.cloud", "*.mondongle.cloud", "*.myd.cd" ];
 	if (cloud?.domains)
-		cloud.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
+		cloud.all.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
 	const internalIP = getInternalIpAddress();
 	internalIP && trustedOrigins.push(internalIP);
 } else

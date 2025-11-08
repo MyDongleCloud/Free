@@ -10,9 +10,9 @@ const transporter = nodemailer.createTransport({
 let APP_NAME, APP_URL, APP_ADMIN;
 async function lazyInit() {
     const { cloud } = await import("./auth");
-	APP_NAME = "MyDongle.Cloud " + cloud.name;
-	APP_URL = "https://" + cloud.name + ".mydongle.cloud";
-	APP_ADMIN = "admin@" + cloud.name + ".mydongle.cloud";
+	APP_NAME = "MyDongle.Cloud " + cloud?.all?.name;
+	APP_URL = "https://" + cloud?.all?.name + ".mydongle.cloud";
+	APP_ADMIN = "admin@" + cloud?.all?.name + ".mydongle.cloud";
 }
 lazyInit();
 
