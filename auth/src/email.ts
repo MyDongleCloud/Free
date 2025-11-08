@@ -1,13 +1,24 @@
+import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-	host: "localhost",
-	port: 25,
-	secure: false,
-	ignoreTLS: true
-});
+let transporter, APP_NAME, APP_URL, APP_ADMIN;
 
-let APP_NAME, APP_URL, APP_ADMIN;
+async function transporterInit() {
+	if (transporter)
+		return;
+	const pf = JSON.parse(readFileSync("/disk/admin/modules/_config_/postfix.json", "utf-8"));
+	transporter = nodemailer.createTransport({
+		host: "localhost",
+		auth: {
+			user: APP_ADMIN,
+			pass: pf["password"]
+		},
+		port: 465,
+		secure: true,
+		tls: { rejectUnauthorized: false }
+	});
+}
+
 async function lazyInit() {
     const { cloud } = await import("./auth");
 	APP_NAME = "MyDongle.Cloud " + cloud?.all?.name;
@@ -17,6 +28,7 @@ async function lazyInit() {
 lazyInit();
 
 const sendMagicLinkEmail = async (to, token, url) => {
+	await transporterInit();
 	const link = decodeURIComponent(url.replace(/.*errorCallbackURL=/, "")) + "/MyDongleCloud/login?verify=" + token;
 	await transporter.sendMail({
 	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
@@ -46,6 +58,7 @@ const sendMagicLinkEmail = async (to, token, url) => {
 };
 
 const sendVerificationEmail = async (to, code) => {
+	await transporterInit();
 	await transporter.sendMail({
 	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
@@ -73,6 +86,7 @@ const sendVerificationEmail = async (to, code) => {
 };
 
 const sendPasswordResetVerificationEmail = async (to, code) => {
+	await transporterInit();
 	await transporter.sendMail({
 	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
@@ -100,6 +114,7 @@ const sendPasswordResetVerificationEmail = async (to, code) => {
 };
 
 const sendSignInOTP = async (to, code) => {
+	await transporterInit();
 	await transporter.sendMail({
 	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
@@ -127,6 +142,7 @@ const sendSignInOTP = async (to, code) => {
 };
 
 const sendVerificationEmailURL = async (to, url) => {
+	await transporterInit();
 	await transporter.sendMail({
 	from: `"${APP_NAME} - Email Verification" <${APP_ADMIN}>`,
 	to,
