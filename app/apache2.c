@@ -67,8 +67,6 @@ static void writeDirectoryIndex(char *s, FILE *pfM) {
 
 static void writeLog(char *name, FILE *pfM) {
 	char sz[256];
-	snprintf(sz, sizeof(sz), "/disk/admin/.log/%s", name);
-	mkdir(sz, 755);
 	snprintf(sz, sizeof(sz), "\tCustomLog /var/log/apache2/web-%s.log combined\n", name);
 	fwrite(sz, strlen(sz), 1, pfM);
 }
