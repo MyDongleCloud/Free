@@ -3,12 +3,19 @@
 
 //Struct
 typedef struct {
-	const char *jwkPemFile;
 	const char *jwkPem;
 	const char *name;
 	cJSON *permissions;
 	int autologin;
-} config;
+	apr_shm_t *shm_hits;
+	apr_shm_t * shm_lasttime;
+	apr_proc_mutex_t *mutex;
+} configVH;
+
+typedef struct {
+	const char *jwkPem;
+	int autologin;
+} configS;
 
 //Global variable
 extern module AP_MODULE_DECLARE_DATA mydonglecloud_module;

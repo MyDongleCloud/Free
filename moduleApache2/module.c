@@ -6,8 +6,11 @@
 #include "http_request.h"
 #include "http_log.h"
 #include "apr_strings.h"
+#include "apr_shm.h"
+#include "apr_proc_mutex.h"
 #include "macro.h"
 #include "cJSON.h"
+#include "json.h"
 #include "login.h"
 #include "module.h"
 
@@ -18,76 +21,102 @@
 #define PRINTF(format, ...) PRINTF_(APLOG_ERR, format, ##__VA_ARGS__)
 
 //Functions
+static apr_status_t cleanup(void *data) {
+	configVH *confVH = (configVH *)data;
+	int *global_hits = apr_shm_baseaddr_get(confVH->shm_hits);
+	time_t *global_lasttime = apr_shm_baseaddr_get(confVH->shm_lasttime);
+	if (global_hits && global_lasttime && *global_hits) {
+		char sz[256];
+		snprintf(sz, sizeof(sz), "/var/log/apache2/stats-%s.json", confVH->name);
+		cJSON *el = jsonRead(sz);
+		if (!el)
+			el = cJSON_CreateObject();
+		int hits = (int)cJSON_GetNumberValue2(el, "hits");
+		cJSON_AddNumberToObject(el, "hits", hits + *global_hits);
+		cJSON_AddNumberToObject(el, "lasttime", *global_lasttime);
+		jsonWrite(el, sz);
+		chmod(sz, 0666);
+	}
+	return APR_SUCCESS;
+}
+
 static void *createConfig(apr_pool_t *p, server_rec *s) {
-	config *confD = apr_pcalloc(p, sizeof(config));
-	confD->jwkPemFile = NULL;
-	confD->jwkPem = NULL;
-	confD->name = NULL;
-	confD->permissions = NULL;
-	return confD;
+	if (s->is_virtual) {
+		configVH *confVH = apr_pcalloc(p, sizeof(configVH));
+		memset(confVH, 0, sizeof(configVH));
+		apr_shm_create(&confVH->shm_hits, sizeof(int), NULL, p);
+		int *global_hits = apr_shm_baseaddr_get(confVH->shm_hits);
+		*global_hits = 0;
+		apr_shm_create(&confVH->shm_lasttime, sizeof(time_t), NULL, p);
+		time_t *global_lasttime = apr_shm_baseaddr_get(confVH->shm_lasttime);
+		*global_lasttime = 0;
+		apr_proc_mutex_create(&confVH->mutex, "stats", APR_LOCK_DEFAULT, p);
+		apr_pool_cleanup_register(p, confVH, cleanup, apr_pool_cleanup_null);
+		return confVH;
+	} else {
+		configS *confS = apr_pcalloc(p, sizeof(configS));
+		memset(confS, 0, sizeof(configS));
+		return confS;
+	}
 }
 
 static void *mergeConfig(apr_pool_t *p, void *basev, void *addv) {
-	config *base = (config *)basev;
-	config *add = (config *)addv;
-	config *conf = (config *)apr_pcalloc(p, sizeof(config));
-	conf->jwkPemFile = base->jwkPemFile;
-	conf->jwkPem = base->jwkPem;
-	conf->name = add->name;
-	conf->permissions = add->permissions;
-	conf->autologin = base->autologin;
-	return conf;
+	configS *confS = (configS *)basev;
+	configVH *confVH = (configVH *)addv;
+	confVH->jwkPem = confS->jwkPem;
+	confVH->autologin = confS->autologin;
+	return confVH;
 }
 
-void getJwkPemContent(server_rec *s, config *confD) {
+char *getJwkPemContent(const char *arg) {
+	char *sz = NULL;
 	struct stat statTest;
-	if (stat(confD->jwkPemFile, &statTest) == 0) {
+	if (stat(arg, &statTest) == 0) {
 		if (statTest.st_size > 100) {
 			int size = statTest.st_size + 1;
-			char *sz = malloc(size);
-			FILE *pf = fopen(confD->jwkPemFile, "r");
+			sz = malloc(size);
+			FILE *pf = fopen(arg, "r");
 			if (pf) {
 				int ret = fread(sz, 1, size, pf);
 				if (ret >= 0)
 					sz[ret] = '\0';
-				confD->jwkPem = sz;
 				fclose(pf);
 			}
 		}
 	}
+	return sz;
 }
 
 static const char *moduleJwkPemFileSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	confD->jwkPemFile = arg;
-	getJwkPemContent(s, confD);
+	configS *confS = (configS *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	confS->jwkPem = getJwkPemContent(arg);
 	PRINTF("MDC: Jwt %s", arg);
 	return NULL;
 }
 
 static const char *moduleNameSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	confD->name = arg;
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	confVH->name = arg;
 	PRINTF("MDC: Name %s", arg);
 	return NULL;
 }
 
 static const char *modulePermissionSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	PRINTF("MDC: Permission %s (for %s)", arg, confD->name);
-	if (confD->permissions == NULL)
-		confD->permissions = cJSON_CreateObject();
-	cJSON_AddBoolToObject(confD->permissions, arg, cJSON_True);
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	PRINTF("MDC: Permission %s (for %s)", arg, confVH->name);
+	if (confVH->permissions == NULL)
+		confVH->permissions = cJSON_CreateObject();
+	cJSON_AddBoolToObject(confVH->permissions, arg, cJSON_True);
 	return NULL;
 }
 
 static const char *moduleAutoLoginSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	confD->autologin = strcmp(arg, "on") == 0 ? 1 : 0;
+	configS *confS = (configS *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	confS->autologin = strcmp(arg, "on") == 0 ? 1 : 0;
 	PRINTF("MyDongleCloudAutoLogin: %s", arg);
 	return NULL;
 }
@@ -142,22 +171,28 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 
 int authorization2(request_rec *r) {
 	server_rec *s = r->server;
-	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	//PRINTF("MDC: authorization1a jwkPemFile: %s", confD->jwkPemFile);
-	if (confD->jwkPem == NULL)
-		getJwkPemContent(s, confD);
-	//PRINTF("MDC: authorization1b jwkPem: %s", confD->jwkPem);
-	//PRINTF("MDC: authorization1c name:%s uri:%s", confD->name, r->uri);
-	//char *ssz = cJSON_Print(confD->permissions);
-	//PRINTF("MDC: authorization1d permissions: %s\n", ssz);
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+#define STATS
+#ifdef STATS
+	int *global_hits = apr_shm_baseaddr_get(confVH->shm_hits);
+	time_t *global_lasttime = apr_shm_baseaddr_get(confVH->shm_lasttime);
+	apr_proc_mutex_lock(confVH->mutex);
+	(*global_hits)++;
+	*global_lasttime = time(NULL);
+	apr_proc_mutex_unlock(confVH->mutex);
+	//PRINTF("MDC: authorization1a name:%s uri:%s hits:%d", confVH->name, r->uri, *global_hits);
+#endif
+	//PRINTF("MDC: authorization1b jwkPem: %.*s", 32, confVH->jwkPem);
+	//char *ssz = cJSON_Print(confVH->permissions);
+	//PRINTF("MDC: authorization1c permissions: %s\n", ssz);
 	//free(ssz);
-	if (confD->permissions == NULL || cJSON_HasObjectItem(confD->permissions, "_public_"))
+	if (confVH->permissions == NULL || cJSON_HasObjectItem(confVH->permissions, "_public_"))
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
 	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
 	//PRINTF("MDC: authorization2 cookieJwt: %s", cookieJwt);
 	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
-		return decodeAndCheck(s, cookieJwt, confD->jwkPem, confD->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
+		return decodeAndCheck(s, cookieJwt, confVH->jwkPem, confVH->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
 	return -2;
 }
 
@@ -169,10 +204,10 @@ static int authorization(request_rec *r) {
 	int ret = authorization2(r);
 	if (ret != -2)
 		return ret;
-	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	if (confD->name != NULL && strcmp(confD->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	if (confVH->name != NULL && strcmp(confVH->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
 			return DECLINED;
-	//PRINTF("MDC: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confD->name, r->uri);
+	//PRINTF("MDC: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confVH->name, r->uri);
 	return HTTP_UNAUTHORIZED;
 }
 

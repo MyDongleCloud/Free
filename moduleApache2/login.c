@@ -3,6 +3,8 @@
 #include "http_request.h"
 #include "http_log.h"
 #include "apr_strings.h"
+#include "apr_shm.h"
+#include "apr_proc_mutex.h"
 #include "cJSON.h"
 #include "module.h"
 #include "json.h"
@@ -237,16 +239,16 @@ end:
 
 static void mydonglecloud_insert_filter(request_rec *r) {
 	server_rec *s = r->server;
-	config *confD = (config *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	if (confD->autologin == 0)
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	if (confVH->autologin == 0)
 		return;
-	//PRINTFr("MDC: Filtering? %s %s %s", r->hostname, r->uri, confD->name);
+	//PRINTFr("MDC: Filtering? %s %s %s", r->hostname, r->uri, confVH->name);
 	filter_ctx *ctx = NULL;
 	int ret, ii;
 	ret = 0;
 	ii = sizeof(html) / sizeof(html[0]);
 	for (int i = 0; i < ii; i++) {
-		int c = strcmp(confD->name, html[i][0]);
+		int c = strcmp(confVH->name, html[i][0]);
 		if (c < 0)
 			break;
 		if (c == 0 && strncmp(r->uri, html[i][1], strlen(html[i][1])) == 0) {
@@ -262,7 +264,7 @@ static void mydonglecloud_insert_filter(request_rec *r) {
 	ret = 0;
 	ii = sizeof(post) / sizeof(post[0]);
 	for (int i = 0; i < ii; i++) {
-		int c = strcmp(confD->name, post[i][0]);
+		int c = strcmp(confVH->name, post[i][0]);
 		if (c < 0)
 			break;
 		if (c == 0 && strncmp(r->uri, post[i][1], strlen(post[i][1])) == 0) {
