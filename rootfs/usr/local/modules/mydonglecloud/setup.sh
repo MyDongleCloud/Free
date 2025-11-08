@@ -2,7 +2,7 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for setup [-h]"
+echo "Usage for setup [-h -a]"
 echo "h:		Print this usage and exit"
 exit 0
 }
@@ -12,12 +12,50 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
-while getopts h opt
+ALL=0
+while getopts ha opt
 do
 	case "$opt" in
+		a) ALL=1;;
 		h) helper;;
 	esac
 done
+
+module() {
+	if [ $2 = 1 ]; then
+		su admin -c "/usr/local/modules/mydonglecloud/scripts/$1.sh -r"
+	else
+		/usr/local/modules/mydonglecloud/scripts/$1.sh -r
+	fi
+	COUNT=$((COUNT + 1))
+	P=$(($COUNT * 100 / $TOTAL))
+	echo "{ \"a\":\"setup-status\", \"p\":$P, \"n\":\"$1\" }" | nc -w 1 localhost 8093
+}
+
+if [ $ALL = 1 ]; then
+	TOTAL=`jq '[.[] | select(has("setup"))] | length' /usr/local/modules/mydonglecloud/modulesdefault.json`
+	COUNT=0
+	module meilisearch 1
+	module mongodb 0
+	module mysql 0
+	module postgresql 0
+	module apache2 1
+	module bugzilla 0
+	module homeassistant 1
+	module jitsimeet 0
+	module librechat 1
+	module mantisbugtracker 1
+	module metube 1
+	module osticket 1
+	module postfix 0
+	module privatebin 0
+	module projectsend 0
+	module roundcube 1
+	module tubesync 1
+	module webtrees 0
+	module yourls 1
+	exit 0
+fi
 
 if [ $1 = "apache2" ]; then
 	su admin -c "/usr/local/modules/mydonglecloud/scripts/apache2.sh -r"
