@@ -23,8 +23,9 @@
 			<table class="min-w-full divide-y divide-gray-300">
 				<thead class="bg-gray-50 sticky top-0 z-10">
 					<tr>
-						<th scope="col" class="px-6 py-3 text-start text-xs hidden md:table-cell font-medium text-gray-500 tracking-wider">{{L("TITLE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
-						<th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 tracking-wider">{{L("OPEN SOURCE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+						<th scope="col" class="px-6 py-3 text-start text-xs hidden md:table-cell font-medium text-gray-500 tracking-wider cursor-pointer" (click)="toggleSortDirection('title')"><div class="flex items-center">{{L("TITLE")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></div></th>
+						<th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 tracking-wider cursor-pointer" (click)="toggleSortDirection('name')"><div class="flex items-center">{{L("OPEN SOURCE")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></div></th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider cursor-pointer" (click)="toggleSortDirection('hits')"><div class="flex items-center">{{L("HITS")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['hits'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></div></th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">{{L("DISABLED")}}</th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">{{L("PUBLIC")}}</th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider whitespace-pre-wrap">{{L("LOCAL\nNETWORK")}}</th>
@@ -40,6 +41,9 @@
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text-gray-900"><a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text-gray-900 flex justify-center">{{card.hits}}</div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text-gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bDisabled']" [disabled]="card['dDisabled']" (ionChange)="update(card)"></ion-checkbox></div>

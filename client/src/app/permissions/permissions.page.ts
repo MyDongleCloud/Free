@@ -22,8 +22,9 @@ cardsOrig;
 filteredCards;
 searchTerm: string = "";
 sortProperty: string = "title";
-sortDirection = { title:"asc", name:"asc", category:"asc" };
+sortDirection = { title:"asc", name:"asc", category:"asc", hits:"asc" };
 dResetSave: boolean = true;
+stats;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
@@ -112,6 +113,8 @@ async save() {
 }
 
 async getData() {
+	const stats = await this.httpClient.post("/MyDongleCloud/Auth/module/stats", JSON.stringify({ all:true }), {headers:{"content-type": "application/json"}}).toPromise();
+	this.global.consolelog(2, "Auth module-stats: ", stats);
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
 	Object.entries(modulesDefault).forEach(([key, value]) => {
@@ -132,6 +135,7 @@ async getData() {
 				value["bAdmin"] = value["permissions"][i] == "_groupadmin_";
 				value["bUser"] = value["permissions"][i] == "_groupuser_";
 			}
+			value["hits"] = stats?.[key]?.hits ?? 0;
 			this.cards.push(value);
 			this.update_(value);
 		}
@@ -157,7 +161,10 @@ sortCards() {
 	this.filteredCards.sort((a, b) => {
 		const aValue = a[this.sortProperty];
 		const bValue = b[this.sortProperty];
-		return this.sortDirection[this.sortProperty] === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+		if (this.sortProperty == "hits")
+			return (aValue - bValue) * (this.sortDirection[this.sortProperty] === "asc" ? 1 : -1);
+		else
+			return this.sortDirection[this.sortProperty] === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
 	});
 }
 

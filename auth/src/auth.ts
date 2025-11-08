@@ -181,11 +181,29 @@ const mdcEndpoints = () => {
 			}, async(ctx) => {
 				let ret;
 				try {
-					ret = fs.readFileSync("/disk/admin/modules/_config_/" + ctx.body?.module + ".json", "utf8");
+					ret = JSON.parse(fs.readFileSync("/disk/admin/modules/_config_/" + ctx.body?.module + ".json", "utf8"));
 				} catch (e) {
-					ret = '{ "status":"error" }';
+					ret = { status:"error" };
 				}
-				return Response.json(JSON.parse(ret), { status:200 });
+				return Response.json(ret, { status:200 });
+			}),
+
+			moduleStats: createAuthEndpoint("/module/stats", {
+				method: "POST",
+			}, async(ctx) => {
+				let ret = {};
+				try {
+					if (ctx.body?.all) {
+						const files = fs.readdirSync("/var/log/apache2/");
+						const matchingFiles = files.filter(file => /^stats-.*\.json$/.test(file));
+						for (const file of matchingFiles)
+							ret[file.replace("stats-", "").replace(".json", "")] = JSON.parse(fs.readFileSync("/var/log/apache2/" + file, "utf8"));
+					} else
+						ret = JSON.parse(fs.readFileSync("/var/log/apache2/stats-" + ctx.body?.module + ".json", "utf8"));
+				} catch (e) {
+					ret = { status:"error" };
+				}
+				return Response.json(ret, { status:200 });
 			}),
 
 			jwksPem: createAuthEndpoint("/jwks-pem", {
