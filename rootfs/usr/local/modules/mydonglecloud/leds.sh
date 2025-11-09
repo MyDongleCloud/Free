@@ -15,11 +15,6 @@ echo "		off: G:off R:off"
 exit 0
 }
 
-if [ "m`id -u`" != "m0" ]; then
-	echo "You need to be root"
-	exit 0
-fi
-
 LEDS="normal"
 BACKLIGHT=1
 while getopts b:hl: opt
