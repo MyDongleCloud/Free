@@ -17,7 +17,11 @@ app.use((req, res, next) => {
 });
 */
 const customFormat = ":method :url :status :response-time ms";
-app.use(morgan(customFormat));
+app.use(morgan(customFormat, {
+	skip: function (req, res) {
+		return req.url === '/stats';
+	}
+}));
 app.use(cors({
 	origin: ["*"],
 	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
