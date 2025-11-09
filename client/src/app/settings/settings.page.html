@@ -53,15 +53,15 @@
 						<div class="space-y-6">
 							<div>
 								<label class="block text-sm font-medium text-gray-700 mb-2">{{L("Cloud Name")}}</label>
-								<input type="text" disabled="true" value="https://{{global.session.cloud.name}}.mydongle.cloud" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-500">
+								<input type="text" disabled="true" value="https://{{global.session.cloud.all?.name}}.mydongle.cloud" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-500">
 							</div>
 							<div>
 								<label class="block text-sm font-medium text-gray-700 mb-2">{{L("Short Name")}}</label>
-								<input type="text" disabled="true" value="https://{{global.session.cloud.shortname}}.myd.cd" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-500">
+								<input type="text" disabled="true" value="https://{{global.session.cloud.all?.shortname}}.myd.cd" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-500">
 							</div>
 							<div>
 								<label class="block text-sm font-medium text-gray-700 mb-2">{{L("BYO Domains (Bring Your Own Domains)")}}</label>
-								<input type="text" disabled="true" value="{{global.session.cloud.domains.join(', ')}}" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-500">
+								<input type="text" disabled="true" value="{{global.session.cloud.all?.domains.join(', ')}}" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-500">
 							</div>
 						</div>
 					</div>
