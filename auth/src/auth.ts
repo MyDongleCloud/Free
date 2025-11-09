@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
-import { execSync } from 'child_process';
+import { execSync } from "child_process";
 import { randomBytes } from "crypto";
 import { betterAuth } from "better-auth";
 import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
@@ -11,8 +11,8 @@ import "dotenv/config";
 import fs from "fs";
 import * as net from "net";
 import * as jose from "jose";
-import * as os from 'os';
-import * as si from 'systeminformation';
+import * as os from "os";
+import * as si from "systeminformation";
 
 export const port = 8091;
 const statusDemo = process.env.PRODUCTION === "true" ? false : true;
@@ -33,7 +33,7 @@ function getInternalIpAddress() {
 		const addresses = networkInterfaces[name];
 		if (addresses)
 			for (const address of addresses)
-				if (address.family === 'IPv4' && !address.internal)
+				if (address.family === "IPv4" && !address.internal)
 					return address.address;
 	}
 	return undefined;
@@ -168,12 +168,12 @@ const mdcEndpoints = () => {
 				let ret;
 				try {
 					const output = execSync(tbe);
-					console.log("Output:\n", output);
-					ret = '{ "status":"success" }';
+					console.log("Reset " + ctx.body?.module + ":\n", output);
+					ret = { status:"success" };
 				} catch (error) {
-					ret = '{ "status":"error" }';
+					ret = { status:"error" };
 				}
-				return Response.json(JSON.parse(ret), { status:200 });
+				return Response.json(ret, { status:200 });
 			}),
 
 			moduleConfig: createAuthEndpoint("/module/config", {
@@ -273,7 +273,6 @@ export const auth = betterAuth({
 			otpOptions: {
 				async sendOTP({ user, otp }, request) {
 					sendToDongle({ a:"otp", v:parseInt(otp), e:user?.["email"] });
-					console.log(otp);
 				}
 			}
 		}),
