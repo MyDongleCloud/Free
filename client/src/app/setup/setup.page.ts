@@ -171,7 +171,6 @@ show_Dongle() {
 async doDongle() {
 	this.progress = true;
 	this.errorSt = null;
-	const data = { a:"setup", name:this.name1.value, alias:this.shortname1.value, domains:[this.domain1.value] };
 	this.show_Register();
 	this.progress = false;
 }
@@ -206,14 +205,15 @@ async doWiFi() {
 	let ret1 = null;
 	let ret2 = null;
 	try {
-		const ret1 = await this.global.getCertificate(this.name1.value); //Not used: ret1.accountKey, ret1.accountKeyId
-		this.global.consolelog(1, "Certificates", ret1);
+		ret1 = await this.global.getCertificate(this.name1.value, this.shortname1.value, this.domain1.value != "" ? [this.domain1.value] : []); //Not used: ret1.accountKey, ret1.accountKeyId
+		this.global.consolelog(2, "SETUP: Certificates", ret1);
 	} catch(e) { ret1 = { fullChain:"", privateKey: "" }; }
 	try {
 		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "name=" + encodeURIComponent(this.name1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
-		this.global.consolelog(1, "Server", ret2);
+		this.global.consolelog(2, "SETUP: Server", ret2);
 	} catch(e) { ret2 = { frp:{}, ollama:{}, postfix:{} }; }
-	const data = { a:"setup", cloud:{ all:{ name:this.name1.value, shortname:this.shortname1.value, domains:[this.domain1.value] }, frp:ret2.frp, ollama:ret2.ollama, postfix:ret2.postfix }, betterauth:{ email:this.email2.value, name:this.name2.value, password:this.password2.value }, wifi:{ ssid:this.ssid3.value, password:this.password3.value }, letsencrypt: { fullchain:ret1.fullChain, privatekey:ret1.privateKey } };
+	const data = { a:"setup", cloud:{ all:{ name:this.name1.value, shortname:this.shortname1.value, domains:this.domain1.value != "" ? [this.domain1.value] : [] }, frp:ret2.frp, ollama:ret2.ollama, postfix:ret2.postfix }, betterauth:{ email:this.email2.value, name:this.name2.value, password:this.password2.value }, wifi:{ ssid:this.ssid3.value, password:this.password3.value }, letsencrypt: { fullchain:ret1.fullChain, privatekey:ret1.privateKey } };
+	this.global.consolelog(2, "SETUP: Sending to dongle:", data);
 	await this.ble.writeData(data);
 	this.cdr.detectChanges();
 }
