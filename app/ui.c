@@ -712,26 +712,8 @@ void uiScreenShutdown() {
 void uiScreenBye() {
 	lv_obj_clean(lv_screen_active());
 
-	lv_obj_t * spinner = lv_spinner_create(lv_screen_active());
-	static lv_style_t arcStyle0;
-	if (arcStyle0.prop_cnt == 0)
-		lv_style_init(&arcStyle0);
-	lv_style_set_arc_width(&arcStyle0, 5);
-	lv_style_set_arc_color(&arcStyle0, lv_color_hex(COLOR_DARK));
-	static lv_style_t arcStyle1;
-	if (arcStyle1.prop_cnt == 0)
-		lv_style_init(&arcStyle1);
-	lv_style_set_arc_width(&arcStyle1, 5);
-	lv_style_set_arc_color(&arcStyle1, lv_color_hex(COLOR_LIGHT));
-	lv_obj_set_size(spinner, 100, 100);
-	lv_obj_center(spinner);
-	lv_spinner_set_anim_params(spinner, 1000, 200);
-	lv_obj_add_style(spinner, &arcStyle0, LV_PART_INDICATOR);
-	lv_obj_add_style(spinner, &arcStyle1, LV_PART_MAIN);
-
-
 	lv_obj_t *label0 = lv_label_create(lv_screen_active());
-	lv_label_set_text(label0, L("Bye now!"));
+	lv_label_set_text(label0, L("Bye now!\nPlease be patient for a clean shutdown"));
 	lv_obj_set_style_text_align(label0, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_set_width(label0, 90);
 	lv_obj_center(label0);

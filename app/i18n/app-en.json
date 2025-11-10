@@ -4,7 +4,7 @@
 		"A long press on the top left button will sleep the screen and the led. The dongle will still function.": "",
 		"Are you sure to shutdown the dongle?": "",
 		"Back": "",
-		"Bye now!": "",
+		"Bye now!\\nPlease be patient for a clean shutdown": "",
 		"CPU": "",
 		"Cancel": "",
 		"Cancel the code\\nif you didn't request.\\nExpires in %2ds": "",

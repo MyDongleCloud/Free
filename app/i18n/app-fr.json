@@ -4,7 +4,7 @@
 		"A long press on the top left button will sleep the screen and the led. The dongle will still function.": "Un appui long sur le bouton en haut à gauche mettra l'écran et le voyant en veille. Le dongle continuera à fonctionner.",
 		"Are you sure to shutdown the dongle?": "Êtes-vous sûr de vouloir éteindre le dongle ?",
 		"Back": "Retour",
-		"Bye now!": "À plus tard !",
+		"Bye now!\\nPlease be patient for a clean shutdown": "Au revoir !\\nSoyez patient pour un arrêt propre",
 		"CPU": "CPU",
 		"Cancel": "Annuler",
 		"Cancel the code\\nif you didn't request.\\nExpires in %2ds": "Annulez le code\\nsi non demandé.\\nExpire dans %2ds",
