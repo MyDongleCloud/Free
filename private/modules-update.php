@@ -61,7 +61,8 @@ for ($i = 1; $i < count($modules); $i++) {
 	);
 	$modulesTranslationTitle[$m[gc("title")]] = "";
 	$modulesTranslationDescription[$m[gc("description")]] = "";
-	$modulesMarkdown[$i] = "|" . implode("|", array($m[gc("module")], $m[gc("title")], $m[gc("description")], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $m[gc("web")] === "yes" ? "web" : "terminal", $m[gc("category")], $m[gc("version")])) . "|";
+	$modulesMarkdown[$i] = "|" . implode("|", array($m[gc("github")] != "" ? ("[" . $m[gc("module")] . "](https://github.com/" . $m[gc("github")] . ")") : $m[gc("module")], $m[gc("title")], $m[gc("description")], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $m[gc("web")] === "yes" ? "web" : "terminal", $m[gc("category")], $m[gc("version")])) . "|";
+	$modulesMarkdown[$i] = str_replace("0.0k", "", $modulesMarkdown[$i]);
 }
 echo "Github stars: " . $starsTotal . "\n";
 file_put_contents(__DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/modulesmeta.json", str_replace("    ", "\t", json_encode($modulesMeta, JSON_PRETTY_PRINT)));
