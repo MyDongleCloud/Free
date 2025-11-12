@@ -19,6 +19,7 @@ $starsTotal = 0;
 $modulesMeta = array();
 $modulesTranslationTitle = array();
 $modulesTranslationDescription = array();
+$modulesMarkdown = array();
 for ($i = 1; $i < count($modules); $i++) {
 	$stars = 0;
 	if (strlen($modules[$i]) == 0)
@@ -60,9 +61,11 @@ for ($i = 1; $i < count($modules); $i++) {
 	);
 	$modulesTranslationTitle[$m[gc("title")]] = "";
 	$modulesTranslationDescription[$m[gc("description")]] = "";
+	$modulesMarkdown[$i] = "|" . implode("|", array($m[gc("module")], $m[gc("title")], $m[gc("description")], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $m[gc("web")] === "yes" ? "web" : "terminal", $m[gc("category")], $m[gc("version")])) . "|";
 }
 echo "Github stars: " . $starsTotal . "\n";
 file_put_contents(__DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/modulesmeta.json", str_replace("    ", "\t", json_encode($modulesMeta, JSON_PRETTY_PRINT)));
 $modulesTranslation = array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription));
 file_put_contents(__DIR__ . "/../client/src/assets/i18n/modules-en.json", str_replace("    ", "\t", json_encode($modulesTranslation, JSON_PRETTY_PRINT)));
+file_put_contents(__DIR__ . "/../README-modules.md", implode("\n",$modulesMarkdown));
 ?>
