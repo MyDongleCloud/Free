@@ -56,12 +56,13 @@ for ($i = 1; $i < count($modules); $i++) {
 		"version" => $m[gc("version")],
 		"category" => $m[gc("category")],
 		"description" => $m[gc("description")],
+		"web" => $m[gc("web")] === "yes",
 		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")]),
 		"proprietary" => empty($m[gc("proprietary")]) ? array() : explode("|", $m[gc("proprietary")])
 	);
 	$modulesTranslationTitle[$m[gc("title")]] = "";
 	$modulesTranslationDescription[$m[gc("description")]] = "";
-	$modulesMarkdown[$i] = "|" . implode("|", array($m[gc("github")] != "" ? ("[" . $m[gc("module")] . "](https://github.com/" . $m[gc("github")] . ")") : $m[gc("module")], $m[gc("title")], $m[gc("description")], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $m[gc("web")] === "yes" ? "web" : "terminal", $m[gc("category")], $m[gc("version")])) . "|";
+	$modulesMarkdown[$i] = "|" . implode("|", array($m[gc("github")] != "" ? ("[" . $m[gc("name")] . "](https://github.com/" . $m[gc("github")] . ")") : $m[gc("name")], $m[gc("title")], $m[gc("description")], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $m[gc("web")] === "yes" ? "web" : "terminal", $m[gc("category")], $m[gc("version")])) . "|";
 	$modulesMarkdown[$i] = str_replace("0.0k", "", $modulesMarkdown[$i]);
 }
 echo "Github stars: " . $starsTotal . "\n";
