@@ -26,6 +26,7 @@ getTranslation(lang: string): Observable<any> {
 export function createMultiHttpLoader(http: HttpClient) {
 	return new MultiHttpLoader(http, [
 		{ prefix: 'assets/i18n/global-', suffix: '.json' },
+		{ prefix: 'assets/i18n/keywords-', suffix: '.json' },
 		{ prefix: 'assets/i18n/pages-', suffix: '.json' },
 		{ prefix: 'assets/i18n/modules-', suffix: '.json' }
 	]);

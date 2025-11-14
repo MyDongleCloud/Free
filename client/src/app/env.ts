@@ -212,6 +212,10 @@ mytranslateG(st) {
 	return this.mytranslateP("global", st);
 }
 
+mytranslateK(st) {
+	return this.mytranslateP("keywords", st);
+}
+
 mytranslateMT(st) {
 	return this.mytranslateP("modules.title", st);
 }

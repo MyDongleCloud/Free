@@ -156,7 +156,7 @@
 						</div>
 						<div class="flex-1"></div>
 						<div class="-ml-2 mt-2" *ngIf="showDetails">
-							<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{LG(kw)}}</span>
+							<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{LK(kw)}}</span>
 						</div>
 					</div>
 				</div>
@@ -198,7 +198,7 @@
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 									<div class="-ml-2">
-										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{LG(kw)}}</span>
+										<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of card.keywords">{{LK(kw)}}</span>
 									</div>
 								</td>
 							</tr>
@@ -268,7 +268,7 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Keywords</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of cards[cardIdCur].keywords">{{LG(kw)}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(kw)" *ngFor="let kw of cards[cardIdCur].keywords">{{LK(kw)}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>

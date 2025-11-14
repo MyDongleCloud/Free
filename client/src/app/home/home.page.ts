@@ -14,6 +14,7 @@ import { SidebarComponent } from '../components/sidebar/sidebar.component';
 export class Home {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
+LK(st) { return this.global.mytranslateK(st); }
 LMT(st) { return this.global.mytranslateMT(st); }
 LMD(st) { return this.global.mytranslateMD(st); }
 @ViewChild(SidebarComponent) sidebarComponent;
