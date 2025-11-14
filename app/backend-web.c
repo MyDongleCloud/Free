@@ -21,8 +21,8 @@
 
 //Private variables
 static lv_color_t buf1[WIDTH * HEIGHT * DEPTH];
-static unsigned char fbPublic[WIDTH * HEIGHT * DEPTH];
 #ifdef GL
+static unsigned char fbPublic[WIDTH * HEIGHT * DEPTH];
 static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_Texture *sdlTexture;
@@ -47,8 +47,10 @@ void backendInitPointer_plat() {
 }
 
 static void backendUpdate_plat(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map) {
+#ifdef GL
 	for (int y = area->y1; y <= area->y2; y++)
 		memcpy(&fbPublic[(y * WIDTH + area->x1) * DEPTH], &px_map[(y - area->y1) * (area->x2 - area->x1 + 1) * DEPTH], (area->x2 - area->x1 + 1) * DEPTH);
+#endif
 	lv_display_flush_ready(disp);
 #ifndef GL
 	static uint32_t last_update_time = 0;
@@ -93,7 +95,7 @@ static void looping(void *arg) {
 #ifdef GL
 	SDL_UpdateTexture(sdlTexture, NULL, fbPublic, WIDTH * DEPTH);
 	SDL_RenderClear(renderer);
-	SDL_Rect destRect = {0, 0, CSS_SIZE, CSS_SIZE};
+	SDL_Rect destRect = {0, 0, CSS_WIDTH, CSS_HEIGHT};
 	SDL_RenderCopy(renderer, sdlTexture, NULL, &destRect);
 	SDL_RenderPresent(renderer);
 #endif
