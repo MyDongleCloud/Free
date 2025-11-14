@@ -390,10 +390,10 @@ async modulesDataPrepare() {
 	const modules = this.session?.["modules"] ?? {};
 	this.modulesData = [];
 	Object.entries(modulesMeta).forEach(([key, value]) => {
-		if (modulesDefault[key] === undefined) {
+		if (modulesDefault[key] === undefined)
 			this.consolelog(1, "Error: " + key + " not in modulesdefault");
-			return;
-		}
+		else if ((modulesDefault[key]["web"] === true && modulesMeta[key]["web"] !== true) || (modulesDefault[key]["web"] !== true && modulesMeta[key]["web"] === true))
+			this.consolelog(1, "Error: " + key + " discrepancy web flag");
 	});
 	Object.entries(modulesDefault).forEach(([key, value]) => {
 		if (modulesMeta[key] === undefined) {
