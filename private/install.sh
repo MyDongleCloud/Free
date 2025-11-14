@@ -206,9 +206,7 @@ rm -f /etc/apache2/ports.conf
 echo "################################"
 echo "cockpit"
 echo "################################"
-echo "deb http://deb.debian.org/debian trixie-backports main" > /etc/apt/sources.list.d/backports.list
-apt-get update
-apt-get -y -t trixie-backports install cockpit
+apt-get -y install cockpit
 
 echo "################################"
 echo "postgresql"
@@ -511,7 +509,7 @@ cd libreqr
 git checkout 2.0.1
 rm -rf .git
 composer -n install
-chown www-data:www-data css
+chown -R www-data:www-data /usr/local/modules/libreqr/css
 
 if [ -f "/tmp/clone.tbz2" ]; then
 	echo "################################"
@@ -580,8 +578,8 @@ else
 	clone syncthing syncthing/syncthing v1.30.0
 	clone tubesync meeb/tubesync v0.15.10
 	clone uptime louislam/uptime-kuma 1.23.16
-	clone webtrees fisharebest/webtrees 2.1.25
 	clone webssh2 billchurch/webssh2 webssh2-server-v2.3.4
+	clone webtrees fisharebest/webtrees 2.1.25
 	clone yourls YOURLS/YOURLS 1.10.2
 fi
 
