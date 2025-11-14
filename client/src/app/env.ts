@@ -138,7 +138,8 @@ async logout() {
 
 async logoutRedirect() {
 	await this.logout();
-	this.openPage("/login");
+	this.consolelog(1, "logout");
+	document.location.href = "/";
 }
 
 async settingsSave() {
