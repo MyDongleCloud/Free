@@ -186,6 +186,11 @@ echo "################################"
 apt-get -y install adminer
 
 echo "################################"
+echo "clang"
+echo "################################"
+apt-get -y install clang cargo
+
+echo "################################"
 echo "postfix"
 echo "################################"
 cat /home/mdc/private/preseed_postfix.cfg | debconf-set-selections
