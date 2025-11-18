@@ -20,6 +20,7 @@ $modulesMeta = array();
 $modulesTranslationTitle = array();
 $modulesTranslationDescription = array();
 $modulesMarkdown = array();
+$modulesKeywords = array();
 for ($i = 1; $i < count($modules); $i++) {
 	$stars = 0;
 	if (strlen($modules[$i]) == 0)
@@ -64,10 +65,12 @@ for ($i = 1; $i < count($modules); $i++) {
 	$modulesTranslationDescription[$m[gc("description")]] = "";
 	$modulesMarkdown[$i] = "|" . implode("|", array($m[gc("github")] != "" ? ("[" . $m[gc("name")] . "](https://github.com/" . $m[gc("github")] . ")") : $m[gc("name")], $m[gc("title")], $m[gc("description")], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $m[gc("web")] === "yes" ? "web" : "terminal", $m[gc("category")], $m[gc("version")])) . "|";
 	$modulesMarkdown[$i] = str_replace("0.0k", "", $modulesMarkdown[$i]);
+	$modulesKeywords = array_merge($modulesKeywords, array_fill_keys(explode("|", $m[gc("keywords")]), ""));
 }
 echo "Github stars: " . $starsTotal . "\n";
 file_put_contents(__DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/modulesmeta.json", str_replace("    ", "\t", json_encode($modulesMeta, JSON_PRETTY_PRINT)));
 $modulesTranslation = array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription));
 file_put_contents(__DIR__ . "/../client/src/assets/i18n/modules-en.json", str_replace("    ", "\t", json_encode($modulesTranslation, JSON_PRETTY_PRINT)));
 file_put_contents(__DIR__ . "/../README-modules.md", implode("\n",$modulesMarkdown));
+file_put_contents(__DIR__ . "/../client/src/assets/i18n/keywords-en.json", str_replace("    ", "\t", json_encode(array("keywords" => $modulesKeywords), JSON_PRETTY_PRINT)));
 ?>
