@@ -22,6 +22,8 @@ currentUrl: string = "login";
 settings: Settings = {} as Settings;
 DONGLEURL: string;
 session;
+themeSel = "system";
+darkVal = false;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private translate: TranslateService, private httpClient: HttpClient) {
 	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
@@ -40,11 +42,29 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	else
 		this.changeLanguage(this.translate.getBrowserLang());
 	this.AuthStatus();
+	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { this.themeSet(); });
+	this.themeSet();
 }
 
 consolelog(level, ...st) {
 	if (level == 0 || this.developer)
 		console.log(...st);
+}
+
+themeSet(t = null) {
+	if (t !== null)
+		this.themeSel = t;
+	if (this.themeSel == "system")
+		this.darkVal = window.matchMedia("(prefers-color-scheme: dark)").matches;
+	else if (this.themeSel == "dark")
+		this.darkVal = true;
+	else
+		this.darkVal = false;
+	const darkCurrent = document.body.classList.value.indexOf("dark") != -1;
+	if (darkCurrent == false && this.darkVal == true)
+		document.body.classList.value = "dark";
+	if (darkCurrent == true && this.darkVal == false)
+		document.body.classList.value = "";
 }
 
 getCookie(name) {

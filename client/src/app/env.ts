@@ -45,7 +45,7 @@ sidebarSearchTerm = "";
 statsIntervalId;
 statsPeriod;
 statsData;
-themeSel = "pc";
+themeSel = "system";
 darkVal = false;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
@@ -77,7 +77,7 @@ consolelog(level, ...st) {
 themeSet(t = null) {
 	if (t !== null)
 		this.themeSel = t;
-	if (this.themeSel == "pc")
+	if (this.themeSel == "system")
 		this.darkVal = window.matchMedia("(prefers-color-scheme: dark)").matches;
 	else if (this.themeSel == "dark")
 		this.darkVal = true;
@@ -88,7 +88,6 @@ themeSet(t = null) {
 		document.body.classList.value = "dark";
 	if (darkCurrent == true && this.darkVal == false)
 		document.body.classList.value = "";
-	console.log( document.body.classList.value);
 }
 
 getCookie(name) {

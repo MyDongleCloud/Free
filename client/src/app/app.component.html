@@ -1,7 +1,7 @@
-<div class="absolute z-[10] bottom-5 left-5 flex items-center gap-3 text--gray-900 cursor-pointer">
-	<ion-icon name="sunny-outline" class="h-4 w-4" [class]="global.themeSel == 'light' ? 'pb-1 border-b border--gray-900' : ''" (click)="global.themeSet('light')"></ion-icon>
-	<ion-icon name="moon-outline" class="h-4 w-4" [class]="global.themeSel == 'dark' ? 'pb-1 border-b border--gray-900' : ''" (click)="global.themeSet('dark')"></ion-icon>
-	<ion-icon name="contrast-outline" class="h-4 w-4" [class]="global.themeSel == 'pc' ? 'pb-1 border-b border--gray-900' : ''" (click)="global.themeSet('pc')"></ion-icon>
+<div class="absolute z-[10] bottom-5 left-5 flex gap-3 text--gray-900" [class]="global.currentUrl == 'login' || global.currentUrl == 'find' || global.currentUrl == 'setup' ? '' : 'hidden'">
+	<a href="javascript:void()" (click)="global.themeSet('light')" title="{{LG('Light')}}"><ion-icon name="sunny-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'light' ? 'border-b border--gray-900' : ''"></ion-icon></a>
+	<a href="javascript:void()" (click)="global.themeSet('dark')" title="{{LG('Dark')}}"><ion-icon name="moon-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'dark' ? 'border-b border--gray-900' : ''"></ion-icon></a>
+	<a href="javascript:void()" (click)="global.themeSet('system')" title="{{LG('System')}}"><ion-icon name="contrast-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'system' ? 'border-b border--gray-900' : ''"></ion-icon></a>
 </div>
 <ion-app>
 	<ion-router-outlet></ion-router-outlet>

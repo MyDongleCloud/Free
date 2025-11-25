@@ -12,6 +12,7 @@ import { Global } from './env';
 })
 
 export class AppComponent {
+LG(st) { return this.global.mytranslateG(st); }
 navigationByBack: boolean = false;
 
 constructor(public global: Global, private location: Location, public router: Router, private cdr: ChangeDetectorRef) {
