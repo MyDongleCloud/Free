@@ -26,7 +26,7 @@
 					</div>
 					@if (email1?.invalid && email1?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Please enter a valid email address")}}
 					</div>
 					}
@@ -34,7 +34,7 @@
 				@if (errorSt) {
 				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
 					<div class="flex items-center gap-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
 					</div>
 				</div>

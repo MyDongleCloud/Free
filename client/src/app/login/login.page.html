@@ -26,7 +26,7 @@
 					</div>
 					@if (email1?.invalid && email1?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Please enter a valid email address")}}
 					</div>
 					}
@@ -44,7 +44,7 @@
 					</div>
 					@if (password1?.invalid && password1?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be at least 6 characters")}}
 					</div>
 					}
@@ -59,7 +59,7 @@
 				@if (errorSt) {
 				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
 					<div class="flex items-center gap-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
 					</div>
 				</div>
@@ -104,7 +104,7 @@
 					</div>
 					@if (name2?.invalid && name2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be at least 2 characters")}}
 					</div>
 					}
@@ -119,7 +119,7 @@
 					</div>
 					@if (email2?.invalid && email2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Please enter a valid email address")}}
 					</div>
 					}
@@ -151,7 +151,7 @@
 						}
 						@if (password2?.invalid && password2?.touched) {
 						<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+							<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 							{{L("Must be at least 6 characters")}}
 						</div>
 						}
@@ -166,7 +166,7 @@
 					</div>
 					@if (password2Confirm?.touched && password2?.value != password2Confirm?.value) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Password must match")}}
 					</div>
 					}
@@ -182,7 +182,7 @@
 					</div>
 					@if (terms2?.errors?.["required"] && terms2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be agreed")}}
 					</div>
 					}
@@ -190,7 +190,7 @@
 				@if (errorSt) {
 				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
 					<div class="flex items-center gap-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
 					</div>
 				</div>
@@ -242,7 +242,7 @@
 						</div>
 						@if (email3?.invalid && email3?.touched) {
 						<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+							<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 							{{L("Please enter a valid email address")}}
 						</div>
 						}
@@ -250,7 +250,7 @@
 					@if (errorSt) {
 					<div class="bg-red-50 border border-red-200 rounded-xl p-4">
 						<div class="flex items-center gap-2">
-							<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+							<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 							<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
 						</div>
 					</div>
@@ -324,7 +324,7 @@
 				@if (errorSt) {
 				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
 					<div class="flex items-center gap-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
 					</div>
 				</div>

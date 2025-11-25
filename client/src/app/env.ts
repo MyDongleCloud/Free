@@ -346,7 +346,7 @@ colorWord(st, bckgd = true) {
 	else if (st == "_public_")
 		return (bckgd ? "bg-green-100 " : "") + "text-green-800";
 	else if (st == "_localnetwork_")
-		return (bckgd ? "bg-anber-100 " : "") + "text-amber-800";
+		return (bckgd ? "bg-amber-100 " : "") + "text-amber-800";
 	else if (st == "_groupadmin_" || st == "admin")
 		return (bckgd ? "bg-orange-100 " : "") + "text-orange-800";
 	else if (st == "_groupuser_" || st == "users")

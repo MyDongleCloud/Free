@@ -3,12 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @theme {
-  --radius: 0.65rem;
-  --color-muted-foreground: oklch(0.556 0 0);
-  --radius: 0.625rem;
-  --color-sidebar: oklch(0.985 0 0);
-  --color-sidebar-border: oklch(0.922 0 0);
-
+	--color-blue-50: #eff6ff;
 	--color-blue-100: #25aae0;
 	--color-blue-200: #0092ce;
 	--color-blue-300: #0078b5;
@@ -18,21 +13,10 @@
 	--color-blue-700: #012e6c;
 	--color-blue-800: #011f5d;
 	--color-blue-900: #000f4e;
+	--color-blue-950: #000827;
 }
 
 html, body {
     font-family: 'Inter', system-ui, sans-serif;
     scroll-behavior: smooth;
-}
-
-@media (prefers-color-scheme: dark) {
-	input { color:black; };
-/*	input[type='checkbox'] {
-		appearance: none;
-		-webkit-appearance: none;
-		background-color: #ffffff;
-		border-color: #d1d5db;
-		border-width: 1px;
-		border-radius: 0.25rem;
-	}*/
 }

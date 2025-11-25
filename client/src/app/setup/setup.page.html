@@ -35,7 +35,7 @@
 					</div>
 					@if (name1?.invalid && (name1?.touched || name1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must have 5-20 characters: a-z, 0-9, -, _")}}
 					</div>
 					} @else if (name1?.value.length >= 6) {
@@ -53,7 +53,7 @@
 					</div>
 					@if (shortname1?.invalid && (shortname1?.touched || shortname1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must have 2-20 characters: a-z, 0-9, -, _")}}
 					</div>
 					} @else if (shortname1?.value.length >= 2) {
@@ -79,7 +79,7 @@
 					</div>
 					@if (domain1?.invalid && (domain1?.touched || domain1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Invalid domain")}}
 					</div>
 					} @else if (domain1?.value.length >= 2) {
@@ -97,7 +97,7 @@
 					</div>
 					@if (terms1?.errors?.["required"] && terms1?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be agreed")}}
 					</div>
 					}
@@ -105,7 +105,7 @@
 				@if (errorSt) {
 				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
 					<div class="flex items-center gap-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
 					</div>
 				</div>
@@ -157,7 +157,7 @@
 					</div>
 					@if (name2?.invalid && name2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be at least 2 characters")}}
 					</div>
 					}
@@ -172,7 +172,7 @@
 					</div>
 					@if (email2?.invalid && email2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Please enter a valid email address")}}
 					</div>
 					}
@@ -204,7 +204,7 @@
 					}
 					@if (password2?.invalid && password2?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be at least 6 characters")}}
 					</div>
 					}
@@ -219,7 +219,7 @@
 					</div>
 					@if (password2Confirm?.touched && password2?.value != password2Confirm?.value) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Password must match")}}
 					</div>
 					}
@@ -227,7 +227,7 @@
 				@if (errorSt) {
 				<div class="bg-red-50 border border-red-200 rounded-xl p-4">
 					<div class="flex items-center gap-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						<span class="text-red-800 text-sm font-medium">{{ errorSt }}</span>
 					</div>
 				</div>
@@ -279,7 +279,7 @@
 					</div>
 					@if (ssid3?.invalid && ssid3?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be at least 2 characters")}}
 					</div>
 					}
@@ -297,7 +297,7 @@
 					</div>
 					@if (password3?.invalid && password3?.touched) {
 					<div class="flex items-center gap-1 text-red-500 text-sm mt-2">
-						<ion-icon name="alert-circle-outline" class="text-red w-5 h-5"></ion-icon>
+						<ion-icon name="alert-circle-outline" class="text-red-500 w-5 h-5"></ion-icon>
 						{{L("Must be at least 8 characters")}}
 					</div>
 					}
