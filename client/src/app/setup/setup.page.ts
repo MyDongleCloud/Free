@@ -35,7 +35,7 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 		if (event.msg == "communication")
 			this.handleBleMessage(event.data);
 		if (event.msg == "connection" && ble.connectedBLE == 2)
-			setTimeout(() => { this.ble.writeData({ a:"space" }); }, 2000);
+			setTimeout(() => { this.ble.writeData({ a:"cloud" }); }, 2000);
 	});
 	this.formDongle = fb.group({
 		"name1": [ "", [ this.checkname1 ] ],
