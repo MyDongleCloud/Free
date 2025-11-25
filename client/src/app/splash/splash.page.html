@@ -3,7 +3,7 @@
 		<img src="assets/loading.gif" class="w-[10%] h-[10%] max-w-[64px] max-h-[64px]">
 	</div>
 </ion-content>
-<ion-content [fullscreen]="true" [class]="showUpgrade ? 'block' : 'hidden'" class="w-full h-full bg-red-500">
+<ion-content [fullscreen]="true" [class]="showUpgrade ? 'block' : 'hidden'" class="w-full h-full bg--red-500">
 	<div class="flex justify-center items-center h-full">
 		<div class="max-w-[500px] text-center">
 			<a (click)="openUpgrade()" target="_blank" class="cursor-pointer">{{L("Upgrade needed. A new version is available here.")}}</a>
