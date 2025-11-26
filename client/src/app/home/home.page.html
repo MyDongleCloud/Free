@@ -81,6 +81,15 @@
 						</span>
 						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('Developer', false)">{{LG("Developer")}}</span>
 					</label>
+
+					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="radio" name="category" [(ngModel)]="category" value="ai" class="peer sr-only" (change)="filterCards()" />
+						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
+							<ion-icon name="bulb-outline" class="w-5 h-5" [class]="global.colorWord('AI', false)"></ion-icon>
+						</span>
+						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('AI', false)">{{LG("AI")}}</span>
+					</label>
 				</div>
 				<div class="flex rounded-lg border border--gray-200 bg--white p-1">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">

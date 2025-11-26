@@ -1,148 +1,148 @@
-module;name;title;description;keywords;proprietary;github;category;version;installMethod;web;status
-acme;acme.sh;ACME Shell;A pure Unix shell script implementing ACME client protocol.;ACME|LetsEncrypt|SSL|TLS|Script|Certificates;DigiCert CertCentral;acmesh-official/acme.sh;Utils;3.1.1;wget;;done
-acmejs;ACME.js;JavaScript ACME;A JavaScript ACME client for Let's Encrypt.;ACME|LetsEncrypt|SSL|TLS|JavaScript|Certificates;Sectigo;therootcompany/acme.js;Backend;3.1.0;npm;;done
-adminer;Adminer;MySQL Viewer;A tool to browse MySQL databases.;Database|SQL|MySQL|Viewer|Web;;vrana/adminer;Developer;5.2.1;apt;yes;done
-agendav;AgenDAV;Calendar;A CalDAV web client similar to Google Calendar.;Calendar;;agendav/agendav;Productivity;2.6.0;clone;yes;
-angular;Angular;Web App Framework;A platform for building mobile and desktop web applications.;Web|Framework|TypeScript|SPA;React;angular/angular;Backend;20.3.9;npm;;done
-apache2;Apache HTTP Server;Website;An HTTP Server Project built with security, efficiency and extensibility in mind.;HTTP|Server|Web|Apache;Microsoft IIS;apache/httpd;Essential;2.4.65;apt;yes;done
-audiobookshelf;Audiobookshelf;Audiobook Podcast;An Audiobook and podcast server to organize audio files;Audiobooks|Podcasts|Streaming;Audible;advplyr/audiobookshelf;Personal;v2.26.2;clone;yes;
-betterauth;Better Auth;Identity Backend;A comprehensive authentication framework for TypeScript.;Identity|Backend;;better-auth/better-auth;Backend;1.3.27;npm;;done
-betterauthstudio;Better Auth Studio;Identity Management;A frontend for Better Auth, an authentication framework.;Identity|Frontend|Users|Management;;;Backend;1.0.25;npm;yes;done
-bugzilla;Bugzilla;Bug Tracking;A Web-based general-purpose bugtracker and testing tool.;Bug|Tracker|Testing|Web;Jira;bugzilla/bugzilla;Developer;5.3.3;clone;yes;done
-busybox;BusyBox;Unix Suite;A lightweight set of Unix utilities in a single executable.;Unix|Utilities|Lightweight|Embedded;;mirror/busybox;Utils;1.37.0;apt;;done
-certbot;Certbot;HTTPS Certificate;A tool to obtain certs from Let's Encrypt on your server.;HTTPS|SSL|Certificates|Automation;DigiCert CertCentral;certbot/certbot;Utils;4.0.0;apt;;done
-changedetection;ChangeDetection;Change Tracker;A tool for tracking changes on web pages.;Change|Detection|Web|Tracking;Visualping;dgtlmoon/changedetection.io;Productivity;0.50.7;clone;yes;
-clang;Clang;C Compiler;A C language family frontend for LLVM.;Compiler|C|LLVM|Frontend;Microsoft Visual C++;llvm/llvm-project;Developer;19.1.7;apt;;done
-cmake;CMake;Advanced Build;A Cross-platform open-source build system.;Build|System|Cross-platform|Automation;Microsoft Visual Studio;Kitware/CMake;Developer;3.31.6;apt;;done
-cockpit;Cockpit;Server Health;A server health suite with graphical interface.;Server|Health;;cockpit-project/cockpit;Backend;337;apt;yes;done
-collaboraonline;Collabora Online;Office Suite;An online office suite for collaborative editing.;Office|Collaboration|Online|Suite;Microsoft 365;;Productivity;;;yes;
-convertx;ConvertX;File Converter;A simple, fast, and reliable file converter.;Currency|Converter|Exchange|Rates;XE Currency;C4illin/ConvertX;Utils;v0.14.1;clone;yes;
-croodle;Croodle;Meeting Scheduler;A simple scheduler tool for organizing meetings or to do polls on general topics.;Scheduling|Poll|Meeting|Calendar;Calendly|Doodle;jelhan/croodle;Productivity;v0.7.0;clone;yes;
-curl;curl;Download Url;An advanced tool to download url.;Web|Download;;curl/curl;Utils;8.14.1;apt;;done
-cyberchef;CyberChef;Data Tool;A web app for encryption, encoding, compression and data analysis;Encryption|Encoding|Data|Analysis;Kryptel;gchq/CyberChef;Utils;v10.19.4;clone;yes;
-discourse;Discourse;Community Discussion;A civilized discussion platform for your community.;Forum|Community|Discussion|Web;vBulletin;discourse/discourse;Personal;v3.4.6;clone;yes;
-docker;Docker;Container;A platform for developing, shipping, and running applications in containers.;Container|Virtualization|DevOps|Deployment|Orchestration;;docker/compose;Developer;29.0.0;apt (source);;done
-dovecot;Dovecot;Mail Server;A secure IMAP and POP3 email server.;Email|Imap|Pop|Server;Microsoft Exchange;dovecot/core;Essential;2.4.1;apt;;done
-ente;Ente;Cloud Manager;An end-to-end encrypted cloud for photos, videos and 2FA secrets.;Cloud;;ente-io/ente;Personal;v2.0.34;clone;yes;
-erugo;Erugo;File Sharing;A file-sharing platform with secure, customizable file-transfer capabilities through an elegant user interface.;File|Sharing|Upload;;ErugoOSS/Erugo;Utils;v0.0.011;clone;yes;
-fd;fd;Advanced Find;A simple, fast and user-friendly alternative to 'find'.;Find|Files|Folders|Disk;;sharkdp/fd;Utils;10.2.0;apt;;done
-ffmpeg;FFmpeg;Audio Video;A complete solution to record, convert and stream audio and video.;Video|Audio|Streaming|Conversion;Adobe Media Encoder;FFmpeg/FFmpeg;Utils;7.1.2;apt;;done
-fileflows;Fileflows;File Automation;An automation platform for processing and managing files.;Automation|File|Workflow|Processing;Zapier;;Utils;;;yes;
-flarum;Flarum;Simple Forum;A simple forum software for building great communities.;Forum|Community|Discussion|Web;Discourse;flarum/flarum;Productivity;v1.8.1;clone;yes;
-freshrss;FreshRSS;RSS Feed;A free, self-hostable news aggregator.;RSS|Feed|Aggregator;Feedly;FreshRSS/FreshRSS;Personal;1.26.3;clone;yes;
-frp;frp;Reverse Proxy;A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.;Proxy|Reverse|NAT|Tunnel;Ngrok;fatedier/frp;Backend;v0.63.0;clone;yes;done
-fscrypt;fscrypt;Linux Encryption;A tool for managing Linux filesystem encryption.;Encryption|Filesystem|Linux|Security;BitLocker;google/fscrypt;Utils;0.3.5;apt;;done
-gcc;GCC;GNU Compiler;A GNU Compiler Collection.;Compiler|GNU|C|C++;Intel C++ Compiler;gcc-mirror/gcc;Developer;14.2.0;apt;;done
-git;Git;Version Control;A distributed version control system.;Version|Control|Git|SCM;Microsoft Team Foundation Version Control;git/git;Developer;2.47.3;apt;;done
-gitea;Gitea;Git Web;A source code Git service.;Git|Version|Control;GitHub|GitLab|Bitbucket;go-gitea/gitea;Developer;v1.24.3;clone;yes;
-goaccess;GoAccess;Log Analysis;A real-time web log analyzer and interactive viewer;Logs|Analytics|Terminal|Web;Splunk;allinurl/goaccess;Utils;v1.9.3;apt;yes;
-golang;Go;Go Language;A programming language that makes it easy to build simple, reliable, and efficient software.;Language|Programming|Go|Efficient;(No direct proprietary equivalent);golang/go;Developer;1.24.4;apt;;done
-goodip;GoodIP;VPN;A virtual private network tool.;VPN|IP|Network;NordVPN|ExpressVPN;;Essential;2025-01-01;;;
-grav;Grav;Knowledege Site;Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File Content Management System.;CMS|Flat-file|Web|Modern|Wiki;WordPress;getgrav/grav;Productivity;1.7.48;clone;yes;
-homeassistant;Home Assistant;Home Automation;An home automation that puts local control and privacy first.;Home|Automation|IoT|Smart;Samsung SmartThings;home-assistant/core;Personal;2025.10.3;pip;yes;done
-html5qrcode;Html5-QRCode;QR Code;A minimal QR code scanner using HTML5.;QR|Scanner|HTML5|Web;QR Code Scanner;mebjas/html5-qrcode;Utils;v2.3.8;clone;yes;
-hugo;Hugo;Static Site;A fast and modern static site generator.;Static|Site|Generator|Web;Squarespace;gohugoio/hugo;Developer;0.131.0;apt;;done
-imagemagick;ImageMagick;Image Editor;A software suite to create, edit, compose, or convert images in any format.;Image|Editing|Conversion|Graphics;Adobe Photoshop;ImageMagick/ImageMagick;Utils;7.1.1.43;apt;;done
-immich;immich;Photo Video Backup;A photo and video management solution.;Photo|Video|Backup;Google Photos;immich-app/immich;Personal;v1.135.3;clone;yes;
-ionic;Ionic;UI Toolkit;A powerful cross-platform UI toolkit for building native-quality iOS, Android, and Progressive Web Apps with HTML, CSS, and JavaScript.;UI|Mobile|Cross-platform|Framework;Flutter;ionic-team/ionic-framework;Developer;7.2.1;npm;;done
-iopaint;IOPaint;AI Image;An image inpainting tool powered by SOTA AI models. Remove any unwanted object, defect, people from your pictures or erase and replace any thing on your pictures.;Image|Inpainting|AI|Editing;Adobe Photoshop;Sanster/IOPaint;Utils;iopaint-1.5.3;clone;yes;
-ittools;IT-Tools;Handy IT Tools;A collection of handy online tools for developers.;IT|Tools|Management;;CorentinTh/it-tools;Developer;;clone;yes;
-java;Java;Java Language;A general-purpose programming language designed for portability and security.;Programming|Language|JVM|OOP;Oracle JDK;openjdk/jdk;Developer;21.0.9;apt;;done
-jellyfin;Jellyfin;Media Streaming;A software system to manage and stream media.;Media|Streaming|Video;Plex|Emby;jellyfin/jellyfin;Personal;v10.10.7;clone;yes;
-jitsimeet;Jitsi Meet;Conferencing;A secure, Simple and Scalable Video Conferences tools suite.;Video|Conferencing|Secure|WebRTC;Zoom|Microsoft Teams;jitsi/jitsi-meet;Essential;;apt (source);yes;
-joomla;Joomla!;Content Publisher;A Content Management System for publishing web content.;CMS|Web|Publishing|Content;WordPress;joomla/joomla-cms;Productivity;5.3.2;clone;yes;
-joplin;Joplin;Note Taking;A note taking and to-do application with synchronization capabilities.;Notes|To-do|Sync|Markdown;Evernote|OneNote;laurent22/joplin;Productivity;server-v3.4.1;clone;yes;
-jq;jq;JSON parser;A command-line parser for json files.;JSON|File|Parser|Config;;jqlang/jq;Utils;1.7.1;apt;;done
-jstinker;JSTinker;Javascript Sandbox;A sandbox for Javascript.;Sandbox|Editor|Online;JsFiddle;johncipponeri/jstinker;Developer;master;clone;yes;done
-karakeep;Karakeep;Bookmarks;A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search.;Bookmark|Manager;;karakeep-app/karakeep;Personal;v0.26.0;clone;yes;
-kernel;Linux kernel;Linux Kernel;A Linux kernel for various architectures.;Linux|Kernel|OS|Source;Microsoft Windows;torvalds/linux;Backend;6.12.47;apt;;done
-librechat;LibreChat;Libre Chatbot;An enhanced ChatGPT Clone.;Chat|Chatbot;;danny-avila/LibreChat;Essential;v0.7.9;clone;yes;done
-librephotos;LibrePhotos;Photos Management;A photo management service.;Photos|Alternative|Gallery;Google Photos;LibrePhotos/librephotos;Personal;HEAD;clone;yes;
-libreqr;Libreqr;Advanced QR Code;A tool for generating and managing QR codes.;QR|Code|Generator|Utility;QR Code Generator;;Utils;2.0.1;git;yes;done
-limesurvey;LimeSurvey;Survey Management;A powerful, open-source survey platform.;Survey|Tool|Questionnaire|Research;SurveyMonkey;LimeSurvey/LimeSurvey;Productivity;6.15.3+250708;clone;yes;
-livecodes;LiveCodes;Code Sandbox;A sandbox for code.;Sandbox|Editor|Online;JsFiddle;live-codes/livecodes;Developer;46;wget;yes;done
-lvgl;LVGL;Embedded UI;An embedded graphics library to create beautiful UIs for any MCU, MPU and display type.;UI|Manager;;lvgl/lvgl;Backend;a78c4a476ebc58f5;clone;;done
-make;Make;Build Automation;An utility for maintaining groups of programs from source code.;Build|Automation|Compilation|Utility;Apache Ant;mirror/make;Developer;4.4.1;apt;;done
-mantisbugtracker;Mantis Bug Tracker;Bug Tracker;A web-based bug tracking system.;Bug|Tracker|Web|Issue;Jira;mantisbt/mantisbt;Developer;release-2.27.1;clone;yes;done
-markdowneditor;Markdown Editor;Markdown Editor;An editor for Markdown files.;Markdown|Editor|Live|Writing;Typora;jbt/markdown-editor;Developer;v2;clone;yes;done
-mastodon;Mastodon;Decentralized Social Network;A self-hosted, globally interconnected microblogging community.;Server|Social|Network;;mastodon/mastodon;Personal;;clone;yes;
-mattermost;Mattermost;Collaboration;A platform for secure collaboration across the entire software development lifecycle.;Collaboration;;mattermost/mattermost;Productivity;v11.1.0;clone;yes;
-maybe;Maybe;Personal Finance;A personal finance tool for everyone.;Finance|Personal|Budget|Tool;Mint|YNAB;maybe-finance/maybe;Personal;v0.5.0;clone;yes;
-meilisearch;Meilisearch;Fast Search;A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.;Search|Engine;;meilisearch/meilisearch;Utils;;wget;;done
-mermaid;Mermaid;Diagram Visualization Tool;A generation tool for diagrams like flowcharts or sequence diagrams from text in a similar manner as markdown.;Diagram|Visualization|Text|Code;Lucidchart;mermaid-js/mermaid;Productivity;11.9.0;clone;yes;
-metube;MeTube;YouTube Videos;A web GUI for youtube-dl, allowing you to download videos from YouTube and other sites.;YouTube|Download|GUI|Video;4K Video Downloader;alexta69/metube;Utils;HEAD;clone;yes;done
-minio;MinIO;Object Storage;High Performance S3-compatible Object Storage.;Storage|Object|S3|Cloud;Amazon S3;minio/minio;Developer;2025-07-18;clone;yes;
-mongodb;MongoDB;MongoDB Database;A general-purpose, document-based, distributed database.;Database|NoSQL|MongoDB|Document|Distributed;;mongodb/mongo;Developer;8.2.1;apt (source);;done
-monica;Monica;Personal CRM;A personal CRM tool to remember everything about your friends, family and business relationships.;Personal CRM;;monicahq/monica;Productivity;v4.1.2;clone;yes;
-mosquitto;Mosquitto;MQTT Broker;A message broker that implements MQTT protocol.;MQTT|Broker|IoT|Messaging;HiveMQ;eclipse-mosquitto/mosquitto;Utils;2.0.21;apt;;done
-mydonglecloud;MyDongle.Cloud;MyDongle.Cloud App;The application to manage MyDongle.Cloud.;MyDongle|Cloud;;MyDongleCloud/free;Utils;2025-11-11;clone;yes;done
-mysql;MySQL;MySQL Database;A transactional relational database management system.;Database|RDBMS|SQL|MySQL;Oracle Database;mysql/mysql-server;Developer;8.0.43;deb;;done
-ncat;Network Utils;Network Utils;A tool to test networking.;Network|Tester;;;Utils;7.95;apt;;done
-ncdu;NCurses Disk Usage;Disk Usage;A tool to calculate and visualize used disk space.;Storage|Disk|Space|Capacity;;rofl0r/ncdu;Utils;1.22;apt;;done
-nginx;NGINX;Proxy Server;A high-performance HTTP and reverse proxy server.;HTTP|Proxy|Server|Web;F5 BIG-IP;nginx/nginx;Developer;1.26.3;apt;;done
-nmap;Nmap;Network Analyzer;A network mapper tool to test networking.;Network|Tester;;nmap/nmap;Utils;7.95;apt;;done
-nocobase;NocoBase;No Code;An extensible AI-powered no-code/low-code platform for building business applications and enterprise solutions.;No Code;;nocobase/nocobase;Productivity;v1.9.6;clone;yes;
-node;Node.js;JavaScript Runtime;A JavaScript runtime built on Chrome's V8 JavaScript engine.;JavaScript|Runtime|V8|Server;;nodejs/node;Developer;v22.21.1;tar;;done
-ohmyzsh;Oh My Zsh;Command-line Enhancer;A manager for your zsh configuration.;Zsh|Shell|Framework|Configuration;PowerShell;ohmyzsh/ohmyzsh;Developer;;wget;;
-ollama;Ollama;Chatbot backend;A platform to get up and running with large language models locally.;LLM|Local|AI|Language;;ollama/ollama;Utils;v0.9.7-rc1;clone;;
-onetimeemail;One Time Email;Disposable Email;A service for generating temporary, disposable email addresses.;Email|Temporary|Disposable|Privacy;Temp-Mail;;Essential;2025-11-11;;yes;
-oneuptime;OneUptime;Monitor;A complete open-source monitoring and observability platform.;Monitor;;OneUptime/oneuptime;Utils;v4.0.0.2;clone;yes;
-openproject;OpenProject;Project Management;A project management software.;Project Management;;opf/openproject;Productivity;v16.6.1;clone;yes;
-openwebui;Open WebUI;Legacy Chatbot;A user-friendly WebUI for LLMs.;LLM|WebUI|AI|Chat;;open-webui/open-webui;Essential;v0.6.18;clone;yes;
-osticket;osTicket;Support Ticket;A support ticketing ticket system.;Ticket|Support|Helpdesk|Web;Zendesk;osTicket/osTicket;Productivity;v1.18.2;clone;yes;done
-otg;uMTP-Responder;OTG Files;A manager for USB OTG file service.;MTP|Protocol|Media|Transfer;;viveris/uMTP-Responder;Utils;1.6.8;clone;;done
-palmr;Palmr;File Sharing;A file-sharing platform focused on privacy and security to upload, manage, and share files.;File|Sharing|Upload;;kyantech/Palmr;Utils;v3.2.5-beta;clone;yes;
-pandoc;Pandoc;Document Converter;A universal document converter.;Document|Converter|Markup|Format;Adobe Acrobat;jgm/pandoc;Productivity;3.1.11.1;apt;yes;
-pgadmin4;pg Admin 4;PostgreSQL Viewer;A feature rich administration and development platform for PostgreSQL.;Database|SQL|PostgreSQL|Viewer|Web;;pgadmin-org/pgadmin4;Utils;REL-9_10;clone;yes;
-photoprism;PhotoPrism;AI Photo;AI-powered photos app for the decentralized web.;Photos|AI|Decentralized|Gallery;Google Photos;photoprism/photoprism;Personal;250707-d28b3101e;clone;yes;
-photoview;Photoview;Photo Gallery;A simple and user-friendly photo gallery personal server.;Photo|Gallery|Simple|Web;Google Photos;photoview/photoview;Personal;v2.4.0;clone;yes;
-php;PHP;PHP Language;A popular general-purpose scripting language.;Scripting|Language|Web|PHP;Zend PHP;php/php-src;Developer;8.4.11;apt;;done
-phpbb;phpBB;Bulletin Board;A flat-forum bulletin board software solution.;Forum|Bulletin|Board|Web;vBulletin;phpbb/phpbb;Productivity;release-3.3.15;clone;yes;
-phplist;phpList;Newsletter;A newsletter manager.;Newsletter|Email|Manager|Marketing;Mailchimp;phpList/core;Productivity;3.6.16;wget;yes;
-phpsandbox;PHPSandbox;PHP Sanbox;A PHP-based sandboxing library with a full suite of configuration and validation options.;PHP|Sandbox|Editor|Online;PHPFiddle;Corveda/PHPSandbox;Developer;v3.1;clone;yes;
-pihole;Pi-hole;Network Ad Blocker;A network-wide ad blocking system.;Ad|Blocking|DNS|Network;NextDNS;pi-hole/pi-hole;Utils;v.6.1.4;clone;yes;
-postfix;Postfix;Mail Server;A mail transfer agent for routing and delivering electronic mail.;Email|SMTP|Server|Mail;Microsoft Exchange;;Essential;3.10.4;apt;;done
-postgresql;PostgreSQL;PostgreSQL Database;A database management system.;Database|RDBMS|SQL|PostgreSQL;;postgres/postgres;Developer;17.6;apt;;done
-privatebin;PrivateBin;Private Pastebin;A minimalist online pastebin with zero knowledge of pasted data.;Pastebin|Privacy|Zero-knowledge|Web;Pastebin;PrivateBin/PrivateBin;Utils;1.7.8;clone;yes;done
-projectsend;ProjectSend;File Sharing;A tool to share files with clients, focused on ease of use and privacy.;File|Sharing|Upload;Dropbox;projectsend/projectsend;Productivity;r1720;clone;yes;done
-pymcuprog;pymcuprog;Microchip Programmer;A Python library for programming Microchip microcontrollers.;Microchip|Programming|Python|Microcontroller;MPLAB X IDE;microchip-pic-avr-tools/pymcuprog;Developer;HEAD;clone;;done
-python;Python;Python Language;A popular scripting language.;Language|Interpreter;ActivePython;python/cpython;Developer;3.13.5;apt;;done
-qdrant;Qdrant;Vector Search;High-performance, massive-scale Vector Database and Vector Search Engine.;Vector|Search|Similarity|Engine;Pinecone;qdrant/qdrant;Utils;v1.14.1;tar;;done
-qrcodegenerator;QR Code Generator;QR Code;Simple QR code generator.;QR|Code|Generator|Image;QR Code Generator;bizzycola/qrcode-generator;Utils;HEAD;clone;yes;done
-radaar;Radaar;Movie Collection;A movie collection manager for Usenet and BitTorrent users.;File|Manager|Torrent|BitTorrent;Plex;Radarr/Radarr;Personal;v5.27.2.10142;clone;yes;
-rally;Rally;Scheduler;A scheduling and collaboration tool designed to make organizing events and meetings easier.;Scheduler;;lukevella/rallly;Productivity;v4.5.1;clone;yes;
-redis;Redis;In-memory Data Server;A fast and feature-rich cache, data structure server, and document and vector query engine.;Server|Data|Structure;;redis/redis;Developer;8.0.2;apt;;done
-redmine;Redmine;Project Management;A flexible project management web application.;Project Management;;redmine/redmine;Productivity;6.1.0;clone;yes;
-rethinkdb;RethinkDB;RethinkDB Database;A database tailored for realtime web.;Database|Realtime|NoSQL;Firebase Realtime Database;rethinkdb/rethinkdb;Developer;2.4.4;deb;;done
-rocketchat;Rocket.Chat;Communication;A communications platform that puts data protection first.;Communication;;RocketChat/Rocket.Chat;Productivity;7.12.1;clone;yes;
-roundcube;Roundcube;Webmail;A browser-based multilingual mail client.;Email|IMAP|Webmail|Client;Gmail;roundcube/roundcubemail;Essential;1.6.11;apt;yes;done
-rspamd;Rspamd;Spam Filter;A fast, free and open-source spam filtering system.;Spam|Filter|Email|Security;SpamTitan;rspamd/rspamd;Utils;3.12.1;apt;yes;
-rust;Rust;Rust Language;A systems programming language that runs blazingly fast.;Language|Systems|Fast|Programming;;rust-lang/rust;Developer;1.85.0;apt;;done
-serverperformancestats;Server Performance Stats;Stats Script;A simple script file to check server performance and resources stats.;Stats Script;;janisadhi/Server_Performance_Stats;Utils;HEAD;clone;;
-sonarr;Sonarr;Smart PVR;A smart PVR for newsgroup and bittorrent users.;PVR|TV|Manager|Automation;Plex;Sonarr/Sonarr;Personal;v4.0.15.2941;clone;yes;
-sqlite;SQLite;SQLite Database;A self-contained, serverless, zero-configuration, transactional SQL database engine.;Database|SQL|SQLite|Serverless|Embedded;Microsoft SQL Server Compact;sqlite/sqlite;Developer;3.46.1;apt;;done
-squashfstools;Squashfs-tools;Squashfs Tools;A set of tools for compression disk.;Compression|Disk;;plougher/squashfs-tools;Utils;4.6.1;apt;;done
-stackedit;StackEdit;Stack Editor;An in-browser Markdown editor.;Markdown|Editor|Browser|Writing;Typora;benweet/stackedit;Developer;v5.15.4;clone;yes;
-stirlingpdf;Stirling-PDF;PDF Manipulation Tool;A web-based PDF manipulation tool.;PDF|Tool|Web|Manipulation;Adobe Acrobat;Stirling-Tools/Stirling-PDF;Utils;v1.0.2;clone;yes;done
-sunrisecms;Sunrise CMS;Cemetery Management;An application to assist cemetery managers with managing their cemetery records.;CMS|Municipal|Web|Simple;WordPress;cityssm/sunrise-cms;Productivity;v1.0.0-alpha.19;clone;yes;
-superset;Superset;Data Visualization;A modern data exploration and visualization platform.;Data|Visualization|BI|Analytics;Tableau;apache/superset;Productivity;5.0.0;clone;yes;
-syncthing;Syncthing;File Sync;A continuous file synchronization program.;File|Sync|P2P|Backup;Dropbox|Google Drive;syncthing/syncthing;Utils;1.30.0;clone;yes;
-sysstat;System performance tools;Stats Tools;A performance monitoring tools.;Stats Tools;;sysstat/sysstat;Utils;12.7.5;apt;;done
-systeminformation;Systeminformation;Stats Library;A system Information Library.;Stats Library;;sebhildebrandt/systeminformation;Backend;v5.27.11;clone;;done
-timeful;timeful;Scheduler;A scheduling platform helps you find the best time for a group to meet.;Scheduler;;schej-it/timeful.app;Productivity;HEAD;clone;yes;
-transmission;Transmission;BitTorrent;A fast, easy, and free BitTorrent client.;BitTorrent|Client|P2P|Download;qBittorrent;transmission/transmission;Utils;4.1.0;apt;yes;done
-triliumnotes;Trilium Notes;Hierarchical Notes;A tool to build your hierarchical notes.;Notes|Hierarchical|Knowledge|Base;Evernote;TriliumNext/Trilium;Productivity;v0.95.0;tar;yes;done
-tubesync;TubeSync;YouTube Channels;A syncer of YouTube channels and playlists.;YouTube|Download|GUI|Video|Channel;4K Video Downloader;meeb/tubesync;Utils;v0.15.10;clone;yes;done
-unmanic;Unmanic;Media Library;A library optimizer for removing unused metadata from media files.;Media|Optimizer|Metadata|Library;;Unmanic/unmanic;Utils;HEAD;pip;yes;
-uptimekuma;Uptime Kuma;Monitoring;A monitoring, uptime, status tool and checker.;Monitoring|Uptime|Status;Pingdom;louislam/uptime-kuma;Utils;1.23.16;clone;yes;
-uptimekuma;Uptime Kuma;Monitoring;A fancy monitoring tool.;Monitoring;;louislam/uptime-kuma;Utils;2.0.2;clone;yes;
-webssh2;WebSSH2;SSH;A web SSH Client in a browser.;SSH|Web|Terminal|Client;;billchurch/webssh2;Utils;v2.3.4;clone;yes;done
-webtrees;webtrees;Genealogy;A genealogy application.;Genealogy|Family|Tree|Web;Ancestry.com;fisharebest/webtrees;Personal;2.1.25;clone;yes;done
-wetty;WeTTY;Terminal;A tool to access terminal in a browser.;SSH|Web|Terminal|Client;;butlerx/wetty;Utils;v2.7.0;clone;yes;
-wget;Wget;Get Url;A tool to download any url.;Download/URL;;mirror/wget;Utils;1.25.0;apt;;done
-wordpress;WordPress;Website Creator;A Content Management System for creating websites and blogs.;CMS|Blog|Web|Publishing;Wix|Squarespace;WordPress/WordPress;Personal;6.8.3;clone;yes;
-writefreely;WriteFreely;Mini Blogging;A clean inimalist, privacy-focused blogging platform.;Blog|Privacy|Writing|Minimalist;Medium;writefreely/writefreely;Personal;v0.16.0;clone;yes;
-yourls;YOURLS;URL Shortener;A powerful and customizable, URL shortener.;URL|Shortener|Web;Bitly;YOURLS/YOURLS;Utils;1.10.2;clone;yes;done
-youtransfer;YouTransfer;File Transfer;A simple but elegant self-hosted file transfer & sharing solution.;File|Sharing|Upload;;YouTransfer/YouTransfer;Utils;1.0.6;clone;yes;
-ytdlp;yt-dlp;YouTube Downloader;A feature-rich command-line audio/video downloader.;YouTube|Download|GUI|Video;4K Video Downloader;yt-dlp/yt-dlp;Utils;2025.11.12;pip;;done
-zigbee2mqtt;Zigbee2MQTT;Zigbee MQTT Bridge;A Zigbee to MQTT bridge to get rid of your proprietary Zigbee bridges.;Zigbee|MQTT|Bridge|IoT;Philips Hue Bridge;Koenkk/zigbee2mqtt;Personal;2.5.1;npm;yes;done
+module;name;title;ai;description;keywords;proprietary;github;category;version;installMethod;web;status
+acme;acme.sh;ACME Shell;;A pure Unix shell script implementing ACME client protocol.;ACME|LetsEncrypt|SSL|TLS|Script|Certificates;DigiCert CertCentral;acmesh-official/acme.sh;Utils;3.1.1;wget;;done
+acmejs;ACME.js;JavaScript ACME;;A JavaScript ACME client for Let's Encrypt.;ACME|LetsEncrypt|SSL|TLS|JavaScript|Certificates;Sectigo;therootcompany/acme.js;Backend;3.1.0;npm;;done
+adminer;Adminer;MySQL Viewer;;A tool to browse MySQL databases.;Database|SQL|MySQL|Viewer|Web;;vrana/adminer;Developer;5.2.1;apt;yes;done
+agendav;AgenDAV;Calendar;;A CalDAV web client similar to Google Calendar.;Calendar;;agendav/agendav;Productivity;2.6.0;clone;yes;
+angular;Angular;Web App Framework;;A platform for building mobile and desktop web applications.;Web|Framework|TypeScript|SPA;React;angular/angular;Backend;20.3.9;npm;;done
+apache2;Apache HTTP Server;Website;;An HTTP Server Project built with security, efficiency and extensibility in mind.;HTTP|Server|Web|Apache;Microsoft IIS;apache/httpd;Essential;2.4.65;apt;yes;done
+audiobookshelf;Audiobookshelf;Audiobook Podcast;;An Audiobook and podcast server to organize audio files;Audiobooks|Podcasts|Streaming;Audible;advplyr/audiobookshelf;Personal;v2.26.2;clone;yes;
+betterauth;Better Auth;Identity Backend;;A comprehensive authentication framework for TypeScript.;Identity|Backend;;better-auth/better-auth;Backend;1.3.27;npm;;done
+betterauthstudio;Better Auth Studio;Identity Management;;A frontend for Better Auth, an authentication framework.;Identity|Frontend|Users|Management;;;Backend;1.0.25;npm;yes;done
+bugzilla;Bugzilla;Bug Tracking;;A Web-based general-purpose bugtracker and testing tool.;Bug|Tracker|Testing|Web;Jira;bugzilla/bugzilla;Developer;5.3.3;clone;yes;done
+busybox;BusyBox;Unix Suite;;A lightweight set of Unix utilities in a single executable.;Unix|Utilities|Lightweight|Embedded;;mirror/busybox;Utils;1.37.0;apt;;done
+certbot;Certbot;HTTPS Certificate;;A tool to obtain certs from Let's Encrypt on your server.;HTTPS|SSL|Certificates|Automation;DigiCert CertCentral;certbot/certbot;Utils;4.0.0;apt;;done
+changedetection;ChangeDetection;Change Tracker;;A tool for tracking changes on web pages.;Change|Detection|Web|Tracking;Visualping;dgtlmoon/changedetection.io;Productivity;0.50.7;clone;yes;
+clang;Clang;C Compiler;;A C language family frontend for LLVM.;Compiler|C|LLVM|Frontend;Microsoft Visual C++;llvm/llvm-project;Developer;19.1.7;apt;;done
+cmake;CMake;Advanced Build;;A Cross-platform open-source build system.;Build|System|Cross-platform|Automation;Microsoft Visual Studio;Kitware/CMake;Developer;3.31.6;apt;;done
+cockpit;Cockpit;Server Health;;A server health suite with graphical interface.;Server|Health;;cockpit-project/cockpit;Backend;337;apt;yes;done
+collaboraonline;Collabora Online;Office Suite;;An online office suite for collaborative editing.;Office|Collaboration|Online|Suite;Microsoft 365;;Productivity;;;yes;
+convertx;ConvertX;File Converter;;A simple, fast, and reliable file converter.;Currency|Converter|Exchange|Rates;XE Currency;C4illin/ConvertX;Utils;v0.14.1;clone;yes;
+croodle;Croodle;Meeting Scheduler;;A simple scheduler tool for organizing meetings or to do polls on general topics.;Scheduling|Poll|Meeting|Calendar;Calendly|Doodle;jelhan/croodle;Productivity;v0.7.0;clone;yes;
+curl;curl;Download Url;;An advanced tool to download url.;Web|Download;;curl/curl;Utils;8.14.1;apt;;done
+cyberchef;CyberChef;Data Tool;;A web app for encryption, encoding, compression and data analysis;Encryption|Encoding|Data|Analysis;Kryptel;gchq/CyberChef;Utils;v10.19.4;clone;yes;
+discourse;Discourse;Community Discussion;;A civilized discussion platform for your community.;Forum|Community|Discussion|Web;vBulletin;discourse/discourse;Personal;v3.4.6;clone;yes;
+docker;Docker;Container;;A platform for developing, shipping, and running applications in containers.;Container|Virtualization|DevOps|Deployment|Orchestration;;docker/compose;Developer;29.0.0;apt (source);;done
+dovecot;Dovecot;Mail Server;;A secure IMAP and POP3 email server.;Email|Imap|Pop|Server;Microsoft Exchange;dovecot/core;Essential;2.4.1;apt;;done
+ente;Ente;Cloud Manager;;An end-to-end encrypted cloud for photos, videos and 2FA secrets.;Cloud;;ente-io/ente;Personal;v2.0.34;clone;yes;
+erugo;Erugo;File Sharing;;A file-sharing platform with secure, customizable file-transfer capabilities through an elegant user interface.;File|Sharing|Upload;;ErugoOSS/Erugo;Utils;v0.0.011;clone;yes;
+fd;fd;Advanced Find;;A simple, fast and user-friendly alternative to 'find'.;Find|Files|Folders|Disk;;sharkdp/fd;Utils;10.2.0;apt;;done
+ffmpeg;FFmpeg;Audio Video;;A complete solution to record, convert and stream audio and video.;Video|Audio|Streaming|Conversion;Adobe Media Encoder;FFmpeg/FFmpeg;Utils;7.1.2;apt;;done
+fileflows;Fileflows;File Automation;;An automation platform for processing and managing files.;Automation|File|Workflow|Processing;Zapier;;Utils;;;yes;
+flarum;Flarum;Simple Forum;;A simple forum software for building great communities.;Forum|Community|Discussion|Web;Discourse;flarum/flarum;Productivity;v1.8.1;clone;yes;
+freshrss;FreshRSS;RSS Feed;;A free, self-hostable news aggregator.;RSS|Feed|Aggregator;Feedly;FreshRSS/FreshRSS;Personal;1.26.3;clone;yes;
+frp;frp;Reverse Proxy;;A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.;Proxy|Reverse|NAT|Tunnel;Ngrok;fatedier/frp;Backend;v0.63.0;clone;yes;done
+fscrypt;fscrypt;Linux Encryption;;A tool for managing Linux filesystem encryption.;Encryption|Filesystem|Linux|Security;BitLocker;google/fscrypt;Utils;0.3.5;apt;;done
+gcc;GCC;GNU Compiler;;A GNU Compiler Collection.;Compiler|GNU|C|C++;Intel C++ Compiler;gcc-mirror/gcc;Developer;14.2.0;apt;;done
+git;Git;Version Control;;A distributed version control system.;Version|Control|Git|SCM;Microsoft Team Foundation Version Control;git/git;Developer;2.47.3;apt;;done
+gitea;Gitea;Git Web;;A source code Git service.;Git|Version|Control;GitHub|GitLab|Bitbucket;go-gitea/gitea;Developer;v1.24.3;clone;yes;
+goaccess;GoAccess;Log Analysis;;A real-time web log analyzer and interactive viewer;Logs|Analytics|Terminal|Web;Splunk;allinurl/goaccess;Utils;v1.9.3;apt;yes;
+golang;Go;Go Language;;A programming language that makes it easy to build simple, reliable, and efficient software.;Language|Programming|Go|Efficient;(No direct proprietary equivalent);golang/go;Developer;1.24.4;apt;;done
+goodip;GoodIP;VPN;;A virtual private network tool.;VPN|IP|Network;NordVPN|ExpressVPN;;Essential;2025-01-01;;;
+grav;Grav;Knowledege Site;;Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File Content Management System.;CMS|Flat-file|Web|Modern|Wiki;WordPress;getgrav/grav;Productivity;1.7.48;clone;yes;
+homeassistant;Home Assistant;Home Automation;;An home automation that puts local control and privacy first.;Home|Automation|IoT|Smart;Samsung SmartThings;home-assistant/core;Personal;2025.10.3;pip;yes;done
+html5qrcode;Html5-QRCode;QR Code;;A minimal QR code scanner using HTML5.;QR|Scanner|HTML5|Web;QR Code Scanner;mebjas/html5-qrcode;Utils;v2.3.8;clone;yes;
+hugo;Hugo;Static Site;;A fast and modern static site generator.;Static|Site|Generator|Web;Squarespace;gohugoio/hugo;Developer;0.131.0;apt;;done
+imagemagick;ImageMagick;Image Editor;;A software suite to create, edit, compose, or convert images in any format.;Image|Editing|Conversion|Graphics;Adobe Photoshop;ImageMagick/ImageMagick;Utils;7.1.1.43;apt;;done
+immich;immich;Photo Video Backup;;A photo and video management solution.;Photo|Video|Backup;Google Photos;immich-app/immich;Personal;v1.135.3;clone;yes;
+ionic;Ionic;UI Toolkit;;A powerful cross-platform UI toolkit for building native-quality iOS, Android, and Progressive Web Apps with HTML, CSS, and JavaScript.;UI|Mobile|Cross-platform|Framework;Flutter;ionic-team/ionic-framework;Developer;7.2.1;npm;;done
+iopaint;IOPaint;AI Image;yes;An image inpainting tool powered by SOTA AI models. Remove any unwanted object, defect, people from your pictures or erase and replace any thing on your pictures.;Image|Inpainting|AI|Editing;Adobe Photoshop;Sanster/IOPaint;Utils;iopaint-1.5.3;clone;yes;
+ittools;IT-Tools;Handy IT Tools;;A collection of handy online tools for developers.;IT|Tools|Management;;CorentinTh/it-tools;Developer;;clone;yes;
+java;Java;Java Language;;A general-purpose programming language designed for portability and security.;Programming|Language|JVM|OOP;Oracle JDK;openjdk/jdk;Developer;21.0.9;apt;;done
+jellyfin;Jellyfin;Media Streaming;;A software system to manage and stream media.;Media|Streaming|Video;Plex|Emby;jellyfin/jellyfin;Personal;v10.10.7;clone;yes;
+jitsimeet;Jitsi Meet;Conferencing;;A secure, Simple and Scalable Video Conferences tools suite.;Video|Conferencing|Secure|WebRTC;Zoom|Microsoft Teams;jitsi/jitsi-meet;Essential;;apt (source);yes;
+joomla;Joomla!;Content Publisher;;A Content Management System for publishing web content.;CMS|Web|Publishing|Content;WordPress;joomla/joomla-cms;Productivity;5.3.2;clone;yes;
+joplin;Joplin;Note Taking;;A note taking and to-do application with synchronization capabilities.;Notes|To-do|Sync|Markdown;Evernote|OneNote;laurent22/joplin;Productivity;server-v3.4.1;clone;yes;
+jq;jq;JSON parser;;A command-line parser for json files.;JSON|File|Parser|Config;;jqlang/jq;Utils;1.7.1;apt;;done
+jstinker;JSTinker;Javascript Sandbox;;A sandbox for Javascript.;Sandbox|Editor|Online;JsFiddle;johncipponeri/jstinker;Developer;master;clone;yes;done
+karakeep;Karakeep;Bookmarks;;A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search.;Bookmark|Manager;;karakeep-app/karakeep;Personal;v0.26.0;clone;yes;
+kernel;Linux kernel;Linux Kernel;;A Linux kernel for various architectures.;Linux|Kernel|OS|Source;Microsoft Windows;torvalds/linux;Backend;6.12.47;apt;;done
+librechat;LibreChat;Libre Chatbot;yes;An enhanced ChatGPT Clone.;Chat|Chatbot;;danny-avila/LibreChat;Essential;v0.7.9;clone;yes;done
+librephotos;LibrePhotos;Photos Management;;A photo management service.;Photos|Alternative|Gallery;Google Photos;LibrePhotos/librephotos;Personal;HEAD;clone;yes;
+libreqr;Libreqr;Advanced QR Code;;A tool for generating and managing QR codes.;QR|Code|Generator|Utility;QR Code Generator;;Utils;2.0.1;git;yes;done
+limesurvey;LimeSurvey;Survey Management;;A powerful, open-source survey platform.;Survey|Tool|Questionnaire|Research;SurveyMonkey;LimeSurvey/LimeSurvey;Productivity;6.15.3+250708;clone;yes;
+livecodes;LiveCodes;Code Sandbox;;A sandbox for code.;Sandbox|Editor|Online;JsFiddle;live-codes/livecodes;Developer;46;wget;yes;done
+lvgl;LVGL;Embedded UI;;An embedded graphics library to create beautiful UIs for any MCU, MPU and display type.;UI|Manager;;lvgl/lvgl;Backend;a78c4a476ebc58f5;clone;;done
+make;Make;Build Automation;;An utility for maintaining groups of programs from source code.;Build|Automation|Compilation|Utility;Apache Ant;mirror/make;Developer;4.4.1;apt;;done
+mantisbugtracker;Mantis Bug Tracker;Bug Tracker;;A web-based bug tracking system.;Bug|Tracker|Web|Issue;Jira;mantisbt/mantisbt;Developer;release-2.27.1;clone;yes;done
+markdowneditor;Markdown Editor;Markdown Editor;;An editor for Markdown files.;Markdown|Editor|Live|Writing;Typora;jbt/markdown-editor;Developer;v2;clone;yes;done
+mastodon;Mastodon;Decentralized Social Network;;A self-hosted, globally interconnected microblogging community.;Server|Social|Network;;mastodon/mastodon;Personal;;clone;yes;
+mattermost;Mattermost;Collaboration;;A platform for secure collaboration across the entire software development lifecycle.;Collaboration;;mattermost/mattermost;Productivity;v11.1.0;clone;yes;
+maybe;Maybe;Personal Finance;;A personal finance tool for everyone.;Finance|Personal|Budget|Tool;Mint|YNAB;maybe-finance/maybe;Personal;v0.5.0;clone;yes;
+meilisearch;Meilisearch;Fast Search;;A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.;Search|Engine;;meilisearch/meilisearch;Utils;;wget;;done
+mermaid;Mermaid;Diagram Visualization Tool;;A generation tool for diagrams like flowcharts or sequence diagrams from text in a similar manner as markdown.;Diagram|Visualization|Text|Code;Lucidchart;mermaid-js/mermaid;Productivity;11.9.0;clone;yes;
+metube;MeTube;YouTube Videos;;A web GUI for youtube-dl, allowing you to download videos from YouTube and other sites.;YouTube|Download|GUI|Video;4K Video Downloader;alexta69/metube;Utils;HEAD;clone;yes;done
+minio;MinIO;Object Storage;;High Performance S3-compatible Object Storage.;Storage|Object|S3|Cloud;Amazon S3;minio/minio;Developer;2025-07-18;clone;yes;
+mongodb;MongoDB;MongoDB Database;;A general-purpose, document-based, distributed database.;Database|NoSQL|MongoDB|Document|Distributed;;mongodb/mongo;Developer;8.2.1;apt (source);;done
+monica;Monica;Personal CRM;;A personal CRM tool to remember everything about your friends, family and business relationships.;Personal CRM;;monicahq/monica;Productivity;v4.1.2;clone;yes;
+mosquitto;Mosquitto;MQTT Broker;;A message broker that implements MQTT protocol.;MQTT|Broker|IoT|Messaging;HiveMQ;eclipse-mosquitto/mosquitto;Utils;2.0.21;apt;;done
+mydonglecloud;MyDongle.Cloud;MyDongle.Cloud App;;The application to manage MyDongle.Cloud.;MyDongle|Cloud;;MyDongleCloud/free;Utils;2025-11-11;clone;yes;done
+mysql;MySQL;MySQL Database;;A transactional relational database management system.;Database|RDBMS|SQL|MySQL;Oracle Database;mysql/mysql-server;Developer;8.0.43;deb;;done
+ncat;Network Utils;Network Utils;;A tool to test networking.;Network|Tester;;;Utils;7.95;apt;;done
+ncdu;NCurses Disk Usage;Disk Usage;;A tool to calculate and visualize used disk space.;Storage|Disk|Space|Capacity;;rofl0r/ncdu;Utils;1.22;apt;;done
+nginx;NGINX;Proxy Server;;A high-performance HTTP and reverse proxy server.;HTTP|Proxy|Server|Web;F5 BIG-IP;nginx/nginx;Developer;1.26.3;apt;;done
+nmap;Nmap;Network Analyzer;;A network mapper tool to test networking.;Network|Tester;;nmap/nmap;Utils;7.95;apt;;done
+nocobase;NocoBase;No Code;;An extensible AI-powered no-code/low-code platform for building business applications and enterprise solutions.;No Code;;nocobase/nocobase;Productivity;v1.9.6;clone;yes;
+node;Node.js;JavaScript Runtime;;A JavaScript runtime built on Chrome's V8 JavaScript engine.;JavaScript|Runtime|V8|Server;;nodejs/node;Developer;v22.21.1;tar;;done
+ohmyzsh;Oh My Zsh;Command-line Enhancer;;A manager for your zsh configuration.;Zsh|Shell|Framework|Configuration;PowerShell;ohmyzsh/ohmyzsh;Developer;;wget;;
+ollama;Ollama;Chatbot backend;yes;A platform to get up and running with large language models locally.;LLM|Local|AI|Language;;ollama/ollama;Utils;v0.9.7-rc1;clone;;
+onetimeemail;One Time Email;Disposable Email;;A service for generating temporary, disposable email addresses.;Email|Temporary|Disposable|Privacy;Temp-Mail;;Essential;2025-11-11;;yes;
+oneuptime;OneUptime;Monitor;;A complete open-source monitoring and observability platform.;Monitor;;OneUptime/oneuptime;Utils;v4.0.0.2;clone;yes;
+openproject;OpenProject;Project Management;;A project management software.;Project Management;;opf/openproject;Productivity;v16.6.1;clone;yes;
+openwebui;Open WebUI;Legacy Chatbot;yes;A user-friendly WebUI for LLMs.;LLM|WebUI|AI|Chat;;open-webui/open-webui;Essential;v0.6.18;clone;yes;
+osticket;osTicket;Support Ticket;;A support ticketing ticket system.;Ticket|Support|Helpdesk|Web;Zendesk;osTicket/osTicket;Productivity;v1.18.2;clone;yes;done
+otg;uMTP-Responder;OTG Files;;A manager for USB OTG file service.;MTP|Protocol|Media|Transfer;;viveris/uMTP-Responder;Utils;1.6.8;clone;;done
+palmr;Palmr;File Sharing;;A file-sharing platform focused on privacy and security to upload, manage, and share files.;File|Sharing|Upload;;kyantech/Palmr;Utils;v3.2.5-beta;clone;yes;
+pandoc;Pandoc;Document Converter;;A universal document converter.;Document|Converter|Markup|Format;Adobe Acrobat;jgm/pandoc;Productivity;3.1.11.1;apt;yes;
+pgadmin4;pg Admin 4;PostgreSQL Viewer;;A feature rich administration and development platform for PostgreSQL.;Database|SQL|PostgreSQL|Viewer|Web;;pgadmin-org/pgadmin4;Utils;REL-9_10;clone;yes;
+photoprism;PhotoPrism;AI Photo;yes;AI-powered photos app for the decentralized web.;Photos|AI|Decentralized|Gallery;Google Photos;photoprism/photoprism;Personal;250707-d28b3101e;clone;yes;
+photoview;Photoview;Photo Gallery;;A simple and user-friendly photo gallery personal server.;Photo|Gallery|Simple|Web;Google Photos;photoview/photoview;Personal;v2.4.0;clone;yes;
+php;PHP;PHP Language;;A popular general-purpose scripting language.;Scripting|Language|Web|PHP;Zend PHP;php/php-src;Developer;8.4.11;apt;;done
+phpbb;phpBB;Bulletin Board;;A flat-forum bulletin board software solution.;Forum|Bulletin|Board|Web;vBulletin;phpbb/phpbb;Productivity;release-3.3.15;clone;yes;
+phplist;phpList;Newsletter;;A newsletter manager.;Newsletter|Email|Manager|Marketing;Mailchimp;phpList/core;Productivity;3.6.16;wget;yes;
+phpsandbox;PHPSandbox;PHP Sanbox;;A PHP-based sandboxing library with a full suite of configuration and validation options.;PHP|Sandbox|Editor|Online;PHPFiddle;Corveda/PHPSandbox;Developer;v3.1;clone;yes;
+pihole;Pi-hole;Network Ad Blocker;;A network-wide ad blocking system.;Ad|Blocking|DNS|Network;NextDNS;pi-hole/pi-hole;Utils;v.6.1.4;clone;yes;
+postfix;Postfix;Mail Server;;A mail transfer agent for routing and delivering electronic mail.;Email|SMTP|Server|Mail;Microsoft Exchange;;Essential;3.10.4;apt;;done
+postgresql;PostgreSQL;PostgreSQL Database;;A database management system.;Database|RDBMS|SQL|PostgreSQL;;postgres/postgres;Developer;17.6;apt;;done
+privatebin;PrivateBin;Private Pastebin;;A minimalist online pastebin with zero knowledge of pasted data.;Pastebin|Privacy|Zero-knowledge|Web;Pastebin;PrivateBin/PrivateBin;Utils;1.7.8;clone;yes;done
+projectsend;ProjectSend;File Sharing;;A tool to share files with clients, focused on ease of use and privacy.;File|Sharing|Upload;Dropbox;projectsend/projectsend;Productivity;r1720;clone;yes;done
+pymcuprog;pymcuprog;Microchip Programmer;;A Python library for programming Microchip microcontrollers.;Microchip|Programming|Python|Microcontroller;MPLAB X IDE;microchip-pic-avr-tools/pymcuprog;Developer;HEAD;clone;;done
+python;Python;Python Language;;A popular scripting language.;Language|Interpreter;ActivePython;python/cpython;Developer;3.13.5;apt;;done
+qdrant;Qdrant;Vector Search;;High-performance, massive-scale Vector Database and Vector Search Engine.;Vector|Search|Similarity|Engine;Pinecone;qdrant/qdrant;Utils;v1.14.1;tar;;done
+qrcodegenerator;QR Code Generator;QR Code;;Simple QR code generator.;QR|Code|Generator|Image;QR Code Generator;bizzycola/qrcode-generator;Utils;HEAD;clone;yes;done
+radaar;Radaar;Movie Collection;;A movie collection manager for Usenet and BitTorrent users.;File|Manager|Torrent|BitTorrent;Plex;Radarr/Radarr;Personal;v5.27.2.10142;clone;yes;
+rally;Rally;Scheduler;;A scheduling and collaboration tool designed to make organizing events and meetings easier.;Scheduler;;lukevella/rallly;Productivity;v4.5.1;clone;yes;
+redis;Redis;In-memory Data Server;;A fast and feature-rich cache, data structure server, and document and vector query engine.;Server|Data|Structure;;redis/redis;Developer;8.0.2;apt;;done
+redmine;Redmine;Project Management;;A flexible project management web application.;Project Management;;redmine/redmine;Productivity;6.1.0;clone;yes;
+rethinkdb;RethinkDB;RethinkDB Database;;A database tailored for realtime web.;Database|Realtime|NoSQL;Firebase Realtime Database;rethinkdb/rethinkdb;Developer;2.4.4;deb;;done
+rocketchat;Rocket.Chat;Communication;;A communications platform that puts data protection first.;Communication;;RocketChat/Rocket.Chat;Productivity;7.12.1;clone;yes;
+roundcube;Roundcube;Webmail;;A browser-based multilingual mail client.;Email|IMAP|Webmail|Client;Gmail;roundcube/roundcubemail;Essenroundcutial;1.6.11;apt;yes;done
+rspamd;Rspamd;Spam Filter;;A fast, free and open-source spam filtering system.;Spam|Filter|Email|Security;SpamTitan;rspamd/rspamd;Utils;3.12.1;apt;yes;
+rust;Rust;Rust Language;;A systems programming language that runs blazingly fast.;Language|Systems|Fast|Programming;;rust-lang/rust;Developer;1.85.0;apt;;done
+serverperformancestats;Server Performance Stats;Stats Script;;A simple script file to check server performance and resources stats.;Stats Script;;janisadhi/Server_Performance_Stats;Utils;HEAD;clone;;
+sonarr;Sonarr;Smart PVR;;A smart PVR for newsgroup and bittorrent users.;PVR|TV|Manager|Automation;Plex;Sonarr/Sonarr;Personal;v4.0.15.2941;clone;yes;
+sqlite;SQLite;SQLite Database;;A self-contained, serverless, zero-configuration, transactional SQL database engine.;Database|SQL|SQLite|Serverless|Embedded;Microsoft SQL Server Compact;sqlite/sqlite;Developer;3.46.1;apt;;done
+squashfstools;Squashfs-tools;Squashfs Tools;;A set of tools for compression disk.;Compression|Disk;;plougher/squashfs-tools;Utils;4.6.1;apt;;done
+stackedit;StackEdit;Stack Editor;;An in-browser Markdown editor.;Markdown|Editor|Browser|Writing;Typora;benweet/stackedit;Developer;v5.15.4;clone;yes;
+stirlingpdf;Stirling-PDF;PDF Manipulation Tool;;A web-based PDF manipulation tool.;PDF|Tool|Web|Manipulation;Adobe Acrobat;Stirling-Tools/Stirling-PDF;Utils;v1.0.2;clone;yes;done
+sunrisecms;Sunrise CMS;Cemetery Management;;An application to assist cemetery managers with managing their cemetery records.;CMS|Municipal|Web|Simple;WordPress;cityssm/sunrise-cms;Productivity;v1.0.0-alpha.19;clone;yes;
+superset;Superset;Data Visualization;;A modern data exploration and visualization platform.;Data|Visualization|BI|Analytics;Tableau;apache/superset;Productivity;5.0.0;clone;yes;
+syncthing;Syncthing;File Sync;;A continuous file synchronization program.;File|Sync|P2P|Backup;Dropbox|Google Drive;syncthing/syncthing;Utils;1.30.0;clone;yes;
+sysstat;System performance tools;Stats Tools;;A performance monitoring tools.;Stats Tools;;sysstat/sysstat;Utils;12.7.5;apt;;done
+systeminformation;Systeminformation;Stats Library;;A system Information Library.;Stats Library;;sebhildebrandt/systeminformation;Backend;v5.27.11;clone;;done
+timeful;timeful;Scheduler;;A scheduling platform helps you find the best time for a group to meet.;Scheduler;;schej-it/timeful.app;Productivity;HEAD;clone;yes;
+transmission;Transmission;BitTorrent;;A fast, easy, and free BitTorrent client.;BitTorrent|Client|P2P|Download;qBittorrent;transmission/transmission;Utils;4.1.0;apt;yes;done
+triliumnotes;Trilium Notes;Hierarchical Notes;;A tool to build your hierarchical notes.;Notes|Hierarchical|Knowledge|Base;Evernote;TriliumNext/Trilium;Productivity;v0.95.0;tar;yes;done
+tubesync;TubeSync;YouTube Channels;;A syncer of YouTube channels and playlists.;YouTube|Download|GUI|Video|Channel;4K Video Downloader;meeb/tubesync;Utils;v0.15.10;clone;yes;done
+unmanic;Unmanic;Media Library;;A library optimizer for removing unused metadata from media files.;Media|Optimizer|Metadata|Library;;Unmanic/unmanic;Utils;HEAD;pip;yes;
+uptimekuma;Uptime Kuma;Monitoring;;A monitoring, uptime, status tool and checker.;Monitoring|Uptime|Status;Pingdom;louislam/uptime-kuma;Utils;1.23.16;clone;yes;
+uptimekuma;Uptime Kuma;Monitoring;;A fancy monitoring tool.;Monitoring;;louislam/uptime-kuma;Utils;2.0.2;clone;yes;
+webssh2;WebSSH2;SSH;;A web SSH Client in a browser.;SSH|Web|Terminal|Client;;billchurch/webssh2;Utils;v2.3.4;clone;yes;done
+webtrees;webtrees;Genealogy;;A genealogy application.;Genealogy|Family|Tree|Web;Ancestry.com;fisharebest/webtrees;Personal;2.1.25;clone;yes;done
+wetty;WeTTY;Terminal;;A tool to access terminal in a browser.;SSH|Web|Terminal|Client;;butlerx/wetty;Utils;v2.7.0;clone;yes;
+wget;Wget;Get Url;;A tool to download any url.;Download/URL;;mirror/wget;Utils;1.25.0;apt;;done
+wordpress;WordPress;Website Creator;;A Content Management System for creating websites and blogs.;CMS|Blog|Web|Publishing;Wix|Squarespace;WordPress/WordPress;Personal;6.8.3;clone;yes;
+writefreely;WriteFreely;Mini Blogging;;A clean inimalist, privacy-focused blogging platform.;Blog|Privacy|Writing|Minimalist;Medium;writefreely/writefreely;Personal;v0.16.0;clone;yes;
+yourls;YOURLS;URL Shortener;;A powerful and customizable, URL shortener.;URL|Shortener|Web;Bitly;YOURLS/YOURLS;Utils;1.10.2;clone;yes;done
+youtransfer;YouTransfer;File Transfer;;A simple but elegant self-hosted file transfer & sharing solution.;File|Sharing|Upload;;YouTransfer/YouTransfer;Utils;1.0.6;clone;yes;
+ytdlp;yt-dlp;YouTube Downloader;;A feature-rich command-line audio/video downloader.;YouTube|Download|GUI|Video;4K Video Downloader;yt-dlp/yt-dlp;Utils;2025.11.12;pip;;done
+zigbee2mqtt;Zigbee2MQTT;Zigbee MQTT Bridge;;A Zigbee to MQTT bridge to get rid of your proprietary Zigbee bridges.;Zigbee|MQTT|Bridge|IoT;Philips Hue Bridge;Koenkk/zigbee2mqtt;Personal;2.5.1;npm;yes;done

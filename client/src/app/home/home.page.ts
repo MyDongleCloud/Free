@@ -52,7 +52,7 @@ filterCards() {
 		if (this.showNotDone == false && card.status != "done")
 			return false;
 		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term));
-		return this.category == "All" ? ret : (ret && card.category.includes(this.category));
+		return this.category == "All" ? ret : this.category == "ai" ? (ret && card.ai) : (ret && card.category.includes(this.category));
 	});
 	this.sortCards();
 }

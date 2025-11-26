@@ -382,6 +382,8 @@ colorWord(st, bckgd = true) {
 		return (bckgd ? "bg--cyan-100 " : "") + "text--cyan-600";
 	else if (st == "Developer")
 		return (bckgd ? "bg--red-100 " : "") + "text--red-600";
+	else if (st == "AI")
+		return (bckgd ? "bg--red-100 " : "") + "text--black";
 
 	else
 		return (bckgd ? "bg--gray-100 " : "") + "text--gray-600";

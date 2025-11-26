@@ -56,6 +56,7 @@ for ($i = 1; $i < count($modules); $i++) {
 		"githubStars" => intval($github["stargazers_count"] ?? 0),
 		"version" => $m[gc("version")],
 		"category" => $m[gc("category")],
+		"ai" => $m[gc("ai")] === "yes",
 		"description" => $m[gc("description")],
 		"web" => $m[gc("web")] === "yes",
 		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")]),
