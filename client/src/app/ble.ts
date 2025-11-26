@@ -5,9 +5,9 @@ import { Global } from './env';
 import { Subject } from 'rxjs';
 
 const BLE_NAME = "MyDongle-";
-const UUID_GATT = "0000fff0-0000-1000-8000-00805f9b34fb";
-const UUID_VERSION = "0000fff1-0000-1000-8000-00805f9b34fb";
-const UUID_DATA = "0000fff2-0000-1000-8000-00805f9b34fb";
+const UUID_GATT = "0000fff0-a82e-1000-8000-00805f9b34fb";
+const UUID_VERSION = "0000fff1-a82e-1000-8000-00805f9b34fb";
+const UUID_DATA = "0000fff2-a82e-1000-8000-00805f9b34fb";
 
 const BLE_CHUNK = 182;
 
@@ -83,7 +83,7 @@ async tryConnect() {
 	this.global.consolelog(1, "BLE isEnabled:" + await BleClient.isEnabled());
 	if (!this.global.plt.is("android") && !this.global.plt.is("ios")) {
 		try {
-			const bled = await BleClient.requestDevice({optionalServices:[UUID_GATT]});
+			const bled = await BleClient.requestDevice({ namePrefix:BLE_NAME, optionalServices:[UUID_GATT] });
 			this.deviceID = bled.deviceId;
 			this.deviceName = bled.name;
 			await this.connectToBluetoothDevice(bled.deviceId);
@@ -93,7 +93,7 @@ async tryConnect() {
 			this.communicationEvent.next({ msg:"connection" });
 		}
 	} else {
-		await BleClient.requestLEScan({services:[]}, this.onBluetoothDeviceFound.bind(this));
+		await BleClient.requestLEScan({ namePrefix:BLE_NAME, services:[UUID_GATT] }, this.onBluetoothDeviceFound.bind(this));
 	}
 }
 
