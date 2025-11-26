@@ -182,7 +182,7 @@ async backButtonAlert() {
 }
 
 async presentQuestion(hd, st, msg, key:string = "") {
-	if (this.settings.dontShowAgain[key] !== undefined)
+	if (this.settings.dontShowAgain?.[key] !== undefined)
 		return false;
 	let checked = false;
 	let yesClicked = false;
@@ -274,7 +274,7 @@ openModule(identifier:number|string, extract:boolean = false, page:string = null
 
 async presentAlert(hd, st, msg, key:string = "") {
 	let checked = false;
-	if (this.settings.dontShowAgain[key] !== undefined)
+	if (this.settings.dontShowAgain?.[key] !== undefined)
 		return;
 	const alert = await this.alertCtrl.create({
 		cssClass: "basic-alert",

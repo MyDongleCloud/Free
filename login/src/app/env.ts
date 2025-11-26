@@ -144,7 +144,7 @@ async backButtonAlert() {
 
 async presentAlert(hd, st, msg, key:string = "") {
 	let checked = false;
-//	if (this.settings.dontShowAgain[key] !== undefined)
+//	if (this.settings.dontShowAgain?.[key] !== undefined)
 //		return;
 	const alert = await this.alertCtrl.create({
 		cssClass: "basic-alert",
