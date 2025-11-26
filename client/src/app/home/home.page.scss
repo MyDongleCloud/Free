@@ -1,10 +1,16 @@
 .modalLimitSize {
 &::part(content) {
-	max-width:550px;
+	max-width:650px;
 	max-height:650px;
 }
 }
 
 .bg-repeatline {
-	@apply bg-[repeating-linear-gradient(-45deg,_#eeeeee_0,_#eeeeee_1px,_transparent_1px,_transparent_15px)];
+	background: repeating-linear-gradient(
+		-45deg,
+		var(--color--gray-300) 0,
+		var(--color--gray-300) 1px,
+		transparent 1px,
+		transparent 15px
+	);
 }

@@ -40,25 +40,25 @@
 							<div class="text-sm font-medium text--gray-900"><a href="{{card.link}}" title="{{LMT(card.title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{LMT(card.title)}}</a></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900"><a href="https://github.com/{{card.github}}" target="_blank" style="color:black">{{card.name}}</a></div>
+							<div class="text-sm font-medium text--gray-900"><a href="https://github.com/{{card.github}}" target="_blank">{{card.name}}</a></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center">{{card.hits}}</div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bDisabled']" [disabled]="card['dDisabled']" (ionChange)="update(card)"></ion-checkbox></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bDisabled']" [disabled]="card['dDisabled']" (change)="update(card)" class="form-checkbox h-4 w-4"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bPublic']" [disabled]="card['dPublic']" (ionChange)="update(card)" style="{{'display:' + (card['dPublic'] ? 'none' : 'block')}}"></ion-checkbox></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (ionChange)="update(card)" style="{{'display:' + (card['dLocal'] ? 'none' : 'block')}}"></ion-checkbox></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dLocal'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (ionChange)="update(card)" style="{{'display:' + (card['dAdmin'] ? 'none' : 'block')}}"></ion-checkbox></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dAdmin'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><ion-checkbox [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (ionChange)="update(card)" style="{{'display:' + (card['dUser'] ? 'none' : 'block')}}"></ion-checkbox></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dUser'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap hidden xl:table-cell">
 							<div class="text-sm font-medium text--gray-900 max-w-xs truncate"><span>{{LMD(card.description)}}</span></div>

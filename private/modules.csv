@@ -115,7 +115,7 @@ redis;Redis;In-memory Data Server;A fast and feature-rich cache, data structure 
 redmine;Redmine;Project Management;A flexible project management web application.;Project Management;;redmine/redmine;Productivity;6.1.0;clone;yes;
 rethinkdb;RethinkDB;RethinkDB Database;A database tailored for realtime web.;Database|Realtime|NoSQL;Firebase Realtime Database;rethinkdb/rethinkdb;Developer;2.4.4;deb;;done
 rocketchat;Rocket.Chat;Communication;A communications platform that puts data protection first.;Communication;;RocketChat/Rocket.Chat;Productivity;7.12.1;clone;yes;
-roundcube;Roundcube Webmail;Webmail;A browser-based multilingual mail client.;Email|IMAP|Webmail|Client;Gmail;roundcube/roundcubemail;Essential;1.6.11;apt;yes;done
+roundcube;Roundcube;Webmail;A browser-based multilingual mail client.;Email|IMAP|Webmail|Client;Gmail;roundcube/roundcubemail;Essential;1.6.11;apt;yes;done
 rspamd;Rspamd;Spam Filter;A fast, free and open-source spam filtering system.;Spam|Filter|Email|Security;SpamTitan;rspamd/rspamd;Utils;3.12.1;apt;yes;
 rust;Rust;Rust Language;A systems programming language that runs blazingly fast.;Language|Systems|Fast|Programming;;rust-lang/rust;Developer;1.85.0;apt;;done
 serverperformancestats;Server Performance Stats;Stats Script;A simple script file to check server performance and resources stats.;Stats Script;;janisadhi/Server_Performance_Stats;Utils;HEAD;clone;;
