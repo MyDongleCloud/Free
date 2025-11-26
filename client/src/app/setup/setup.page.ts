@@ -57,6 +57,7 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 
 async handleBleMessage(data) {
 	if (data.a === "cloud" && data.all.name !== undefined) {
+		this.ble.disconnect();
 		await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
 		this.global.openPage("find");
 	}
