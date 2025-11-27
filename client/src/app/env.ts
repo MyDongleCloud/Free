@@ -557,7 +557,7 @@ async getCertificate(name, shortname, additionalDomains) {
 				lines.push(line);
 				if (domains.length == lines.length) {
 					const dataA = { lines, action:"add" };
-					const retA = await this.httpClient.post(this.SERVERURL + "/master/domain.json", dataA).toPromise();
+					const retA = await this.httpClient.post(this.SERVERURL + "/master/certificates.json", dataA).toPromise();
 					this.consolelog(2, retA);
 					//alert("AuthorizationDigests sent to DNS server");
 				}
@@ -585,7 +585,7 @@ async getCertificate(name, shortname, additionalDomains) {
 		this.consolelog(2, "##################################");
 	} catch(e) {}
 	const dataD = { lines, action:"delete" };
-	const retD = await this.httpClient.post(this.SERVERURL + "/master/domain.json", dataD).toPromise();
+	const retD = await this.httpClient.post(this.SERVERURL + "/master/certificates.json", dataD).toPromise();
 	this.consolelog(2, retD);
 	return ret;
 }
