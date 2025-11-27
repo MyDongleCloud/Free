@@ -26,7 +26,7 @@
 					<span class="whitespace-pre-wrap">{{L("Terminal modules")}}</span>
 				</button>
 			</div>
-			<div class="flex gap-3 mx-4 mt-4">
+			<div class="flex gap-3 mx-4 mt-4 items-center">
 				<div class="flex rounded-lg border border--gray-200 bg--white p-1">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="category" [(ngModel)]="category" value="All" class="peer sr-only" checked (change)="filterCards()" />
@@ -110,6 +110,7 @@
 					</label>
 				</div>
 				<div class="flex-1"></div>
+				<div class="text-right hidden lg:block">{{this?.filteredCards.length}}&nbsp;modules<br>{{global.formatCount(filteredGithubStars)}}⭐</div>
 			</div>
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">

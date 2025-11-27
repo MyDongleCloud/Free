@@ -24,6 +24,7 @@ cardIdCur = 0;
 cardConfig;
 cards = this.global.modulesData;
 filteredCards;
+filteredGithubStars;
 searchTerm: string = "";
 sortProperty: string = "title";
 sortDirection = { title:"asc", name:"asc", category:"asc" };
@@ -44,7 +45,7 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 
 filterCards() {
 	const term = this.searchTerm.toLowerCase();
-	this.filteredCards = this.cards.filter( card => {
+	this.filteredCards = this.cards.filter(card => {
 		if (this.showTerminal == false && card.web == false)
 			return false;
 		if (this.showDone == false && card.status == "done")
@@ -54,6 +55,7 @@ filterCards() {
 		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term));
 		return this.category == "All" ? ret : this.category == "ai" ? (ret && card.ai) : (ret && card.category.includes(this.category));
 	});
+	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);
 	this.sortCards();
 }
 

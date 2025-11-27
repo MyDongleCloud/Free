@@ -413,6 +413,17 @@ colorPercent(p, limits = [ 80, 50 ]) {
 		return "bg--green-400";
 }
 
+formatCount(count) {
+	if (count >= 1_000_000) {
+		const rounded = (count / 1_000_000).toFixed(1);
+		return rounded.endsWith(".0") ? rounded.slice(0, -2) + "M" : rounded + "M";
+	} else if (count >= 1000) {
+		const rounded = (count / 1000).toFixed(1);
+		return rounded.endsWith(".0") ? rounded.slice(0, -2) + "k" : rounded + "k";
+	} else
+		return "" + count;
+}
+
 async modulesDataPrepare() {
 	const modules = this.session?.["modules"] ?? {};
 	this.modulesData = [];
