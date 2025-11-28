@@ -45,7 +45,7 @@ hugo;Hugo;Static Site;;A fast and modern static site generator.;Static|Site|Gene
 imagemagick;ImageMagick;Image Editor;;A software suite to create, edit, compose, or convert images in any format.;Image|Editing|Conversion|Graphics;Adobe Photoshop;ImageMagick/ImageMagick;Utils;7.1.1.43;apt;;done
 immich;immich;Photo Video Backup;;A photo and video management solution.;Photo|Video|Backup;Google Photos;immich-app/immich;Personal;v1.135.3;clone;yes;
 ionic;Ionic;UI Toolkit;;A powerful cross-platform UI toolkit for building native-quality iOS, Android, and Progressive Web Apps with HTML, CSS, and JavaScript.;UI|Mobile|Cross-platform|Framework;Flutter;ionic-team/ionic-framework;Developer;7.2.1;npm;;done
-iopaint;IOPaint;AI Image;yes;An image inpainting tool powered by SOTA AI models. Remove any unwanted object, defect, people from your pictures or erase and replace any thing on your pictures.;Image|Inpainting|AI|Editing;Adobe Photoshop;Sanster/IOPaint;Utils;iopaint-1.5.3;clone;yes;
+iopaint;IOPaint;AI Image;yes;An image inpainting tool powered by AI models to remove or replace anything on pictures.;Image|Inpainting|AI|Editing;Adobe Photoshop;Sanster/IOPaint;Utils;iopaint-1.5.3;clone;yes;
 ittools;IT-Tools;Handy IT Tools;;A collection of handy online tools for developers.;IT|Tools|Management;;CorentinTh/it-tools;Developer;;clone;yes;
 java;Java;Java Language;;A general-purpose programming language designed for portability and security.;Programming|Language|JVM|OOP;Oracle JDK;openjdk/jdk;Developer;21.0.9;apt;;done
 jellyfin;Jellyfin;Media Streaming;;A software system to manage and stream media.;Media|Streaming|Video;Plex|Emby;jellyfin/jellyfin;Personal;v10.10.7;clone;yes;
@@ -115,7 +115,7 @@ redis;Redis;In-memory Data Server;;A fast and feature-rich cache, data structure
 redmine;Redmine;Project Management;;A flexible project management web application.;Project Management;;redmine/redmine;Productivity;6.1.0;clone;yes;
 rethinkdb;RethinkDB;RethinkDB Database;;A database tailored for realtime web.;Database|Realtime|NoSQL;Firebase Realtime Database;rethinkdb/rethinkdb;Developer;2.4.4;deb;;done
 rocketchat;Rocket.Chat;Communication;;A communications platform that puts data protection first.;Communication;;RocketChat/Rocket.Chat;Productivity;7.12.1;clone;yes;
-roundcube;Roundcube;Webmail;;A browser-based multilingual mail client.;Email|IMAP|Webmail|Client;Gmail;roundcube/roundcubemail;Essenroundcutial;1.6.11;apt;yes;done
+roundcube;Roundcube;Webmail;;A browser-based multilingual mail client.;Email|IMAP|Webmail|Client;Gmail;roundcube/roundcubemail;Essential;1.6.11;apt;yes;done
 rspamd;Rspamd;Spam Filter;;A fast, free and open-source spam filtering system.;Spam|Filter|Email|Security;SpamTitan;rspamd/rspamd;Utils;3.12.1;apt;yes;
 rust;Rust;Rust Language;;A systems programming language that runs blazingly fast.;Language|Systems|Fast|Programming;;rust-lang/rust;Developer;1.85.0;apt;;done
 serverperformancestats;Server Performance Stats;Stats Script;;A simple script file to check server performance and resources stats.;Stats Script;;janisadhi/Server_Performance_Stats;Utils;HEAD;clone;;

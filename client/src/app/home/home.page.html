@@ -91,7 +91,7 @@
 						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('AI', false)">{{LG("AI")}}</span>
 					</label>
 				</div>
-				<div class="flex rounded-lg border border--gray-200 bg--white p-1">
+				<div class="rounded-lg border border--gray-200 bg--white p-1 hidden lg:flex">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="presentation" [(ngModel)]="presentation" value="cards" class="peer sr-only" checked/>
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
@@ -110,7 +110,7 @@
 					</label>
 				</div>
 				<div class="flex-1"></div>
-				<div class="text-right hidden lg:block">{{this?.filteredCards.length}}&nbsp;modules<br>{{global.formatCount(filteredGithubStars)}}⭐</div>
+				<div class="text-right hidden lg:block">{{this?.filteredCards.length}}&nbsp;{{L("modules")}}<br>{{global.formatCount(filteredGithubStars)}}&nbsp;⭐</div>
 			</div>
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
