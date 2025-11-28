@@ -47,7 +47,7 @@ filterCards() {
 	const term = this.global.sidebarSearchTerm.toLowerCase();
 	this.filteredModules = this.cards.filter(card => {
 		if (this.global.sidebarFilterType == "essentials")
-			return card.category.includes("Essential");
+			return card.category.includes("Essential") && card.web;
 		else if (this.global.sidebarFilterType == "bookmarks")
 			return this.global.settings.bookmarks.includes(card.module);
 		else if (this.global.sidebarFilterType == "search")
