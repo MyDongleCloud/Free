@@ -1,0 +1,63 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for docs [-c -h -r -t]"
+echo "c:	Clean"
+echo "h:	Print this usage and exit"
+echo "r:	Rebuild table"
+echo "t:	Test"
+exit 0
+}
+
+CLEAN=0
+TABLE=0
+TEST=0
+while getopts chrt opt; do
+	case "$opt" in
+		c) CLEAN=1;;
+		h) helper;;
+		r) TABLE=1;;
+		t) TEST=1;;
+	esac
+done
+
+
+PP=`dirname $0`
+cd $PP
+
+if [ $CLEAN = 1 -o ! -d /tmp/docsify ]; then
+	PP=`pwd`
+	cd /tmp
+	rm -rf docsify
+	git clone https://github.com/docsifyjs/docsify
+	cd docsify
+	git checkout v4.13.1
+	npm install
+	npm run build
+	cd $PP
+fi
+
+if [ $TABLE = 1 ]; then
+	php ../private/modules-update.php
+fi
+rm -rf web
+mkdir web
+cp /tmp/docsify/lib/docsify.min.js /tmp/docsify/lib/plugins/zoom-image.min.js /tmp/docsify/lib/plugins/search.min.js /tmp/docsify/lib/themes/vue.css web
+cp index.html tailwindcss-4.js _sidebar.md modules.md favicon.ico ../README.md ../build/modulesmeta.json web
+sed -i '/<TABLE_MODULES>/ {
+r ../build/README-modules.md
+d
+}' web/README.md
+mv web/README.md web/home.md
+if [ $TEST = 1 ]; then
+	ln -sf ../modules.html web
+else
+	cp modules.html web
+fi
+
+if [ $TEST = 1 ]; then
+	cd web
+	(sleep 1 && google-chrome --incognito http://localhost:8099) &
+	php -S localhost:8099
+fi

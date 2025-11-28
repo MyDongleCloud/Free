@@ -46,21 +46,22 @@ for ($i = 1; $i < count($modules); $i++) {
 	$modules[$i] = implode(";", $m);
 	$modulesMeta[$m[0]] = array(
 		"module" => $m[gc("module")],
-		"title" => $m[gc("title")],
 		"name" => $m[gc("name")],
+		"title" => $m[gc("title")],
+		"category" => $m[gc("category")],
+		"ai" => $m[gc("ai")] === "yes",
+		"web" => $m[gc("web")] === "yes",
 		"status" => $m[gc("status")],
+		"installMethod" => $m[gc("installMethod")],
+		"version" => $m[gc("version")],
+		"description" => $m[gc("description")],
+		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")]),
+		"proprietary" => empty($m[gc("proprietary")]) ? array() : explode("|", $m[gc("proprietary")]),
 		"githubUrl" => $m[gc("github")],
+		"githubStars" => intval($github["stargazers_count"] ?? 0),
 		"githubLicense" => $github["license"]["name"] ?? "",
 		"githubDescription" => $github["description"] ?? "",
 		"githubLanguage" => $github["language"] ?? "",
-		"githubStars" => intval($github["stargazers_count"] ?? 0),
-		"version" => $m[gc("version")],
-		"category" => $m[gc("category")],
-		"ai" => $m[gc("ai")] === "yes",
-		"description" => $m[gc("description")],
-		"web" => $m[gc("web")] === "yes",
-		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")]),
-		"proprietary" => empty($m[gc("proprietary")]) ? array() : explode("|", $m[gc("proprietary")])
 	);
 	$modulesTranslationTitle[$m[gc("title")]] = "";
 	$modulesTranslationDescription[$m[gc("description")]] = "";
@@ -69,9 +70,13 @@ for ($i = 1; $i < count($modules); $i++) {
 	$modulesKeywords = array_merge($modulesKeywords, array_fill_keys(explode("|", $m[gc("keywords")]), ""));
 }
 echo "Github stars: " . $starsTotal . "\n";
-file_put_contents(__DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/modulesmeta.json", str_replace("    ", "\t", json_encode($modulesMeta, JSON_PRETTY_PRINT)));
+if (!is_dir(__DIR__ . "/../build"))
+	mkdir(__DIR__ . "/../build");
+file_put_contents(__DIR__ . "/../build/modulesmeta.json", str_replace("    ", "\t", json_encode($modulesMeta, JSON_PRETTY_PRINT)));
 $modulesTranslation = array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription));
 file_put_contents(__DIR__ . "/../client/src/assets/i18n/modules-en.json", str_replace("    ", "\t", json_encode($modulesTranslation, JSON_PRETTY_PRINT)));
-file_put_contents(__DIR__ . "/../README-modules.md", implode("\n",$modulesMarkdown));
+$modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
+$modulesMarkdownFooter="||||" . number_format(intval($starsTotal / 1000 / 1000), 2) . "M ⭐|||";
+file_put_contents(__DIR__ . "/../build/README-modules.md", $modulesMarkdownHeader . implode("\n",$modulesMarkdown));
 file_put_contents(__DIR__ . "/../client/src/assets/i18n/keywords-en.json", str_replace("    ", "\t", json_encode(array("keywords" => $modulesKeywords), JSON_PRETTY_PRINT)));
 ?>

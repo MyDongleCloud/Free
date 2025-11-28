@@ -2,12 +2,12 @@ app/translation.h
 auth/betterauth/
 auth/node_modules/
 build
+docs/web/
 kernel/password.h
 private/img
 private/password-upgrade.bin.txt
 private/password-githubkey.txt
 rootfs/usr/local/modules/mydonglecloud/proxy-token.txt
-rootfs/usr/local/modules/mydonglecloud/modulesmeta.json
 client/.angular/
 client/node_modules/
 client/web/
@@ -15,4 +15,3 @@ client/src/assets/app.js
 login/.angular/
 login/node_modules/
 login/login/
-README-modules.md
