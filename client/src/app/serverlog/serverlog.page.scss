@@ -1,10 +1,6 @@
-.nested {
-  border-left: 1px dashed var(--ion-color-step-200, #d7d8da);
-  padding-left: 8px;
+.modalLimitSize {
+&::part(content) {
+	max-width:650px;
+	max-height:650px;
 }
-
-.file-content-modal {
-  --width: 90%;
-  --height: 90%;
-  --border-radius: 16px;
 }

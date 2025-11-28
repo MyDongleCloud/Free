@@ -31,7 +31,7 @@
 							</p>
 						</div>
 					</li>
-					<div *ngIf="node.type === 'directory' && isExpanded(node)" class="nested" [style.margin-left.px]="16 * (depth + 1)">
+					<div *ngIf="node.type === 'directory' && isExpanded(node)" class="border-l border-l-dashed border-l--gray-300 pl-2" [style.margin-left.px]="16 * (depth + 1)">
 						<ng-container *ngTemplateOutlet="recursiveTree; context: { nodes: node.children || [], depth: depth + 1 }"></ng-container>
 					</div>
 				</ng-container>
@@ -40,7 +40,7 @@
 		</ul>
 	</div>
 </div>
-<ion-modal #modalContent class="file-content-modal">
+<ion-modal #modalContent class="modalLimitSize">
 	<ng-template>
 		<h3 class="flex justify-between bg--blue-600 pt-2 pb-2 text--white" (click)="closeContent()">
 			<span class="mx-auto">{{L("Content of")}} {{modalContentMeta }}</span>
