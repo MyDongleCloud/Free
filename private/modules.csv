@@ -101,7 +101,7 @@ phpbb;phpBB;Bulletin Board;;A flat-forum bulletin board software solution.;Forum
 phplist;phpList;Newsletter;;A newsletter manager.;Newsletter|Email|Manager|Marketing;Mailchimp;phpList/core;Productivity;3.6.16;wget;yes;
 phpsandbox;PHPSandbox;PHP Sanbox;;A PHP-based sandboxing library with a full suite of configuration and validation options.;PHP|Sandbox|Editor|Online;PHPFiddle;Corveda/PHPSandbox;Developer;v3.1;clone;yes;
 pihole;Pi-hole;Network Ad Blocker;;A network-wide ad blocking system.;Ad|Blocking|DNS|Network;NextDNS;pi-hole/pi-hole;Utils;v.6.1.4;clone;yes;
-postfix;Postfix;Mail Server;;A mail transfer agent for routing and delivering electronic mail.;Email|SMTP|Server|Mail;Microsoft Exchange;;Essential;3.10.4;apt;;done
+postfix;Postfix;Mail Agent;;A mail transfer agent for routing and delivering electronic mail.;Email|SMTP|Server|Mail;Microsoft Exchange;;Essential;3.10.4;apt;;done
 postgresql;PostgreSQL;PostgreSQL Database;;A database management system.;Database|RDBMS|SQL|PostgreSQL;;postgres/postgres;Developer;17.6;apt;;done
 privatebin;PrivateBin;Private Pastebin;;A minimalist online pastebin with zero knowledge of pasted data.;Pastebin|Privacy|Zero-knowledge|Web;Pastebin;PrivateBin/PrivateBin;Utils;1.7.8;clone;yes;done
 projectsend;ProjectSend;File Sharing;;A tool to share files with clients, focused on ease of use and privacy.;File|Sharing|Upload;Dropbox;projectsend/projectsend;Productivity;r1720;clone;yes;done
