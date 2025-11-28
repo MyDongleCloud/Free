@@ -136,7 +136,7 @@ tubesync;TubeSync;YouTube Channels;;A syncer of YouTube channels and playlists.;
 unmanic;Unmanic;Media Library;;A library optimizer for removing unused metadata from media files.;Media|Optimizer|Metadata|Library;;Unmanic/unmanic;Utils;HEAD;pip;yes;
 uptimekuma;Uptime Kuma;Monitoring;;A monitoring, uptime, status tool and checker.;Monitoring|Uptime|Status;Pingdom;louislam/uptime-kuma;Utils;1.23.16;clone;yes;
 uptimekuma;Uptime Kuma;Monitoring;;A fancy monitoring tool.;Monitoring;;louislam/uptime-kuma;Utils;2.0.2;clone;yes;
-webssh2;WebSSH2;SSH;;A web SSH Client in a browser.;SSH|Web|Terminal|Client;;billchurch/webssh2;Utils;v2.3.4;clone;yes;done
+webssh2;WebSSH2;SSH;;A web SSH Client in a browser.;SSH|Web|Terminal|Client;;billchurch/webssh2;Utils;v2.3.4;clone;yes;done
 webtrees;webtrees;Genealogy;;A genealogy application.;Genealogy|Family|Tree|Web;Ancestry.com;fisharebest/webtrees;Personal;2.1.25;clone;yes;done
 wetty;WeTTY;Terminal;;A tool to access terminal in a browser.;SSH|Web|Terminal|Client;;butlerx/wetty;Utils;v2.7.0;clone;yes;
 wget;Wget;Get Url;;A tool to download any url.;Download/URL;;mirror/wget;Utils;1.25.0;apt;;done
