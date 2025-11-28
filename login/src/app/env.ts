@@ -60,11 +60,11 @@ themeSet(t = null) {
 		this.darkVal = true;
 	else
 		this.darkVal = false;
-	const darkCurrent = document.body.classList.value.indexOf("dark") != -1;
+	const darkCurrent = document.body.classList.contains("dark");
 	if (darkCurrent == false && this.darkVal == true)
-		document.body.classList.value = "dark";
+		document.body.classList.add("dark");
 	if (darkCurrent == true && this.darkVal == false)
-		document.body.classList.value = "";
+		document.body.classList.remove("dark");
 }
 
 getCookie(name) {
