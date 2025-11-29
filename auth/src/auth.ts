@@ -1,9 +1,9 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { execSync } from "child_process";
 import { randomBytes } from "crypto";
-import { betterAuth } from "better-auth";
+import { betterAuth, BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
-import { BetterAuthPlugin, username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
+import { username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
 import { sendMagicLinkEmail, sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInOTP, sendVerificationEmailURL } from "./email";
 import { folderAndChildren } from "./tree";
 import Database from "better-sqlite3";
