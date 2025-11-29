@@ -1,5 +1,5 @@
 [Unit]
-Description=Meilisearch (MyDongleCloud)
+Description=Meilisearch
 After=systemd-user-sessions.service
 
 [Service]

@@ -1,5 +1,5 @@
 [Unit]
-Description=MyDongleCloud OTG (MyDongleCloud)
+Description=Dongle OTG
 After=systemd-modules-load.service systemd-udevd.service
 Requires=systemd-modules-load.service systemd-udevd.service
 

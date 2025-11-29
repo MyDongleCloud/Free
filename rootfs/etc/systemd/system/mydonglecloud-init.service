@@ -1,5 +1,5 @@
 [Unit]
-Description=MyDongleCloud init (MyDongleCloud)
+Description=Dongle Init
 After=systemd-modules-load.service systemd-udevd.service
 Requires=systemd-modules-load.service systemd-udevd.service
 

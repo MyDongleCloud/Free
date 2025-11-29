@@ -1,5 +1,5 @@
 [Unit]
-Description=MeTube (MyDongleCloud)
+Description=MeTube
 After=network.target
 
 [Service]

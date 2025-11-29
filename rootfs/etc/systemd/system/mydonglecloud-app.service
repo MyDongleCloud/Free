@@ -1,5 +1,5 @@
 [Unit]
-Description=MyDongleCloud app (MyDongleCloud)
+Description=Dongle App
 After=systemd-modules-load.service
 
 [Service]

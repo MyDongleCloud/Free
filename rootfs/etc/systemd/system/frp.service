@@ -1,5 +1,5 @@
 [Unit]
-Description=Frp (MyDongleCloud)
+Description=Frp
 After=network.target
 
 [Service]

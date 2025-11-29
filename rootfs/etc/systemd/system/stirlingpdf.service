@@ -1,5 +1,5 @@
 [Unit]
-Description=Stirling-PDF (MyDongleCloud)
+Description=Stirling-PDF
 After=network.target
 
 [Service]
