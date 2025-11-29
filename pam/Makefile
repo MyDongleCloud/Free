@@ -24,16 +24,16 @@ pre_build:
 	@mkdir -p $(PRE)
 
 pam: $(OBJs)
-	$(MYLINKPP) $(DEBUG) $(OBJs) $(MYLDFLAGS) -o pam_mydonglecloud.so
+	$(MYLINKPP) $(DEBUG) $(OBJs) $(MYLDFLAGS) -o pam_app.so
 ifeq ($(DEBUG),)
-	@strip pam_mydonglecloud.so
+	@strip pam_app.so
 endif
 ifeq ($(shell [ "$$(uname -m)" = "aarch64" ] || ischroot ; echo $$?), 0)
-	@cp pam_mydonglecloud.so /usr/local/modules/pam/
+	@cp pam_app.so /usr/local/modules/pam/
 endif
 
 $(PRE)%.o : %.c
 	$(MYCC) $(DEBUG) $< -o $@ -c $(MYCFLAGS)
 
 cleanup:
-	@rm -f $(OBJs) pam_mydonglecloud.so
+	@rm -f $(OBJs) pam_app.so

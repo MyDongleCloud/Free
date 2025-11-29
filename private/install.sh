@@ -96,7 +96,7 @@ TT=`cat /etc/pam.d/common-auth`
 cat > /etc/pam.d/common-auth <<EOF
 auth [success=ignore default=1] pam_oath.so usersfile=/disk/admin/modules/pam/oath.txt
 auth sufficient pam_exec.so /usr/local/modules/pam/pam.sh oath_success
-auth sufficient /usr/local/modules/pam/pam_mydonglecloud.so
+auth sufficient /usr/local/modules/pam/pam_app.so
 session optional pam_exec.so /usr/local/modules/pam/pam.sh
 $TT
 EOF
