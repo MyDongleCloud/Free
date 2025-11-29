@@ -24,8 +24,8 @@
 	fragment@2 {
 		target-path = "/";
 		__overlay__ {
-			mydonglecloud {
-				compatible = "mydonglecloud";
+			dongle {
+				compatible = "dongle";
 				status = "okay";
 				pwms = <&pwm 0 166000 322000>;
 				ccnrst = <9>;

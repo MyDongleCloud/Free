@@ -16,11 +16,11 @@ while getopts hl opt; do
 	esac
 done
 
-if [ ! -f mydonglecloud-overlay.dts ]; then
+if [ ! -f dongle-overlay.dts ]; then
 	echo "Not in the right directory"
 	exit 0
 fi
-dtc -@ -I dts -O dtb -o ${PRE}/overlays/mydonglecloud.dtbo mydonglecloud-overlay.dts
+dtc -@ -I dts -O dtb -o ${PRE}/overlays/dongle.dtbo dongle-overlay.dts
 dtc -@ -I dts -O dtb -o ${PRE}/overlays/buttons.dtbo buttons-overlay.dts
 dtc -@ -I dts -O dtb -o ${PRE}/overlays/leds.dtbo leds-overlay.dts
 dtc -@ -I dts -O dtb -o ${PRE}/overlays/st7735s.dtbo st7735s-overlay.dts

@@ -30,7 +30,7 @@ struct mydonglePriv {
 static struct mydonglePriv *myip;
 static struct timer_list my_timer_buzzer;
 
-static void mydongle_workBuzzer(struct work_struct *w) {
+static void dongle_workBuzzer(struct work_struct *w) {
 	struct mydonglePriv *ip = container_of(w, struct mydonglePriv, workBuzzer);
 	if (ip->buzzerON) {
 		pwm_config(ip->buzzerS, 166000, 322000);
@@ -145,7 +145,7 @@ static ssize_t write_debug(struct device *dev, struct device_attribute *attr, co
 static DEVICE_ATTR(debug, 0660, show_debug, write_debug);
 
 static ssize_t write_printk(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
-	printk("MyDongleCloud: %s", buf);
+	printk("Dongle: %s", buf);
 	if (strlen(buf) > 0 && buf[strlen(buf) - 1] != '\n')
 		printk("\n");
 	return count;
@@ -185,7 +185,7 @@ static ssize_t write_buzzerClick(struct device *dev, struct device_attribute *at
 
 static DEVICE_ATTR(buzzerClick, 0220, NULL, write_buzzerClick);
 
-static struct attribute *mydongle_attributes[] = {
+static struct attribute *dongle_attributes[] = {
 	&dev_attr_buzzer.attr,
 	&dev_attr_buzzerFreq.attr,
 	&dev_attr_model.attr,
@@ -198,20 +198,20 @@ static struct attribute *mydongle_attributes[] = {
 	NULL,
 };
 
-static struct attribute_group mydongle_attr_group = {
-	.attrs = mydongle_attributes,
+static struct attribute_group dongle_attr_group = {
+	.attrs = dongle_attributes,
 };
 
-int isMydonglecloud = 0;
-static int mydongle_probe(struct platform_device *pdev) {
+int isDongle = 0;
+static int dongle_probe(struct platform_device *pdev) {
 	int ret;
 	struct device *dev = &pdev->dev;
 	struct mydonglePriv *ip = devm_kzalloc(dev, sizeof(struct mydonglePriv), GFP_KERNEL);
 	if (!ip)
 		return -ENOMEM;
-	printk("MyDongleCloud: Enter probe\n");
+	printk("Dongle: Enter probe\n");
 
-	isMydonglecloud = 1;
+	isDongle = 1;
 	platform_set_drvdata(pdev, ip);
 	myip = (struct mydonglePriv *)ip;
 	ip->debug = 0;
@@ -220,7 +220,7 @@ static int mydongle_probe(struct platform_device *pdev) {
 	strcpy(ip->model, strstr(mm, "Raspberry Pi") != NULL ? "pro" : "std");
 	ip->hardwareVersion = 10;
 	ip->buzzerCount = 0;
-	INIT_WORK(&ip->workBuzzer, mydongle_workBuzzer);
+	INIT_WORK(&ip->workBuzzer, dongle_workBuzzer);
 
 	if (strcmp(ip->model, "pro") == 0)
 		ip->buzzerS = pwm_get(&pdev->dev, NULL);
@@ -243,7 +243,7 @@ static int mydongle_probe(struct platform_device *pdev) {
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
 	ip->ccnrst = of_get_gpio(dev->of_node, 0);
 #else
-	struct device_node *node = of_find_compatible_node(NULL, NULL, "mydonglecloud");
+	struct device_node *node = of_find_compatible_node(NULL, NULL, "dongle");
 	of_property_read_u32(node, "ccnrst", &ip->ccnrst);
 	ip->ccnrst += 569;
 #endif
@@ -254,7 +254,7 @@ static int mydongle_probe(struct platform_device *pdev) {
 	}
 	gpio_direction_output(ip->ccnrst, 1);
 
-	ret = sysfs_create_group(&dev->kobj, &mydongle_attr_group);
+	ret = sysfs_create_group(&dev->kobj, &dongle_attr_group);
 	kuid_t new_uid;
 	kgid_t new_gid;
 	new_uid = make_kuid(&init_user_ns, 0);
@@ -267,14 +267,14 @@ static int mydongle_probe(struct platform_device *pdev) {
 	ret = sysfs_file_change_owner(&dev->kobj, "model", new_uid, new_gid);
 	ret = sysfs_file_change_owner(&dev->kobj, "printk", new_uid, new_gid);
 	ret = sysfs_file_change_owner(&dev->kobj, "serialNumber", new_uid, new_gid);
-	printk("MyDongleCloud: Exit probe\n");
+	printk("Dongle: Exit probe\n");
 	return ret;
 }
 
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(6,12,0)
-static int mydongle_remove(struct platform_device *pdev) {
+static int dongle_remove(struct platform_device *pdev) {
 #else
-static void mydongle_remove(struct platform_device *pdev) {
+static void dongle_remove(struct platform_device *pdev) {
 #endif
 	int ret;
 
@@ -282,36 +282,36 @@ static void mydongle_remove(struct platform_device *pdev) {
 	if (ret)
 		printk("MyDongle-Dongle: Timer buzzer still in use\n");
 
-	sysfs_remove_group(NULL, &mydongle_attr_group);
+	sysfs_remove_group(NULL, &dongle_attr_group);
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(6,12,0)
 	return 0;
 #endif
 }
 
-static const struct of_device_id mydongle_of[] = {
-    { .compatible = "mydonglecloud", },
+static const struct of_device_id dongle_of[] = {
+    { .compatible = "dongle", },
     {},
 };
-MODULE_DEVICE_TABLE(of, mydongle_of);
+MODULE_DEVICE_TABLE(of, dongle_of);
 
-static struct platform_driver mydongle_driver = {
+static struct platform_driver dongle_driver = {
 	.driver = {
-		.name = "mydonglecloud",
-		.of_match_table = of_match_ptr(mydongle_of),
+		.name = "dongle",
+		.of_match_table = of_match_ptr(dongle_of),
 	},
-	.probe = mydongle_probe,
-	.remove = mydongle_remove,
+	.probe = dongle_probe,
+	.remove = dongle_remove,
 };
 
-static int __init mydongle_init(void) {
-	return platform_driver_register(&mydongle_driver);
+static int __init dongle_init(void) {
+	return platform_driver_register(&dongle_driver);
 }
-module_init(mydongle_init);
+module_init(dongle_init);
 
-static void __exit mydongle_exit(void) {
-	platform_driver_unregister(&mydongle_driver);
+static void __exit dongle_exit(void) {
+	platform_driver_unregister(&dongle_driver);
 }
-module_exit(mydongle_exit);
+module_exit(dongle_exit);
 
 MODULE_DESCRIPTION("Driver for MyDongle Cloud");
 MODULE_AUTHOR("Gregoire Gentil");

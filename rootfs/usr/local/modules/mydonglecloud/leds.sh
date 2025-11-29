@@ -69,5 +69,5 @@ elif [ $LEDS = "off" ]; then
 fi
 
 if [ $BACKLIGHT = 0 -o $BACKLIGHT = 1 ]; then
-	echo $BACKLIGHT > /dev/mydonglecloud_screen/backlight
+	echo $BACKLIGHT > /dev/dongle_screen/backlight
 fi

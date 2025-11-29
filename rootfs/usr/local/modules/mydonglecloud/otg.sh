@@ -16,10 +16,10 @@ if [ "m`id -u`" != "m0" ]; then
 fi
 
 MANUFACTURER="MyDongle.Cloud"
-PRODUCT="MyDongle.Cloud `cat /dev/mydonglecloud_platform/model | sed 's/./\U&/'`"
-SERIALNUMBER=`cat /dev/mydonglecloud_platform/serialNumber`
+PRODUCT="MyDongle.Cloud `cat /dev/dongle_platform/model | sed 's/./\U&/'`"
+SERIALNUMBER=`cat /dev/dongle_platform/serialNumber`
 VERSION=`cat /usr/local/modules/mydonglecloud/version.txt`
-MODEL=`cat /dev/mydonglecloud_platform/model`
+MODEL=`cat /dev/dongle_platform/model`
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
 FFS="ffs.mtp"
 STOP=0
@@ -166,5 +166,5 @@ if [ $MTP = 1 ]; then
 	sleep 1
 fi
 ls /sys/class/udc/ > $PATHg1/UDC
-echo "OTG done" > /dev/mydonglecloud_platform/printk
+echo "OTG done" > /dev/dongle_platform/printk
 echo "Configuration OTG done"

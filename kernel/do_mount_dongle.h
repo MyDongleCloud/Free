@@ -138,7 +138,7 @@ static int crypt_folder(char *path) {
 
 	key_serial_t keyring_id = sys_keyctl(KEYCTL_GET_KEYRING_ID, KEY_SPEC_SESSION_KEYRING, 0, 0, 0);
 	if (keyring_id < 0) {
-		printk("MyDongleCloud Mount Error: failed to get id\n");
+		printk("Dongle Mount Error: failed to get id\n");
 		return -1;
 	}
 	struct ext4_encryption_key key;
@@ -150,7 +150,7 @@ static int crypt_folder(char *path) {
 	strcat(key_ref_full, salt->key_ref_str);
 	int ret = sys_add_key(EXT2FS_KEY_TYPE_LOGON, key_ref_full, (void *)&key, sizeof(key), keyring_id);
 	if (ret < 0) {
-		printk("MyDongleCloud Mount Error: failed to add second\n");
+		printk("Dongle Mount Error: failed to add second\n");
 		return -1;
 	}
 
@@ -162,20 +162,20 @@ static int crypt_folder(char *path) {
 	memcpy(policy.master_key_descriptor, salt->key_desc, EXT4_KEY_DESCRIPTOR_SIZE);
 	int ffd = sys_open(path, O_RDONLY, 0);
 	if (ffd < 0) {
-		printk("MyDongleCloud Mount Error: failed to open %s %d\n", path, ffd);
+		printk("Dongle Mount Error: failed to open %s %d\n", path, ffd);
 		return -1;
 	}
 	ret = sys_ioctl(ffd, EXT4_IOC_SET_ENCRYPTION_POLICY, (long unsigned int)&policy);
 	sys_close(ffd);
 	if (ret) {
-		printk("MyDongleCloud Mount Error: Error setting policy\n");
+		printk("Dongle Mount Error: Error setting policy\n");
 		return -1;
 	}
 
 	return 0;
 }
 
-static int do_mount_mydonglecloud(int encryption) {
+static int do_mount_dongle(int encryption) {
 	int ret, ffd, dfd;
 	int reset = 0;
 	struct statfs buf;
@@ -188,12 +188,12 @@ static int do_mount_mydonglecloud(int encryption) {
 #define LOOP "/dev/loop0"
 	ret = sys_mkdir(ROOTALL, 0777);
 	if (ret) {
-		printk("MyDongleCloud Mount Error: failed to create dir root-all %d\n", ret);
+		printk("Dongle Mount Error: failed to create dir root-all %d\n", ret);
 		return -1;
 	}
 	ret = sys_mkdir(LOWER, 0777);
 	if (ret) {
-		printk("MyDongleCloud Mount Error: failed to create dir lower %d\n", ret);
+		printk("Dongle Mount Error: failed to create dir lower %d\n", ret);
 		return -2;
 	}
 
@@ -202,19 +202,19 @@ static int do_mount_mydonglecloud(int encryption) {
 	else
 		ret = create_dev("/dev" ROOTALL, name_to_dev_t("/dev/mmcblk1p2"));
 	if (ret) {
-		printk("MyDongleCloud Mount Error: failed to create dev root-all (SD) %d\n", ret);
+		printk("Dongle Mount Error: failed to create dev root-all (SD) %d\n", ret);
 		return -3;
 	}
 	ret = sys_mount("/dev" ROOTALL, ROOTALL, "ext4", 0, NULL);
 	if (ret) {
-		printk("MyDongleCloud Mount Error: couldn't mount ext4 (emmc) %d\n", ret);
+		printk("Dongle Mount Error: couldn't mount ext4 (emmc) %d\n", ret);
 		return -4;
 	}
 
 	/* Create the loop */
 	ret = create_dev(LOOP, name_to_dev_t(LOOP));
 	if (ret) {
-		printk("MyDongleCloud Mount Error: failed to create dev loop0 %d\n", ret);
+		printk("Dongle Mount Error: failed to create dev loop0 %d\n", ret);
 		return -5;
 	}
 #endif
@@ -231,7 +231,7 @@ static int do_mount_mydonglecloud(int encryption) {
 	if (ret == 0) {
 		reset = 1;
 		sys_rename(ROOTALL "/fs/mdc.new.img", ROOTALL "/fs/mdc.img");
-		printk("MyDongleCloud Mount Warning: Updating squashfs mdc.img\n");
+		printk("Dongle Mount Warning: Updating squashfs mdc.img\n");
 	}
 
 	/* 0. Do we have reset? */
@@ -241,7 +241,7 @@ static int do_mount_mydonglecloud(int encryption) {
 	if (reset) {
 		char sz[128];
 		unsigned int i;
-		printk("MyDongleCloud Mount Warning: Doing Reset\n");
+		printk("Dongle Mount Warning: Doing Reset\n");
 		get_random_bytes(&i, sizeof(i));
 		sprintf(sz, ROOTALL "/fs/upper.trash.%u", i);
 		sys_rename(ROOTALL "/fs/upper", sz);
@@ -256,25 +256,25 @@ static int do_mount_mydonglecloud(int encryption) {
 	/* 1. Open the squashfs */
 	ffd = sys_open(ROOTALL "/fs/mdc.img", O_RDONLY, 0);
 	if (ffd < 0) {
-		printk("MyDongleCloud Mount Error: failed to open mdc.img %d\n", ffd);
+		printk("Dongle Mount Error: failed to open mdc.img %d\n", ffd);
 		return -6;
 	}
 
 	/* 2. Bind the squashfs */
 	dfd = sys_open(LOOP, O_RDWR, 0);
 	if (dfd < 0) {
-		printk("MyDongleCloud Mount Error: failed to open loop %d\n", dfd);
+		printk("Dongle Mount Error: failed to open loop %d\n", dfd);
 		return -7;
 	}
 
 	ret = sys_ioctl(dfd, LOOP_SET_FD, ffd);
 	if (ret) {
-		printk("MyDongleCloud Mount Error: failed ioctl1 %d\n", ret);
+		printk("Dongle Mount Error: failed ioctl1 %d\n", ret);
 		return -8;
 	}
 	ret = sys_ioctl(dfd, LOOP_SET_STATUS64, (long unsigned int)&loopinfo);
 	if (ret) {
-		printk("MyDongleCloud Mount Error: failed ioctl2 %d\n", ret);
+		printk("Dongle Mount Error: failed ioctl2 %d\n", ret);
 		return -9;
 	}
 
@@ -286,7 +286,7 @@ static int do_mount_mydonglecloud(int encryption) {
 	ret = sys_mkdir(LOWER, 0777);
 	ret = sys_mount(LOOP, LOWER, "squashfs", MS_RDONLY, NULL);
 	if(ret) {
-		printk("MyDongleCloud Mount Error: failed to mount squashfs %d\n", ret);
+		printk("Dongle Mount Error: failed to mount squashfs %d\n", ret);
 		return -10;
 	}
 
@@ -296,11 +296,11 @@ static int do_mount_mydonglecloud(int encryption) {
 	ret = sys_mkdir(ROOTALL "/fs_/work", 0755);
 	ret = sys_mount("none", OVERLAY, "overlay", 0, "lowerdir=" LOWER ",upperdir=" ROOTALL "/fs/upper,workdir=" ROOTALL "/fs_/work");
 	if(ret) {
-		printk("MyDongleCloud Mount Error: failed to mount overlayfs %d\n", ret);
+		printk("Dongle Mount Error: failed to mount overlayfs %d\n", ret);
 		return -13;
 	}
 
-	printk("MyDongleCloud Mount: Success\n");
+	printk("Dongle Mount: Success\n");
 #ifdef __KERNEL__
 	sys_chdir(OVERLAY);
 #endif

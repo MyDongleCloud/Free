@@ -3,7 +3,7 @@ ifeq ($(wildcard /lib/modules/$(VERSION)/.),)
 	VERSION=$(shell ls /lib/modules/ | grep 6.12)
 endif
 
-obj-m := st7735s.o mydonglecloud.o
+obj-m := st7735s.o dongle.o
 
 all:
 	make -C /lib/modules/$(VERSION)/build M=$(PWD) modules

@@ -81,7 +81,7 @@ static void screenData(struct st7735sPriv *priv, unsigned char data) {
 }
 
 static void init_(struct st7735sPriv *priv) {
-	printk("MyDongle-ST7735S: screenInit\n");
+	printk("Dongle-ST7735S: screenInit\n");
 
 	screenCommand(priv, 0x11); //Sleep out
 	screenCommand(priv, 0x11); //Sleep out
@@ -288,7 +288,7 @@ static int st7735s_open(struct inode *inode, struct file *filp) {
 	struct st7735sPriv *priv = container_of(inode->i_cdev, struct st7735sPriv, cdev);
 	filp->private_data = priv;
 	if (priv->debug >= 1)
-		printk("MyDongle-ST7735S: open\n");
+		printk("Dongle-ST7735S: open\n");
 	return 0;
 }
 
@@ -296,9 +296,9 @@ static ssize_t st7735s_read(struct file *filp, char *buf, size_t count, loff_t *
 	struct st7735sPriv *priv = (struct st7735sPriv *)filp->private_data;
 	int ret = copy_to_user(buf, priv->framebuffer, count);
 	if (priv->debug >= 1)
-		printk("MyDongle-ST7735S: read %lu\n", count);
+		printk("Dongle-ST7735S: read %lu\n", count);
 	if (ret != 0)
-		printk("MyDongle-ST7735S: copy_to_user %d\n", ret);
+		printk("Dongle-ST7735S: copy_to_user %d\n", ret);
 	//memcpy(buf, priv->framebuffer, count);
 	return count;
 }
@@ -307,9 +307,9 @@ static ssize_t st7735s_write(struct file *filp, const char *buf, size_t count, l
 	struct st7735sPriv *priv = (struct st7735sPriv *)filp->private_data;
 	int ret = copy_from_user(priv->framebuffer, buf, count);
 	if (priv->debug >= 1)
-		printk("MyDongle-ST7735S: write %lu\n", count);
+		printk("Dongle-ST7735S: write %lu\n", count);
 	if (ret != 0)
-		printk("MyDongle-ST7735S: copy_from_user %d\n", ret);
+		printk("Dongle-ST7735S: copy_from_user %d\n", ret);
 	//memcpy(priv->framebuffer, buf, count);
 	return count;
 }
@@ -322,7 +322,7 @@ static int st7735s_mmap(struct file *filp, struct vm_area_struct *vma) {
 		return -EINVAL;
 
 	if (remap_pfn_range(vma, vma->vm_start,virt_to_phys((void *)priv->framebuffer) >> PAGE_SHIFT, size, vma->vm_page_prot) < 0) {
-	printk("MyDongle-ST7735S: remap_pfn_range failed\n");
+	printk("Dongle-ST7735S: remap_pfn_range failed\n");
 		return -EIO;
 	}
 	return 0;
@@ -331,7 +331,7 @@ static int st7735s_mmap(struct file *filp, struct vm_area_struct *vma) {
 static int st7735s_release(struct inode *inode, struct file *filp) {
 	struct st7735sPriv *priv = (struct st7735sPriv *)filp->private_data;
 	if (priv->debug >= 1)
-	printk("MyDongle-ST7735S: release\n");
+	printk("Dongle-ST7735S: release\n");
 	return 0;
 }
 
@@ -499,11 +499,11 @@ static int st7735s_probe(struct spi_device *spi) {
 	struct device *dev = &spi->dev;
 	struct device_node *node = of_find_compatible_node(NULL, NULL, "st7735s");
 
-	printk("MyDongle-ST7735S: Enter probe\n");
+	printk("Dongle-ST7735S: Enter probe\n");
 	spi->bits_per_word = 8;
 	spi->mode = SPI_MODE_3;
 	error = spi_setup(spi);
-	printk("MyDongle-ST7735S: spi_setup:%d\n", error);
+	printk("Dongle-ST7735S: spi_setup:%d\n", error);
 	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
 	if (!priv) {
 		dev_err(dev, "failed to allocate driver private data\n");
@@ -530,10 +530,10 @@ static int st7735s_probe(struct spi_device *spi) {
 	ret = sysfs_file_change_owner(&dev->kobj, "init", new_uid, new_gid);
 	ret = sysfs_file_change_owner(&dev->kobj, "rect", new_uid, new_gid);
 	ret = sysfs_file_change_owner(&dev->kobj, "update", new_uid, new_gid);
-	printk("MyDongleCloud: Exit probe\n");
+	printk("Dongle: Exit probe\n");
 
 #define VS10x3_MAJOR 200
-	error = register_chrdev(VS10x3_MAJOR, "mydonglecloud_screen_f", &st7735s_fops);
+	error = register_chrdev(VS10x3_MAJOR, "dongle_screen_f", &st7735s_fops);
 	if (error)
 		goto err0;
 
@@ -551,7 +551,7 @@ static int st7735s_probe(struct spi_device *spi) {
 	cdev_init(&priv->cdev, &st7735s_fops);
 	priv->cdev.owner = THIS_MODULE;
 	priv->cdev.ops = &st7735s_fops;
-	priv->dev = device_create(priv->cls, NULL, MKDEV(VS10x3_MAJOR, 0 /* minor */), NULL, "mydonglecloud_screen_f");
+	priv->dev = device_create(priv->cls, NULL, MKDEV(VS10x3_MAJOR, 0 /* minor */), NULL, "dongle_screen_f");
 	cdev_add(&priv->cdev, MKDEV(VS10x3_MAJOR, 0), 1);
 
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(6,0,0)
@@ -562,7 +562,7 @@ static int st7735s_probe(struct spi_device *spi) {
 #endif
 	ret = gpio_request(priv->backlight, "BACKLIGHT");
 	if (ret < 0) {
-		printk("MyDongle-ST7735S: Failed to request GPIO %d for BACKLIGHT\n", priv->backlight);
+		printk("Dongle-ST7735S: Failed to request GPIO %d for BACKLIGHT\n", priv->backlight);
 		//return 0;
 	}
 	gpio_direction_output(priv->backlight, 1);
@@ -575,7 +575,7 @@ static int st7735s_probe(struct spi_device *spi) {
 #endif
 	ret = gpio_request(priv->wd, "WD");
 	if (ret < 0) {
-		printk("MyDongle-ST7735S: Failed to request GPIO %d for WD\n", priv->wd);
+		printk("Dongle-ST7735S: Failed to request GPIO %d for WD\n", priv->wd);
 		//return 0;
 	}
 	gpio_direction_output(priv->wd, 1);
@@ -588,7 +588,7 @@ static int st7735s_probe(struct spi_device *spi) {
 #endif
 	ret = gpio_request(priv->nrst, "NRST");
 	if (ret < 0) {
-		printk("MyDongle-ST7735S: Failed to request GPIO %d for NRST\n", priv->nrst);
+		printk("Dongle-ST7735S: Failed to request GPIO %d for NRST\n", priv->nrst);
 		//return 0;
 	}
 	gpio_direction_output(priv->nrst, 1);
@@ -601,13 +601,13 @@ static int st7735s_probe(struct spi_device *spi) {
 #endif
 	ret = gpio_request(priv->at, "AT");
 	if (ret < 0) {
-		printk("MyDongle-ST7735S: Failed to request GPIO %d for AT\n", priv->at);
+		printk("Dongle-ST7735S: Failed to request GPIO %d for AT\n", priv->at);
 		//return 0;
 	}
 	gpio_direction_output(priv->at, 1);
 
 	startup_(priv);
-	printk("MyDongle-ST7735S: Exit probe\n");
+	printk("Dongle-ST7735S: Exit probe\n");
 	return 0;
 
  err0:

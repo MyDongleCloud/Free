@@ -34,9 +34,9 @@
 		nx,sleep_slots = <_slp_slots>;
 
 / {
-	model = "MyDongle Cloud Std";
+	model = "Dongle Std";
 	version = "10";
-	compatible = "mydonglecloud,artik710-mydonglecloud", "samsung,artik710",
+	compatible = "dongle,artik710-dongle", "samsung,artik710",
 		   "nexell,s5p6818";
 
 	aliases {
@@ -469,8 +469,8 @@
 				regulator-boot-on;};
 	}; /* regulators */
 
-	mydonglecloud {
-		compatible = "mydonglecloud,mydonglecloud";
+	dongle {
+		compatible = "dongle,dongle";
 		pwm_buzzer = <0>;
 		gpios = <&gpio_a 25 0>;//CCNRST
 	};
@@ -481,7 +481,7 @@
 	hierarchy = <0>;
 	cs-gpios = <&gpio_c 30 0>;
 	lcdspi:lcdspi@0 {
-		compatible = "mydonglecloud,st7735s";
+		compatible = "dongle,st7735s";
 		reg = <0>;
 		gpios = <&gpio_c 17 0 &gpio_c 0 0 &gpio_b 14 0>;//BCKLIT, WD, NRST
 		spi-max-frequency = <12000000>;

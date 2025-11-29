@@ -1,6 +1,6 @@
-SUBSYSTEM=="platform", KERNEL=="mydonglecloud", ACTION=="add", RUN+="/usr/bin/ln -sf /sys%p /dev/mydonglecloud_platform"
+SUBSYSTEM=="platform", KERNEL=="dongle", ACTION=="add", RUN+="/usr/bin/ln -sf /sys%p /dev/dongle_platform"
 
-SUBSYSTEM=="spi", KERNEL=="spi0.0", ACTION=="add", RUN+="/usr/bin/ln -sf /sys%p /dev/mydonglecloud_screen"
+SUBSYSTEM=="spi", KERNEL=="spi0.0", ACTION=="add", RUN+="/usr/bin/ln -sf /sys%p /dev/dongle_screen"
 
 SUBSYSTEM=="leds", KERNEL=="LED_GREEN", ACTION=="change", RUN+="/usr/bin/chmod 666 /sys/class/leds/LED_GREEN/trigger /sys/class/leds/LED_GREEN/delay_on /sys/class/leds/LED_GREEN/delay_off"
 SUBSYSTEM=="leds", KERNEL=="LED_RED", ACTION=="change", RUN+="/usr/bin/chmod 666 /sys/class/leds/LED_RED/trigger /sys/class/leds/LED_RED/delay_on /sys/class/leds/LED_RED/delay_off"

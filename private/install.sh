@@ -60,7 +60,7 @@ ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.targe
 ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
 ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
 ln -sf /etc/systemd/system/mydonglecloud-otg.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-otg.service
-echo -n " modules-load=dwc2,libcomposite,configs,mydonglecloud" >> /boot/firmware/cmdline.txt
+echo -n " modules-load=dwc2,libcomposite,configs,dongle" >> /boot/firmware/cmdline.txt
 sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
 sed -i -e 's/cfg80211.ieee80211_regdom=US/cfg80211.ieee80211_regdom=00/' /boot/firmware/cmdline.txt
 cat > /boot/firmware/config.txt <<EOF
@@ -70,7 +70,7 @@ arm_boost=1
 
 [all]
 dtoverlay=dwc2
-dtoverlay=mydonglecloud
+dtoverlay=dongle
 dtoverlay=st7735s
 dtoverlay=buttons
 dtoverlay=leds
