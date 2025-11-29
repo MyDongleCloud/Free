@@ -159,6 +159,21 @@
 		"localPort": 9412
 	},
 	"docker": {},
+	"docsify": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"reset": true,
+		"symlinks": true,
+		"path": "/disk/admin/modules/docsify",
+		"alias": [
+			"docs"
+		],
+		"permissions": [
+			"_public_"
+		],
+		"localPort": 9491
+	},
 	"dovecot": {},
 	"ente": {
 		"web": true,

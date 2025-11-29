@@ -42,6 +42,7 @@ if [ $ALL = 1 ]; then
 	module postgresql 0
 	module apache2 1
 	module bugzilla 0
+	module docsify 1
 	module homeassistant 1
 	module jitsimeet 0
 	module librechat 1
@@ -62,6 +63,8 @@ if [ $1 = "apache2" ]; then
 	su admin -c "$PP/scripts/apache2.sh -r"
 elif [ $1 = "bugzilla" ]; then
 	$PP/scripts/bugzilla.sh -r
+elif [ $1 = "docsify" ]; then
+	su admin -c "$PP/scripts/docsify.sh -r"
 elif [ $1 = "homeassistant" ]; then
 	su admin -c "$PP/scripts/homeassistant.sh -r"
 elif [ $1 = "jitsimeet" ]; then

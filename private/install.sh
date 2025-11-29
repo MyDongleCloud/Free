@@ -541,6 +541,7 @@ else
 	clone changedetection dgtlmoon/changedetection.io 0.50.7
 	clone convertx C4illin/ConvertX v0.14.1
 	clone cyberchef gchq/CyberChef v10.19.4
+	clone docsify docsifyjs/docsify v4.13.1
 	clone discourse discourse/discourse v3.4.6
 	clone flarum flarum/flarum v1.8.1
 	clone freshrss FreshRSS/FreshRSS 1.26.3
@@ -608,6 +609,13 @@ cd Template-Toolkit-3.101
 yes | perl Makefile.PL
 make
 make install
+
+echo "################################"
+echo "docsify"
+echo "################################"
+cd /usr/local/modules/docsify
+npm install
+npm run build
 
 echo "################################"
 echo "flarum"

@@ -1,0 +1,81 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for docsify [-h -r]"
+echo "h:	Print this usage and exit"
+echo "r:	Reset"
+exit 0
+}
+
+if [ "m`id -u`" = "m0" ]; then
+	echo "You should not be root"
+	exit 0
+fi
+
+RESET=0
+while getopts hr opt
+do
+	case "$opt" in
+		h) helper;;
+		r) RESET=1;;
+	esac
+done
+
+if [ $RESET != 1 ]; then
+	exit 0
+fi
+
+echo "#Reset docsify##################"
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
+rm -rf /disk/admin/modules/docsify
+mkdir -p /disk/admin/modules/docsify
+
+ln -sf /usr/local/modules/docsify/lib/docsify.min.js /disk/admin/modules/docsify/
+ln -sf /usr/local/modules/docsify/lib/plugins /disk/admin/modules/docsify/
+ln -sf /usr/local/modules/docsify/lib/themes /disk/admin/modules/docsify/
+
+cat > /disk/admin/modules/docsify/_sidebar.md <<EOF
+- [Home](home)
+EOF
+
+cat > /disk/admin/modules/docsify/home.md <<EOF
+# Docs of $CLOUDNAME
+
+You can edit this documentation page in the file "/disk/admin/modules/docsify/home.md".
+
+!Read the [docsify documentation](https://docsify.js.org) for more information how to tune a docsify website.
+EOF
+
+cat > /disk/admin/modules/docsify/index.html <<EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+<title>Docs of $CLOUDNAME</title>
+<meta name="description" content="Docs of $CLOUDNAME">
+<link rel="stylesheet" href="themes/vue.css">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.$docsify = {
+	name: 'Docs of $CLOUDNAME',
+	homepage: 'home.md',
+	auto2top: true,
+	loadSidebar: true,
+	maxLevel: 0,
+	subMaxLevel: 3,
+	search: {
+		placeholder: 'Type to search',
+		noData: 'No matches found.',
+		depth: 2,
+	}
+};
+</script>
+<script src="docsify.min.js"></script>
+<script src="plugins/search.min.js"></script>
+</body>
+</html>
+EOF

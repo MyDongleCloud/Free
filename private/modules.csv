@@ -22,6 +22,7 @@ curl;curl;Download Url;;An advanced tool to download url.;Web|Download;;curl/cur
 cyberchef;CyberChef;Data Tool;;A web app for encryption, encoding, compression and data analysis;Encryption|Encoding|Data|Analysis;Kryptel;gchq/CyberChef;Utils;v10.19.4;clone;yes;
 discourse;Discourse;Community Discussion;;A civilized discussion platform for your community.;Forum|Community|Discussion|Web;vBulletin;discourse/discourse;Personal;v3.4.6;clone;yes;
 docker;Docker;Container;;A platform for developing, shipping, and running applications in containers.;Container|Virtualization|DevOps|Deployment|Orchestration;;docker/compose;Developer;29.0.0;apt (source);;done
+docsify;docsify;Live Docs;;A live site for documentation.;Web|Docs|Documentation;;docsifyjs/docsify;Developer;v4.13.1;clone;yes;done
 dovecot;Dovecot;Mail Server;;A secure IMAP and POP3 email server.;Email|Imap|Pop|Server;Microsoft Exchange;dovecot/core;Essential;2.4.1;apt;;done
 ente;Ente;Cloud Manager;;An end-to-end encrypted cloud for photos, videos and 2FA secrets.;Cloud;;ente-io/ente;Personal;v2.0.34;clone;yes;
 erugo;Erugo;File Sharing;;A file-sharing platform with secure, customizable file-transfer capabilities through an elegant user interface.;File|Sharing|Upload;;ErugoOSS/Erugo;Utils;v0.0.011;clone;yes;
