@@ -37,7 +37,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/MyDongleCloud/login/",
+              "baseHref": "/_app_/login/",
               "budgets": [
                 {
                   "type": "initial",
