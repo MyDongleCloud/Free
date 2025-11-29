@@ -124,17 +124,17 @@ setCookie(name, value, domain = null) {
 }
 
 async AuthStatus() {
-	const ret = await this.httpClient.get("/MyDongleCloud/Auth/status", {headers:{"content-type": "application/json"}}).toPromise();
+	const ret = await this.httpClient.get("/_app_/auth/status", {headers:{"content-type": "application/json"}}).toPromise();
 	if (ret["demo"] === true)
 		this.demo = true;
 	this.consolelog(2, "Auth Status: ", ret);
 }
 
 async getSession() {
-	this.session = await this.httpClient.get("/MyDongleCloud/Auth/get-session", {headers:{"content-type": "application/json"}}).toPromise();
+	this.session = await this.httpClient.get("/_app_/auth/get-session", {headers:{"content-type": "application/json"}}).toPromise();
 	this.consolelog(2, "Auth get-session: ", this.session);
 	if (this.session != null) {
-		const jwt = await this.httpClient.get("/MyDongleCloud/Auth/token", {headers:{"content-type": "application/json"}}).toPromise();
+		const jwt = await this.httpClient.get("/_app_/auth/token", {headers:{"content-type": "application/json"}}).toPromise();
 		this.setCookie("jwt", jwt["token"]);
 		this.settings = JSON.parse(this.session.user.settings);
 		await this.translate.use(this.settings.lang);
@@ -150,7 +150,7 @@ async logout() {
 	this.setCookie("jwt", "");
 	const data = { token:this.session?.session?.token };
 	try {
-		const ret = await this.httpClient.post("/MyDongleCloud/Auth/revoke-session", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		const ret = await this.httpClient.post("/_app_/auth/revoke-session", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.consolelog(2, "Auth revoke-session: ", ret);
 	} catch(e) {}
 	this.session = null;
@@ -480,7 +480,7 @@ review() {
 }
 
 async statsPolling() {
-	this.statsData = await this.httpClient.get("/MyDongleCloud/Auth/stats", {headers:{"content-type": "application/json"}}).toPromise();
+	this.statsData = await this.httpClient.get("/_app_/auth/stats", {headers:{"content-type": "application/json"}}).toPromise();
 }
 
 statsPeriodChange(incDir) {

@@ -32,7 +32,7 @@ app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ limit:"1mb", extended:true }));
 app.use(cookieParser());
 app.set("trust proxy", "loopback");
-app.use("/MyDongleCloud/Auth", toNodeHandler(handler));
+app.use("/auth", toNodeHandler(handler));
 app.listen(port, "127.0.0.1", () => {
 	jwkInit();
 	console.log("Server running at http://localhost: " + port + " (" + (process.env.PRODUCTION === "true" ? "production" : "development") + ")");

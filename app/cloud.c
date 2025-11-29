@@ -55,9 +55,9 @@ void cloudSetup(cJSON *el) {
 	char szPath[17];
 	generateUniqueId(szPath);
 	memcpy(szPath, "/tmp/cookie", strlen("/tmp/cookie"));
-	downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, szPath);
+	downloadURLBuffer("http://localhost:8091/auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, szPath);
 #ifdef DEFAULT_2FA
-	downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/two-factor/enable", buf, "Content-Type: application/json", post, szPath, NULL);
+	downloadURLBuffer("http://localhost:8091/auth/two-factor/enable", buf, "Content-Type: application/json", post, szPath, NULL);
 #endif
 	unlink(szPath);
 	free(post);

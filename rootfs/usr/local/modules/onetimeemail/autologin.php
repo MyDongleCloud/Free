@@ -115,7 +115,7 @@ function login($email, $password, $url) {
 
 $email = "";
 if (isset($_COOKIE["jwt"])) {
-	curl_setopt($ch, CURLOPT_URL, "http://localhost:8091/MyDongleCloud/Auth/jwks-pem");
+	curl_setopt($ch, CURLOPT_URL, "http://localhost:8091/auth/jwks-pem");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 	$jwksPem = curl_exec($ch);
 	$jwt = $_COOKIE["jwt"];

@@ -11,7 +11,7 @@ async function validateCredentials(event) {
 		const formData = new FormData();
 		formData.append("username", document.getElementById("username").value);
 		formData.append("password", document.getElementById("password").value);
-		const response = await fetch("/MyDongleCloud/Auth/sign-in/username", { method: "POST", body: formData, });
+		const response = await fetch("/_app_/auth/sign-in/username", { method: "POST", body: formData, });
 		const data = await response.json();
 		if (response.ok && data["token"] !== null) {
 			document.getElementById('idForm').submit();

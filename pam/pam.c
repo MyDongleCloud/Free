@@ -45,7 +45,7 @@ int authentify(const char *username, const char *password) {
 	char buf[1024];
 	char post[256];
 	snprintf(post, sizeof(post), "{\"username\":\"%s\", \"password\":\"%s\"}", username, password);
-	int ret = downloadURLBuffer("http://localhost:8091/MyDongleCloud/Auth/sign-in/username", buf, "Content-Type: application/json", post);
+	int ret = downloadURLBuffer("http://localhost:8091/auth/sign-in/username", buf, "Content-Type: application/json", post);
 	if (ret == 0) {
 			ret = -2;
 			cJSON *el = cJSON_Parse(buf);

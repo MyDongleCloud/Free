@@ -41,7 +41,7 @@ async ionViewDidEnter() {
 async loadDirectory(path: string) {
 	try {
 		const data = { path };
-		this.nodes = [await this.httpClient.post<FileSystemNode>("/MyDongleCloud/Auth/server-log", JSON.stringify(data), { headers: { "content-type": "application/json" } }).toPromise()];
+		this.nodes = [await this.httpClient.post<FileSystemNode>("/_app_/auth/server-log", JSON.stringify(data), { headers: { "content-type": "application/json" } }).toPromise()];
 		this.toggleExpand(this.nodes[0]);
 		this.cdr.detectChanges();
 	} catch (error) {
@@ -52,7 +52,7 @@ async loadDirectory(path: string) {
 async getFileContent(fileNode: FileSystemNode): Promise<string> {
 	const fullPath = this.buildFullPath(fileNode);
 	const data = { path: fullPath };
-	return await this.httpClient.post( "/MyDongleCloud/Auth/server-log", JSON.stringify(data), { headers: { "content-type": "application/json" }, responseType: "text" }).toPromise();
+	return await this.httpClient.post( "/_app_/auth/server-log", JSON.stringify(data), { headers: { "content-type": "application/json" }, responseType: "text" }).toPromise();
 }
 
 getSizeString(n: number): string {

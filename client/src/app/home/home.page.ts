@@ -119,7 +119,7 @@ async reset() {
 	if (await this.global.presentQuestion("Reset \"" + this.cards[this.cardIdCur].title + "\" (" + this.cards[this.cardIdCur].name + ")", "WARNING! All data will be lost", "Are you sure to reset this module?"))
 		if (await this.global.presentQuestion("Reset \"" + this.cards[this.cardIdCur].title + "\" (" + this.cards[this.cardIdCur].name + ")", "WARNING! All data will be lost", "This is your last chance. All data of this module will be erased and won't be recoverable. Are you absolutely sure to reset this module?")) {
 			const data = { module:this.global.modulesData[this.cardIdCur].module };
-			const ret = await this.httpClient.post("/MyDongleCloud/Auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+			const ret = await this.httpClient.post("/_app_/auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
 			this.global.consolelog(2, "Auth module-reset: ", ret);
 			this.modalModuleSettings.dismiss();
 		}
@@ -127,7 +127,7 @@ async reset() {
 
 async config() {
 	const data = { module:this.global.modulesData[this.cardIdCur].module };
-	this.cardConfig = await this.httpClient.post("/MyDongleCloud/Auth/module/config", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+	this.cardConfig = await this.httpClient.post("/_app_/auth/module/config", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
 	this.global.consolelog(2, "Auth module-config: ", this.cardConfig);
 }
 

@@ -1,5 +1,7 @@
 {
-	"/MyDongleCloud/Auth": {
-		"target": "http://localhost:8091"
+	"/_app_/auth": {
+		"target": "http://localhost:8091",
+		"pathRewrite": { "^/_app_/auth": "/auth" }
+
 	}
 }

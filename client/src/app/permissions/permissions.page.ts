@@ -107,13 +107,13 @@ async save() {
 					this.modules[module]["permissions"].push("_groupuser_");
 			}
 		}
-	const ret = await this.httpClient.post("/MyDongleCloud/Auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
+	const ret = await this.httpClient.post("/_app_/auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
 	this.global.consolelog(2, "Auth modules-permissions: ", ret);
 	this.dResetSave = true;
 }
 
 async getData() {
-	const stats = await this.httpClient.post("/MyDongleCloud/Auth/module/stats", JSON.stringify({ all:true }), {headers:{"content-type": "application/json"}}).toPromise();
+	const stats = await this.httpClient.post("/_app_/auth/module/stats", JSON.stringify({ all:true }), {headers:{"content-type": "application/json"}}).toPromise();
 	this.global.consolelog(2, "Auth module-stats: ", stats);
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];

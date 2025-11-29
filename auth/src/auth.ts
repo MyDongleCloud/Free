@@ -53,7 +53,7 @@ if (!existsSync(secretPath)) {
 }
 
 export const jwkInit = async () => {
-	const response = await fetch("http://localhost:" + port + "/MyDongleCloud/Auth/jwks-pem");
+	const response = await fetch("http://localhost:" + port + "/auth/jwks-pem");
 	const fileContent = await response.text();
 	writeFileSync(jwkPath, fileContent, "utf-8");
 }
@@ -209,7 +209,7 @@ const mdcEndpoints = () => {
 			jwksPem: createAuthEndpoint("/jwks-pem", {
 				method: "GET",
 			}, async(ctx) => {
-				const jwksRes = await fetch("http://localhost:" + port + "/MyDongleCloud/Auth/jwks");
+				const jwksRes = await fetch("http://localhost:" + port + "/auth/jwks");
 				const jwks = await jwksRes.json();
 				const key = await jose.importJWK(jwks.keys[0], "ES256") as jose.KeyObject;
 				const pem = await jose.exportSPKI(key);
@@ -221,7 +221,7 @@ const mdcEndpoints = () => {
 
 export const auth = betterAuth({
 	secret: readFileSync(secretPath, "utf-8").trim(),
-	baseURL: "http://localhost:" + port + "/MyDongleCloud/Auth",
+	baseURL: "http://localhost:" + port + "/auth",
 	database: new Database(databasePath),
 	emailAndPassword: { enabled: true },
 	user: {

@@ -94,7 +94,7 @@ void rewrite_(char *st, int port, FILE *pfM) {
 		sprintf(port_, ":%d", port);
 	snprintf(sz, sizeof(sz), "\
 	RewriteCond %%{HTTP_HOST} ^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(:\\d+)?$\n\
-	RewriteRule ^/(MyDongleCloud|m)/%s.* %%{REQUEST_SCHEME}://%%1%s [NC,L]\n", st, port_);
+	RewriteRule ^/m/%s.* %%{REQUEST_SCHEME}://%%1%s [NC,L]\n", st, port_);
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
@@ -147,13 +147,13 @@ MyDongleCloudALEnabled %s\n\
 	ProxyRequests Off\n\
 	ProxyPreserveHost on\n\
 	ProxyVia On\n\
-	ProxyPass /MyDongleCloud/Auth/ http://localhost:8091/MyDongleCloud/Auth/\n\
-	Alias /MyDongleCloud /usr/local/modules/apache2/pages\n\
+	ProxyPass /_app_/auth/ http://localhost:8091/auth/\n\
+	Alias /_app_ /usr/local/modules/apache2/pages\n\
 	<Directory /usr/local/modules/apache2/pages>\n\
 		Require all granted\n\
 	</Directory>\n\
-	ErrorDocument 401 /MyDongleCloud/unauthorized.php?m=$1\n\
-	ProxyPass /MyDongleCloud/ !\n\
+	ErrorDocument 401 /_app_/unauthorized.php?m=$1\n\
+	ProxyPass /_app_/ !\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
 	Include /usr/local/modules/apache2/options-ssl-apache.conf\n\
@@ -280,14 +280,14 @@ MyDongleCloudALEnabled %s\n\
 				}
 				if (strcmp(elModule->string, "apache2") == 0) {
 					strcpy(sz, "\
-	ErrorDocument 404 /MyDongleCloud/notpresent.php\n\
-	ErrorDocument 500 /MyDongleCloud/error.php\n");
+	ErrorDocument 404 /_app_/notpresent.php\n\
+	ErrorDocument 500 /_app_/error.php\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 			} else {
 				snprintf(sz, sizeof(sz), "\
-	RewriteCond %%{REQUEST_URI} !^/MyDongleCloud/disabled.php$\n\
-	RewriteRule ^/.*$ /MyDongleCloud/disabled.php?m=%s [PT,L]\n\n", elModule->string);
+	RewriteCond %%{REQUEST_URI} !^/_app_/disabled.php$\n\
+	RewriteRule ^/.*$ /_app_/disabled.php?m=%s [PT,L]\n\n", elModule->string);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);

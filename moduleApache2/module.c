@@ -199,7 +199,7 @@ int authorization2(request_rec *r) {
 static int authorization(request_rec *r) {
 	server_rec *s = r->server;
 	const char *current_uri = r->uri;
-	if (current_uri != NULL && strncmp(current_uri, "/MyDongleCloud", 14) == 0)
+	if (current_uri != NULL && strncmp(current_uri, "/_app_/", 7) == 0)
 		return DECLINED;
 	int ret = authorization2(r);
 	if (ret != -2)

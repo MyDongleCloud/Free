@@ -29,7 +29,7 @@ lazyInit();
 
 const sendMagicLinkEmail = async (to, token, url) => {
 	await transporterInit();
-	const link = decodeURIComponent(url.replace(/.*errorCallbackURL=/, "")) + "/MyDongleCloud/login?verify=" + token;
+	const link = decodeURIComponent(url.replace(/.*errorCallbackURL=/, "")) + "/_app_/login?verify=" + token;
 	await transporter.sendMail({
 	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
