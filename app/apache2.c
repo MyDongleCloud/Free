@@ -196,15 +196,6 @@ AppALEnabled %s\n\
 			//jsonPrintArray(0, " ", " ", "mydonglecloud", fqdn, "", pfM);
 			strcpy(sz, ";\"\n");
 			fwrite(sz, strlen(sz), 1, pfM);
-			if (cJSON_HasObjectItem(elModule, "rewriteRule")) {
-				snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule, "rewriteRule"));
-				fwrite(sz, strlen(sz), 1, pfM);
-			}
-			if (cJSON_HasObjectItem(elModule2, "rewriteRule")) {
-				snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule2, "rewriteRule"));
-				fwrite(sz, strlen(sz), 1, pfM);
-			}
-
 			cJSON *elEnabled = cJSON_GetObjectItem(elModule, "enabled");
 			if (cJSON_HasObjectItem(elModule2, "enabled"))
 				elEnabled = cJSON_GetObjectItem(elModule2, "enabled");
