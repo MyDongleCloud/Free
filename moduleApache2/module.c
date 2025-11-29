@@ -89,24 +89,24 @@ char *getJwkPemContent(const char *arg) {
 
 static const char *moduleJwkPemFileSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	configS *confS = (configS *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	configS *confS = (configS *)ap_get_module_config(s->module_config, &app_module);
 	confS->jwkPem = getJwkPemContent(arg);
-	PRINTF("MDC: Jwt %s", arg);
+	PRINTF("APP: Jwt %s", arg);
 	return NULL;
 }
 
 static const char *moduleNameSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
 	confVH->name = arg;
-	PRINTF("MDC: Name %s", arg);
+	PRINTF("APP: Name %s", arg);
 	return NULL;
 }
 
 static const char *modulePermissionSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
-	PRINTF("MDC: Permission %s (for %s)", arg, confVH->name);
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
+	PRINTF("APP: Permission %s (for %s)", arg, confVH->name);
 	if (confVH->permissions == NULL)
 		confVH->permissions = cJSON_CreateObject();
 	cJSON_AddBoolToObject(confVH->permissions, arg, cJSON_True);
@@ -115,9 +115,9 @@ static const char *modulePermissionSet(cmd_parms *cmd, void *mconfig, const char
 
 static const char *moduleAutoLoginSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
-	configS *confS = (configS *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	configS *confS = (configS *)ap_get_module_config(s->module_config, &app_module);
 	confS->autologin = strcmp(arg, "on") == 0 ? 1 : 0;
-	PRINTF("MyDongleCloudAutoLogin: %s", arg);
+	PRINTF("AppAutoLogin: %s", arg);
 	return NULL;
 }
 
@@ -159,19 +159,19 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 		if (current_time < exp_time) {
 			const char *jwtRole = jwt_get_grant(jwt_decoded, "role");
 			const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
-			//PRINTF("MDC: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
+			//PRINTF("APP: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
 			ret = checkAccess(elPermissions, jwtRole, jwtUsername);
 		}
 		jwt_free(jwt_decoded);
 	} else {
-		//PRINTF("MDC: JWT verification failed: %d\n", result);
+		//PRINTF("APP: JWT verification failed: %d\n", result);
 	}
 	return ret;
 }
 
 int authorization2(request_rec *r) {
 	server_rec *s = r->server;
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
 #define STATS
 #ifdef STATS
 	int *global_hits = apr_shm_baseaddr_get(confVH->shm_hits);
@@ -180,17 +180,17 @@ int authorization2(request_rec *r) {
 	(*global_hits)++;
 	*global_lasttime = time(NULL);
 	apr_proc_mutex_unlock(confVH->mutex);
-	//PRINTF("MDC: authorization1a name:%s uri:%s hits:%d", confVH->name, r->uri, *global_hits);
+	//PRINTF("APP: authorization1a name:%s uri:%s hits:%d", confVH->name, r->uri, *global_hits);
 #endif
-	//PRINTF("MDC: authorization1b jwkPem: %.*s", 32, confVH->jwkPem);
+	//PRINTF("APP: authorization1b jwkPem: %.*s", 32, confVH->jwkPem);
 	//char *ssz = cJSON_Print(confVH->permissions);
-	//PRINTF("MDC: authorization1c permissions: %s\n", ssz);
+	//PRINTF("APP: authorization1c permissions: %s\n", ssz);
 	//free(ssz);
 	if (confVH->permissions == NULL || cJSON_HasObjectItem(confVH->permissions, "_public_"))
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
 	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
-	//PRINTF("MDC: authorization2 cookieJwt: %s", cookieJwt);
+	//PRINTF("APP: authorization2 cookieJwt: %s", cookieJwt);
 	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
 		return decodeAndCheck(s, cookieJwt, confVH->jwkPem, confVH->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
 	return -2;
@@ -204,18 +204,18 @@ static int authorization(request_rec *r) {
 	int ret = authorization2(r);
 	if (ret != -2)
 		return ret;
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
 	if (confVH->name != NULL && strcmp(confVH->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
 			return DECLINED;
-	//PRINTF("MDC: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confVH->name, r->uri);
+	//PRINTF("APP: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confVH->name, r->uri);
 	return HTTP_UNAUTHORIZED;
 }
 
 static const command_rec directives[] = {
-	AP_INIT_TAKE1("MyDongleCloudJwkPem", moduleJwkPemFileSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloud Jwt Key"),
-	AP_INIT_TAKE1("MyDongleCloudModule", moduleNameSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloud module name"),
-	AP_INIT_ITERATE("MyDongleCloudModulePermission", modulePermissionSet, NULL, RSRC_CONF | ACCESS_CONF, "Permission for MyDongleCloud module"),
-	AP_INIT_TAKE1("MyDongleCloudALEnabled", moduleAutoLoginSet, NULL, RSRC_CONF | ACCESS_CONF, "AutoLogin Enabled"),
+	AP_INIT_TAKE1("AppJwkPem", moduleJwkPemFileSet, NULL, RSRC_CONF | ACCESS_CONF, "App Jwt Key"),
+	AP_INIT_TAKE1("AppModule", moduleNameSet, NULL, RSRC_CONF | ACCESS_CONF, "App module name"),
+	AP_INIT_ITERATE("AppModulePermission", modulePermissionSet, NULL, RSRC_CONF | ACCESS_CONF, "Permission for App module"),
+	AP_INIT_TAKE1("AppALEnabled", moduleAutoLoginSet, NULL, RSRC_CONF | ACCESS_CONF, "AutoLogin Enabled"),
 	{NULL}
 };
 
@@ -224,6 +224,6 @@ static void registerHooks(apr_pool_t *p) {
 	registerFilter();
 }
 
-module AP_MODULE_DECLARE_DATA mydonglecloud_module = {
+module AP_MODULE_DECLARE_DATA app_module = {
 	STANDARD20_MODULE_STUFF, NULL, NULL, createConfig, mergeConfig, directives, registerHooks
 };

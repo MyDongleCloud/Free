@@ -100,7 +100,7 @@ typedef enum { HDR_DONE, HDR_ERROR, HDR_NEED_MORE } remoteip_parse_status_t;
 static ap_filter_rec_t *remoteip_filter;
 
 //Functions
-module AP_MODULE_DECLARE_DATA mydonglecloud_ip_module;
+module AP_MODULE_DECLARE_DATA app_ip_module;
 
 static int remoteip_is_server_port(apr_port_t port) {
 	ap_listen_rec *lr;
@@ -211,14 +211,14 @@ static int remoteip_hook_pre_connection(conn_rec *c, void *csd) {
 	/* Establish master config in slave connections, so that request processing
 	 * finds it. */
 	if (c->master != NULL) {
-		conn_conf = ap_get_module_config(c->master->conn_config, &mydonglecloud_ip_module);
+		conn_conf = ap_get_module_config(c->master->conn_config, &app_ip_module);
 		if (conn_conf) {
-			ap_set_module_config(c->conn_config, &mydonglecloud_ip_module, conn_conf);
+			ap_set_module_config(c->conn_config, &app_ip_module, conn_conf);
 		}
 		return DECLINED;
 	}
 
-	conf = ap_get_module_config(ap_server_conf->module_config, &mydonglecloud_ip_module);
+	conf = ap_get_module_config(ap_server_conf->module_config, &app_ip_module);
 
 	if (conf->enabled != 1)
 		return DECLINED;
@@ -239,7 +239,7 @@ static int remoteip_hook_pre_connection(conn_rec *c, void *csd) {
 	/* this holds the resolved proxy info for this connection */
 	conn_conf = apr_pcalloc(c->pool, sizeof(*conn_conf));
 
-	ap_set_module_config(c->conn_config, &mydonglecloud_ip_module, conn_conf);
+	ap_set_module_config(c->conn_config, &app_ip_module, conn_conf);
 
 	return OK;
 }
@@ -353,7 +353,7 @@ static apr_status_t remoteip_input_filter(ap_filter_t *f, apr_bucket_brigade *bb
 	 */
 	if (ctx->done)
 		return ap_get_brigade(f->next, bb_out, mode, block, readbytes);
-	conn_conf = ap_get_module_config(f->c->conn_config, &mydonglecloud_ip_module);
+	conn_conf = ap_get_module_config(f->c->conn_config, &app_ip_module);
 	while (!ctx->done) {
 		if (APR_BRIGADE_EMPTY(ctx->bb)) {
 			apr_off_t got, want = ctx->need - ctx->rcvd;
@@ -468,7 +468,7 @@ static apr_status_t remoteip_input_filter(ap_filter_t *f, apr_bucket_brigade *bb
 
 static int remoteip_modify_request(request_rec *r) {
     conn_rec *c = r->connection;
-    remoteip_conn_config_t *conn_config = ap_get_module_config(c->conn_config, &mydonglecloud_ip_module);
+    remoteip_conn_config_t *conn_config = ap_get_module_config(c->conn_config, &app_ip_module);
     if (conn_config && conn_config->client_addr) {
         c->client_ip = conn_config->client_ip;
         c->client_addr = conn_config->client_addr;
@@ -492,24 +492,24 @@ static void *merge_remoteip_server_config(apr_pool_t *p, void *globalv, void *se
 }
 
 static const char *moduleEnabledSet(cmd_parms *cmd, void *mconfig, const char *arg) {
-    remoteip_config_t *config = ap_get_module_config(cmd->server->module_config, &mydonglecloud_ip_module);
+    remoteip_config_t *config = ap_get_module_config(cmd->server->module_config, &app_ip_module);
     config->enabled = strcmp(arg, "on") == 0 ? 1 : 0;
 	server_rec *s = cmd->server;
-	PRINTF("MyDongleCloudIPEnabled: %s", arg);
+	PRINTF("AppIPEnabled: %s", arg);
 	return NULL;
 }
 
 static const command_rec directives[] = {
-	AP_INIT_TAKE1("MyDongleCloudIPEnabled", moduleEnabledSet, NULL, RSRC_CONF | ACCESS_CONF, "MyDongleCloudIP Enabled"),
+	AP_INIT_TAKE1("AppIPEnabled", moduleEnabledSet, NULL, RSRC_CONF | ACCESS_CONF, "AppIP Enabled"),
 	{NULL}
 };
 
 static void registerHooks(apr_pool_t *p) {
-	remoteip_filter = ap_register_input_filter("MYDONGLECLOUDIP_FILTER", remoteip_input_filter, NULL, AP_FTYPE_CONNECTION + 7);
+	remoteip_filter = ap_register_input_filter("APPIP_FILTER", remoteip_input_filter, NULL, AP_FTYPE_CONNECTION + 7);
 	ap_hook_pre_connection(remoteip_hook_pre_connection, NULL, NULL, APR_HOOK_MIDDLE);
 	ap_hook_post_read_request(remoteip_modify_request, NULL, NULL, APR_HOOK_FIRST);
 }
 
-module AP_MODULE_DECLARE_DATA mydonglecloud_ip_module = {
+module AP_MODULE_DECLARE_DATA app_ip_module = {
 	STANDARD20_MODULE_STUFF, NULL, NULL, create_remoteip_server_config, merge_remoteip_server_config, directives, registerHooks
 };

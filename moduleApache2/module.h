@@ -18,7 +18,7 @@ typedef struct {
 } configS;
 
 //Global variable
-extern module AP_MODULE_DECLARE_DATA mydonglecloud_module;
+extern module AP_MODULE_DECLARE_DATA app_module;
 
 //Global function
 int authorization2(request_rec *r);

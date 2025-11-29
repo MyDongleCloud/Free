@@ -78,11 +78,11 @@ static char *post[][5] = {
 };
 
 //Functions
-static apr_status_t mydonglecloud_html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
+static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 	filter_ctx *ctx = (filter_ctx *)f->ctx;
 	if (!ctx)
 		return ap_pass_brigade(f->next, bb);
-	//PRINTFc("MDC: Html %lu %d", (long unsigned int)ctx, ctx->processedHtml);
+	//PRINTFc("APP: Html %lu %d", (long unsigned int)ctx, ctx->processedHtml);
 	apr_status_t rv = 0;
 	if (ctx->processedHtml)
 		goto end;
@@ -100,7 +100,7 @@ static apr_status_t mydonglecloud_html_filter(ap_filter_t *f, apr_bucket_brigade
 		apr_size_t len;
 		rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
 		if (rv != APR_SUCCESS) {
-			//PRINTFc("MDC: Error apr_bucket_read %d", status);
+			//PRINTFc("APP: Error apr_bucket_read %d", status);
 			goto end;
 		}
 		//PRINTFc("%.*s", len, data);
@@ -186,11 +186,11 @@ int replace(ap_filter_t *f, const char *input, int type, const char *name1, cons
 	return ret;
 }
 
-static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input_mode_t mode, apr_read_type_e block, apr_off_t readbytes) {
+static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input_mode_t mode, apr_read_type_e block, apr_off_t readbytes) {
 	filter_ctx *ctx = (filter_ctx *)f->ctx;
 	if (!ctx)
 		return ap_get_brigade(f->next, bb, mode, block, readbytes);
-	//PRINTFc("MDC: Post %lu %d", (long unsigned int)ctx, ctx->processedPost);
+	//PRINTFc("APP: Post %lu %d", (long unsigned int)ctx, ctx->processedPost);
 	apr_status_t rv = 0;
 	apr_bucket_brigade *tmp_bb = NULL;
 	cJSON *el = NULL;
@@ -217,7 +217,7 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 		if (rv != APR_SUCCESS)
 			goto end;
 		char *buffer = apr_pstrndup(f->r->pool, data, len);
-		//PRINTFc("MDC: Post Before ##%s##", buffer);
+		//PRINTFc("APP: Post Before ##%s##", buffer);
 		char *newBuffer = NULL;
 		int ret = 0;
 		if (strstr(buffer, "mdcAL") != NULL) {
@@ -232,7 +232,7 @@ static apr_status_t mydonglecloud_post_filter(ap_filter_t *f, apr_bucket_brigade
 				email = cJSON_GetStringValue2(el, "email");
 				password = cJSON_GetStringValue2(el, "password");
 				ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], post[ctx->foundPost][4] ? email : username, post[ctx->foundPost][3], password, &newBuffer);
-				PRINTFc("MDC: Post After %d##%s##", ret, newBuffer);
+				PRINTFc("APP: Post After %d##%s##", ret, newBuffer);
 			}
 		}
 		if (ret == 0)
@@ -256,12 +256,12 @@ end:
 	return rv != 0 ? rv : ap_get_brigade(f->next, bb, mode, block, readbytes);
 }
 
-static void mydonglecloud_insert_filter(request_rec *r) {
+static void insert_filter(request_rec *r) {
 	server_rec *s = r->server;
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &mydonglecloud_module);
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
 	if (confVH->autologin == 0)
 		return;
-	//PRINTFr("MDC: Filtering? %s %s %s", r->hostname, r->uri, confVH->name);
+	//PRINTFr("APP: Filtering? %s %s %s", r->hostname, r->uri, confVH->name);
 	filter_ctx *ctx = NULL;
 	int ret, ii;
 	ret = 0;
@@ -275,8 +275,8 @@ static void mydonglecloud_insert_filter(request_rec *r) {
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundHtml = i;
 			ctx->processedHtml = 0;
-			//PRINTFr("MDC: Output, inserting html for %s", html[i][0]);
-			ap_add_output_filter("MYDONGLECLOUD_OUTPUT_FILTER", ctx, r, r->connection);
+			//PRINTFr("APP: Output, inserting html for %s", html[i][0]);
+			ap_add_output_filter("APP_OUTPUT_FILTER", ctx, r, r->connection);
 			break;
 		}
 	}
@@ -291,15 +291,15 @@ static void mydonglecloud_insert_filter(request_rec *r) {
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundPost = i;
 			ctx->processedPost = 0;
-			//PRINTFr("MDC: Input, modifying post for %s", post[i][0]);
-			ap_add_input_filter("MYDONGLECLOUD_INPUT_FILTER", ctx, r, r->connection);
+			//PRINTFr("APP: Input, modifying post for %s", post[i][0]);
+			ap_add_input_filter("APP_INPUT_FILTER", ctx, r, r->connection);
 			break;
 		}
 	}
 }
 
 void registerFilter() {
-	ap_hook_insert_filter(mydonglecloud_insert_filter, NULL, NULL, APR_HOOK_LAST);
-	ap_register_output_filter("MYDONGLECLOUD_OUTPUT_FILTER", mydonglecloud_html_filter, NULL, AP_FTYPE_RESOURCE);
-	ap_register_input_filter("MYDONGLECLOUD_INPUT_FILTER", mydonglecloud_post_filter, NULL, AP_FTYPE_RESOURCE);
+	ap_hook_insert_filter(insert_filter, NULL, NULL, APR_HOOK_LAST);
+	ap_register_output_filter("APP_OUTPUT_FILTER", html_filter, NULL, AP_FTYPE_RESOURCE);
+	ap_register_input_filter("APP_INPUT_FILTER", post_filter, NULL, AP_FTYPE_RESOURCE);
 }
