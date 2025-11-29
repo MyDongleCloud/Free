@@ -565,8 +565,7 @@
 			}
 		],
 		"alias": [
-			"app",
-			"mdc"
+			"app"
 		]
 	},
 	"mysql": {
