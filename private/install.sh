@@ -57,9 +57,9 @@ sed -i -e 's|%sudo	ALL=(ALL:ALL) ALL|%sudo	ALL=(ALL:ALL) NOPASSWD:ALL|' /etc/sud
 sed -i -e 's|HISTSIZE=.*|HISTSIZE=-1|' /home/mdc/.bashrc
 sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/mdc/.bashrc
 ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.target.wants/serial-getty@ttyGS0.service
-ln -sf /etc/systemd/system/mydonglecloud-app.service /etc/systemd/system/multi-user.target.wants/mydonglecloud-app.service
-ln -sf /etc/systemd/system/mydonglecloud-init.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-init.service
-ln -sf /etc/systemd/system/mydonglecloud-otg.service /etc/systemd/system/sysinit.target.wants/mydonglecloud-otg.service
+ln -sf /etc/systemd/system/dongle-app.service /etc/systemd/system/multi-user.target.wants/dongle-app.service
+ln -sf /etc/systemd/system/dongle-init.service /etc/systemd/system/sysinit.target.wants/dongle-init.service
+ln -sf /etc/systemd/system/dongle-otg.service /etc/systemd/system/sysinit.target.wants/dongle-otg.service
 echo -n " modules-load=dwc2,libcomposite,configs,dongle" >> /boot/firmware/cmdline.txt
 sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
 sed -i -e 's/cfg80211.ieee80211_regdom=US/cfg80211.ieee80211_regdom=00/' /boot/firmware/cmdline.txt
