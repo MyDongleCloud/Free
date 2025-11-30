@@ -42,9 +42,10 @@ EOF
 cat > /disk/admin/modules/docsify/home.md <<EOF
 # Docs of $CLOUDNAME
 
-You can edit this documentation page in the file "/disk/admin/modules/docsify/home.md".
+You can edit this page in the markdown file "/disk/admin/modules/docsify/home.md".
 
-!Read the [docsify documentation](https://docsify.js.org) for more information how to tune a docsify website.
+> [!HELPER]
+> Read the [docsify documentation](https://docsify.js.org) for more information how to tune a docsify website.
 EOF
 
 cat > /disk/admin/modules/docsify/index.html <<EOF
@@ -60,7 +61,7 @@ cat > /disk/admin/modules/docsify/index.html <<EOF
 <body>
 <div id="app"></div>
 <script>
-window.$docsify = {
+window.\$docsify = {
 	name: 'Docs of $CLOUDNAME',
 	homepage: 'home.md',
 	auto2top: true,
