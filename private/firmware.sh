@@ -174,9 +174,9 @@ if [ $FINAL = 1 ]; then
 
 	echo "*******************************************************"
 	echo -n "\e[34m"
-	echo "cd /work/ai.mydonglecloud/client"
+	echo "cd ${PP}/../client"
 	echo "tar -cjpf a.tbz2 app && scp a.tbz2 gregoire@server:/home/gregoire/ && rm -f a.tbz2"
-	echo "cd /work/ai.mydonglecloud/private/img"
+	echo "cd ${PP}/img"
 	echo "scp upgrade.bin flasher-m-final-s.img gregoire@server:/home/gregoire"
 	echo -n "\e[m"
 	echo "*******************************************************"
@@ -198,8 +198,6 @@ ln -sf \$RELEASE/upgrade-\$RELEASE.bin upgrade.bin
 ln -sf \$RELEASE/.upgrade-\$RELEASE.md5sum upgrade.md5sum
 ln -sf \$RELEASE/flasher-\$RELEASE.img flasher.img
 ln -sf \$RELEASE/.flasher-\$RELEASE.md5sum flasher.md5sum
-
-echo "release: \"\$RELEASE\"" > /var/www/mydonglecloud-support/user/config/data.yaml
 
 chown -R www-data:www-data /var/www/
 
