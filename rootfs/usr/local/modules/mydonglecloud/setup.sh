@@ -2,8 +2,11 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for setup [-h -a]"
-echo "h:		Print this usage and exit"
+echo "Usage for setup [-a -h] | [-u u -r] name"
+echo "a:	do All"
+echo "h:	Print this usage and exit"
+echo "u u:	do as user (0:admin, 1:root, -1:read from json (default)"
+echo "r:	do reset"
 exit 0
 }
 
@@ -13,92 +16,62 @@ if [ "m`id -u`" != "m0" ]; then
 fi
 
 ALL=0
-while getopts ha opt
+RESET=0
+USER=-1
+while getopts ahu:r opt
 do
 	case "$opt" in
-		a) ALL=1;;
+		a) ALL=1;RESET=1;;
 		h) helper;;
+		u) USER=$OPTARG;;
+		r) RESET=1;;
 	esac
 done
-
 PP=`dirname $0`
+
 module() {
 	if [ $2 = 1 ]; then
-		su admin -c "$PP/scripts/$1.sh -r"
-	else
 		$PP/scripts/$1.sh -r
+	else
+		su admin -c "$PP/scripts/$1.sh -r"
 	fi
 	COUNT=$((COUNT + 1))
 	P=$(($COUNT * 100 / $TOTAL))
 	echo "{ \"a\":\"setup-status\", \"p\":$P, \"n\":\"$1\" }" | nc -w 1 localhost 8093
 }
-
 if [ $ALL = 1 ]; then
-	TOTAL=`jq '[.[] | select(has("setup"))] | length' $PP/modulesdefault.json`
+	TOTAL=-1
 	COUNT=0
-	module meilisearch 1
-	module mongodb 0
-	module mysql 0
-	module postgresql 0
-	module apache2 1
-	module bugzilla 0
-	module docsify 1
-	module homeassistant 1
-	module jitsimeet 0
-	module librechat 1
-	module mantisbugtracker 1
-	module metube 1
-	module osticket 1
-	module postfix 0
-	module privatebin 0
-	module projectsend 0
-	module roundcube 1
-	module tubesync 1
-	module webtrees 0
-	module yourls 1
+	jq -r '[to_entries[] | select(.value | has("setup")) | {priority: (.value.setupPriority // 0), key: .key, root: (if .value.setupRoot then 1 else 0 end)}] | "\(length)", (sort_by(.priority)[] | "\(.key) \(.root)")' "$PP/modulesdefault.json" | while read l; do
+		if [ $TOTAL = -1 ]; then
+			TOTAL=$l
+		else
+			module $l
+		fi
+	done
 	exit 0
 fi
 
-if [ $1 = "apache2" ]; then
-	su admin -c "$PP/scripts/apache2.sh -r"
-elif [ $1 = "bugzilla" ]; then
-	$PP/scripts/bugzilla.sh -r
-elif [ $1 = "docsify" ]; then
-	su admin -c "$PP/scripts/docsify.sh -r"
-elif [ $1 = "homeassistant" ]; then
-	su admin -c "$PP/scripts/homeassistant.sh -r"
-elif [ $1 = "jitsimeet" ]; then
-	$PP/scripts/jitsimeet.sh -r
-elif [ $1 = "librechat" ]; then
-	su admin -c "$PP/scripts/librechat.sh -r"
-elif [ $1 = "mantisbugtracker" ]; then
-	su admin -c "$PP/scripts/mantisbugtracker.sh -r"
-elif [ $1 = "meilisearch" ]; then
-	su admin -c "$PP/scripts/meilisearch.sh -r"
-elif [ $1 = "metube" ]; then
-	su admin -c "$PP/scripts/metube.sh -r"
-elif [ $1 = "mongodb" ]; then
-	$PP/scripts/mongodb.sh -r
-elif [ $1 = "mysql" ]; then
-	$PP/scripts/mysql.sh -r
-elif [ $1 = "osticket" ]; then
-	su admin -c "$PP/scripts/osticket.sh -r"
-elif [ $1 = "postfix" ]; then
-	$PP/scripts/postfix.sh -r
-elif [ $1 = "postgresql" ]; then
-	$PP/scripts/postgresql.sh -r
-elif [ $1 = "privatebin" ]; then
-	$PP/scripts/privatebin.sh -r
-elif [ $1 = "projectsend" ]; then
-	$PP/scripts/projectsend.sh -r
-elif [ $1 = "roundcube" ]; then
-	su admin -c "$PP/scripts/roundcube.sh -r"
-elif [ $1 = "tubesync" ]; then
-	su admin -c "$PP/scripts/tubesync.sh -r"
-elif [ $1 = "webtrees" ]; then
-	$PP/scripts/webtrees.sh -r
-elif [ $1 = "yourls" ]; then
-	su admin -c "$PP/scripts/yourls.sh -r"
+shift $((OPTIND -1))
+NAME=$1
+if [ $USER = -1 ]; then
+	USER=`jq -r ".$NAME.resetRoot" "$PP/modulesdefault.json"`
+	if [ $USER = "true" ]; then
+		USER=1
+	else
+		USER=0
+	fi
+fi
+if [ ! -f $PP/scripts/$NAME.sh ]; then
+	echo "#Doing nothing for $NAME##################"
 else
-	echo "#Doing nothing for $1##################"
+	ARG=""
+	if [ $RESET = 1 ]; then
+		ARG="-r"
+	fi
+	if [ $USER = 1 ]; then
+		$PP/scripts/$NAME.sh $ARG
+	else
+		su admin -c "$PP/scripts/$NAME.sh $ARG"
+	fi
 fi

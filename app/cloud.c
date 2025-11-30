@@ -20,12 +20,12 @@ void cloudInit() {
 	cJSON_Delete(cloud);
 }
 
-static void setup(int i, int total, char *name) {
+static void setup(int i, int total, char *name, int root) {
 	logicSetup(name, MAX2(1, i * 100 / total));
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":\"%s\"}", name);
 	communicationString(sz);
-	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh %s", name);
+	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh -u %d -r %s", root, name);
 	system(sz);
 }
 
@@ -68,10 +68,10 @@ void cloudSetup(cJSON *el) {
 	int total = cJSON_GetArraySize(modulesDefault);
 	cJSON_ArrayForEach(elModule, modulesDefault)
 		if (cJSON_HasObjectItem(elModule, "setup") && cJSON_HasObjectItem(elModule, "setupPriority"))
-			setup(i++, total, elModule->string);
+			setup(i++, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"));
 	cJSON_ArrayForEach(elModule, modulesDefault) {
 		if (cJSON_HasObjectItem(elModule, "setup") && !cJSON_HasObjectItem(elModule, "setupPriority"))
-			setup(i, total, elModule->string);
+			setup(i, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"));
 		i++;
 	} 
 	logicSetup(L("Finalization"), 100);
