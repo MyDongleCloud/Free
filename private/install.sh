@@ -26,7 +26,7 @@ fi
 
 #On PC
 #tar -cjpf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ moduleIpApache2/ private/install.sh private/preseed*.cfg
-#scp a.tbz2 private/img/clone.tbz2 mdc@192.168.10.8:/tmp
+#scp a.tbz2 private/img/clone.tbz2 ai@192.168.10.9:/tmp
 #On device
 #tar -xjpf /tmp/a.tbz2
 lsb_release -a | grep trixie
@@ -47,15 +47,15 @@ DATESTART=`date +%s`
 echo "################################"
 echo "Initial"
 echo "################################"
-cd /home/mdc
-mkdir /home/mdc/build
-sed -i -e 's|/root|/home/mdc|' /etc/passwd
+cd /home/ai
+mkdir /home/ai/build
+sed -i -e 's|/root|/home/ai|' /etc/passwd
 rm -rf /root
 sed -i -e 's|# "\\e\[5~": history-search-backward|"\\e\[5~": history-search-backward|' /etc/inputrc
 sed -i -e 's|# "\\e\[6~": history-search-forward|"\\e\[6~": history-search-forward|' /etc/inputrc
 sed -i -e 's|%sudo	ALL=(ALL:ALL) ALL|%sudo	ALL=(ALL:ALL) NOPASSWD:ALL|' /etc/sudoers
-sed -i -e 's|HISTSIZE=.*|HISTSIZE=-1|' /home/mdc/.bashrc
-sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/mdc/.bashrc
+sed -i -e 's|HISTSIZE=.*|HISTSIZE=-1|' /home/ai/.bashrc
+sed -i -e 's|HISTFILESIZE=.*|HISTFILESIZE=-1|' /home/ai/.bashrc
 ln -sf /lib/systemd/system/serial-getty@.service /etc/systemd/system/getty.target.wants/serial-getty@ttyGS0.service
 ln -sf /etc/systemd/system/dongle-app.service /etc/systemd/system/multi-user.target.wants/dongle-app.service
 ln -sf /etc/systemd/system/dongle-init.service /etc/systemd/system/sysinit.target.wants/dongle-init.service
@@ -102,8 +102,8 @@ $TT
 EOF
 
 mkdir -p /usr/local/modules/mydonglecloud
-usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth mdc
-usermod -a -G sudo mdc
+usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth ai
+usermod -a -G sudo ai
 
 echo "################################"
 echo "Fix locale"
@@ -162,7 +162,7 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install mysql-server
 elif [ $OS = "pios" ]; then
 	apt-get -y install libevent-pthreads-2.1-7 libmecab2
-	cd /home/mdc/build
+	cd /home/ai/build
 	wget -nv https://ports.ubuntu.com/pool/main/liba/libaio/libaio1_0.3.112-13build1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
@@ -193,7 +193,7 @@ apt-get -y install clang cargo
 echo "################################"
 echo "postfix"
 echo "################################"
-cat /home/mdc/private/preseed_postfix.cfg | debconf-set-selections
+cat /home/ai/private/preseed_postfix.cfg | debconf-set-selections
 apt-get -y install postfix swaks s-nail
 
 echo "################################"
@@ -227,7 +227,7 @@ redis-cli ping
 echo "################################"
 echo "roundcube"
 echo "################################"
-cat /home/mdc/private/preseed_roundcube.cfg | debconf-set-selections
+cat /home/ai/private/preseed_roundcube.cfg | debconf-set-selections
 apt-get -y install roundcube
 cp /etc/roundcube/config.inc.php /etc/roundcube/config.inc.php.template
 chmod 666 /etc/roundcube/config.inc.php
@@ -277,14 +277,14 @@ echo "################################"
 curl -fsSL https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor -o /etc/apt/keyrings/jitsi.gpg
 echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/jitsi.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi.list
 apt-get update
-cat /home/mdc/private/preseed_jitsi.cfg | debconf-set-selections
+cat /home/ai/private/preseed_jitsi.cfg | debconf-set-selections
 apt-get -y install jitsi-videobridge2 jitsi-meet-web-config jitsi-meet-web
 #apt-get -y install jitsi-meet
 
 echo "################################"
 echo "rethinkdb"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 wget -nv https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
 dpkg -i rethinkdb*.deb
 cd ..
@@ -303,14 +303,14 @@ rm -f /usr/lib/systemd/system/mongod.service
 echo "################################"
 echo "devmem2"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 wget -nv https://bootlin.com/pub/mirror/devmem2.c
 gcc -o /usr/local/bin/devmem2 devmem2.c
 
 echo "################################"
 echo "frp"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 wget -nv https://github.com/fatedier/frp/releases/download/v0.63.0/frp_0.63.0_linux_arm64.tar.gz
 tar -xpf frp_*_linux_arm64.tar.gz
 mkdir /usr/local/modules/frp
@@ -320,7 +320,7 @@ cd ..
 echo "################################"
 echo "livecodes"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 wget -nv https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
 mkdir /usr/local/modules/livecodes
 tar -xpf livecodes-v46.tar.gz -C /usr/local/modules/livecodes --strip-components=1
@@ -329,7 +329,7 @@ cd ..
 echo "################################"
 echo "meilisearch"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 curl -L -sS --fail https://install.meilisearch.com | sh
 chmod a+x meilisearch
 mv meilisearch /usr/local/bin/
@@ -337,7 +337,7 @@ mv meilisearch /usr/local/bin/
 echo "################################"
 echo "qdrant"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 wget -nv https://github.com/qdrant/qdrant/releases/download/v1.14.1/qdrant-aarch64-unknown-linux-musl.tar.gz
 tar -xpf qdrant-aarch64-unknown-linux-musl.tar.gz
 chmod a+x qdrant
@@ -348,7 +348,7 @@ cd ..
 echo "################################"
 echo "triliumnotes"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 wget -nv https://github.com/TriliumNext/Notes/releases/download/v0.95.0/TriliumNextNotes-Server-v0.95.0-linux-arm64.tar.xz
 tar -xJpf TriliumNextNotes-Server*
 mv TriliumNextNotes-Server-0.*/ /usr/local/modules/triliumnotes
@@ -366,7 +366,7 @@ ln -sf /usr/local/bin/yt-dlp /usr/local/bin/youtube-dl
 echo "################################"
 echo "node"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 FILENODE=`wget -q -O - https://nodejs.org/dist/latest-v22.x/ | grep "\-linux\-arm64\.tar\.xz" | sed -E "s|.*>([^<]*)<.*|\1|"`
 wget -nv https://nodejs.org/dist/latest-v22.x/$FILENODE
 tar -xJpf node-v*
@@ -404,7 +404,7 @@ if [ $OS = "ubuntu" ]; then
 	apt-get -y install python3-pcpp
 	ln -sf pcpp-python /usr/bin/pcpp
 elif [ $OS = "pios" ]; then
-	cd /home/mdc/build
+	cd /home/ai/build
 	wget -nv https://files.pythonhosted.org/packages/41/07/876153f611f2c610bdb8f706a5ab560d888c938ea9ea65ed18c374a9014a/pcpp-1.30.tar.gz
 	tar -xpf pcpp-1.30.tar.gz
 	cd pcpp-1.30
@@ -414,7 +414,7 @@ fi
 echo "################################"
 echo "pymcuprog"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 git clone https://github.com/microchip-pic-avr-tools/pymcuprog
 cd pymcuprog
 cat > setup.py <<EOF
@@ -428,7 +428,7 @@ cd ../..
 echo "################################"
 echo "postfixparser"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 git clone https://github.com/Privex/python-loghelper
 cd python-loghelper
 python3 setup.py install
@@ -441,8 +441,8 @@ cd ../..
 echo "################################"
 echo "homeassistant"
 echo "################################"
-cd /home/mdc
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeassistant -s
+cd /home/ai
+/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/homeassistant -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/homeassistant/bin:$PATHOLD
@@ -456,8 +456,8 @@ echo "PATH restored: $PATH"
 echo "################################"
 echo "unmanic"
 echo "################################"
-cd /home/mdc
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/unmanic -s
+cd /home/ai
+/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/unmanic -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/unmanic/bin:$PATHOLD
@@ -477,7 +477,7 @@ sed -i -e "s|^User=.*|User=admin\nEnvironment=TRANSMISSION_HOME=/disk/admin/modu
 echo "################################"
 echo "umtp"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 git clone https://github.com/viveris/uMTP-Responder
 git checkout umtprd-1.6.8
 cd uMTP-Responder
@@ -489,7 +489,7 @@ cd ../..
 echo "################################"
 echo "cc2538-prog"
 echo "################################"
-cd /home/mdc/build
+cd /home/ai/build
 git clone https://github.com/1248/cc2538-prog
 cd cc2538-prog
 make
@@ -602,7 +602,7 @@ apt-get -y install libcgi-pm-perl libemail-mime-perl libemail-sender-perl libema
 cd /usr/local/modules/bugzilla
 ln -sf /disk/admin/modules/bugzilla/data
 ln -sf /disk/admin/modules/bugzilla/localconfig
-cd /home/mdc/build
+cd /home/ai/build
 wget https://cpan.metacpan.org/authors/id/A/AB/ABW/Template-Toolkit-3.101.tar.gz
 tar -xzf Template-Toolkit-3.101.tar.gz
 cd Template-Toolkit-3.101
@@ -696,7 +696,7 @@ echo "################################"
 echo "metube"
 echo "################################"
 cd /usr/local/modules/metube
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/metube/env -s
+/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/metube/env -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/metube/env/bin:$PATHOLD
@@ -715,10 +715,10 @@ echo "################################"
 echo "stirlingpdf"
 echo "################################"
 apt-get install -y libleptonica-dev zlib1g-dev libreoffice-writer libreoffice-calc libreoffice-impress unpaper ocrmypdf
-mv /usr/local/modules/stirlingpdf /home/mdc/build
+mv /usr/local/modules/stirlingpdf /home/ai/build
 mkdir /usr/local/modules/stirlingpdf
-cd /home/mdc/build/stirlingpdf
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/stirlingpdf -s
+cd /home/ai/build/stirlingpdf
+/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/stirlingpdf -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/stirlingpdf/bin:$PATHOLD
@@ -738,7 +738,7 @@ echo "tubesync"
 echo "################################"
 apt-get -y install libonig-dev
 cd /usr/local/modules/tubesync
-/home/mdc/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubesync/env -s
+/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/tubesync/env -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/tubesync/env/bin:$PATHOLD
@@ -813,30 +813,30 @@ echo "betterauth"
 echo "################################"
 ln -sf /etc/systemd/system/betterauth.service /etc/systemd/system/multi-user.target.wants/betterauth.service
 ln -sf /etc/systemd/system/betterauth-studio.service /etc/systemd/system/multi-user.target.wants/betterauth-studio.service
-cd /home/mdc/auth
+cd /home/ai/auth
 ./prepare.sh -i
 
 echo "################################"
 echo "mydonglecloud and rootfs"
 echo "################################"
-cd /home/mdc
+cd /home/ai
 chown -R root:root rootfs
 chown -R admin:admin rootfs/disk/admin
 cp -a rootfs/* /
 rm -rf rootfs
-cd /home/mdc/kernel
+cd /home/ai/kernel
 make
 mkdir -p /boot/firmware/overlays
 make install
-cd /home/mdc/app
+cd /home/ai/app
 ./lvgl.sh -b -c
 make
-cd /home/mdc/moduleApache2
+cd /home/ai/moduleApache2
 make
-cd /home/mdc/pam
+cd /home/ai/pam
 make
 chown -R root:root /usr/local
-chown -R mdc:mdc /home/mdc
+chown -R ai:ai /home/ai
 chown -R www-data:admin /disk/admin/modules/roundcube
 mv /var/lib/mysql /disk/admin/modules
 chown mysql:mysql /disk/admin/modules/mysql
@@ -853,7 +853,7 @@ apt-get -y autoremove
 rm -f /etc/systemd/system/multi-user.target.wants/nginx.service
 rm -f /etc/systemd/system/multi-user.target.wants/named.service
 rm -f /etc/systemd/system/multi-user.target.wants/sshswitch.service
-rm -rf /var/cache/apt/archives/*.deb /home/mdc/build/*.deb /home/mdc/build/*.xz /home/mdc/build/*.gz /home/mdc/.cache/*
+rm -rf /var/cache/apt/archives/*.deb /home/ai/build/*.deb /home/ai/build/*.xz /home/ai/build/*.gz /home/ai/.cache/*
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
 rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
 mkdir /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes
@@ -870,9 +870,9 @@ DELTA=$((DATEFINISH - DATESTART))
 echo "Duration: $((DELTA / 3600))h $(((DELTA % 3600) / 60))m $((DELTA % 60))s"
 
 if [ $PROD = 1 ]; then
-	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow
-	sed -i -e 's|mdc:[^:]*:|mdc:*:|' /etc/shadow-
-	rm -rf /home/mdc
-	mkdir /home/mdc
-	chown -R 1000:1000 /home/mdc
+	sed -i -e 's|ai:[^:]*:|ai:*:|' /etc/shadow
+	sed -i -e 's|ai:[^:]*:|ai:*:|' /etc/shadow-
+	rm -rf /home/ai
+	mkdir /home/ai
+	chown -R 1000:1000 /home/ai
 fi
