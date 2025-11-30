@@ -63,7 +63,7 @@ resize2fs ${DISK}2
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
 if [ $EXTRACT = 1 ]; then
-	unsquashfs -f -d /tmp/2 /tmp/2/fs/ai.img
+	unsquashfs -f -d /tmp/2 /tmp/2/fs/os.img
 	rm -rf /tmp/2/fs/
 	cp img/initramfs_2712.orig /tmp/1/initramfs_2712
 fi

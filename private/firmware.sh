@@ -60,10 +60,10 @@ zip -q -r ${PP}/img/partition1.zip ./bcm2712-rpi-5-b.dtb ./bcm2712-rpi-cm5-cm5io
 cd ${PP}
 ROOTFS=/tmp/2
 if [ $CLEAN = 1 ]; then
-	rm -f /tmp/ai${POSTNAME}.img
+	rm -f /tmp/os${POSTNAME}.img
 fi
-if [ -f /tmp/ai${POSTNAME}.img ]; then
-	echo "No creation as /tmp/ai${POSTNAME}.img already exists"
+if [ -f /tmp/os${POSTNAME}.img ]; then
+	echo "No creation as /tmp/os${POSTNAME}.img already exists"
 else
 	tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C ${ROOTFS}/lib/modules/
 	rm -rf ${ROOTFS}/home/ai/app ${ROOTFS}/home/ai/moduleApache2 ${ROOTFS}/home/ai/moduleIpApache2 ${ROOTFS}/home/ai/pam
@@ -108,7 +108,7 @@ EOF
 	echo "######## WARNING ########"
 	echo "${ROOTFS}/etc/fstab has been modified. It will be reverted once squashfs is finished"
 	cd ${ROOTFS}
-	mksquashfs . /tmp/ai${POSTNAME}.img -ef /tmp/squashfs-exclude.txt
+	mksquashfs . /tmp/os${POSTNAME}.img -ef /tmp/squashfs-exclude.txt
 	cd ${PP}
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' ${ROOTFS}/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
@@ -118,7 +118,7 @@ umount ${DISK}*
 umount ${DISK}*
 
 dd if=img/sdcard-bootdelay1-m-s of=img/flasher-m${POSTNAME}-s.img bs=1024
-SIZE=$((`stat -c %s /tmp/ai${POSTNAME}.img` * 125 / 100 / 1024))
+SIZE=$((`stat -c %s /tmp/os${POSTNAME}.img` * 125 / 100 / 1024))
 echo "Size: ${SIZE}kB"
 dd if=/dev/zero of=img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
 losetup --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
@@ -151,7 +151,7 @@ cp img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
 mkdir -p /tmp/2/fs/upper/ /tmp/2/fs/lower/ /tmp/2/fs/overlay/ /tmp/2/fs/work/
-cp /tmp/ai${POSTNAME}.img /tmp/2/fs/
+cp /tmp/os${POSTNAME}.img /tmp/2/fs/
 sync
 sync
 umount ${LOSETUP}*
@@ -165,7 +165,7 @@ sync
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then
-	zip -j img/upgrade.bin img/partition1.zip /tmp/ai${POSTNAME}.img
+	zip -j img/upgrade.bin img/partition1.zip /tmp/os${POSTNAME}.img
 
 	cd ../client
 	ionic build --prod
