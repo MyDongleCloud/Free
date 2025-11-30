@@ -167,12 +167,12 @@ elif [ $OS = "pios" ]; then
 	wget -nv https://ports.ubuntu.com/pool/main/i/icu/libicu70_70.1-2ubuntu1_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/p/protobuf/libprotobuf-lite23_3.12.4-1ubuntu7.22.04.4_arm64.deb
 	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-defaults/mysql-common_5.8+1.1.1ubuntu1_all.deb
-	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/libmysqlclient-dev_8.0.43-0ubuntu0.22.04.1_arm64.deb
-	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/libmysqlclient21_8.0.43-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-core-8.0_8.0.44-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-server-8.0_8.0.44-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-core-8.0_8.0.44-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/mysql-client-8.0_8.0.44-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/libmysqlclient-dev_8.0.44-0ubuntu0.22.04.1_arm64.deb
+	wget -nv https://ports.ubuntu.com/pool/main/m/mysql-8.0/libmysqlclient21_8.0.44-0ubuntu0.22.04.1_arm64.deb
 	dpkg -i libaio1* libicu70* libprotobuf-lite23* mysql-common*
 	dpkg -i mysql-client* mysql-server*
 	dpkg -i libmysqlclient*
