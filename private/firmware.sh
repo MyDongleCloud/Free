@@ -119,8 +119,9 @@ umount ${DISK}*
 
 dd if=img/sdcard-bootdelay1-m-s of=img/flasher-m${POSTNAME}-s.img bs=1024
 SIZE=$((`stat -c %s /tmp/os${POSTNAME}.img` * 125 / 100 / 1024))
-echo "Size: ${SIZE}kB"
+echo "Img Size: $((SIZE + 4 * 1024)) kiBytes"
 dd if=/dev/zero of=img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
+echo -n '\061' | dd of=img/flasher-m${POSTNAME}-s.img bs=1 seek=4194303 conv=notrunc
 losetup --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
 8192,262144,c
@@ -161,6 +162,7 @@ mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found
 umount ${LOSETUP}*
 umount ${LOSETUP}*
+e2fsck -f -p ${LOSETUP}p2
 sync
 losetup -d ${LOSETUP}
 

@@ -17,7 +17,24 @@
  export debug=
  export panic=
  export blacklist=
-@@ -251,6 +252,27 @@
+@@ -232,6 +233,16 @@
+ 	sleep "$ROOTDELAY"
+ fi
+ 
++DISK=`blkid -o device -l -t LABEL=rootfs | sed 's/p2$//'`
++FIRSTTIME=`dd if=$DISK bs=1 skip=4194303 count=1 2>/dev/null`
++if [ $FIRSTTIME = '1' ]; then
++	dd if=/dev/zero of=$DISK bs=1 seek=4194303 count=1 conv=notrunc
++	parted -s ${DISK} resizepart 2 100%
++	sleep 1
++	e2fsck -f -p ${DISK}p2
++	resize2fs ${DISK}p2
++	e2fsck -f -p ${DISK}p2
++fi
+ maybe_break premount
+ [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-premount"
+ run_scripts /scripts/init-premount
+@@ -251,6 +262,27 @@
  mountroot
  log_end_msg
  
