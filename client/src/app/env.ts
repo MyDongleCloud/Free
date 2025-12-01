@@ -391,17 +391,17 @@ colorWord(st, bckgd = true) {
 
 colorWord2(st) {
 	if (st == "Essential")
-		return "translate-y-[-96px] drop-shadow-[0px_96px_0_var(--color--yellow-600)]";
+		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--yellow-600)]";
 	else if (st == "Personal")
-		return "translate-y-[-96px] drop-shadow-[0px_96px_0_var(--color--blue-600)]";
+		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--blue-600)]";
 	else if (st == "Productivity")
-		return "translate-y-[-96px] drop-shadow-[0px_96px_0_var(--color--purple-600)]";
+		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--purple-600)]";
 	else if (st == "Utils")
-		return "translate-y-[-96px] drop-shadow-[0px_96px_0_var(--color--cyan-600)]";
+		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--cyan-600)]";
 	else if (st == "Developer")
-		return "translate-y-[-96px] drop-shadow-[0px_96px_0_var(--color--red-600)]";
+		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--red-600)]";
 	else
-		return "translate-y-[-96px] drop-shadow-[0px_96px_0_var(--color--gray-600)]";
+		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--gray-600)]";
 }
 
 colorPercent(p, limits = [ 80, 50 ]) {
