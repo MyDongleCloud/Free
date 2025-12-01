@@ -47,11 +47,11 @@
 		"Dashboard": "",
 		"DESCRIPTION": "",
 		"Details": "",
-		"Details of": "",
 		"Disabled": "",
 		"Done": "",
 		"Find modules...": "",
 		"GITHUB": "",
+		"Info:": "",
 		"KEYWORDS": "",
 		"modules": "",
 		"name": "",
@@ -59,7 +59,7 @@
 		"Not yet done": "",
 		"OPEN SOURCE": "",
 		"PERMISSIONS": "",
-		"Settings of": "",
+		"Settings:": "",
 		"Table": "",
 		"Terminal modules": "",
 		"TITLE": ""
@@ -133,8 +133,7 @@
 		"Web App": ""
 	},
 	"serverlog": {
-		"System Logs": "",
-		"Content of": ""
+		"System Logs": ""
 	},
 	"settings": {
 		"Admin account has sudo rights": "",

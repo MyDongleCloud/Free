@@ -222,14 +222,14 @@
 	</div>
 </div>
 
-<ion-modal #modalModuleInfo class="modalLimitSize">
+<ion-modal #modalModuleInfo>
 	<ng-template>
-			<h3 class="flex justify-between bg--blue-600 pt-2 pb-2 text--white" (click)="closeModuleInfo()">
-				<span class="mx-auto font-bold">{{L("Details of")}} "{{LMT(cards[cardIdCur].title)}}"</span>
-				<ion-icon name="close-circle-outline" class="w-6 h-6 cursor-pointer mr-3"></ion-icon>
+			<h3 class="relative flex justify-between bg--blue-600 pt-2 pb-2 text--white" (click)="closeModuleInfo()">
+				<span class="mx-auto font-bold">{{L("Info:")}} <span class="font-black">{{LMT(cards[cardIdCur].title)}}</span></span>
+				<ion-icon name="close-circle-outline" class="w-6 h-6 absolute right-3 cursor-pointer"></ion-icon>
 			</h3>
 			<br>
-			<div class="mx-5"><table class="w-full">
+			<div class="mx-5 mb-5"><table class="w-full">
 				<tr><td colspan="3">
 					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[cardIdCur].category)">
@@ -290,14 +290,14 @@
 	</ng-template>
 </ion-modal>
 
-<ion-modal #modalModuleSettings class="modalLimitSize">
+<ion-modal #modalModuleSettings>
 	<ng-template>
-			<h3 class="flex justify-between bg--blue-600 pt-2 pb-2 text--white" (click)="closeModuleSettings()">
-				<span class="mx-auto">{{L("Settings of")}} "{{cards[cardIdCur].title}}"</span>
-				<ion-icon name="close-circle-outline" class="w-6 h-6 cursor-pointer mr-3"></ion-icon>
+			<h3 class="relative flex justify-between bg--blue-600 pt-2 pb-2 text--white" (click)="closeModuleSettings()">
+				<span class="mx-auto">{{L("Settings:")}} <span class="font-black">{{cards[cardIdCur].title}}</span></span>
+				<ion-icon name="close-circle-outline" class="w-6 h-6 absolute right-3 cursor-pointer"></ion-icon>
 			</h3>
 			<br>
-			<div class="mx-5"><table class="w-full">
+			<div class="mx-5 mb-5"><table class="w-full">
 				<tr><td colspan="3">
 					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[cardIdCur].category)">

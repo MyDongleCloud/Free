@@ -40,12 +40,14 @@
 		</ul>
 	</div>
 </div>
-<ion-modal #modalContent class="modalLimitSize">
+<ion-modal #modalContent>
 	<ng-template>
-		<h3 class="flex justify-between bg--blue-600 pt-2 pb-2 text--white" (click)="closeContent()">
-			<span class="mx-auto">{{L("Content of")}} {{modalContentMeta }}</span>
-			<ion-icon name="close-circle-outline" class="w-6 h-6 cursor-pointer mr-3"></ion-icon>
-		</h3>
-		<pre class="m-4 whitespace-pre-wrap break-words font-mono overflow-y-auto" style="max-height:calc(90vh - 60px);">{{ modalContentText }}</pre>
+		<div class="bg--white">
+			<h3 class="relative flex justify-between bg--blue-800 pt-2 pb-2 text--gray-100" (click)="closeContent()">
+				<span class="mx-auto">{{modalContentName}} {{modalContentMeta}}</span>
+				<ion-icon name="close-circle-outline" class="w-6 h-6 absolute right-3 cursor-pointer"></ion-icon>
+			</h3>
+			<pre class="m-4 bg--white text--black text-sm font-mono overflow-y-auto" style="max-height:calc(90vh - 60px);">{{ modalContentText }}</pre>
+		</div>
 	</ng-template>
 </ion-modal>

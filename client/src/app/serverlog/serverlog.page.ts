@@ -29,6 +29,7 @@ nodes: FileSystemNode[] = [];
 expandedNodes = new Set<string>();
 currentPath: string = "/";
 @ViewChild("modalContent") modalContent: IonModal;
+modalContentName: string;
 modalContentMeta: string;
 modalContentText: string;
 
@@ -71,7 +72,8 @@ async viewFileContent(fileNode: FileSystemNode) {
 	if (fileNode.type !== "file") return;
 	try {
 		this.modalContentText = await this.getFileContent(fileNode);
-		this.modalContentMeta = "\"" + fileNode.name + "\" ("+ this.getSizeString(fileNode.size) + ")";
+		this.modalContentName = fileNode.name;
+		this.modalContentMeta = "("+ this.getSizeString(fileNode.size) + ")";
 		await this.modalContent.present();
 	} catch (error) {
 		console.error("Failed to load file content:", error);

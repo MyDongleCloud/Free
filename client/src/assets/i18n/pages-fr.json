@@ -47,11 +47,11 @@
 		"Dashboard": "Tableau de bord",
 		"DESCRIPTION": "DESCRIPTION",
 		"Details": "Détails",
-		"Details of": "Détails de",
 		"Disabled": "Désactivé",
 		"Done": "Terminé",
 		"Find modules...": "Rechercher des modules...",
 		"GITHUB": "GITHUB",
+		"Info:": "Détails de",
 		"KEYWORDS": "MOTS-CLÉS",
 		"modules": "modules",
 		"name": "nom",
@@ -59,7 +59,7 @@
 		"Not yet done": "Pas encore terminé",
 		"OPEN SOURCE": "OPEN SOURCE",
 		"PERMISSIONS": "AUTORISATIONS",
-		"Settings of": "Paramètres de",
+		"Settings:": "Paramètres :",
 		"Table": "Tableau",
 		"Terminal modules": "Modules de terminal",
 		"TITLE": "TITRE"
@@ -133,8 +133,7 @@
 		"Web App" : "Application Web"
 	},
 	"serverlog": {
-		"System Logs": "Journaux du système",
-		"Content of": "Contenu de"
+		"System Logs": "Journaux du système"
 	},
 	"settings": {
 		"Admin account has sudo rights" : "Le compte administrateur a des droits sudo",

@@ -21,3 +21,11 @@ html, body {
     font-family: 'Inter', system-ui, sans-serif;
     scroll-behavior: smooth;
 }
+
+ion-modal {
+	--width: initial;
+	--height: initial;
+	--max-width: 95vw;
+	--max-height: 95vw;
+	--border-radius: 0.75rem;
+}
