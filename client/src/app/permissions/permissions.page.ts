@@ -7,7 +7,6 @@ import modulesMeta from '../modulesmeta.json';
 @Component({
 	selector: 'app-permissions',
 	templateUrl: './permissions.page.html',
-	styleUrls: ['./permissions.page.scss'],
 	standalone: false
 })
 

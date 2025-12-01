@@ -8,7 +8,6 @@ import { BleService } from '../ble';
 @Component({
 	selector: 'app-setup',
 	templateUrl: 'setup.page.html',
-	styleUrls: ['setup.page.scss'],
 	standalone: false
 })
 

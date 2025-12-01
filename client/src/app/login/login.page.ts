@@ -7,7 +7,6 @@ import { Global } from '../env';
 @Component({
 	selector: 'app-login',
 	templateUrl: 'login.page.html',
-	styleUrls: ['login.page.scss'],
 	standalone: false
 })
 

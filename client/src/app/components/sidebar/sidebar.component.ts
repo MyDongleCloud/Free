@@ -4,7 +4,6 @@ import { Global } from '../../env';
 @Component({
 	selector: 'app-sidebar',
 	templateUrl: './sidebar.component.html',
-	styleUrls: ['./sidebar.component.scss'],
 	standalone: false
 })
 

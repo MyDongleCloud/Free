@@ -7,7 +7,6 @@ import modulesMeta from '../modulesmeta.json';
 @Component({
 	selector: 'app-wrapper',
 	templateUrl: 'wrapper.page.html',
-	styleUrls: ['wrapper.page.scss'],
 	standalone: false
 })
 

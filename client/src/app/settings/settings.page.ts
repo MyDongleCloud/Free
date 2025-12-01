@@ -8,7 +8,6 @@ import modulesMeta from '../modulesmeta.json';
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.page.html',
-	styleUrls: ['./settings.page.scss'],
 	standalone: false
 })
 

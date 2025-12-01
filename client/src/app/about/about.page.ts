@@ -5,7 +5,6 @@ import { Global } from '../env';
 @Component({
 	selector: 'app-about',
 	templateUrl: 'about.page.html',
-	styleUrls: ['about.page.scss'],
 	standalone: false
 })
 

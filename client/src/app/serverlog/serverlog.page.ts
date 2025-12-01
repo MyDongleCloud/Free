@@ -18,7 +18,6 @@ interface FileSystemNode {
 @Component({
 	selector: 'app-serverlog',
 	templateUrl: './serverlog.page.html',
-	styleUrls: ['./serverlog.page.scss'],
 	standalone: false
 })
 

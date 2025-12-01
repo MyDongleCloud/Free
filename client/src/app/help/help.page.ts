@@ -4,7 +4,6 @@ import { Global } from '../env';
 @Component({
 	selector: 'app-help',
 	templateUrl: 'help.page.html',
-	styleUrls: ['help.page.scss'],
 	standalone: false
 })
 

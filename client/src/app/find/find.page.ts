@@ -7,7 +7,6 @@ import { Global } from '../env';
 @Component({
 	selector: 'app-find',
 	templateUrl: 'find.page.html',
-	styleUrls: ['find.page.scss'],
 	standalone: false
 })
 

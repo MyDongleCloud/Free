@@ -13,7 +13,6 @@ declare var appLanguage: any;
 @Component({
 	selector: 'app-dongle',
 	templateUrl: './dongle.page.html',
-	styleUrls: ['./dongle.page.scss'],
 	standalone: false
 })
 

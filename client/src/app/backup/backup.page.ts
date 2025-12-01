@@ -4,7 +4,6 @@ import { Global } from '../env';
 @Component({
 	selector: 'app-backup',
 	templateUrl: 'backup.page.html',
-	styleUrls: ['backup.page.scss'],
 	standalone: false
 })
 
