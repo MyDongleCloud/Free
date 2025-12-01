@@ -62,6 +62,7 @@ ln -sf /etc/systemd/system/dongle-init.service /etc/systemd/system/sysinit.targe
 ln -sf /etc/systemd/system/dongle-otg.service /etc/systemd/system/sysinit.target.wants/dongle-otg.service
 echo -n " modules-load=dwc2,libcomposite,configs,dongle" >> /boot/firmware/cmdline.txt
 sed -i -e 's/ root=[^ ]* / root=LABEL=rootfs /' /boot/firmware/cmdline.txt
+sed -i -e 's/console=tty1 console=serial0,115200/console=serial0,115200 console=tty1/' /boot/firmware/cmdline.txt
 sed -i -e 's/cfg80211.ieee80211_regdom=US/cfg80211.ieee80211_regdom=00/' /boot/firmware/cmdline.txt
 cat > /boot/firmware/config.txt <<EOF
 auto_initramfs=1
