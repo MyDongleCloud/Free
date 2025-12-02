@@ -5,16 +5,20 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script src="tailwindcss-4.js"></script>
 <script>
+let data;
+
 async function loadJson(st) {
-	let data;
 	try {
 		const response = await fetch(st);
 		if (!response.ok) return;
 		data = await response.json();
 	} catch(e) { return; }
-	const h = Object.values(data)[0];
+}
+
+function fillTableHeader() {
+	const hh = Object.values(data)[0];
 	const headers = [];
-	Object.entries(h).forEach(([key, value]) => {
+	Object.entries(hh).forEach(([key, value]) => {
 		headers.push(key);
 	});
 	const thead = document.getElementById("dataThead");
@@ -24,14 +28,13 @@ async function loadJson(st) {
 	headers.forEach(header => {
 		const th = document.createElement("th");
 		th.scope = "col";
-		th.className = "text-left font-medium text--gray-500 tracking-wider px-2";
 		let tmp = header.charAt(0).toUpperCase() + header.slice(1);
 		if (header == "ai" || header == "web" || header == "status")
-			tmp = tmp + "&nbsp;<input type='checkbox' id='" + header + "ID' class='border rounded'>";
+			tmp = tmp + "&nbsp;<input type='checkbox' id='" + header + "ID' onchange='filterTable()' class='border rounded'>";
 		if (header == "module")
-			tmp = "<a href='javascript:sort(0);' title='Toggle Sort'>" + tmp + "&nbsp;&nbsp;&nbsp;<a href='javascript:sort(-1);' title='Sort Descending'>↓</a>&nbsp;&nbsp;&nbsp;<a href='javascript:sort(1)' title='Sort Ascending'>↑</a>";
+			tmp = "<a href='javascript:sort(0);' title='Toggle Sort'>" + tmp + "&nbsp;&nbsp;&nbsp;<a href='javascript:sort(-1);' title='Sort Descending' data-class='sortDir != 1 ? \"\" : \"text-gray-700\"'>↓</a>&nbsp;&nbsp;&nbsp;<a href='javascript:sort(1)' title='Sort Ascending' data-class='sortDir == 1 ? \"\" : \"text-gray-700\"'>↑</a>";
 		if (header == "category" || header == "installMethod" || header == "githubLanguage") {
-			tmp = "<select id='" + header + "ID' class='border rounded'><option value='" + header + "'>" + tmp + "</option>";
+			tmp = "<select id='" + header + "ID' onchange='filterTable()' class='border rounded'><option value='" + header + "'>" + tmp + "</option>";
 			const ll = [];
 			Object.entries(data).forEach(([key, value]) => {
 				if (!ll.includes(value[header]))
@@ -52,26 +55,99 @@ async function loadJson(st) {
 		headerRow.appendChild(th);
 	});
 	thead.appendChild(headerRow);
+}
+
+function fillTableContent() {
 	const tbody = document.getElementById("dataTbody");
 	tbody.innerHTML = "";
+	let count = 1;
 	Object.entries(data).forEach(([key, value]) => {
-		const data_ = [key];
 		const tr = document.createElement("tr");
-		tr.className = "hover:bg-gray-200";
-		let first
+		tr.className = "[&:hover_td:first-child]:bg-yellow-100 [&:hover_td:not(:first-child)]:bg-yellow-100";
+		tr.id = "tr_" + key;
+		let cContent = "";
 		Object.entries(value).forEach(([kkey, vvalue], iindex) => {
 			if (kkey == "githubUrl")
 				vvalue = "<a href='https://github.com/" + vvalue + "' target='_blank' class='underline'>" + vvalue + "</a>";
 			const td = document.createElement("td");
-			if (iindex == 0)
-				td.className = "font-bold bg-white border-r border-b border-gray-300 sticky left-0 z-9 whitespace-nowrap px-2";
-			else
-				td.className = " border-b border-gray-300 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs px-2";
+			if (iindex == 0) {
+				vvalue = "<span class='text-sm'>" + (count++) + "</span> <span class='font-bold'>" + vvalue + "</span>";
+				td.className = "border-b border-gray-300 whitespace-nowrap px-2  sticky left-0 z-9 bg-white border-r";
+			} else
+				td.className = " border-b border-gray-300 whitespace-nowrap px-2 overflow-hidden text-ellipsis max-w-xs px-2";
 			td.innerHTML = vvalue === false ? "" : vvalue;
+			cContent += ("" + vvalue + " ").toLowerCase();
+			if (kkey == "category")
+				tr.data_category = vvalue;
+			if (kkey == "installMethod")
+				tr.data_installMethod = vvalue;
+			if (kkey == "ai")
+				tr.data_ai = vvalue;
+			if (kkey == "web")
+				tr.data_web = vvalue;
+			if (kkey == "status")
+				tr.data_status = vvalue == "done";
+			if (kkey == "githubStars")
+				tr.data_githubStars	= vvalue;
 			tr.appendChild(td);
 		});
+		tr.data_content = cContent;
 		tbody.appendChild(tr);
 	});
+}
+
+function formatCount(count) {
+	if (count >= 1_000_000) {
+		const rounded = (count / 1_000_000).toFixed(1);
+		return rounded.endsWith(".0") ? rounded.slice(0, -2) + "M" : rounded + "M";
+	} else if (count >= 1000) {
+		const rounded = (count / 1000).toFixed(1);
+		return rounded.endsWith(".0") ? rounded.slice(0, -2) + "k" : rounded + "k";
+	} else
+		return "" + count;
+}
+
+function filterTable() {
+	const search = document.getElementById("searchID").value.toLowerCase();
+	const category = document.getElementById("categoryID").selectedIndex;
+	const installMethod = document.getElementById("installMethodID").selectedIndex;
+	const ai = document.getElementById("aiID").checked;
+	const web = document.getElementById("webID").checked;
+	const status = document.getElementById("statusID").checked;
+	const dirty = search != "" || category != 0 || installMethod != 0 || ai || web || status;
+	document.getElementById("resetID").disabled = !dirty;
+
+	const tbody = document.getElementById("dataTbody");
+	let countModules = 0;
+	let countStars = 0;
+	Array.from(tbody.rows).forEach((row, index) => {
+		if (category != 0 && document.getElementById("categoryID").options[category].value != row.data_category) {
+			row.style.visibility = "collapse";
+			return;
+		}
+		if (installMethod != 0 && document.getElementById("installMethodID").options[installMethod].value != row.data_installMethod) {
+			row.style.visibility = "collapse";
+			return;
+		}
+		if (ai && !row.data_ai) {
+			row.style.visibility = "collapse";
+			return;
+		}
+		if (web && !row.data_web) {
+			row.style.visibility = "collapse";
+			return;
+		}
+		if (status && !row.data_status) {
+			row.style.visibility = "collapse";
+			return;
+		}
+		row.style.visibility = row.data_content.indexOf(search) != -1 ?  "" : "collapse";
+		if (row.style.visibility != "collapse") {
+			countModules++;
+			countStars += row.data_githubStars;
+		}
+	});
+	document.getElementById("countID").innerHTML = "" + countModules + " module" + (countModules > 1 ? "s" : "") + " - " + formatCount(countStars) + " ⭐";
 }
 
 var sortDir = 1;
@@ -88,18 +164,19 @@ function sort(dir) {
 		return sortDir ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
 	});
 	rows.forEach(row => { tableBody.appendChild(row); });
-}
-
-function checkInput() {
-	document.getElementById("resetID").disabled = (document.getElementById("searchID").value === "");
+	updateClass();
 }
 
 function reset() {
 	document.getElementById("searchID").value = "";
-	checkInput();
+	document.getElementById("aiID").checked = false;
+	document.getElementById("webID").checked = false;
+	document.getElementById("statusID").checked = false;
+	document.getElementById("categoryID").selectedIndex = 0;
+	document.getElementById("installMethodID").selectedIndex = 0;
+	filterTable();
 }
-</script>
-<script>
+
 function updateClass() {
 	document.querySelectorAll("[data-class]").forEach(el => {
 		const prevDynamicClasses = (el.dataset.dynamicClasses || "").split(" ");
@@ -117,9 +194,11 @@ function updateClass() {
 	});
 }
 
-function onStart() {
-	loadJson("modulesmeta.json");
-	checkInput();
+async function onStart() {
+	await loadJson("modulesmeta.json");
+	fillTableHeader();
+	fillTableContent();
+	filterTable();
 }
 </script>
 </head>
@@ -135,14 +214,15 @@ function onStart() {
 		<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 			<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>
 		</div>
-		<input type="text" id="searchID" oninput="checkInput()" placeholder="Filter modules..." class="pl-10 pr-4 border border-gray-300 text-gray-500 rounded-lg">
-		<button id="resetID" onclick="reset()" class="inline-flex items-center bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer disabled:bg-gray-100 disabled:cursor-default disabled:text-gray-400" data-class="document.getElementById('searchID').value == '' ? 'hidden' : ''">
+		<input type="text" id="searchID" oninput="filterTable()" placeholder="Filter modules..." class="pl-10 pr-4 border border-gray-300 text-gray-500 rounded-lg">
+		<button id="resetID" onclick="reset()" disabled class="inline-flex items-center bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer disabled:bg-gray-100 disabled:cursor-default disabled:text-gray-400">
 			<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 512 512"><path d="M320 146s24.36-12-64-12a160 160 0 10160 160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 58l80 80-80 80"/></svg>
 		</button>
+		<span id="countID" class="ml-2"></span>
 	</div>
 	<div class="overflow-y-auto">
-		<table class="border-separate border-spacing-0">
-			<thead class="sticky top-0 z-10 bg-gray-700 text-gray-200" id="dataThead">
+		<table class="border-separate border-spacing-0 mb-10">
+			<thead class="sticky top-0 z-10 text-left bg-gray-700 text-gray-200" id="dataThead">
 			</thead>
 			<tbody id="dataTbody">
 			</tbody>
