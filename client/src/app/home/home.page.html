@@ -162,7 +162,7 @@
 								<ion-icon name="logo-github" class="w-6 h-6 cursor-pointer" ></ion-icon>
 								<div class="flex flex-col items-center">
 									<span class="text--gray-500">⭐</span>
-									<span class="text--gray-500 text-sm">{{approximateStars(card.githubStars)}}k</span>
+									<span class="text--gray-500 text-sm">{{global.formatCount(card.githubStars)}}</span>
 								</div>
 							</a>
 						</div>
@@ -207,7 +207,7 @@
 								<div class="text-sm text--gray-500 max-w-xs truncate" [class.line-through]="card?.completed">{{LMD(card.description)}}</div>
 							</td>
 							<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
-								<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}} ({{approximateStars(card.githubStars)}}k ⭐)</a>
+								<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}} ({{global.formatCount(card.githubStars)}}&nbsp;⭐)</a>
 							</td>
 							<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 								<div class="-ml-2">
@@ -261,7 +261,7 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr *ngIf="cards[cardIdCur].githubUrl != ''">
 					<td>GitHub <a href="https://github.com/{{cards[cardIdCur].githubUrl}}" title="GitHub {{cards[cardIdCur].githubUrl}}" target="_blank"><ion-icon name="logo-github" class="w-5 h-5"></ion-icon></a></td>
-					<td width="20"></td><td><a href="https://github.com/{{cards[cardIdCur].githubUrl}}" title="https://github.com/{{cards[cardIdCur].githubUrl}}" target="_blank">{{cards[cardIdCur].githubUrl}}</a> {{approximateStars(cards[cardIdCur].githubStars)}}k ⭐<br>Language: {{cards[cardIdCur].githubLanguage}}<br>License: {{cards[cardIdCur].githubLicense}}</td>
+					<td width="20"></td><td><a href="https://github.com/{{cards[cardIdCur].githubUrl}}" title="https://github.com/{{cards[cardIdCur].githubUrl}}" target="_blank">{{cards[cardIdCur].githubUrl}}</a> {{global.formatCount(cards[cardIdCur].githubStars)}}&nbsp;⭐<br>Language: {{cards[cardIdCur].githubLanguage}}<br>License: {{cards[cardIdCur].githubLicense}}</td>
 				</tr>
 				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
 				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-px bg--gray-300"></td></tr>

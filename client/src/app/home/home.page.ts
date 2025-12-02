@@ -97,10 +97,6 @@ lastWord(st) {
 	return words[words.length - 1];
 }
 
-approximateStars(s) {
-	return s > 10000 ? Math.round(s / 1000) : (s / 1000).toFixed(1);
-}
-
 async info(module) {
 	this.cardIdCur = this.global.modulesDataFindId(module);
 	await this.modalModuleInfo.present();
