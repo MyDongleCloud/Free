@@ -13,7 +13,7 @@ static int oathGenerate(char secret[33]) {
 	oath_init();
 	char otp[8];
 	char secretbin[17];
-	size_t secretbinlen = 16;
+	unsigned long secretbinlen = 16;
 	oath_hex2bin(secret, secretbin, &secretbinlen);
 	oath_hotp_generate(secretbin, secretbinlen, 0, 6, 0, OATH_HOTP_DYNAMIC_TRUNCATION, otp);
 	oath_done();

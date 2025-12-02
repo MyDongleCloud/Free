@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 
 static const unsigned char base64_table[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -7,7 +8,7 @@ static char *b64_encode(const unsigned char *src, size_t len) {
 	const unsigned char *end, *in;
 	size_t olen = 4*((len + 2) / 3) + 1; /* 3-byte blocks to 4-byte */
 
-	char *outStr = malloc(olen);
+	char *outStr = (char *)malloc(olen);
 	out = (unsigned char*)&outStr[0];
 
 	end = src + len;
@@ -49,7 +50,7 @@ static unsigned char *b64_decode_ex(char *p, size_t *decsize) {
 	int pad = len > 0 && (len % 4 || p[len - 1] == '=');
 	const size_t L = ((len + 3) / 4 - pad) * 4;
 	*decsize = L / 4 * 3 + (pad ? (p[len - 2] == '=' ? 1 : 2) : 0);
-	unsigned char *str = malloc(*decsize + 1);
+	unsigned char *str = (unsigned char *)malloc(*decsize + 1);
 
 	for (size_t i = 0, j = 0; i < L; i += 4) {
 		int n = B64index[p[i]] << 18 | B64index[p[i + 1]] << 12 | B64index[p[i + 2]] << 6 | B64index[p[i + 3]];
