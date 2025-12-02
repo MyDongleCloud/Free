@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +19,7 @@ LMD(st) { return this.global.mytranslateMD(st); }
 @ViewChild(SidebarComponent) sidebarComponent;
 @ViewChild("modalModuleInfo") modalModuleInfo: IonModal;
 @ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
+@ViewChild("searchTermE") searchTermE: ElementRef;
 cardIdCur = 0;
 cardConfig;
 cards = this.global.modulesData;
@@ -56,6 +57,8 @@ filterCards() {
 	});
 	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);
 	this.sortCards();
+	if (this.searchTerm != "")
+		this.searchTermE.nativeElement.focus();
 }
 
 filterCategory(c) {
