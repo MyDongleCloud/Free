@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,8 @@ import { BleService } from '../ble';
 export class Setup {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
+@ViewChild("name1E") name1E: ElementRef;
+@ViewChild("name2E") name2E: ElementRef;
 password2Show:boolean = false;
 password3Show:boolean = true;
 progress:boolean = false;
@@ -164,7 +166,7 @@ show_Dongle() {
 	this.showRegister = false;
 	this.showWiFi = false;
 	this.hasBlurredOnce = false;
-	setTimeout(() => { (document.getElementById("name1") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { this.name1E.nativeElement.focus(); }, 100);
 	this.cdr.detectChanges();
 }
 
@@ -179,7 +181,7 @@ show_Register() {
 	this.showDongle = false;
 	this.showRegister = true;
 	this.showWiFi = false;
-	setTimeout(() => { (document.getElementById("name2") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { this.name2E.nativeElement.focus(); }, 100);
 	this.hasBlurredOnce = false;
 	this.cdr.detectChanges();
 }

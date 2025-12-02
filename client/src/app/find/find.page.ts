@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { Global } from '../env';
 export class Find {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
+@ViewChild("email1E") email1E: ElementRef;
 ready:boolean = false;
 progress:boolean = false;
 formFind: FormGroup;
@@ -41,7 +42,7 @@ async ionViewDidEnter() {
 	if (this.global.session != null)
 		this.global.logout();
 	this.ready = true;
-	setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { this.email1E.nativeElement.focus(); }, 100);
 }
 
 get email1() { return this.formFind.get("email1"); }

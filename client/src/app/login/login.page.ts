@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChildren, ViewChild, QueryList, ElementRef, ChangeDetectorRef, signal } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,13 @@ import { Global } from '../env';
 export class Login implements AfterViewInit {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
-@ViewChildren('otpInput') otpInputs: QueryList<ElementRef>;
+@ViewChildren("otpInputE") otpInputs: QueryList<ElementRef>;
+@ViewChild("email1E") email1E: ElementRef;
+@ViewChild("password1E") password1E: ElementRef;
+@ViewChild("submit1E") submit1E: ElementRef;
+@ViewChild("name2E") name2E: ElementRef;
+@ViewChild("email3E") email3E: ElementRef;
+@ViewChild("submit4E") submit4E: ElementRef;
 password1Show:boolean = false;
 password2Show:boolean = false;
 ready:boolean = false;
@@ -114,15 +120,15 @@ async ionViewDidEnter() {
 		else
 			this.formLogin.get("email1").setValue("john.doe@example.com");
 		this.formLogin.get("password1").setValue("demodemo");
-		setTimeout(() => { (document.getElementById("submit1") as HTMLInputElement).focus(); }, 100);
+		setTimeout(() => { this.submit1E.nativeElement.focus(); }, 100);
 		return;
 	}
 	let email = this.global.getCookie("email");
 	if (email != null) {
 		this.formLogin.get("email1").setValue(email);
-		setTimeout(() => { (document.getElementById("password1") as HTMLInputElement).focus(); }, 100);
+		setTimeout(() => { this.password1E.nativeElement.focus(); }, 100);
 	} else
-		setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
+		setTimeout(() => { this.email1E.nativeElement.focus(); }, 100);
 }
 
 get email1() { return this.formLogin.get("email1"); }
@@ -148,7 +154,7 @@ show_Login() {
 	this.showOtp = false;
 	this.hasBlurredOnce = false;
 	this.errorSt = null;
-	setTimeout(() => { (document.getElementById("email1") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { this.email1E.nativeElement.focus(); }, 100);
 	this.cdr.detectChanges();
 }
 
@@ -181,7 +187,7 @@ show_Register() {
 	const e = this.email1.value;
 	if (e != "")
 		this.email2.setValue(e);
-	setTimeout(() => { (document.getElementById("name2") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { this.name2E.nativeElement.focus(); }, 100);
 	this.hasBlurredOnce = false;
 	this.errorSt = null;
 	this.cdr.detectChanges();
@@ -213,7 +219,7 @@ show_ForgotPassword() {
 	const e = this.email1.value;
 	if (e != "")
 		this.email3.setValue(e);
-	setTimeout(() => { (document.getElementById("email3") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { this.email3E.nativeElement.focus(); }, 100);
 	this.hasBlurredOnce = false;
 	this.errorSt = null;
 	this.cdr.detectChanges();
@@ -263,7 +269,7 @@ handlePaste(event: ClipboardEvent, startIndex: number) {
 	if (lastPopulatedIndex < 6)
 		inputs[lastPopulatedIndex]?.nativeElement.focus();
 	else if (lastPopulatedIndex == 6)
-		(document.getElementById("submit4") as HTMLInputElement).focus();
+		this.submit4E.nativeElement.focus();
 }
 
 ngAfterViewInit() {
@@ -274,7 +280,7 @@ ngAfterViewInit() {
 				if (index < 5)
 					inputs[index + 1].nativeElement.focus();
 				else if (index == 5)
-					(document.getElementById("submit1") as HTMLInputElement).focus();
+					this.submit1E.nativeElement.focus();
 			}
 		});
 		input.nativeElement.addEventListener('keydown', (event) => {
@@ -296,7 +302,7 @@ async show_Otp() {
 		ret = await this.httpClient.post("/_app_/auth/two-factor/send-otp", "{}", {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth twofactor/send-otp: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
-	setTimeout(() => { (document.getElementById("otp14") as HTMLInputElement).focus(); }, 100);
+	setTimeout(() => { this.otpInputs.toArray()[0].nativeElement.focus(); }, 100);
 	this.cdr.detectChanges();
 }
 

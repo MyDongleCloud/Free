@@ -21,7 +21,7 @@
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="at-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input id="email1" (blur)="handleBlur($event, email1)" type="email" formControlName="email1" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your email" [class.border--red-300]="email1?.invalid && email1?.touched" [class.focus:ring--red-500]="email1?.invalid && email1?.touched">
+						<input #email1E (blur)="handleBlur($event, email1)" type="email" formControlName="email1" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your email" [class.border--red-300]="email1?.invalid && email1?.touched" [class.focus:ring--red-500]="email1?.invalid && email1?.touched">
 					</div>
 					@if (email1?.invalid && email1?.touched) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
@@ -37,7 +37,7 @@
 							<ion-icon name="lock-closed-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
 						<div class="flex items-center gap-0">
-							<input id="password1" formControlName="password1" autocomplete="current-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your password" [class.border--red-300]="password1?.invalid && password1?.touched" [class.focus:ring--red-500]="password1?.invalid && password1?.touched" [type]="password1Show ? 'text' : 'password'">
+							<input #password1E formControlName="password1" autocomplete="current-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your password" [class.border--red-300]="password1?.invalid && password1?.touched" [class.focus:ring--red-500]="password1?.invalid && password1?.touched" [type]="password1Show ? 'text' : 'password'">
 							<button type="button" (click)="password1Show = !password1Show;" class="flex justify-center items-center bg--blue-600 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password1Show ? 'eye-off-outline' : 'eye-outline'" class="text--white"></ion-icon></button>
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 				</div>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center">
-						<input id="rememberme1" formControlName="rememberme1" type="checkbox" class="w-4 h-4 text--blue-600 focus:ring--blue-700 border--gray-300 rounded">
+						<input formControlName="rememberme1" type="checkbox" class="w-4 h-4 text--blue-600 focus:ring--blue-700 border--gray-300 rounded">
 						<label for="rememberme1" class="ml-2 block text-sm text--gray-700">{{L("Remember me")}}</label>
 					</div>
 					<a class="text-sm text--blue-600 hover:text--blue-700 font-medium" (click)="show_ForgotPassword()" style="cursor:pointer;">{{L("Forgot password?")}}</a>
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				}
-				<button type="submit" id="submit1" [disabled]="progress || formLogin.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
+				<button type="submit" #submit1E [disabled]="progress || formLogin.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text--white w-6 h-6"></ion-icon>
 					{{L("Signing in...")}}
@@ -99,7 +99,7 @@
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="person-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input id="name2" (blur)="handleBlur($event, name2)" type="text" formControlName="name2" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your full name" [class.border--red-300]="name2?.invalid && name2?.touched" [class.focus:ring--red-500]="name2?.invalid && name2?.touched">
+						<input #name2E (blur)="handleBlur($event, name2)" type="text" formControlName="name2" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your full name" [class.border--red-300]="name2?.invalid && name2?.touched" [class.focus:ring--red-500]="name2?.invalid && name2?.touched">
 					</div>
 					@if (name2?.invalid && name2?.touched) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
@@ -114,7 +114,7 @@
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="at-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input id="email2" type="email" formControlName="email2" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your email" [class.border--red-300]="email2?.invalid && email2?.touched" [class.focus:ring--red-500]="email2?.invalid && email2?.touched">
+						<input type="email" formControlName="email2" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your email" [class.border--red-300]="email2?.invalid && email2?.touched" [class.focus:ring--red-500]="email2?.invalid && email2?.touched">
 					</div>
 					@if (email2?.invalid && email2?.touched) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
@@ -130,7 +130,7 @@
 							<ion-icon name="lock-closed-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
 						<div class="flex items-center gap-0">
-							<input id="password2" formControlName="password2" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Create a strong password" [class.border--red-300]="password2?.invalid && password2?.touched" [class.focus:ring--red-500]="password2?.invalid && password2?.touched" [type]="password2Show ? 'text' : 'password'">
+							<input formControlName="password2" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Create a strong password" [class.border--red-300]="password2?.invalid && password2?.touched" [class.focus:ring--red-500]="password2?.invalid && password2?.touched" [type]="password2Show ? 'text' : 'password'">
 							<button (click)="password2Show = !password2Show;" class="flex justify-center items-center bg--blue-500 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password2Show ? 'eye-off-outline' : 'eye-outline'" class="text--white"></ion-icon></button>
 						</div>
 					</div>
@@ -161,7 +161,7 @@
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="lock-closed-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input id="password2Confirm" type="password" formControlName="password2Confirm" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Confirm password" [class.border--red-300]="password2Confirm?.touched && password2?.value != password2Confirm?.value" [class.focus:ring--red-500]="password2Confirm?.touched && password2?.value != password2Confirm?.value">
+						<input type="password" formControlName="password2Confirm" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Confirm password" [class.border--red-300]="password2Confirm?.touched && password2?.value != password2Confirm?.value" [class.focus:ring--red-500]="password2Confirm?.touched && password2?.value != password2Confirm?.value">
 					</div>
 					@if (password2Confirm?.touched && password2?.value != password2Confirm?.value) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
@@ -173,7 +173,7 @@
 				<div>
 					<div class="flex items-start">
 						<div class="flex items-center h-5">
-							<input id="terms2" name="terms2" type="checkbox" formControlName="terms2" required class="w-4 h-4 text--blue-600 focus:ring--blue-700 border--gray-300 rounded">
+							<input name="terms2" type="checkbox" formControlName="terms2" required class="w-4 h-4 text--blue-600 focus:ring--blue-700 border--gray-300 rounded">
 						</div>
 						<div class="ml-3 text-sm">
 							<label for="terms2" class="text--gray-700">{{L("I agree to the")}} <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Terms of Service")}}</a> and <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Privacy Policy")}}</a></label>
@@ -234,7 +234,7 @@
 							<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 								<ion-icon name="at-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 							</div>
-							<input id="email3" (blur)="handleBlur($event, email3)" type="email" formControlName="email3" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-500 focus:border-transparent transition-colors duration-200 text--gray-900"
+							<input #email3E (blur)="handleBlur($event, email3)" type="email" formControlName="email3" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-500 focus:border-transparent transition-colors duration-200 text--gray-900"
 								placeholder="Enter your email address"
 								[class.border--red-300]="email3?.invalid && email3?.touched"
 								[class.focus:ring--red-500]="email3?.invalid && email3?.touched">
@@ -312,13 +312,13 @@
 			<form [formGroup]="formOtp" (ngSubmit)="doOtp();" class="space-y-6">
 				<label for="otp14" class="block text-sm font-medium text--gray-700 mb-2">OTP (One-Time Password)</label>
 				<div class="flex flex-row gap-7">
-					<input #otpInput id="otp14" formControlName="otp14" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 1)">
-					<input #otpInput id="otp24" formControlName="otp24" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 2)">
-					<input #otpInput id="otp34" formControlName="otp34" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 3)">
+					<input #otpInputE formControlName="otp14" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 1)">
+					<input #otpInputE formControlName="otp24" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 2)">
+					<input #otpInputE formControlName="otp34" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 3)">
 					<span class="mt-3">-</span>
-					<input #otpInput id="otp44" formControlName="otp44" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 4)">
-					<input #otpInput id="otp54" formControlName="otp54" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 5)">
-					<input #otpInput id="otp64" formControlName="otp64" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 6)">
+					<input #otpInputE formControlName="otp44" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 4)">
+					<input #otpInputE formControlName="otp54" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 5)">
+					<input #otpInputE formControlName="otp64" type="text" maxlength="1" inputmode="numeric" class="w-8 pl-2 py-3 border border--gray-300 rounded focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" (paste)="handlePaste($event, 6)">
 				</div>
 				@if (errorSt) {
 				<div class="bg--red-50 border border--red-200 rounded-xl p-4">
@@ -328,7 +328,7 @@
 					</div>
 				</div>
 				}
-				<button type="submit" id="submit4" [disabled]="progress || formOtp.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
+				<button type="submit" #submit4E [disabled]="progress || formOtp.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text--white w-6 h-6"></ion-icon>
 					{{L("Signing in...")}}
