@@ -156,6 +156,12 @@ filterCards() {
 	this.sortCards();
 }
 
+async updateHits() {
+	await this.httpClient.get("/_app_/auth/refresh", {headers:{"content-type": "application/json"}}).toPromise();
+	await this.global.sleepms(3000);
+	await this.getData();
+}
+
 sortCards() {
 	this.filteredCards.sort((a, b) => {
 		const aValue = a[this.sortProperty];
