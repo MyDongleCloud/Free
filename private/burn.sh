@@ -37,7 +37,6 @@ if [ ! -b ${DISK}1 ]; then
 	echo "No ${DISK}1..."
 	exit 0
 fi
-
 if [ $FORCE = 0 ]; then
 	if [ "m`blockdev --getsize64 ${DISK}`" != "m1024209543168" ]; then
 		echo "Disk doesn't have the usual size. Are you sure? You can force with option -z"
