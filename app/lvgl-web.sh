@@ -2,11 +2,12 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for pip.sh [-b -h -l -s]"
+echo "Usage for lvgl-web [-b -c -h -l -s]"
+echo "b:	Build"
+echo "c:	Clean"
 echo "h:	Print this usage and exit"
 echo "l:	Local"
 echo "s:	Setup"
-echo "v:	Set version"
 exit 0
 }
 
@@ -16,9 +17,9 @@ SETUP=0
 CLEAN=0
 while getopts bchls opt; do
 	case "$opt" in
-		h) helper;;
 		b) LOCAL=1;BUILD=1;;
 		c) CLEAN=1;;
+		h) helper;;
 		l) LOCAL=1;;
 		s) SETUP=1;;
 	esac
@@ -49,6 +50,7 @@ if [ $LOCAL = 1 ]; then
 	#export PATH=/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH
 fi
 
+#Not used
 if [ $BUILD = 2 ]; then
 	mkdir -p ../build
 	cd ../build
@@ -59,6 +61,7 @@ if [ $BUILD = 2 ]; then
 	cd cmbuild
 	emcmake cmake ..
 	emmake make -j
+	cd $PW
 fi
 
 if [ $BUILD = 1 ]; then

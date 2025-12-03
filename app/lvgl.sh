@@ -2,9 +2,9 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for pip.sh [-b -c -h]"
-echo "b:	do build"
-echo "c:	Do clean"
+echo "Usage for lvgl [-b -c -h]"
+echo "b:	Build"
+echo "c:	Clean"
 echo "h:	Print this usage and exit"
 exit 0
 }
