@@ -23,7 +23,7 @@ const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = existsSync(cloudPath) ? JSON.parse(readFileSync(cloudPath, "utf-8")) : { all: { name:"", domains: [] } };
-const modulesPath = adminPath + "_config/_modules_.json";
+const modulesPath = adminPath + "_config_/_modules_.json";
 let modules = {};
 if (existsSync(modulesPath))
 	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
