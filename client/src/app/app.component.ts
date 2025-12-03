@@ -7,7 +7,7 @@ import { Global } from './env';
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
-	standalone: false,
+	standalone: false
 })
 
 export class AppComponent {
