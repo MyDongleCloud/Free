@@ -91,10 +91,11 @@ async save() {
 			const module = this.cards[i]["module"];
 			if (this.modules[module] === undefined)
 				this.modules[module] = {};
-			if (this.cards[i]["bDisabled"]) {
-				if (this.modules[module]["disabled"] !== this.cards[i]["bDisabled"])
-					this.modules[module]["disabled"] = this.cards[i]["bDisabled"];
+			if (this.cards[i]["bDisabled"]){
+				this.modules[module]["enabled"] = false;
+				delete this.modules[module]["permissions"];
 			} else {
+				delete this.modules[module]["enabled"];
 				this.modules[module]["permissions"] = [];
 				if (this.cards[i]["bPublic"])
 					this.modules[module]["permissions"].push("_public_");
