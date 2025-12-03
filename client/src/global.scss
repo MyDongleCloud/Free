@@ -25,6 +25,8 @@ html, body {
 ion-modal {
 	--width: initial;
 	--height: initial;
+	--min-width: 25vw;
+	--min-height: 25vw;
 	--max-width: 95vw;
 	--max-height: 95vw;
 	--border-radius: 0.75rem;
