@@ -569,6 +569,7 @@
 	"mydonglecloud": {
 		"web": true,
 		"enabled": true,
+		"enabledUnalterable": true,
 		"permissions": [
 			"_groupadmin_"
 		],
