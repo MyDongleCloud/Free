@@ -170,8 +170,8 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_AddStringToObject(cloud, "a", "cloud");
 			communicationJSON(cloud);
 			cJSON_Delete(cloud);
-		} else if (strcmp(action, "update") == 0) {
-			PRINTF("communicationReceive: Update\n");
+		} else if (strcmp(action, "refresh") == 0) {
+			PRINTF("communicationReceive: Refresh\n");
 			cloudInit();
 #endif
 		} else if (strcmp(action, "connection") == 0) {

@@ -85,6 +85,13 @@ const mdcEndpoints = () => {
 				return Response.json({ status:"healthy", version, demo:statusDemo, timestamp:new Date().toISOString() }, { status:200 });
 			}),
 
+			update: createAuthEndpoint("/refresh", {
+				method: "GET",
+			}, async(ctx) => {
+				sendToDongle({ a:"refresh" });
+				return Response.json({ "status":"success" }, { status:200 });
+			}),
+
 			stats: createAuthEndpoint("/stats", {
 				method: "GET",
 			}, async(ctx) => {
@@ -158,7 +165,6 @@ const mdcEndpoints = () => {
 				method: "POST",
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
-				sendToDongle({ a:"update" });
 				return Response.json({ "status":"success" }, { status:200 });
 			}),
 
