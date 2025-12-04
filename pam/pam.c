@@ -41,7 +41,8 @@ static int downloadURLBuffer(char *url, char *buf, char *header, char *post) {
 	}
 	return ret;
 }
-int authentify(const char *username, const char *password) {
+
+static int authentify(const char *username, const char *password) {
 	char buf[1024];
 	char post[256];
 	snprintf(post, sizeof(post), "{\"username\":\"%s\", \"password\":\"%s\"}", username, password);
