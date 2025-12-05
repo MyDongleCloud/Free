@@ -1,0 +1,28 @@
+{
+	"module": "qrcodegenerator",
+	"name": "QR Code Generator",
+	"title": "QR Code",
+	"ai": false,
+	"description": "Simple QR code generator.",
+	"keywords": [
+		"QR",
+		"Code",
+		"Generator",
+		"Image"
+	],
+	"proprietary": "QR Code Generator",
+	"github": "bizzycola\/qrcode-generator",
+	"category": "Utils",
+	"version": "HEAD",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9464
+	}
+}

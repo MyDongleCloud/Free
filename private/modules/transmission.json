@@ -1,0 +1,35 @@
+{
+	"module": "transmission",
+	"name": "Transmission",
+	"title": "BitTorrent",
+	"ai": false,
+	"description": "A fast, easy, and free BitTorrent client.",
+	"keywords": [
+		"BitTorrent",
+		"Client",
+		"P2P",
+		"Download"
+	],
+	"proprietary": "qBittorrent",
+	"github": "transmission\/transmission",
+	"category": "Utils",
+	"version": "4.1.0",
+	"installMethod": "apt",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9478,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8097,
+				"path": "\/"
+			}
+		]
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"module": "maybe",
+	"name": "Maybe",
+	"title": "Personal Finance",
+	"ai": false,
+	"description": "A personal finance tool for everyone.",
+	"keywords": [
+		"Finance",
+		"Personal",
+		"Budget",
+		"Tool"
+	],
+	"proprietary": "Mint|YNAB",
+	"github": "maybe-finance\/maybe",
+	"category": "Personal",
+	"version": "v0.5.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9442
+	}
+}

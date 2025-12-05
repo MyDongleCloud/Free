@@ -1,0 +1,21 @@
+{
+	"module": "python",
+	"name": "Python",
+	"title": "Python Language",
+	"ai": false,
+	"description": "A popular scripting language.",
+	"keywords": [
+		"Language",
+		"Interpreter"
+	],
+	"proprietary": "ActivePython",
+	"github": "python\/cpython",
+	"category": "Developer",
+	"version": "3.13.5",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

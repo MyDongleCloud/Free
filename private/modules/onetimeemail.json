@@ -1,0 +1,28 @@
+{
+	"module": "onetimeemail",
+	"name": "One Time Email",
+	"title": "Disposable Email",
+	"ai": false,
+	"description": "A service for generating temporary, disposable email addresses.",
+	"keywords": [
+		"Email",
+		"Temporary",
+		"Disposable",
+		"Privacy"
+	],
+	"proprietary": "Temp-Mail",
+	"github": "",
+	"category": "Essential",
+	"version": "2025-11-11",
+	"installMethod": "",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9448
+	}
+}

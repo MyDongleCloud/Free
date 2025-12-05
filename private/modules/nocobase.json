@@ -1,0 +1,25 @@
+{
+	"module": "nocobase",
+	"name": "NocoBase",
+	"title": "No Code",
+	"ai": false,
+	"description": "An extensible AI-powered no-code\/low-code platform for building business applications and enterprise solutions.",
+	"keywords": [
+		"No Code"
+	],
+	"proprietary": "",
+	"github": "nocobase\/nocobase",
+	"category": "Productivity",
+	"version": "v1.9.6",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9447
+	}
+}

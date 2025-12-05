@@ -1,0 +1,32 @@
+{
+	"module": "adminer",
+	"name": "Adminer",
+	"title": "MySQL Viewer",
+	"ai": false,
+	"description": "A tool to browse MySQL databases.",
+	"keywords": [
+		"Database",
+		"SQL",
+		"MySQL",
+		"Viewer",
+		"Web"
+	],
+	"proprietary": "",
+	"github": "vrana\/adminer",
+	"category": "Developer",
+	"version": "5.2.1",
+	"installMethod": "apt",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"config": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9401,
+		"DirectoryIndex": "conf.php",
+		"path": "\/etc\/adminer"
+	}
+}

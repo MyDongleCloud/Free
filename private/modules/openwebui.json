@@ -1,0 +1,32 @@
+{
+	"module": "openwebui",
+	"name": "Open WebUI",
+	"title": "Legacy Chatbot",
+	"ai": true,
+	"description": "A user-friendly WebUI for LLMs.",
+	"keywords": [
+		"LLM",
+		"WebUI",
+		"AI",
+		"Chat"
+	],
+	"proprietary": "",
+	"github": "open-webui\/open-webui",
+	"category": "Essential",
+	"version": "v0.6.18",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"alias": [
+			"chatbot",
+			"chat"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9451
+	}
+}

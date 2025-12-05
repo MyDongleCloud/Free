@@ -1,0 +1,27 @@
+{
+	"module": "youtransfer",
+	"name": "YouTransfer",
+	"title": "File Transfer",
+	"ai": false,
+	"description": "A simple but elegant self-hosted file transfer & sharing solution.",
+	"keywords": [
+		"File",
+		"Sharing",
+		"Upload"
+	],
+	"proprietary": "",
+	"github": "YouTransfer\/YouTransfer",
+	"category": "Utils",
+	"version": "1.0.6",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9489
+	}
+}

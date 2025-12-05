@@ -1,0 +1,35 @@
+{
+	"module": "triliumnotes",
+	"name": "Trilium Notes",
+	"title": "Hierarchical Notes",
+	"ai": false,
+	"description": "A tool to build your hierarchical notes.",
+	"keywords": [
+		"Notes",
+		"Hierarchical",
+		"Knowledge",
+		"Base"
+	],
+	"proprietary": "Evernote",
+	"github": "TriliumNext\/Trilium",
+	"category": "Productivity",
+	"version": "v0.95.0",
+	"installMethod": "tar",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9479,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8090,
+				"path": "\/"
+			}
+		]
+	}
+}

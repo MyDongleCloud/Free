@@ -1,0 +1,28 @@
+{
+	"module": "pihole",
+	"name": "Pi-hole",
+	"title": "Network Ad Blocker",
+	"ai": false,
+	"description": "A network-wide ad blocking system.",
+	"keywords": [
+		"Ad",
+		"Blocking",
+		"DNS",
+		"Network"
+	],
+	"proprietary": "NextDNS",
+	"github": "pi-hole\/pi-hole",
+	"category": "Utils",
+	"version": "v.6.1.4",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9461
+	}
+}

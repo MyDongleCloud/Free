@@ -1,0 +1,46 @@
+{
+	"module": "homeassistant",
+	"name": "Home Assistant",
+	"title": "Home Automation",
+	"ai": false,
+	"description": "An home automation that puts local control and privacy first.",
+	"keywords": [
+		"Home",
+		"Automation",
+		"IoT",
+		"Smart"
+	],
+	"proprietary": "Samsung SmartThings",
+	"github": "home-assistant\/core",
+	"category": "Personal",
+	"version": "2025.10.3",
+	"installMethod": "pip",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [],
+		"reset": true,
+		"alias": [
+			"home"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9422,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8123,
+				"path": "\/"
+			},
+			{
+				"type": "ws",
+				"port": 8123,
+				"path": "\/api\/websocket"
+			}
+		]
+	}
+}

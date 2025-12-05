@@ -1,0 +1,32 @@
+{
+	"module": "photoview",
+	"name": "Photoview",
+	"title": "Photo Gallery",
+	"ai": false,
+	"description": "A simple and user-friendly photo gallery personal server.",
+	"keywords": [
+		"Photo",
+		"Gallery",
+		"Simple",
+		"Web"
+	],
+	"proprietary": "Google Photos",
+	"github": "photoview\/photoview",
+	"category": "Personal",
+	"version": "v2.4.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"alias": [
+			"photos",
+			"photo"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9457
+	}
+}

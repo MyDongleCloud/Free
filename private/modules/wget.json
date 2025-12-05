@@ -1,0 +1,20 @@
+{
+	"module": "wget",
+	"name": "Wget",
+	"title": "Get Url",
+	"ai": false,
+	"description": "A tool to download any url.",
+	"keywords": [
+		"Download\/URL"
+	],
+	"proprietary": "",
+	"github": "mirror\/wget",
+	"category": "Utils",
+	"version": "1.25.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

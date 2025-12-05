@@ -1,0 +1,73 @@
+{
+	"module": "frp",
+	"name": "frp",
+	"title": "Reverse Proxy",
+	"ai": false,
+	"description": "A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.",
+	"keywords": [
+		"Proxy",
+		"Reverse",
+		"NAT",
+		"Tunnel"
+	],
+	"proprietary": "Ngrok",
+	"github": "fatedier\/frp",
+	"category": "Backend",
+	"version": "v0.63.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9418,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 7400,
+				"path": "\/"
+			}
+		],
+		"bindingPort": 7000,
+		"services": {
+			"http": {
+				"type": "http",
+				"enabled": true,
+				"localPort": 80
+			},
+			"https": {
+				"type": "https",
+				"enabled": true,
+				"localPort": 443
+			},
+			"ssh": {
+				"type": "tcp",
+				"enabled": false,
+				"localPort": 22
+			},
+			"mail": {
+				"type": "tcp",
+				"enabled": true,
+				"localPort": 25
+			},
+			"smtp": {
+				"type": "tcp",
+				"enabled": false,
+				"localPort": 465
+			},
+			"pop3": {
+				"type": "tcp",
+				"enabled": false,
+				"localPort": 995
+			},
+			"imap": {
+				"type": "tcp",
+				"enabled": false,
+				"localPort": 993
+			}
+		}
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"module": "superset",
+	"name": "Superset",
+	"title": "Data Visualization",
+	"ai": false,
+	"description": "A modern data exploration and visualization platform.",
+	"keywords": [
+		"Data",
+		"Visualization",
+		"BI",
+		"Analytics"
+	],
+	"proprietary": "Tableau",
+	"github": "apache\/superset",
+	"category": "Productivity",
+	"version": "5.0.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9475
+	}
+}

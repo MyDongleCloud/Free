@@ -1,0 +1,23 @@
+{
+	"module": "imagemagick",
+	"name": "ImageMagick",
+	"title": "Image Editor",
+	"ai": false,
+	"description": "A software suite to create, edit, compose, or convert images in any format.",
+	"keywords": [
+		"Image",
+		"Editing",
+		"Conversion",
+		"Graphics"
+	],
+	"proprietary": "Adobe Photoshop",
+	"github": "ImageMagick\/ImageMagick",
+	"category": "Utils",
+	"version": "7.1.1.43",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

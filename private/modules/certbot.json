@@ -1,0 +1,23 @@
+{
+	"module": "certbot",
+	"name": "Certbot",
+	"title": "HTTPS Certificate",
+	"ai": false,
+	"description": "A tool to obtain certs from Let's Encrypt on your server.",
+	"keywords": [
+		"HTTPS",
+		"SSL",
+		"Certificates",
+		"Automation"
+	],
+	"proprietary": "DigiCert CertCentral",
+	"github": "certbot\/certbot",
+	"category": "Utils",
+	"version": "4.0.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"module": "systeminformation",
+	"name": "Systeminformation",
+	"title": "Stats Library",
+	"ai": false,
+	"description": "A system Information Library.",
+	"keywords": [
+		"Stats Library"
+	],
+	"proprietary": "",
+	"github": "sebhildebrandt\/systeminformation",
+	"category": "Backend",
+	"version": "v5.27.11",
+	"installMethod": "clone",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

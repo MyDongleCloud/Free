@@ -1,0 +1,23 @@
+{
+	"module": "gcc",
+	"name": "GCC",
+	"title": "GNU Compiler",
+	"ai": false,
+	"description": "A GNU Compiler Collection.",
+	"keywords": [
+		"Compiler",
+		"GNU",
+		"C",
+		"C++"
+	],
+	"proprietary": "Intel C++ Compiler",
+	"github": "gcc-mirror\/gcc",
+	"category": "Developer",
+	"version": "14.2.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

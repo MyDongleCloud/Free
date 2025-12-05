@@ -1,0 +1,27 @@
+{
+	"module": "mysql",
+	"name": "MySQL",
+	"title": "MySQL Database",
+	"ai": false,
+	"description": "A transactional relational database management system.",
+	"keywords": [
+		"Database",
+		"RDBMS",
+		"SQL",
+		"MySQL"
+	],
+	"proprietary": "Oracle Database",
+	"github": "mysql\/mysql-server",
+	"category": "Developer",
+	"version": "8.0.43",
+	"installMethod": "deb",
+	"web": false,
+	"finished": true,
+	"default": {
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true,
+		"setupPriority": true,
+		"config": true
+	}
+}

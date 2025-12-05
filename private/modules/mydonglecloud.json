@@ -1,0 +1,39 @@
+{
+	"module": "mydonglecloud",
+	"name": "MyDongle.Cloud",
+	"title": "MyDongle.Cloud App",
+	"ai": false,
+	"description": "The application to manage MyDongle.Cloud.",
+	"keywords": [
+		"MyDongle",
+		"Cloud"
+	],
+	"proprietary": "",
+	"github": "MyDongleCloud\/free",
+	"category": "Utils",
+	"version": "2025-11-11",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"enabledUnalterable": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9400,
+		"path": "\/usr\/local\/modules\/mydonglecloud\/web",
+		"addLineInDirectory": "RewriteBase \/\n\t\tRewriteRule ^index\\.html$ - [L]\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule . \/index.html [L]",
+		"reverseProxy": [
+			{
+				"type": "ws",
+				"port": 8094,
+				"path": "\/ws"
+			}
+		],
+		"alias": [
+			"app"
+		]
+	}
+}

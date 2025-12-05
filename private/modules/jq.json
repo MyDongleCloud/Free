@@ -1,0 +1,23 @@
+{
+	"module": "jq",
+	"name": "jq",
+	"title": "JSON parser",
+	"ai": false,
+	"description": "A command-line parser for json files.",
+	"keywords": [
+		"JSON",
+		"File",
+		"Parser",
+		"Config"
+	],
+	"proprietary": "",
+	"github": "jqlang\/jq",
+	"category": "Utils",
+	"version": "1.7.1",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

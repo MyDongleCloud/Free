@@ -1,0 +1,35 @@
+{
+	"module": "mantisbugtracker",
+	"name": "Mantis Bug Tracker",
+	"title": "Bug Tracker",
+	"ai": false,
+	"description": "A web-based bug tracking system.",
+	"keywords": [
+		"Bug",
+		"Tracker",
+		"Web",
+		"Issue"
+	],
+	"proprietary": "Jira",
+	"github": "mantisbt\/mantisbt",
+	"category": "Developer",
+	"version": "release-2.27.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
+		"reset": true,
+		"config": true,
+		"addConfig": "<Directory \/usr\/local\/modules\/mantisbugtracker\/admin>\n\t\tRequire all denied\n\t<\/Directory>",
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9438
+	}
+}

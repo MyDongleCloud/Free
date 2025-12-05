@@ -1,0 +1,23 @@
+{
+	"module": "java",
+	"name": "Java",
+	"title": "Java Language",
+	"ai": false,
+	"description": "A general-purpose programming language designed for portability and security.",
+	"keywords": [
+		"Programming",
+		"Language",
+		"JVM",
+		"OOP"
+	],
+	"proprietary": "Oracle JDK",
+	"github": "openjdk\/jdk",
+	"category": "Developer",
+	"version": "21.0.9",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,40 @@
+{
+	"module": "zigbee2mqtt",
+	"name": "Zigbee2MQTT",
+	"title": "Zigbee MQTT Bridge",
+	"ai": false,
+	"description": "A Zigbee to MQTT bridge to get rid of your proprietary Zigbee bridges.",
+	"keywords": [
+		"Zigbee",
+		"MQTT",
+		"Bridge",
+		"IoT"
+	],
+	"proprietary": "Philips Hue Bridge",
+	"github": "Koenkk\/zigbee2mqtt",
+	"category": "Personal",
+	"version": "2.5.1",
+	"installMethod": "npm",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9490,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8095,
+				"path": "\/"
+			},
+			{
+				"type": "ws",
+				"port": 8095,
+				"path": "\/api"
+			}
+		]
+	}
+}

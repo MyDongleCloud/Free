@@ -48,11 +48,11 @@ filterCards() {
 	this.filteredCards = this.cards.filter(card => {
 		if (this.showTerminal == false && card.web == false)
 			return false;
-		if (this.showDone == false && card.status == "done")
+		if (this.showDone == false && card.finished)
 			return false;
-		if (this.showNotDone == false && card.status != "done")
+		if (this.showNotDone == false && !card.finished)
 			return false;
-		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term));
+		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
 		return this.category == "All" ? ret : this.category == "ai" ? (ret && card.ai) : (ret && card.category.includes(this.category));
 	});
 	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);

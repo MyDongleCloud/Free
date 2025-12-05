@@ -1,0 +1,23 @@
+{
+	"module": "cmake",
+	"name": "CMake",
+	"title": "Advanced Build",
+	"ai": false,
+	"description": "A Cross-platform open-source build system.",
+	"keywords": [
+		"Build",
+		"System",
+		"Cross-platform",
+		"Automation"
+	],
+	"proprietary": "Microsoft Visual Studio",
+	"github": "Kitware\/CMake",
+	"category": "Developer",
+	"version": "3.31.6",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

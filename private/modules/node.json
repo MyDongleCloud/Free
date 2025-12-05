@@ -1,0 +1,23 @@
+{
+	"module": "node",
+	"name": "Node.js",
+	"title": "JavaScript Runtime",
+	"ai": false,
+	"description": "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
+	"keywords": [
+		"JavaScript",
+		"Runtime",
+		"V8",
+		"Server"
+	],
+	"proprietary": "",
+	"github": "nodejs\/node",
+	"category": "Developer",
+	"version": "v22.21.1",
+	"installMethod": "tar",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

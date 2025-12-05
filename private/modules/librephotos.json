@@ -1,0 +1,27 @@
+{
+	"module": "librephotos",
+	"name": "LibrePhotos",
+	"title": "Photos Management",
+	"ai": false,
+	"description": "A photo management service.",
+	"keywords": [
+		"Photos",
+		"Alternative",
+		"Gallery"
+	],
+	"proprietary": "Google Photos",
+	"github": "LibrePhotos\/librephotos",
+	"category": "Personal",
+	"version": "HEAD",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9433
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"module": "lvgl",
+	"name": "LVGL",
+	"title": "Embedded UI",
+	"ai": false,
+	"description": "An embedded graphics library to create beautiful UIs for any MCU, MPU and display type.",
+	"keywords": [
+		"UI",
+		"Manager"
+	],
+	"proprietary": "",
+	"github": "lvgl\/lvgl",
+	"category": "Backend",
+	"version": "a78c4a476ebc58f5",
+	"installMethod": "clone",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"module": "bugzilla",
+	"name": "Bugzilla",
+	"title": "Bug Tracking",
+	"ai": false,
+	"description": "A Web-based general-purpose bugtracker and testing tool.",
+	"keywords": [
+		"Bug",
+		"Tracker",
+		"Testing",
+		"Web"
+	],
+	"proprietary": "Jira",
+	"github": "bugzilla\/bugzilla",
+	"category": "Developer",
+	"version": "5.3.3",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true,
+		"reset": true,
+		"config": true,
+		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
+		"FollowSymLinks": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9405
+	}
+}

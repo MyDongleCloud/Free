@@ -1,0 +1,28 @@
+{
+	"module": "iopaint",
+	"name": "IOPaint",
+	"title": "AI Image",
+	"ai": true,
+	"description": "An image inpainting tool powered by AI models to remove or replace anything on pictures.",
+	"keywords": [
+		"Image",
+		"Inpainting",
+		"AI",
+		"Editing"
+	],
+	"proprietary": "Adobe Photoshop",
+	"github": "Sanster\/IOPaint",
+	"category": "Utils",
+	"version": "iopaint-1.5.3",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9425
+	}
+}

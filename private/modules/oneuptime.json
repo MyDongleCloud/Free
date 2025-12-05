@@ -1,0 +1,25 @@
+{
+	"module": "oneuptime",
+	"name": "OneUptime",
+	"title": "Monitor",
+	"ai": false,
+	"description": "A complete open-source monitoring and observability platform.",
+	"keywords": [
+		"Monitor"
+	],
+	"proprietary": "",
+	"github": "OneUptime\/oneuptime",
+	"category": "Utils",
+	"version": "v4.0.0.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9449
+	}
+}

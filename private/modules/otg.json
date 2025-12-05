@@ -1,0 +1,32 @@
+{
+	"module": "otg",
+	"name": "uMTP-Responder",
+	"title": "OTG Files",
+	"ai": false,
+	"description": "A manager for USB OTG file service.",
+	"keywords": [
+		"MTP",
+		"Protocol",
+		"Media",
+		"Transfer"
+	],
+	"proprietary": "",
+	"github": "viveris\/uMTP-Responder",
+	"category": "Utils",
+	"version": "1.6.8",
+	"installMethod": "clone",
+	"web": false,
+	"finished": true,
+	"default": {
+		"enabled": "true",
+		"features": [
+			"serial",
+			"mtp"
+		],
+		"mtp": {
+			"show_hidden_files": true,
+			"path": "\/disk\/admin",
+			"rights": "rw"
+		}
+	}
+}

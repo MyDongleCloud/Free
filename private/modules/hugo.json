@@ -1,0 +1,23 @@
+{
+	"module": "hugo",
+	"name": "Hugo",
+	"title": "Static Site",
+	"ai": false,
+	"description": "A fast and modern static site generator.",
+	"keywords": [
+		"Static",
+		"Site",
+		"Generator",
+		"Web"
+	],
+	"proprietary": "Squarespace",
+	"github": "gohugoio\/hugo",
+	"category": "Developer",
+	"version": "0.131.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

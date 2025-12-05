@@ -1,0 +1,25 @@
+{
+	"module": "acmejs",
+	"name": "ACME.js",
+	"title": "JavaScript ACME",
+	"ai": false,
+	"description": "A JavaScript ACME client for Let's Encrypt.",
+	"keywords": [
+		"ACME",
+		"LetsEncrypt",
+		"SSL",
+		"TLS",
+		"JavaScript",
+		"Certificates"
+	],
+	"proprietary": "Sectigo",
+	"github": "therootcompany\/acme.js",
+	"category": "Backend",
+	"version": "3.1.0",
+	"installMethod": "npm",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

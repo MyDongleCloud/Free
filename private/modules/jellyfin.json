@@ -1,0 +1,27 @@
+{
+	"module": "jellyfin",
+	"name": "Jellyfin",
+	"title": "Media Streaming",
+	"ai": false,
+	"description": "A software system to manage and stream media.",
+	"keywords": [
+		"Media",
+		"Streaming",
+		"Video"
+	],
+	"proprietary": "Plex|Emby",
+	"github": "jellyfin\/jellyfin",
+	"category": "Personal",
+	"version": "v10.10.7",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9427
+	}
+}

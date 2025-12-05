@@ -1,0 +1,28 @@
+{
+	"module": "unmanic",
+	"name": "Unmanic",
+	"title": "Media Library",
+	"ai": false,
+	"description": "A library optimizer for removing unused metadata from media files.",
+	"keywords": [
+		"Media",
+		"Optimizer",
+		"Metadata",
+		"Library"
+	],
+	"proprietary": "",
+	"github": "Unmanic\/unmanic",
+	"category": "Utils",
+	"version": "HEAD",
+	"installMethod": "pip",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9481
+	}
+}

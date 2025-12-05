@@ -1,0 +1,35 @@
+{
+	"module": "webtrees",
+	"name": "webtrees",
+	"title": "Genealogy",
+	"ai": false,
+	"description": "A genealogy application.",
+	"keywords": [
+		"Genealogy",
+		"Family",
+		"Tree",
+		"Web"
+	],
+	"proprietary": "Ancestry.com",
+	"github": "fisharebest\/webtrees",
+	"category": "Personal",
+	"version": "2.1.25",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
+		"setupRoot": true,
+		"reset": true,
+		"config": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9484
+	}
+}

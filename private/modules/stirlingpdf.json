@@ -1,0 +1,35 @@
+{
+	"module": "stirlingpdf",
+	"name": "Stirling-PDF",
+	"title": "PDF Manipulation Tool",
+	"ai": false,
+	"description": "A web-based PDF manipulation tool.",
+	"keywords": [
+		"PDF",
+		"Tool",
+		"Web",
+		"Manipulation"
+	],
+	"proprietary": "Adobe Acrobat",
+	"github": "Stirling-Tools\/Stirling-PDF",
+	"category": "Utils",
+	"version": "v1.0.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9473,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8096,
+				"path": "\/"
+			}
+		]
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"module": "sonarr",
+	"name": "Sonarr",
+	"title": "Smart PVR",
+	"ai": false,
+	"description": "A smart PVR for newsgroup and bittorrent users.",
+	"keywords": [
+		"PVR",
+		"TV",
+		"Manager",
+		"Automation"
+	],
+	"proprietary": "Plex",
+	"github": "Sonarr\/Sonarr",
+	"category": "Personal",
+	"version": "v4.0.15.2941",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9472
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"module": "karakeep",
+	"name": "Karakeep",
+	"title": "Bookmarks",
+	"ai": false,
+	"description": "A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search.",
+	"keywords": [
+		"Bookmark",
+		"Manager"
+	],
+	"proprietary": "",
+	"github": "karakeep-app\/karakeep",
+	"category": "Personal",
+	"version": "v0.26.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9432
+	}
+}

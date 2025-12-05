@@ -1,0 +1,23 @@
+{
+	"module": "pymcuprog",
+	"name": "pymcuprog",
+	"title": "Microchip Programmer",
+	"ai": false,
+	"description": "A Python library for programming Microchip microcontrollers.",
+	"keywords": [
+		"Microchip",
+		"Programming",
+		"Python",
+		"Microcontroller"
+	],
+	"proprietary": "MPLAB X IDE",
+	"github": "microchip-pic-avr-tools\/pymcuprog",
+	"category": "Developer",
+	"version": "HEAD",
+	"installMethod": "clone",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

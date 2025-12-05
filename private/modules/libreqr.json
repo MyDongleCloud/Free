@@ -1,0 +1,28 @@
+{
+	"module": "libreqr",
+	"name": "Libreqr",
+	"title": "Advanced QR Code",
+	"ai": false,
+	"description": "A tool for generating and managing QR codes.",
+	"keywords": [
+		"QR",
+		"Code",
+		"Generator",
+		"Utility"
+	],
+	"proprietary": "QR Code Generator",
+	"github": "",
+	"category": "Utils",
+	"version": "2.0.1",
+	"installMethod": "git",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9435
+	}
+}

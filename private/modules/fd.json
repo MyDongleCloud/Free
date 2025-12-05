@@ -1,0 +1,23 @@
+{
+	"module": "fd",
+	"name": "fd",
+	"title": "Advanced Find",
+	"ai": false,
+	"description": "A simple, fast and user-friendly alternative to 'find'.",
+	"keywords": [
+		"Find",
+		"Files",
+		"Folders",
+		"Disk"
+	],
+	"proprietary": "",
+	"github": "sharkdp\/fd",
+	"category": "Utils",
+	"version": "10.2.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

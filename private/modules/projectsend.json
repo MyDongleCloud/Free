@@ -1,0 +1,35 @@
+{
+	"module": "projectsend",
+	"name": "ProjectSend",
+	"title": "File Sharing",
+	"ai": false,
+	"description": "A tool to share files with clients, focused on ease of use and privacy.",
+	"keywords": [
+		"File",
+		"Sharing",
+		"Upload"
+	],
+	"proprietary": "Dropbox",
+	"github": "projectsend\/projectsend",
+	"category": "Productivity",
+	"version": "r1720",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
+		"setupRoot": true,
+		"reset": true,
+		"config": true,
+		"FollowSymLinks": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9463
+	}
+}

@@ -1,0 +1,45 @@
+{
+	"module": "webssh2",
+	"name": "WebSSH2",
+	"title": "SSH",
+	"ai": false,
+	"description": "A web SSH Client in a browser.",
+	"keywords": [
+		"SSH",
+		"Web",
+		"Terminal",
+		"Client"
+	],
+	"proprietary": "",
+	"github": "billchurch\/webssh2",
+	"category": "Utils",
+	"version": "v2.3.4",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9483,
+		"alias": [
+			"ssh"
+		],
+		"addConfig": "Alias \/access \/usr\/local\/modules\/webssh2\/access\n\t<Directory \/usr\/local\/modules\/webssh2\/access>\n\t\tRequire all granted\n\t<\/Directory>\n\tProxyPass \/access !",
+		"homepage": "\/access",
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 2222,
+				"path": "\/"
+			},
+			{
+				"type": "ws",
+				"port": 2222,
+				"path": "\/ssh\/socket\\.io"
+			}
+		]
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"module": "php",
+	"name": "PHP",
+	"title": "PHP Language",
+	"ai": false,
+	"description": "A popular general-purpose scripting language.",
+	"keywords": [
+		"Scripting",
+		"Language",
+		"Web",
+		"PHP"
+	],
+	"proprietary": "Zend PHP",
+	"github": "php\/php-src",
+	"category": "Developer",
+	"version": "8.4.11",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

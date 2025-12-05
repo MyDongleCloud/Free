@@ -1,0 +1,27 @@
+{
+	"module": "palmr",
+	"name": "Palmr",
+	"title": "File Sharing",
+	"ai": false,
+	"description": "A file-sharing platform focused on privacy and security to upload, manage, and share files.",
+	"keywords": [
+		"File",
+		"Sharing",
+		"Upload"
+	],
+	"proprietary": "",
+	"github": "kyantech\/Palmr",
+	"category": "Utils",
+	"version": "v3.2.5-beta",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9453
+	}
+}

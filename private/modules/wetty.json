@@ -1,0 +1,28 @@
+{
+	"module": "wetty",
+	"name": "WeTTY",
+	"title": "Terminal",
+	"ai": false,
+	"description": "A tool to access terminal in a browser.",
+	"keywords": [
+		"SSH",
+		"Web",
+		"Terminal",
+		"Client"
+	],
+	"proprietary": "",
+	"github": "butlerx\/wetty",
+	"category": "Utils",
+	"version": "v2.7.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9485
+	}
+}

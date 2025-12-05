@@ -1,0 +1,29 @@
+{
+	"module": "phplist",
+	"name": "phpList",
+	"title": "Newsletter",
+	"ai": false,
+	"description": "A newsletter manager.",
+	"keywords": [
+		"Newsletter",
+		"Email",
+		"Manager",
+		"Marketing"
+	],
+	"proprietary": "Mailchimp",
+	"github": "phpList\/core",
+	"category": "Productivity",
+	"version": "3.6.16",
+	"installMethod": "wget",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9459,
+		"path": "\/usr\/local\/modules\/phplist\/public_html"
+	}
+}

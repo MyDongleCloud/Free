@@ -1,0 +1,27 @@
+{
+	"module": "ittools",
+	"name": "IT-Tools",
+	"title": "Handy IT Tools",
+	"ai": false,
+	"description": "A collection of handy online tools for developers.",
+	"keywords": [
+		"IT",
+		"Tools",
+		"Management"
+	],
+	"proprietary": "",
+	"github": "CorentinTh\/it-tools",
+	"category": "Developer",
+	"version": "",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9426
+	}
+}

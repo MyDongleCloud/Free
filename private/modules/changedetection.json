@@ -1,0 +1,28 @@
+{
+	"module": "changedetection",
+	"name": "ChangeDetection",
+	"title": "Change Tracker",
+	"ai": false,
+	"description": "A tool for tracking changes on web pages.",
+	"keywords": [
+		"Change",
+		"Detection",
+		"Web",
+		"Tracking"
+	],
+	"proprietary": "Visualping",
+	"github": "dgtlmoon\/changedetection.io",
+	"category": "Productivity",
+	"version": "0.50.7",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9406
+	}
+}

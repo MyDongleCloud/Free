@@ -1,0 +1,33 @@
+{
+	"module": "cockpit",
+	"name": "Cockpit",
+	"title": "Server Health",
+	"ai": false,
+	"description": "A server health suite with graphical interface.",
+	"keywords": [
+		"Server",
+		"Health"
+	],
+	"proprietary": "",
+	"github": "cockpit-project\/cockpit",
+	"category": "Backend",
+	"version": "337",
+	"installMethod": "apt",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 9090,
+				"path": "\/"
+			}
+		],
+		"localPort": 9407
+	}
+}

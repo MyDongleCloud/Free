@@ -1,0 +1,23 @@
+{
+	"module": "ffmpeg",
+	"name": "FFmpeg",
+	"title": "Audio Video",
+	"ai": false,
+	"description": "A complete solution to record, convert and stream audio and video.",
+	"keywords": [
+		"Video",
+		"Audio",
+		"Streaming",
+		"Conversion"
+	],
+	"proprietary": "Adobe Media Encoder",
+	"github": "FFmpeg\/FFmpeg",
+	"category": "Utils",
+	"version": "7.1.2",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"module": "clang",
+	"name": "Clang",
+	"title": "C Compiler",
+	"ai": false,
+	"description": "A C language family frontend for LLVM.",
+	"keywords": [
+		"Compiler",
+		"C",
+		"LLVM",
+		"Frontend"
+	],
+	"proprietary": "Microsoft Visual C++",
+	"github": "llvm\/llvm-project",
+	"category": "Developer",
+	"version": "19.1.7",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

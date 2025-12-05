@@ -1,0 +1,23 @@
+{
+	"module": "kernel",
+	"name": "Linux kernel",
+	"title": "Linux Kernel",
+	"ai": false,
+	"description": "A Linux kernel for various architectures.",
+	"keywords": [
+		"Linux",
+		"Kernel",
+		"OS",
+		"Source"
+	],
+	"proprietary": "Microsoft Windows",
+	"github": "torvalds\/linux",
+	"category": "Backend",
+	"version": "6.12.47",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"module": "markdowneditor",
+	"name": "Markdown Editor",
+	"title": "Markdown Editor",
+	"ai": false,
+	"description": "An editor for Markdown files.",
+	"keywords": [
+		"Markdown",
+		"Editor",
+		"Live",
+		"Writing"
+	],
+	"proprietary": "Typora",
+	"github": "jbt\/markdown-editor",
+	"category": "Developer",
+	"version": "v2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9439
+	}
+}

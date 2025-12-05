@@ -1,0 +1,23 @@
+{
+	"module": "dovecot",
+	"name": "Dovecot",
+	"title": "Mail Server",
+	"ai": false,
+	"description": "A secure IMAP and POP3 email server.",
+	"keywords": [
+		"Email",
+		"Imap",
+		"Pop",
+		"Server"
+	],
+	"proprietary": "Microsoft Exchange",
+	"github": "dovecot\/core",
+	"category": "Essential",
+	"version": "2.4.1",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

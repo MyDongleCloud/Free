@@ -1,0 +1,23 @@
+{
+	"module": "make",
+	"name": "Make",
+	"title": "Build Automation",
+	"ai": false,
+	"description": "An utility for maintaining groups of programs from source code.",
+	"keywords": [
+		"Build",
+		"Automation",
+		"Compilation",
+		"Utility"
+	],
+	"proprietary": "Apache Ant",
+	"github": "mirror\/make",
+	"category": "Developer",
+	"version": "4.4.1",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"module": "nmap",
+	"name": "Nmap",
+	"title": "Network Analyzer",
+	"ai": false,
+	"description": "A network mapper tool to test networking.",
+	"keywords": [
+		"Network",
+		"Tester"
+	],
+	"proprietary": "",
+	"github": "nmap\/nmap",
+	"category": "Utils",
+	"version": "7.95",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

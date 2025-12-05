@@ -1,7 +1,6 @@
 <?php
-function gc($a) {
-	global $modules;
-	return array_search($a, explode(";", $modules[0]));
+function store($p, $o) {
+	file_put_contents(__DIR__ . $p, str_replace("\\/", "/", str_replace("    ", "\t", json_encode($o, JSON_PRETTY_PRINT))));
 }
 
 if (PHP_SAPI !== "cli")
@@ -10,73 +9,66 @@ $pathkey = __DIR__ . "/password-githubkey.txt";
 $h = fopen($pathkey, "r");
 $githubAPIKey = fread($h, filesize($pathkey));
 fclose($h);
-$pathname = __DIR__ . "/modules.csv";
-$h = fopen($pathname, "r");
-$data = fread($h, filesize($pathname));
-$modules = explode("\n", $data);
-fclose($h);
+$modulesPath = __DIR__ . "/modules";
+$files = scandir($modulesPath);
 $starsTotal = 0;
+$modulesDefault = array();
 $modulesMeta = array();
 $modulesTranslationTitle = array();
 $modulesTranslationDescription = array();
 $modulesMarkdown = array();
+$modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
+$modulesMarkdownFooter="\n||||" . number_format(intval($starsTotal / 1000 / 1000), 2) . "M ⭐|||";
 $modulesKeywords = array();
-for ($i = 1; $i < count($modules); $i++) {
-	$stars = 0;
-	if (strlen($modules[$i]) == 0)
+$count = 0;
+foreach ($files as $file) {
+    $fullPath = $modulesPath . "/" . $file;
+	if ($file == "." || $file == ".." || is_dir($fullPath))
 		continue;
-	$m = explode(";", $modules[$i]);
-	echo $m[0] . "\n";
-	$github = array();
-	if ($m[gc("github")] != "") {
+	$h = fopen($fullPath, "r");
+	$data = fread($h, filesize($fullPath));
+	$module = json_decode($data, true);
+	$name = $module["module"];
+	echo $name . ", ";
+	fclose($h);
+	if ($module["github"] != "") {
 		$headers = array("Accept: application/json", "Authorization: Bearer " . $githubAPIKey, "X-GitHub-Api-Version: 2022-11-28", "User-Agent: MyDongleCloud");
-		$ch = curl_init("https://api.github.com/repos/" . $m[gc("github")]);
+		$ch = curl_init("https://api.github.com/repos/" . $module["github"]);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$resp = curl_exec($ch);
 		curl_close($ch);
 		$github = json_decode($resp, true);
-		//$posgh = gc("github");
-		//$m[$posgh + 1] = intval($github["stargazers_count"]);
-		//$m[$posgh + 2] = str_replace(";", " ", $github["license"]["name"]);
-		//$m[$posgh + 3] = str_replace(";", " ", $github["description"]);
-		//$stars = intval($github["stargazers_count"]);
 		$starsTotal += intval($github["stargazers_count"]);
+		$module["githubStars"] = intval($github["stargazers_count"] ?? 0);
+		$module["githubLicense"] = $github["license"]["name"] ?? "";
+		$module["githubDescription"] = $github["description"] ?? "";
+		$module["githubLanguage"] = $github["language"] ?? "";
 	}
-	$modules[$i] = implode(";", $m);
-	$modulesMeta[$m[0]] = array(
-		"module" => $m[gc("module")],
-		"name" => $m[gc("name")],
-		"title" => $m[gc("title")],
-		"category" => $m[gc("category")],
-		"ai" => $m[gc("ai")] === "yes",
-		"web" => $m[gc("web")] === "yes",
-		"status" => $m[gc("status")],
-		"installMethod" => $m[gc("installMethod")],
-		"version" => $m[gc("version")],
-		"description" => $m[gc("description")],
-		"keywords" => empty($m[gc("keywords")]) ? array() : explode("|", $m[gc("keywords")]),
-		"proprietary" => empty($m[gc("proprietary")]) ? array() : explode("|", $m[gc("proprietary")]),
-		"githubUrl" => $m[gc("github")],
-		"githubStars" => intval($github["stargazers_count"] ?? 0),
-		"githubLicense" => $github["license"]["name"] ?? "",
-		"githubDescription" => $github["description"] ?? "",
-		"githubLanguage" => $github["language"] ?? "",
-	);
-	$modulesTranslationTitle[$m[gc("title")]] = "";
-	$modulesTranslationDescription[$m[gc("description")]] = "";
-	$modulesMarkdown[$i] = "|" . implode("|", array($m[gc("github")] != "" ? ("[" . $m[gc("name")] . "](https://github.com/" . $m[gc("github")] . ")") : $m[gc("name")], $m[gc("title")], $m[gc("description")], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $m[gc("web")] === "yes" ? "web" : "terminal", $m[gc("category")], $m[gc("version")])) . "|";
-	$modulesMarkdown[$i] = str_replace("0.0k", "", $modulesMarkdown[$i]);
-	$modulesKeywords = array_merge($modulesKeywords, array_fill_keys(explode("|", $m[gc("keywords")]), ""));
+	$modulesDefault[$name] = $module["default"];
+	$modulesKeywords =  array_merge($modulesKeywords, $module["keywords"]);
+	unset($module["default"]);
+	$modulesMeta[$name] = $module;
+	$modulesTranslationTitle[$module["title"]] = "";
+	$modulesTranslationDescription[$module["description"]] = "";
+	$modulesMarkdown[$count] = "|" . implode("|", array($module["github"] != "" ? ("[" . $module["name"] . "](https://github.com/" . $module["github"] . ")") : $module["name"], $module["title"], $module["description"], "" . number_format(intval($github["stargazers_count"] ?? 0) / 1000, 1) . "k", $module["web"] ? "web" : "terminal", $module["category"], $module["version"])) . "|";
+	$modulesMarkdown[$count] = str_replace("0.0k", "", $modulesMarkdown[$count]);
+	$count++;
 }
-echo "Github stars: " . $starsTotal . "\n";
+echo "\nGithub stars: " . $starsTotal . "\n";
+foreach ($files as $file) {
+    $fullPath = $modulesPath . "/" . $file;
+	if ($file == "." || $file == ".." || is_dir($fullPath))
+		continue;
+	if (!file_exists($modulesPath . "/icons/" . str_replace(".json", ".png", $file)))
+		echo "File " . $fullPath . " doesn't exist\n";
+}
 if (!is_dir(__DIR__ . "/../build"))
 	mkdir(__DIR__ . "/../build");
-file_put_contents(__DIR__ . "/../build/modulesmeta.json", str_replace("    ", "\t", json_encode($modulesMeta, JSON_PRETTY_PRINT)));
-$modulesTranslation = array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription));
-file_put_contents(__DIR__ . "/../client/src/assets/i18n/modules-en.json", str_replace("    ", "\t", json_encode($modulesTranslation, JSON_PRETTY_PRINT)));
-$modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
-$modulesMarkdownFooter="||||" . number_format(intval($starsTotal / 1000 / 1000), 2) . "M ⭐|||";
-file_put_contents(__DIR__ . "/../build/README-modules.md", $modulesMarkdownHeader . implode("\n",$modulesMarkdown));
-file_put_contents(__DIR__ . "/../client/src/assets/i18n/keywords-en.json", str_replace("    ", "\t", json_encode(array("keywords" => $modulesKeywords), JSON_PRETTY_PRINT)));
+store("/../build/modulesmeta.json", $modulesMeta);
+store("/../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json", $modulesDefault);
+store("/../client/src/assets/i18n/modules-en.json", array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription)));
+store("/../client/src/assets/i18n/keywords-en.json", array("keywords" => $modulesKeywords));
+file_put_contents(__DIR__ . "/../build/README-modules.md", $modulesMarkdownHeader . implode("\n", $modulesMarkdown) . $modulesMarkdownFooter);
+system("rm -rf " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/reset/; cp -a " . __DIR__ . "/modules/reset/ " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/");
 ?>

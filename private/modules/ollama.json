@@ -1,0 +1,23 @@
+{
+	"module": "ollama",
+	"name": "Ollama",
+	"title": "Chatbot backend",
+	"ai": true,
+	"description": "A platform to get up and running with large language models locally.",
+	"keywords": [
+		"LLM",
+		"Local",
+		"AI",
+		"Language"
+	],
+	"proprietary": "",
+	"github": "ollama\/ollama",
+	"category": "Utils",
+	"version": "v0.9.7-rc1",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
+	"default": {
+		"cmds": []
+	}
+}

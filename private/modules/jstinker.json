@@ -1,0 +1,27 @@
+{
+	"module": "jstinker",
+	"name": "JSTinker",
+	"title": "Javascript Sandbox",
+	"ai": false,
+	"description": "A sandbox for Javascript.",
+	"keywords": [
+		"Sandbox",
+		"Editor",
+		"Online"
+	],
+	"proprietary": "JsFiddle",
+	"github": "johncipponeri\/jstinker",
+	"category": "Developer",
+	"version": "master",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9431
+	}
+}

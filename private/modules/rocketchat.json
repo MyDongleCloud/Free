@@ -1,0 +1,25 @@
+{
+	"module": "rocketchat",
+	"name": "Rocket.Chat",
+	"title": "Communication",
+	"ai": false,
+	"description": "A communications platform that puts data protection first.",
+	"keywords": [
+		"Communication"
+	],
+	"proprietary": "",
+	"github": "RocketChat\/Rocket.Chat",
+	"category": "Productivity",
+	"version": "7.12.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9468
+	}
+}

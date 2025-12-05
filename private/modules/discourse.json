@@ -1,0 +1,28 @@
+{
+	"module": "discourse",
+	"name": "Discourse",
+	"title": "Community Discussion",
+	"ai": false,
+	"description": "A civilized discussion platform for your community.",
+	"keywords": [
+		"Forum",
+		"Community",
+		"Discussion",
+		"Web"
+	],
+	"proprietary": "vBulletin",
+	"github": "discourse\/discourse",
+	"category": "Personal",
+	"version": "v3.4.6",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9412
+	}
+}

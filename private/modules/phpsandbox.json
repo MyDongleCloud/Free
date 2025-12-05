@@ -1,0 +1,28 @@
+{
+	"module": "phpsandbox",
+	"name": "PHPSandbox",
+	"title": "PHP Sanbox",
+	"ai": false,
+	"description": "A PHP-based sandboxing library with a full suite of configuration and validation options.",
+	"keywords": [
+		"PHP",
+		"Sandbox",
+		"Editor",
+		"Online"
+	],
+	"proprietary": "PHPFiddle",
+	"github": "Corveda\/PHPSandbox",
+	"category": "Developer",
+	"version": "v3.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9460
+	}
+}

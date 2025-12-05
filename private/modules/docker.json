@@ -1,0 +1,24 @@
+{
+	"module": "docker",
+	"name": "Docker",
+	"title": "Container",
+	"ai": false,
+	"description": "A platform for developing, shipping, and running applications in containers.",
+	"keywords": [
+		"Container",
+		"Virtualization",
+		"DevOps",
+		"Deployment",
+		"Orchestration"
+	],
+	"proprietary": "",
+	"github": "docker\/compose",
+	"category": "Developer",
+	"version": "29.0.0",
+	"installMethod": "apt (source)",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

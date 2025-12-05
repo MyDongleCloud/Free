@@ -1,0 +1,39 @@
+{
+	"module": "betterauthstudio",
+	"name": "Better Auth Studio",
+	"title": "Identity Management",
+	"ai": false,
+	"description": "A frontend for Better Auth, an authentication framework.",
+	"keywords": [
+		"Identity",
+		"Frontend",
+		"Users",
+		"Management"
+	],
+	"proprietary": "",
+	"github": "",
+	"category": "Backend",
+	"version": "1.0.25",
+	"installMethod": "npm",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"alias": [
+			"identities",
+			"identity"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9404,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 3002,
+				"path": "\/"
+			}
+		]
+	}
+}

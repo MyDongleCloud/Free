@@ -1,0 +1,28 @@
+{
+	"module": "phpbb",
+	"name": "phpBB",
+	"title": "Bulletin Board",
+	"ai": false,
+	"description": "A flat-forum bulletin board software solution.",
+	"keywords": [
+		"Forum",
+		"Bulletin",
+		"Board",
+		"Web"
+	],
+	"proprietary": "vBulletin",
+	"github": "phpbb\/phpbb",
+	"category": "Productivity",
+	"version": "release-3.3.15",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9458
+	}
+}

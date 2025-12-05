@@ -151,7 +151,7 @@ async getData() {
 filterCards() {
 	const term = this.searchTerm.toLowerCase();
 	this.filteredCards = this.cards.filter( card => {
-		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term));
+		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
 		return ret;
 	});
 	this.sortCards();

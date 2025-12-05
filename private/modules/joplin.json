@@ -1,0 +1,28 @@
+{
+	"module": "joplin",
+	"name": "Joplin",
+	"title": "Note Taking",
+	"ai": false,
+	"description": "A note taking and to-do application with synchronization capabilities.",
+	"keywords": [
+		"Notes",
+		"To-do",
+		"Sync",
+		"Markdown"
+	],
+	"proprietary": "Evernote|OneNote",
+	"github": "laurent22\/joplin",
+	"category": "Productivity",
+	"version": "server-v3.4.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9430
+	}
+}

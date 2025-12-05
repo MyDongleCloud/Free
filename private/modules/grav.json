@@ -1,0 +1,29 @@
+{
+	"module": "grav",
+	"name": "Grav",
+	"title": "Knowledege Site",
+	"ai": false,
+	"description": "Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File Content Management System.",
+	"keywords": [
+		"CMS",
+		"Flat-file",
+		"Web",
+		"Modern",
+		"Wiki"
+	],
+	"proprietary": "WordPress",
+	"github": "getgrav\/grav",
+	"category": "Productivity",
+	"version": "1.7.48",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9421
+	}
+}

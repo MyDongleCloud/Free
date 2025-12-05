@@ -1,0 +1,20 @@
+{
+	"module": "serverperformancestats",
+	"name": "Server Performance Stats",
+	"title": "Stats Script",
+	"ai": false,
+	"description": "A simple script file to check server performance and resources stats.",
+	"keywords": [
+		"Stats Script"
+	],
+	"proprietary": "",
+	"github": "janisadhi\/Server_Performance_Stats",
+	"category": "Utils",
+	"version": "HEAD",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"module": "angular",
+	"name": "Angular",
+	"title": "Web App Framework",
+	"ai": false,
+	"description": "A platform for building mobile and desktop web applications.",
+	"keywords": [
+		"Web",
+		"Framework",
+		"TypeScript",
+		"SPA"
+	],
+	"proprietary": "React",
+	"github": "angular\/angular",
+	"category": "Backend",
+	"version": "20.3.9",
+	"installMethod": "npm",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

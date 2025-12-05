@@ -1,0 +1,28 @@
+{
+	"module": "writefreely",
+	"name": "WriteFreely",
+	"title": "Mini Blogging",
+	"ai": false,
+	"description": "A clean inimalist, privacy-focused blogging platform.",
+	"keywords": [
+		"Blog",
+		"Privacy",
+		"Writing",
+		"Minimalist"
+	],
+	"proprietary": "Medium",
+	"github": "writefreely\/writefreely",
+	"category": "Personal",
+	"version": "v0.16.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9487
+	}
+}

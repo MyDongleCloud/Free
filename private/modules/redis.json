@@ -1,0 +1,22 @@
+{
+	"module": "redis",
+	"name": "Redis",
+	"title": "In-memory Data Server",
+	"ai": false,
+	"description": "A fast and feature-rich cache, data structure server, and document and vector query engine.",
+	"keywords": [
+		"Server",
+		"Data",
+		"Structure"
+	],
+	"proprietary": "",
+	"github": "redis\/redis",
+	"category": "Developer",
+	"version": "8.0.2",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"module": "golang",
+	"name": "Go",
+	"title": "Go Language",
+	"ai": false,
+	"description": "A programming language that makes it easy to build simple, reliable, and efficient software.",
+	"keywords": [
+		"Language",
+		"Programming",
+		"Go",
+		"Efficient"
+	],
+	"proprietary": "(No direct proprietary equivalent)",
+	"github": "golang\/go",
+	"category": "Developer",
+	"version": "1.24.4",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

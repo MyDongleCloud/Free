@@ -1,0 +1,23 @@
+{
+	"module": "ytdlp",
+	"name": "yt-dlp",
+	"title": "YouTube Downloader",
+	"ai": false,
+	"description": "A feature-rich command-line audio\/video downloader.",
+	"keywords": [
+		"YouTube",
+		"Download",
+		"GUI",
+		"Video"
+	],
+	"proprietary": "4K Video Downloader",
+	"github": "yt-dlp\/yt-dlp",
+	"category": "Utils",
+	"version": "2025.11.12",
+	"installMethod": "pip",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

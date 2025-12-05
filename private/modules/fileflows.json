@@ -1,0 +1,28 @@
+{
+	"module": "fileflows",
+	"name": "Fileflows",
+	"title": "File Automation",
+	"ai": false,
+	"description": "An automation platform for processing and managing files.",
+	"keywords": [
+		"Automation",
+		"File",
+		"Workflow",
+		"Processing"
+	],
+	"proprietary": "Zapier",
+	"github": "",
+	"category": "Utils",
+	"version": "",
+	"installMethod": "",
+	"web": true,
+	"finished": false,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9415
+	}
+}

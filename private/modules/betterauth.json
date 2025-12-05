@@ -1,0 +1,21 @@
+{
+	"module": "betterauth",
+	"name": "Better Auth",
+	"title": "Identity Backend",
+	"ai": false,
+	"description": "A comprehensive authentication framework for TypeScript.",
+	"keywords": [
+		"Identity",
+		"Backend"
+	],
+	"proprietary": "",
+	"github": "better-auth\/better-auth",
+	"category": "Backend",
+	"version": "1.3.27",
+	"installMethod": "npm",
+	"web": false,
+	"finished": true,
+	"default": {
+		"cmds": []
+	}
+}

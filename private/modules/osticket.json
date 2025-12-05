@@ -1,0 +1,39 @@
+{
+	"module": "osticket",
+	"name": "osTicket",
+	"title": "Support Ticket",
+	"ai": false,
+	"description": "A support ticketing ticket system.",
+	"keywords": [
+		"Ticket",
+		"Support",
+		"Helpdesk",
+		"Web"
+	],
+	"proprietary": "Zendesk",
+	"github": "osTicket\/osTicket",
+	"category": "Productivity",
+	"version": "v1.18.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
+		"reset": true,
+		"config": true,
+		"symlinks": true,
+		"alias": [
+			"helpdesk",
+			"support"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9452
+	}
+}
