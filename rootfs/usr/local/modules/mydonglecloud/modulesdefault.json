@@ -81,6 +81,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"setupRoot": true,
 		"reset": true,
 		"config": true,
@@ -164,6 +165,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"reset": true,
 		"symlinks": true,
 		"path": "/disk/admin/modules/docsify",
@@ -310,6 +312,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"reset": true,
 		"alias": [
 			"home"
@@ -379,6 +382,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"setupRoot": true,
 		"reset": true,
 		"permissions": [
@@ -432,6 +436,10 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [
+			"meilisearch",
+			"mongodb"
+		],
 		"reset": true,
 		"config": true,
 		"permissions": [
@@ -476,6 +484,9 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
 		"reset": true,
 		"config": true,
 		"addConfig": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
@@ -518,6 +529,7 @@
 	},
 	"meilisearch": {
 		"setup": true,
+		"setupDependencies": [],
 		"setupPriority": true,
 		"config": true
 	},
@@ -533,6 +545,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"reset": true,
 		"permissions": [
 			"_groupadmin_"
@@ -561,6 +574,7 @@
 	},
 	"mongodb": {
 		"setup": true,
+		"setupDependencies": [],
 		"setupRoot": true,
 		"setupPriority": true,
 		"config": true
@@ -589,6 +603,7 @@
 	},
 	"mysql": {
 		"setup": true,
+		"setupDependencies": [],
 		"setupRoot": true,
 		"setupPriority": true,
 		"config": true
@@ -656,6 +671,9 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
 		"reset": true,
 		"config": true,
 		"symlinks": true,
@@ -760,11 +778,13 @@
 	},
 	"postfix": {
 		"setup": true,
+		"setupDependencies": [],
 		"setupRoot": true,
 		"reset": true
 	},
 	"postgresql": {
 		"setup": true,
+		"setupDependencies": [],
 		"setupRoot": true,
 		"setupPriority": true,
 		"config": true
@@ -773,6 +793,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"setupRoot": true,
 		"reset": true,
 		"permissions": [
@@ -784,6 +805,9 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
 		"setupRoot": true,
 		"reset": true,
 		"config": true,
@@ -842,6 +866,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"reset": true,
 		"config": true,
 		"alias": [

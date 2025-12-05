@@ -62,6 +62,7 @@ void cloudSetup(cJSON *el) {
 	unlink(szPath);
 	free(post);
 	serviceAction("betterauth.service", "RestartUnit");
+#if 0
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
 	cJSON *elModule;
 	int i = 1;
@@ -73,7 +74,8 @@ void cloudSetup(cJSON *el) {
 		if (cJSON_HasObjectItem(elModule, "setup") && !cJSON_HasObjectItem(elModule, "setupPriority"))
 			setup(i, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"));
 		i++;
-	} 
+	}
+#endif
 	logicSetup(L("Finalization"), 100);
 	communicationString("{\"status\":2}");
 	cloudInit();
