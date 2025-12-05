@@ -1,27 +1,9 @@
 {
-	"acme": {},
-	"acmejs": {},
-	"angular": {},
-	"apache2": {
-		"web": true,
-		"enabled": true,
-		"setup": true,
-		"reset": true,
-		"permissions": [
-			"_public_"
-		],
-		"localPort": 80,
-		"updateRemoteIP": true,
-		"autoLogin": true,
-		"localRanges": [
-			"10",
-			"172.16",
-			"192.168"
-		],
-		"path": "/disk/admin/modules/apache2/www",
-		"alias": [
-			"www"
-		]
+	"acme": {
+		"cmds": []
+	},
+	"acmejs": {
+		"cmds": []
 	},
 	"adminer": {
 		"web": true,
@@ -42,6 +24,31 @@
 		],
 		"localPort": 9402
 	},
+	"angular": {
+		"cmds": []
+	},
+	"apache2": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [],
+		"reset": true,
+		"permissions": [
+			"_public_"
+		],
+		"localPort": 80,
+		"updateRemoteIP": true,
+		"autoLogin": true,
+		"localRanges": [
+			"10",
+			"172.16",
+			"192.168"
+		],
+		"path": "/disk/admin/modules/apache2/www",
+		"alias": [
+			"www"
+		]
+	},
 	"audiobookshelf": {
 		"web": true,
 		"enabled": true,
@@ -57,7 +64,9 @@
 			}
 		]
 	},
-	"betterauth": {},
+	"betterauth": {
+		"cmds": []
+	},
 	"betterauthstudio": {
 		"web": true,
 		"enabled": true,
@@ -92,8 +101,12 @@
 		],
 		"localPort": 9405
 	},
-	"busybox": {},
-	"certbot": {},
+	"busybox": {
+		"cmds": []
+	},
+	"certbot": {
+		"cmds": []
+	},
 	"changedetection": {
 		"web": true,
 		"enabled": true,
@@ -102,8 +115,12 @@
 		],
 		"localPort": 9406
 	},
-	"clang": {},
-	"cmake": {},
+	"clang": {
+		"cmds": []
+	},
+	"cmake": {
+		"cmds": []
+	},
 	"cockpit": {
 		"web": true,
 		"enabled": true,
@@ -143,7 +160,9 @@
 		],
 		"localPort": 9410
 	},
-	"curl": {},
+	"curl": {
+		"cmds": []
+	},
 	"cyberchef": {
 		"web": true,
 		"enabled": true,
@@ -160,7 +179,9 @@
 		],
 		"localPort": 9412
 	},
-	"docker": {},
+	"docker": {
+		"cmds": []
+	},
 	"docsify": {
 		"web": true,
 		"enabled": true,
@@ -177,7 +198,9 @@
 		],
 		"localPort": 9491
 	},
-	"dovecot": {},
+	"dovecot": {
+		"cmds": []
+	},
 	"ente": {
 		"web": true,
 		"enabled": true,
@@ -194,8 +217,12 @@
 		],
 		"localPort": 9414
 	},
-	"fd": {},
-	"ffmpeg": {},
+	"fd": {
+		"cmds": []
+	},
+	"ffmpeg": {
+		"cmds": []
+	},
 	"fileflows": {
 		"web": true,
 		"enabled": true,
@@ -279,9 +306,15 @@
 			}
 		}
 	},
-	"fscrypt": {},
-	"gcc": {},
-	"git": {},
+	"fscrypt": {
+		"cmds": []
+	},
+	"gcc": {
+		"cmds": []
+	},
+	"git": {
+		"cmds": []
+	},
 	"gitea": {
 		"web": true,
 		"enabled": true,
@@ -298,8 +331,12 @@
 		],
 		"localPort": 9420
 	},
-	"golang": {},
-	"goodip": {},
+	"golang": {
+		"cmds": []
+	},
+	"goodip": {
+		"cmds": []
+	},
 	"grav": {
 		"web": true,
 		"enabled": true,
@@ -342,8 +379,12 @@
 		],
 		"localPort": 9423
 	},
-	"hugo": {},
-	"imagemagick": {},
+	"hugo": {
+		"cmds": []
+	},
+	"imagemagick": {
+		"cmds": []
+	},
 	"immich": {
 		"web": true,
 		"enabled": true,
@@ -352,7 +393,9 @@
 		],
 		"localPort": 9424
 	},
-	"ionic": {},
+	"ionic": {
+		"cmds": []
+	},
 	"iopaint": {
 		"web": true,
 		"enabled": true,
@@ -369,7 +412,9 @@
 		],
 		"localPort": 9426
 	},
-	"java": {},
+	"java": {
+		"cmds": []
+	},
 	"jellyfin": {
 		"web": true,
 		"enabled": true,
@@ -406,7 +451,9 @@
 		],
 		"localPort": 9430
 	},
-	"jq": {},
+	"jq": {
+		"cmds": []
+	},
 	"jstinker": {
 		"web": true,
 		"enabled": true,
@@ -423,14 +470,8 @@
 		],
 		"localPort": 9432
 	},
-	"kernel": {},
-	"librephotos": {
-		"web": true,
-		"enabled": true,
-		"permissions": [
-			"_groupadmin_"
-		],
-		"localPort": 9433
+	"kernel": {
+		"cmds": []
 	},
 	"librechat": {
 		"web": true,
@@ -453,6 +494,14 @@
 			}
 		],
 		"localPort": 9434
+	},
+	"librephotos": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9433
 	},
 	"libreqr": {
 		"web": true,
@@ -478,8 +527,12 @@
 		],
 		"localPort": 9437
 	},
-	"lvgl": {},
-	"make": {},
+	"lvgl": {
+		"cmds": []
+	},
+	"make": {
+		"cmds": []
+	},
 	"mantisbugtracker": {
 		"web": true,
 		"enabled": true,
@@ -579,7 +632,17 @@
 		"setupPriority": true,
 		"config": true
 	},
-	"mosquitto": {},
+	"monica": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9446
+	},
+	"mosquitto": {
+		"cmds": []
+	},
 	"mydonglecloud": {
 		"web": true,
 		"enabled": true,
@@ -608,17 +671,17 @@
 		"setupPriority": true,
 		"config": true
 	},
-	"ncat": {},
-	"ncdu": {},
-	"nginx": {},
-	"nmap": {},
-	"monica": {
-		"web": true,
-		"enabled": true,
-		"permissions": [
-			"_groupadmin_"
-		],
-		"localPort": 9446
+	"ncat": {
+		"cmds": []
+	},
+	"ncdu": {
+		"cmds": []
+	},
+	"nginx": {
+		"cmds": []
+	},
+	"nmap": {
+		"cmds": []
 	},
 	"nocobase": {
 		"web": true,
@@ -628,9 +691,15 @@
 		],
 		"localPort": 9447
 	},
-	"node": {},
-	"ohmyzsh": {},
-	"ollama": {},
+	"node": {
+		"cmds": []
+	},
+	"ohmyzsh": {
+		"cmds": []
+	},
+	"ollama": {
+		"cmds": []
+	},
 	"onetimeemail": {
 		"web": true,
 		"enabled": true,
@@ -742,7 +811,9 @@
 		],
 		"localPort": 9457
 	},
-	"php": {},
+	"php": {
+		"cmds": []
+	},
 	"phpbb": {
 		"web": true,
 		"enabled": true,
@@ -817,9 +888,15 @@
 		],
 		"localPort": 9463
 	},
-	"pymcuprog": {},
-	"python": {},
-	"qdrant": {},
+	"pymcuprog": {
+		"cmds": []
+	},
+	"python": {
+		"cmds": []
+	},
+	"qdrant": {
+		"cmds": []
+	},
 	"qrcodegenerator": {
 		"web": true,
 		"enabled": true,
@@ -844,7 +921,9 @@
 		],
 		"localPort": 9466
 	},
-	"redis": {},
+	"redis": {
+		"cmds": []
+	},
 	"redmine": {
 		"web": true,
 		"enabled": true,
@@ -853,7 +932,9 @@
 		],
 		"localPort": 9467
 	},
-	"rethinkdb": {},
+	"rethinkdb": {
+		"cmds": []
+	},
 	"rocketchat": {
 		"web": true,
 		"enabled": true,
@@ -886,15 +967,11 @@
 		],
 		"localPort": 9470
 	},
-	"rust": {},
-	"serverperformancestats": {},
-	"stackedit": {
-		"web": true,
-		"enabled": true,
-		"permissions": [
-			"_groupadmin_"
-		],
-		"localPort": 9471
+	"rust": {
+		"cmds": []
+	},
+	"serverperformancestats": {
+		"cmds": []
 	},
 	"sonarr": {
 		"web": true,
@@ -904,8 +981,20 @@
 		],
 		"localPort": 9472
 	},
-	"sqlite": {},
-	"squashfstools": {},
+	"sqlite": {
+		"cmds": []
+	},
+	"squashfstools": {
+		"cmds": []
+	},
+	"stackedit": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9471
+	},
 	"stirlingpdf": {
 		"web": true,
 		"enabled": true,
@@ -945,8 +1034,12 @@
 		],
 		"localPort": 9476
 	},
-	"sysstat": {},
-	"systeminformation": {},
+	"sysstat": {
+		"cmds": []
+	},
+	"systeminformation": {
+		"cmds": []
+	},
 	"timeful": {
 		"web": true,
 		"enabled": true,
@@ -989,6 +1082,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [],
 		"reset": true,
 		"addConfig": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
 		"permissions": [
@@ -1048,6 +1142,9 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
 		"setupRoot": true,
 		"reset": true,
 		"config": true,
@@ -1064,7 +1161,9 @@
 		],
 		"localPort": 9485
 	},
-	"wget": {},
+	"wget": {
+		"cmds": []
+	},
 	"wordpress": {
 		"web": true,
 		"enabled": true,
@@ -1085,6 +1184,9 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
 		"reset": true,
 		"config": true,
 		"permissions": [
@@ -1101,7 +1203,9 @@
 		],
 		"localPort": 9489
 	},
-	"ytdlp": {},
+	"ytdlp": {
+		"cmds": []
+	},
 	"zigbee2mqtt": {
 		"web": true,
 		"enabled": true,
