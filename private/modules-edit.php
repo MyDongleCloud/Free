@@ -48,6 +48,6 @@ for ($i = 1; $i < count($modules); $i++) {
 	$out["web"] = $out["web"] === "1";
 	$out["finished"] = $out["finished"] === "1";
 	$out["default"] = $modulesDefault[$m[0]];
-	file_put_contents(__DIR__ . "/modules/" . $m[0] . ".json", str_replace("    ", "\t", json_encode($out, JSON_PRETTY_PRINT)));
+	store("/modules/" . $m[0] . ".json", $out);
 }
 ?>
