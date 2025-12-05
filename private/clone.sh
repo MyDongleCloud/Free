@@ -24,12 +24,12 @@ PP=`pwd`
 
 rm -rf /tmp/clonage
 mkdir /tmp/clonage
-tar -xjpf img/clone.tbz2 -C /tmp/clonage
+tar -xjpf ../build/img/clone.tbz2 -C /tmp/clonage
 cd /tmp/clonage
 echo "Do modif now and press return to finish script"
 read l
 echo "Finishing"
-rm -f $PP/img/clone.tbz2
-tar -jcpf $PP/img/clone.tbz2 .
+rm -f $PP/../build/img/clone.tbz2
+tar -jcpf $PP/../build/img/clone.tbz2 .
 cd $PP
 rm -rf /tmp/clonage

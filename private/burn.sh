@@ -27,7 +27,7 @@ while getopts d:efhz opt; do
 		z) FORCE=1;;
 	esac
 done
-IMG=img/flasher-m${POSTNAME}-s.img
+IMG=../build/img/flasher-m${POSTNAME}-s.img
 
 if [ "m`id -u`" != "m0" ]; then
 	echo "You need to be root"
@@ -71,7 +71,7 @@ if [ $EXTRACT = 1 ]; then
 	mount ${DISK}2 /tmp/2
 	unsquashfs -f -d /tmp/2 /tmp/2/fs/os.img
 	rm -rf /tmp/2/fs/
-	cp img/initramfs_2712.orig /tmp/1/initramfs_2712
+	cp ../build/img/initramfs_2712.orig /tmp/1/initramfs_2712
 	sync
 	umount ${DISK}*
 	umount ${DISK}*

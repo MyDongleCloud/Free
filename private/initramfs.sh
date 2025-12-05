@@ -33,17 +33,17 @@ if [ ! -b ${DISK}1 ]; then
 	exit 0
 fi
 
-rm -f img/initramfs_2712 /tmp/initramfs_
+rm -f ../build/img/initramfs_2712 /tmp/initramfs_
 rm -rf /tmp/initramfs
 umount ${DISK}*
 umount ${DISK}*
 if [ $FULL = 1 ]; then
 	mount ${DISK}1 /tmp/1
-	cp /tmp/1/initramfs_2712 img/initramfs_2712.orig
+	cp /tmp/1/initramfs_2712 ../build/img/initramfs_2712.orig
 	umount /${DISK}1
 fi
 mount ${DISK}2 /tmp/2
-zstd -q -d img/initramfs_2712.orig -o /tmp/initramfs_
+zstd -q -d ../build/img/initramfs_2712.orig -o /tmp/initramfs_
 mkdir /tmp/initramfs
 cd /tmp/initramfs
 cat /tmp/initramfs_ | cpio -idmv 2> /dev/null
@@ -62,8 +62,8 @@ patch -p1 < ${PP}/initramfs.patch
 find . | cpio -o -H newc > /tmp/initramfs_
 cd ${PP}
 rm -rf /tmp/initramfs
-zstd -q /tmp/initramfs_ -o img/initramfs_2712
-chmod 755 img/initramfs_2712
+zstd -q /tmp/initramfs_ -o ../build/img/initramfs_2712
+chmod 755 ../build/img/initramfs_2712
 rm -f /tmp/initramfs_
 umount ${DISK}*
 umount ${DISK}*

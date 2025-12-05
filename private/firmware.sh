@@ -52,11 +52,11 @@ fi
 
 umount ${DISK}*
 umount ${DISK}*
-rm -f img/flasher-m${POSTNAME}-s.img img/upgrade.bin img/partition1.zip
+rm -f ../build/img/flasher-m${POSTNAME}-s.img ../build/img/upgrade.bin ../build/img/partition1.zip
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
 cd /tmp/1
-zip -q -r ${PP}/img/partition1.zip ./bcm2712-rpi-5-b.dtb ./bcm2712-rpi-cm5-cm5io.dtb ./cmdline.txt ./config.txt ./kernel_2712.img ./overlays/overlay_map.dtb ./overlays/bcm2712d0.dtbo ./overlays/dwc2.dtbo ./overlays/dongle.dtbo ./overlays/st7735s.dtbo ./overlays/buttons.dtbo ./overlays/leds.dtbo ./overlays/uart0-pi5.dtbo ./overlays/uart2-pi5.dtbo ./Image ./mydonglecd.dtb
+zip -q -r ${PP}/../build/img/partition1.zip ./bcm2712-rpi-5-b.dtb ./bcm2712-rpi-cm5-cm5io.dtb ./cmdline.txt ./config.txt ./kernel_2712.img ./overlays/overlay_map.dtb ./overlays/bcm2712d0.dtbo ./overlays/dwc2.dtbo ./overlays/dongle.dtbo ./overlays/st7735s.dtbo ./overlays/buttons.dtbo ./overlays/leds.dtbo ./overlays/uart0-pi5.dtbo ./overlays/uart2-pi5.dtbo ./Image ./mydonglecd.dtb
 cd ${PP}
 ROOTFS=/tmp/2
 if [ $CLEAN = 1 ]; then
@@ -117,12 +117,12 @@ sync
 umount ${DISK}*
 umount ${DISK}*
 
-dd if=img/sdcard-bootdelay1-m-s of=img/flasher-m${POSTNAME}-s.img bs=1024
+dd if=../build/img/sdcard-bootdelay1-m-s of=../build/img/flasher-m${POSTNAME}-s.img bs=1024
 SIZE=$((`stat -c %s /tmp/os${POSTNAME}.img` * 125 / 100 / 1024))
 echo "Img Size: $((SIZE + 4 * 1024)) kiBytes"
-dd if=/dev/zero of=img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
-echo -n '\061' | dd of=img/flasher-m${POSTNAME}-s.img bs=1 seek=4194303 conv=notrunc
-losetup --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
+dd if=/dev/zero of=../build/img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
+echo -n '\061' | dd of=../build/img/flasher-m${POSTNAME}-s.img bs=1 seek=4194303 conv=notrunc
+losetup --show ${LOSETUP} ../build/img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
 8192,262144,c
 270336,
@@ -133,7 +133,7 @@ sync
 losetup -d ${LOSETUP}
 sync
 sync
-losetup --partscan --show ${LOSETUP} img/flasher-m${POSTNAME}-s.img
+losetup --partscan --show ${LOSETUP} ../build/img/flasher-m${POSTNAME}-s.img
 if [ $? != 0 ]; then
 	echo "ERROR losetup"
 	exit 1
@@ -147,8 +147,8 @@ sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 mount ${LOSETUP}p1 /tmp/1
-unzip -q -d /tmp/1/ img/partition1.zip
-cp img/initramfs_2712 /tmp/1
+unzip -q -d /tmp/1/ ../build/img/partition1.zip
+cp ../build/img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
 mkdir -p /tmp/2/fs/upper/ /tmp/2/fs/lower/ /tmp/2/fs/overlay/ /tmp/2/fs/work/
@@ -167,7 +167,7 @@ sync
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then
-	zip -j img/upgrade.bin img/partition1.zip /tmp/os${POSTNAME}.img
+	zip -j ../build/img/upgrade.bin ../build/img/partition1.zip /tmp/os${POSTNAME}.img
 
 	cd ../client
 	ionic build --prod

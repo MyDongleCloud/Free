@@ -46,7 +46,7 @@ else
 	OFF=${DISK}
 fi
 if [ $UBOOT = 1 ]; then
-	IFF=img/sdcard-bootdelay1-m-s
+	IFF=../build/img/sdcard-bootdelay1-m-s
 	dd if=$IFF of=$OFF
 	sfdisk -f $OFF << EOF
 16384,1048576,c
