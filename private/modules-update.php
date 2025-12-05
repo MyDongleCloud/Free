@@ -46,7 +46,8 @@ foreach ($files as $file) {
 		$module["githubLanguage"] = $github["language"] ?? "";
 	}
 	$modulesDefault[$name] = $module["default"];
-	$modulesKeywords =  array_merge($modulesKeywords, $module["keywords"]);
+	foreach($module["keywords"] as $k)
+		$modulesKeywords[$k] =  "";
 	unset($module["default"]);
 	$modulesMeta[$name] = $module;
 	$modulesTranslationTitle[$module["title"]] = "";
