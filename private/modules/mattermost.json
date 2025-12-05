@@ -8,7 +8,7 @@
 		"Collaboration"
 	],
 	"proprietary": "",
-	"github": "mattermost\/mattermost",
+	"github": "mattermost/mattermost",
 	"category": "Productivity",
 	"version": "v11.1.0",
 	"installMethod": "clone",

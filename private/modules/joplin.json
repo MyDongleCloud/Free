@@ -11,7 +11,7 @@
 		"Markdown"
 	],
 	"proprietary": "Evernote|OneNote",
-	"github": "laurent22\/joplin",
+	"github": "laurent22/joplin",
 	"category": "Productivity",
 	"version": "server-v3.4.1",
 	"installMethod": "clone",

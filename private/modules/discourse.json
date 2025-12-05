@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "vBulletin",
-	"github": "discourse\/discourse",
+	"github": "discourse/discourse",
 	"category": "Personal",
 	"version": "v3.4.6",
 	"installMethod": "clone",

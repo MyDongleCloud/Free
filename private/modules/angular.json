@@ -11,7 +11,7 @@
 		"SPA"
 	],
 	"proprietary": "React",
-	"github": "angular\/angular",
+	"github": "angular/angular",
 	"category": "Backend",
 	"version": "20.3.9",
 	"installMethod": "npm",

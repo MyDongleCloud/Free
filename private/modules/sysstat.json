@@ -8,7 +8,7 @@
 		"Stats Tools"
 	],
 	"proprietary": "",
-	"github": "sysstat\/sysstat",
+	"github": "sysstat/sysstat",
 	"category": "Utils",
 	"version": "12.7.5",
 	"installMethod": "apt",

@@ -11,7 +11,7 @@
 		"Automation"
 	],
 	"proprietary": "Plex",
-	"github": "Sonarr\/Sonarr",
+	"github": "Sonarr/Sonarr",
 	"category": "Personal",
 	"version": "v4.0.15.2941",
 	"installMethod": "clone",

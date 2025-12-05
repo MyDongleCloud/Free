@@ -10,7 +10,7 @@
 		"Control"
 	],
 	"proprietary": "GitHub|GitLab|Bitbucket",
-	"github": "go-gitea\/gitea",
+	"github": "go-gitea/gitea",
 	"category": "Developer",
 	"version": "v1.24.3",
 	"installMethod": "clone",

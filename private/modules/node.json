@@ -11,7 +11,7 @@
 		"Server"
 	],
 	"proprietary": "",
-	"github": "nodejs\/node",
+	"github": "nodejs/node",
 	"category": "Developer",
 	"version": "v22.21.1",
 	"installMethod": "tar",

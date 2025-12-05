@@ -11,7 +11,7 @@
 		"Research"
 	],
 	"proprietary": "SurveyMonkey",
-	"github": "LimeSurvey\/LimeSurvey",
+	"github": "LimeSurvey/LimeSurvey",
 	"category": "Productivity",
 	"version": "6.15.3+250708",
 	"installMethod": "clone",

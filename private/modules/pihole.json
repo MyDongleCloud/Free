@@ -11,7 +11,7 @@
 		"Network"
 	],
 	"proprietary": "NextDNS",
-	"github": "pi-hole\/pi-hole",
+	"github": "pi-hole/pi-hole",
 	"category": "Utils",
 	"version": "v.6.1.4",
 	"installMethod": "clone",

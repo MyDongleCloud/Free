@@ -9,7 +9,7 @@
 		"Tester"
 	],
 	"proprietary": "",
-	"github": "nmap\/nmap",
+	"github": "nmap/nmap",
 	"category": "Utils",
 	"version": "7.95",
 	"installMethod": "apt",

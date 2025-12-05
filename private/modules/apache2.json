@@ -11,7 +11,7 @@
 		"Apache"
 	],
 	"proprietary": "Microsoft IIS",
-	"github": "apache\/httpd",
+	"github": "apache/httpd",
 	"category": "Essential",
 	"version": "2.4.65",
 	"installMethod": "apt",
@@ -34,7 +34,7 @@
 			"172.16",
 			"192.168"
 		],
-		"path": "\/disk\/admin\/modules\/apache2\/www",
+		"path": "/disk/admin/modules/apache2/www",
 		"alias": [
 			"www"
 		]

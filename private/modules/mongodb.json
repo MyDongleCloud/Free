@@ -12,7 +12,7 @@
 		"Distributed"
 	],
 	"proprietary": "",
-	"github": "mongodb\/mongo",
+	"github": "mongodb/mongo",
 	"category": "Developer",
 	"version": "8.2.1",
 	"installMethod": "apt (source)",

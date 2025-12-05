@@ -11,7 +11,7 @@
 		"Analytics"
 	],
 	"proprietary": "Tableau",
-	"github": "apache\/superset",
+	"github": "apache/superset",
 	"category": "Productivity",
 	"version": "5.0.0",
 	"installMethod": "clone",

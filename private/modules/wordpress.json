@@ -11,7 +11,7 @@
 		"Publishing"
 	],
 	"proprietary": "Wix|Squarespace",
-	"github": "WordPress\/WordPress",
+	"github": "WordPress/WordPress",
 	"category": "Personal",
 	"version": "6.8.3",
 	"installMethod": "clone",

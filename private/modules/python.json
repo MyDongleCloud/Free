@@ -9,7 +9,7 @@
 		"Interpreter"
 	],
 	"proprietary": "ActivePython",
-	"github": "python\/cpython",
+	"github": "python/cpython",
 	"category": "Developer",
 	"version": "3.13.5",
 	"installMethod": "apt",

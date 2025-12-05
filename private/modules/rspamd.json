@@ -11,7 +11,7 @@
 		"Security"
 	],
 	"proprietary": "SpamTitan",
-	"github": "rspamd\/rspamd",
+	"github": "rspamd/rspamd",
 	"category": "Utils",
 	"version": "3.12.1",
 	"installMethod": "apt",

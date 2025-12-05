@@ -11,7 +11,7 @@
 		"Config"
 	],
 	"proprietary": "",
-	"github": "jqlang\/jq",
+	"github": "jqlang/jq",
 	"category": "Utils",
 	"version": "1.7.1",
 	"installMethod": "apt",

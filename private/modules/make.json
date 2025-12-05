@@ -11,7 +11,7 @@
 		"Utility"
 	],
 	"proprietary": "Apache Ant",
-	"github": "mirror\/make",
+	"github": "mirror/make",
 	"category": "Developer",
 	"version": "4.4.1",
 	"installMethod": "apt",

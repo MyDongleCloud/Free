@@ -10,7 +10,7 @@
 		"Streaming"
 	],
 	"proprietary": "Audible",
-	"github": "advplyr\/audiobookshelf",
+	"github": "advplyr/audiobookshelf",
 	"category": "Personal",
 	"version": "v2.26.2",
 	"installMethod": "clone",
@@ -27,7 +27,7 @@
 			{
 				"type": "http",
 				"port": 8092,
-				"path": "\/"
+				"path": "/"
 			}
 		]
 	}

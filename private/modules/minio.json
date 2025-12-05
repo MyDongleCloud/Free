@@ -11,7 +11,7 @@
 		"Cloud"
 	],
 	"proprietary": "Amazon S3",
-	"github": "minio\/minio",
+	"github": "minio/minio",
 	"category": "Developer",
 	"version": "2025-07-18",
 	"installMethod": "clone",

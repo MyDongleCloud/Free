@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "Squarespace",
-	"github": "gohugoio\/hugo",
+	"github": "gohugoio/hugo",
 	"category": "Developer",
 	"version": "0.131.0",
 	"installMethod": "apt",

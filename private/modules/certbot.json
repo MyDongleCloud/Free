@@ -11,7 +11,7 @@
 		"Automation"
 	],
 	"proprietary": "DigiCert CertCentral",
-	"github": "certbot\/certbot",
+	"github": "certbot/certbot",
 	"category": "Utils",
 	"version": "4.0.0",
 	"installMethod": "apt",

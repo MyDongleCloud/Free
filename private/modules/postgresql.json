@@ -11,7 +11,7 @@
 		"PostgreSQL"
 	],
 	"proprietary": "",
-	"github": "postgres\/postgres",
+	"github": "postgres/postgres",
 	"category": "Developer",
 	"version": "17.6",
 	"installMethod": "apt",

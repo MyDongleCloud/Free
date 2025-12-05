@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "Ancestry.com",
-	"github": "fisharebest\/webtrees",
+	"github": "fisharebest/webtrees",
 	"category": "Personal",
 	"version": "2.1.25",
 	"installMethod": "clone",

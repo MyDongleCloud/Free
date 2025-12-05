@@ -11,7 +11,7 @@
 		"Disk"
 	],
 	"proprietary": "",
-	"github": "sharkdp\/fd",
+	"github": "sharkdp/fd",
 	"category": "Utils",
 	"version": "10.2.0",
 	"installMethod": "apt",

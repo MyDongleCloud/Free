@@ -11,7 +11,7 @@
 		"Content"
 	],
 	"proprietary": "WordPress",
-	"github": "joomla\/joomla-cms",
+	"github": "joomla/joomla-cms",
 	"category": "Productivity",
 	"version": "5.3.2",
 	"installMethod": "clone",

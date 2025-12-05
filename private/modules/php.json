@@ -11,7 +11,7 @@
 		"PHP"
 	],
 	"proprietary": "Zend PHP",
-	"github": "php\/php-src",
+	"github": "php/php-src",
 	"category": "Developer",
 	"version": "8.4.11",
 	"installMethod": "apt",

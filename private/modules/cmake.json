@@ -11,7 +11,7 @@
 		"Automation"
 	],
 	"proprietary": "Microsoft Visual Studio",
-	"github": "Kitware\/CMake",
+	"github": "Kitware/CMake",
 	"category": "Developer",
 	"version": "3.31.6",
 	"installMethod": "apt",

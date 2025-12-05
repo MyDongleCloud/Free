@@ -11,7 +11,7 @@
 		"Chat"
 	],
 	"proprietary": "",
-	"github": "open-webui\/open-webui",
+	"github": "open-webui/open-webui",
 	"category": "Essential",
 	"version": "v0.6.18",
 	"installMethod": "clone",

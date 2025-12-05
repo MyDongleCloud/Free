@@ -12,7 +12,7 @@
 		"Web"
 	],
 	"proprietary": "",
-	"github": "pgadmin-org\/pgadmin4",
+	"github": "pgadmin-org/pgadmin4",
 	"category": "Utils",
 	"version": "REL-9_10",
 	"installMethod": "clone",

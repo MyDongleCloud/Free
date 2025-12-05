@@ -10,7 +10,7 @@
 		"NoSQL"
 	],
 	"proprietary": "Firebase Realtime Database",
-	"github": "rethinkdb\/rethinkdb",
+	"github": "rethinkdb/rethinkdb",
 	"category": "Developer",
 	"version": "2.4.4",
 	"installMethod": "deb",

@@ -11,7 +11,7 @@
 		"Simple"
 	],
 	"proprietary": "WordPress",
-	"github": "cityssm\/sunrise-cms",
+	"github": "cityssm/sunrise-cms",
 	"category": "Productivity",
 	"version": "v1.0.0-alpha.19",
 	"installMethod": "clone",

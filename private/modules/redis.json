@@ -10,7 +10,7 @@
 		"Structure"
 	],
 	"proprietary": "",
-	"github": "redis\/redis",
+	"github": "redis/redis",
 	"category": "Developer",
 	"version": "8.0.2",
 	"installMethod": "apt",

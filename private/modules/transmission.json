@@ -11,7 +11,7 @@
 		"Download"
 	],
 	"proprietary": "qBittorrent",
-	"github": "transmission\/transmission",
+	"github": "transmission/transmission",
 	"category": "Utils",
 	"version": "4.1.0",
 	"installMethod": "apt",
@@ -28,7 +28,7 @@
 			{
 				"type": "http",
 				"port": 8097,
-				"path": "\/"
+				"path": "/"
 			}
 		]
 	}

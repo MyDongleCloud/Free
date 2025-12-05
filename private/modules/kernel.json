@@ -11,7 +11,7 @@
 		"Source"
 	],
 	"proprietary": "Microsoft Windows",
-	"github": "torvalds\/linux",
+	"github": "torvalds/linux",
 	"category": "Backend",
 	"version": "6.12.47",
 	"installMethod": "apt",

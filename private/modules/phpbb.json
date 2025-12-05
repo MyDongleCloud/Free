@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "vBulletin",
-	"github": "phpbb\/phpbb",
+	"github": "phpbb/phpbb",
 	"category": "Productivity",
 	"version": "release-3.3.15",
 	"installMethod": "clone",

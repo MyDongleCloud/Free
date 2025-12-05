@@ -9,7 +9,7 @@
 		"Manager"
 	],
 	"proprietary": "",
-	"github": "lvgl\/lvgl",
+	"github": "lvgl/lvgl",
 	"category": "Backend",
 	"version": "a78c4a476ebc58f5",
 	"installMethod": "clone",

@@ -9,7 +9,7 @@
 		"Disk"
 	],
 	"proprietary": "",
-	"github": "plougher\/squashfs-tools",
+	"github": "plougher/squashfs-tools",
 	"category": "Utils",
 	"version": "4.6.1",
 	"installMethod": "apt",

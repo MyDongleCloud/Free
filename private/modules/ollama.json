@@ -11,7 +11,7 @@
 		"Language"
 	],
 	"proprietary": "",
-	"github": "ollama\/ollama",
+	"github": "ollama/ollama",
 	"category": "Utils",
 	"version": "v0.9.7-rc1",
 	"installMethod": "clone",

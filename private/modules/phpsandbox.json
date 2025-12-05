@@ -11,7 +11,7 @@
 		"Online"
 	],
 	"proprietary": "PHPFiddle",
-	"github": "Corveda\/PHPSandbox",
+	"github": "Corveda/PHPSandbox",
 	"category": "Developer",
 	"version": "v3.1",
 	"installMethod": "clone",

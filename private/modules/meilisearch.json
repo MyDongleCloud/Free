@@ -9,7 +9,7 @@
 		"Engine"
 	],
 	"proprietary": "",
-	"github": "meilisearch\/meilisearch",
+	"github": "meilisearch/meilisearch",
 	"category": "Utils",
 	"version": "",
 	"installMethod": "wget",

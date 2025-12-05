@@ -10,7 +10,7 @@
 		"Gallery"
 	],
 	"proprietary": "Google Photos",
-	"github": "LibrePhotos\/librephotos",
+	"github": "LibrePhotos/librephotos",
 	"category": "Personal",
 	"version": "HEAD",
 	"installMethod": "clone",

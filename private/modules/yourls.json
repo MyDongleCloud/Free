@@ -10,7 +10,7 @@
 		"Web"
 	],
 	"proprietary": "Bitly",
-	"github": "YOURLS\/YOURLS",
+	"github": "YOURLS/YOURLS",
 	"category": "Utils",
 	"version": "1.10.2",
 	"installMethod": "clone",
@@ -28,7 +28,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
-		"homepage": "\/admin",
+		"homepage": "/admin",
 		"localPort": 9488
 	}
 }

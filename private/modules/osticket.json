@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "Zendesk",
-	"github": "osTicket\/osTicket",
+	"github": "osTicket/osTicket",
 	"category": "Productivity",
 	"version": "v1.18.2",
 	"installMethod": "clone",

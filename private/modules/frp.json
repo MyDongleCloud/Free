@@ -11,7 +11,7 @@
 		"Tunnel"
 	],
 	"proprietary": "Ngrok",
-	"github": "fatedier\/frp",
+	"github": "fatedier/frp",
 	"category": "Backend",
 	"version": "v0.63.0",
 	"installMethod": "clone",
@@ -28,7 +28,7 @@
 			{
 				"type": "http",
 				"port": 7400,
-				"path": "\/"
+				"path": "/"
 			}
 		],
 		"bindingPort": 7000,

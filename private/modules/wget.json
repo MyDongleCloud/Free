@@ -5,10 +5,10 @@
 	"ai": false,
 	"description": "A tool to download any url.",
 	"keywords": [
-		"Download\/URL"
+		"Download/URL"
 	],
 	"proprietary": "",
-	"github": "mirror\/wget",
+	"github": "mirror/wget",
 	"category": "Utils",
 	"version": "1.25.0",
 	"installMethod": "apt",

@@ -11,7 +11,7 @@
 		"SCM"
 	],
 	"proprietary": "Microsoft Team Foundation Version Control",
-	"github": "git\/git",
+	"github": "git/git",
 	"category": "Developer",
 	"version": "2.47.3",
 	"installMethod": "apt",

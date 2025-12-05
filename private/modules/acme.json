@@ -13,7 +13,7 @@
 		"Certificates"
 	],
 	"proprietary": "DigiCert CertCentral",
-	"github": "acmesh-official\/acme.sh",
+	"github": "acmesh-official/acme.sh",
 	"category": "Utils",
 	"version": "3.1.1",
 	"installMethod": "wget",

@@ -11,7 +11,7 @@
 		"Image"
 	],
 	"proprietary": "QR Code Generator",
-	"github": "bizzycola\/qrcode-generator",
+	"github": "bizzycola/qrcode-generator",
 	"category": "Utils",
 	"version": "HEAD",
 	"installMethod": "clone",

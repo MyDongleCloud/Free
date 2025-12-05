@@ -11,7 +11,7 @@
 		"Writing"
 	],
 	"proprietary": "Typora",
-	"github": "jbt\/markdown-editor",
+	"github": "jbt/markdown-editor",
 	"category": "Developer",
 	"version": "v2",
 	"installMethod": "clone",

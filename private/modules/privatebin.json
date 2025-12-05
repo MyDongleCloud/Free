@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "Pastebin",
-	"github": "PrivateBin\/PrivateBin",
+	"github": "PrivateBin/PrivateBin",
 	"category": "Utils",
 	"version": "1.7.8",
 	"installMethod": "clone",

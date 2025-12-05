@@ -11,7 +11,7 @@
 		"Rates"
 	],
 	"proprietary": "XE Currency",
-	"github": "C4illin\/ConvertX",
+	"github": "C4illin/ConvertX",
 	"category": "Utils",
 	"version": "v0.14.1",
 	"installMethod": "clone",

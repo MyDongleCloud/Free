@@ -9,7 +9,7 @@
 		"Backend"
 	],
 	"proprietary": "",
-	"github": "better-auth\/better-auth",
+	"github": "better-auth/better-auth",
 	"category": "Backend",
 	"version": "1.3.27",
 	"installMethod": "npm",

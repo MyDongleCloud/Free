@@ -11,7 +11,7 @@
 		"Library"
 	],
 	"proprietary": "",
-	"github": "Unmanic\/unmanic",
+	"github": "Unmanic/unmanic",
 	"category": "Utils",
 	"version": "HEAD",
 	"installMethod": "pip",

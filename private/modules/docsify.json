@@ -10,7 +10,7 @@
 		"Documentation"
 	],
 	"proprietary": "",
-	"github": "docsifyjs\/docsify",
+	"github": "docsifyjs/docsify",
 	"category": "Developer",
 	"version": "v4.13.1",
 	"installMethod": "clone",
@@ -23,7 +23,7 @@
 		"setupDependencies": [],
 		"reset": true,
 		"symlinks": true,
-		"path": "\/disk\/admin\/modules\/docsify",
+		"path": "/disk/admin/modules/docsify",
 		"alias": [
 			"docs"
 		],

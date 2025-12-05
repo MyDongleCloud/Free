@@ -11,7 +11,7 @@
 		"Analysis"
 	],
 	"proprietary": "Kryptel",
-	"github": "gchq\/CyberChef",
+	"github": "gchq/CyberChef",
 	"category": "Utils",
 	"version": "v10.19.4",
 	"installMethod": "clone",

@@ -11,7 +11,7 @@
 		"Gallery"
 	],
 	"proprietary": "Google Photos",
-	"github": "photoprism\/photoprism",
+	"github": "photoprism/photoprism",
 	"category": "Personal",
 	"version": "250707-d28b3101e",
 	"installMethod": "clone",

@@ -11,7 +11,7 @@
 		"Editing"
 	],
 	"proprietary": "Adobe Photoshop",
-	"github": "Sanster\/IOPaint",
+	"github": "Sanster/IOPaint",
 	"category": "Utils",
 	"version": "iopaint-1.5.3",
 	"installMethod": "clone",

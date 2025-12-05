@@ -12,7 +12,7 @@
 		"Wiki"
 	],
 	"proprietary": "WordPress",
-	"github": "getgrav\/grav",
+	"github": "getgrav/grav",
 	"category": "Productivity",
 	"version": "1.7.48",
 	"installMethod": "clone",

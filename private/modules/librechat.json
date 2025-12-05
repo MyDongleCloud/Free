@@ -9,7 +9,7 @@
 		"Chatbot"
 	],
 	"proprietary": "",
-	"github": "danny-avila\/LibreChat",
+	"github": "danny-avila/LibreChat",
 	"category": "Essential",
 	"version": "v0.7.9",
 	"installMethod": "clone",
@@ -32,7 +32,7 @@
 			{
 				"type": "http",
 				"port": 3080,
-				"path": "\/"
+				"path": "/"
 			}
 		],
 		"localPort": 9434

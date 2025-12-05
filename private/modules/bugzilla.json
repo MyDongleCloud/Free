@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "Jira",
-	"github": "bugzilla\/bugzilla",
+	"github": "bugzilla/bugzilla",
 	"category": "Developer",
 	"version": "5.3.3",
 	"installMethod": "clone",

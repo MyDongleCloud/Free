@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "Discourse",
-	"github": "flarum\/flarum",
+	"github": "flarum/flarum",
 	"category": "Productivity",
 	"version": "v1.8.1",
 	"installMethod": "clone",
@@ -24,6 +24,6 @@
 			"_groupadmin_"
 		],
 		"localPort": 9416,
-		"path": "\/usr\/local\/modules\/flarum\/public"
+		"path": "/usr/local/modules/flarum/public"
 	}
 }

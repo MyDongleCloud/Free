@@ -12,7 +12,7 @@
 		"Embedded"
 	],
 	"proprietary": "Microsoft SQL Server Compact",
-	"github": "sqlite\/sqlite",
+	"github": "sqlite/sqlite",
 	"category": "Developer",
 	"version": "3.46.1",
 	"installMethod": "apt",

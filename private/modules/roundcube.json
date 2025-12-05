@@ -11,7 +11,7 @@
 		"Client"
 	],
 	"proprietary": "Gmail",
-	"github": "roundcube\/roundcubemail",
+	"github": "roundcube/roundcubemail",
 	"category": "Essential",
 	"version": "1.6.11",
 	"installMethod": "apt",
@@ -27,7 +27,7 @@
 		"alias": [
 			"webmail"
 		],
-		"path": "\/usr\/share\/roundcube",
+		"path": "/usr/share/roundcube",
 		"permissions": [
 			"_groupadmin_"
 		],

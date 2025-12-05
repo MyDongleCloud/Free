@@ -11,7 +11,7 @@
 		"Video"
 	],
 	"proprietary": "4K Video Downloader",
-	"github": "alexta69\/metube",
+	"github": "alexta69/metube",
 	"category": "Utils",
 	"version": "HEAD",
 	"installMethod": "clone",
@@ -31,12 +31,12 @@
 			{
 				"type": "http",
 				"port": 8089,
-				"path": "\/"
+				"path": "/"
 			},
 			{
 				"type": "ws",
 				"port": 8089,
-				"path": "\/socket.io"
+				"path": "/socket.io"
 			}
 		]
 	}

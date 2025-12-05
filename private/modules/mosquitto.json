@@ -11,7 +11,7 @@
 		"Messaging"
 	],
 	"proprietary": "HiveMQ",
-	"github": "eclipse-mosquitto\/mosquitto",
+	"github": "eclipse-mosquitto/mosquitto",
 	"category": "Utils",
 	"version": "2.0.21",
 	"installMethod": "apt",

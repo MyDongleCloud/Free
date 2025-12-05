@@ -12,7 +12,7 @@
 		"Orchestration"
 	],
 	"proprietary": "",
-	"github": "docker\/compose",
+	"github": "docker/compose",
 	"category": "Developer",
 	"version": "29.0.0",
 	"installMethod": "apt (source)",

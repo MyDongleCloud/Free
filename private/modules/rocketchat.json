@@ -8,7 +8,7 @@
 		"Communication"
 	],
 	"proprietary": "",
-	"github": "RocketChat\/Rocket.Chat",
+	"github": "RocketChat/Rocket.Chat",
 	"category": "Productivity",
 	"version": "7.12.1",
 	"installMethod": "clone",

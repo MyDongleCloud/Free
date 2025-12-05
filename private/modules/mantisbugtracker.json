@@ -11,7 +11,7 @@
 		"Issue"
 	],
 	"proprietary": "Jira",
-	"github": "mantisbt\/mantisbt",
+	"github": "mantisbt/mantisbt",
 	"category": "Developer",
 	"version": "release-2.27.1",
 	"installMethod": "clone",
@@ -26,7 +26,7 @@
 		],
 		"reset": true,
 		"config": true,
-		"addConfig": "<Directory \/usr\/local\/modules\/mantisbugtracker\/admin>\n\t\tRequire all denied\n\t<\/Directory>",
+		"addConfig": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
 		"permissions": [
 			"_groupadmin_"
 		],

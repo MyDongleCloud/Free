@@ -11,7 +11,7 @@
 		"Base"
 	],
 	"proprietary": "Evernote",
-	"github": "TriliumNext\/Trilium",
+	"github": "TriliumNext/Trilium",
 	"category": "Productivity",
 	"version": "v0.95.0",
 	"installMethod": "tar",
@@ -28,7 +28,7 @@
 			{
 				"type": "http",
 				"port": 8090,
-				"path": "\/"
+				"path": "/"
 			}
 		]
 	}

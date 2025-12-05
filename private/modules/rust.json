@@ -11,7 +11,7 @@
 		"Programming"
 	],
 	"proprietary": "",
-	"github": "rust-lang\/rust",
+	"github": "rust-lang/rust",
 	"category": "Developer",
 	"version": "1.85.0",
 	"installMethod": "apt",

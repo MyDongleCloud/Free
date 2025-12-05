@@ -11,7 +11,7 @@
 		"BitTorrent"
 	],
 	"proprietary": "Plex",
-	"github": "Radarr\/Radarr",
+	"github": "Radarr/Radarr",
 	"category": "Personal",
 	"version": "v5.27.2.10142",
 	"installMethod": "clone",

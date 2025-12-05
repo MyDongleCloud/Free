@@ -11,7 +11,7 @@
 		"Writing"
 	],
 	"proprietary": "Typora",
-	"github": "benweet\/stackedit",
+	"github": "benweet/stackedit",
 	"category": "Developer",
 	"version": "v5.15.4",
 	"installMethod": "clone",

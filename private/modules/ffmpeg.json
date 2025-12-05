@@ -11,7 +11,7 @@
 		"Conversion"
 	],
 	"proprietary": "Adobe Media Encoder",
-	"github": "FFmpeg\/FFmpeg",
+	"github": "FFmpeg/FFmpeg",
 	"category": "Utils",
 	"version": "7.1.2",
 	"installMethod": "apt",

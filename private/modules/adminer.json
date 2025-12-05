@@ -12,7 +12,7 @@
 		"Web"
 	],
 	"proprietary": "",
-	"github": "vrana\/adminer",
+	"github": "vrana/adminer",
 	"category": "Developer",
 	"version": "5.2.1",
 	"installMethod": "apt",
@@ -27,6 +27,6 @@
 		],
 		"localPort": 9401,
 		"DirectoryIndex": "conf.php",
-		"path": "\/etc\/adminer"
+		"path": "/etc/adminer"
 	}
 }

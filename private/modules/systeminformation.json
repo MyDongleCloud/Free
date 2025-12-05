@@ -8,7 +8,7 @@
 		"Stats Library"
 	],
 	"proprietary": "",
-	"github": "sebhildebrandt\/systeminformation",
+	"github": "sebhildebrandt/systeminformation",
 	"category": "Backend",
 	"version": "v5.27.11",
 	"installMethod": "clone",

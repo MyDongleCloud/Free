@@ -10,7 +10,7 @@
 		"Aggregator"
 	],
 	"proprietary": "Feedly",
-	"github": "FreshRSS\/FreshRSS",
+	"github": "FreshRSS/FreshRSS",
 	"category": "Personal",
 	"version": "1.26.3",
 	"installMethod": "clone",
@@ -24,7 +24,7 @@
 		],
 		"localPort": 9417,
 		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
-		"path": "\/usr\/local\/modules\/freshrss\/p",
+		"path": "/usr/local/modules/freshrss/p",
 		"alias": [
 			"rss"
 		]

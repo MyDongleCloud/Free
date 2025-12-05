@@ -11,7 +11,7 @@
 		"Manipulation"
 	],
 	"proprietary": "Adobe Acrobat",
-	"github": "Stirling-Tools\/Stirling-PDF",
+	"github": "Stirling-Tools/Stirling-PDF",
 	"category": "Utils",
 	"version": "v1.0.2",
 	"installMethod": "clone",
@@ -28,7 +28,7 @@
 			{
 				"type": "http",
 				"port": 8096,
-				"path": "\/"
+				"path": "/"
 			}
 		]
 	}

@@ -11,7 +11,7 @@
 		"Smart"
 	],
 	"proprietary": "Samsung SmartThings",
-	"github": "home-assistant\/core",
+	"github": "home-assistant/core",
 	"category": "Personal",
 	"version": "2025.10.3",
 	"installMethod": "pip",
@@ -34,12 +34,12 @@
 			{
 				"type": "http",
 				"port": 8123,
-				"path": "\/"
+				"path": "/"
 			},
 			{
 				"type": "ws",
 				"port": 8123,
-				"path": "\/api\/websocket"
+				"path": "/api/websocket"
 			}
 		]
 	}

@@ -11,7 +11,7 @@
 		"Backup"
 	],
 	"proprietary": "Dropbox|Google Drive",
-	"github": "syncthing\/syncthing",
+	"github": "syncthing/syncthing",
 	"category": "Utils",
 	"version": "1.30.0",
 	"installMethod": "clone",

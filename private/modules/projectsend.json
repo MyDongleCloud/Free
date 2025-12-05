@@ -10,7 +10,7 @@
 		"Upload"
 	],
 	"proprietary": "Dropbox",
-	"github": "projectsend\/projectsend",
+	"github": "projectsend/projectsend",
 	"category": "Productivity",
 	"version": "r1720",
 	"installMethod": "clone",

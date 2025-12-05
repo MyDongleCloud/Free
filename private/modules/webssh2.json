@@ -11,7 +11,7 @@
 		"Client"
 	],
 	"proprietary": "",
-	"github": "billchurch\/webssh2",
+	"github": "billchurch/webssh2",
 	"category": "Utils",
 	"version": "v2.3.4",
 	"installMethod": "clone",
@@ -27,18 +27,18 @@
 		"alias": [
 			"ssh"
 		],
-		"addConfig": "Alias \/access \/usr\/local\/modules\/webssh2\/access\n\t<Directory \/usr\/local\/modules\/webssh2\/access>\n\t\tRequire all granted\n\t<\/Directory>\n\tProxyPass \/access !",
-		"homepage": "\/access",
+		"addConfig": "Alias /access /usr/local/modules/webssh2/access\n\t<Directory /usr/local/modules/webssh2/access>\n\t\tRequire all granted\n\t</Directory>\n\tProxyPass /access !",
+		"homepage": "/access",
 		"reverseProxy": [
 			{
 				"type": "http",
 				"port": 2222,
-				"path": "\/"
+				"path": "/"
 			},
 			{
 				"type": "ws",
 				"port": 2222,
-				"path": "\/ssh\/socket\\.io"
+				"path": "/ssh/socket\\.io"
 			}
 		]
 	}

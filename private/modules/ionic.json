@@ -11,7 +11,7 @@
 		"Framework"
 	],
 	"proprietary": "Flutter",
-	"github": "ionic-team\/ionic-framework",
+	"github": "ionic-team/ionic-framework",
 	"category": "Developer",
 	"version": "7.2.1",
 	"installMethod": "npm",

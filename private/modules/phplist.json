@@ -11,7 +11,7 @@
 		"Marketing"
 	],
 	"proprietary": "Mailchimp",
-	"github": "phpList\/core",
+	"github": "phpList/core",
 	"category": "Productivity",
 	"version": "3.6.16",
 	"installMethod": "wget",
@@ -24,6 +24,6 @@
 			"_groupadmin_"
 		],
 		"localPort": 9459,
-		"path": "\/usr\/local\/modules\/phplist\/public_html"
+		"path": "/usr/local/modules/phplist/public_html"
 	}
 }

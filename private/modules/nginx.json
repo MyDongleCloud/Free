@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "F5 BIG-IP",
-	"github": "nginx\/nginx",
+	"github": "nginx/nginx",
 	"category": "Developer",
 	"version": "1.26.3",
 	"installMethod": "apt",

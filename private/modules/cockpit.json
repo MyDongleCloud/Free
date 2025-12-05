@@ -9,7 +9,7 @@
 		"Health"
 	],
 	"proprietary": "",
-	"github": "cockpit-project\/cockpit",
+	"github": "cockpit-project/cockpit",
 	"category": "Backend",
 	"version": "337",
 	"installMethod": "apt",
@@ -25,7 +25,7 @@
 			{
 				"type": "http",
 				"port": 9090,
-				"path": "\/"
+				"path": "/"
 			}
 		],
 		"localPort": 9407

@@ -11,7 +11,7 @@
 		"Microcontroller"
 	],
 	"proprietary": "MPLAB X IDE",
-	"github": "microchip-pic-avr-tools\/pymcuprog",
+	"github": "microchip-pic-avr-tools/pymcuprog",
 	"category": "Developer",
 	"version": "HEAD",
 	"installMethod": "clone",

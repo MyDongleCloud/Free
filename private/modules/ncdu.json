@@ -11,7 +11,7 @@
 		"Capacity"
 	],
 	"proprietary": "",
-	"github": "rofl0r\/ncdu",
+	"github": "rofl0r/ncdu",
 	"category": "Utils",
 	"version": "1.22",
 	"installMethod": "apt",

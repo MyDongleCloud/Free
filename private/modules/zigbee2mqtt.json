@@ -11,7 +11,7 @@
 		"IoT"
 	],
 	"proprietary": "Philips Hue Bridge",
-	"github": "Koenkk\/zigbee2mqtt",
+	"github": "Koenkk/zigbee2mqtt",
 	"category": "Personal",
 	"version": "2.5.1",
 	"installMethod": "npm",
@@ -28,12 +28,12 @@
 			{
 				"type": "http",
 				"port": 8095,
-				"path": "\/"
+				"path": "/"
 			},
 			{
 				"type": "ws",
 				"port": 8095,
-				"path": "\/api"
+				"path": "/api"
 			}
 		]
 	}

@@ -9,7 +9,7 @@
 		"Download"
 	],
 	"proprietary": "",
-	"github": "curl\/curl",
+	"github": "curl/curl",
 	"category": "Utils",
 	"version": "8.14.1",
 	"installMethod": "apt",

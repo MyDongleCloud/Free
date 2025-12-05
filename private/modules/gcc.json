@@ -11,7 +11,7 @@
 		"C++"
 	],
 	"proprietary": "Intel C++ Compiler",
-	"github": "gcc-mirror\/gcc",
+	"github": "gcc-mirror/gcc",
 	"category": "Developer",
 	"version": "14.2.0",
 	"installMethod": "apt",

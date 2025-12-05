@@ -11,7 +11,7 @@
 		"Configuration"
 	],
 	"proprietary": "PowerShell",
-	"github": "ohmyzsh\/ohmyzsh",
+	"github": "ohmyzsh/ohmyzsh",
 	"category": "Developer",
 	"version": "",
 	"installMethod": "wget",

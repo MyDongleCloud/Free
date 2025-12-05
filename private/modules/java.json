@@ -11,7 +11,7 @@
 		"OOP"
 	],
 	"proprietary": "Oracle JDK",
-	"github": "openjdk\/jdk",
+	"github": "openjdk/jdk",
 	"category": "Developer",
 	"version": "21.0.9",
 	"installMethod": "apt",

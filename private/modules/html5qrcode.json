@@ -11,7 +11,7 @@
 		"Web"
 	],
 	"proprietary": "QR Code Scanner",
-	"github": "mebjas\/html5-qrcode",
+	"github": "mebjas/html5-qrcode",
 	"category": "Utils",
 	"version": "v2.3.8",
 	"installMethod": "clone",

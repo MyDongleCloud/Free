@@ -11,7 +11,7 @@
 		"Calendar"
 	],
 	"proprietary": "Calendly|Doodle",
-	"github": "jelhan\/croodle",
+	"github": "jelhan/croodle",
 	"category": "Productivity",
 	"version": "v0.7.0",
 	"installMethod": "clone",

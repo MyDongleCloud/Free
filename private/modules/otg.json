@@ -11,7 +11,7 @@
 		"Transfer"
 	],
 	"proprietary": "",
-	"github": "viveris\/uMTP-Responder",
+	"github": "viveris/uMTP-Responder",
 	"category": "Utils",
 	"version": "1.6.8",
 	"installMethod": "clone",
@@ -25,7 +25,7 @@
 		],
 		"mtp": {
 			"show_hidden_files": true,
-			"path": "\/disk\/admin",
+			"path": "/disk/admin",
 			"rights": "rw"
 		}
 	}

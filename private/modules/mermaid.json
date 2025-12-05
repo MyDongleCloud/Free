@@ -11,7 +11,7 @@
 		"Code"
 	],
 	"proprietary": "Lucidchart",
-	"github": "mermaid-js\/mermaid",
+	"github": "mermaid-js/mermaid",
 	"category": "Productivity",
 	"version": "11.9.0",
 	"installMethod": "clone",

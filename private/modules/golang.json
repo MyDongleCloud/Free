@@ -11,7 +11,7 @@
 		"Efficient"
 	],
 	"proprietary": "(No direct proprietary equivalent)",
-	"github": "golang\/go",
+	"github": "golang/go",
 	"category": "Developer",
 	"version": "1.24.4",
 	"installMethod": "apt",

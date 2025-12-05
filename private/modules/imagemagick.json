@@ -11,7 +11,7 @@
 		"Graphics"
 	],
 	"proprietary": "Adobe Photoshop",
-	"github": "ImageMagick\/ImageMagick",
+	"github": "ImageMagick/ImageMagick",
 	"category": "Utils",
 	"version": "7.1.1.43",
 	"installMethod": "apt",

@@ -11,7 +11,7 @@
 		"WebRTC"
 	],
 	"proprietary": "Zoom|Microsoft Teams",
-	"github": "jitsi\/jitsi-meet",
+	"github": "jitsi/jitsi-meet",
 	"category": "Essential",
 	"version": "",
 	"installMethod": "apt (source)",
