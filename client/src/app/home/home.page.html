@@ -140,7 +140,7 @@
 							<!-- [class]="global.colorWord(card.category, false)" -->
 							<div class="ml-3 flex flex-col items-end">
 								<div class="w-16 h-16 rounded-lg flex items-center justify-center" [class]="global.colorWord(card.category, false)">
-									<div class="overflow-hidden"><img src="assets/icons_modules/{{card.module}}.png" class="w-14 h-14 cursor-pointer" [class]="global.colorWord2(card.category)" (click)="global.openModule(card.module);"></div>
+									<div class="overflow-hidden"><img src="assets/icons/{{card.module}}.png" class="w-14 h-14 cursor-pointer" [class]="global.colorWord2(card.category)" (click)="global.openModule(card.module);"></div>
 								</div>
 							</div>
 						</div>
@@ -233,7 +233,7 @@
 				<tr><td colspan="3">
 					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[cardIdCur].category)">
-							<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[cardIdCur].module}}.png" class="w-14 h-14 cursor-pointer" [class]="global.colorWord2(cards[cardIdCur].category)" (click)="global.openModule(cardIdCur);"/></a>
+							<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank"><img src="assets/icons/{{cards[cardIdCur].module}}.png" class="w-14 h-14 cursor-pointer" [class]="global.colorWord2(cards[cardIdCur].category)" (click)="global.openModule(cardIdCur);"/></a>
 						</div>
 					</a>
 					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[cardIdCur].title)}}</a><br><a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].name}}
@@ -301,7 +301,7 @@
 				<tr><td colspan="3">
 					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank">
 						<div class="w-16 h-16 rounded-lg flex items-center justify-center float-left mr-3" [class]="global.colorWord(cards[cardIdCur].category)">
-							<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank"><img src="assets/icons_modules/{{cards[cardIdCur].module}}.png" class="w-14 h-14 cursor-pointer" [class]="global.colorWord2(cards[cardIdCur].category)" (click)="global.openModule(cardIdCur);"/></a>
+							<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank"><img src="assets/icons/{{cards[cardIdCur].module}}.png" class="w-14 h-14 cursor-pointer" [class]="global.colorWord2(cards[cardIdCur].category)" (click)="global.openModule(cardIdCur);"/></a>
 						</div>
 					</a>
 					<a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary); font-size:xx-large;">{{LMT(cards[cardIdCur].title)}}</a><br><a href="{{cards[cardIdCur].link}}" title="{{LMT(cards[cardIdCur].title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].name}}
