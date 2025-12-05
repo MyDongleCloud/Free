@@ -8,6 +8,7 @@ private/img
 private/password-upgrade.bin.txt
 private/password-githubkey.txt
 rootfs/usr/local/modules/mydonglecloud/modulesdefault.json
+rootfs/usr/local/modules/mydonglecloud/reset/
 rootfs/usr/local/modules/mydonglecloud/proxy-token.txt
 client/.angular/
 client/node_modules/

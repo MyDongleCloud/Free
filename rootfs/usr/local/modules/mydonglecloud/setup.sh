@@ -31,9 +31,9 @@ PP=`dirname $0`
 
 module() {
 	if [ $2 = 1 ]; then
-		$PP/scripts/$1.sh -r
+		$PP/reset/$1.sh -r
 	else
-		su admin -c "$PP/scripts/$1.sh -r"
+		su admin -c "$PP/reset/$1.sh -r"
 	fi
 	COUNT=$((COUNT + 1))
 	P=$(($COUNT * 100 / $TOTAL))
@@ -62,7 +62,7 @@ if [ $USER = -1 ]; then
 		USER=0
 	fi
 fi
-if [ ! -f $PP/scripts/$NAME.sh ]; then
+if [ ! -f $PP/reset/$NAME.sh ]; then
 	echo "#Doing nothing for $NAME##################"
 else
 	ARG=""
@@ -70,8 +70,8 @@ else
 		ARG="-r"
 	fi
 	if [ $USER = 1 ]; then
-		$PP/scripts/$NAME.sh $ARG
+		$PP/reset/$NAME.sh $ARG
 	else
-		su admin -c "$PP/scripts/$NAME.sh $ARG"
+		su admin -c "$PP/reset/$NAME.sh $ARG"
 	fi
 fi
