@@ -18,6 +18,9 @@
 	"web": false,
 	"finished": true,
 	"default": {
-		"cmds": []
+		"cmds": [
+			"/usr/bin/clang",
+			"/usr/bin/clang++"
+		]
 	}
 }

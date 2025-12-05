@@ -15,6 +15,8 @@
 	"web": false,
 	"finished": false,
 	"default": {
-		"cmds": []
+		"cmds": [
+			"/usr/local/modules/serverperformancestats/scripts.sh"
+		]
 	}
 }

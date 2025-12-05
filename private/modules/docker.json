@@ -19,6 +19,8 @@
 	"web": false,
 	"finished": true,
 	"default": {
-		"cmds": []
+		"cmds": [
+			"/usr/bin/docker"
+		]
 	}
 }

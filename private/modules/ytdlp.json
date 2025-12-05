@@ -18,6 +18,9 @@
 	"web": false,
 	"finished": true,
 	"default": {
-		"cmds": []
+		"cmds": [
+			"/usr/local/bin/yt-dlp",
+			"/usr/local/bin/youtube-dl"
+		]
 	}
 }
