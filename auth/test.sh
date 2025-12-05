@@ -62,7 +62,7 @@ if [ $CREATE = 1 ]; then
 fi
 if [ $UPDATE = 1 ]; then
 	echo "############### Update"
-	RET_UPDATE=`curl -sS --fail -b /tmp/cookie.txt -X POST http://localhost:8091/auth/update-user -H "Content-Type: application/json" -d '{"username":"admin"}' -c /tmp/cookie.txt`
+	RET_UPDATE=`curl -sS --fail -b /tmp/cookie.txt -X POST http://localhost:8091/auth/update-user -H "Content-Type: application/json" -d '{"username":"myusername"}' -c /tmp/cookie.txt`
 	echo $RET_UPDATE | jq
 fi
 if [ $SIGNIN = 1 ]; then
@@ -70,7 +70,7 @@ if [ $SIGNIN = 1 ]; then
 	echo $RET_SIGNIN | jq
 fi
 if [ $SIGNIN = 2 ]; then
-	RET_SIGNIN=`curl -sS --fail -X POST http://localhost:8091/auth/sign-in/username -H "Content-Type: application/json" -d '{"username":"admin", "password":"demodemo"}' -c /tmp/cookie.txt`
+	RET_SIGNIN=`curl -sS --fail -X POST http://localhost:8091/auth/sign-in/username -H "Content-Type: application/json" -d '{"username":"johndoe", "password":"demodemo"}' -c /tmp/cookie.txt`
 	echo $RET_SIGNIN | jq
 fi
 if [ $TWOFACTOR = 0 ]; then

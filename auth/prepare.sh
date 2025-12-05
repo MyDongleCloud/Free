@@ -24,6 +24,7 @@ done
 cd `dirname $0`
 if [ $INSTALL = 1 ]; then
 	#During install only
+	echo "{}" > ../rootfs/disk/admin/modules/_config_/_cloud_.json
 	rm -rf betterauth /disk/admin/modules/betterauth
 	mkdir /disk/admin/modules/betterauth/
 	npm install
@@ -32,14 +33,17 @@ if [ $INSTALL = 1 ]; then
 	rm -f /disk/admin/modules/betterauth/secret.txt
 	chown -R admin:admin /disk/admin/modules/betterauth
 	npm run build
+	echo "{}" > ../rootfs/disk/admin/modules/_config_/_cloud_.json
 	rm -rf /usr/local/modules/betterauth
 	cp -a betterauth /usr/local/modules
 	cp -a node_modules /usr/local/modules/betterauth
 elif [ $CLEAN = 1 ]; then
 	#On PC only
+	echo "{}" > ../rootfs/disk/admin/modules/_config_/_cloud_.json
 	rm -rf node_modules betterauth ../rootfs/disk/admin/modules/betterauth
 elif [ $CLEAN = 2 ]; then
 	#On PC only
+	echo "{}" > ../rootfs/disk/admin/modules/_config_/_cloud_.json
 	rm -rf betterauth ../rootfs/disk/admin/modules/betterauth
 	./prepare.sh
 else
@@ -48,6 +52,7 @@ else
 		npm install
 	fi
 	if [ ! -d ../rootfs/disk/admin/modules/betterauth/ ]; then
+		echo '{ "all":{ "name":"johndoe", "shortname":"jd", "domains":[] } }' > ../rootfs/disk/admin/modules/_config_/_cloud_.json
 		mkdir -p ../rootfs/disk/admin/modules/betterauth
 		npx @better-auth/cli migrate -y
 		(sleep 3 && ./test.sh -c) &

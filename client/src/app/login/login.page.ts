@@ -38,7 +38,7 @@ errorSt = null;
 
 constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 	this.formLogin = fb.group({
-		"email1": [ "", [ Validators.required, Validators.email ] ],
+		"email1": [ "", [ Validators.required ] ],
 		"password1": [ "", [ Validators.required, Validators.minLength(6) ] ],
 		"rememberme1": [ false, [ ] ]
 	});
@@ -161,10 +161,15 @@ show_Login() {
 async doLogin() {
 	this.progress = true;
 	this.errorSt = null;
-	const data = { email:this.email1.value, password: this.password1.value, rememberme: this.rememberme1.value };
+	const data = { password: this.password1.value, rememberme: this.rememberme1.value };
+	const isEmail = this.email1.value.indexOf("@") != -1;
+	if (isEmail)
+		data["email"] = this.email1.value;
+	else
+		data["username"] = this.email1.value;
 	let ret = null;
 	try {
-		ret = await this.httpClient.post("/_app_/auth/sign-in/email", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+		ret = await this.httpClient.post(isEmail ? "/_app_/auth/sign-in/email" : "/_app_/auth/sign-in/username", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth sign-in/email: ", ret);
 	} catch(e) { this.errorSt = e.error.message; }
 	this.progress = false;

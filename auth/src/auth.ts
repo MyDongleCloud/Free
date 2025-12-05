@@ -22,7 +22,7 @@ const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
-export const cloud = existsSync(cloudPath) ? JSON.parse(readFileSync(cloudPath, "utf-8")) : { all: { name:"", domains: [] } };
+export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
 const modulesPath = adminPath + "_config_/_modules_.json";
 let modules = {};
 if (existsSync(modulesPath))
@@ -235,8 +235,8 @@ export const auth = betterAuth({
 		deleteUser: {
 			enabled: true,
 			beforeDelete: async (user, request) => {
-				if (user["username"] == "admin")
-					throw new APIError("BAD_REQUEST", { message:"Account username==admin can't be deleted" });
+				if (user["username"] == cloud.all.name)
+					throw new APIError("BAD_REQUEST", { message:"First account (username is the cloud name) can't be deleted" });
 			}
 		},
 		additionalFields: {
@@ -337,7 +337,11 @@ export const auth = betterAuth({
 					const countStatement = ctx?.context.options.database.prepare("SELECT COUNT(*) AS count FROM user");
 					const result = countStatement.get();
 					if (result?.count == 0) {
-						user.username = "admin";
+						const cloudF = JSON.parse(readFileSync(cloudPath, "utf-8"));
+						if (Object.keys(cloudF).length === 0) {
+							console.log("PROBLEM: Creating first user but _cloud_.json is empty");
+						}
+						user.username = cloudF.all.name;
 						user.role = "admin";
 					}
 					return { data: { ...user } };

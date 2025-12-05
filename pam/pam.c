@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <sys/stat.h>
 #include <security/pam_modules.h>
 #include <security/pam_ext.h>
 #include <curl/curl.h>
@@ -42,7 +43,35 @@ static int downloadURLBuffer(char *url, char *buf, char *header, char *post) {
 	return ret;
 }
 
-static int authentify(const char *username, const char *password) {
+static cJSON *jsonRead(char *path) {
+	struct stat statTest;
+	if (stat(path, &statTest) != 0 || statTest.st_size == 0)
+		return NULL;
+	int size = statTest.st_size + 16;
+	char *sz = malloc(size + 1);
+	strcpy(sz, "");
+	FILE *f = fopen(path, "r");
+	if (f) {
+		int ret2 = fread(sz, 1, size, f);
+		sz[ret2] = '\0';
+		fclose(f);
+	}
+	cJSON *ret = cJSON_Parse(sz);
+	free(sz);
+	return ret;
+}
+
+static int authentify(const char *password) {
+	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
+	if (!cloud)
+		return -1;
+	if (!cJSON_HasObjectItem(cloud, "username")) {
+		cJSON_Delete(cloud);
+		return -1;
+	}
+	char username[256];
+	snprintf(username, sizeof(username), "%s", cJSON_GetStringValue2(cloud, "username"));
+	cJSON_Delete(cloud);
 	char buf[1024];
 	char post[256];
 	snprintf(post, sizeof(post), "{\"username\":\"%s\", \"password\":\"%s\"}", username, password);
@@ -72,7 +101,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, cons
 	if (retval != PAM_SUCCESS)
 		return retval;
 	if (username && password && strcmp(username, "admin") == 0)
-		return authentify(username, password) == 0 ? PAM_SUCCESS : PAM_AUTH_ERR;
+		return authentify(password) == 0 ? PAM_SUCCESS : PAM_AUTH_ERR;
 	return PAM_AUTH_ERR;
 }
 
