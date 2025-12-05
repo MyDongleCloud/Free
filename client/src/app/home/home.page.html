@@ -158,7 +158,7 @@
 						<div class="flex-1 min-w-1"></div>
 						<div class="flex flex-col items-end">
 							<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium" [class]="global.colorWord(card.category)" *ngIf="showDetails">{{LG(card.category)}}</span>
-							<a href="https://github.com/{{card.github}}" title="GitHub {{card.github}}" class="mt-2 pl-2 flex items-center cursor-pointer" target="_blank" *ngIf="showDetails && card.githubUrl != ''">
+							<a href="https://github.com/{{card.github}}" title="GitHub {{card.github}}" class="mt-2 pl-2 flex items-center cursor-pointer" target="_blank" *ngIf="showDetails && card.github != ''">
 								<ion-icon name="logo-github" class="w-6 h-6 cursor-pointer" ></ion-icon>
 								<div class="flex flex-col items-center">
 									<span class="text--gray-500">⭐</span>
@@ -207,7 +207,7 @@
 								<div class="text-sm text--gray-500 max-w-xs truncate" [class.line-through]="card?.completed">{{LMD(card.description)}}</div>
 							</td>
 							<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
-								<a href="https://github.com/{{card.githubUrl}}" title="https://github.com/{{card.githubUrl}}" target="_blank" *ngIf="card.githubUrl != ''">{{card.githubUrl}} ({{global.formatCount(card.githubStars)}}&nbsp;⭐)</a>
+								<a href="https://github.com/{{card.github}}" title="https://github.com/{{card.github}}" target="_blank" *ngIf="card.github != ''">{{card.github}} ({{global.formatCount(card.githubStars)}}&nbsp;⭐)</a>
 							</td>
 							<td class="px-6 py-4 whitespace-nowrap text-left" *ngIf="showDetails">
 								<div class="-ml-2">
@@ -259,13 +259,13 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg--gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[cardIdCur].githubUrl != ''">
-					<td>GitHub <a href="https://github.com/{{cards[cardIdCur].githubUrl}}" title="GitHub {{cards[cardIdCur].githubUrl}}" target="_blank"><ion-icon name="logo-github" class="w-5 h-5"></ion-icon></a></td>
-					<td width="20"></td><td><a href="https://github.com/{{cards[cardIdCur].githubUrl}}" title="https://github.com/{{cards[cardIdCur].githubUrl}}" target="_blank">{{cards[cardIdCur].githubUrl}}</a> {{global.formatCount(cards[cardIdCur].githubStars)}}&nbsp;⭐<br>Language: {{cards[cardIdCur].githubLanguage}}<br>License: {{cards[cardIdCur].githubLicense}}</td>
+				<tr *ngIf="cards[cardIdCur].github != ''">
+					<td>GitHub <a href="https://github.com/{{cards[cardIdCur].github}}" title="GitHub {{cards[cardIdCur].github}}" target="_blank"><ion-icon name="logo-github" class="w-5 h-5"></ion-icon></a></td>
+					<td width="20"></td><td><a href="https://github.com/{{cards[cardIdCur].github}}" title="https://github.com/{{cards[cardIdCur].github}}" target="_blank">{{cards[cardIdCur].github}}</a> {{global.formatCount(cards[cardIdCur].githubStars)}}&nbsp;⭐<br>Language: {{cards[cardIdCur].githubLanguage}}<br>License: {{cards[cardIdCur].githubLicense}}</td>
 				</tr>
-				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-px bg--gray-300"></td></tr>
-				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-px bg--gray-300"></td></tr>
+				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Permissions</td><td width="20"></td><td>
 					<div class="-ml-2" *ngIf="!cards[cardIdCur].enabled">
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
@@ -316,9 +316,9 @@
 				<tr><td>Links</td><td width="20"></td><td>
 				<a href="{{cards[cardIdCur].link2}}" title="{{cards[cardIdCur].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link2}}</a><br>
 				<a href="{{cards[cardIdCur].link}}" title="{{cards[cardIdCur].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link}}</a></td></tr>
-				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-px bg--gray-300"></td></tr>
-				<tr *ngIf="cards[cardIdCur].githubUrl != ''"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-2"></td></tr>
+				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-px bg--gray-300"></td></tr>
+				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Permissions</td><td width="20"></td><td>
 					<div class="-ml-2" *ngIf="!cards[cardIdCur].enabled">
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
