@@ -287,7 +287,7 @@ export const auth = betterAuth({
 		//admin(),
 		jwt({
 			jwt: {
-				expirationTime: "1d",
+				expirationTime: "1w",
 				definePayload: ({ user }) => {
 					return {
 						role: user["role"],
