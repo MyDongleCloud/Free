@@ -21,7 +21,6 @@
 		"setup": true,
 		"setupDependencies": [],
 		"setupRoot": true,
-		"setupPriority": true,
 		"config": true
 	}
 }

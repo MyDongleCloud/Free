@@ -18,7 +18,6 @@
 	"default": {
 		"setup": true,
 		"setupDependencies": [],
-		"setupPriority": true,
 		"config": true
 	}
 }

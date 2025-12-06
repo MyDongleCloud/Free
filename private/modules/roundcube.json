@@ -21,7 +21,10 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
-		"setupDependencies": [],
+		"setupPriority": true,
+		"setupDependencies": [
+			"postfix"
+		],
 		"reset": true,
 		"config": true,
 		"alias": [
