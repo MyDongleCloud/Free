@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';

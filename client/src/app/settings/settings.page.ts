@@ -1,9 +1,6 @@
-import { Component, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import modulesDefault from '../modulesdefault.json';
-import modulesMeta from '../modulesmeta.json';
 
 @Component({
 	selector: 'app-settings',

@@ -1,6 +1,5 @@
-import { Component, ViewChild, ElementRef, ChangeDetectorRef, signal } from '@angular/core';
-import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
-import { IonInput } from '@ionic/angular';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
 import { BleService } from '../ble';

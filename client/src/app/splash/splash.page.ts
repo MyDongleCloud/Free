@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Global } from '../env';
 import { BleService } from '../ble';
 import { HttpClient } from '@angular/common/http';
