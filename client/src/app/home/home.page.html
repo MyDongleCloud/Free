@@ -253,9 +253,14 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg--gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td>Links</td><td width="20"></td><td>
-				<a href="{{cards[cardIdCur].link2}}" title="{{cards[cardIdCur].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link2}}</a><br>
-				<a href="{{cards[cardIdCur].link}}" title="{{cards[cardIdCur].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link}}</a></td></tr>
+				<tr><td>{{cards[cardIdCur].web ? "Links" : "Cmds"}}</td><td width="20"></td><td>
+					@if (cards[cardIdCur].web) {
+					<a href="{{cards[cardIdCur].link2}}" title="{{cards[cardIdCur].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link2}}</a><br>
+					<a href="{{cards[cardIdCur].link}}" title="{{cards[cardIdCur].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link}}</a>
+					} @else {
+					<span [innerHTML]="cards[cardIdCur].cmds.join('<br>')"></span>
+					}
+				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg--gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
@@ -313,9 +318,14 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td colspan="3" class="h-px bg--gray-300"></td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
-				<tr><td>Links</td><td width="20"></td><td>
-				<a href="{{cards[cardIdCur].link2}}" title="{{cards[cardIdCur].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link2}}</a><br>
-				<a href="{{cards[cardIdCur].link}}" title="{{cards[cardIdCur].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link}}</a></td></tr>
+				<tr><td>{{cards[cardIdCur].web ? "Links" : "Cmds"}}</td><td width="20"></td><td>
+					@if (cards[cardIdCur].web) {
+					<a href="{{cards[cardIdCur].link2}}" title="{{cards[cardIdCur].link2}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link2}}</a><br>
+					<a href="{{cards[cardIdCur].link}}" title="{{cards[cardIdCur].link}}" target="_blank" style="color:var(--ion-color-secondary);">{{cards[cardIdCur].link}}</a>
+					} @else {
+					<span [innerHTML]="cards[cardIdCur].cmds.join('<br>')"></span>
+					}
+				</td></tr>
 				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-2"></td></tr>
 				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-px bg--gray-300"></td></tr>
 				<tr *ngIf="cards[cardIdCur].github != ''"><td colspan="3" class="h-2"></td></tr>
