@@ -231,6 +231,7 @@ export const auth = betterAuth({
 	baseURL: "http://localhost:" + port + "/auth",
 	database: new Database(databasePath),
 	emailAndPassword: { enabled: true },
+	advanced: { disableOriginCheck: process.env.PRODUCTION !== "true" },
 	user: {
 		deleteUser: {
 			enabled: true,
