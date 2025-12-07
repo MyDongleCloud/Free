@@ -321,7 +321,14 @@ wget -nv https://github.com/fatedier/frp/releases/download/v0.65.0/frp_0.65.0_li
 tar -xpf frp_*_linux_arm64.tar.gz
 mkdir /usr/local/modules/frp
 mv frp_*_linux_arm64/frpc /usr/local/modules/frp
-cd ..
+
+echo "################################"
+echo "katana"
+echo "################################"
+cd /home/ai/build
+wget -nv https://github.com/projectdiscovery/katana/releases/download/v1.3.0/katana_1.3.0_linux_arm64.zip
+unzip katana*.zip
+mv katana /usr/local/bin/
 
 echo "################################"
 echo "livecodes"
