@@ -22,7 +22,7 @@ done
 echo "#Create user homeassistant##################"
 DATE=`date +%s`
 URL="http://localhost:8123"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 
 name="$CLOUDNAME"

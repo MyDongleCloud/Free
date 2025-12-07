@@ -27,7 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset docsify##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 rm -rf /disk/admin/modules/docsify
 mkdir -p /disk/admin/modules/docsify
 

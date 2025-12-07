@@ -43,7 +43,7 @@ let trustedOrigins;
 if (process.env.PRODUCTION === "true") {
 	trustedOrigins = [ "*.mydongle.cloud", "*.mondongle.cloud", "*.myd.cd" ];
 	if (cloud?.domains)
-		cloud.all.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
+		cloud.info.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
 	const internalIP = getInternalIpAddress();
 	internalIP && trustedOrigins.push(internalIP);
 } else
@@ -236,7 +236,7 @@ export const auth = betterAuth({
 		deleteUser: {
 			enabled: true,
 			beforeDelete: async (user, request) => {
-				if (user["username"] == cloud.all.name)
+				if (user["username"] == cloud.info.name)
 					throw new APIError("BAD_REQUEST", { message:"First account (username is the cloud name) can't be deleted" });
 			}
 		},
@@ -359,7 +359,7 @@ export const auth = betterAuth({
 						if (Object.keys(cloudF).length === 0) {
 							console.log("PROBLEM: Creating first user but _cloud_.json is empty");
 						}
-						user.username = cloudF.all.name;
+						user.username = cloudF.info.name;
 						user.role = "admin";
 					}
 					return { data: { ...user } };

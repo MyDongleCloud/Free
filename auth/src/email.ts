@@ -21,9 +21,9 @@ async function transporterInit() {
 
 async function lazyInit() {
     const { cloud } = await import("./auth");
-	APP_NAME = "MyDongle.Cloud " + cloud?.all?.name;
-	APP_URL = "https://" + cloud?.all?.name + ".mydongle.cloud";
-	APP_ADMIN = "admin@" + cloud?.all?.name + ".mydongle.cloud";
+	APP_NAME = "MyDongle.Cloud " + cloud?.info.name;
+	APP_URL = "https://" + cloud?.info.name + ".mydongle.cloud";
+	APP_ADMIN = "admin@" + cloud?.info.name + ".mydongle.cloud";
 }
 lazyInit();
 

@@ -27,9 +27,9 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset roundcube##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
-SHORTNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.shortname"`
-DOMAINS=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.domains[]"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+SHORTNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.shortname"`
+DOMAINS=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.domains[]"`
 EMAIL="admin@$CLOUDNAME.mydongle.cloud"
 PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
 PWD=`doveadm pw -s SHA512-CRYPT -p "$PASSWD"`

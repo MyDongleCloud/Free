@@ -13,11 +13,11 @@
 //Functions
 void modulesInit(cJSON *elCloud) {
 	PRINTF("Modules:Setup: Enter\n");
-	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "all"))
+	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "info"))
 		return;
 	PRINTF("Modules:Setup: Do\n");
 	char sz[256];
-	cJSON * elCloudAll = cJSON_GetObjectItem(elCloud, "all");
+	cJSON * elCloudAll = cJSON_GetObjectItem(elCloud, "info");
 	cJSON *fqdn = cJSON_CreateArray();
 	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(elCloudAll, "name"), MAIN_DOMAIN);
 	cJSON *s = NULL;

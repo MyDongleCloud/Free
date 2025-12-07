@@ -27,7 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset librechat##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 MEILISEARCH_KEY=`cat /disk/admin/modules/_config_/meilisearch.json | jq -r ".key"`
 cd /disk/admin/modules
 systemctl stop librechat.service

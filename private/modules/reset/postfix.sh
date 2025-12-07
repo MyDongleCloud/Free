@@ -27,6 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset postfix##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".all.name"`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 echo "$CLOUDNAME.mydongle.cloud" > /etc/mailname
 sed -i -e "s|^myhostname =.*|myhostname = smtp.$CLOUDNAME.mydongle.cloud|" /etc/postfix/main.cf
