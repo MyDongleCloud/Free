@@ -70,21 +70,13 @@ void modulesInit(cJSON *elCloud) {
 	FILE *pf = fopen(ADMIN_PATH "frp/frpc.toml", "w");
 #endif
 	if (pf) {
-		char firstToken[64];
-		firstToken[0] = '\0';
-		FILE *pft = fopen(LOCAL_PATH "mydonglecloud/proxy-token.txt", "r");
-		if (pft) {
-			int ret = fread(firstToken, 1, 64, pft);
-			if (ret >= 0)
-				firstToken[ret] = '\0';
-			fclose(pft);
-		}
 		char sz[2048];
 		snprintf(sz, sizeof(sz), "\
 serverAddr = \"server.mydongle.cloud\"\n\
 serverPort = %d\n\
 auth.method = \"token\"\n\
-auth.token = \"%s\"\n\
+auth.tokenSource.type = \"file\"\n\
+auth.tokenSource.file.path = \"" LOCAL_PATH "mydonglecloud/proxy-token.txt\"\n\
 user = \"%s\"\n\
 metadatas.token = \"%s\"\n\
 webServer.addr = \"127.0.0.1\"\n\
