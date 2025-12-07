@@ -14,6 +14,7 @@ LG(st) { return this.global.mytranslateG(st); }
 activeTab = "domains";
 adminSudo;
 ssh;
+signInNotification;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {

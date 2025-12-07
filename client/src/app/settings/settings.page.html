@@ -71,7 +71,7 @@
 						<h3 class="text-lg font-semibold text--gray-900 mb-6">{{L("Security Settings")}}</h3>
 						<div class="space-y-6">
 							<div>
-								<h4 class="text-md font-medium text--gray-900 mb-4">{{L("Dongle Settings")}}</h4>
+								<h4 class="text-md font-medium text--gray-900 mb-4">{{L("Main")}}</h4>
 								<div class="space-y-4">
 									<div class="flex items-center justify-between">
 										<div>
@@ -83,10 +83,22 @@
 								</div>
 							</div>
 							<div class="border-t border--gray-200 pt-6">
-								<h4 class="text-md font-medium text--gray-900 mb-4">{{L("SSH Settings")}}</h4>
+								<h4 class="text-md font-medium text--gray-900 mb-4">{{L("SSH")}}</h4>
 								<div class="space-y-4">
 									<div class="flex items-center justify-between">
 										<p class="text-sm text--gray-500">{{L("SSH settings can be tuned in the SSH module.")}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="border-t border--gray-200 pt-6">
+								<h4 class="text-md font-medium text--gray-900 mb-4">{{L("Notification")}}</h4>
+								<div class="space-y-4">
+									<div class="flex items-center justify-between">
+										<div>
+											<p class="text-sm font-medium text--gray-700">{{L("Sign-In")}}</p>
+											<p class="text-sm text--gray-500">{{L("Email notification to user upon successful sign-in")}}</p>
+										</div>
+										<input type="checkbox" [(ngModel)]="signInNotification" class="w-4 h-4 text--blue-600 focus:ring--blue-500 border--gray-300 rounded">
 									</div>
 								</div>
 							</div>

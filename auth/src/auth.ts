@@ -330,11 +330,11 @@ export const auth = betterAuth({
 */
 			if (ctx.path == "/two-factor/verify-otp" && ctx.context.returned?.["statusCode"] === undefined)
 				sendToDongle({ a:"otp", v:0 });
-			if (ctx.path == "/sign-in/email" || ctx.path == "/_app_/auth/sign-in/username") {
+			if (ctx.path == "/sign-in/email" || ctx.path == "/auth/sign-in/username") {
 				if (statusDemo)
 					console.log("Sign-in for " + ctx.context.returned?.["user"].email + ", " + ctx.context.returned?.["user"].username);
 				else {
-					if (ctx.context.returned?.["user"].email !== "")
+					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"].email !== "")
 						sendSignInNotification(ctx.context.returned?.["user"].email);
 				}
 			}
@@ -342,7 +342,7 @@ export const auth = betterAuth({
 				if (statusDemo)
 					console.log("Sign-up for " + ctx.context.returned?.["user"].email + ", " + ctx.context.returned?.["user"].username);
 				else {
-					if (ctx.context.returned?.["user"].email !== "")
+					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"].email !== "")
 						sendSignInNotification(ctx.context.returned?.["user"].email);
 				}
 			}

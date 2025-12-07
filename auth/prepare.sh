@@ -52,7 +52,7 @@ else
 		npm install
 	fi
 	if [ ! -d ../rootfs/disk/admin/modules/betterauth/ ]; then
-		echo '{ "all":{ "name":"johndoe", "shortname":"jd", "domains":[] } }' > ../rootfs/disk/admin/modules/_config_/_cloud_.json
+		echo '{ "info":{ "name":"johndoe", "shortname":"jd", "domains":[] }, "security":{ "adminSudo":true, "signInNotification":true } }' > ../rootfs/disk/admin/modules/_config_/_cloud_.json
 		mkdir -p ../rootfs/disk/admin/modules/betterauth
 		npx @better-auth/cli migrate -y
 		(sleep 3 && ./test.sh -c) &
