@@ -113,6 +113,30 @@ const sendPasswordResetVerificationEmail = async (to, code) => {
 	});
 };
 
+const sendSignInNotification = async (to) => {
+	await transporterInit();
+	await transporter.sendMail({
+	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
+	to,
+	subject: `Sign-In Notification [${APP_NAME}]`,
+	html: `
+		<div style="font-family:sans-serif; line-height:1.5; max-width:600px; margin:0 auto;">
+			<div style="background-color:#0054e9; padding:20px; text-align:center;">
+				<h1 style="color:white; margin:0;">${APP_NAME}</h1>
+			</div>
+			<div style="padding:30px; background-color:#f9f9f9;">
+				<h2 style="color:#333;">Sign In to Your Account</h2>
+				<p>Hello,</p>
+				<p>The email ${to} has just signed-in.</p>
+				<p>If you didn't trigger that action, contact the administrator immediately.</p>
+				<hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
+				<p>Thank you,<br/><a href="${APP_URL}" target="_blank" style="color:#ff6b6b;">${APP_NAME}</a></p>
+			</div>
+		</div>
+	`,
+	});
+};
+
 const sendSignInOTP = async (to, code) => {
 	await transporterInit();
 	await transporter.sendMail({
@@ -174,6 +198,7 @@ export {
 	sendMagicLinkEmail,
 	sendVerificationEmail,
 	sendPasswordResetVerificationEmail,
+	sendSignInNotification,
 	sendSignInOTP,
 	sendVerificationEmailURL
 };

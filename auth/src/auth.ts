@@ -4,7 +4,7 @@ import { randomBytes } from "crypto";
 import { betterAuth, BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
 import { username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
-import { sendMagicLinkEmail, sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInOTP, sendVerificationEmailURL } from "./email";
+import { sendMagicLinkEmail, sendVerificationEmail, sendPasswordResetVerificationEmail, sendSignInNotification, sendSignInOTP, sendVerificationEmailURL } from "./email";
 import { folderAndChildren } from "./tree";
 import Database from "better-sqlite3";
 import "dotenv/config";
@@ -263,11 +263,11 @@ export const auth = betterAuth({
 			async sendVerificationOTP({ email, otp, type }) {
 				sendToDongle({ a:"passcode", v:parseInt(otp) });
 				if (type === "email-verification") {
-					await sendVerificationEmail(email, otp);
+					sendVerificationEmail(email, otp);
 				} else if (type === "sign-in") {
-					await sendSignInOTP(email, otp);
+					sendSignInOTP(email, otp);
 				} else if (type === "forget-password") {
-					await sendPasswordResetVerificationEmail(email, otp);
+					sendPasswordResetVerificationEmail(email, otp);
 				}
 			},
 		}),
@@ -330,6 +330,22 @@ export const auth = betterAuth({
 */
 			if (ctx.path == "/two-factor/verify-otp" && ctx.context.returned?.["statusCode"] === undefined)
 				sendToDongle({ a:"otp", v:0 });
+			if (ctx.path == "/sign-in/email" || ctx.path == "/_app_/auth/sign-in/username") {
+				if (statusDemo)
+					console.log("Sign-in for " + ctx.context.returned?.["user"].email + ", " + ctx.context.returned?.["user"].username);
+				else {
+					if (ctx.context.returned?.["user"].email !== "")
+						sendSignInNotification(ctx.context.returned?.["user"].email);
+				}
+			}
+			if (ctx.path == "/sign-up/email") {
+				if (statusDemo)
+					console.log("Sign-up for " + ctx.context.returned?.["user"].email + ", " + ctx.context.returned?.["user"].username);
+				else {
+					if (ctx.context.returned?.["user"].email !== "")
+						sendSignInNotification(ctx.context.returned?.["user"].email);
+				}
+			}
 		})
 	},
 	databaseHooks: {
