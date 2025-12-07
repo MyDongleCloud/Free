@@ -157,9 +157,9 @@
 			</div>
 		</nav>
 		<div class="flex gap-3 px-4 mb-2 text--gray-900">
-			<a href="javascript:void()"(click)="global.themeSet('light')" title="{{LG('Light')}}"><ion-icon name="sunny-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'light' ? 'border-b border--gray-900' : ''"></ion-icon></a>
-			<a href="javascript:void()"(click)="global.themeSet('dark')" title="{{LG('Dark')}}"><ion-icon name="moon-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'dark' ? 'border-b border--gray-900' : ''"></ion-icon></a>
-			<a href="javascript:void()"(click)="global.themeSet('system')" title="{{LG('System')}}"><ion-icon name="contrast-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'system' ? 'border-b border--gray-900' : ''"></ion-icon></a>
+			<a (click)="global.themeSet('light')" title="{{LG('Light')}}" [class]="global.themeSel == 'light' ? 'cursor-default' : 'cursor-pointer'"><ion-icon name="sunny-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'light' ? 'border-b border--gray-900' : ''"></ion-icon></a>
+			<a (click)="global.themeSet('dark')" title="{{LG('Dark')}}" [class]="global.themeSel == 'dark' ? 'cursor-default' : 'cursor-pointer'"><ion-icon name="moon-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'dark' ? 'border-b border--gray-900' : ''"></ion-icon></a>
+			<a (click)="global.themeSet('system')" title="{{LG('System')}}" [class]="global.themeSel == 'system' ? 'cursor-default' : 'cursor-pointer'"><ion-icon name="contrast-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'system' ? 'border-b border--gray-900' : ''"></ion-icon></a>
 		</div>
 	</div>
 </aside>
