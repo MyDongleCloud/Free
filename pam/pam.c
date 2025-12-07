@@ -70,10 +70,10 @@ static int authentify(const char *password) {
 		return -1;
 	}
 	char username[256];
-	snprintf(username, sizeof(username), "%s", cJSON_GetStringValue2(cJSON_GetObjectItem(cloud "all"), "name"));
+	snprintf(username, sizeof(username), "%s", cJSON_GetStringValue2(cJSON_GetObjectItem(cloud, "all"), "name"));
 	cJSON_Delete(cloud);
 	char buf[1024];
-	char post[256];
+	char post[512];
 	snprintf(post, sizeof(post), "{\"username\":\"%s\", \"password\":\"%s\"}", username, password);
 	int ret = downloadURLBuffer("http://localhost:8091/auth/sign-in/username", buf, "Content-Type: application/json", post);
 	if (ret == 0) {
