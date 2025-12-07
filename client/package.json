@@ -41,6 +41,7 @@
     "@ngx-translate/http-loader": "17.0.0",
     "@root/acme": "3.1.0",
     "@tailwindcss/postcss": "4.1.17",
+    "angularx-qrcode": "20.0.0",
     "ionicons": "7.4.0",
     "patch-package": "8.0.1",
     "postcss": "8.5.6",

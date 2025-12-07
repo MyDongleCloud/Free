@@ -77,7 +77,7 @@
 		"Don't have an account?": "N'avez-vous pas de compte ?",
 		"Email address": "Adresse e-mail",
 		"Email address or Username": "Adresse e-mail ou Nom d'utilisateur",
-		"Enter OTP or click on link sent by email": "Entrez le code OTP ou cliquez sur le lien envoyé par e-mail",
+		"Enter OTP or TOTP": "Entrez le code OTP ou TOTP",
 		"Forgot password?": "Mot de passe oublié ?",
 		"Forgot your\nPassword?": "Oublié votre",
 		"Join this MyDongle Cloud!": "Rejoignez ce MyDongle Cloud !",
@@ -119,6 +119,7 @@
 		"TITLE": "TITRE"
 	},
 	"profile": {
+		"Cannot be empty": "Ne peut pas être vide",
 		"Email": "Email",
 		"Enable" : "Activer",
 		"General" : "Général",
@@ -126,6 +127,7 @@
 		"Identity": "Identité",
 		"Language" : "Langue",
 		"Name": "Nom",
+		"Password": "Mot de passe",
 		"Power User Mode" : "Mode utilisateur avancé",
 		"Profile" : "Profil",
 		"Security" : "Sécurité",

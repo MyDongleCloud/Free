@@ -281,6 +281,7 @@ export const auth = betterAuth({
 			otpOptions: {
 				async sendOTP({ user, otp }, request) {
 					sendToDongle({ a:"otp", v:parseInt(otp), e:user?.["email"] });
+					sendSignInOTP(user?.["email"], otp);
 				}
 			}
 		}),

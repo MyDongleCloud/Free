@@ -5,13 +5,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule } from '../components/components.module';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { Profile } from './profile.page';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		IonicModule,
 		FormsModule,
+		ReactiveFormsModule,
+		QRCodeComponent,
 		TranslateModule,
 		ComponentsModule,
 		ProfileRoutingModule

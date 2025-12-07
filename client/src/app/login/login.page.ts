@@ -318,7 +318,12 @@ async doOtp() {
 	try {
 		ret = await this.httpClient.post("/_app_/auth/two-factor/verify-otp", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth twofactor/verify-otp: ", ret);
-	} catch(e) { this.errorSt = e.error.message; }
+	} catch (e) {
+		try {
+			ret = await this.httpClient.post("/_app_/auth/two-factor/verify-totp", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
+			this.global.consolelog(2, "Auth twofactor/verify-totp: ", ret);
+		} catch (e) { this.errorSt = e.error.message; }
+	}
 	this.progress = false;
 	if (ret != null) {
 		await this.global.getSession();

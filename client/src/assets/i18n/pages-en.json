@@ -77,7 +77,7 @@
 		"Don't have an account?": "",
 		"Email address": "",
 		"Email address or Username": "",
-		"Enter OTP or click on link sent by email": "",
+		"Enter OTP or TOTP": "",
 		"Forgot password?": "",
 		"Forgot your\nPassword?": "",
 		"Join this MyDongle Cloud!": "",
@@ -119,6 +119,7 @@
 		"TITLE": ""
 	},
 	"profile": {
+		"Cannot be empty": "",
 		"Email": "",
 		"Enable": "",
 		"General": "",
@@ -126,6 +127,7 @@
 		"Identity": "",
 		"Language": "",
 		"Name": "",
+		"Password": "",
 		"Power User Mode": "",
 		"Profile": "",
 		"Security": "",

@@ -52,20 +52,13 @@ void cloudSetup(cJSON *el) {
 	cJSON * elBetterauth = cJSON_GetObjectItem(el, "betterauth");
 	char buf[1024];
 	char *post = cJSON_Print(elBetterauth);
-	char szPath[17];
-	generateUniqueId(szPath);
-	memcpy(szPath, "/tmp/cookie", strlen("/tmp/cookie"));
-	downloadURLBuffer("http://localhost:8091/auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, szPath);
-#ifdef DEFAULT_2FA
-	downloadURLBuffer("http://localhost:8091/auth/two-factor/enable", buf, "Content-Type: application/json", post, szPath, NULL);
-#endif
-	unlink(szPath);
+	downloadURLBuffer("http://localhost:8091/auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, NULL);
 	free(post);
 	serviceAction("betterauth.service", "RestartUnit");
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
 	cJSON *elModule;
 	int i = 1;
-	int total = 0
+	int total = 0;
 	cJSON_ArrayForEach(elModule, modulesDefault)
 		if (cJSON_HasObjectItem(elModule, "setup") && cJSON_HasObjectItem(elModule, "setupPriority"))
 			total++;
