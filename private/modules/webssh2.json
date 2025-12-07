@@ -38,7 +38,7 @@
 			{
 				"type": "ws",
 				"port": 2222,
-				"path": "/ssh/socket\\.io"
+				"path": "/ssh/socket.io"
 			}
 		]
 	}
