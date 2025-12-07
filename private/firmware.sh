@@ -76,6 +76,10 @@ else
 	cp /etc/resolv.conf /tmp/2/etc/resolv.conf
 	chroot ${ROOTFS} sh -c 'cd /home/ai/auth && ./prepare.sh -i'
 
+	cp -a ../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json ${ROOTFS}/usr/local/modules/mydonglecloud/
+	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/reset
+	cp -a ../rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
+
 	rm -rf ../client/web
 	cd ../client
 	ionic --prod build
