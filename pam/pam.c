@@ -65,12 +65,12 @@ static int authentify(const char *password) {
 	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
 	if (!cloud)
 		return -1;
-	if (!cJSON_HasObjectItem(cloud, "username")) {
+	if (!cJSON_HasObjectItem(cloud, "all")) {
 		cJSON_Delete(cloud);
 		return -1;
 	}
 	char username[256];
-	snprintf(username, sizeof(username), "%s", cJSON_GetStringValue2(cloud, "username"));
+	snprintf(username, sizeof(username), "%s", cJSON_GetStringValue2(cJSON_GetObjectItem(cloud "all"), "name"));
 	cJSON_Delete(cloud);
 	char buf[1024];
 	char post[256];
