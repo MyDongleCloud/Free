@@ -12,6 +12,7 @@ import { InAppReview } from '@capacitor-community/in-app-review';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { environment } from '../environments/environment';
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { Settings } from './myinterface';
 import { VERSION } from './version';
 import modulesDefault from './modulesdefault.json';
@@ -67,6 +68,7 @@ constructor(public plt: Platform, private router: Router, private navCtrl: NavCo
 	this.getSession();
 	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { this.themeSet(); });
 	this.themeSet();
+	this.getVisitorHash();
 }
 
 consolelog(level, ...st) {
@@ -88,6 +90,14 @@ themeSet(t = null) {
 		document.body.classList.add("dark");
 	if (darkCurrent == true && this.darkVal == false)
 		document.body.classList.remove("dark");
+}
+
+async getVisitorHash() {
+	const fp = await FingerprintJS.load();
+	const result = await fp.get();
+	const visitorId = result.visitorId;
+	this.consolelog(1, "Fingerprint: " + visitorId);
+	return visitorId;
 }
 
 getCookie(name) {
