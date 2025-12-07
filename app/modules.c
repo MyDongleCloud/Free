@@ -80,7 +80,7 @@ auth.tokenSource.file.path = \"" LOCAL_PATH "mydonglecloud/proxy-token.txt\"\n\
 user = \"%s\"\n\
 metadatas.token = \"%s\"\n\
 webServer.addr = \"127.0.0.1\"\n\
-webServer.port = 7400\n\n", port, firstToken, cJSON_GetStringValue2(elCloudAll, "name"), cJSON_GetStringValue2(elModule3, "token"));
+webServer.port = 7400\n\n", port, cJSON_GetStringValue2(elCloudAll, "name"), cJSON_GetStringValue2(elModule3, "token"));
 		fwrite(sz, strlen(sz), 1, pf);
 		for (int t = 0; t < cJSON_GetArraySize(elModuleS); t++) {
 			cJSON *elModuleSt = cJSON_GetArrayItem(elModuleS, t);
