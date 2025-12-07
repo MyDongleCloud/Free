@@ -24,6 +24,10 @@ if [ "m`id -u`" != "m0" ]; then
 	exit 0
 fi
 
+cd `dirname $0`
+echo "Current directory is now `pwd`"
+PP=`pwd`
+
 #On PC
 #tar -cjpf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ moduleIpApache2/ private/install.sh private/preseed*.cfg
 #scp a.tbz2 private/img/clone.tbz2 ai@192.168.10.9:/tmp
@@ -194,7 +198,7 @@ apt-get -y install clang cargo
 echo "################################"
 echo "postfix"
 echo "################################"
-cat /home/ai/private/preseed_postfix.cfg | debconf-set-selections
+cat $PP/preseed_postfix.cfg | debconf-set-selections
 apt-get -y install postfix swaks s-nail
 
 echo "################################"
@@ -228,7 +232,7 @@ redis-cli ping
 echo "################################"
 echo "roundcube"
 echo "################################"
-cat /home/ai/private/preseed_roundcube.cfg | debconf-set-selections
+cat $PP/preseed_roundcube.cfg | debconf-set-selections
 apt-get -y install roundcube
 cp /etc/roundcube/config.inc.php /etc/roundcube/config.inc.php.template
 chmod 666 /etc/roundcube/config.inc.php
@@ -278,7 +282,7 @@ echo "################################"
 curl -fsSL https://download.jitsi.org/jitsi-key.gpg.key | gpg --dearmor -o /etc/apt/keyrings/jitsi.gpg
 echo "deb [arch=arm64 signed-by=/etc/apt/keyrings/jitsi.gpg] https://download.jitsi.org stable/" > /etc/apt/sources.list.d/jitsi.list
 apt-get update
-cat /home/ai/private/preseed_jitsi.cfg | debconf-set-selections
+cat $PP/preseed_jitsi.cfg | debconf-set-selections
 apt-get -y install jitsi-videobridge2 jitsi-meet-web-config jitsi-meet-web
 #apt-get -y install jitsi-meet
 
@@ -325,7 +329,6 @@ cd /home/ai/build
 wget -nv https://github.com/live-codes/livecodes/releases/download/v46/livecodes-v46.tar.gz
 mkdir /usr/local/modules/livecodes
 tar -xpf livecodes-v46.tar.gz -C /usr/local/modules/livecodes --strip-components=1
-cd ..
 
 echo "################################"
 echo "meilisearch"
@@ -344,7 +347,6 @@ tar -xpf qdrant-aarch64-unknown-linux-musl.tar.gz
 chmod a+x qdrant
 mkdir /usr/local/modules/qdrant
 mv qdrant /usr/local/modules/qdrant
-cd ..
 
 echo "################################"
 echo "triliumnotes"
