@@ -20,6 +20,8 @@ $modulesMarkdown = array();
 $modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
 $modulesMarkdownFooter="\n||||" . number_format(intval($starsTotal / 1000 / 1000), 2) . "M ⭐|||";
 $modulesKeywords = array();
+$modulesSetup = array();
+$modulesReset = array();
 $count = 0;
 foreach ($files as $file) {
     $fullPath = $modulesPath . "/" . $file;
@@ -31,6 +33,14 @@ foreach ($files as $file) {
 	$name = $module["module"];
 	echo $name . ", ";
 	fclose($h);
+	if (!file_exists($modulesPath . "/icons/" . $name . ".png"))
+		echo "\n\nIcon for " . $name . " doesn't exist\n\n";
+	if (isset($module["default"]["setup"]) && !file_exists($modulesPath . "/reset/" . $name . ".sh"))
+			echo "\n\nReset for " . $name . " doesn't exist but has default.setup property\n\n";
+	if (isset($module["default"]["setup"]))
+		array_push($modulesSetup, $name);
+	if (isset($module["default"]["reset"]))
+		array_push($modulesReset, $name);
 	if ($module["github"] != "") {
 		$headers = array("Accept: application/json", "Authorization: Bearer " . $githubAPIKey, "X-GitHub-Api-Version: 2022-11-28", "User-Agent: MyDongleCloud");
 		$ch = curl_init("https://api.github.com/repos/" . $module["github"]);
@@ -56,14 +66,7 @@ foreach ($files as $file) {
 	$modulesMarkdown[$count] = str_replace("0.0k", "", $modulesMarkdown[$count]);
 	$count++;
 }
-echo "\nGithub stars: " . $starsTotal . "\n";
-foreach ($files as $file) {
-    $fullPath = $modulesPath . "/" . $file;
-	if ($file == "." || $file == ".." || is_dir($fullPath))
-		continue;
-	if (!file_exists($modulesPath . "/icons/" . str_replace(".json", ".png", $file)))
-		echo "File " . $fullPath . " doesn't exist\n";
-}
+echo "\n\nSetup: " . implode(", ", $modulesSetup) . "\n\nReset: " . implode(", ", $modulesReset) . "\nGithub stars: " . $starsTotal . "\n";
 if (!is_dir(__DIR__ . "/../build"))
 	mkdir(__DIR__ . "/../build");
 store("/../build/modulesmeta.json", $modulesMeta);
