@@ -844,6 +844,25 @@ ln -sf /etc/systemd/system/betterauth-studio.service /etc/systemd/system/multi-u
 cd /home/ai/auth
 ./prepare.sh -i
 
+installModule() {
+	jq -r '.default.setupDependencies | join("\n")' $PP/modules/$1.json 2> /dev/null | sort | while read tt; do
+		if [ ! -z $tt ]; then
+			installModule $tt
+		fi
+	done
+	if [ -f "$PP/modules/install/$NAME.sh" ]; then
+		echo "################################"
+		echo "$1"
+		echo "################################"
+		echo "$PP/modules/install/$1.sh"
+	fi
+}
+
+find $PP/modules/ -name "*.json" -printf "%f\n" | sort | while read NAME; do
+	NAME="${NAME%?????}"
+	installModule $NAME
+done
+
 echo "################################"
 echo "Services"
 echo "################################"
