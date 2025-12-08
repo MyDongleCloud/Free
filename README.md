@@ -2,7 +2,7 @@
 
 ****MyDongle.Cloud** is your PERSONAL cloud** with mail, calendar, AI chatbot, collaborative office suite, video conference, web hosting, blog, photos, files exchange, every online service you need.
 
-MyDongle.Cloud gathers **150+ compiled and pre-configured** github or Open Source projects representing more than **4 million ⭐**.
+MyDongle.Cloud gathers **150+ compiled and pre-configured** github or Open Source projects representing more than **4.5 million ⭐**.
 
 <p align="center">🚀 <b>MyDongle.Cloud</b> is ①⓪⓪%&nbsp;&nbsp;🅾🅿🅴🅽 🆂🅾🆄🆁🅲🅴. 🚀</p>
 
@@ -98,7 +98,7 @@ Your mail address will be:
 
 # List of included modules (aka. Open Source projects)
 
-**MyDongle.Cloud** gathers **150+ compiled and pre-configured** github or Open Source projects totaling **more than 4M ⭐**.
+**MyDongle.Cloud** gathers **150+ compiled and pre-configured** github or Open Source projects totaling **more than 4.5M ⭐**.
 
 **MyDongle.Cloud** **HEAD** includes:
 
