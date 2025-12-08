@@ -293,7 +293,13 @@ echo "################################"
 cd /home/ai/build
 wget -nv https://download.rethinkdb.com/repository/debian-bookworm/pool/r/rethinkdb/rethinkdb_2.4.4~0bookworm_arm64.deb
 dpkg -i rethinkdb*.deb
-cd ..
+
+echo "################################"
+echo "typesense"
+echo "################################"
+cd /home/ai/build
+wget -nv https://dl.typesense.org/releases/29.0/typesense-server-29.0-arm64-lg-page16.deb
+dpkg -i typesense-server*.deb
 
 echo "################################"
 echo "mongodb"
