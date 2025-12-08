@@ -30,6 +30,10 @@ echo "#Reset tabby##################"
 systemctl stop tabby.service
 rm -rf /disk/admin/modules/tabby
 mkdir /disk/admin/modules/tabby
+cat > /disk/admin/modules/tabby/config.toml << EOF
+[anonymousUsageTracking]
+disable = true
+EOF
 ln -sf /disk/admin/modules/tabby /disk/admin/.tabby
 systemctl start tabby.service
 systemctl enable tabby.service
