@@ -1,2 +1,3 @@
 - [Home](home)
 - <div style="display:flex; align-items:center; gap:10px;"><a href="/#/modules" target="_blank">Modules</a><a href="/modules.html" target="_blank">⧉ ↗</a></div>
+- [Ports](ports)

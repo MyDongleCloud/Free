@@ -1,0 +1,70 @@
+This page documents the involved ports in both image and server.
+
+# Used ports in image
+
+This is the list of all used ports in the image, separated between listening ports and outgoing ports.
+
+### Listening ports
+- ssh: 22
+- postfix: 25 (mail), 465 (smtp)
+- dns: 53, 953
+- apache: 80 (http), 443 (https), 9400-9492 (modules)
+- dovecot imaps: 110 (imaps), 143 (pop3s), 993 (imaps), 995 (pop3s)
+- networkmanager: 546 (dhcpv6)
+- mosquitto: 1883 (zigbee2mqtt)
+- homeassistant: 1900, 5353, 8123
+- webssh2: 2222 (reverseproxy)
+- betterauthstudio: 3002
+- librechat: 3080 (reverseproxy)
+- mysql: 3306, 33060
+- avahi: 5353 (mdns)
+- postgres: 5432
+- redis: 6379
+- frp: 7400
+- meilisearch: 7700
+- metube: 8089 (reverseproxy)
+- triliumnotes: 8090 (reverseproxy)
+- betterauth: 8091 (reverseproxy)
+- audiobookshelf: 8092 (reverseproxy)
+- mydongecloud app: 8093 (socket), 8094 (reverseproxy)
+- zigbee2mqtt: 8095 (reverseproxy)
+- stirlingpdf: 8096 (reverseproxy)
+- transmission: 8097 (reverseproxy), 51413
+- tubesync: 8098 (reverseproxy)
+- tabby: 8099 (reverseproxy)
+- cockpit: 9090
+- rspamd: 11332, 11333, 11334
+- mongodb: 27017
+
+### Outgoing ports
+- frp: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx995 (pop3)
+- postfix: 466
+
+
+# Used listening ports on server
+
+This is the list of all used listening ports on server side.
+
+- frp: 80 (http), 443 (https), 7000 (clients), 7500 (stats)
+- haproxy: 22 (ssh), 465 (smtp), 993 (imap), 995 (pop3)
+- postfix: 25 (email)
+- bind9: 53 (dns)
+
+
+# Traffic paths
+
+This is the interesting traffic paths from and to the Internet:
+
+### Internet -> dongle
+
+- 22: haproxy -> frps (19022) -/-> frpc (22) -> openssh
+- 25: postfix -> frps (19025) -/-> frpc (25) -> postfix
+- 80: frps -/-> frpc (80) -> apache2
+- 443: frps -/-> frpc (443) -> apache2
+- 465: haproxy -> frps (19465) -/-> frpc (465) -> postfix
+- 993: haproxy -> frps (19993) -/-> frpc (993) -> dovecot
+- 995: haproxy -> frps (19995) -/-> frpc (995) -> dovecot
+
+### dongle->outside
+
+- 465: postfix -/-> postfix (466)

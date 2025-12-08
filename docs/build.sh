@@ -44,7 +44,7 @@ fi
 rm -rf web
 mkdir web
 cp /tmp/docsify/lib/docsify.min.js /tmp/docsify/lib/plugins/zoom-image.min.js /tmp/docsify/lib/plugins/search.min.js /tmp/docsify/lib/themes/vue.css web
-cp index.html tailwindcss-4.js _sidebar.md modules.md favicon.ico ../README.md ../build/modulesmeta.json web
+cp index.html tailwindcss-4.js *.md favicon.ico ../README.md ../build/modulesmeta.json web
 sed -i '/<TABLE_MODULES>/ {
 r ../build/README-modules.md
 d
