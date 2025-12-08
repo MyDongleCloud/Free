@@ -1,6 +1,6 @@
 <?php
 function store($p, $o) {
-	file_put_contents(__DIR__ . $p, str_replace("\\/", "/", str_replace("    ", "\t", json_encode($o, JSON_PRETTY_PRINT))));
+	file_put_contents(__DIR__ . $p, str_replace("\\/", "/", str_replace("    ", "\t", json_encode($o, JSON_PRETTY_PRINT))) . "\n");
 }
 
 if (PHP_SAPI !== "cli")
