@@ -19,7 +19,7 @@
 	"finished": true,
 	"default": {
 		"cmds": [
-			"/usr/local/modules/qdrant/qdrant"
+			"/usr/local/bin/qdrant"
 		]
 	}
 }

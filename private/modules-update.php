@@ -64,7 +64,7 @@ foreach ($files as $file) {
 	$modulesMarkdown[$count] = str_replace("0.0k", "", $modulesMarkdown[$count]);
 	$count++;
 }
-echo "\n\nSetup: " . implode(", ", $modulesSetup) . "\n\nReset: " . implode(", ", $modulesReset) . "\nGithub stars: " . $starsTotal . "\n";
+echo "\n\nSetup: " . implode(", ", $modulesSetup) . "\n\nReset: " . implode(", ", $modulesReset) . "\n\nGithub stars: " . $starsTotal . "\n";
 if (!is_dir(__DIR__ . "/../build"))
 	mkdir(__DIR__ . "/../build");
 store("/../build/modulesmeta.json", $modulesMeta);

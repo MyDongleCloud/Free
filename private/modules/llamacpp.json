@@ -19,7 +19,7 @@
 	"finished": false,
 	"default": {
 		"cmds": [
-			"/usr/local/modules/tabby/llama-cli"
+			"/usr/local/bin/llama-server"
 		]
 	}
 }

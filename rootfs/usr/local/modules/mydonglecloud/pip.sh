@@ -27,17 +27,17 @@ done
 PYTHON=python$VERSION
 
 if [ $SETUP = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "SETUP"
-	echo "#####################################"
+	echo "################################"
 	rm -rf $FOLDER
 	$PYTHON -m venv $FOLDER
 fi
 
 if [ $LOCAL = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "LOCAL"
-	echo "#####################################"
+	echo "################################"
 	echo "PATH=$FOLDER/bin:\$PATH"
 	PATH=$FOLDER/bin:$PATH
 	#export PATH=$FOLDER/bin:$PATH

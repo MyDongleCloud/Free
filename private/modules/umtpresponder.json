@@ -1,5 +1,5 @@
 {
-	"module": "otg",
+	"module": "umtpresponder",
 	"name": "uMTP-Responder",
 	"title": "OTG Files",
 	"ai": false,

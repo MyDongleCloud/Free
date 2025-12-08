@@ -1,22 +1,24 @@
 {
 	"module": "serverperformancestats",
 	"name": "Server Performance Stats",
-	"title": "Stats Script",
+	"title": "Live Server Stats",
 	"ai": false,
-	"description": "A simple script file to check server performance and resources stats.",
+	"description": "A script to get live server performance stats.",
 	"keywords": [
-		"Stats Script"
+		"Server",
+		"Health",
+		"Stats"
 	],
 	"proprietary": "",
 	"github": "janisadhi/Server_Performance_Stats",
 	"category": "Utils",
 	"version": "HEAD",
-	"installMethod": "clone",
+	"installMethod": "wget",
 	"web": false,
-	"finished": false,
+	"finished": true,
 	"default": {
 		"cmds": [
-			"/usr/local/modules/serverperformancestats/scripts.sh"
+			"/usr/local/bin/serverperformancestats.sh"
 		]
 	}
 }

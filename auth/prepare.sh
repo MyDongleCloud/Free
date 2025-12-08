@@ -33,7 +33,6 @@ if [ $INSTALL = 1 ]; then
 	rm -f /disk/admin/modules/betterauth/secret.txt
 	chown -R admin:admin /disk/admin/modules/betterauth
 	npm run build
-	echo "{}" > /disk/admin/modules/_config_/_cloud_.json
 	rm -rf /usr/local/modules/betterauth
 	cp -a betterauth /usr/local/modules
 	cp -a node_modules /usr/local/modules/betterauth

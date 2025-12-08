@@ -79,7 +79,7 @@ else
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json ${ROOTFS}/usr/local/modules/mydonglecloud/
 	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/reset
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
-	cp -a modules/services/* ${ROOTFS}/etc/systemd/system/
+	cp modules/services/* ${ROOTFS}/etc/systemd/system/
 
 	rm -rf ../client/web
 	cd ../client

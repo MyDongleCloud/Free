@@ -17,7 +17,10 @@ import * as si from "systeminformation";
 export const port = 8091;
 const statusDemo = process.env.PRODUCTION === "true" ? false : true;
 const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/modules/";
-const version = readFileSync((process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/usr/local/modules/mydonglecloud/version.txt", "utf-8");
+let version = "";
+try {
+	readFileSync((process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/usr/local/modules/mydonglecloud/version.txt", "utf-8");
+} catch(e) {}
 const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";

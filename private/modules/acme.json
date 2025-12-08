@@ -21,7 +21,7 @@
 	"finished": true,
 	"default": {
 		"cmds": [
-			"/usr/local/modules/acme/acme.sh"
+			"/usr/local/bin/acme.sh"
 		]
 	}
 }

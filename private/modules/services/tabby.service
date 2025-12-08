@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/modules/tabby/tabby
+ExecStart=/usr/local/bin/tabby
 WorkingDirectory=/disk/admin
 StandardOutput=inherit
 StandardError=inherit
