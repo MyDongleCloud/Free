@@ -42,7 +42,8 @@ module() {
 if [ $ALL = 1 ]; then
 	TOTAL=-1
 	COUNT=0
-	jq -r '[to_entries[] | select(.value | has("setup")) | {priority: (.value.setupPriority // 0), key: .key, root: (if .value.setupRoot then 1 else 0 end)}] | "\(length)", (sort_by(.priority)[] | "\(.key) \(.root)")' "$PP/modulesdefault.json" | while read l; do
+	LIST=`jq -r '[to_entries[] | select(.value | has("setup")) | {priority: (.value.setupPriority // 0), key: .key, root: (if .value.setupRoot then 1 else 0 end)}] | "\(length)", (sort_by(.priority)[] | "\(.key) \(.root)")' "$PP/modulesdefault.json"`
+	echo $LIST | while read l; do
 		if [ $TOTAL = -1 ]; then
 			TOTAL=$l
 		else
