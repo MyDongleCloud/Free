@@ -4,7 +4,7 @@ Listening ports
 ssh: 22
 postfix: 25 (mail), 465 (smtp)
 dns: 53, 953
-apache: 80 (http), 443 (https), 9400-9490 (modules)
+apache: 80 (http), 443 (https), 9400-9492 (modules)
 dovecot imaps: 110 (imaps), 143 (pop3s), 993 (imaps), 995 (pop3s)
 networkmanager: 546 (dhcpv6)
 mosquitto: 1883 (zigbee2mqtt)
@@ -27,6 +27,7 @@ zigbee2mqtt: 8095 (reverseproxy)
 stirlingpdf: 8096 (reverseproxy)
 transmission: 8097 (reverseproxy), 51413
 tubesync: 8098 (reverseproxy)
+tabby: 8099 (reverseproxy)
 cockpit: 9090
 rspamd: 11332, 11333, 11334
 mongodb: 27017

@@ -1,0 +1,45 @@
+{
+	"module": "tabby",
+	"name": "Tabby",
+	"title": "AI Code Helper",
+	"ai": true,
+	"description": "An AI tool to better code.",
+	"keywords": [
+		"Developer",
+		"AI",
+		"Code"
+	],
+	"proprietary": "Github Copilot",
+	"github": "TabbyML/tabby",
+	"category": "Developer",
+	"version": "v0.31.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"default": {
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [],
+		"reset": true,
+		"alias": [
+			"aicode"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9422,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8099,
+				"path": "/"
+			},
+			{
+				"type": "ws",
+				"port": 8099,
+				"path": "/"
+			}
+		]
+	}
+}

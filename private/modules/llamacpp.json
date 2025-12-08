@@ -1,0 +1,25 @@
+{
+	"module": "llamacpp",
+	"name": "llama.cpp",
+	"title": "LLM Inference",
+	"ai": true,
+	"description": "A tool to enable LLM inference with minial setup and outstanding performance.",
+	"keywords": [
+		"LLM",
+		"Local",
+		"AI",
+		"Language"
+	],
+	"proprietary": "",
+	"github": "ggml-org/llama.cpp",
+	"category": "Developer",
+	"version": "b7315",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
+	"default": {
+		"cmds": [
+			"/usr/local/modules/tabby/llama-cli"
+		]
+	}
+}

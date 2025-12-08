@@ -593,6 +593,8 @@ else
 	clone sunrisecms cityssm/sunrise-cms v1.0.0-alpha.19
 	clone superset apache/superset 5.0.0
 	clone syncthing syncthing/syncthing v1.30.0
+	clone tabby TabbyML/tabby v0.31.2
+	clone tabby/crates/llama-cpp-server/llama.cpp ggerganov/llama.cpp 16cc3c606efe1640a165f666df0e0dc7cc2ad869
 	clone tubesync meeb/tubesync v0.15.10
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webssh2 billchurch/webssh2 webssh2-server-v2.3.4
@@ -743,6 +745,15 @@ PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
 ln -sf /etc/systemd/system/stirlingpdf.service /etc/systemd/system/multi-user.target.wants/stirlingpdf.service
+
+echo "################################"
+echo "tabby"
+echo "################################"
+apt-get -y install protobuf-compiler libopenblas-dev graphviz
+cd /usr/local/modules/tabby
+echo 3 > /proc/sys/vm/drop_caches
+cargo build --release
+ln -sf /etc/systemd/system/tabby.service /etc/systemd/system/multi-user.target.wants/tabby.service
 
 echo "################################"
 echo "tubesync"
