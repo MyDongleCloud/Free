@@ -335,18 +335,18 @@ export const auth = betterAuth({
 				sendToDongle({ a:"otp", v:0 });
 			if (ctx.path == "/sign-in/email" || ctx.path == "/auth/sign-in/username") {
 				if (statusDemo)
-					console.log("Sign-in for " + ctx.context.returned?.["user"].email + ", " + ctx.context.returned?.["user"].username);
+					console.log("Sign-in for " + ctx.context.returned?.["user"]?.email + ", " + ctx.context.returned?.["user"]?.username);
 				else {
-					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"].email !== "")
-						sendSignInNotification(ctx.context.returned?.["user"].email);
+					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"]?.email !== "")
+						sendSignInNotification(ctx.context.returned?.["user"]?.email);
 				}
 			}
 			if (ctx.path == "/sign-up/email") {
 				if (statusDemo)
-					console.log("Sign-up for " + ctx.context.returned?.["user"].email + ", " + ctx.context.returned?.["user"].username);
+					console.log("Sign-up for " + ctx.context.returned?.["user"]?.email + ", " + ctx.context.returned?.["user"]?.username);
 				else {
-					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"].email !== "")
-						sendSignInNotification(ctx.context.returned?.["user"].email);
+					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"]?.email !== "")
+						sendSignInNotification(ctx.context.returned?.["user"]?.email);
 				}
 			}
 		})
