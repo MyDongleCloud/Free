@@ -29,8 +29,8 @@ echo "Current directory is now `pwd`"
 PP=`pwd`
 
 #On PC
-#tar -cjpf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ moduleIpApache2/ private/install.sh private/preseed*.cfg
-#scp a.tbz2 private/img/clone.tbz2 ai@192.168.10.9:/tmp
+#tar -cjpf a.tbz2 app/ auth/ kernel/ rootfs/ screenAvr/ moduleApache2/ pam/ moduleIpApache2/ private/install.sh private/modules/ private/preseed*.cfg
+#scp a.tbz2 build/img/clone.tbz2 ai@192.168.10.8:/tmp
 #On device
 #tar -xjpf /tmp/a.tbz2
 lsb_release -a | grep trixie
@@ -843,6 +843,12 @@ ln -sf /etc/systemd/system/betterauth.service /etc/systemd/system/multi-user.tar
 ln -sf /etc/systemd/system/betterauth-studio.service /etc/systemd/system/multi-user.target.wants/betterauth-studio.service
 cd /home/ai/auth
 ./prepare.sh -i
+
+echo "################################"
+echo "Services"
+echo "################################"
+cd /home/ai
+cp -a $PP/modules/services/* /etc/systemd/system/
 
 echo "################################"
 echo "mydonglecloud and rootfs"
