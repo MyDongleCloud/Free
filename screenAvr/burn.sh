@@ -9,16 +9,13 @@ echo "h:	Print this usage and exit"
 exit 0
 }
 
-BASE=/home/mdc/build/py
 PP=/dev/tty_attiny
 if [ ! -e /dev/tty_attiny ]; then
 	PP=/dev/ttyUSB0
-	BASE=/tmp/test
 fi
 MCU=attiny202
 MEDIUM=uart
 ACTION=0
-SETUP=0
 while getopts efh opt; do
 	case "$opt" in
 		e) ACTION=1;;
