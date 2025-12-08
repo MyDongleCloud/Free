@@ -16,6 +16,9 @@
 	"web": false,
 	"finished": true,
 	"default": {
+		"services": [
+			"betterauth"
+		],
 		"cmds": []
 	}
 }

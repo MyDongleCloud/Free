@@ -20,6 +20,9 @@
 	"default": {
 		"web": true,
 		"enabled": true,
+		"services": [
+			"triliumnotes"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],

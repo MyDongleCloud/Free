@@ -18,6 +18,9 @@
 	"default": {
 		"setup": true,
 		"setupDependencies": [],
+		"services": [
+			"meilisearch"
+		],
 		"config": true
 	}
 }

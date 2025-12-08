@@ -23,6 +23,9 @@
 		"setup": true,
 		"setupDependencies": [],
 		"reset": true,
+		"services": [
+			"metube"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],

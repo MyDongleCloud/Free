@@ -22,6 +22,9 @@
 		"setup": true,
 		"setupDependencies": [],
 		"setupRoot": true,
+		"services": [
+			"mongodb"
+		],
 		"config": true
 	}
 }

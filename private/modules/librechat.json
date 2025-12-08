@@ -25,6 +25,9 @@
 		],
 		"reset": true,
 		"config": true,
+		"services": [
+			"librechat"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],

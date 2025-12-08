@@ -22,6 +22,9 @@
 		"setup": true,
 		"setupDependencies": [],
 		"reset": true,
+		"services": [
+			"tabby"
+		],
 		"alias": [
 			"aicode"
 		],

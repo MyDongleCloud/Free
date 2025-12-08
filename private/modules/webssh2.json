@@ -20,6 +20,9 @@
 	"default": {
 		"web": true,
 		"enabled": true,
+		"services": [
+			"webssh2"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],

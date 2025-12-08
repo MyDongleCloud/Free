@@ -26,6 +26,9 @@
 		"alias": [
 			"home"
 		],
+		"services": [
+			"homeassistant"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],

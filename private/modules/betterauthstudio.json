@@ -24,6 +24,9 @@
 			"identities",
 			"identity"
 		],
+		"services": [
+			"betterauth-studio"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],

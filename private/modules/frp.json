@@ -20,6 +20,9 @@
 	"default": {
 		"web": true,
 		"enabled": true,
+		"services": [
+			"betterauth"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],
