@@ -17,7 +17,7 @@
  export debug=
  export panic=
  export blacklist=
-@@ -232,6 +233,16 @@
+@@ -232,6 +233,17 @@
  	sleep "$ROOTDELAY"
  fi
  
@@ -29,12 +29,13 @@
 +	sleep 1
 +	e2fsck -f -p ${DISK}p2
 +	resize2fs ${DISK}p2
++	tune2fs -m 0.5 ${DISK}p2
 +	e2fsck -f -p ${DISK}p2
 +fi
  maybe_break premount
  [ "$quiet" != "y" ] && log_begin_msg "Running /scripts/init-premount"
  run_scripts /scripts/init-premount
-@@ -251,6 +262,27 @@
+@@ -251,6 +263,27 @@
  mountroot
  log_end_msg
  
