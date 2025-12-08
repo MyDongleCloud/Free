@@ -13,7 +13,7 @@
 	"proprietary": "",
 	"github": "viveris/uMTP-Responder",
 	"category": "Utils",
-	"version": "1.6.8",
+	"version": "umtprd-1.8.1",
 	"installMethod": "clone",
 	"web": false,
 	"finished": true,

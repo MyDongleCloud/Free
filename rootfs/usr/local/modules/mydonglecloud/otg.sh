@@ -37,24 +37,24 @@ done
 
 if [ $OPTIND = 1 ]; then
 	if [ -f /disk/admin/modules/_config_/_modules_.json ]; then
-		L=`jq -r ".otg.features | length" /disk/admin/modules/_config_/_modules_.json`
+		L=`jq -r ".umtpresponder.features | length" /disk/admin/modules/_config_/_modules_.json`
 		if [ $L != 0 ]; then
-			jq -r ".otg.features" /disk/admin/modules/_config_/_modules_.json | grep -qi serial
+			jq -r ".umtpresponder.features" /disk/admin/modules/_config_/_modules_.json | grep -qi serial
 			if [ $? = 0 ]; then
 				SERIAL=1
 			fi
-			jq -r ".otg.features" /disk/admin/modules/_config_/_modules_.json | grep -qi mtp
+			jq -r ".umtpresponder.features" /disk/admin/modules/_config_/_modules_.json | grep -qi mtp
 			if [ $? = 0 ]; then
 				MTP=1
 			fi
 		fi
 	fi
 	if [ $MTP = 0 -a $SERIAL = 0 ]; then
-		jq -r ".otg.features" /usr/local/modules/mydonglecloud/modulesdefault.json | grep -qi serial
+		jq -r ".umtpresponder.features" /usr/local/modules/mydonglecloud/modulesdefault.json | grep -qi serial
 		if [ $? = 0 ]; then
 			SERIAL=1
 		fi
-		jq -r ".otg.features" /usr/local/modules/mydonglecloud/modulesdefault.json | grep -qi mtp
+		jq -r ".umtpresponder.features" /usr/local/modules/mydonglecloud/modulesdefault.json | grep -qi mtp
 		if [ $? = 0 ]; then
 			MTP=1
 		fi
@@ -135,10 +135,10 @@ mkdir $PATHg1/strings/0x409
 echo -n $MANUFACTURER > $PATHg1/strings/0x409/manufacturer
 echo -n $PRODUCT > $PATHg1/strings/0x409/product
 echo -n $SERIALNUMBER > $PATHg1/strings/0x409/serialnumber
-sed -i -e "s/manufacturer.*/manufacturer \"${MANUFACTURER}\"/" /etc/umtprd/umtprd.conf
-sed -i -e "s/product.*/product \"${PRODUCT}\"/" /etc/umtprd/umtprd.conf
-sed -i -e "s/serial.*/serial \"${SERIALNUMBER}\"/" /etc/umtprd/umtprd.conf
-sed -i -e "s/firmware_version.*/firmware_version \"${VERSION}\"/" /etc/umtprd/umtprd.conf
+sed -i -e "s/manufacturer.*/manufacturer \"${MANUFACTURER}\"/" /disk/admin/modules/mtp/umtprd.conf
+sed -i -e "s/product.*/product \"${PRODUCT}\"/" /disk/admin/modules/mtp/umtprd.conf
+sed -i -e "s/serial.*/serial \"${SERIALNUMBER}\"/" /disk/admin/modules/mtp/umtprd.conf
+sed -i -e "s/firmware_version.*/firmware_version \"${VERSION}\"/" /disk/admin/modules/mtp/umtprd.conf
 echo 0x0 > $PATHg1/bDeviceClass
 echo 0x0 > $PATHg1/bDeviceSubClass
 echo 0x0 > $PATHg1/bDeviceProtocol
