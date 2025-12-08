@@ -17,8 +17,6 @@ $modulesMeta = array();
 $modulesTranslationTitle = array();
 $modulesTranslationDescription = array();
 $modulesMarkdown = array();
-$modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
-$modulesMarkdownFooter="\n||||" . number_format(intval($starsTotal / 1000 / 1000), 2) . "M ⭐|||";
 $modulesKeywords = array();
 $modulesSetup = array();
 $modulesReset = array();
@@ -73,6 +71,8 @@ store("/../build/modulesmeta.json", $modulesMeta);
 store("/../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json", $modulesDefault);
 store("/../client/src/assets/i18n/modules-en.json", array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription)));
 store("/../client/src/assets/i18n/keywords-en.json", array("keywords" => $modulesKeywords));
+$modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
+$modulesMarkdownFooter="\n||||" . number_format(intval($starsTotal / 1000 / 1000), 2) . "M ⭐|||";
 file_put_contents(__DIR__ . "/../build/README-modules.md", $modulesMarkdownHeader . implode("\n", $modulesMarkdown) . $modulesMarkdownFooter);
 system("rm -rf " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/reset/; cp -a " . __DIR__ . "/modules/reset/ " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/");
 ?>
