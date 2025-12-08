@@ -56,11 +56,11 @@ void modulesInit(cJSON *elCloud) {
 	cJSON *elModule3 = cJSON_GetObjectItem(elCloud, "frp");
 	cJSON *elModuleS, *elModule2S, *elModule3S;
 	if (elModule)
-		elModuleS = cJSON_GetObjectItem(elModule, "services");
+		elModuleS = cJSON_GetObjectItem(elModule, "protocols");
 	if (elModule2)
-		elModule2S = cJSON_GetObjectItem(elModule2, "services");
+		elModule2S = cJSON_GetObjectItem(elModule2, "protocols");
 	if (elModule3)
-		elModule3S = cJSON_GetObjectItem(elModule3, "services");
+		elModule3S = cJSON_GetObjectItem(elModule3, "protocols");
 	int	used = 0;
 	int port = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "bindingPort"));
 	mkdir(ADMIN_PATH "frp", 0775);

@@ -35,7 +35,7 @@
 			}
 		],
 		"bindingPort": 7000,
-		"services": {
+		"protocols": {
 			"http": {
 				"type": "http",
 				"enabled": true,
