@@ -11,7 +11,7 @@
 #include "apache2.h"
 
 //Functions
-void modulesInit(cJSON *elCloud) {
+void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
 	PRINTF("Modules:Setup: Enter\n");
 	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "info"))
 		return;
@@ -34,10 +34,6 @@ void modulesInit(cJSON *elCloud) {
 		s = cJSON_CreateString(ss->valuestring);
 		cJSON_AddItemToArray(fqdn, s);
 	}
-	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
-	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
-	if (modules == NULL)
-		modules = cJSON_CreateObject();
 
 	cJSON *elModule, *elModule2;
 	elModule = cJSON_GetObjectItem(modulesDefault, "apache2");
@@ -126,6 +122,4 @@ localPort = %d\n", elModuleSt->string, type, strncmp(type, "http", 4) == 0 ? "tr
 #endif
 
 	cJSON_Delete(fqdn);
-	cJSON_Delete(modules);
-	cJSON_Delete(modulesDefault);
 }

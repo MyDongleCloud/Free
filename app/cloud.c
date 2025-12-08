@@ -16,17 +16,45 @@
 //Functions
 void cloudInit() {
 	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
-	modulesInit(cloud);
+	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
+	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
+	if (modules == NULL)
+		modules = cJSON_CreateObject();
+	modulesInit(cloud, modulesDefault, modules);
 	cJSON_Delete(cloud);
+	cJSON_Delete(modules);
+	cJSON_Delete(modulesDefault);
 }
 
-static void setup(int i, int total, char *name, int root) {
+static void setup(int i, int total, char *name, int root, cJSON *modules) {
 	logicSetup(name, MAX2(1, i * 100 / total));
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":\"%s\"}", name);
 	communicationString(sz);
 	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh -u %d -r %s", root, name);
 	system(sz);
+	cJSON *el = cJSON_CreateObject();
+	cJSON_AddBoolToObject(el, "setupDone", 1);
+	cJSON_AddItemToObject(modules, name, el);
+}
+
+void setupLoop(int *i, int total, cJSON *modulesDefault, cJSON *modules, int priority) {
+	cJSON *elModule;
+	cJSON_ArrayForEach(elModule, modulesDefault)
+		if (cJSON_HasObjectItem(elModule, "setup") && cJSON_HasObjectItem(elModule, "setupPriority") == priority) {
+			cJSON *elModuleDepString;
+			cJSON_ArrayForEach(elModuleDepString, cJSON_GetObjectItem(elModule, "setupDependencies")) {
+				cJSON *elModuleDep = cJSON_GetObjectItem(modulesDefault, cJSON_GetStringValue(elModuleDepString));
+				if (cJSON_HasObjectItem(elModuleDep, "setup")) {
+					int setupAlreadyDone = cJSON_HasObjectItem(modules, elModuleDep->string) && cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(modules, elModuleDep->string), "setupDone"));
+					if (setupAlreadyDone == 0)
+						setup((*i)++, total, elModuleDep->string, cJSON_HasObjectItem(elModuleDep, "setupRoot"), modules);
+				}
+			}
+			int setupAlreadyDone = cJSON_HasObjectItem(modules, elModule->string) && cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(modules, elModule->string), "setupDone"));
+			if (setupAlreadyDone == 0)
+				setup((*i)++, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"), modules);
+		}
 }
 
 void cloudSetup(cJSON *el) {
@@ -55,28 +83,33 @@ void cloudSetup(cJSON *el) {
 	downloadURLBuffer("http://localhost:8091/auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, NULL);
 	free(post);
 	serviceAction("betterauth.service", "RestartUnit");
+	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
+	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
+	if (modules == NULL)
+		modules = cJSON_CreateObject();
+	int extended = cJSON_IsTrue(cJSON_GetObjectItem(el, "setupFull"));
 	cJSON *elModule;
-	int i = 1;
-	int total = 0;
-	cJSON_ArrayForEach(elModule, modulesDefault)
-		if (cJSON_HasObjectItem(elModule, "setup") && cJSON_HasObjectItem(elModule, "setupPriority"))
-			total++;
-	cJSON_ArrayForEach(elModule, modulesDefault)
-		if (cJSON_HasObjectItem(elModule, "setup") && cJSON_HasObjectItem(elModule, "setupPriority"))
-			setup(i++, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"));
-#if 0
+	int total = 1;
 	cJSON_ArrayForEach(elModule, modulesDefault) {
-		if (cJSON_HasObjectItem(elModule, "setup") && !cJSON_HasObjectItem(elModule, "setupPriority"))
-			setup(i, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"));
-		i++;
+		jsonDump(elModule);
+		if (cJSON_IsTrue(cJSON_GetObjectItem(elModule, "setup")))
+			if (extended || cJSON_IsTrue(cJSON_GetObjectItem(elModule, "setupPriority")))
+				total++;
 	}
-#endif
+	int i = 1;
+	setupLoop(&i, total, modulesDefault, modules, 1);
+	if (extended)
+		setupLoop(&i, total, modulesDefault, modules, 0);
 	logicSetup(L("Finalization"), 100);
 	communicationString("{\"status\":2}");
-	cloudInit();
+	modulesInit(cloud, modulesDefault, modules);
 	logicMessage(1, 1);
 	communicationString("{\"status\":3}");
+	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
+	cJSON_Delete(cloud);
+	cJSON_Delete(modules);
+	cJSON_Delete(modulesDefault);
 	sync();
 	jingle();
 }
