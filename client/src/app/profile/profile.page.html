@@ -107,7 +107,7 @@
 			<div class="mx-5 mb-5">
 				<div class="flex flex-col w-min-full items-center" [class]="showQRCode ? '' : 'hidden'">
 					<span class="text-lg font-bold">Use this QR Code setup in your usual 2FA app</span><br>
-					<span class="text-sm">(If you don't have one, we recommend the free, secure and Open Source <a href="https://getaegis.app" target="_blank" class="underline">Aegis</a>)</span><br>
+					<span class="text-sm">(If you don't have one, we recommend the free, secure and Open Source <a href="https://getaegis.app" target="_blank" class="underline">Aegis</a> and <a href="https://2fas.com/auth/" target="_blank" class="underline">2FAS</a>)</span><br>
 					<qrcode class="w-min-full" [qrdata]="dataQRCode" errorCorrectionLevel="M"></qrcode><br>
 					<span class="text-xs max-w-sm break-all inline-block">{{dataQRCode}}</span>
 				</div>
