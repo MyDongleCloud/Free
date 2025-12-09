@@ -22,10 +22,4 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	});
 }
 
-async changeLanguageAndRefresh(l: string) {
-	await this.global.changeLanguage(l);
-	this.cdr.detectChanges();
-	setTimeout(() => {this.cdr.detectChanges();}, 500);
-}
-
 }
