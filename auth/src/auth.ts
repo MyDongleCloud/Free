@@ -165,7 +165,7 @@ const mdcEndpoints = () => {
 			}),
 
 			modulesPermissions: createAuthEndpoint("/module/permissions", {
-				method: "POST",
+				method: "POST"
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
 				return Response.json({ "status":"success" }, { status:200 });
