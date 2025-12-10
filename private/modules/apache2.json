@@ -21,6 +21,7 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
+		"setupPriority": true,
 		"setupDependencies": [],
 		"reset": true,
 		"permissions": [
