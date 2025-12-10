@@ -174,7 +174,7 @@ const mdcEndpoints = () => {
 			moduleReset: createAuthEndpoint("/module/reset", {
 				method: "POST",
 			}, async(ctx) => {
-				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh " + ctx.body?.module;
+				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh " + ctx.body?.module + " -r";
 				let ret;
 				try {
 					const output = execSync(tbe);
