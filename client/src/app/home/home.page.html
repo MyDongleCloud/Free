@@ -119,7 +119,7 @@
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" *ngIf="presentation == 'cards'">
-				<div class="rounded-xl border border--gray-200 p-3 shadow-sm flex flex-col" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && !card.finished ? 'bg-[repeating-linear-gradient(-45deg,var(--color--gray-300)_0,var(--color--gray-300)_1px,transparent_1px,transparent_15px)]' : !card.enabled ? 'bg--red-50' : card.web != true ? 'bg--indigo-50' : ''">
+				<div class="rounded-xl border border--gray-200 p-3 shadow-sm flex flex-col" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && !card.finished ? 'bg-[repeating-linear-gradient(-45deg,var(--color--gray-300)_0,var(--color--gray-300)_1px,transparent_1px,transparent_15px)]' : card.web != true ? 'bg--indigo-50' : ''">
 					<div class="flex flex-col">
 						<div class="min-w-full flex items-center">
 							<p class="text-sm font-medium text--gray-600 cursor-pointer">
@@ -129,8 +129,8 @@
 							<div class="flex-1"></div>
 							<span class="text-sm mr-2" *ngIf="showDetails">{{L("Nº")}}{{cc + 1}}</span>
 							<ion-icon [name]="card?.bookmark ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="bookmark(card.module)" [class]="card?.bookmark ? '' : 'text--gray-300'" *ngIf="card.enabled"></ion-icon>
-							<ion-icon name="cloud-offline-outline" class="w-5 h-5 text--red-500 mr-2" *ngIf="!card.enabled"></ion-icon>
-							<ion-icon [name]="card.permissions[0] == '_public_' ? 'lock-open-outline' : 'lock-closed-outline'" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.enabled"></ion-icon>
+							<ion-icon name="cloud-offline-outline" class="w-5 h-5 text--red-500 mr-2" *ngIf="!card.enabled || card.notReady"></ion-icon>
+							<ion-icon [name]="card.permissions[0] == '_public_' ? 'lock-open-outline' : 'lock-closed-outline'" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.enabled && !card.notReady"></ion-icon>
 							<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.config"></ion-icon>
 							<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 						</div>

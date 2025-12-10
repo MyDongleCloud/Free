@@ -263,10 +263,18 @@ openPage(url: string) {
 	this.router.navigate(["/" + url]);
 }
 
-openModule(identifier:number|string, extract:boolean = false, page:string = null) {
+async openModule(identifier:number|string, extract:boolean = false, page:string = null) {
 	let id = identifier;
 	if (typeof identifier == "string")
 		id = this.modulesDataFindId(identifier);
+	if (this.modulesData[id].notReady && !this.demo) {
+		if (await this.presentQuestion("Module Not Yet Ready", "Do you want to setup this module?", "this module has not yet gone through the initial setup. You can do this now; it will take just a few seconds.")) {
+			const data = { module:this.modulesData[id].module };
+			const ret = await this.httpClient.post("/_app_/auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+			this.consolelog(2, "Auth module-reset: ", ret);
+		}
+		return;
+	}
 	const subdomain = this.modulesData[id].alias[0] ?? this.modulesData[id].module;
 	const page_ = page ?? this.modulesData[id].homepage ?? "";
 	if (extract && !this.demo)
@@ -444,6 +452,7 @@ async modulesDataPrepare() {
 			return;
 		}
 		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
+		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true;
 		value["permissions"] = modules[key]?.permissions ?? value["permissions"];
 		if (value["web"] !== true) {
 			value["permissions"] = ["_groupadmin_"];

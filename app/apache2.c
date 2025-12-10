@@ -205,7 +205,8 @@ AppALEnabled %s\n\
 			cJSON *elEnabled = cJSON_GetObjectItem(elModule, "enabled");
 			if (cJSON_HasObjectItem(elModule2, "enabled"))
 				elEnabled = cJSON_GetObjectItem(elModule2, "enabled");
-			if (cJSON_IsTrue(elEnabled)) {
+			int ready = !cJSON_HasObjectItem(elModule, "setup") || cJSON_HasObjectItem(elModule2, "setupDone");
+			if (cJSON_IsTrue(elEnabled) && ready) {
 				cJSON *elPermissions = cJSON_GetObjectItem(elModule, "permissions");
 				if (cJSON_HasObjectItem(elModule2, "permissions"))
 					elPermissions = cJSON_GetObjectItem(elModule2, "permissions");
@@ -284,7 +285,7 @@ AppALEnabled %s\n\
 			} else {
 				snprintf(sz, sizeof(sz), "\
 	RewriteCond %%{REQUEST_URI} !^/_app_/disabled.php$\n\
-	RewriteRule ^/.*$ /_app_/disabled.php?m=%s [PT,L]\n\n", elModule->string);
+	RewriteRule ^/.*$ /_app_/disabled.php?m=%s%s [PT,L]\n\n", elModule->string, !ready ? "&notSetup" : "");
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);
