@@ -40,7 +40,7 @@ settings: Settings = { lang:"en" } as Settings;
 refreshUI:Subject<any> = new Subject();
 firmwareServerVersion;
 session;
-modulesData;
+modulesData = [];
 sidebarFilterType = "";
 sidebarSearchTerm = "";
 statsIntervalId;
@@ -430,8 +430,8 @@ formatCount(count) {
 }
 
 async modulesDataPrepare() {
-	const modules = this.session?.["modules"] ?? {};
-	this.modulesData = [];
+	const modules = await this.httpClient.get("/_app_/auth/modules/data").toPromise();
+	this.modulesData.length = 0;
 	Object.entries(modulesMeta).forEach(([key, value]) => {
 		if (modulesDefault[key] === undefined)
 			this.consolelog(1, "Error: " + key + " not in modulesdefault");
@@ -467,6 +467,7 @@ async modulesDataPrepare() {
 		value["bookmark"] = false;
 		this.modulesData.push(value);
 	});
+	this.refreshUI.next(true);
 }
 
 modulesDataFindId(m) {

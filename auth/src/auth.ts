@@ -27,9 +27,6 @@ const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
 const modulesPath = adminPath + "_config_/_modules_.json";
-let modules = {};
-if (existsSync(modulesPath))
-	modules = JSON.parse(readFileSync(modulesPath, "utf-8"));
 
 function getInternalIpAddress() {
 	const networkInterfaces = os.networkInterfaces();
@@ -166,6 +163,13 @@ const mdcEndpoints = () => {
 					return new Response(fs.readFileSync(fullPath, "utf8"), { status: 200 });
 			}),
 
+			modulesData: createAuthEndpoint("/modules/data", {
+				method: "GET",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				return new Response(fs.readFileSync(modulesPath, "utf-8"), { status: 200 });
+			}),
+
 			modulesPermissions: createAuthEndpoint("/module/permissions", {
 				method: "POST",
 				use: [sensitiveSessionMiddleware]
@@ -267,7 +271,7 @@ export const auth = betterAuth({
 	plugins: [
 		username(),
 		customSession(async ({ user, session }) => {
-			return { session, user, cloud, modules };
+			return { session, user, cloud };
 		}),
 		emailOTP({
 			async sendVerificationOTP({ email, otp, type }) {

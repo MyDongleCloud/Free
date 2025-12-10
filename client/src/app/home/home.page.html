@@ -1,5 +1,5 @@
 <div class="flex h-screen">
-	<app-sidebar [modulesTotal]="this?.filteredCards?.length"></app-sidebar>
+	<app-sidebar [modulesTotal]="filteredCards?.length"></app-sidebar>
 	<div class="flex-1 flex flex-col bg--white overflow-x-auto">
 		<app-topbar title="{{L('Dashboard')}}"></app-topbar>
 		<div>
@@ -114,7 +114,7 @@
 					</label>
 				</div>
 				<div class="flex-1"></div>
-				<div class="text-right hidden lg:block">{{this?.filteredCards?.length}}&nbsp;{{L("modules")}}<br>{{global.formatCount(filteredGithubStars)}}&nbsp;⭐</div>
+				<div class="text-right hidden lg:block">{{filteredCards?.length}}&nbsp;{{L(filteredCards?.length > 1 ? "modules": "module")}}<br>{{global.formatCount(filteredGithubStars)}}&nbsp;⭐</div>
 			</div>
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">

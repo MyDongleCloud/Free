@@ -37,6 +37,7 @@ showNotDone: boolean = true;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
+		this.filterCards();
 		this.cdr.detectChanges();
 	});
 	this.filterCards();
