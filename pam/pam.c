@@ -84,7 +84,8 @@ static int authentify(const char *password) {
 					char *username2 = cJSON_GetStringValue2(el2, "username");
 					if (strcmp(username, username2) == 0)
 							ret = 0;
-			}
+			} else if (cJSON_IsTrue(cJSON_GetObjectItem(el, "twoFactorRedirect")))
+				ret = 0;
 			cJSON_Delete(el);
 	}
 	//PRINTF("authentify %d\n", ret);
