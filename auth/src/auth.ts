@@ -183,6 +183,7 @@ const mdcEndpoints = () => {
 				try {
 					const output = execSync(tbe);
 					console.log("Reset " + ctx.body?.module + ":\n", output);
+					sendToDongle({ a:"refresh" });
 					ret = { status:"success" };
 				} catch (error) {
 					ret = { status:"error" };
