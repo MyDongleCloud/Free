@@ -91,12 +91,10 @@ void cloudSetup(cJSON *el) {
 	int extended = cJSON_IsTrue(cJSON_GetObjectItem(el, "setupFull"));
 	cJSON *elModule;
 	int total = 1;
-	cJSON_ArrayForEach(elModule, modulesDefault) {
-		jsonDump(elModule);
+	cJSON_ArrayForEach(elModule, modulesDefault)
 		if (cJSON_IsTrue(cJSON_GetObjectItem(elModule, "setup")))
 			if (extended || cJSON_IsTrue(cJSON_GetObjectItem(elModule, "setupPriority")))
 				total++;
-	}
 	int i = 1;
 	setupLoop(&i, total, modulesDefault, modules, 1);
 	if (extended)
