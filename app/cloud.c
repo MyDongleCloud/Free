@@ -27,7 +27,7 @@ void cloudInit() {
 }
 
 static void setup(int i, int total, char *name, int root, cJSON *modules) {
-	logicSetup(name, MAX2(1, i * 100 / total));
+	logicSetup(name, RANGE(1, 99, i * 100 / total));
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":\"%s\"}", name);
 	communicationString(sz);
