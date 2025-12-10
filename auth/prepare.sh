@@ -25,6 +25,7 @@ cd `dirname $0`
 if [ $INSTALL = 1 ]; then
 	#During install only
 	echo "{}" > /disk/admin/modules/_config_/_cloud_.json
+	echo "{}" > /disk/admin/modules/_config_/_modules_.json
 	rm -rf betterauth /disk/admin/modules/betterauth
 	mkdir /disk/admin/modules/betterauth/
 	npm install
@@ -39,10 +40,12 @@ if [ $INSTALL = 1 ]; then
 elif [ $CLEAN = 1 ]; then
 	#On PC only
 	echo "{}" > ../rootfs/disk/admin/modules/_config_/_cloud_.json
+	echo "{}" > ../rootfs/disk/admin/modules/_config_/_modules_.json
 	rm -rf node_modules betterauth ../rootfs/disk/admin/modules/betterauth
 elif [ $CLEAN = 2 ]; then
 	#On PC only
 	echo "{}" > ../rootfs/disk/admin/modules/_config_/_cloud_.json
+	echo "{}" > ../rootfs/disk/admin/modules/_config_/_modules_.json
 	rm -rf betterauth ../rootfs/disk/admin/modules/betterauth
 	./prepare.sh
 else
