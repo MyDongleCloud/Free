@@ -1,5 +1,5 @@
 <div class="flex h-screen">
-	<app-sidebar [modulesTotal]="this?.filteredCards.length"></app-sidebar>
+	<app-sidebar [modulesTotal]="this?.filteredCards?.length"></app-sidebar>
 	<div class="flex-1 flex flex-col bg--white overflow-x-auto">
 		<app-topbar title="{{L('Dashboard')}}"></app-topbar>
 		<div>
@@ -114,7 +114,7 @@
 					</label>
 				</div>
 				<div class="flex-1"></div>
-				<div class="text-right hidden lg:block">{{this?.filteredCards.length}}&nbsp;{{L("modules")}}<br>{{global.formatCount(filteredGithubStars)}}&nbsp;⭐</div>
+				<div class="text-right hidden lg:block">{{this?.filteredCards?.length}}&nbsp;{{L("modules")}}<br>{{global.formatCount(filteredGithubStars)}}&nbsp;⭐</div>
 			</div>
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
@@ -130,7 +130,7 @@
 							<span class="text-sm mr-2" *ngIf="showDetails">{{L("Nº")}}{{cc + 1}}</span>
 							<ion-icon [name]="card?.bookmark ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="bookmark(card.module)" [class]="card?.bookmark ? '' : 'text--gray-300'" *ngIf="card.enabled"></ion-icon>
 							<ion-icon name="cloud-offline-outline" class="w-5 h-5 text--red-500 mr-2" *ngIf="!card.enabled"></ion-icon>
-							<ion-icon name="lock-open-outline" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.enabled"></ion-icon>
+							<ion-icon [name]="card.permissions[0] == '_public_' ? 'lock-open-outline' : 'lock-closed-outline'" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.enabled"></ion-icon>
 							<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.config"></ion-icon>
 							<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 						</div>
@@ -247,7 +247,7 @@
 				<tr><td colspan="3" class="h-2"></td></tr>
 				<tr><td>Category</td><td width="20"></td><td>
 					<div class="-ml-2">
-						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(cards[cardIdCur].category)" *ngIf="showDetails">{{LG(cards[cardIdCur].category)}}</span>
+						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(cards[cardIdCur].category)">{{LG(cards[cardIdCur].category)}}</span>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>

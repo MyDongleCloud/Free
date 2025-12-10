@@ -114,35 +114,35 @@
 			</div>
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
-					<span class="text--gray-600">{{LG("Storage")}} ({{(global.statsData?.storage.available / 1024).toFixed(0)}} GB {{LG("free")}})</span>
+					<span class="text--gray-600">{{LG("Storage")}} ({{(global.statsData?.storage?.available / 1024)?.toFixed(0)}} GB {{LG("free")}})</span>
 					<div class="flex items-center gap-1">
-						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent(global.statsData?.storage.usage)" ></div>
-						<span class="ml-auto bg--gray-100 text--gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{global.statsData?.storage.usage.toFixed(0)}}%</span>
+						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent(global.statsData?.storage?.usage)" ></div>
+						<span class="ml-auto bg--gray-100 text--gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{global.statsData?.storage?.usage?.toFixed(0)}}%</span>
 					</div>
 				</div>
 				<div class="mt-2 w-full bg--gray-200 rounded-full h-1 flex">
-					<div class="h-1 rounded-full" [class]="global.colorPercent(global.statsData?.storage.usage)" style="width:{{global.statsData?.storage.usage}}%"></div>
+					<div class="h-1 rounded-full" [class]="global.colorPercent(global.statsData?.storage?.usage)" style="width:{{global.statsData?.storage?.usage}}%"></div>
 				</div>
 			</div>
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
 					<span class="text--gray-600">{{LG("CPU")}}</span>
 					<div class="flex items-center gap-1">
-						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent(global.statsData?.cpu.current.user + global.statsData?.cpu.current.system, [ 50, 20 ])" ></div>
-						<span class="ml-auto bg--gray-100 text--gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{(global.statsData?.cpu.current.user + global.statsData?.cpu.current.system).toFixed(2)}}%</span>
+						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent(global.statsData?.cpu?.current?.user + global.statsData?.cpu?.current?.system, [ 50, 20 ])" ></div>
+						<span class="ml-auto bg--gray-100 text--gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{(global.statsData?.cpu?.current?.user + global.statsData?.cpu?.current?.system)?.toFixed(2)}}%</span>
 					</div>
 				</div>
 				<div class="mt-2 w-full bg--gray-200 rounded-full h-1 flex">
-					<div class="bg--green-800 h-1 rounded-full" style="width:{{global.statsData?.cpu.current.user}}%"></div>
-					<div class="bg--green-600 h-1 rounded-full" style="width:{{global.statsData?.cpu.current.system}}%"></div>
+					<div class="bg--green-800 h-1 rounded-full" style="width:{{global.statsData?.cpu?.current?.user}}%"></div>
+					<div class="bg--green-600 h-1 rounded-full" style="width:{{global.statsData?.cpu?.current?.system}}%"></div>
 				</div>
 			</div>
 			<div class="px-3 py-2">
 				<div class="flex items-center justify-between text-xs">
 					<span class="text--gray-600">{{LG("Network")}}</span>
 					<div class="flex items-center gap-1">
-						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent((global.statsData?.network.current.rx + global.statsData?.network.current.tx) / 1024, [ 1024, 512 ])" ></div>
-						<span class="ml-auto bg--gray-100 text--gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{((global.statsData?.network.current.rx + global.statsData?.network.current.tx) / 1024).toFixed(0)}} kB/s</span>
+						<div class="w-2 h-2 rounded-full" [class]="global.colorPercent((global.statsData?.network?.current?.rx + global.statsData?.network?.current?.tx) / 1024, [ 1024, 512 ])" ></div>
+						<span class="ml-auto bg--gray-100 text--gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{((global.statsData?.network?.current?.rx + global.statsData?.network?.current?.tx) / 1024)?.toFixed(0)}} kB/s</span>
 					</div>
 				</div>
 			</div>
