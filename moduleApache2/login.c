@@ -59,7 +59,7 @@ static char *html[][3] = {
 	{ "osticket", "/scp/login.php", "[id=\"login\"]" },
 	{ "projectsend", "/index.php", "[id=\"login_form\"]" },
 	{ "roundcube", "/index.php", "[id=\"login-form\"]" },
-	{ "tabby", "/signin", "" },
+	{ "tabby", "/auth/signin", "" },
 	{ "webtrees", "/index.php", "[class=\"wt-page-options wt-page-options-login\"]" },
 	{ "yourls", "/admin/index.php", "[method=\"post\"]" },
 };
