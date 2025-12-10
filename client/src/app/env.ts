@@ -425,11 +425,11 @@ colorPercent(p, limits = [ 80, 50 ]) {
 
 formatCount(count) {
 	if (count >= 1_000_000) {
-		const rounded = (count / 1_000_000).toFixed(1);
-		return rounded.endsWith(".0") ? rounded.slice(0, -2) + "M" : rounded + "M";
+		const rounded = (count / 1_000_000).toFixed(2);
+		return rounded + "M";
 	} else if (count >= 1000) {
 		const rounded = (count / 1000).toFixed(1);
-		return rounded.endsWith(".0") ? rounded.slice(0, -2) + "k" : rounded + "k";
+		return rounded + "k";
 	} else
 		return "" + count;
 }
