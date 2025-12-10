@@ -90,6 +90,7 @@ const mdcEndpoints = () => {
 
 			update: createAuthEndpoint("/refresh", {
 				method: "GET",
+				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				sendToDongle({ a:"refresh" });
 				return Response.json({ "status":"success" }, { status:200 });
@@ -97,6 +98,7 @@ const mdcEndpoints = () => {
 
 			stats: createAuthEndpoint("/stats", {
 				method: "GET",
+				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				const ret = {};
 				if (usersNb == 0) {
@@ -165,7 +167,8 @@ const mdcEndpoints = () => {
 			}),
 
 			modulesPermissions: createAuthEndpoint("/module/permissions", {
-				method: "POST"
+				method: "POST",
+				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
 				return Response.json({ "status":"success" }, { status:200 });
@@ -173,6 +176,7 @@ const mdcEndpoints = () => {
 
 			moduleReset: createAuthEndpoint("/module/reset", {
 				method: "POST",
+				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh " + ctx.body?.module + " -r";
 				let ret;
@@ -188,6 +192,7 @@ const mdcEndpoints = () => {
 
 			moduleConfig: createAuthEndpoint("/module/config", {
 				method: "POST",
+				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				let ret;
 				try {
@@ -200,6 +205,7 @@ const mdcEndpoints = () => {
 
 			moduleStats: createAuthEndpoint("/module/stats", {
 				method: "POST",
+				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				let ret = {};
 				try {
