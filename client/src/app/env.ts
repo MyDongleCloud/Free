@@ -224,11 +224,6 @@ async changeLanguage(st) {
 	}
 }
 
-changeLanguageAndRefresh(l) {
-	this.changeLanguage(l);
-	this.refreshUI.next(true);
-}
-
 mytranslateP(page, st) {
 	const inp = page + "." + st;
 	const ret = this.translate.instant(page + "." + st);
