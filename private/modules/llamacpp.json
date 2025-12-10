@@ -15,11 +15,26 @@
 	"category": "Developer",
 	"version": "b7315",
 	"installMethod": "clone",
-	"web": false,
-	"finished": false,
+	"web": true,
+	"finished": true,
 	"default": {
-		"cmds": [
-			"/usr/local/bin/llama-server"
+		"web": true,
+		"enabled": true,
+		"setup": true,
+		"setupDependencies": [],
+		"services": [
+			"llamacpp"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9492,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8099,
+				"path": "/"
+			}
 		]
 	}
 }

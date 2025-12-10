@@ -20,8 +20,12 @@
 		"web": true,
 		"enabled": true,
 		"setup": true,
-		"setupDependencies": [],
+		"setupDependencies": [
+			"llamacpp"
+		],
 		"reset": true,
+		"config": true,
+		"configFile": "/disk/admin/modules/tabby/config.toml",
 		"services": [
 			"tabby"
 		],
@@ -31,16 +35,16 @@
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9492,
+		"localPort": 9493,
 		"reverseProxy": [
 			{
 				"type": "http",
-				"port": 8099,
+				"port": 8100,
 				"path": "/"
 			},
 			{
 				"type": "ws",
-				"port": 8099,
+				"port": 8100,
 				"path": "/"
 			}
 		]

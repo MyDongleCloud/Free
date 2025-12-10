@@ -29,11 +29,17 @@ fi
 echo "#Reset tabby##################"
 systemctl stop tabby.service
 rm -rf /disk/admin/modules/tabby
+rm -rf /disk/admin/.tabby
 mkdir /disk/admin/modules/tabby
 cat > /disk/admin/modules/tabby/config.toml << EOF
+[model.embedding.http]
+kind = "llama.cpp/embedding"
+api_endpoint = "http://localhost:8099"
+
 [anonymousUsageTracking]
 disable = true
 EOF
 ln -sf /disk/admin/modules/tabby /disk/admin/.tabby
 systemctl start tabby.service
 systemctl enable tabby.service
+sleep 5 && /usr/local/modules/mydonglecloud/reset/tabby-user.sh &

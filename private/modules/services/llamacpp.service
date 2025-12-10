@@ -1,0 +1,16 @@
+[Unit]
+Description=llama.cpp
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/llama-server -m /usr/local/modules/llamacpp/nomic-embed-text-v1.5.Q8_0.gguf --cont-batching --port 8099 -np 1 --ctx-size 4096 -ngl 9999 --embedding --ubatch-size 4096
+WorkingDirectory=/disk/admin
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

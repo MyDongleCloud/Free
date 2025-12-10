@@ -59,6 +59,7 @@ static char *html[][3] = {
 	{ "osticket", "/scp/login.php", "[id=\"login\"]" },
 	{ "projectsend", "/index.php", "[id=\"login_form\"]" },
 	{ "roundcube", "/index.php", "[id=\"login-form\"]" },
+	{ "tabby", "/signin", "" },
 	{ "webtrees", "/index.php", "[class=\"wt-page-options wt-page-options-login\"]" },
 	{ "yourls", "/admin/index.php", "[method=\"post\"]" },
 };
@@ -73,6 +74,7 @@ static char *post[][5] = {
 	{ "osticket", "/scp/login.php", "userid", "passwd", NULL },
 	{ "projectsend", "/index.php", "username", "password", NULL },
 	{ "roundcube", "/index.php", "_user", "_pass", NULL },
+	{ "tabby", "/graphql", "email", "password", NULL },
 	{ "webtrees", "/index.php", "username", "password", NULL },
 	{ "yourls", "/admin/index.php", "username", "password", NULL }
 };

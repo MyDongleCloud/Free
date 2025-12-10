@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/tabby serve --host 127.0.0.1 --port 8099
+ExecStart=/usr/local/bin/tabby serve --host 127.0.0.1 --port 8100
 WorkingDirectory=/disk/admin
 StandardOutput=inherit
 StandardError=inherit
