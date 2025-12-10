@@ -21,6 +21,7 @@
 		"setup": true,
 		"setupDependencies": [
 			"meilisearch",
+			"redis",
 			"mongodb"
 		],
 		"reset": true,
