@@ -20,10 +20,12 @@ while getopts chp opt; do
 done
 
 installModule() {
-	jq -r '.default.setupDependencies | join("\n")' $PP/modules/$1.json 2> /dev/null | sort | while read tt; do
-		if [ ! -z $tt ]; then
-			installModule $tt
-		fi
+	if [ -z $tt ]; then
+		exit
+	fi
+	LIST2=`jq -r '.default.setupDependencies | join(" ")' $PP/modules/$1.json 2> /dev/null`
+	for tt in $LIST2; do
+		installModule $tt
 	done
 	if [ ! -f /home/ai/build/_modulesInstalled/$1 -a -f $PP/modules/install/$1.sh ]; then
 		echo "################################"
