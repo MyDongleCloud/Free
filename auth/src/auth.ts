@@ -182,6 +182,8 @@ const mdcEndpoints = () => {
 				method: "POST",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
+				if (ctx.context.session?.user?.role != "admin")
+					return Response.json({}, { status: 200 });
 				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh " + ctx.body?.module + " -r";
 				let ret;
 				try {
