@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
 import modulesDefault from '../modulesdefault.json';
@@ -15,6 +15,7 @@ L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
 LMT(st) { return this.global.mytranslateMT(st); }
 LMD(st) { return this.global.mytranslateMD(st); }
+@ViewChild("searchTermE") searchTermE: ElementRef;
 modules;
 cards;
 cardsOrig;
@@ -30,6 +31,23 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 		this.cdr.detectChanges();
 	});
 	this.getData();
+}
+
+private lastCtrlFPressTimestamp: number = 0;
+@HostListener("document:keydown", ["$event"]) handleKeyboardEvent(event: KeyboardEvent) {
+	const isCtrlF = (event.ctrlKey || event.metaKey) && event.key === "f";
+	if (isCtrlF) {
+		const currentTime = Date.now();
+		const timeDifference = currentTime - this.lastCtrlFPressTimestamp;
+		if (timeDifference < 2000) {
+			this.lastCtrlFPressTimestamp = 0;
+			return;
+		} else {
+			this.lastCtrlFPressTimestamp = currentTime;
+			event.preventDefault();
+			this.searchTermE.nativeElement.focus();
+		}
+	}
 }
 
 compare(i) {
