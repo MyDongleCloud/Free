@@ -36,7 +36,7 @@ VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
 currentUrl: string;
 activateUrl: string;
-settings: Settings = { lang:"en" } as Settings;
+settings: Settings = { lang:"en", welcomeTourShown:false } as Settings;
 refreshUI:Subject<any> = new Subject();
 firmwareServerVersion;
 session;

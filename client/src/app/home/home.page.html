@@ -4,7 +4,7 @@
 		<app-topbar title="{{L('Dashboard')}}"></app-topbar>
 		<div>
 			<div class="flex gap-3 mx-4 mt-4">
-				<div class="relative">
+				<div joyrideStep="anchor4" title="Filter" text="Filter to find a specific module." stepPosition="right" class="relative">
 					<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 						<ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
 					</div>
@@ -21,13 +21,13 @@
 					<ion-icon name="aperture-outline" class="w-4 h-4"></ion-icon>
 					{{L("Details")}}
 				</button>
-				<button (click)="showTerminal = !showTerminal; filterCards();" class="inline-flex items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--indigo-200 transition-colors cursor-pointer" [class]="showTerminal ? 'bg--indigo-50': ''" [style]="showTerminal ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
+				<button joyrideStep="anchor3" title="Terminal Modules" text="Click this button to show the modules only available in a terminal window." stepPosition="left" (click)="showTerminal = !showTerminal; filterCards();" class="inline-flex items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--indigo-200 transition-colors cursor-pointer" [class]="showTerminal ? 'bg--indigo-50': ''" [style]="showTerminal ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
 					<ion-icon name="terminal-outline" class="w-4 h-4"></ion-icon>
 					<span class="whitespace-pre-wrap">{{L("Terminal modules")}}</span>
 				</button>
 			</div>
 			<div class="flex gap-3 mx-4 mt-4 items-center">
-				<div class="flex rounded-lg border border--gray-200 bg--white p-1">
+				<div joyrideStep="anchor5" title="Categories" text="Filter the modules by category." stepPosition="bottom" class="flex rounded-lg border border--gray-200 bg--white p-1">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="category" [(ngModel)]="category" value="All" class="peer sr-only" checked (change)="filterCards()" />
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
@@ -95,7 +95,7 @@
 						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('AI', false)">{{LG("AI")}}</span>
 					</label>
 				</div>
-				<div class="rounded-lg border border--gray-200 bg--white p-1 hidden lg:flex">
+				<div joyrideStep="anchor6" title="Presentation" text="List the modules by card or in a table." stepPosition="bottom" class="rounded-lg border border--gray-200 bg--white p-1 hidden lg:flex">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="presentation" [(ngModel)]="presentation" value="cards" class="peer sr-only" checked/>
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
@@ -118,7 +118,8 @@
 			</div>
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
-			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" *ngIf="presentation == 'cards'">
+			<span joyrideStep="anchor1" title="Welcome" text="This small guide tour will briefly explain the features of this app." stepPosition="center"></span>
+			<div joyrideStep="anchor2" title="Modules" text="These are all available modules." stepPosition="top" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" *ngIf="presentation == 'cards'">
 				<div class="rounded-xl border border--gray-200 p-3 shadow-sm flex flex-col" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && !card.finished ? 'bg-[repeating-linear-gradient(-45deg,var(--color--gray-300)_0,var(--color--gray-300)_1px,transparent_1px,transparent_15px)]' : card.web != true ? 'bg--indigo-50' : ''">
 					<div class="flex flex-col">
 						<div class="min-w-full flex items-center">

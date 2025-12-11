@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { IonModal } from '@ionic/angular';
+import { JoyrideService } from 'ngx-joyride';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
@@ -35,7 +36,7 @@ showTerminal: boolean = false;
 showDone: boolean = true;
 showNotDone: boolean = true;
 
-constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
+constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService) {
 	global.refreshUI.subscribe(event => {
 		this.filterCards();
 		this.cdr.detectChanges();
@@ -149,6 +150,18 @@ async config() {
 
 closeModuleSettings() {
 	this.modalModuleSettings.dismiss();
+}
+
+ngOnInit() {
+	if (!this.global.settings.welcomeTourShown && !this.global.developer) {
+		setTimeout(() => {
+		    this.joyrideService.startTour({
+				steps: ["anchor1", "anchor2", "anchor3", "anchor4", "anchor5", "anchor6"]
+			});
+		}, 2000);
+		this.global.settings.welcomeTourShown = true;
+		this.global.settingsSave();
+	}
 }
 
 }
