@@ -188,6 +188,8 @@ begin:
 	cJSON_ArrayForEach(elModule, modulesDefault) {
 		if (firstTime && strcmp(elModule->string, "apache2") != 0)
 			continue;
+		if (!firstTime && strcmp(elModule->string, "apache2") == 0)
+			continue;
 		if (cJSON_HasObjectItem(elModule, "web")) {
 			cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
 			char path[128];
