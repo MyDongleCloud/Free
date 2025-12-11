@@ -33,7 +33,7 @@ function fillTableHeader() {
 			tmp = tmp + "&nbsp;<input type='checkbox' id='" + header + "ID' onchange='filterTable()' class='border rounded'>";
 		if (header == "module")
 			tmp = "<a href='javascript:sort(0);' title='Toggle Sort'>" + tmp + "&nbsp;&nbsp;&nbsp;<a href='javascript:sort(-1);' title='Sort Descending' data-class='sortDir != 1 ? \"\" : \"text-gray-700\"'>↓</a>&nbsp;&nbsp;&nbsp;<a href='javascript:sort(1)' title='Sort Ascending' data-class='sortDir == 1 ? \"\" : \"text-gray-700\"'>↑</a>";
-		if (header == "category" || header == "installMethod" || header == "githubLanguage") {
+		if (header == "category" || header == "installMethod" || header == "database") {
 			tmp = "<select id='" + header + "ID' onchange='filterTable()' class='border rounded'><option value='" + header + "'>" + tmp + "</option>";
 			const ll = [];
 			Object.entries(data).forEach(([key, value]) => {
@@ -81,6 +81,8 @@ function fillTableContent() {
 				tr.data_category = vvalue;
 			if (kkey == "installMethod")
 				tr.data_installMethod = vvalue;
+			if (kkey == "database")
+				tr.data_database = vvalue;
 			if (kkey == "ai")
 				tr.data_ai = vvalue;
 			if (kkey == "web")
@@ -111,10 +113,11 @@ function filterTable() {
 	const search = document.getElementById("searchID").value.toLowerCase();
 	const category = document.getElementById("categoryID").selectedIndex;
 	const installMethod = document.getElementById("installMethodID").selectedIndex;
+	const database = document.getElementById("databaseID").selectedIndex;
 	const ai = document.getElementById("aiID").checked;
 	const web = document.getElementById("webID").checked;
 	const finished = document.getElementById("finishedID").checked;
-	const dirty = search != "" || category != 0 || installMethod != 0 || ai || web || finished;
+	const dirty = search != "" || category != 0 || installMethod != 0 || database != 0 || ai || web || finished;
 	document.getElementById("resetID").disabled = !dirty;
 
 	const tbody = document.getElementById("dataTbody");
@@ -126,6 +129,10 @@ function filterTable() {
 			return;
 		}
 		if (installMethod != 0 && document.getElementById("installMethodID").options[installMethod].value != row.data_installMethod) {
+			row.style.visibility = "collapse";
+			return;
+		}
+		if (database != 0 && document.getElementById("databaseID").options[database].value != row.data_database) {
 			row.style.visibility = "collapse";
 			return;
 		}
@@ -174,6 +181,7 @@ function reset() {
 	document.getElementById("finishedID").checked = false;
 	document.getElementById("categoryID").selectedIndex = 0;
 	document.getElementById("installMethodID").selectedIndex = 0;
+	document.getElementById("databaseID").selectedIndex = 0;
 	filterTable();
 }
 
