@@ -183,7 +183,11 @@ AppALEnabled %s\n\
 </Macro>\n\n\n");
 	fwrite(sz, strlen(sz), 1, pfM);
 
+	int firstTime = 1;
+begin:
 	cJSON_ArrayForEach(elModule, modulesDefault) {
+		if (firstTime && strcmp(elModule->string, "apache2") != 0)
+			continue;
 		if (cJSON_HasObjectItem(elModule, "web")) {
 			cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
 			char path[128];
@@ -311,6 +315,10 @@ AppALEnabled %s\n\
 
 			strcpy(sz, "\n\n");
 			fwrite(sz, strlen(sz), 1, pfM);
+		}
+		if (firstTime) {
+			firstTime = 0;
+			goto begin;
 		}
 	}
 	fclose(pfP);
