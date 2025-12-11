@@ -169,12 +169,12 @@ AppALEnabled %s\n\
 	fwrite(sz, strlen(sz), 1, pfM);
 	strcpy(sz, "<Macro Macro_Rewrite>\n");
 	fwrite(sz, strlen(sz), 1, pfM);
-	for (int ii = 0; ii < cJSON_GetArraySize(modulesDefault); ii++) {
-		cJSON *el_Module = cJSON_GetArrayItem(modulesDefault, ii);
-		if (cJSON_HasObjectItem(el_Module, "web")) {
-			cJSON *el_Module2 = cJSON_GetObjectItem(modules, el_Module->string);
-			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(el_Module, "localPort"));
-			rewrite(el_Module, el_Module2, localPort, pfM);
+	cJSON *elModule;
+	cJSON_ArrayForEach(elModule, modulesDefault) {
+		if (cJSON_HasObjectItem(elModule, "web")) {
+			cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
+			int localPort = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(elModule, "localPort"));
+			rewrite(elModule, elModule2, localPort, pfM);
 		}
 	}
 	strcpy(sz, "\
@@ -183,8 +183,7 @@ AppALEnabled %s\n\
 </Macro>\n\n\n");
 	fwrite(sz, strlen(sz), 1, pfM);
 
-	for (int i = 0; i < cJSON_GetArraySize(modulesDefault); i++) {
-		cJSON *elModule = cJSON_GetArrayItem(modulesDefault, i);
+	cJSON_ArrayForEach(elModule, modulesDefault) {
 		if (cJSON_HasObjectItem(elModule, "web")) {
 			cJSON *elModule2 = cJSON_GetObjectItem(modules, elModule->string);
 			char path[128];
