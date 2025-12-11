@@ -14,8 +14,7 @@ foreach ($files as $file) {
     $fullPath = $modulesPath . "/" . $file;
 	if ($file == "." || $file == ".." || is_dir($fullPath))
 		continue;
-	$h = fopen($fullPath, "r");
-	$data = fread($h, filesize($fullPath));
+	$data = file_get_contents($fullPath);
 	$module = json_decode($data, true);
 	$module["keywords"] = implode("|", $module["keywords"]);
 	$modulesDefault[$module["module"]] = $module["default"];
@@ -26,15 +25,13 @@ foreach ($files as $file) {
 	}
 	array_push($csv, implode(";", array_values((array)$module)));
 }
-file_put_contents("/tmp/modules.csv", implode("\n", $csv));
-
-system("libreoffice /tmp/modules.csv");
-
 $csvPath = "/tmp/modules.csv";
-$h = fopen($csvPath, "r");
-$data = fread($h, filesize($csvPath));
+file_put_contents($csvPath, implode("\n", $csv));
+
+exec("libreoffice " . $csvPath);
+
+$data = file_get_contents($csvPath);
 $modules = explode("\n", $data);
-fclose($h);
 $name = explode(";", $modules[0]);
 for ($i = 1; $i < count($modules); $i++) {
 	if (strlen($modules[$i]) == 0)

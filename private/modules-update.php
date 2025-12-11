@@ -6,9 +6,7 @@ function store($p, $o) {
 if (PHP_SAPI !== "cli")
 	exit;
 $pathkey = __DIR__ . "/password-githubkey.txt";
-$h = fopen($pathkey, "r");
-$githubAPIKey = fread($h, filesize($pathkey));
-fclose($h);
+$githubAPIKey = file_get_contents($pathkey);
 $modulesPath = __DIR__ . "/modules";
 $files = scandir($modulesPath);
 $starsTotal = 0;
@@ -25,8 +23,7 @@ foreach ($files as $file) {
     $fullPath = $modulesPath . "/" . $file;
 	if ($file == "." || $file == ".." || is_dir($fullPath))
 		continue;
-	$h = fopen($fullPath, "r");
-	$data = fread($h, filesize($fullPath));
+	$data = file_get_contents($fullPath);
 	$module = json_decode($data, true);
 	$name = $module["module"];
 	echo $name . ", ";

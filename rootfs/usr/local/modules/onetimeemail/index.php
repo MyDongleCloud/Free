@@ -6,10 +6,8 @@ $accountCur = "";
 include "process.inc";
 $dbPath = $baseDir . "ote-db.txt";
 if (isset($_POST["formId"])) {
-	$handle = fopen($dbPath, "r");
-	$content = trim(fread($handle, filesize($dbPath)));
+	$content = trim(file_get_contents($dbPath));
 	$content_ = explode("\n", $content);
-	fclose($handle);
 	$expiration = $_POST["formExpiration_"];
 	if (isset($_POST["formRedirect"]))
 		$to = $_POST["formRedirect"];
@@ -27,9 +25,7 @@ if (isset($_POST["formId"])) {
 		}
 		$content = implode("\n", $content_) . "\n";
 	}
-	$handle = fopen($dbPath, "w");
-	fwrite($handle, $content);
-	fclose($handle);
+	file_put_contents($dbPath, $content);
 	clearstatcache();
 	doProcess();
 	echo "success";
@@ -231,9 +227,7 @@ function getTimeDifference($epochTime) {
 	return $difference < 0 ? "Expired" : sprintf("%dh %dm %ds", $hours, $minutes, $seconds);
 }
 
-$handle = fopen($dbPath, "r");
-$content = trim(fread($handle, filesize($dbPath)));
-$content_ = array();
+$content = trim(file_get_contents($dbPath));
 if (strlen($content) == 0)
 	exit;
 $content_ = array_reverse(explode("\n", $content));
@@ -265,7 +259,6 @@ for ($i = 0; $i < count($content_); $i++) {
 	echo "<td " . ($active == false ? "style='background-color:#888888;' " : "") . "nowrap>" . $comment . "</td>\n";
 	echo "</tr>";
 }
-fclose($handle);
 ?>
 </table>
 <div id="toastID" style="position:fixed; top:20px; width:100%; background:transparent; display:none; justify-content:center;"><div id="toastContentID" style="color:white; border-radius: 15px; background:gray; padding:10px; opacity:1; transition:opacity 0.5s ease-in-out;"></div></div>
