@@ -15,6 +15,7 @@
 	"installMethod": "clone",
 	"web": true,
 	"finished": true,
+	"database": "mongodb",
 	"default": {
 		"web": true,
 		"enabled": true,

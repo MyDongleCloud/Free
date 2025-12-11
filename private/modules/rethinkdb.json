@@ -16,6 +16,7 @@
 	"installMethod": "deb",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/rethinkdb"

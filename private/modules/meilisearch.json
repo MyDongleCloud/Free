@@ -15,6 +15,7 @@
 	"installMethod": "wget",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"setup": true,
 		"setupDependencies": [],

@@ -17,6 +17,7 @@
 	"installMethod": "tar",
 	"web": true,
 	"finished": true,
+	"database": "sqlite",
 	"default": {
 		"web": true,
 		"enabled": true,

@@ -17,6 +17,7 @@
 	"installMethod": "",
 	"web": true,
 	"finished": false,
+	"database": "",
 	"default": {
 		"web": true,
 		"enabled": true,

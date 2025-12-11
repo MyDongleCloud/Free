@@ -17,6 +17,7 @@
 	"installMethod": "apt",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/ncdu"

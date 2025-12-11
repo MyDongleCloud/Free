@@ -17,6 +17,7 @@
 	"installMethod": "git",
 	"web": true,
 	"finished": true,
+	"database": "",
 	"default": {
 		"web": true,
 		"enabled": true,

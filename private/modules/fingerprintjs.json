@@ -17,6 +17,7 @@
 	"installMethod": "npm",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"cmds": []
 	}

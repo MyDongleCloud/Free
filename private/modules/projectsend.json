@@ -16,6 +16,7 @@
 	"installMethod": "clone",
 	"web": true,
 	"finished": true,
+	"database": "mysql",
 	"default": {
 		"web": true,
 		"enabled": true,

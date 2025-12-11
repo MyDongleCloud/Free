@@ -17,6 +17,7 @@
 	"installMethod": "clone",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"enabled": "true",
 		"features": [

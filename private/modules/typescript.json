@@ -15,6 +15,7 @@
 	"installMethod": "tar",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"cmds": []
 	}

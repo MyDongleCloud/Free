@@ -16,6 +16,7 @@
 	"installMethod": "wget",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/serverperformancestats.sh"

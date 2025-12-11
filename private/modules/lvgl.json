@@ -15,6 +15,7 @@
 	"installMethod": "clone",
 	"web": false,
 	"finished": true,
+	"database": "",
 	"default": {
 		"cmds": []
 	}

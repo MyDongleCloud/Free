@@ -15,6 +15,7 @@
 	"installMethod": "npm",
 	"web": false,
 	"finished": true,
+	"database": "sqlite",
 	"default": {
 		"services": [
 			"betterauth"

@@ -15,6 +15,7 @@
 	"installMethod": "clone",
 	"web": true,
 	"finished": true,
+	"database": "json",
 	"default": {
 		"web": true,
 		"enabled": true,

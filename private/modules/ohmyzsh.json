@@ -17,6 +17,7 @@
 	"installMethod": "wget",
 	"web": false,
 	"finished": false,
+	"database": "",
 	"default": {
 		"cmds": []
 	}
