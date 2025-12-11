@@ -24,7 +24,7 @@ typedef struct {
 #define PRINTFc(format, ...) PRINTFc_(APLOG_ERR, format, ##__VA_ARGS__)
 
 #define CONF_PATH "/disk/admin/modules/_config_/%s.json"
-#define INJECTION "<script>\n\
+#define INJECTION "<script type=\"module\">\n\
 var mdcSubmit;\n\
 function mdcCredentials() {\n\
 	var input = document.createElement('input');\n\
@@ -36,7 +36,7 @@ function mdcCredentials() {\n\
 };\n\
 var mdcTries = 0;\n\
 function mdcInsert() {\n\
-	if (mdcTries++ > 2)\n\
+	if (mdcTries++ > 5)\n\
 		return;\n\
 	mdcSubmit = document.querySelector('form%s');\n\
 	if (mdcSubmit !== null)\n\
