@@ -91,7 +91,7 @@ rm /tmp/webtrees.php
 
 rm -f /disk/admin/modules/webtrees/conf.txt
 echo "{\"email\":\"${wtemail}\", \"username\":\"${wtuser}\", \"password\":\"${wtpass}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/webtrees.json
-chown admin:admin /disk/admin/modules/_config_/bugzilla.json
+chown admin:admin /disk/admin/modules/_config_/webtrees.json
 
 chown -R admin:admin /disk/admin/modules/webtrees
 chown -R www-data:admin /disk/admin/modules/webtrees/data
