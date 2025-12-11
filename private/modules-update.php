@@ -27,7 +27,6 @@ foreach ($files as $file) {
 	$module = json_decode($data, true);
 	$name = $module["module"];
 	echo $name . ", ";
-	fclose($h);
 	if (!file_exists($modulesPath . "/icons/" . $name . ".png"))
 		echo "\n\nIcon for " . $name . " doesn't exist\n\n";
 	if (isset($module["default"]["setup"]) && !file_exists($modulesPath . "/reset/" . $name . ".sh"))

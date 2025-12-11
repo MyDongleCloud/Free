@@ -5,12 +5,10 @@ function doProcess() {
 	$domain = "mail2.cloud";
 
 	$dbPath = $baseDir . "ote-db.txt";
-	$handle = fopen($dbPath, "r");
-	$content = trim(fread($handle, filesize($dbPath)));
+	$content = trim(file_get_contents($dbPath));
 	if (strlen($content) == 0)
 		return;
 	$content_ = explode("\n", $content);
-	fclose($handle);
 	$oteAlias = "";
 	$oteMaps = "";
 	$otePassword = "";
@@ -33,15 +31,9 @@ function doProcess() {
 		if ($to == "")
 			$otePassword .= "" . $from . ":{plain}" .  bin2hex(random_bytes(5)) . "\n";
 	}
-	$oteAliasH = fopen($baseDir . "otealias", "w");
-	fwrite($oteAliasH, $oteAlias);
-	fclose($oteAliasH);
-	$oteMapsH = fopen($baseDir . "otemaps", "w");
-	fwrite($oteMapsH, $oteMaps);
-	fclose($oteMapsH);
-	$otePasswordH = fopen($baseDir . "password-" . $domain, "w");
-	fwrite($otePasswordH, $otePassword);
-	fclose($otePasswordH);
+	file_put_contents($baseDir . "otealias", $oteAlias);
+	file_put_contents($baseDir . "otemaps", $oteMaps);
+	file_put_contents($baseDir . "password-" . $domain, $otePassword);
 	shell_exec("postmap " . $baseDir . "otemaps; postmap " . $baseDir . "otealias");
 }
 
