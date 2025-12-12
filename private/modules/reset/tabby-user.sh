@@ -23,7 +23,7 @@ echo "#Create user tabby##################"
 DATE=`date +%s`
 URL="http://localhost:8100"
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
-PASSWD="$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)aA.1"
+PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 EMAIL="admin@$CLOUDNAME.mydongle.cloud"
 URL2="https://aicode.$CLOUDNAME.mydongle.cloud"
 

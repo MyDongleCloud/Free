@@ -1,0 +1,24 @@
+{
+	"module": "pwgen",
+	"name": "pwgen",
+	"title": "Password Generator",
+	"ai": false,
+	"description": "A random password generator with multiple options.",
+	"keywords": [
+		"Password",
+		"Random"
+	],
+	"proprietary": "",
+	"github": "tytso/pwgen",
+	"category": "Utils",
+	"version": "v2.08",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"database": "",
+	"default": {
+		"cmds": [
+			"/usr/bin/pwgen"
+		]
+	}
+}

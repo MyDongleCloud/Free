@@ -28,7 +28,7 @@ fi
 
 echo "#Reset mongodb##################"
 DATE=`date +%s`
-PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
+PASSWORD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 systemctl stop mongodb.service
 rm -rf /disk/admin/modules/mongodb
 mkdir /disk/admin/modules/mongodb

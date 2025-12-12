@@ -27,7 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset meilisearch##################"
-PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 16)
+PASSWORD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
 systemctl stop meilisearch.service
 rm -rf /disk/admin/modules/meilisearch

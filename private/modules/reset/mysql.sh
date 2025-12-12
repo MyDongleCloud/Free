@@ -27,7 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset mysql##################"
-PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
+PASSWORD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 systemctl stop mysql.service
 mkdir -p /var/run/mysqld
 chown mysql:mysql /var/run/mysqld

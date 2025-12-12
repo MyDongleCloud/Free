@@ -29,7 +29,7 @@ fi
 echo "#Reset bugzilla##################"
 DATE=`date +%s`
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
-PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
+PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
 rm -rf /disk/admin/modules/bugzilla
 mkdir -p /disk/admin/modules/bugzilla/data

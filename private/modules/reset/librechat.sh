@@ -33,7 +33,7 @@ cd /disk/admin/modules
 systemctl stop librechat.service
 
 MONGODB_PASSWORD=`cat /disk/admin/modules/_config_/mongodb.json | jq -r ".password"`
-DBPASS=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
+DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 mongosh --host 127.0.0.1 -u admin --authenticationDatabase admin -p $MONGODB_PASSWORD <<EOF
 use librechatDB
 db.dropDatabase()
@@ -49,7 +49,7 @@ db.createUser({
 EOF
 
 EMAIL="admin@$CLOUDNAME.mydongle.cloud"
-PASSWD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
+PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 NAME=$CLOUDNAME
 USERNAME=$CLOUDNAME
 

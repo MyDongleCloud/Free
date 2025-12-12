@@ -27,7 +27,7 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset postgresql##################"
-PASSWORD=$(tr -dc 'A-HJ-NP-Za-km-z1-9' < /dev/urandom | head -c 8)
+PASSWORD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 #systemctl stop postgresql.service
 sudo -u postgres psql <<-EOF
 ALTER USER postgres WITH PASSWORD '$PASSWORD';
