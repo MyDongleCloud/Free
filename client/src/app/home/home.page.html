@@ -178,10 +178,10 @@
 				<table class="min-w-full divide-y divide--gray-300">
 					<thead class="bg--gray-50">
 						<tr>
-							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider">{{L("TITLE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('title')" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
-							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider">{{L("OPEN SOURCE")}}<ion-icon class="w-5 h-5 ml-2" (click)="toggleSortDirection('name')" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+							<th scope="col" (click)="toggleSortDirection('title')" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider cursor-pointer">{{L("TITLE")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+							<th scope="col" (click)="toggleSortDirection('name')" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider cursor-pointer">{{L("OPEN SOURCE")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
 							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider">{{L("PERMISSIONS")}}</th>
-							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider">{{L("CAT.")}}<ion-icon *ngIf="category == 'All'" class="w-5 h-5 ml-2" (click)="toggleSortDirection('category')" [name]="sortDirection['category'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
+							<th scope="col" (click)="toggleSortDirection('category')" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider cursor-pointer">{{L("CAT.")}}<ion-icon *ngIf="category == 'All'" class="w-5 h-5 ml-2" [name]="sortDirection['category'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></th>
 							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider">{{L("DESCRIPTION")}}</th>
 							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider" *ngIf="showDetails">{{L("GITHUB")}}</th>
 							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider" *ngIf="showDetails">{{L("KEYWORDS")}}</th>
