@@ -26,28 +26,28 @@ typedef struct {
 
 #define CONF_PATH "/disk/admin/modules/_config_/%s.json"
 #define INJECTION "<script type=\"module\">\n\
-var mdcSubmit;\n\
-function mdcCredentials() {\n\
+var _app_Form;\n\
+function _app_Credentials() {\n\
 	var input = document.createElement('input');\n\
 	input.type = 'hidden';\n\
 	input.name = 'mdcAL';\n\
 	input.value = 1;\n\
-	mdcSubmit.appendChild(input);\n\
-	HTMLFormElement.prototype.submit.call(mdcSubmit);\n\
+	_app_Form.appendChild(input);\n\
+	HTMLFormElement.prototype.submit.call(_app_Form);\n\
 };\n\
-window.__mdcCredentials = mdcCredentials;\n\
-var mdcTries = 0;\n\
-function mdcInsert() {\n\
-	if (mdcTries++ > 5)\n\
+window.__app_Credentials = _app_Credentials;\n\
+var _app_Tries = 0;\n\
+function _app_Insert() {\n\
+	if (_app_Tries++ > 5)\n\
 		return;\n\
-	mdcSubmit = document.querySelector('form%s');\n\
-	if (mdcSubmit !== null)\n\
-		document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;\" onclick=\"window.__mdcCredentials();\">Automatic<br>Login</button></div>');\n\
+	_app_Form = document.querySelector('form%s');\n\
+	if (_app_Form !== null)\n\
+		document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;\" onclick=\"window.__app_Credentials();\">Automatic<br>Login</button></div>');\n\
 	else\n\
-		setTimeout(mdcInsert, 1000);\n\
+		setTimeout(_app_Insert, 1000);\n\
 }\n\
 \n\
-document.addEventListener('DOMContentLoaded', (event) => { mdcInsert(); });\n\
+document.addEventListener('DOMContentLoaded', (event) => { _app_Insert(); });\n\
 </script>"
 
 //Private variables
