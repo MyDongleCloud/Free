@@ -80,7 +80,7 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 		apr_size_t len;
 		rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
 		if (rv != APR_SUCCESS) {
-			//PRINTFc("APP: Error apr_bucket_read %d", status);
+			//PRINTFc("APP: Error apr_bucket_read %d", rv);
 			goto end;
 		}
 		//PRINTFc("%.*s", len, data);
