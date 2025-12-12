@@ -38,6 +38,7 @@ currentUrl: string;
 activateUrl: string;
 settings: Settings = { lang:"en", welcomeTourShown:false } as Settings;
 refreshUI:Subject<any> = new Subject();
+toast:Subject<any> = new Subject();
 firmwareServerVersion;
 session;
 modulesData = [];
@@ -303,6 +304,14 @@ async presentAlert(hd, st, msg, key:string = "") {
 		this.settings.dontShowAgain[key] = true;
 		this.settingsSave();
 	}
+}
+
+dimissToast() {
+	this.toast.next({ show:false });
+}
+
+presentToast(message, icon, delay) {
+	this.toast.next({ show:true, message, icon, delay });
 }
 
 async platform() {

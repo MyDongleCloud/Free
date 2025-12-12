@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideHttpClient, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { forkJoin, Observable, map } from 'rxjs';
+import { ComponentsModule } from './components/components.module';
 
 export class MultiHttpLoader implements TranslateLoader {
 constructor(private http: HttpClient, private configs: { prefix: string, suffix: string }[]) {}
@@ -38,6 +39,7 @@ export function createMultiHttpLoader(http: HttpClient) {
 		BrowserModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
+		ComponentsModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
