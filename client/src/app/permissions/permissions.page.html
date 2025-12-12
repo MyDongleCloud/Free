@@ -26,6 +26,7 @@
 						<th scope="col" class="px-6 py-3 text-start text-xs hidden md:table-cell font-medium text--gray-500 tracking-wider cursor-pointer" (click)="toggleSortDirection('title')"><div class="flex items-center">{{L("TITLE")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['title'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></div></th>
 						<th scope="col" class="px-6 py-3 text-start text-xs font-medium text--gray-500 tracking-wider"><div class="flex items-center cursor-pointer" (click)="toggleSortDirection('name')">{{L("OPEN SOURCE")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></div></th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider"><div class="flex items-center cursor-pointer"><ion-icon class="w-5 h-5 mr-2" name="refresh-outline" (click)="updateHits()"></ion-icon><span (click)="toggleSortDirection('hits')">{{L("HITS")}}</span><ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['hits'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" (click)="toggleSortDirection('hits')"></ion-icon></div></th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider">{{L("ACTIVATE")}}</th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider">{{L("DISABLED")}}</th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider">{{L("PUBLIC")}}</th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("LOCAL\nNETWORK")}}</th>
@@ -44,6 +45,11 @@
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center">{{card.hits}}</div>
+						</td>
+						<td class="px-6 py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text--gray-900 flex justify-center" *ngIf="card.notReady">
+								<ion-icon name="cog-outline" class="w-4 h-4 cursor-pointer" (click)="global.setupModule(card.module)"></ion-icon>
+							</div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bDisabled']" [disabled]="card['enabledUnalterable']" (change)="update(card)" class="form-checkbox h-4 w-4"></div>

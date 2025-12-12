@@ -105,6 +105,7 @@
 		"Welcome\nback!": "Ravi de\nvous revoir"
 	},
 	"permissions": {
+		"Activate": "ACTIVER",
 		"DESCRIPTION": "DESCRIPTION",
 		"DISABLED": "DÉSACTIVÉ",
 		"Find modules...": "Rechercher des modules...",

@@ -264,16 +264,23 @@ openPage(url: string) {
 	this.router.navigate(["/" + url]);
 }
 
-async openModule(identifier:number|string, extract:boolean = false, page:string = null) {
+async setupModule(identifier:number|string) {
+	let id = identifier;
+	if (typeof identifier == "string")
+		id = this.modulesDataFindId(identifier);
+	if (await this.presentQuestion("Module Not Yet Ready", "Do you want to setup this module?", "this module has not yet gone through the initial setup. You can do this now; it will take just a few seconds.")) {
+		const data = { module:this.modulesData[id].module };
+		const ret = await this.httpClient.post("/_app_/auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
+		this.consolelog(2, "Auth module-reset: ", ret);
+	}
+}
+
+openModule(identifier:number|string, extract:boolean = false, page:string = null) {
 	let id = identifier;
 	if (typeof identifier == "string")
 		id = this.modulesDataFindId(identifier);
 	if (this.modulesData[id].notReady && !this.demo) {
-		if (await this.presentQuestion("Module Not Yet Ready", "Do you want to setup this module?", "this module has not yet gone through the initial setup. You can do this now; it will take just a few seconds.")) {
-			const data = { module:this.modulesData[id].module };
-			const ret = await this.httpClient.post("/_app_/auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
-			this.consolelog(2, "Auth module-reset: ", ret);
-		}
+		this.setupModule(id);
 		return;
 	}
 	const subdomain = this.modulesData[id].alias[0] ?? this.modulesData[id].module;
