@@ -39,13 +39,16 @@ private lastCtrlFPressTimestamp: number = 0;
 	if (isCtrlF) {
 		const currentTime = Date.now();
 		const timeDifference = currentTime - this.lastCtrlFPressTimestamp;
-		if (timeDifference < 2000) {
+		if (timeDifference < 5000) {
 			this.lastCtrlFPressTimestamp = 0;
+			this.global.dimissToast();
+			this.searchTermE.nativeElement.blur();
 			return;
 		} else {
 			this.lastCtrlFPressTimestamp = currentTime;
 			event.preventDefault();
 			this.searchTermE.nativeElement.focus();
+			this.global.presentToast("Type Ctrl-F a second time for the browser search", "help-outline", 5000);
 		}
 	}
 }
