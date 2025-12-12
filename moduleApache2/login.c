@@ -280,7 +280,7 @@ static void insert_filter(request_rec *r) {
 		int c = strcmp(confVH->name, html[i][0]);
 		if (c < 0)
 			break;
-		if (c == 0 && strncmp(r->uri, html[i][1], strlen(html[i][1])) == 0) {
+		if (c == 0 && ((html[i][1] == NULL && strcmp(r->uri, "/") == 0) || (html[i][1] != NULL && strncmp(r->uri, html[i][1], strlen(html[i][1])) == 0))) {
 			if (!ctx)
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundHtml = i;
