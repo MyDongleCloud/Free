@@ -15,7 +15,7 @@
 				</button>
 				<div class="flex-1"></div>
 				<div class="flex items-center mr-3" [class]="global.developer ? '' : 'hidden'">
-					<input type="checkbox" [(ngModel)]="showDone" labelPlacement="end" (ionChange)="filterCards()" class="form-checkbox h-4 w-4 mr-2">{{L("Done")}}<input type="checkbox" [(ngModel)]="showNotDone" labelPlacement="end" (ionChange)="filterCards()" class="form-checkbox h-4 w-4 ml-6 mr-2">{{L("Not yet done")}}
+					<input type="checkbox" [(ngModel)]="showDone" labelPlacement="end" (change)="filterCards()" class="form-checkbox h-4 w-4 mr-2">{{L("Done")}}<input type="checkbox" [(ngModel)]="showNotDone" labelPlacement="end" (change)="filterCards()" class="form-checkbox h-4 w-4 ml-6 mr-2">{{L("Not yet done")}}
 				</div>
 				<button (click)="showDetails = !showDetails;" class="inline-flex items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-200 transition-colors cursor-pointer" [class]="showDetails ? 'bg--gray-100': ''" [style]="showDetails ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
 					<ion-icon name="aperture-outline" class="w-4 h-4"></ion-icon>
