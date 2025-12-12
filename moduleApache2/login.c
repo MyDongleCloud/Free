@@ -3,6 +3,7 @@
 #include "http_request.h"
 #include "http_log.h"
 #include "apr_strings.h"
+#include "apr_tables.h"
 #include "apr_shm.h"
 #include "apr_proc_mutex.h"
 #include "cJSON.h"
@@ -90,6 +91,11 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 		goto end;
 	if (authorization2(f->r) != DECLINED)
 		goto end;
+	const char *content_type = apr_table_get(f->r->headers_out, "Content-Type");
+	if (content_type == NULL || strstr(content_type, "text/html") == NULL) {
+		PRINTFc("APP: Not HTML, skipping injection");
+		goto end;
+	}
 	apr_bucket *b;
 	for (b = APR_BRIGADE_FIRST(bb); b != APR_BRIGADE_SENTINEL(bb); b = APR_BUCKET_NEXT(b)) {
 		if (APR_BUCKET_IS_EOS(b))
