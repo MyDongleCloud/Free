@@ -43,7 +43,7 @@ NAME=$1
 if [ $DEPENDENCIES = 1 ]; then
 	LIST2=`jq -r ".$NAME.setupDependencies | join(\" \")" $PP/modulesdefault.json 2> /dev/null`
 	for tt in $LIST2; do
-		ALREADYDONE=`jq -r ".$NAME.setupDone" $MODULES 2> /dev/null`
+		ALREADYDONE=`jq -r ".$tt.setupDone" $MODULES 2> /dev/null`
 		if [ "$ALREADYDONE" != "true" ]; then
 			$PP/setup.sh -d $DEPENDENCIES -j $JSON -R $RESET $tt
 		fi
