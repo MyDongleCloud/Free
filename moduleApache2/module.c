@@ -15,6 +15,8 @@
 #include "module.h"
 
 //Defines
+#define STATS
+
 #undef PRINTF_
 #undef PRINTF
 #define PRINTF_(level, format, ...) {ap_log_error(APLOG_MARK, level, 0, s, format, ##__VA_ARGS__);}
@@ -50,7 +52,9 @@ static void *createConfig(apr_pool_t *p, server_rec *s) {
 		apr_shm_create(&confVH->shm_lasttime, sizeof(time_t), NULL, p);
 		time_t *global_lasttime = apr_shm_baseaddr_get(confVH->shm_lasttime);
 		*global_lasttime = 0;
+#ifdef STATS
 		apr_proc_mutex_create(&confVH->mutex, "stats", APR_LOCK_DEFAULT, p);
+#endif
 		apr_pool_cleanup_register(p, confVH, cleanup, apr_pool_cleanup_null);
 		return confVH;
 	} else {
@@ -172,7 +176,6 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 int authorization2(request_rec *r) {
 	server_rec *s = r->server;
 	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
-#define STATS
 #ifdef STATS
 	int *global_hits = apr_shm_baseaddr_get(confVH->shm_hits);
 	time_t *global_lasttime = apr_shm_baseaddr_get(confVH->shm_lasttime);
