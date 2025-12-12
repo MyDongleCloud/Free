@@ -35,13 +35,14 @@ function mdcCredentials() {\n\
 	mdcSubmit.appendChild(input);\n\
 	HTMLFormElement.prototype.submit.call(mdcSubmit);\n\
 };\n\
+window.__mdcCredentials = mdcCredentials;\n\
 var mdcTries = 0;\n\
 function mdcInsert() {\n\
 	if (mdcTries++ > 5)\n\
 		return;\n\
 	mdcSubmit = document.querySelector('form%s');\n\
 	if (mdcSubmit !== null)\n\
-		document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;\" onclick=\"mdcCredentials();\">Automatic<br>Login</button></div>');\n\
+		document.body.insertAdjacentHTML('beforeend', '<div style=\"position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; font-size:; text-align:center; border:2px solid white; border-radius:15px;\">MyDongle.Cloud<br><button style=\"text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;\" onclick=\"window.__mdcCredentials();\">Automatic<br>Login</button></div>');\n\
 	else\n\
 		setTimeout(mdcInsert, 1000);\n\
 }\n\
