@@ -23,40 +23,46 @@ typedef struct {
 #define PRINTFc_(level, format, ...) {ap_log_cerror(APLOG_MARK, level, 0, f->c, format, ##__VA_ARGS__);}
 #define PRINTFc(format, ...) PRINTFc_(APLOG_ERR, format, ##__VA_ARGS__)
 
+#define APP_V_USERNAME "_app_username_"
+#define APP_V_EMAIL "_app_email_@app.com"
+#define APP_V_EMAIL2 "_app_email_%40app.com"
+#define APP_V_PASSWORD "_app_.1.Password_"
+#define APP_N_USERNAME "username"
+#define APP_N_EMAIL "email"
+#define APP_N_PASSWORD "password"
 #define CONF_PATH "/disk/admin/modules/_config_/%s.json"
-#define INJECTION "<script type=\"module\">\n\
+#define INJECTION "<script type='module'>\n\
 </script>"
 
-//Private variables
-static char *html[][3] = {
-	{ "adminer", "/conf.php", "[method=\"post\"]" },
-	{ "bugzilla", "/index.cgi", "[id=\"mini_login_top\"]" },
-	{ "homeassistant", "/auth/authorize", "" },
-	{ "librechat", "/login", "[method=\"post\"]" },
-	{ "mantisbugtracker", "/login_page.php", "[id=\"login-form\"]" },
-	{ "mantisbugtracker", "/login_password_page.php", "[id=\"login-form\"]" },
-	{ "osticket", "/scp/login.php", "[id=\"login\"]" },
-	{ "projectsend", "/index.php", "[id=\"login_form\"]" },
-	{ "roundcube", "/index.php", "[id=\"login-form\"]" },
-	{ "tabby", NULL, "" },
-	{ "tabby", "/auth/signin", "" },
-	{ "webtrees", "/index.php", "[class=\"wt-page-options wt-page-options-login\"]" },
-	{ "yourls", "/admin/index.php", "[method=\"post\"]" },
+static char *html[][8] = {
+	{ "adminer", "/conf.php", "form[method=post]", "input[name=\"auth[username]\"]", "input[name=\"auth[password]\"]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "bugzilla", "/index.cgi", "form[id=mini_login_top]", "input[name=Bugzilla_login]", "input[name=Bugzilla_password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "homeassistant", "/auth/authorize", "form", "input[name=username]", "input[name=password]", "ha-button", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "librechat", "/login", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
+	{ "mantisbugtracker", "/login_page.php", "form[id=login-form]", "input[name=username]", "input[name=username]", "input[type=submit]", APP_V_USERNAME, APP_V_USERNAME },
+	{ "mantisbugtracker", "/login_password_page.php", "form[id=login-form]", "input[name=username]", "input[name=password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "osticket", "/scp/login.php", "form[id=login]",  "input[name=userid]", "input[name=passwd]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "projectsend", "/index.php", "form[id=login_form]", "input[name=username]", "input[name=password]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "roundcube", "/index.php", "form[id=login-form]", "input[name=_user]", "input[name=_pass]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
+	{ "tabby", NULL, "form", "input[name=email]", "input[name=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
+	{ "tabby", "/auth/signin", "form", "input[name=email]", "input[name=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
+	{ "webtrees", "/index.php", "form[class=\"wt-page-options wt-page-options-login\"]", "input[name=username]", "input[name=password]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "yourls", "/admin/index.php", "form[method=post]", "input[name=username]", "input[name=password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
 };
 
-static char *post[][5] = {
-	{ "adminer", "/conf.php", "auth%5Busername%5D", "auth%5Bpassword%5D", NULL },
-	{ "bugzilla", "/index.cgi", "Bugzilla_login", "Bugzilla_password", NULL },
-	{ "homeassistant", "/auth/login_flow", "username", "password", NULL },
-	{ "librechat", "/api/auth/login", "email", "password", (char *)1 },
-	{ "mantisbugtracker", "/login_password_page.php", "username", NULL, NULL },
-	{ "mantisbugtracker", "/login.php", "username", "password", NULL },
-	{ "osticket", "/scp/login.php", "userid", "passwd", NULL },
-	{ "projectsend", "/index.php", "username", "password", NULL },
-	{ "roundcube", "/index.php", "_user", "_pass", NULL },
-	{ "tabby", "/graphql", "email", "password", NULL },
-	{ "webtrees", "/index.php", "username", "password", NULL },
-	{ "yourls", "/admin/index.php", "username", "password", NULL }
+static char *post[][6] = {
+	{ "adminer", "/conf.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "bugzilla", "/inex.cgi", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "homeassistant", "/auth/login_flow", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "librechat", "/api/auth/login", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
+	{ "mantisbugtracker", "/login_password_page.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "mantisbugtracker", "/login.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "osticket", "/scp/login.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "projectsend", "/index.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "roundcube", "/index.php", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
+	{ "tabby", "/graphql", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
+	{ "webtrees", "/index.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "yourls", "/admin/index.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD }
 };
 
 //Functions
@@ -99,7 +105,7 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 		}
 		apr_size_t offset = (pos - data) + 6;
 		char szScript[4096];
-		snprintf(szScript, sizeof(szScript), INJECTION, html[ctx->foundHtml][2]);
+		snprintf(szScript, sizeof(szScript), INJECTION, html[ctx->foundHtml][6], html[ctx->foundHtml][7], html[ctx->foundHtml][2], html[ctx->foundHtml][3], html[ctx->foundHtml][4], html[ctx->foundHtml][5]);
 		apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
 		apr_bucket_split(b, offset);
 		APR_BUCKET_INSERT_BEFORE(APR_BUCKET_NEXT(b), inject_b);
@@ -110,63 +116,30 @@ end:
 	return rv != 0 ? rv : ap_pass_brigade(f->next, bb);
 }
 
-int replace(ap_filter_t *f, const char *input, int type, const char *name1, const char *value1, const char *name2, const char *value2, char **output) {
-	int ret = 0;
-	int count = 0;
-	const char *p = input + type;
-	char *delimiter = type == 1 ? "," : "&";
-	char *separator = type == 1 ? ":" : "=";
-	char *encadrator = type == 1 ? "\"" : "";
-	while (*p) {
-		if (*p == delimiter[0])
-			count++;
-		p++;
-	}
-	count++;
-	char **pairs = malloc(count * sizeof(char *));
-	p = input + type;
-	for (int i = 0; i < count; i++) {
-		const char *end = strchr(p, delimiter[0]);
-		if (!end) end = p + strlen(p);
-
-		int len = end - p;
-		pairs[i] = malloc(len + 1);
-		strncpy(pairs[i], p, len);
-		pairs[i][len] = '\0';
-
-		p = end + 1;
-	}
-	for (int i = 0; i < count; i++) {
-		if (name1 && strncmp(pairs[i] + type, name1, strlen(name1)) == 0 && pairs[i][type + strlen(name1) + type] == separator[0]) {
-			free(pairs[i]);
-			pairs[i] = malloc(strlen(name1) + strlen(value1) + 8);
-			sprintf(pairs[i], "%s%s%s%s%s%s%s", encadrator, name1, encadrator, separator, encadrator, value1, encadrator);
-			ret++;
+static void replace(ap_filter_t *f, char *input, char *search1, char *search2, char *arg1, char *arg2, char **output) {
+	char *posArg1 = strstr(input, search1);
+	char *tmp;
+	if (posArg1 && arg1) {
+		tmp = malloc(strlen(input) + strlen(arg1) - strlen(search1) + 1);
+		strncpy(tmp, input, posArg1 - input);
+		tmp[posArg1 - input] = '\0';
+		strcat(tmp, arg1);
+		strcat(tmp, posArg1 + strlen(search1));
+	} else {
+		if (strchr(search1, '@') != NULL) {
+			replace(f, input, APP_V_EMAIL2, search2, arg1, arg2, output);
+			return;
 		}
-		if (name2 && strncmp(pairs[i] + type, name2, strlen(name2)) == 0 && pairs[i][type + strlen(name2) + type] == separator[0]) {
-			free(pairs[i]);
-			pairs[i] = malloc(strlen(name2) + strlen(value2) + 8);
-			sprintf(pairs[i], "%s%s%s%s%s%s%s", encadrator, name2, encadrator, separator, encadrator, value2, encadrator);
-			ret++;
-		}
+		tmp = malloc(strlen(input) + 1);
+		strcpy(tmp, input);
 	}
-	if (ret != 0) {
-		int total_len = 16 + count;
-		for (int i = 0; i < count; i++)
-			total_len += strlen(pairs[i]);
-		*output = apr_pcalloc(f->r->pool, total_len);
-		strcpy(*output, type == 1 ? "{" : "");
-		for (int i = 0; i < count; i++) {
-			strcat(*output, pairs[i]);
-			if (i < count - 1)
-				strcat(*output, delimiter);
-		}
-		strcat(*output, type == 1 ? "}" : "");
-	}
-	for (int i = 0; i < count; i++)
-		free(pairs[i]);
-	free(pairs);
-	return ret;
+	char *posArg2 = strstr(tmp, search2);
+	if (posArg2 && arg2) {
+		*posArg2 = '\0';
+		*output = apr_pstrcat(f->r->pool, tmp, arg2, posArg2 + strlen(search2), NULL);
+	} else//Case impossible
+		*output = apr_pstrcat(f->r->pool, tmp, NULL);
+	free(tmp);
 }
 
 static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input_mode_t mode, apr_read_type_e block, apr_off_t readbytes) {
@@ -199,33 +172,31 @@ static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input
 		rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
 		if (rv != APR_SUCCESS)
 			goto end;
-		char *buffer = apr_pstrndup(f->r->pool, data, len);
-		//PRINTFc("APP: Post Before ##%s##", buffer);
+		char *buffer = apr_pstrndup(f->r->pool, data, len + 1);
+		buffer[len] = '\0';
+		//PRINTFc("APP: Post Before %lu##%s##", len, buffer);
 		char *newBuffer = NULL;
 		int ret = 0;
-		if (strstr(buffer, "mdcAL") != NULL) {
+		if (strstr(buffer, post[ctx->foundPost][5]) != NULL) {
 			char szTmp[128];
 			snprintf(szTmp, sizeof(szTmp), CONF_PATH, post[ctx->foundPost][0]);
 			el = jsonRead(szTmp);
-			char *username = NULL;
-			char *email = NULL;
-			char *password = NULL;
 			if (el) {
-				username = cJSON_GetStringValue2(el, "username");
-				email = cJSON_GetStringValue2(el, "email");
-				password = cJSON_GetStringValue2(el, "password");
-				ret = replace(f, buffer, buffer[0] == '{', post[ctx->foundPost][2], post[ctx->foundPost][4] ? email : username, post[ctx->foundPost][3], password, &newBuffer);
-				PRINTFc("APP: Post After %d##%s##", ret, newBuffer);
+				char *arg1 = cJSON_GetStringValue2(el, post[ctx->foundPost][2]);
+				char *arg2 = cJSON_GetStringValue2(el, post[ctx->foundPost][3]);
+				if (arg1 && arg2) {
+					replace(f, buffer, post[ctx->foundPost][4], post[ctx->foundPost][5], arg1, arg2, &newBuffer);
+					ret = 1;
+					len = strlen(newBuffer);
+					//PRINTFc("APP: Post After %lu##%s##", len, newBuffer);
+					char *len_str = apr_palloc(f->r->pool, 32);
+					snprintf(len_str, 32, "%lu", len);
+					apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
+				}
 			}
 		}
 		if (ret == 0)
 			newBuffer = buffer;
-		else {
-			len = strlen(newBuffer);
-			char *len_str = apr_palloc(f->r->pool, 32);
-			snprintf(len_str, 32, "%lu", len);
-			apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
-		}
 		apr_bucket *reinsert_b = apr_bucket_transient_create(newBuffer, len, f->c->bucket_alloc);
 		APR_BRIGADE_INSERT_TAIL(bb, reinsert_b);
 		apr_bucket_destroy(b);
