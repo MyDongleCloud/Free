@@ -30,6 +30,7 @@ function _app_Credentials() {
 	_app_Arg2.dispatchEvent(new Event('input', { bubbles: true }));
 	_app_React(_app_Arg2);
 	_app_Arg3.click();
+	setTimeout(function() { const _app_Div = document.getElementById('_app_ButtonID'); if (_app_Div) _app_Div.style.display = 'none'; }, 2000);
 }
 window._app_Credentials = _app_Credentials;
 
@@ -43,7 +44,7 @@ function _app_Insert() {
 		_app_Arg2 = _app_Form.querySelector('%s');
 		_app_Arg3 = _app_Form.querySelector('%s');
 		if (_app_Arg1 !== null && _app_Arg2 !== null && _app_Arg3 !== null)
-			document.body.insertAdjacentHTML('beforeend', '<div style="position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; text-align:center; border:2px solid white; border-radius:15px;">MyDongle.Cloud<br><button style="text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;" onclick="window._app_Credentials();">Automatic<br>Login</button></div>');
+			document.body.insertAdjacentHTML('beforeend', '<div id="_app_ButtonID"; style="position:absolute; z-index:99; top:100px; right:50px; padding:10px; background-color:#000f4e; color:white; font-weight:bold; text-align:center; border:2px solid white; border-radius:15px;">MyDongle.Cloud<br><button style="text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;" onclick="window._app_Credentials();">Automatic<br>Login</button></div>');
 		else
 			setTimeout(_app_Insert, 1000);
 	} else
