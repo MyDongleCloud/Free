@@ -183,9 +183,12 @@ filterCards() {
 }
 
 async updateHits() {
-	await this.httpClient.get("/_app_/auth/refresh", {headers:{"content-type": "application/json"}}).toPromise();
+	this.global.presentToast("Data is being refreshed. Please wait...", "help-outline", 10000);
+	const ret = await this.httpClient.get("/_app_/auth/refresh", {headers:{"content-type": "application/json"}}).toPromise();
+	this.global.consolelog(2, "Auth Refresh: ", ret);
 	await this.global.sleepms(3000);
 	await this.getData();
+	this.global.dismissToast();
 }
 
 sortCards() {
