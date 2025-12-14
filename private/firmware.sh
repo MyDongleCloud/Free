@@ -77,6 +77,8 @@ else
 	chroot ${ROOTFS} sh -c 'cd /home/ai/auth && ./prepare.sh -i'
 
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json ${ROOTFS}/usr/local/modules/mydonglecloud/
+	rm -rf ../rootfs/usr/local/modules/mydonglecloud/reset
+	cp -a modules/reset/ ../rootfs/usr/local/modules/mydonglecloud/
 	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/reset
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
 	cp modules/services/* ${ROOTFS}/etc/systemd/system/
