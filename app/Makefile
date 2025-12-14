@@ -26,6 +26,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)comBle.o \
 	$(PRE)comSocket.o \
 	$(PRE)comWebSocket.o \
+	$(PRE)diskNotify.o \
 	$(PRE)json.o \
 	$(PRE)language.o \
 	$(PRE)lv_font_montserrat_10.o \

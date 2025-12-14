@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -13,9 +14,16 @@
 #include "communication.h"
 #include "language.h"
 
+//Private variable
+static pthread_mutex_t cloudMutex = PTHREAD_MUTEX_INITIALIZER;
+
 //Functions
 void cloudInit() {
+	pthread_mutex_lock(&cloudMutex);
+	PRINTF("CloudInit\n");
 	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
+	if (cloud == NULL)
+		cloud = cJSON_CreateObject();
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
 	if (modules == NULL)
@@ -24,6 +32,7 @@ void cloudInit() {
 	cJSON_Delete(cloud);
 	cJSON_Delete(modules);
 	cJSON_Delete(modulesDefault);
+	pthread_mutex_unlock(&cloudMutex);
 }
 
 static void setup(int i, int total, char *name, int root, cJSON *modules) {
@@ -101,13 +110,12 @@ void cloudSetup(cJSON *el) {
 		setupLoop(&i, total, modulesDefault, modules, 0);
 	logicSetup(L("Finalization"), 100);
 	communicationString("{\"status\":2}");
-	modulesInit(cloud, modulesDefault, modules);
-	logicMessage(1, 1);
-	communicationString("{\"status\":3}");
-	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
 	cJSON_Delete(cloud);
-	cJSON_Delete(modules);
 	cJSON_Delete(modulesDefault);
-	sync();
+	PRINTF("Saving _modules_.json during setup\n");
+	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
+	cJSON_Delete(modules);
+	logicMessage(1, 1);
 	jingle();
+	sync();
 }

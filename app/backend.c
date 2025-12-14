@@ -16,6 +16,8 @@
 #include "ui.h"
 #include "logic.h"
 #include "settings.h"
+#include "cloud.h"
+#include "diskNotify.h"
 
 //Defines
 //from linux/input.h
@@ -31,7 +33,7 @@ int eventFdUI = 0;
 //Private variables
 static lv_indev_t *indevK;
 #ifndef WEB
-static struct pollfd pollfd[3];
+static struct pollfd pollfd[4];
 #endif
 static int autoSleep = -1;
 
@@ -193,6 +195,8 @@ void backendInit(int daemon) {
 	pollfd[1].events = POLLIN;
 	pollfd[2].fd = eventFdUI;
 	pollfd[2].events = POLLIN;
+	pollfd[3].fd = diskNotifyStart(ADMIN_PATH "_config_/_modules_.json");
+	pollfd[3].events = POLLIN;
 #endif
 }
 
@@ -216,7 +220,7 @@ void backendLoop() {
 #ifdef WEB
 	usleep(1000 * time_till_next);
 #else
-	int ret = poll(pollfd, 3, time_till_next);
+	int ret = poll(pollfd, 4, time_till_next);
 	if (doLoop == 0)
 		return;
 	if (pollfd[0].revents & POLLIN) {
@@ -246,6 +250,8 @@ void backendLoop() {
 		read(pollfd[2].fd, &value, sizeof(value));
 		logicUpdate();
 	}
+	if (pollfd[3].revents & POLLIN)
+		diskNotifyCB(pollfd[3].fd, &cloudInit);
 #endif
 	static int count = 0;
 	if (count++ % 30 == 0)
