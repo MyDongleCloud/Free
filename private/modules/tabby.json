@@ -34,6 +34,7 @@
 			"aicode"
 		],
 		"permissions": [
+			"_localnetwork_",
 			"_groupadmin_"
 		],
 		"localPort": 9493,
