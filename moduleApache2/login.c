@@ -74,7 +74,7 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 	apr_status_t rv = 0;
 	if (ctx->processedHtml)
 		goto end;
-	if (authorization2(f->r) != DECLINED)
+	if (authorization2(f->r, 1) != DECLINED)
 		goto end;
 	apr_bucket *b;
 	for (b = APR_BRIGADE_FIRST(bb); b != APR_BRIGADE_SENTINEL(bb); b = APR_BUCKET_NEXT(b)) {
@@ -151,7 +151,7 @@ static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input
 	cJSON *el = NULL;
 	if (ctx->processedPost)
 		goto end;
-	if (authorization2(f->r) != DECLINED)
+	if (authorization2(f->r, 1) != DECLINED)
 		goto end;
 	if (mode != AP_MODE_READBYTES || f->r->method_number != M_POST)
 		goto end;

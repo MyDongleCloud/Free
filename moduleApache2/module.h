@@ -21,6 +21,6 @@ typedef struct {
 extern module AP_MODULE_DECLARE_DATA app_module;
 
 //Global function
-int authorization2(request_rec *r);
+int authorization2(request_rec *r, int strict);
 
 #endif

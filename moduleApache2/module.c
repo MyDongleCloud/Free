@@ -173,7 +173,7 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 	return ret;
 }
 
-int authorization2(request_rec *r) {
+int authorization2(request_rec *r, int strict) {
 	server_rec *s = r->server;
 	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
 #ifdef STATS
@@ -189,7 +189,7 @@ int authorization2(request_rec *r) {
 	//char *ssz = cJSON_Print(confVH->permissions);
 	//PRINTF("APP: authorization1c permissions: %s\n", ssz);
 	//free(ssz);
-	if (confVH->permissions == NULL || cJSON_HasObjectItem(confVH->permissions, "_public_"))
+	if (!strict && (confVH->permissions == NULL || cJSON_HasObjectItem(confVH->permissions, "_public_")))
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
 	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
@@ -204,7 +204,7 @@ static int authorization(request_rec *r) {
 	const char *current_uri = r->uri;
 	if (current_uri != NULL && strncmp(current_uri, "/_app_/", 7) == 0)
 		return DECLINED;
-	int ret = authorization2(r);
+	int ret = authorization2(r, 0);
 	if (ret != -2)
 		return ret;
 	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
