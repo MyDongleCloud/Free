@@ -104,8 +104,7 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 			}
 		}
 		apr_size_t offset = (pos - data) + 6;
-		char szScript[4096];
-		snprintf(szScript, sizeof(szScript), INJECTION, html[ctx->foundHtml][6], html[ctx->foundHtml][7], html[ctx->foundHtml][2], html[ctx->foundHtml][3], html[ctx->foundHtml][4], html[ctx->foundHtml][5]);
+		const char *szScript = apr_psprintf(f->r->pool, INJECTION, html[ctx->foundHtml][6], html[ctx->foundHtml][7], html[ctx->foundHtml][2], html[ctx->foundHtml][3], html[ctx->foundHtml][4], html[ctx->foundHtml][5]);
 		apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
 		apr_bucket_split(b, offset);
 		APR_BUCKET_INSERT_BEFORE(APR_BUCKET_NEXT(b), inject_b);
