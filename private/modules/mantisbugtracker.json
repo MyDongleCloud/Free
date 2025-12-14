@@ -27,7 +27,7 @@
 		],
 		"reset": true,
 		"config": true,
-		"addConfig": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
+		"addConfigEnd": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
 		"permissions": [
 			"_groupadmin_"
 		],

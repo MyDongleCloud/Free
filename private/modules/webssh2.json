@@ -31,7 +31,7 @@
 		"alias": [
 			"ssh"
 		],
-		"addConfig": "Alias /access /usr/local/modules/webssh2/access\n\t<Directory /usr/local/modules/webssh2/access>\n\t\tRequire all granted\n\t</Directory>\n\tProxyPass /access !",
+		"addConfigBegin": "Alias /access /usr/local/modules/webssh2/access\n\t<Directory /usr/local/modules/webssh2/access>\n\t\tRequire all granted\n\t</Directory>\n\tProxyPass /access !",
 		"homepage": "/access",
 		"reverseProxy": [
 			{

@@ -216,12 +216,12 @@ begin:
 				if (cJSON_HasObjectItem(elModule2, "permissions"))
 					elPermissions = cJSON_GetObjectItem(elModule2, "permissions");
 
-				if (cJSON_HasObjectItem(elModule, "addConfig")) {
-					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule, "addConfig"));
+				if (cJSON_HasObjectItem(elModule, "addConfigBegin")) {
+					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule, "addConfigBegin"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
-				if (cJSON_HasObjectItem(elModule2, "addConfig")) {
-					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule2, "addConfig"));
+				if (cJSON_HasObjectItem(elModule2, "addConfigBegin")) {
+					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule2, "addConfigBegin"));
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 
@@ -276,6 +276,15 @@ begin:
 				else
 					strcpy(sz, "\t</Directory>\n");
 				fwrite(sz, strlen(sz), 1, pfM);
+
+				if (cJSON_HasObjectItem(elModule, "addConfigEnd")) {
+					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule, "addConfigEnd"));
+					fwrite(sz, strlen(sz), 1, pfM);
+				}
+				if (cJSON_HasObjectItem(elModule2, "addConfigEnd")) {
+					snprintf(sz, sizeof(sz), "\t%s\n", cJSON_GetStringValue2(elModule2, "addConfigEnd"));
+					fwrite(sz, strlen(sz), 1, pfM);
+				}
 
 				if (strcmp(elModule->string, "apache2") == 0 || strcmp(elModule->string, "mydonglecloud") == 0) {
 					strcpy(sz, "\tUse Macro_Rewrite\n");

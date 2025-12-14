@@ -28,7 +28,7 @@
 		"services": [
 			"tubesync"
 		],
-		"addConfig": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
+		"addConfigBegin": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
 		"permissions": [
 			"_groupadmin_"
 		],
