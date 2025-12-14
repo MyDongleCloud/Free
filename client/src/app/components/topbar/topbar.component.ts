@@ -21,7 +21,6 @@ toggleUserMenu() {
 	this.showUserMenu = !this.showUserMenu;
 }
 
-
 getInitials() {
 	const st = this.global.session?.user?.name ?? "";
 	const nameParts = st.trim().split(" ");

@@ -159,7 +159,7 @@ ngOnInit() {
 	if (!this.global.settings.welcomeTourShown && !this.global.developer) {
 		setTimeout(() => {
 		    this.joyrideService.startTour({
-				steps: ["anchor1", "anchor2", "anchor3", "anchor4", "anchor5", "anchor6"]
+				steps: ["anchor1", "anchor2", "anchor3", "anchor4", "anchor5", "anchor6", "anchor7", "anchor8", "anchor9", "anchor10"]
 			});
 		}, 2000);
 		this.global.settings.welcomeTourShown = true;
