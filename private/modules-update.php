@@ -25,6 +25,10 @@ foreach ($files as $file) {
 		continue;
 	$data = file_get_contents($fullPath);
 	$module = json_decode($data, true);
+	if ($module === null) {
+		echo "$fullPath has an error\n";
+		exit;
+	}
 	$name = $module["module"];
 	echo $name . ", ";
 	if (!file_exists($modulesPath . "/icons/" . $name . ".png"))
