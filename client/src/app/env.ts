@@ -313,7 +313,7 @@ async presentAlert(hd, st, msg, key:string = "") {
 	}
 }
 
-dimissToast() {
+dismissToast() {
 	this.toast.next({ show:false });
 }
 

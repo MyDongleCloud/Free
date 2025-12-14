@@ -53,7 +53,7 @@ private lastCtrlFPressTimestamp: number = 0;
 		const timeDifference = currentTime - this.lastCtrlFPressTimestamp;
 		if (timeDifference < 5000) {
 			this.lastCtrlFPressTimestamp = 0;
-			this.global.dimissToast();
+			this.global.dismissToast();
 			this.searchTermE.nativeElement.blur();
 			return;
 		} else {
