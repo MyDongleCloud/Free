@@ -174,8 +174,31 @@ const mdcEndpoints = () => {
 				method: "POST",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
-				writeFileSync(modulesPath, JSON.stringify(ctx.body, null, "\t"), "utf-8");
-				return Response.json({ "status":"success" }, { status:200 });
+				let ret;
+				try {
+					const modules = JSON.parse(fs.readFileSync(modulesPath, "utf-8"));
+					console.log("Before", modules);
+					console.log(ctx.body);
+					Object.entries(ctx.body).forEach(([key, value]) => {
+						if (!modules[key])
+							modules[key] = {};
+						if (value?.["enabled"] === false) {
+							modules[key].enabled = false;
+							delete modules[key].permissions;
+						} else if (value?.["permissions"]) {
+							delete modules[key].enabled;
+							if (!modules[key])
+								modules[key] = {};
+							modules[key].permissions = value["permissions"];
+						}
+					});
+					console.log("After", modules);
+					writeFileSync(modulesPath, JSON.stringify(modules, null, "\t"), "utf-8");
+					ret = { status:"success" };
+				} catch (error) {
+					ret = { status:"error" };
+				}
+				return Response.json(ret, { status:200 });
 			}),
 
 			moduleReset: createAuthEndpoint("/module/reset", {

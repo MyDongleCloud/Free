@@ -149,12 +149,16 @@ async getData() {
 			value["link"] = (location.protocol + "//" + location.host + "/m/" + ll).toLowerCase();
 			value["enabled"] = this.modules[key]?.enabled ?? value["enabled"] ?? true;
 			value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
+			value["bDisabled"] = value["enabled"] == false;
+			value["bPublic"] = false;
+			value["bLocal"] = false;
+			value["bAdmin"] = false;
+			value["bUser"] = false;
 			for (let i = 0; i < value["permissions"].length; i++) {
-				value["bDisabled"] = value["enabled"] == false;
-				value["bPublic"] = value["permissions"][i] == "_public_";;
-				value["bLocal"] = value["permissions"][i] == "_localnetwork_";
-				value["bAdmin"] = value["permissions"][i] == "_groupadmin_";
-				value["bUser"] = value["permissions"][i] == "_groupuser_";
+				value["bPublic"] ||= value["permissions"][i] == "_public_";;
+				value["bLocal"] ||= value["permissions"][i] == "_localnetwork_";
+				value["bAdmin"] ||= value["permissions"][i] == "_groupadmin_";
+				value["bUser"] ||= value["permissions"][i] == "_groupuser_";
 			}
 			value["hits"] = stats?.[key]?.hits ?? 0;
 			this.cards.push(value);
