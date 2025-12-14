@@ -95,5 +95,3 @@ chown admin:admin /disk/admin/modules/_config_/webtrees.json
 
 chown -R admin:admin /disk/admin/modules/webtrees
 chown -R www-data:admin /disk/admin/modules/webtrees/data
-
-sed -i -e "s|if (str_starts_with(\$content_type, 'text/')) {|if (str_starts_with(\$content_type, 'text/')) {return false;|" /usr/local/modules/webtrees/app/Http/Middleware/CompressResponse.php

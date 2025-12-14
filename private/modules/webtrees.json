@@ -28,6 +28,7 @@
 		"setupRoot": true,
 		"reset": true,
 		"config": true,
+		"addConfigEnd": "SetEnvIf Request_URI \"^/index.php\" no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"permissions": [
 			"_groupadmin_"
 		],
