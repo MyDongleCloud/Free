@@ -11,10 +11,10 @@
 	"proprietary": "",
 	"github": "typesense/typesense",
 	"category": "Developer",
-	"version": "v29.0",
-	"installMethod": "clone",
+	"version": "29.0",
+	"installMethod": "deb",
 	"web": false,
-	"finished": false,
+	"finished": true,
 	"database": "",
 	"default": {
 		"cmds": [

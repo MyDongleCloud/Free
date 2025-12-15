@@ -16,7 +16,7 @@
 	"version": "v1.15.3",
 	"installMethod": "npm",
 	"web": false,
-	"finished": false,
+	"finished": true,
 	"database": "",
 	"default": {
 		"cmds": [

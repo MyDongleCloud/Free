@@ -3,7 +3,7 @@
 	"name": "Crystal",
 	"title": "Crystal Language",
 	"ai": false,
-	"description": "A superset of JavaScript that compiles to clean JavaScript output.",
+	"description": "A general-purpose, object-oriented programming language.",
 	"keywords": [
 		"Language"
 	],
