@@ -483,7 +483,7 @@ async modulesDataPrepare() {
 		if (value["web"]) {
 			const ll = value["alias"].length > 0 ? value["alias"][0] : key;
 			value["link"] = location.protocol + "//" + location.host + "/m/" + ll;
-			value["link2"] = "https://" + ll + "." + (this.session?.["cloud"]?.["all"]?.["name"] ?? "") + ".mydongle.cloud";
+			value["link2"] = "https://" + ll + "." + (this.session?.["cloud"]?.["info"]?.["name"] ?? "") + ".mydongle.cloud";
 			value["link"] = value["link"].toLowerCase();
 			if (value["homepage"])
 				value["link"] += value["homepage"];
