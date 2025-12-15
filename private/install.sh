@@ -338,6 +338,7 @@ chown -R admin:admin rootfs/disk/admin
 cp -a rootfs/* /
 rm -rf rootfs
 chown -R root:root /usr/local
+chown -R www-data:www-data /usr/local/modules/libreqr/css
 chown -R ai:ai /home/ai
 chown -R www-data:admin /disk/admin/modules/roundcube
 mv /var/lib/mysql /disk/admin/modules
