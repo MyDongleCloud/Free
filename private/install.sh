@@ -300,7 +300,6 @@ else
 	clone transform ritz078/transform e1294208
 	clone tubesync meeb/tubesync v0.15.10
 	clone typesensedashboard bfritscher/typesense-dashboard v2.4.1
-	clone typesense typesense/typesense v29.0
 	clone umtpresponder viveris/uMTP-Responder umtprd-1.6.8
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webssh2 billchurch/webssh2 webssh2-server-v2.3.4
