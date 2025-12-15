@@ -1,12 +1,16 @@
 #!/bin/sh
 
 mkdir -p /usr/local/modules/mydonglecloud
+cp ../rootfs/usr/local/modules/mydonglecloud/version.txt /usr/local/modules/mydonglecloud/version.txt
 cd /home/ai/app
 ./lvgl.sh -b -c
 make
 ln -sf /etc/systemd/system/dongle-app.service /etc/systemd/system/multi-user.target.wants/dongle-app.service
 
+mkdir -p /usr/local/modules/apache2
 cd /home/ai/moduleApache2
+make
+cd /home/ai/moduleIpApache2
 make
 
 mkdir -p /usr/local/modules/pam && echo -e "#!/bin/sh\nexit 0" > /usr/local/modules/pam/pam.sh && chmod a+x /usr/local/modules/pam/pam.sh
