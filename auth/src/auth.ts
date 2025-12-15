@@ -285,7 +285,7 @@ export const auth = betterAuth({
 			settings: {
 				type: "string",
 				required: true,
-				defaultValue: JSON.stringify({ lang:"en", powerUser:false, bookmarks:[], dontShowAgain:{} })
+				defaultValue: JSON.stringify({ lang:"en", powerUser:false, bookmarks:[], dontShowAgain:{}, welcomeTourShown:false }),
 			}
 		}
 	},
