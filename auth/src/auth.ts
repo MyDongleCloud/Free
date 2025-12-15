@@ -177,8 +177,6 @@ const mdcEndpoints = () => {
 				let ret;
 				try {
 					const modules = JSON.parse(fs.readFileSync(modulesPath, "utf-8"));
-					console.log("Before", modules);
-					console.log(ctx.body);
 					Object.entries(ctx.body).forEach(([key, value]) => {
 						if (!modules[key])
 							modules[key] = {};
@@ -192,7 +190,6 @@ const mdcEndpoints = () => {
 							modules[key].permissions = value["permissions"];
 						}
 					});
-					console.log("After", modules);
 					writeFileSync(modulesPath, JSON.stringify(modules, null, "\t"), "utf-8");
 					ret = { status:"success" };
 				} catch (error) {
