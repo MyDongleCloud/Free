@@ -230,7 +230,7 @@ static void insert_filter(request_rec *r) {
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundHtml = i;
 			ctx->processedHtml = 0;
-			//PRINTFr("APP: Output, inserting html for %s", html[i][0]);
+			//PRINTFr("APP: Output, inserting html for %s %s %s", r->hostname, r->uri, confVH->name);
 			ap_add_output_filter("APP_OUTPUT_FILTER", ctx, r, r->connection);
 			break;
 		}
@@ -246,7 +246,7 @@ static void insert_filter(request_rec *r) {
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundPost = i;
 			ctx->processedPost = 0;
-			//PRINTFr("APP: Input, modifying post for %s", post[i][0]);
+			//PRINTFr("APP: Input, modifying post for %s %s %s", r->hostname, r->uri, confVH->name);
 			ap_add_input_filter("APP_INPUT_FILTER", ctx, r, r->connection);
 			break;
 		}
