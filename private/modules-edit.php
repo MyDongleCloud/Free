@@ -20,10 +20,16 @@ foreach ($files as $file) {
 	$modulesDefault[$module["module"]] = $module["default"];
 	unset($module["default"]);
 	if (count($csv) == 0) {
-		$names = array_keys((array)$module);
+		$nbCol = count($module);
+		echo "" . $nbCol . " columns\n";
+		$names = array_keys($module);
 		array_push($csv, implode(";", $names));
 	}
-	array_push($csv, implode(";", array_values((array)$module)));
+	if (count($module) != $nbCol) {
+		echo "\nProblem " . $file . " doesn't have the right number of columns (" . $nbCol . ")\n";
+		exit;
+	}
+	array_push($csv, implode(";", array_values($module)));
 }
 $csvPath = "/tmp/modules.csv";
 file_put_contents($csvPath, implode("\n", $csv));

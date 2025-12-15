@@ -18,6 +18,7 @@ $modulesMarkdown = array();
 $modulesKeywords = array();
 $modulesSetup = array();
 $modulesReset = array();
+$modulesLocalPort = array();
 $count = 0;
 foreach ($files as $file) {
     $fullPath = $modulesPath . "/" . $file;
@@ -33,8 +34,17 @@ foreach ($files as $file) {
 	echo $name . ", ";
 	if (!file_exists($modulesPath . "/icons/" . $name . ".png"))
 		echo "\n\nIcon for " . $name . " doesn't exist\n\n";
-	if (isset($module["default"]["setup"]) && !file_exists($modulesPath . "/reset/" . $name . ".sh"))
-			echo "\n\nReset for " . $name . " doesn't exist but has default.setup property\n\n";
+	if (isset($module["default"]["setup"]) && !file_exists($modulesPath . "/reset/" . $name . ".sh")) {
+		echo "\n\nReset for " . $name . " doesn't exist but has default.setup property\n\n";
+		exit;
+	}
+	if ($module["web"] === true) {
+		if (isset($modulesLocalPort[$module["default"]["localPort"]])) {
+			echo "\nProblem localPort " . $module["default"]["localPort"] . " for " . $name . "\n\n";
+			exit;
+		}
+		$modulesLocalPort[$module["default"]["localPort"]] = true;
+	}
 	if (isset($module["default"]["setup"]))
 		array_push($modulesSetup, $name);
 	if (isset($module["default"]["reset"]))
