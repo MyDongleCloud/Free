@@ -19,7 +19,6 @@
 	"finished": true,
 	"database": "json",
 	"default": {
-		"web": true,
 		"enabled": true,
 		"permissions": [
 			"_groupadmin_"

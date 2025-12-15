@@ -20,7 +20,6 @@
 	"finished": true,
 	"database": "mysql",
 	"default": {
-		"web": true,
 		"enabled": true,
 		"config": true,
 		"permissions": [

@@ -18,7 +18,6 @@
 	"finished": true,
 	"database": "",
 	"default": {
-		"web": true,
 		"enabled": true,
 		"alias": [
 			"docs_static"

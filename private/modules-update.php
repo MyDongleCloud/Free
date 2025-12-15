@@ -64,6 +64,8 @@ foreach ($files as $file) {
 		$module["githubLanguage"] = $github["language"] ?? "";
 	}
 	$modulesDefault[$name] = $module["default"];
+	if ($module["web"] == true)
+		$modulesDefault[$name]["web"] = true;
 	foreach($module["keywords"] as $k)
 		$modulesKeywords[$k] =  "";
 	unset($module["default"]);

@@ -17,7 +17,6 @@
 	"finished": true,
 	"database": "mongodb",
 	"default": {
-		"web": true,
 		"enabled": true,
 		"setup": true,
 		"setupDependencies": [

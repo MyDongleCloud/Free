@@ -19,7 +19,6 @@
 	"finished": true,
 	"database": "",
 	"default": {
-		"web": true,
 		"enabled": true,
 		"setup": true,
 		"setupPriority": true,

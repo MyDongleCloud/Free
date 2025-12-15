@@ -19,7 +19,6 @@
 	"finished": true,
 	"database": "sqlite",
 	"default": {
-		"web": true,
 		"enabled": true,
 		"services": [
 			"stirlingpdf"

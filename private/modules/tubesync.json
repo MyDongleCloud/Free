@@ -20,7 +20,6 @@
 	"finished": true,
 	"database": "sqlite",
 	"default": {
-		"web": true,
 		"enabled": true,
 		"setup": true,
 		"setupDependencies": [],
