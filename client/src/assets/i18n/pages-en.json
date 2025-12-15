@@ -143,8 +143,10 @@
 	},
 	"settings": {
 		"Admin account has sudo rights": "",
+		"Apply": "",
 		"BYO Domains (Bring Your Own Domains)": "",
 		"Cloud Name": "",
+		"Connectivity": "",
 		"Domains": "",
 		"Dongle Settings": "",
 		"Email notification to user upon successful sign-in": "",
@@ -153,7 +155,9 @@
 		"Language": "",
 		"Main": "",
 		"Notification": "",
+		"Password": "",
 		"Refresh Modules": "",
+		"Save": "",
 		"Security": "",
 		"Security Settings": "",
 		"Settings": "",
@@ -161,7 +165,9 @@
 		"Sign-In": "",
 		"SSH": "",
 		"SSH settings can be tuned in the SSH module.": "",
-		"Sudo": ""
+		"SSID": "",
+		"Sudo": "",
+		"Wi-Fi": ""
 	},
 	"setup": {
 		"Admin": "",

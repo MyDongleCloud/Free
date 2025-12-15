@@ -143,8 +143,10 @@
 	},
 	"settings": {
 		"Admin account has sudo rights" : "Le compte administrateur a des droits sudo",
+		"Apply": "Appliquer",
 		"BYO Domains (Bring Your Own Domains)" : "APV Domaines (Apportez Vos Propres Domaines)",
 		"Cloud Name" : "Nom du cloud",
+		"Connectivity": "Connectivité",
 		"Domains" : "Domaines",
 		"Dongle Settings" : "Paramètres du dongle",
 		"Email notification to user upon successful sign-in": "Notification par email à l'utilisateur d'une connexion",
@@ -153,7 +155,9 @@
 		"Language" : "Langue",
 		"Main": "Principal",
 		"Notification": "Notification",
+		"Password": "Mot de passe",
 		"Refresh Modules": "Rafraîchir les Modules",
+		"Save": "Sauver",
 		"Security" : "Sécurité",
 		"Security Settings" : "Paramètres de sécurité",
 		"Settings" : "Paramètres",
@@ -161,7 +165,8 @@
 		"Sign-In": "Connexion",
 		"SSH" : "SSH",
 		"SSH settings can be tuned in the SSH module." : "Les paramètres SSH peuvent être ajustés dans le module SSH.",
-		"Sudo" : "Sudo"
+		"Sudo" : "Sudo",
+		"Wi-Fi": "Wi-Fi"
 	},
 	"setup": {
 		"Admin": "Admin",

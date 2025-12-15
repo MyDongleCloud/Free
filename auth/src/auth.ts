@@ -85,6 +85,25 @@ const mdcEndpoints = () => {
 				return Response.json({ status:"healthy", version, demo:statusDemo, timestamp:new Date().toISOString() }, { status:200 });
 			}),
 
+			settingsSave: createAuthEndpoint("/settings/save", {
+				method: "POST",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				let ret;
+				if (ctx.context.session?.user?.role !== "admin")
+					ret = { status:"error" };
+				else
+					try {
+						const cloud = JSON.parse(fs.readFileSync(cloudPath, "utf-8"));
+						Object.entries(ctx.body).forEach(([key, value]) => { cloud[key] = value; });
+						writeFileSync(cloudPath, JSON.stringify(cloud, null, "\t"), "utf-8");
+						ret = { status:"success" };
+					} catch (error) {
+						ret = { status:"error" };
+					}
+				return Response.json(ret, { status:200 });
+			}),
+
 			update: createAuthEndpoint("/refresh", {
 				method: "GET",
 				use: [sensitiveSessionMiddleware]
