@@ -174,6 +174,10 @@ async logoutRedirect() {
 }
 
 async settingsSave() {
+	try {
+		const ret = await this.httpClient.post("/_app_/auth/settings-user/save", JSON.stringify(this.settings), {headers:{"content-type": "application/json"}}).toPromise();
+		this.consolelog(2, "Auth settings-user/save: ", ret);
+	} catch(e) {}
 }
 
 async backButtonAlert() {

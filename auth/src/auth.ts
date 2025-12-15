@@ -112,6 +112,14 @@ const mdcEndpoints = () => {
 				return Response.json({ "status":"success" }, { status:200 });
 			}),
 
+			settingsUserSave: createAuthEndpoint("/settings-user/save", {
+				method: "POST",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				ctx?.context.options.database.prepare("UPDATE user SET settings = ? WHERE id = ?").run(JSON.stringify(ctx.body), ctx.context.session.user.id);
+				return Response.json({ "status":"success" }, { status:200 });
+			}),
+
 			stats: createAuthEndpoint("/stats", {
 				method: "GET",
 				use: [sensitiveSessionMiddleware]

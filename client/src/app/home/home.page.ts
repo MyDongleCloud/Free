@@ -106,6 +106,7 @@ toggleSortDirection(p) {
 bookmark(m) {
 	this.cards[this.global.modulesDataFindId(m)]["bookmark"] = !this.cards[this.global.modulesDataFindId(m)]["bookmark"];
 	this.global.settings.bookmarks.push(m);
+	this.global.settingsSave();
 	this.sidebarComponent.filterCards();
 }
 
