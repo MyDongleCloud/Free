@@ -20,8 +20,8 @@ while getopts chp opt; do
 done
 
 installModule() {
-	if [ -z $tt ]; then
-		exit
+	if [ -z $1 ]; then
+		return
 	fi
 	LIST2=`jq -r '.default.setupDependencies | join(" ")' $PP/modules/$1.json 2> /dev/null`
 	for tt in $LIST2; do
