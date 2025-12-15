@@ -37,7 +37,9 @@ typedef struct {
 static char *html[][8] = {
 	{ "adminer", "/conf.php", "form[method=post]", "input[name=\"auth[username]\"]", "input[name=\"auth[password]\"]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
 	{ "bugzilla", "/index.cgi", "form[id=mini_login_top]", "input[name=Bugzilla_login]", "input[name=Bugzilla_password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "homeassistant", NULL, "form", "input[name=username]", "input[name=password]", "ha-button", APP_V_USERNAME, APP_V_PASSWORD },
 	{ "homeassistant", "/auth/authorize", "form", "input[name=username]", "input[name=password]", "ha-button", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "librechat", NULL, "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
 	{ "librechat", "/login", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
 	{ "mantisbugtracker", "/login_page.php", "form[id=login-form]", "input[name=username]", "input[name=username]", "input[type=submit]", APP_V_USERNAME, APP_V_USERNAME },
 	{ "mantisbugtracker", "/login_password_page.php", "form[id=login-form]", "input[name=username]", "input[name=password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
