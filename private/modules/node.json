@@ -20,7 +20,9 @@
 	"database": "",
 	"default": {
 		"cmds": [
-			"/usr/local/bin/node"
+			"/usr/local/bin/node",
+			"/usr/local/bin/npm",
+			"/usr/local/bin/npx"
 		]
 	}
 }

@@ -22,6 +22,9 @@
 		"services": [
 			"meilisearch"
 		],
-		"config": true
+		"config": true,
+		"cmds": [
+			"/usr/local/bin/meilisearch"
+		]
 	}
 }

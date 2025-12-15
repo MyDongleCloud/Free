@@ -20,6 +20,8 @@
 	"database": "",
 	"default": {
 		"cmds": [
+			"/usr/local/bin/css-beautify",
+			"/usr/local/bin/html-beautify",
 			"/usr/local/bin/js-beautify"
 		]
 	}

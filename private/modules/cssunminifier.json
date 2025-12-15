@@ -17,6 +17,8 @@
 	"finished": false,
 	"database": "",
 	"default": {
-		"cmds": []
+		"cmds": [
+			"/usr/local/bin/cssunminifier"
+		]
 	}
 }

@@ -19,6 +19,8 @@
 	"finished": true,
 	"database": "",
 	"default": {
-		"cmds": []
+		"cmds": [
+			"/usr/local/bin/ng"
+		]
 	}
 }

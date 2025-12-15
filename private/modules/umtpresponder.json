@@ -20,6 +20,9 @@
 	"database": "",
 	"default": {
 		"enabled": "true",
+		"cmds": [
+			"/usr/local/bin/umtprd"
+		],
 		"features": [
 			"serial",
 			"mtp"
