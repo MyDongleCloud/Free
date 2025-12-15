@@ -14,7 +14,7 @@ export class Profile {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
 @ViewChild("modalTwoFA") modalTwoFA: IonModal;
-activeTab = "general";
+activeTab = "security";
 TwoFA;
 formTwoFA: FormGroup;
 showQRCode = false;
