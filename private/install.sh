@@ -236,18 +236,24 @@ else
 	}
 
 	clone audiobookshelf advplyr/audiobookshelf v2.26.2
+	clone beautifier beautifier/js-beautify v1.15.3
+	clone beautifierweb beautifier/beautifier.io a1fa4975
 	clone bugzilla bugzilla/bugzilla release-5.3.3
 	clone changedetection dgtlmoon/changedetection.io 0.50.7
 	clone convertx C4illin/ConvertX v0.14.1
+	clone crystal crystal-lang/crystal 1.18.2
+	clone cssunminifier mrcoles/cssunminifier c5cad8ab
 	clone cyberchef gchq/CyberChef v10.19.4
-	clone docsify docsifyjs/docsify v4.13.1
 	clone discourse discourse/discourse v3.4.6
+	clone docsify docsifyjs/docsify v4.13.1
+	clone docusaurus facebook/docusaurus v3.9.2
 	clone flarum flarum/flarum v1.8.1
 	clone freshrss FreshRSS/FreshRSS 1.26.3
 	clone gitea go-gitea/gitea v1.24.3
 	clone grav getgrav/grav 1.7.48
 	clone html5qrcode mebjas/html5-qrcode v2.3.8
 	clone immich immich-app/immich v1.135.3
+	clone invidious iv-org/invidious v2.20250913.0
 	clone iopaint Sanster/IOPaint iopaint-1.5.3
 	clone jellyfin jellyfin/jellyfin v10.10.7
 	clone joomla joomla/joomla-cms 5.3.2
@@ -263,32 +269,44 @@ else
 	clone mermaid mermaid-js/mermaid mermaid@11.9.0
 	clone metube alexta69/metube HEAD
 	clone minio minio/minio RELEASE.2025-07-18T21-56-31Z
+	clone mkdocs mkdocs/mkdocs 1.6.1
 	clone ollama ollama/ollama v0.9.7-rc1
 	clone openwebui open-webui/open-webui v0.6.18
 	clone osticket osTicket/osTicket v1.18.2
+	clone passbolt passbolt/passbolt_api v5.7.2
 	clone photoprism photoprism/photoprism 250707-d28b3101e
 	clone photoview photoview/photoview v2.4.0
 	clone phpbb phpbb/phpbb release-3.3.15
 	clone phpsandbox Corveda/PHPSandbox v3.1
 	clone pihole pi-hole/pi-hole v.6.1.4
+	clone piped TeamPiped/Piped 1c3cfd23
+	clone prettier prettier/prettier 3.7.4
 	clone privatebin PrivateBin/PrivateBin 1.7.8
 	clone projectsend projectsend/projectsend r1720
 	clone qrcodegenerator bizzycola/qrcode-generator HEAD
 	clone radaar Radarr/Radarr v5.27.2.10142
+	clone searxng searxng/searxng 74ec225a
+	clone shields badges/shields server-2025-12-06
+	clone silverbullet silverbulletmd/silverbullet 2.3.0
 	clone sonarr Sonarr/Sonarr v4.0.15.2941
 	clone stackedit benweet/stackedit v5.15.4
 	clone stirlingpdf Stirling-Tools/Stirling-PDF v1.0.2
+	clone stremio Stremio/stremio-web v5.0.0-beta.29
 	clone sunrisecms cityssm/sunrise-cms v1.0.0-alpha.19
 	clone superset apache/superset 5.0.0
 	clone syncthing syncthing/syncthing v1.30.0
 	clone tabby TabbyML/tabby v0.31.2
 	clone tabby/crates/llama-cpp-server/llama.cpp ggerganov/llama.cpp 16cc3c606efe1640a165f666df0e0dc7cc2ad869
+	clone transform ritz078/transform e1294208
 	clone tubesync meeb/tubesync v0.15.10
+	clone typesensedashboard bfritscher/typesense-dashboard v2.4.1
+	clone typesense typesense/typesense v29.0
 	clone umtpresponder viveris/uMTP-Responder umtprd-1.6.8
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webssh2 billchurch/webssh2 webssh2-server-v2.3.4
 	clone webtrees fisharebest/webtrees 2.1.25
 	clone yourls YOURLS/YOURLS 1.10.2
+	clone zola getzola/zola v0.21.0
 fi
 
 echo "################################"
