@@ -131,6 +131,8 @@ async save() {
 	const ret = await this.httpClient.post("/_app_/auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
 	this.global.consolelog(2, "Auth modules-permissions: ", ret);
 	this.dResetSave = true;
+	await this.global.modulesDataPrepare();
+	this.getData();
 }
 
 async getData() {
