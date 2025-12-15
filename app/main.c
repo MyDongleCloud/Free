@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 #ifdef WEB
 	if (forceLanguage != -1)
 		smdc.language = forceLanguage;
-	PRINTF("Version:%s\n", MDC_VERSION);
+	PRINTF("Version:%s\n", APP_VERSION);
 #else
 	if (killOtherPids("app")) {
 		fprintf(stderr, "Exiting because process already exists\n");
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
 	logInit(daemon);
 	cloudInit();
 	getSerialID();
-	PRINTF("Version:%s Serial:%s\n", MDC_VERSION, szSerial);
+	PRINTF("Version:%s Serial:%s\n", APP_VERSION, szSerial);
 	settingsLoad();
 	if (forceRotation != -1) {
 		smdc.rotation = forceRotation;

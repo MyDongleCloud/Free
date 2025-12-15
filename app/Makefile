@@ -12,7 +12,7 @@ ifeq ($(Q)$(d), 1)
 	DEBUG = -g -fsanitize=address -fno-omit-frame-pointer
 endif
 PRE = ../build/_app/
-MDC_VERSION=\"$(shell cat version.txt)\"
+APP_VERSION=\"$(shell cat version.txt)\"
 
 OBJs := $(PRE)apache2.o \
 	$(PRE)backend.o \
@@ -49,7 +49,7 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)wsServer/utf8.o \
 	$(PRE)wsServer/ws.o
 
-MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -DMDC_VERSION=$(MDC_VERSION)
+MYCFLAGS = $(CFLAGS) -Wno-deprecated-declarations -DAPP_VERSION=$(APP_VERSION)
 MYLDFLAGS = -pthread -lcrypto -lssl -lcurl -loath
 
 OBJs_APP := $(OBJs) $(PRE)backend-spi.o
