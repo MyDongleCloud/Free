@@ -68,10 +68,13 @@ void setupLoop(int *i, int total, cJSON *modulesDefault, cJSON *modules, int pri
 
 void cloudSetup(cJSON *el) {
 	logicSetup(L("Initialization"), 0);
-	cJSON *elWifi = cJSON_GetObjectItem(el, "wifi");
+	cJSON *elCloud = cJSON_GetObjectItem(el, "cloud");
+	cJSON *elSecurity = cJSON_GetObjectItem(elCloud, "security");
+	cJSON *elConnectivity = cJSON_GetObjectItem(elCloud, "connectivity");
+	cJSON *elWifi = cJSON_GetObjectItem(elConnectivity, "wifi");
 	if (elWifi && cJSON_GetStringValue2(elWifi, "ssid") && cJSON_GetStringValue2(elWifi, "password"))
-		wiFiAddActivate(cJSON_GetStringValue2(elWifi, "ssid"), cJSON_GetStringValue2(elWifi, "password"));
-	jsonWrite(cJSON_GetObjectItem(el, "cloud"), ADMIN_PATH "_config_/_cloud_.json");
+		PRINTF("Setup Wi-Fi with %s %s\n", cJSON_GetStringValue2(elWifi, "ssid"), cJSON_GetStringValue2(elWifi, "password"));//wiFiAddActivate
+	jsonWrite(elCloud, ADMIN_PATH "_config_/_cloud_.json");
 	cJSON *elLetsencrypt = cJSON_GetObjectItem(el, "letsencrypt");
 	if (elLetsencrypt) {
 		mkdir(ADMIN_PATH "letsencrypt", 0775);

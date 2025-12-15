@@ -213,7 +213,37 @@ async doWiFi() {
 		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "name=" + encodeURIComponent(this.name1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
 		this.global.consolelog(2, "SETUP: Server", ret2);
 	} catch(e) { ret2 = { frp:{}, ollama:{}, postfix:{} }; }
-	const data = { a:"setup", cloud:{ all:{ name:this.name1.value, shortname:this.shortname1.value, domains:this.domain1.value != "" ? [this.domain1.value] : [] }, frp:ret2.frp, ollama:ret2.ollama, postfix:ret2.postfix }, betterauth:{ email:this.email2.value, name:this.name2.value, password:this.password2.value }, wifi:{ ssid:this.ssid3.value, password:this.password3.value }, letsencrypt: { fullchain:ret1.fullChain, privatekey:ret1.privateKey } };
+	const data = {
+		a:"setup",
+		cloud: {
+			info: {
+				name: this.name1.value,
+				shortname: this.shortname1.value,
+				domains: this.domain1.value != "" ? [this.domain1.value] : []
+			},
+			frp: ret2.frp,
+			postfix: ret2.postfix,
+			security: {
+				signInNotification: true,
+				adminSudo: false
+			},
+			connectivity: {
+				wifi: {
+					ssid: this.ssid3.value,
+					password: this.password3.value
+				}
+			}
+		},
+		betterauth: {
+			email: this.email2.value,
+			name: this.name2.value,
+			password: this.password2.value
+		},
+		letsencrypt: {
+			fullchain: ret1.fullChain,
+			privatekey :ret1.privateKey
+		}
+	};
 	this.global.consolelog(2, "SETUP: Sending to dongle:", data);
 	await this.ble.writeData(data);
 	this.cdr.detectChanges();
