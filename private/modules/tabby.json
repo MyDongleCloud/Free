@@ -33,6 +33,7 @@
 		"alias": [
 			"aicode"
 		],
+		"addConfigEnd": "Header unset Content-Security-Policy",
 		"permissions": [
 			"_localnetwork_",
 			"_groupadmin_"
