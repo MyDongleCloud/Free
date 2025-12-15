@@ -1,0 +1,31 @@
+{
+	"module": "searxng",
+	"name": "SearXNG",
+	"title": "Search With Privacy",
+	"ai": false,
+	"description": "A free internet metasearch engine.",
+	"keywords": [
+		"Google",
+		"Search",
+		"Engine"
+	],
+	"proprietary": "Google",
+	"github": "searxng/searxng",
+	"category": "utils",
+	"version": "74ec225a",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"database": "",
+	"default": {
+		"web": true,
+		"enabled": true,
+		"alias": [
+			"search"
+		],
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9505
+	}
+}

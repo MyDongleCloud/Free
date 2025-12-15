@@ -1,0 +1,26 @@
+{
+	"module": "beautifier",
+	"name": "JS Beautifier",
+	"title": "Javascript Formatter",
+	"ai": false,
+	"description": "A tool to reformat javascript.",
+	"keywords": [
+		"Code",
+		"Javascript",
+		"Obfuscate",
+		"Formatter"
+	],
+	"proprietary": "",
+	"github": "beautifier/js-beautify",
+	"category": "Developer",
+	"version": "v1.15.3",
+	"installMethod": "npm",
+	"web": false,
+	"finished": false,
+	"database": "",
+	"default": {
+		"cmds": [
+			"/usr/local/bin/js-beautify"
+		]
+	}
+}

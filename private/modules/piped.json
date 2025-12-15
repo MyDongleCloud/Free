@@ -1,0 +1,29 @@
+{
+	"module": "piped",
+	"name": "Piped",
+	"title": "Youtube No Ads",
+	"ai": false,
+	"description": "A Youtube front-end without ads.",
+	"keywords": [
+		"Web",
+		"Youtube",
+		"Ads",
+		"Privacy"
+	],
+	"proprietary": "",
+	"github": "TeamPiped/Piped",
+	"category": "Utils",
+	"version": "1c3cfd23",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"database": "",
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9499
+	}
+}

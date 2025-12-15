@@ -1,0 +1,29 @@
+{
+	"module": "beautifierweb",
+	"name": "JS Beautifier Web",
+	"title": "Javascript Formatter Online",
+	"ai": false,
+	"description": "An online tool to reformat javascript.",
+	"keywords": [
+		"Code",
+		"Javascript",
+		"Obfuscate",
+		"Formatter"
+	],
+	"proprietary": "",
+	"github": "beautifier/beautifier.io",
+	"category": "Developer",
+	"version": "a1fa4975",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"database": "",
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9498
+	}
+}

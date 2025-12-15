@@ -1,0 +1,29 @@
+{
+	"module": "invidious",
+	"name": "Invidious",
+	"title": "Youtube With Privacy",
+	"ai": false,
+	"description": "A Youtube front-end with focus on privacy.",
+	"keywords": [
+		"Web",
+		"Youtube",
+		"Ads",
+		"Privacy"
+	],
+	"proprietary": "",
+	"github": "iv-org/invidious",
+	"category": "Utils",
+	"version": "v2.20250913.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"database": "",
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9500
+	}
+}

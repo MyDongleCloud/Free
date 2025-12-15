@@ -1,0 +1,22 @@
+{
+	"module": "cssunminifier",
+	"name": "CSS Unminifier",
+	"title": "CSS Unminifier",
+	"ai": false,
+	"description": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
+	"keywords": [
+		"CSS",
+		"Unminifier"
+	],
+	"proprietary": "",
+	"github": "mrcoles/cssunminifier",
+	"category": "Developer",
+	"version": "c5cad8ab",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
+	"database": "",
+	"default": {
+		"cmds": []
+	}
+}

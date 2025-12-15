@@ -1,0 +1,23 @@
+{
+	"module": "zola",
+	"name": "Zola",
+	"title": "Site Generator",
+	"ai": false,
+	"description": "A static site generator.",
+	"keywords": [
+		"Web",
+		"Docs",
+		"Documentation"
+	],
+	"proprietary": "",
+	"github": "getzola/zola",
+	"category": "Developer",
+	"version": "v0.21.0",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
+	"database": "",
+	"default": {
+		"cmds": []
+	}
+}

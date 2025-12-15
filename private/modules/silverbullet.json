@@ -1,0 +1,27 @@
+{
+	"module": "silverbullet",
+	"name": "Silverbullet",
+	"title": "Knowledge Management",
+	"ai": false,
+	"description": "A Programmable Personal Knowledge Management Platform.",
+	"keywords": [
+		"Knowledge",
+		"Management"
+	],
+	"proprietary": "",
+	"github": "silverbulletmd/silverbullet",
+	"category": "Developer",
+	"version": "v2.3.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"database": "",
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9504
+	}
+}

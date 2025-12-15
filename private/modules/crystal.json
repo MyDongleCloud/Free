@@ -1,0 +1,21 @@
+{
+	"module": "crystal",
+	"name": "Crystal",
+	"title": "Crystal Language",
+	"ai": false,
+	"description": "A superset of JavaScript that compiles to clean JavaScript output.",
+	"keywords": [
+		"Language"
+	],
+	"proprietary": "",
+	"github": "crystal-lang/crystal",
+	"category": "Developer",
+	"version": "1.18.2",
+	"installMethod": "deb",
+	"web": false,
+	"finished": true,
+	"database": "",
+	"default": {
+		"cmds": []
+	}
+}

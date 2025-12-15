@@ -1,0 +1,22 @@
+{
+	"module": "typesense",
+	"name": "Typesense",
+	"title": "Very Fast Search",
+	"ai": false,
+	"description": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
+	"keywords": [
+		"Search",
+		"Engine"
+	],
+	"proprietary": "",
+	"github": "typesense/typesense",
+	"category": "Developer",
+	"version": "v29.0",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
+	"database": "",
+	"default": {
+		"cmds": []
+	}
+}

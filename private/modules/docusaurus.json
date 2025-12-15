@@ -1,0 +1,31 @@
+{
+	"module": "docusaurus",
+	"name": "Docusaurus",
+	"title": "Static Docs",
+	"ai": false,
+	"description": "A live site for documentation.",
+	"keywords": [
+		"Web",
+		"Docs",
+		"Documentation"
+	],
+	"proprietary": "",
+	"github": "facebook/docusaurus",
+	"category": "Developer",
+	"version": "v3.9.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"database": "",
+	"default": {
+		"web": true,
+		"enabled": true,
+		"alias": [
+			"docs_static"
+		],
+		"permissions": [
+			"_public_"
+		],
+		"localPort": 9501
+	}
+}

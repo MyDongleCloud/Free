@@ -1,0 +1,28 @@
+{
+	"module": "shields",
+	"name": "Shields.io",
+	"title": "Web Badges",
+	"ai": false,
+	"description": "A polyglot tool to convert web.",
+	"keywords": [
+		"Code",
+		"Badge",
+		"Web"
+	],
+	"proprietary": "",
+	"github": "badges/shields",
+	"category": "Developer",
+	"version": "server-2025-12-06",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
+	"database": "",
+	"default": {
+		"web": true,
+		"enabled": true,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"localPort": 9497
+	}
+}
