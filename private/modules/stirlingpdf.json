@@ -23,6 +23,9 @@
 		"services": [
 			"stirlingpdf"
 		],
+		"setupDependencies": [
+			"java"
+		],
 		"permissions": [
 			"_groupadmin_"
 		],
