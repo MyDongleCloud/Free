@@ -1,0 +1,25 @@
+{
+	"module": "pnpm",
+	"name": "pnpm",
+	"title": "Package Manager",
+	"ai": false,
+	"description": "A fast, disk space efficient package manager.",
+	"keywords": [
+		"Package",
+		"Manager",
+		"npm"
+	],
+	"proprietary": "",
+	"github": "pnpm/pnpm",
+	"category": "Developer",
+	"version": "10.26.0",
+	"installMethod": "npm",
+	"web": false,
+	"finished": true,
+	"database": "",
+	"default": {
+		"cmds": [
+			"/usr/local/bin/pnpm"
+		]
+	}
+}

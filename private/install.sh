@@ -176,7 +176,7 @@ npm -g update npm
 echo "################################"
 echo "npm Packages"
 echo "################################"
-npm -g install @angular/cli @ionic/cli @vue/cli cordova-res
+npm -g install @angular/cli @ionic/cli @vue/cli cordova-res pnpm
 
 echo "################################"
 echo "pcpp"
