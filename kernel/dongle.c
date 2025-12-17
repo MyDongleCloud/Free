@@ -22,7 +22,7 @@ struct mydonglePriv {
 	int buzzerON;
 	int buzzerFreq;
 	struct work_struct workBuzzer;
-	char model[8];
+	char model[32];
 	int hardwareVersion;
 	int ccnrst;
 };
@@ -110,11 +110,11 @@ static DEVICE_ATTR(hardwareVersion, 0440, show_hardwareVersion, NULL);
 
 static ssize_t show_serialNumber(struct device *dev, struct device_attribute *attr, char *buf) {
 	struct mydonglePriv *ip = dev_get_drvdata(dev);
-	if (strcmp(ip->model, "pro") == 0) {
+	if (strcmp(ip->model, "Dongle Pro") == 0 || strstr(ip->model, "Raspberry Pi") != NULL) {
 		const char *sz = NULL;
 		of_property_read_string(of_root, "serial-number", &sz);
 		return sprintf(buf, "%s", sz);
-	} else if (strcmp(ip->model, "std") == 0) {
+	} else if (strcmp(ip->model, "Dongle Std") == 0) {
 #define ADDRESS_ID 0xC0067000
 		void __iomem *regs = ioremap(ADDRESS_ID + 0x04, 4);
 		char szSerial[17];
@@ -216,13 +216,25 @@ static int dongle_probe(struct platform_device *pdev) {
 	myip = (struct mydonglePriv *)ip;
 	ip->debug = 0;
 	const char *mm;
-	of_property_read_string(of_root, "model", &mm);
-	strcpy(ip->model, strstr(mm, "Raspberry Pi") != NULL ? "pro" : "std");
+	of_property_read_string(of_root, "model", &mm); //Raspberry Pi Compute Module 5 Rev 1.0
+/*
+	const char *cc;
+	of_property_read_string(of_root, "compatible", &cc); //Raspberry Pi Compute Module 5 Rev 1.0
+	struct device_node *root = of_find_node_by_path("/");
+	int len;
+	const char *compat;
+    compat = of_get_property(root, "compatible", &len); //raspberrypi,5-compute-module
+	const char *compat_str;
+	int i = 0;
+	while (of_property_read_string_index(root, "compatible", i++, &compat_str) == 0)
+		; //raspberrypi,5-compute-module  brcm,bcm2712
+*/
+	strcpy(ip->model, strstr(mm, "Raspberry Pi Compute Module 5") != NULL ? "Dongle Pro" : strstr(mm, "Raspberry Pi") != NULL ? "Raspberry Pi" : "Dongle Std");
 	ip->hardwareVersion = 10;
 	ip->buzzerCount = 0;
 	INIT_WORK(&ip->workBuzzer, dongle_workBuzzer);
 
-	if (strcmp(ip->model, "pro") == 0)
+	if (strcmp(ip->model, "Dongle Pro") == 0)
 		ip->buzzerS = pwm_get(&pdev->dev, NULL);
 	else {
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4,14,0)

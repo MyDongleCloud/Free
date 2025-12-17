@@ -67,13 +67,13 @@ else
 	echo "Starting OTG in MTP:${MTP} Serial:${SERIAL}"
 fi
 
-if [ $MODEL = "std" ]; then
+if [ $MODEL = "Dongle Std" ]; then
 	PATHg1=/tmp/config/usb_gadget/g1
 	FFS="ffs.usb0"
 fi
 
 if [ $STOP = 1 ]; then
-	if [ $MODEL = "std" -a ! -d /tmp/config ]; then
+	if [ $MODEL = "Dongle Std" -a ! -d /tmp/config ]; then
 		echo "configfs is not mounted. Exiting"
 		exit 0
 	fi
@@ -112,14 +112,14 @@ if [ $STOP = 1 ]; then
 	fi
 	rmdir $PATHg1/strings/0x409
 	rmdir $PATHg1
-	if [ $MODEL = "std" ]; then
+	if [ $MODEL = "Dongle Std" ]; then
 		umount /tmp/config
 		rmdir /tmp/config
 	fi
 	exit 0
 fi
 
-if [ $MODEL = "std" ]; then
+if [ $MODEL = "Dongle Std" ]; then
 	if [ ! -d /tmp/config ]; then
 		mkdir /tmp/config
 		mount -t configfs none /tmp/config
