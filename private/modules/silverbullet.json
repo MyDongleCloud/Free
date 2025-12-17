@@ -1,6 +1,6 @@
 {
 	"module": "silverbullet",
-	"name": "Silverbullet",
+	"name": "Silver Bullet",
 	"title": "Knowledge Management",
 	"ai": false,
 	"description": "A Programmable Personal Knowledge Management Platform.",
@@ -14,7 +14,7 @@
 	"version": "v2.3.0",
 	"installMethod": "clone",
 	"web": true,
-	"finished": true,
+	"finished": false,
 	"database": "",
 	"default": {
 		"enabled": true,
