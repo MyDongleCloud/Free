@@ -130,18 +130,6 @@ fi
 echo "################################"
 echo "python"
 echo "################################"
-if [ $OS = "0" ]; then
-	wget -nv https://pascalroeleven.nl/deb-pascalroeleven.gpg -O /etc/apt/keyrings/deb-pascalroeleven.gpg
-	cat <<EOF | sudo tee /etc/apt/sources.list.d/pascalroeleven.sources
-Types: deb
-URIs: http://deb.pascalroeleven.nl/python3.12
-Suites: bookworm-backports
-Components: main
-Signed-By: /etc/apt/keyrings/deb-pascalroeleven.gpg
-EOF
-	apt-get update
-	apt-get -y install python3.12 python3.12-venv binfmt-support python3.12-dev
-fi
 apt-get -y install python3-venv python3-intelhex python3-certbot-apache python3-setuptools python3-attr python3-wheel python3-wheel-whl cython3 python3-dateutil python3-sniffio python3-astroid python3-tomlkit python3-isort python3-mccabe python3-platformdirs python3-serial python3-dill python3-dotenv python3-pytzdata
 
 echo "################################"
@@ -149,6 +137,7 @@ echo "Early install"
 echo "################################"
 installModule mysql
 installModule postfix
+installModule python
 
 echo "################################"
 echo "Modules via apt"
