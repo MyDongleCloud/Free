@@ -29,7 +29,7 @@ fi
 echo "#Reset osticket##################"
 DATE=`date +%s`
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
-SALT=$(tr -dc 'a-h0-9' < /dev/urandom | head -c 32)
+SALT=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
