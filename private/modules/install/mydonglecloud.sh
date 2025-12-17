@@ -1,8 +1,8 @@
 #!/bin/sh
 
 mkdir -p /usr/local/modules/mydonglecloud
-cp ../rootfs/usr/local/modules/mydonglecloud/version.txt /usr/local/modules/mydonglecloud/version.txt
 cd /home/ai/app
+cp ../rootfs/usr/local/modules/mydonglecloud/version.txt /usr/local/modules/mydonglecloud/version.txt
 ./lvgl.sh -b -c
 make
 ln -sf /etc/systemd/system/dongle-app.service /etc/systemd/system/multi-user.target.wants/dongle-app.service
