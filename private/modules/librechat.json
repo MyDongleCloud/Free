@@ -10,7 +10,7 @@
 	],
 	"proprietary": "",
 	"github": "danny-avila/LibreChat",
-	"category": "Essential",
+	"category": "Utils",
 	"version": "v0.7.9",
 	"installMethod": "clone",
 	"web": true,
