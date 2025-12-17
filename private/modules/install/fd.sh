@@ -1,3 +1,3 @@
 #!/bin/sh
 
-apt-get -y install fdfind
+apt-get -y install fd-find
