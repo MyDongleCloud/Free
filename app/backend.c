@@ -109,7 +109,7 @@ static int rotateKey(int k, int ignoreRotation) {
 
 void processButton(int b, int ignoreRotation, int longPress) {
 #ifndef WEB
-	writeValueKeyInt(PLATFORM_PATH, "buzzerClick", 100);
+	touchClick();
 #endif
 	logicKey(rotateKey(b, ignoreRotation), longPress);
 }

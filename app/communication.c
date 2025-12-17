@@ -133,6 +133,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 		} else if (strcmp(action, "key") == 0) {
 			int k = (int)cJSON_GetNumberValue2(el, "k");
 			int l = (int)cJSON_GetNumberValue2(el, "l");
+#ifndef WEB
+			touchClick();
+#endif
 			logicKey(k, l);
 		} else if (strcmp(action, "language") == 0) {
 			char *l = cJSON_GetStringValue2(el, "l");
@@ -156,6 +159,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
+			touchClick();
 			cloudSetup(el);
 		} else if (strcmp(action, "setup-status") == 0) {
 			int percent = (int)cJSON_GetNumberValue2(el, "p");
@@ -172,6 +176,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_Delete(cloud);
 		} else if (strcmp(action, "refresh") == 0) {
 			PRINTF("communicationReceive: Refresh\n");
+			touchClick();
 			cloudInit();
 #endif
 		} else if (strcmp(action, "connection") == 0) {

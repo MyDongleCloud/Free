@@ -337,7 +337,9 @@ void buzzer(int n) {
 }
 
 void touchClick() {
-	writeValueKey(PLATFORM_PATH, "buzzerClick", "1");
+#ifndef DESKTOP
+	writeValueKeyInt(PLATFORM_PATH, "buzzerClick", 1000);
+#endif
 }
 
 static void *jingle_t(void *arg) {
