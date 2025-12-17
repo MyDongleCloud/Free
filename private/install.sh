@@ -225,7 +225,6 @@ else
 	}
 
 	clone audiobookshelf advplyr/audiobookshelf v2.26.2
-	clone beautifier beautifier/js-beautify v1.15.3
 	clone beautifierweb beautifier/beautifier.io a1fa4975
 	clone bugzilla bugzilla/bugzilla release-5.3.3
 	clone changedetection dgtlmoon/changedetection.io 0.50.7
