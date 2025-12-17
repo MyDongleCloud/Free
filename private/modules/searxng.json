@@ -15,7 +15,7 @@
 	"version": "74ec225a",
 	"installMethod": "clone",
 	"web": true,
-	"finished": true,
+	"finished": false,
 	"database": "",
 	"default": {
 		"enabled": true,
