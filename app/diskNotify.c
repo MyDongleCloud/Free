@@ -25,7 +25,7 @@ void diskNotifyCB(int fdNotify, void (*cb)()) {
 
 int diskNotifyStart(char *sz) {
 	int fdNotify = inotify_init1(IN_NONBLOCK);
-	int wd = inotify_add_watch(fdNotify, sz, IN_CREATE | IN_MODIFY);
+	int wd = inotify_add_watch(fdNotify, sz, IN_CLOSE_WRITE);
 	return fdNotify;
 }
 
