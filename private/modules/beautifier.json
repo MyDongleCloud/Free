@@ -1,7 +1,7 @@
 {
 	"module": "beautifier",
 	"name": "JS Beautifier",
-	"title": "Javascript Formatter",
+	"title": "Javascript Formatter Tools",
 	"ai": false,
 	"description": "A tool to reformat javascript.",
 	"keywords": [

@@ -1,7 +1,7 @@
 {
 	"module": "beautifierweb",
 	"name": "JS Beautifier Web",
-	"title": "Javascript Formatter Online",
+	"title": "Javascript Formatter",
 	"ai": false,
 	"description": "An online tool to reformat javascript.",
 	"keywords": [
@@ -16,7 +16,7 @@
 	"version": "a1fa4975",
 	"installMethod": "clone",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"database": "",
 	"default": {
 		"enabled": true,
