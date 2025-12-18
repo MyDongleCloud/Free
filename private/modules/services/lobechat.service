@@ -1,0 +1,16 @@
+[Unit]
+Description=Lobe Chat
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=pnpm run start
+WorkingDirectory=/usr/local/modules/lobechat
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

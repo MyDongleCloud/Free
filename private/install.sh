@@ -251,6 +251,7 @@ else
 	clone librechat danny-avila/LibreChat v0.7.9
 	clone librephotos LibrePhotos/librephotos HEAD
 	clone limesurvey LimeSurvey/LimeSurvey 6.15.3+250708
+	clone lobechat lobehub/lobe-chat v1.143.0
 	clone mantisbugtracker mantisbt/mantisbt release-2.27.1
 	clone markdowneditor jbt/markdown-editor v2
 	clone maybe maybe-finance/maybe v0.5.0
@@ -330,6 +331,7 @@ chown -R root:root /usr/local
 chown -R www-data:www-data /usr/local/modules/libreqr/css
 chown -R ai:ai /home/ai
 chown -R www-data:admin /disk/admin/modules/roundcube
+chown -R admin:admin /usr/local/modules/lobechat/.next/cache /usr/local/modules/lobechat/.next/server
 chown -R admin:admin /usr/local/modules/openwebui/lib/python3.11/site-packages/open_webui/static/
 mv /var/lib/mysql /disk/admin/modules
 chown mysql:mysql /disk/admin/modules/mysql
