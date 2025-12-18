@@ -51,7 +51,7 @@ extern "C" {
 	/**
 	 * @brief Message buffer length.
 	 */
-	#define MESSAGE_LENGTH 2048
+	#define MESSAGE_LENGTH 20480
 	/**
 	 * @brief Maximum frame/message length.
 	 */
