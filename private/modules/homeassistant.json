@@ -23,6 +23,7 @@
 		"setup": true,
 		"setupDependencies": [],
 		"reset": true,
+		"config": true,
 		"alias": [
 			"home"
 		],
