@@ -1,0 +1,24 @@
+{
+	"module": "wireshark",
+	"name": "Wireshark",
+	"title": "traffic Analyzer",
+	"ai": false,
+	"description": "A network traffic analyzer and sniffer.",
+	"keywords": [
+		"Network",
+		"Analyzer"
+	],
+	"proprietary": "",
+	"github": "wireshark/wireshark",
+	"category": "Utils",
+	"version": "4.4.7",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
+	"database": "",
+	"default": {
+		"cmds": [
+			"/usr/bin/tshark"
+		]
+	}
+}
