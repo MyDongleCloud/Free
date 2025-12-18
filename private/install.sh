@@ -268,6 +268,8 @@ else
 	clone phpsandbox Corveda/PHPSandbox v3.1
 	clone pihole pi-hole/pi-hole v.6.1.4
 	clone piped TeamPiped/Piped 1c3cfd23
+	clone pipedbackend TeamPiped/Piped-Backend c5921f6b
+	clone pipedproxy TeamPiped/Piped-Proxy b195686c
 	clone prettier prettier/prettier 3.7.4
 	clone privatebin PrivateBin/PrivateBin 1.7.8
 	clone projectsend projectsend/projectsend r1720

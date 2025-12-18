@@ -1,0 +1,72 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for piped [-h -r]"
+echo "h:	Print this usage and exit"
+echo "r:	Reset"
+exit 0
+}
+
+if [ "m`id -u`" != "m0" ]; then
+	echo "You need to be root"
+	exit 0
+fi
+
+RESET=0
+while getopts hr opt
+do
+	case "$opt" in
+		h) helper;;
+		r) RESET=1;;
+	esac
+done
+
+if [ $RESET != 1 ]; then
+	exit 0
+fi
+
+echo "#Reset piped##################"
+DATE=`date +%s`
+systemctl stop pipedbackend.service
+systemctl stop pipedproxy.service
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+SALT=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
+dbpass=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
+
+sudo -u postgres psql << EOF
+DROP DATABASE IF EXISTS pipeddb;
+CREATE DATABASE pipeddb;
+DROP USER IF EXISTS pipeduser;
+CREATE USER pipeduser WITH ENCRYPTED PASSWORD '${dbpass}';
+GRANT ALL PRIVILEGES ON DATABASE pipeddb TO pipeduser;
+\c pipeddb
+GRANT ALL PRIVILEGES ON SCHEMA public TO pipeduser;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO pipeduser;
+GRANT CREATE ON SCHEMA public TO pipeduser;
+\q
+EOF
+
+rm -rf /disk/admin/modules/piped
+mkdir /disk/admin/modules/piped
+cat > /disk/admin/modules/piped/config.properties << EOF
+PORT:8102
+HTTP_WORKERS:2
+PROXY_PART:https://piped.${CLOUDNAME}.mydongle.cloud/_proxy_/
+API_URL:https://piped.${CLOUDNAME}.mydongle.cloud/_api_/
+FRONTEND_URL:https://piped.${CLOUDNAME}.mydongle.cloud
+hibernate.connection.url:jdbc:postgresql://127.0.0.1:5432/pipeddb
+hibernate.connection.driver_class:org.postgresql.Driver
+hibernate.dialect:org.hibernate.dialect.PostgreSQLDialect
+hibernate.connection.username:pipeduser
+hibernate.connection.password:${dbpass}
+EOF
+
+echo "{\"dbname\":\"pipeddb\", \"dbuser\":\"pipeduser\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/piped.json
+chown admin:admin /disk/admin/modules/_config_/piped.json
+
+chown -R admin:admin /disk/admin/modules/piped
+systemctl start pipedbackend.service
+systemctl start pipedproxy.service
+systemctl enable pipedbackend.service
+systemctl enable pipedproxy.service

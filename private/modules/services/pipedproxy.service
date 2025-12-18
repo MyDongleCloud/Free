@@ -1,0 +1,17 @@
+[Unit]
+Description=Piped
+After=network.target
+
+[Service]
+Type=simple
+Environment=BIND=127.0.0.1:8103
+ExecStart=/usr/local/bin/piped-proxy
+WorkingDirectory=/disk/admin/modules/piped
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

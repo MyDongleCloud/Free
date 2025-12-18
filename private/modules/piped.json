@@ -20,6 +20,33 @@
 	"database": "",
 	"default": {
 		"enabled": true,
+		"setup": true,
+		"setupDependencies": [
+			"java",
+			"postgresql"
+		],
+		"services": [
+			"pipedbackend",
+			"pipedproxy"
+		],
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8102,
+				"path": "/_api_/",
+				"path2": "/"
+			},
+			{
+				"type": "http",
+				"port": 8103,
+				"path": "/_proxy_/",
+				"path2": "/"
+			}
+		],
+		"setupRoot": true,
+		"reset": true,
+		"config": true,
+		"path": "/usr/local/modules/piped/dist",
 		"permissions": [
 			"_groupadmin_"
 		],
