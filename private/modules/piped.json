@@ -50,6 +50,6 @@
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9499
+		"localPort": 9469
 	}
 }

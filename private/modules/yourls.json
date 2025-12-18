@@ -29,6 +29,6 @@
 			"_groupadmin_"
 		],
 		"homepage": "/admin",
-		"localPort": 9488
+		"localPort": 9504
 	}
 }

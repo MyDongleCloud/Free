@@ -22,6 +22,6 @@
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9494
+		"localPort": 9496
 	}
 }

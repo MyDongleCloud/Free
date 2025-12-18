@@ -37,7 +37,7 @@
 			"_localnetwork_",
 			"_groupadmin_"
 		],
-		"localPort": 9493,
+		"localPort": 9490,
 		"reverseProxy": [
 			{
 				"type": "http",

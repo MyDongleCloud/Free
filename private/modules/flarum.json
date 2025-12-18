@@ -23,7 +23,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9416,
+		"localPort": 9419,
 		"path": "/usr/local/modules/flarum/public"
 	}
 }

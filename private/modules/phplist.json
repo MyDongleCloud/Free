@@ -23,7 +23,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9459,
+		"localPort": 9466,
 		"path": "/usr/local/modules/phplist/public_html"
 	}
 }

@@ -9,6 +9,7 @@ This is the list of all used ports in the image, separated between listening por
 - webssh2: 2222 (reverseproxy)
 - betterauthstudio: 3002
 - librechat: 3080 (reverseproxy)
+- lobechat: 3210 (reverseproxy)
 - mysql: 3306, 33060
 - postgres: 5432
 - redis: 6379
@@ -21,13 +22,16 @@ This is the list of all used ports in the image, separated between listening por
 - tubesync: 8098 (reverseproxy)
 - llamacpp: 8099 (reverseproxy)
 - tabby: 8100 (reverseproxy)
+- openwebui: 8101 (reverseproxy)
+- pipedbackend: 8102 (reverseproxy)
+- pipedproxy: 8103 (reverseproxy)
 - rspamd: 11332, 11333, 11334
 - mongodb: 27017
 
 ### Listening ports (external aka. 0.0.0.0 or equivalent)
 - ssh: 22
 - postfix: 25 (mail), 465 (smtp)
-- apache: 80 (http), 443 (https), 9400-9493 (modules)
+- apache: 80 (http), 443 (https), 9400-9506 (modules)
 - dovecot imaps: 110 (imaps), 143 (pop3s), 993 (imaps), 995 (pop3s)
 - networkmanager: 546 (dhcpv6)
 - avahi: 5353 (mdns)

@@ -29,7 +29,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9444,
+		"localPort": 9450,
 		"reverseProxy": [
 			{
 				"type": "http",
