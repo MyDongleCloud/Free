@@ -1,0 +1,18 @@
+[Unit]
+Description=Open WebUI
+After=network.target
+
+[Service]
+EnvironmentFile=/disk/admin/modules/openwebui/.env
+Environment=PATH=/usr/local/modules/openwebui/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Type=simple
+ExecStart=/usr/local/modules/openwebui/bin/open-webui serve --host 127.0.0.1 --port 8101
+WorkingDirectory=/disk/admin/modules/openwebui
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

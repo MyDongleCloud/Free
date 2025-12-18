@@ -259,7 +259,6 @@ else
 	clone minio minio/minio RELEASE.2025-07-18T21-56-31Z
 	clone mkdocs mkdocs/mkdocs 1.6.1
 	clone ollama ollama/ollama v0.9.7-rc1
-	clone openwebui open-webui/open-webui v0.6.18
 	clone osticket osTicket/osTicket v1.18.2
 	clone passbolt passbolt/passbolt_api v5.7.2
 	clone photoprism photoprism/photoprism 250707-d28b3101e
@@ -331,6 +330,7 @@ chown -R root:root /usr/local
 chown -R www-data:www-data /usr/local/modules/libreqr/css
 chown -R ai:ai /home/ai
 chown -R www-data:admin /disk/admin/modules/roundcube
+chown -R admin:admin /usr/local/modules/openwebui/lib/python3.11/site-packages/open_webui/static/
 mv /var/lib/mysql /disk/admin/modules
 chown mysql:mysql /disk/admin/modules/mysql
 ln -sf /disk/admin/modules/mysql /var/lib/mysql

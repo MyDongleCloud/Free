@@ -13,19 +13,33 @@
 	"proprietary": "",
 	"github": "open-webui/open-webui",
 	"category": "Essential",
-	"version": "v0.6.18",
-	"installMethod": "clone",
+	"version": "v0.6.41",
+	"installMethod": "pip",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"database": "",
 	"default": {
 		"enabled": true,
-		"alias": [
-			"chatbot",
-			"chat"
+		"services": [
+			"openwebui"
 		],
+		"setup": true,
+		"reset": true,
+		"addConfigEnd": "SetEnvIf Request_URI ^/auth no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"permissions": [
 			"_groupadmin_"
+		],
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8101,
+				"path": "/"
+			},
+			{
+				"type": "ws",
+				"port": 8101,
+				"path": "/"
+			}
 		],
 		"localPort": 9451
 	}
