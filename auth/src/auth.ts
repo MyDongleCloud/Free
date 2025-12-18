@@ -52,9 +52,9 @@ if (process.env.PRODUCTION === "true") {
 	if (cloud?.domains)
 		cloud.info.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
 	const internalIP = getInternalIpAddress();
-	internalIP && trustedOrigins.push(internalIP);
+	internalIP && trustedOrigins.push(internalIP, internalIP + ":9400");
 } else
-	trustedOrigins = [ "http://localhost:8100" ];
+	trustedOrigins = [ "localhost:8100" ];
 
 if (!existsSync(secretPath)) {
 	writeFileSync(secretPath, randomBytes(32).toString("base64"), "utf-8");
