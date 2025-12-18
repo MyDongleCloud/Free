@@ -69,19 +69,19 @@ else
 	rm -rf ${ROOTFS}/home/ai/app ${ROOTFS}/home/ai/moduleApache2 ${ROOTFS}/home/ai/moduleIpApache2 ${ROOTFS}/home/ai/pam
 	../auth/prepare.sh -c
 	cp -a ../app ../moduleApache2 ../moduleIpApache2 ../pam/ ../auth/ ${ROOTFS}/home/ai/
-	chroot ${ROOTFS} sh -c 'cd /home/ai/app && make clean && make'
-	chroot ${ROOTFS} sh -c 'cd /home/ai/moduleApache2 && make clean && make'
-	chroot ${ROOTFS} sh -c 'cd /home/ai/moduleIpApache2 && make clean && make'
-	chroot ${ROOTFS} sh -c 'cd /home/ai/pam && make clean && make'
-	cp /etc/resolv.conf /tmp/2/etc/resolv.conf
-	chroot ${ROOTFS} sh -c 'cd /home/ai/auth && ./prepare.sh -i'
-
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json ${ROOTFS}/usr/local/modules/mydonglecloud/
 	rm -rf ../rootfs/usr/local/modules/mydonglecloud/reset
 	cp -a modules/reset/ ../rootfs/usr/local/modules/mydonglecloud/
 	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/reset
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
 	cp modules/services/* ${ROOTFS}/etc/systemd/system/
+
+	chroot ${ROOTFS} sh -c 'cd /home/ai/app && make clean && make'
+	chroot ${ROOTFS} sh -c 'cd /home/ai/moduleApache2 && make clean && make'
+	chroot ${ROOTFS} sh -c 'cd /home/ai/moduleIpApache2 && make clean && make'
+	chroot ${ROOTFS} sh -c 'cd /home/ai/pam && make clean && make'
+	cp /etc/resolv.conf /tmp/2/etc/resolv.conf
+	chroot ${ROOTFS} sh -c 'cd /home/ai/auth && ./prepare.sh -i'
 
 	rm -rf ../client/web
 	cd ../client
