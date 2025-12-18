@@ -65,7 +65,7 @@
 				</div>
 			</div>
 
-			<div joyrideStep="anchor7" title="Settings" text="Change the general settings of your dongle." stepPosition="right" >
+			<div joyrideStep="anchor7" title="Settings" text="Tune the system." stepPosition="right" >
 				<div class="px-3 text-s text--black font-semibold text--gray-600 tracking-wider mt-6 md:mt-12">{{LG("SYSTEM")}}</div>
 				<a (click)="global.openPage('settings');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
@@ -85,11 +85,11 @@
 					</div>
 					<span>{{LG("Permissions")}}</span>
 				</a>
-				<a (click)="global.openPage('dongle');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a (click)="global.openPage('hardware');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center overflow-hidden">
-						<img src="assets/dongle.svg" class="w-5 h-5 translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--gray-800)]"/>
+						<ion-icon name="tv-outline" class="w-5 h-5"></ion-icon>
 					</div>
-					<span>{{LG("Dongle")}}</span>
+					<span>{{LG("Hardware")}}</span>
 				</a>
 				<a (click)="global.openModule('webssh2');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">

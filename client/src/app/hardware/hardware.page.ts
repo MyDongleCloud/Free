@@ -11,12 +11,12 @@ declare var appOtp: any;
 declare var appLanguage: any;
 
 @Component({
-	selector: 'app-dongle',
-	templateUrl: './dongle.page.html',
+	selector: 'app-hardware',
+	templateUrl: './hardware.page.html',
 	standalone: false
 })
 
-export class Dongle {
+export class Hardware {
 L(st) { return this.global.mytranslate(st); }
 LG(st) { return this.global.mytranslateG(st); }
 typeBluetooth: boolean = false;

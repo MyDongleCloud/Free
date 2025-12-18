@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Dongle } from './dongle.page';
+import { Hardware } from './hardware.page';
 
 const routes: Routes = [{
 	path: '',
-	component: Dongle
+	component: Hardware
 }];
 
 @NgModule({
@@ -12,4 +12,4 @@ const routes: Routes = [{
 	exports: [RouterModule],
 })
 
-export class DongleRoutingModule {}
+export class HardwareRoutingModule {}

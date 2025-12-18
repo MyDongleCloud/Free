@@ -13,13 +13,13 @@ const routes: Routes = [
 		loadChildren: () => import('./backup/backup.module').then( m => m.BackupModule)
 	},
 	{
-		path: 'dongle',
-		canActivate: [Global],
-		loadChildren: () => import('./dongle/dongle.module').then( m => m.DongleModule)
-	},
-	{
 		path: 'find',
 		loadChildren: () => import('./find/find.module').then( m => m.FindModule)
+	},
+	{
+		path: 'hardware',
+		canActivate: [Global],
+		loadChildren: () => import('./hardware/hardware.module').then( m => m.HardwareModule)
 	},
 	{
 		path: 'help',

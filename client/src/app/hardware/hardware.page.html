@@ -4,7 +4,7 @@
 		<app-topbar title="{{L('Dongle')}}"></app-topbar>
 		<div class="p-6	flex flex-col gap-3 items-start">
 			<button (click)="connectToggle()" [class]="ble.connectedBLE == 2 || ble.connectedWS == 2 ? 'bg--green-600' : ble.connectedBLE == 1 ? 'bg--yellow-600' : 'bg--blue-600'" class="inline-flex items-center gap-2 px-4 py-2 text--white rounded-lg text-sm font-medium transition-colors">
-				<img src="assets/dongle.svg" alt="Dongle" class="w-6 h-6" style="filter:invert(100%);"/>
+				<ion-icon [name]="typeBluetooth ? 'bluetooth-outline' : 'globe-outline'" class="text--white w-4 h-4"></ion-icon>
 				<span class="text-lg">{{ble.connectedBLE == 2 || ble.connectedWS == 2 ? L("Connected") : ble.connectedBLE == 1 ? L("Searching") : L("Connect")}}</span>
 			</button>
 			<div class="flex items-center"><input type="checkbox" [(ngModel)]="typeBluetooth" [disabled]="ble.connectedBLE != 0 || ble.connectedWS != 0" labelPlacement="end" class="form-checkbox h-4 w-4 mr-3">{{L("Via Bluetooth")}}</div>
@@ -32,7 +32,7 @@
 				<b>{{L("Device version:")}}</b> {{ble.firmwareDeviceVersion}}
 			</div>
 			<div class="-ml-5" style="position:relative;">
-				<img src="assets/dongle.png" style="height:640px;" alt="MyDongle dongle" usemap="#buttonsMap">
+				<img src="assets/dongle.png" style="height:640px;" alt="Dongle" usemap="#buttonsMap">
 				<map name="buttonsMap">
 					<area shape="rect" coords="15,360,55,400" alt="Left" href="javascript:;" (click)="button(105, 0);" long-press (press)="button(105, 1)">
 					<area shape="rect" coords="15,80,55,130" alt="Right" href="javascript:;" (click)="button(103, 0);" long-press (press)="button(103, 1)">

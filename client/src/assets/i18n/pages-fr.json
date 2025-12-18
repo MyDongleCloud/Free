@@ -10,16 +10,6 @@
 		"Backup": "Sauvegarde",
 		"Backup & restore": "Sauvegarde et restauration"
 	},
-	"dongle": {
-		"Connect": "Se connecter",
-		"Connected": "Connecté",
-		"Device version:": "Version de l'appareil :",
-		"Dongle": "Dongle",
-		"Login OTP": "Connexion OTP",
-		"Searching": "Recherche en cours",
-		"Shutdown": "Arrêt",
-		"Via Bluetooth": "Via Bluetooth"
-	},
 	"find": {
 		"Dongle": "Dongle",
 		"Email address": "Adresse e-mail",
@@ -29,6 +19,16 @@
 		"My": "Mon",
 		"Please enter a valid email address": "Veuillez entrer une adresse e-mail valide",
 		"Setup here!": "Configurer ici !"
+	},
+	"hardware": {
+		"Connect": "Se connecter",
+		"Connected": "Connecté",
+		"Device version:": "Version de l'appareil :",
+		"Dongle": "Dongle",
+		"Login OTP": "Connexion OTP",
+		"Searching": "Recherche en cours",
+		"Shutdown": "Arrêt",
+		"Via Bluetooth": "Via Bluetooth"
 	},
 	"help": {
 		"Help": "Aide",

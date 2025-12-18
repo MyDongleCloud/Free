@@ -4,8 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
-import { DongleRoutingModule } from './dongle-routing.module';
-import { Dongle } from './dongle.page';
+import { HardwareRoutingModule } from './hardware-routing.module';
+import { Hardware } from './hardware.page';
 
 @NgModule({
 	imports: [
@@ -15,9 +15,9 @@ import { Dongle } from './dongle.page';
 		ComponentsModule,
 		FormsModule,
 		ComponentsModule,
-		DongleRoutingModule
+		HardwareRoutingModule
 	],
-	declarations: [Dongle]
+	declarations: [Hardware]
 })
 
-export class DongleModule {}
+export class HardwareModule {}

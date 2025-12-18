@@ -10,16 +10,6 @@
 		"Backup": "",
 		"Backup & restore": ""
 	},
-	"dongle": {
-		"Connect": "",
-		"Connected": "",
-		"Device version:": "",
-		"Dongle": "",
-		"Login OTP": "",
-		"Searching": "",
-		"Shutdown": "",
-		"Via Bluetooth": ""
-	},
 	"find": {
 		"Dongle": "",
 		"Email address": "",
@@ -29,6 +19,16 @@
 		"My": "",
 		"Please enter a valid email address": "",
 		"Setup here!": ""
+	},
+	"hardware": {
+		"Connect": "",
+		"Connected": "",
+		"Device version:": "",
+		"Dongle": "",
+		"Login OTP": "",
+		"Searching": "",
+		"Shutdown": "",
+		"Via Bluetooth": ""
 	},
 	"help": {
 		"Help": "",
