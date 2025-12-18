@@ -27,6 +27,13 @@ const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
 const modulesPath = adminPath + "_config_/_modules_.json";
+let hardware = { "model": "Unknown" };
+if (process.env.PRODUCTION === "true")
+	try {
+		hardware["model"] = readFileSync( "/dev/dongle_platform/model", "utf-8").trimEnd();
+	} catch (e) {}
+else
+	hardware["model"] = "PC";
 
 function getInternalIpAddress() {
 	const networkInterfaces = os.networkInterfaces();
@@ -319,7 +326,7 @@ export const auth = betterAuth({
 	plugins: [
 		username(),
 		customSession(async ({ user, session }) => {
-			return { session, user, cloud };
+			return { session, user, hardware, cloud };
 		}),
 		emailOTP({
 			async sendVerificationOTP({ email, otp, type }) {
