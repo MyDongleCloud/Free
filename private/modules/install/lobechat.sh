@@ -27,10 +27,12 @@ KEY_VAULTS_SECRET=${KEY_VAULTS_SECRET}
 EOF
 
 export APP_URL=http://localhost:3210
+sed -i -e "s/NODE_OPTIONS=--max-old-space-size=6144/NODE_OPTIONS=--max-old-space-size=4096/" package.json
 sync
 echo 3 > /proc/sys/vm/drop_caches
-sed -i -e "s/NODE_OPTIONS=--max-old-space-size=6144/NODE_OPTIONS=--max-old-space-size=4096/" package.json
 pnpm run build
+sync
+echo 3 > /proc/sys/vm/drop_caches
 
 rm -f .env
 ln -sf /disk/admin/modules/lobechat/.env .env

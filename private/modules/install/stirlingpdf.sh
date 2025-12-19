@@ -12,7 +12,11 @@ export PATH=/usr/local/modules/stirlingpdf/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 pip install uno opencv-python-headless unoconv pngquant WeasyPrint
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-arm64
+sync
+echo 3 > /proc/sys/vm/drop_caches
 ./gradlew build
+sync
+echo 3 > /proc/sys/vm/drop_caches
 cp -a scripts stirling-pdf/build/libs/stirling-pdf-*.jar /usr/local/modules/stirlingpdf
 PATH=$PATHOLD
 export PATH=$PATHOLD
