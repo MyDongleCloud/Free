@@ -51,6 +51,7 @@ for ($i = 1; $i < count($modules); $i++) {
 	$out["web"] = $out["web"] === "1";
 	$out["finished"] = $out["finished"] === "1";
 	$out["default"] = $modulesDefault[$m[0]];
+	ksort($out["default"]);
 	store("/modules/" . $m[0] . ".json", $out);
 }
 ?>
