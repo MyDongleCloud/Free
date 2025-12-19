@@ -2,24 +2,24 @@
 	"module": "redmine",
 	"name": "Redmine",
 	"title": "Project Management",
-	"ai": false,
-	"description": "A flexible project management web application.",
-	"keywords": [
-		"Project Management"
-	],
-	"proprietary": "",
-	"github": "redmine/redmine",
 	"category": "Productivity",
 	"version": "6.1.0",
 	"installMethod": "clone",
 	"web": true,
 	"finished": false,
+	"ai": false,
 	"database": "",
+	"github": "redmine/redmine",
+	"description": "A flexible project management web application.",
+	"keywords": [
+		"Project Management"
+	],
+	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9476,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9476
+		]
 	}
 }

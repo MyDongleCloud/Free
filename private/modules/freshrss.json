@@ -2,7 +2,14 @@
 	"module": "freshrss",
 	"name": "FreshRSS",
 	"title": "RSS Feed",
+	"category": "Personal",
+	"version": "1.26.3",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "FreshRSS/FreshRSS",
 	"description": "A free, self-hostable news aggregator.",
 	"keywords": [
 		"RSS",
@@ -10,23 +17,16 @@
 		"Aggregator"
 	],
 	"proprietary": "Feedly",
-	"github": "FreshRSS/FreshRSS",
-	"category": "Personal",
-	"version": "1.26.3",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
-		"enabled": true,
-		"permissions": [
-			"_groupadmin_"
-		],
-		"localPort": 9420,
 		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
-		"path": "/usr/local/modules/freshrss/p",
 		"alias": [
 			"rss"
+		],
+		"enabled": true,
+		"localPort": 9420,
+		"path": "/usr/local/modules/freshrss/p",
+		"permissions": [
+			"_groupadmin_"
 		]
 	}
 }

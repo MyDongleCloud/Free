@@ -2,7 +2,14 @@
 	"module": "syncthing",
 	"name": "Syncthing",
 	"title": "File Sync",
+	"category": "Utils",
+	"version": "1.30.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "syncthing/syncthing",
 	"description": "A continuous file synchronization program.",
 	"keywords": [
 		"File",
@@ -11,18 +18,11 @@
 		"Backup"
 	],
 	"proprietary": "Dropbox|Google Drive",
-	"github": "syncthing/syncthing",
-	"category": "Utils",
-	"version": "1.30.0",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9489,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9489
+		]
 	}
 }

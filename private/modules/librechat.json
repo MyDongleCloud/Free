@@ -2,37 +2,29 @@
 	"module": "librechat",
 	"name": "LibreChat",
 	"title": "Libre Chatbot",
+	"category": "Utils",
+	"version": "v0.7.9",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": true,
+	"database": "mongodb",
+	"github": "danny-avila/LibreChat",
 	"description": "An enhanced ChatGPT Clone.",
 	"keywords": [
 		"Chat",
 		"Chatbot"
 	],
 	"proprietary": "",
-	"github": "danny-avila/LibreChat",
-	"category": "Utils",
-	"version": "v0.7.9",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "mongodb",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupDependencies": [
-			"meilisearch",
-			"redis",
-			"mongodb"
-		],
-		"reset": true,
-		"config": true,
-		"services": [
-			"librechat"
-		],
 		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tSetEnvIf Request_URI ^/login no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"config": true,
+		"enabled": true,
+		"localPort": 9437,
 		"permissions": [
 			"_groupadmin_"
 		],
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -40,6 +32,14 @@
 				"path": "/"
 			}
 		],
-		"localPort": 9437
+		"services": [
+			"librechat"
+		],
+		"setup": true,
+		"setupDependencies": [
+			"meilisearch",
+			"redis",
+			"mongodb"
+		]
 	}
 }

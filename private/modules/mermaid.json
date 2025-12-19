@@ -2,7 +2,14 @@
 	"module": "mermaid",
 	"name": "Mermaid",
 	"title": "Diagram Visualization Tool",
+	"category": "Productivity",
+	"version": "11.9.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "mermaid-js/mermaid",
 	"description": "A generation tool for diagrams like flowcharts or sequence diagrams from text in a similar manner as markdown.",
 	"keywords": [
 		"Diagram",
@@ -11,18 +18,11 @@
 		"Code"
 	],
 	"proprietary": "Lucidchart",
-	"github": "mermaid-js/mermaid",
-	"category": "Productivity",
-	"version": "11.9.0",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9449,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9449
+		]
 	}
 }

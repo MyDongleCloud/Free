@@ -2,7 +2,14 @@
 	"module": "joomla",
 	"name": "Joomla!",
 	"title": "Content Publisher",
+	"category": "Productivity",
+	"version": "5.3.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "joomla/joomla-cms",
 	"description": "A Content Management System for publishing web content.",
 	"keywords": [
 		"CMS",
@@ -11,18 +18,11 @@
 		"Content"
 	],
 	"proprietary": "WordPress",
-	"github": "joomla/joomla-cms",
-	"category": "Productivity",
-	"version": "5.3.2",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9433,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9433
+		]
 	}
 }

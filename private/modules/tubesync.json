@@ -2,7 +2,14 @@
 	"module": "tubesync",
 	"name": "TubeSync",
 	"title": "YouTube Channels",
+	"category": "Utils",
+	"version": "v0.15.10",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "sqlite",
+	"github": "meeb/tubesync",
 	"description": "A syncer of YouTube channels and playlists.",
 	"keywords": [
 		"YouTube",
@@ -12,32 +19,25 @@
 		"Channel"
 	],
 	"proprietary": "4K Video Downloader",
-	"github": "meeb/tubesync",
-	"category": "Utils",
-	"version": "v0.15.10",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupDependencies": [],
-		"reset": true,
-		"services": [
-			"tubesync"
-		],
 		"addConfigBegin": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
+		"enabled": true,
+		"localPort": 9495,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9495,
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
 				"port": 8098,
 				"path": "/"
 			}
-		]
+		],
+		"services": [
+			"tubesync"
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }

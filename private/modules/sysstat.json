@@ -2,19 +2,19 @@
 	"module": "sysstat",
 	"name": "System performance tools",
 	"title": "Stats Tools",
-	"ai": false,
-	"description": "A performance monitoring tools.",
-	"keywords": [
-		"Stats Tools"
-	],
-	"proprietary": "",
-	"github": "sysstat/sysstat",
 	"category": "Utils",
 	"version": "12.7.5",
 	"installMethod": "apt",
 	"web": false,
 	"finished": true,
+	"ai": false,
 	"database": "",
+	"github": "sysstat/sysstat",
+	"description": "A performance monitoring tools.",
+	"keywords": [
+		"Stats Tools"
+	],
+	"proprietary": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/iostat",

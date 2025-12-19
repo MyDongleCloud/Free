@@ -2,7 +2,14 @@
 	"module": "stremio",
 	"name": "Stremio",
 	"title": "Free Streaming",
+	"category": "Personal",
+	"version": "v5.0.0-beta.29",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "Stremio/stremio-web",
 	"description": "A software system to manage and stream media.",
 	"keywords": [
 		"Media",
@@ -10,18 +17,11 @@
 		"Video"
 	],
 	"proprietary": "Plex|Emby",
-	"github": "Stremio/stremio-web",
-	"category": "Personal",
-	"version": "v5.0.0-beta.29",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9486,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9486
+		]
 	}
 }

@@ -2,7 +2,14 @@
 	"module": "redis",
 	"name": "Redis",
 	"title": "In-memory Data Server",
+	"category": "Developer",
+	"version": "8.0.2",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "redis/redis",
 	"description": "A fast and feature-rich cache, data structure server, and document and vector query engine.",
 	"keywords": [
 		"Server",
@@ -10,13 +17,6 @@
 		"Structure"
 	],
 	"proprietary": "",
-	"github": "redis/redis",
-	"category": "Developer",
-	"version": "8.0.2",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/redis-cli"

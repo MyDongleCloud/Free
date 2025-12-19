@@ -2,7 +2,14 @@
 	"module": "triliumnotes",
 	"name": "Trilium Notes",
 	"title": "Hierarchical Notes",
+	"category": "Productivity",
+	"version": "v0.95.0",
+	"installMethod": "tar",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "sqlite",
+	"github": "TriliumNext/Trilium",
 	"description": "A tool to build your hierarchical notes.",
 	"keywords": [
 		"Notes",
@@ -11,28 +18,21 @@
 		"Base"
 	],
 	"proprietary": "Evernote",
-	"github": "TriliumNext/Trilium",
-	"category": "Productivity",
-	"version": "v0.95.0",
-	"installMethod": "tar",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
 		"enabled": true,
-		"services": [
-			"triliumnotes"
-		],
+		"localPort": 9494,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9494,
 		"reverseProxy": [
 			{
 				"type": "http",
 				"port": 8090,
 				"path": "/"
 			}
+		],
+		"services": [
+			"triliumnotes"
 		]
 	}
 }

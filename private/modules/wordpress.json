@@ -2,7 +2,14 @@
 	"module": "wordpress",
 	"name": "WordPress",
 	"title": "Website Creator",
+	"category": "Personal",
+	"version": "6.8.3",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "WordPress/WordPress",
 	"description": "A Content Management System for creating websites and blogs.",
 	"keywords": [
 		"CMS",
@@ -11,18 +18,11 @@
 		"Publishing"
 	],
 	"proprietary": "Wix|Squarespace",
-	"github": "WordPress/WordPress",
-	"category": "Personal",
-	"version": "6.8.3",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9502,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9502
+		]
 	}
 }

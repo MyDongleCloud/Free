@@ -2,7 +2,14 @@
 	"module": "apache2",
 	"name": "Apache HTTP Server",
 	"title": "Website",
+	"category": "Essential",
+	"version": "2.4.65",
+	"installMethod": "apt",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "apache/httpd",
 	"description": "An HTTP Server Project built with security, efficiency and extensibility in mind.",
 	"keywords": [
 		"HTTP",
@@ -11,33 +18,26 @@
 		"Apache"
 	],
 	"proprietary": "Microsoft IIS",
-	"github": "apache/httpd",
-	"category": "Essential",
-	"version": "2.4.65",
-	"installMethod": "apt",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupPriority": true,
-		"setupDependencies": [],
-		"reset": true,
-		"permissions": [
-			"_public_"
+		"alias": [
+			"www"
 		],
-		"localPort": 80,
-		"updateRemoteIP": true,
 		"autoLogin": true,
+		"enabled": true,
+		"localPort": 80,
 		"localRanges": [
 			"10",
 			"172.16",
 			"192.168"
 		],
 		"path": "/disk/admin/modules/apache2/www",
-		"alias": [
-			"www"
-		]
+		"permissions": [
+			"_public_"
+		],
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [],
+		"setupPriority": true,
+		"updateRemoteIP": true
 	}
 }

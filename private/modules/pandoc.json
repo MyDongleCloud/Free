@@ -2,7 +2,14 @@
 	"module": "pandoc",
 	"name": "Pandoc",
 	"title": "Document Converter",
+	"category": "Productivity",
+	"version": "3.1.11.1",
+	"installMethod": "apt",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "jgm/pandoc",
 	"description": "A universal document converter.",
 	"keywords": [
 		"Document",
@@ -11,18 +18,11 @@
 		"Format"
 	],
 	"proprietary": "Adobe Acrobat",
-	"github": "jgm/pandoc",
-	"category": "Productivity",
-	"version": "3.1.11.1",
-	"installMethod": "apt",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9460,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9460
+		]
 	}
 }

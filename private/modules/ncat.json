@@ -2,20 +2,20 @@
 	"module": "ncat",
 	"name": "Network Utils",
 	"title": "Network Utils",
+	"category": "Utils",
+	"version": "7.95",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "",
 	"description": "A tool to test networking.",
 	"keywords": [
 		"Network",
 		"Tester"
 	],
 	"proprietary": "",
-	"github": "",
-	"category": "Utils",
-	"version": "7.95",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/ncat"

@@ -2,7 +2,14 @@
 	"module": "html5qrcode",
 	"name": "Html5-QRCode",
 	"title": "QR Code",
+	"category": "Utils",
+	"version": "v2.3.8",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "mebjas/html5-qrcode",
 	"description": "A minimal QR code scanner using HTML5.",
 	"keywords": [
 		"QR",
@@ -11,18 +18,11 @@
 		"Web"
 	],
 	"proprietary": "QR Code Scanner",
-	"github": "mebjas/html5-qrcode",
-	"category": "Utils",
-	"version": "v2.3.8",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9426,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9426
+		]
 	}
 }

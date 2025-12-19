@@ -2,7 +2,14 @@
 	"module": "photoprism",
 	"name": "PhotoPrism",
 	"title": "AI Photo",
+	"category": "Personal",
+	"version": "250707-d28b3101e",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": true,
+	"database": "",
+	"github": "photoprism/photoprism",
 	"description": "AI-powered photos app for the decentralized web.",
 	"keywords": [
 		"Photos",
@@ -11,18 +18,11 @@
 		"Gallery"
 	],
 	"proprietary": "Google Photos",
-	"github": "photoprism/photoprism",
-	"category": "Personal",
-	"version": "250707-d28b3101e",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9463,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9463
+		]
 	}
 }

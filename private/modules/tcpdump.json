@@ -2,20 +2,20 @@
 	"module": "tcpdump",
 	"name": "TCPdump",
 	"title": "TCP Dumper",
+	"category": "Utils",
+	"version": "4.99.5",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "the-tcpdump-group/tcpdump",
 	"description": "A network TCP dumper and dissector.",
 	"keywords": [
 		"TCP",
 		"Dumper"
 	],
 	"proprietary": "",
-	"github": "the-tcpdump-group/tcpdump",
-	"category": "Utils",
-	"version": "4.99.5",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/tcpdump"

@@ -2,25 +2,25 @@
 	"module": "passbolt",
 	"name": "Passbolt",
 	"title": "Password Manager",
+	"category": "Utils",
+	"version": "v5.7.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "passbolt/passbolt_api",
 	"description": "A Password manager for teams.",
 	"keywords": [
 		"Password",
 		"Teams"
 	],
 	"proprietary": "",
-	"github": "passbolt/passbolt_api",
-	"category": "Utils",
-	"version": "v5.7.2",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9461,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9461
+		]
 	}
 }

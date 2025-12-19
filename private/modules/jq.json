@@ -2,7 +2,14 @@
 	"module": "jq",
 	"name": "jq",
 	"title": "JSON parser",
+	"category": "Utils",
+	"version": "1.7.1",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "jqlang/jq",
 	"description": "A command-line parser for json files.",
 	"keywords": [
 		"JSON",
@@ -11,13 +18,6 @@
 		"Config"
 	],
 	"proprietary": "",
-	"github": "jqlang/jq",
-	"category": "Utils",
-	"version": "1.7.1",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/jq"

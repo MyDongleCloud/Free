@@ -2,22 +2,23 @@
 	"module": "cockpit",
 	"name": "Cockpit",
 	"title": "Server Health",
+	"category": "Backend",
+	"version": "337",
+	"installMethod": "apt",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "cockpit-project/cockpit",
 	"description": "A server health suite with graphical interface.",
 	"keywords": [
 		"Server",
 		"Health"
 	],
 	"proprietary": "",
-	"github": "cockpit-project/cockpit",
-	"category": "Backend",
-	"version": "337",
-	"installMethod": "apt",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9408,
 		"permissions": [
 			"_groupadmin_"
 		],
@@ -27,7 +28,6 @@
 				"port": 9090,
 				"path": "/"
 			}
-		],
-		"localPort": 9408
+		]
 	}
 }

@@ -2,7 +2,14 @@
 	"module": "busybox",
 	"name": "BusyBox",
 	"title": "Unix Suite",
+	"category": "Utils",
+	"version": "1.37.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "mirror/busybox",
 	"description": "A lightweight set of Unix utilities in a single executable.",
 	"keywords": [
 		"Unix",
@@ -11,13 +18,6 @@
 		"Embedded"
 	],
 	"proprietary": "",
-	"github": "mirror/busybox",
-	"category": "Utils",
-	"version": "1.37.0",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/sh"

@@ -2,7 +2,14 @@
 	"module": "jitsimeet",
 	"name": "Jitsi Meet",
 	"title": "Conferencing",
+	"category": "Essential",
+	"version": "",
+	"installMethod": "apt (source)",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "jitsi/jitsi-meet",
 	"description": "A secure, Simple and Scalable Video Conferences tools suite.",
 	"keywords": [
 		"Video",
@@ -11,22 +18,15 @@
 		"WebRTC"
 	],
 	"proprietary": "Zoom|Microsoft Teams",
-	"github": "jitsi/jitsi-meet",
-	"category": "Essential",
-	"version": "",
-	"installMethod": "apt (source)",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
-		"setup": true,
-		"setupDependencies": [],
-		"setupRoot": true,
-		"reset": true,
+		"localPort": 9432,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9432
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true
 	}
 }

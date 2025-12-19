@@ -2,7 +2,14 @@
 	"module": "fscrypt",
 	"name": "fscrypt",
 	"title": "Linux Encryption",
+	"category": "Utils",
+	"version": "0.3.5",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "google/fscrypt",
 	"description": "A tool for managing Linux filesystem encryption.",
 	"keywords": [
 		"Encryption",
@@ -11,13 +18,6 @@
 		"Security"
 	],
 	"proprietary": "BitLocker",
-	"github": "google/fscrypt",
-	"category": "Utils",
-	"version": "0.3.5",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/fscrypt"

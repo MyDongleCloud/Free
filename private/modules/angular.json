@@ -2,7 +2,14 @@
 	"module": "angular",
 	"name": "Angular",
 	"title": "Web App Framework",
+	"category": "Backend",
+	"version": "20.3.9",
+	"installMethod": "npm",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "angular/angular",
 	"description": "A platform for building mobile and desktop web applications.",
 	"keywords": [
 		"Web",
@@ -11,13 +18,6 @@
 		"SPA"
 	],
 	"proprietary": "React",
-	"github": "angular/angular",
-	"category": "Backend",
-	"version": "20.3.9",
-	"installMethod": "npm",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/ng"

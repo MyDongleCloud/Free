@@ -2,7 +2,14 @@
 	"module": "sqlite",
 	"name": "SQLite",
 	"title": "SQLite Database",
+	"category": "Developer",
+	"version": "3.46.1",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "sqlite/sqlite",
 	"description": "A self-contained, serverless, zero-configuration, transactional SQL database engine.",
 	"keywords": [
 		"Database",
@@ -12,13 +19,6 @@
 		"Embedded"
 	],
 	"proprietary": "Microsoft SQL Server Compact",
-	"github": "sqlite/sqlite",
-	"category": "Developer",
-	"version": "3.46.1",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/sqlite3"

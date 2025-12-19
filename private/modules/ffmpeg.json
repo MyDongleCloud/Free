@@ -2,7 +2,14 @@
 	"module": "ffmpeg",
 	"name": "FFmpeg",
 	"title": "Audio Video",
+	"category": "Utils",
+	"version": "7.1.2",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "FFmpeg/FFmpeg",
 	"description": "A complete solution to record, convert and stream audio and video.",
 	"keywords": [
 		"Video",
@@ -11,13 +18,6 @@
 		"Conversion"
 	],
 	"proprietary": "Adobe Media Encoder",
-	"github": "FFmpeg/FFmpeg",
-	"category": "Utils",
-	"version": "7.1.2",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/ffmpeg"

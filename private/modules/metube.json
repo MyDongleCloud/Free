@@ -2,7 +2,14 @@
 	"module": "metube",
 	"name": "MeTube",
 	"title": "YouTube Videos",
+	"category": "Utils",
+	"version": "HEAD",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "sqlite",
+	"github": "alexta69/metube",
 	"description": "A web GUI for youtube-dl, allowing you to download videos from YouTube and other sites.",
 	"keywords": [
 		"YouTube",
@@ -11,25 +18,13 @@
 		"Video"
 	],
 	"proprietary": "4K Video Downloader",
-	"github": "alexta69/metube",
-	"category": "Utils",
-	"version": "HEAD",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
 		"enabled": true,
-		"setup": true,
-		"setupDependencies": [],
-		"reset": true,
-		"services": [
-			"metube"
-		],
+		"localPort": 9450,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9450,
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -41,6 +36,11 @@
 				"port": 8089,
 				"path": "/socket.io"
 			}
-		]
+		],
+		"services": [
+			"metube"
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }

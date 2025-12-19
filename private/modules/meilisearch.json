@@ -2,29 +2,29 @@
 	"module": "meilisearch",
 	"name": "Meilisearch",
 	"title": "Fast Search",
+	"category": "Utils",
+	"version": "",
+	"installMethod": "wget",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "meilisearch/meilisearch",
 	"description": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
 	"keywords": [
 		"Search",
 		"Engine"
 	],
 	"proprietary": "",
-	"github": "meilisearch/meilisearch",
-	"category": "Utils",
-	"version": "",
-	"installMethod": "wget",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
-		"setup": true,
-		"setupDependencies": [],
+		"cmds": [
+			"/usr/local/bin/meilisearch"
+		],
+		"config": true,
 		"services": [
 			"meilisearch"
 		],
-		"config": true,
-		"cmds": [
-			"/usr/local/bin/meilisearch"
-		]
+		"setup": true,
+		"setupDependencies": []
 	}
 }

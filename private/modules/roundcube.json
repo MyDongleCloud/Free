@@ -2,7 +2,14 @@
 	"module": "roundcube",
 	"name": "Roundcube",
 	"title": "Webmail",
+	"category": "Essential",
+	"version": "1.6.11",
+	"installMethod": "apt",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "sqlite",
+	"github": "roundcube/roundcubemail",
 	"description": "A browser-based multilingual mail client.",
 	"keywords": [
 		"Email",
@@ -11,29 +18,22 @@
 		"Client"
 	],
 	"proprietary": "Gmail",
-	"github": "roundcube/roundcubemail",
-	"category": "Essential",
-	"version": "1.6.11",
-	"installMethod": "apt",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupPriority": true,
-		"setupDependencies": [
-			"postfix"
-		],
-		"reset": true,
-		"config": true,
 		"alias": [
 			"webmail"
 		],
+		"config": true,
+		"enabled": true,
+		"localPort": 9478,
 		"path": "/usr/share/roundcube",
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9478
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [
+			"postfix"
+		],
+		"setupPriority": true
 	}
 }

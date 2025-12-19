@@ -2,7 +2,14 @@
 	"module": "mongodb",
 	"name": "MongoDB",
 	"title": "MongoDB Database",
+	"category": "Developer",
+	"version": "8.2.1",
+	"installMethod": "apt (source)",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "mongodb/mongo",
 	"description": "A general-purpose, document-based, distributed database.",
 	"keywords": [
 		"Database",
@@ -12,20 +19,13 @@
 		"Distributed"
 	],
 	"proprietary": "",
-	"github": "mongodb/mongo",
-	"category": "Developer",
-	"version": "8.2.1",
-	"installMethod": "apt (source)",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
-		"setup": true,
-		"setupDependencies": [],
-		"setupRoot": true,
+		"config": true,
 		"services": [
 			"mongodb"
 		],
-		"config": true
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true
 	}
 }

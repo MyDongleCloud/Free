@@ -2,7 +2,14 @@
 	"module": "livecodes",
 	"name": "LiveCodes",
 	"title": "Code Sandbox",
+	"category": "Developer",
+	"version": "46",
+	"installMethod": "wget",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "live-codes/livecodes",
 	"description": "A sandbox for code.",
 	"keywords": [
 		"Sandbox",
@@ -10,18 +17,11 @@
 		"Online"
 	],
 	"proprietary": "JsFiddle",
-	"github": "live-codes/livecodes",
-	"category": "Developer",
-	"version": "46",
-	"installMethod": "wget",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9441,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9441
+		]
 	}
 }

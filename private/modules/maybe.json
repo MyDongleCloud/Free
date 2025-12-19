@@ -2,7 +2,14 @@
 	"module": "maybe",
 	"name": "Maybe",
 	"title": "Personal Finance",
+	"category": "Personal",
+	"version": "v0.5.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "maybe-finance/maybe",
 	"description": "A personal finance tool for everyone.",
 	"keywords": [
 		"Finance",
@@ -11,18 +18,11 @@
 		"Tool"
 	],
 	"proprietary": "Mint|YNAB",
-	"github": "maybe-finance/maybe",
-	"category": "Personal",
-	"version": "v0.5.0",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9448,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9448
+		]
 	}
 }

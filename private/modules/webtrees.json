@@ -2,7 +2,14 @@
 	"module": "webtrees",
 	"name": "webtrees",
 	"title": "Genealogy",
+	"category": "Personal",
+	"version": "2.1.25",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "mysql",
+	"github": "fisharebest/webtrees",
 	"description": "A genealogy application.",
 	"keywords": [
 		"Genealogy",
@@ -11,26 +18,19 @@
 		"Web"
 	],
 	"proprietary": "Ancestry.com",
-	"github": "fisharebest/webtrees",
-	"category": "Personal",
-	"version": "2.1.25",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "mysql",
 	"default": {
+		"addConfigEnd": "SetEnvIf Request_URI \"^/index.php\" no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"config": true,
 		"enabled": true,
+		"localPort": 9500,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
 		"setup": true,
 		"setupDependencies": [
 			"mysql"
 		],
-		"setupRoot": true,
-		"reset": true,
-		"config": true,
-		"addConfigEnd": "SetEnvIf Request_URI \"^/index.php\" no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
-		"permissions": [
-			"_groupadmin_"
-		],
-		"localPort": 9500
+		"setupRoot": true
 	}
 }

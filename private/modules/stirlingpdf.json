@@ -2,7 +2,14 @@
 	"module": "stirlingpdf",
 	"name": "Stirling-PDF",
 	"title": "PDF Manipulation Tool",
+	"category": "Utils",
+	"version": "v1.0.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "sqlite",
+	"github": "Stirling-Tools/Stirling-PDF",
 	"description": "A web-based PDF manipulation tool.",
 	"keywords": [
 		"PDF",
@@ -11,31 +18,24 @@
 		"Manipulation"
 	],
 	"proprietary": "Adobe Acrobat",
-	"github": "Stirling-Tools/Stirling-PDF",
-	"category": "Utils",
-	"version": "v1.0.2",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
 		"enabled": true,
-		"services": [
-			"stirlingpdf"
-		],
-		"setupDependencies": [
-			"java"
-		],
+		"localPort": 9485,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9485,
 		"reverseProxy": [
 			{
 				"type": "http",
 				"port": 8096,
 				"path": "/"
 			}
+		],
+		"services": [
+			"stirlingpdf"
+		],
+		"setupDependencies": [
+			"java"
 		]
 	}
 }

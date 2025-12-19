@@ -2,24 +2,24 @@
 	"module": "openproject",
 	"name": "OpenProject",
 	"title": "Project Management",
-	"ai": false,
-	"description": "A\u00a0project management software.",
-	"keywords": [
-		"Project Management"
-	],
-	"proprietary": "",
-	"github": "opf/openproject",
 	"category": "Productivity",
 	"version": "v16.6.1",
 	"installMethod": "clone",
 	"web": true,
 	"finished": false,
+	"ai": false,
 	"database": "",
+	"github": "opf/openproject",
+	"description": "A\u00a0project management software.",
+	"keywords": [
+		"Project Management"
+	],
+	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9456,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9456
+		]
 	}
 }

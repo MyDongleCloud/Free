@@ -2,7 +2,14 @@
 	"module": "git",
 	"name": "Git",
 	"title": "Version Control",
+	"category": "Developer",
+	"version": "2.47.3",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "git/git",
 	"description": "A distributed version control system.",
 	"keywords": [
 		"Version",
@@ -11,13 +18,6 @@
 		"SCM"
 	],
 	"proprietary": "Microsoft Team Foundation Version Control",
-	"github": "git/git",
-	"category": "Developer",
-	"version": "2.47.3",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/git"

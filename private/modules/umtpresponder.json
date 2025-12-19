@@ -2,7 +2,14 @@
 	"module": "umtpresponder",
 	"name": "uMTP-Responder",
 	"title": "OTG Files",
+	"category": "Utils",
+	"version": "umtprd-1.8.1",
+	"installMethod": "clone",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "viveris/uMTP-Responder",
 	"description": "A manager for USB OTG file service.",
 	"keywords": [
 		"MTP",
@@ -11,18 +18,11 @@
 		"Transfer"
 	],
 	"proprietary": "",
-	"github": "viveris/uMTP-Responder",
-	"category": "Utils",
-	"version": "umtprd-1.8.1",
-	"installMethod": "clone",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
-		"enabled": "true",
 		"cmds": [
 			"/usr/local/bin/umtprd"
 		],
+		"enabled": "true",
 		"features": [
 			"serial",
 			"mtp"

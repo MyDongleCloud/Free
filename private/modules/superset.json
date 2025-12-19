@@ -2,7 +2,14 @@
 	"module": "superset",
 	"name": "Superset",
 	"title": "Data Visualization",
+	"category": "Productivity",
+	"version": "5.0.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "apache/superset",
 	"description": "A modern data exploration and visualization platform.",
 	"keywords": [
 		"Data",
@@ -11,18 +18,11 @@
 		"Analytics"
 	],
 	"proprietary": "Tableau",
-	"github": "apache/superset",
-	"category": "Productivity",
-	"version": "5.0.0",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9488,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9488
+		]
 	}
 }

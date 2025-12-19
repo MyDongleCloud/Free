@@ -2,7 +2,14 @@
 	"module": "webssh2",
 	"name": "WebSSH2",
 	"title": "SSH",
+	"category": "Utils",
+	"version": "v2.3.4",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "billchurch/webssh2",
 	"description": "A web SSH Client in a browser.",
 	"keywords": [
 		"SSH",
@@ -11,27 +18,17 @@
 		"Client"
 	],
 	"proprietary": "",
-	"github": "billchurch/webssh2",
-	"category": "Utils",
-	"version": "v2.3.4",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
-		"enabled": true,
-		"services": [
-			"webssh2"
-		],
-		"permissions": [
-			"_groupadmin_"
-		],
-		"localPort": 9499,
+		"addConfigBegin": "Alias /access /usr/local/modules/webssh2/access\n\t<Directory /usr/local/modules/webssh2/access>\n\t\tRequire all granted\n\t</Directory>\n\tProxyPass /access !",
 		"alias": [
 			"ssh"
 		],
-		"addConfigBegin": "Alias /access /usr/local/modules/webssh2/access\n\t<Directory /usr/local/modules/webssh2/access>\n\t\tRequire all granted\n\t</Directory>\n\tProxyPass /access !",
+		"enabled": true,
 		"homepage": "/access",
+		"localPort": 9499,
+		"permissions": [
+			"_groupadmin_"
+		],
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -43,6 +40,9 @@
 				"port": 2222,
 				"path": "/ssh/socket.io"
 			}
+		],
+		"services": [
+			"webssh2"
 		]
 	}
 }

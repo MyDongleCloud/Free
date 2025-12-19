@@ -2,7 +2,14 @@
 	"module": "llamacpp",
 	"name": "llama.cpp",
 	"title": "LLM Inference",
+	"category": "Developer",
+	"version": "b7315",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": true,
+	"database": "",
+	"github": "ggml-org/llama.cpp",
 	"description": "A tool to enable LLM inference with minial setup and outstanding performance.",
 	"keywords": [
 		"LLM",
@@ -11,24 +18,12 @@
 		"Language"
 	],
 	"proprietary": "",
-	"github": "ggml-org/llama.cpp",
-	"category": "Developer",
-	"version": "b7315",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
 		"enabled": true,
-		"setup": true,
-		"setupDependencies": [],
-		"services": [
-			"llamacpp"
-		],
+		"localPort": 9442,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9442,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -40,6 +35,11 @@
 				"port": 8099,
 				"path": "/"
 			}
-		]
+		],
+		"services": [
+			"llamacpp"
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }

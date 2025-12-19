@@ -2,7 +2,14 @@
 	"module": "changedetection",
 	"name": "ChangeDetection",
 	"title": "Change Tracker",
+	"category": "Productivity",
+	"version": "0.50.7",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "dgtlmoon/changedetection.io",
 	"description": "A tool for tracking changes on web pages.",
 	"keywords": [
 		"Change",
@@ -11,18 +18,11 @@
 		"Tracking"
 	],
 	"proprietary": "Visualping",
-	"github": "dgtlmoon/changedetection.io",
-	"category": "Productivity",
-	"version": "0.50.7",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9407,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9407
+		]
 	}
 }

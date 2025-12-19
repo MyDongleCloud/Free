@@ -2,7 +2,14 @@
 	"module": "fd",
 	"name": "fd",
 	"title": "Advanced Find",
+	"category": "Utils",
+	"version": "10.2.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "sharkdp/fd",
 	"description": "A simple, fast and user-friendly alternative to 'find'.",
 	"keywords": [
 		"Find",
@@ -11,13 +18,6 @@
 		"Disk"
 	],
 	"proprietary": "",
-	"github": "sharkdp/fd",
-	"category": "Utils",
-	"version": "10.2.0",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/fdfind"

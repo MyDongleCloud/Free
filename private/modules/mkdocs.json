@@ -2,7 +2,14 @@
 	"module": "mkdocs",
 	"name": "MkDocs",
 	"title": "Docs Generator",
+	"category": "Developer",
+	"version": "1.6.1",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "mkdocs/mkdocs",
 	"description": "A static docs generator.",
 	"keywords": [
 		"Web",
@@ -10,13 +17,6 @@
 		"Documentation"
 	],
 	"proprietary": "",
-	"github": "mkdocs/mkdocs",
-	"category": "Developer",
-	"version": "1.6.1",
-	"installMethod": "clone",
-	"web": false,
-	"finished": false,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

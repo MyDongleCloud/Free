@@ -2,7 +2,14 @@
 	"module": "ohmyzsh",
 	"name": "Oh My Zsh",
 	"title": "Command-line Enhancer",
+	"category": "Developer",
+	"version": "",
+	"installMethod": "wget",
+	"web": false,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "ohmyzsh/ohmyzsh",
 	"description": "A manager for your zsh configuration.",
 	"keywords": [
 		"Zsh",
@@ -11,13 +18,6 @@
 		"Configuration"
 	],
 	"proprietary": "PowerShell",
-	"github": "ohmyzsh/ohmyzsh",
-	"category": "Developer",
-	"version": "",
-	"installMethod": "wget",
-	"web": false,
-	"finished": false,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

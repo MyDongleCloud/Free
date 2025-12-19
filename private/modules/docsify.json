@@ -2,7 +2,14 @@
 	"module": "docsify",
 	"name": "docsify",
 	"title": "Live Docs",
+	"category": "Developer",
+	"version": "v4.13.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "docsifyjs/docsify",
 	"description": "A live site for documentation.",
 	"keywords": [
 		"Web",
@@ -10,26 +17,19 @@
 		"Documentation"
 	],
 	"proprietary": "",
-	"github": "docsifyjs/docsify",
-	"category": "Developer",
-	"version": "v4.13.1",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupDependencies": [],
-		"reset": true,
-		"symlinks": true,
-		"path": "/disk/admin/modules/docsify",
 		"alias": [
 			"docs"
 		],
+		"enabled": true,
+		"localPort": 9414,
+		"path": "/disk/admin/modules/docsify",
 		"permissions": [
 			"_public_"
 		],
-		"localPort": 9414
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [],
+		"symlinks": true
 	}
 }

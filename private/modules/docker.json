@@ -2,7 +2,14 @@
 	"module": "docker",
 	"name": "Docker",
 	"title": "Container",
+	"category": "Developer",
+	"version": "29.0.0",
+	"installMethod": "apt (source)",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "docker/compose",
 	"description": "A platform for developing, shipping, and running applications in containers.",
 	"keywords": [
 		"Container",
@@ -12,13 +19,6 @@
 		"Orchestration"
 	],
 	"proprietary": "",
-	"github": "docker/compose",
-	"category": "Developer",
-	"version": "29.0.0",
-	"installMethod": "apt (source)",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/docker"

@@ -2,7 +2,14 @@
 	"module": "grav",
 	"name": "Grav",
 	"title": "Knowledege Site",
+	"category": "Productivity",
+	"version": "1.7.48",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "getgrav/grav",
 	"description": "Modern, Crazy Fast, Ridiculously Easy and Amazingly Powerful Flat-File Content Management System.",
 	"keywords": [
 		"CMS",
@@ -12,18 +19,11 @@
 		"Wiki"
 	],
 	"proprietary": "WordPress",
-	"github": "getgrav/grav",
-	"category": "Productivity",
-	"version": "1.7.48",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9424,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9424
+		]
 	}
 }

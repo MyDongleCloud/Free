@@ -2,7 +2,14 @@
 	"module": "openwebui",
 	"name": "Open WebUI",
 	"title": "Legacy Chatbot",
+	"category": "Essential",
+	"version": "v0.6.41",
+	"installMethod": "pip",
+	"web": true,
+	"finished": true,
 	"ai": true,
+	"database": "",
+	"github": "open-webui/open-webui",
 	"description": "A user-friendly WebUI for LLMs.",
 	"keywords": [
 		"LLM",
@@ -11,24 +18,14 @@
 		"Chat"
 	],
 	"proprietary": "",
-	"github": "open-webui/open-webui",
-	"category": "Essential",
-	"version": "v0.6.41",
-	"installMethod": "pip",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
-		"enabled": true,
-		"services": [
-			"openwebui"
-		],
-		"setup": true,
-		"reset": true,
 		"addConfigEnd": "SetEnvIf Request_URI ^/auth no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"enabled": true,
+		"localPort": 9457,
 		"permissions": [
 			"_groupadmin_"
 		],
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -41,6 +38,9 @@
 				"path": "/"
 			}
 		],
-		"localPort": 9457
+		"services": [
+			"openwebui"
+		],
+		"setup": true
 	}
 }

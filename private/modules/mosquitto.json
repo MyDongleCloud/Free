@@ -2,7 +2,14 @@
 	"module": "mosquitto",
 	"name": "Mosquitto",
 	"title": "MQTT Broker",
+	"category": "Utils",
+	"version": "2.0.21",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "eclipse-mosquitto/mosquitto",
 	"description": "A message broker that implements MQTT protocol.",
 	"keywords": [
 		"MQTT",
@@ -11,13 +18,6 @@
 		"Messaging"
 	],
 	"proprietary": "HiveMQ",
-	"github": "eclipse-mosquitto/mosquitto",
-	"category": "Utils",
-	"version": "2.0.21",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/mosquitto_ctrl"

@@ -2,7 +2,14 @@
 	"module": "sunrisecms",
 	"name": "Sunrise CMS",
 	"title": "Cemetery Management",
+	"category": "Productivity",
+	"version": "v1.0.0-alpha.19",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "cityssm/sunrise-cms",
 	"description": "An application to assist cemetery managers with managing their cemetery records.",
 	"keywords": [
 		"CMS",
@@ -11,18 +18,11 @@
 		"Simple"
 	],
 	"proprietary": "WordPress",
-	"github": "cityssm/sunrise-cms",
-	"category": "Productivity",
-	"version": "v1.0.0-alpha.19",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9487,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9487
+		]
 	}
 }

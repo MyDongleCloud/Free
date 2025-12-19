@@ -2,24 +2,24 @@
 	"module": "monica",
 	"name": "Monica",
 	"title": "Personal CRM",
-	"ai": false,
-	"description": "A personal CRM tool to remember everything about your friends, family and business relationships.",
-	"keywords": [
-		"Personal CRM"
-	],
-	"proprietary": "",
-	"github": "monicahq/monica",
 	"category": "Productivity",
 	"version": "v4.1.2",
 	"installMethod": "clone",
 	"web": true,
 	"finished": false,
+	"ai": false,
 	"database": "",
+	"github": "monicahq/monica",
+	"description": "A personal CRM tool to remember everything about your friends, family and business relationships.",
+	"keywords": [
+		"Personal CRM"
+	],
+	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9452,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9452
+		]
 	}
 }

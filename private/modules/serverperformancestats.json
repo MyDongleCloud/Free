@@ -2,7 +2,14 @@
 	"module": "serverperformancestats",
 	"name": "Server Performance Stats",
 	"title": "Live Server Stats",
+	"category": "Utils",
+	"version": "HEAD",
+	"installMethod": "wget",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "janisadhi/Server_Performance_Stats",
 	"description": "A script to get live server performance stats.",
 	"keywords": [
 		"Server",
@@ -10,13 +17,6 @@
 		"Stats"
 	],
 	"proprietary": "",
-	"github": "janisadhi/Server_Performance_Stats",
-	"category": "Utils",
-	"version": "HEAD",
-	"installMethod": "wget",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/serverperformancestats.sh"

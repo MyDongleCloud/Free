@@ -2,24 +2,24 @@
 	"module": "rally",
 	"name": "Rally",
 	"title": "Scheduler",
-	"ai": false,
-	"description": "A scheduling and collaboration tool designed to make organizing events and meetings easier.",
-	"keywords": [
-		"Scheduler"
-	],
-	"proprietary": "",
-	"github": "lukevella/rallly",
 	"category": "Productivity",
 	"version": "v4.5.1",
 	"installMethod": "clone",
 	"web": true,
 	"finished": false,
+	"ai": false,
 	"database": "",
+	"github": "lukevella/rallly",
+	"description": "A scheduling and collaboration tool designed to make organizing events and meetings easier.",
+	"keywords": [
+		"Scheduler"
+	],
+	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9475,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9475
+		]
 	}
 }

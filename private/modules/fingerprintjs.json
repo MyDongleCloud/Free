@@ -2,7 +2,14 @@
 	"module": "fingerprintjs",
 	"name": "FingerprintJS",
 	"title": "Unique Fingerprint Visitor",
+	"category": "Backend",
+	"version": "5.0.1",
+	"installMethod": "npm",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "fingerprintjs/fingerprintjs",
 	"description": "A tool to get a unique fingerprint ID for each site visitor.",
 	"keywords": [
 		"Web",
@@ -11,13 +18,6 @@
 		"Tracking"
 	],
 	"proprietary": "",
-	"github": "fingerprintjs/fingerprintjs",
-	"category": "Backend",
-	"version": "5.0.1",
-	"installMethod": "npm",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

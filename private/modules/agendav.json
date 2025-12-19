@@ -2,24 +2,24 @@
 	"module": "agendav",
 	"name": "AgenDAV",
 	"title": "Calendar",
-	"ai": false,
-	"description": "A CalDAV web client similar to Google Calendar.",
-	"keywords": [
-		"Calendar"
-	],
-	"proprietary": "",
-	"github": "agendav/agendav",
 	"category": "Productivity",
 	"version": "2.6.0",
 	"installMethod": "clone",
 	"web": true,
 	"finished": false,
+	"ai": false,
 	"database": "",
+	"github": "agendav/agendav",
+	"description": "A CalDAV web client similar to Google Calendar.",
+	"keywords": [
+		"Calendar"
+	],
+	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9402,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9402
+		]
 	}
 }

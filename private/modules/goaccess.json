@@ -2,7 +2,14 @@
 	"module": "goaccess",
 	"name": "GoAccess",
 	"title": "Log Analysis",
+	"category": "Utils",
+	"version": "v1.9.3",
+	"installMethod": "apt",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "allinurl/goaccess",
 	"description": "A real-time web log analyzer and interactive viewer",
 	"keywords": [
 		"Logs",
@@ -11,18 +18,11 @@
 		"Web"
 	],
 	"proprietary": "Splunk",
-	"github": "allinurl/goaccess",
-	"category": "Utils",
-	"version": "v1.9.3",
-	"installMethod": "apt",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9423,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9423
+		]
 	}
 }

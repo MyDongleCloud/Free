@@ -2,7 +2,14 @@
 	"module": "katana",
 	"name": "Katana",
 	"title": "Crawling Engine",
+	"category": "Developer",
+	"version": "v1.3.0",
+	"installMethod": "wget",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "projectdiscovery/katana",
 	"description": "A crawling and spidering engine.",
 	"keywords": [
 		"Web",
@@ -11,13 +18,6 @@
 		"Search"
 	],
 	"proprietary": "",
-	"github": "projectdiscovery/katana",
-	"category": "Developer",
-	"version": "v1.3.0",
-	"installMethod": "wget",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/katana"

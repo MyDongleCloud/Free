@@ -2,7 +2,14 @@
 	"module": "croodle",
 	"name": "Croodle",
 	"title": "Meeting Scheduler",
+	"category": "Productivity",
+	"version": "v0.7.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "jelhan/croodle",
 	"description": "A simple scheduler tool for organizing meetings or to do polls on general topics.",
 	"keywords": [
 		"Scheduling",
@@ -11,18 +18,11 @@
 		"Calendar"
 	],
 	"proprietary": "Calendly|Doodle",
-	"github": "jelhan/croodle",
-	"category": "Productivity",
-	"version": "v0.7.0",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9411,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9411
+		]
 	}
 }

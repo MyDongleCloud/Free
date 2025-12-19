@@ -2,7 +2,14 @@
 	"module": "piped",
 	"name": "Piped",
 	"title": "Youtube No Ads",
+	"category": "Utils",
+	"version": "1c3cfd23",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "TeamPiped/Piped",
 	"description": "A Youtube front-end without ads.",
 	"keywords": [
 		"Web",
@@ -11,24 +18,15 @@
 		"Privacy"
 	],
 	"proprietary": "",
-	"github": "TeamPiped/Piped",
-	"category": "Utils",
-	"version": "1c3cfd23",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
+		"config": true,
 		"enabled": true,
-		"setup": true,
-		"setupDependencies": [
-			"java",
-			"postgresql"
+		"localPort": 9469,
+		"path": "/usr/local/modules/piped/dist",
+		"permissions": [
+			"_groupadmin_"
 		],
-		"services": [
-			"pipedbackend",
-			"pipedproxy"
-		],
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -43,13 +41,15 @@
 				"path2": "/"
 			}
 		],
-		"setupRoot": true,
-		"reset": true,
-		"config": true,
-		"path": "/usr/local/modules/piped/dist",
-		"permissions": [
-			"_groupadmin_"
+		"services": [
+			"pipedbackend",
+			"pipedproxy"
 		],
-		"localPort": 9469
+		"setup": true,
+		"setupDependencies": [
+			"java",
+			"postgresql"
+		],
+		"setupRoot": true
 	}
 }

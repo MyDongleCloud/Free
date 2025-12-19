@@ -2,7 +2,14 @@
 	"module": "lobechat",
 	"name": "Lobe Chat",
 	"title": "Lobe Chatbot",
+	"category": "Essential",
+	"version": "v1.143.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": true,
+	"database": "",
+	"github": "lobehub/lobe-chat",
 	"description": "A modern design AI Agent Workspace.",
 	"keywords": [
 		"LLM",
@@ -11,26 +18,14 @@
 		"Chat"
 	],
 	"proprietary": "",
-	"github": "lobehub/lobe-chat",
-	"category": "Essential",
-	"version": "v1.143.2",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupDependencies": [
-			"redis",
-			"postgresql"
-		],
-		"setupRoot": true,
-		"reset": true,
 		"config": true,
+		"enabled": true,
+		"localPort": 9443,
 		"permissions": [
 			"_groupadmin_"
 		],
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -43,6 +38,11 @@
 				"path": "/"
 			}
 		],
-		"localPort": 9443
+		"setup": true,
+		"setupDependencies": [
+			"redis",
+			"postgresql"
+		],
+		"setupRoot": true
 	}
 }

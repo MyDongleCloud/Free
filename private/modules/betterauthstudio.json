@@ -2,7 +2,14 @@
 	"module": "betterauthstudio",
 	"name": "Better Auth Studio",
 	"title": "Identity Management",
+	"category": "Backend",
+	"version": "1.0.25",
+	"installMethod": "npm",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "sqlite",
+	"github": "",
 	"description": "A frontend for Better Auth, an authentication framework.",
 	"keywords": [
 		"Identity",
@@ -11,32 +18,25 @@
 		"Management"
 	],
 	"proprietary": "",
-	"github": "",
-	"category": "Backend",
-	"version": "1.0.25",
-	"installMethod": "npm",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
-		"enabled": true,
 		"alias": [
 			"identities",
 			"identity"
 		],
-		"services": [
-			"betterauth-studio"
-		],
+		"enabled": true,
+		"localPort": 9405,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9405,
 		"reverseProxy": [
 			{
 				"type": "http",
 				"port": 3002,
 				"path": "/"
 			}
+		],
+		"services": [
+			"betterauth-studio"
 		]
 	}
 }

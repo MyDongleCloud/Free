@@ -2,7 +2,14 @@
 	"module": "frp",
 	"name": "frp",
 	"title": "Reverse Proxy",
+	"category": "Backend",
+	"version": "v0.63.0",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "fatedier/frp",
 	"description": "A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.",
 	"keywords": [
 		"Proxy",
@@ -11,30 +18,13 @@
 		"Tunnel"
 	],
 	"proprietary": "Ngrok",
-	"github": "fatedier/frp",
-	"category": "Backend",
-	"version": "v0.63.0",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
+		"bindingPort": 7000,
 		"enabled": true,
-		"services": [
-			"betterauth"
-		],
+		"localPort": 9421,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9421,
-		"reverseProxy": [
-			{
-				"type": "http",
-				"port": 7400,
-				"path": "/"
-			}
-		],
-		"bindingPort": 7000,
 		"protocols": {
 			"http": {
 				"type": "http",
@@ -71,6 +61,16 @@
 				"enabled": false,
 				"localPort": 993
 			}
-		}
+		},
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 7400,
+				"path": "/"
+			}
+		],
+		"services": [
+			"betterauth"
+		]
 	}
 }

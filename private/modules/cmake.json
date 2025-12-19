@@ -2,7 +2,14 @@
 	"module": "cmake",
 	"name": "CMake",
 	"title": "Advanced Build",
+	"category": "Developer",
+	"version": "3.31.6",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "Kitware/CMake",
 	"description": "A Cross-platform open-source build system.",
 	"keywords": [
 		"Build",
@@ -11,13 +18,6 @@
 		"Automation"
 	],
 	"proprietary": "Microsoft Visual Studio",
-	"github": "Kitware/CMake",
-	"category": "Developer",
-	"version": "3.31.6",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/cmake"

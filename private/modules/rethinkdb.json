@@ -2,7 +2,14 @@
 	"module": "rethinkdb",
 	"name": "RethinkDB",
 	"title": "RethinkDB Database",
+	"category": "Developer",
+	"version": "2.4.4",
+	"installMethod": "deb",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "rethinkdb/rethinkdb",
 	"description": "A database tailored for realtime web.",
 	"keywords": [
 		"Database",
@@ -10,13 +17,6 @@
 		"NoSQL"
 	],
 	"proprietary": "Firebase Realtime Database",
-	"github": "rethinkdb/rethinkdb",
-	"category": "Developer",
-	"version": "2.4.4",
-	"installMethod": "deb",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/rethinkdb"

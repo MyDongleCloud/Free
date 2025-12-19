@@ -2,7 +2,14 @@
 	"module": "projectsend",
 	"name": "ProjectSend",
 	"title": "File Sharing",
+	"category": "Productivity",
+	"version": "r1720",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "mysql",
+	"github": "projectsend/projectsend",
 	"description": "A tool to share files with clients, focused on ease of use and privacy.",
 	"keywords": [
 		"File",
@@ -10,26 +17,19 @@
 		"Upload"
 	],
 	"proprietary": "Dropbox",
-	"github": "projectsend/projectsend",
-	"category": "Productivity",
-	"version": "r1720",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "mysql",
 	"default": {
+		"config": true,
 		"enabled": true,
+		"followSymLinks": true,
+		"localPort": 9472,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
 		"setup": true,
 		"setupDependencies": [
 			"mysql"
 		],
-		"setupRoot": true,
-		"reset": true,
-		"config": true,
-		"followSymLinks": true,
-		"permissions": [
-			"_groupadmin_"
-		],
-		"localPort": 9472
+		"setupRoot": true
 	}
 }

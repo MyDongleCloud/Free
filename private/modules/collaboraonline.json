@@ -2,7 +2,14 @@
 	"module": "collaboraonline",
 	"name": "Collabora Online",
 	"title": "Office Suite",
+	"category": "Productivity",
+	"version": "",
+	"installMethod": "",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "",
 	"description": "An online office suite for collaborative editing.",
 	"keywords": [
 		"Office",
@@ -11,18 +18,11 @@
 		"Suite"
 	],
 	"proprietary": "Microsoft 365",
-	"github": "",
-	"category": "Productivity",
-	"version": "",
-	"installMethod": "",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9409,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9409
+		]
 	}
 }

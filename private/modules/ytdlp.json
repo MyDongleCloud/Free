@@ -2,7 +2,14 @@
 	"module": "ytdlp",
 	"name": "yt-dlp",
 	"title": "YouTube Downloader",
+	"category": "Utils",
+	"version": "2025.11.12",
+	"installMethod": "pip",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "yt-dlp/yt-dlp",
 	"description": "A feature-rich command-line audio/video downloader.",
 	"keywords": [
 		"YouTube",
@@ -11,13 +18,6 @@
 		"Video"
 	],
 	"proprietary": "4K Video Downloader",
-	"github": "yt-dlp/yt-dlp",
-	"category": "Utils",
-	"version": "2025.11.12",
-	"installMethod": "pip",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/yt-dlp",

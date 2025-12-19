@@ -2,7 +2,14 @@
 	"module": "php",
 	"name": "PHP",
 	"title": "PHP Language",
+	"category": "Developer",
+	"version": "8.4.11",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "php/php-src",
 	"description": "A popular general-purpose scripting language.",
 	"keywords": [
 		"Scripting",
@@ -11,13 +18,6 @@
 		"PHP"
 	],
 	"proprietary": "Zend PHP",
-	"github": "php/php-src",
-	"category": "Developer",
-	"version": "8.4.11",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/php"

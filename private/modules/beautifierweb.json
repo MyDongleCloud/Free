@@ -2,7 +2,14 @@
 	"module": "beautifierweb",
 	"name": "JS Beautifier Web",
 	"title": "Javascript Formatter",
+	"category": "Developer",
+	"version": "a1fa4975",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "beautifier/beautifier.io",
 	"description": "An online tool to reformat javascript.",
 	"keywords": [
 		"Code",
@@ -11,18 +18,11 @@
 		"Formatter"
 	],
 	"proprietary": "",
-	"github": "beautifier/beautifier.io",
-	"category": "Developer",
-	"version": "a1fa4975",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9404,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9404
+		]
 	}
 }

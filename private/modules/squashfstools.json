@@ -2,20 +2,20 @@
 	"module": "squashfstools",
 	"name": "Squashfs-tools",
 	"title": "Squashfs Tools",
+	"category": "Utils",
+	"version": "4.6.1",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "plougher/squashfs-tools",
 	"description": "A set of tools for compression disk.",
 	"keywords": [
 		"Compression",
 		"Disk"
 	],
 	"proprietary": "",
-	"github": "plougher/squashfs-tools",
-	"category": "Utils",
-	"version": "4.6.1",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/mksquashfs",

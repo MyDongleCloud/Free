@@ -2,24 +2,24 @@
 	"module": "mattermost",
 	"name": "Mattermost",
 	"title": "Collaboration",
-	"ai": false,
-	"description": "A platform for secure collaboration across the entire software development lifecycle.",
-	"keywords": [
-		"Collaboration"
-	],
-	"proprietary": "",
-	"github": "mattermost/mattermost",
 	"category": "Productivity",
 	"version": "v11.1.0",
 	"installMethod": "clone",
 	"web": true,
 	"finished": false,
+	"ai": false,
 	"database": "",
+	"github": "mattermost/mattermost",
+	"description": "A platform for secure collaboration across the entire software development lifecycle.",
+	"keywords": [
+		"Collaboration"
+	],
+	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9447,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9447
+		]
 	}
 }

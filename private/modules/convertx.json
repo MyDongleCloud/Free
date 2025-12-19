@@ -2,7 +2,14 @@
 	"module": "convertx",
 	"name": "ConvertX",
 	"title": "File Converter",
+	"category": "Utils",
+	"version": "v0.14.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "C4illin/ConvertX",
 	"description": "A simple, fast, and reliable file converter.",
 	"keywords": [
 		"Currency",
@@ -11,18 +18,11 @@
 		"Rates"
 	],
 	"proprietary": "XE Currency",
-	"github": "C4illin/ConvertX",
-	"category": "Utils",
-	"version": "v0.14.1",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9410,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9410
+		]
 	}
 }

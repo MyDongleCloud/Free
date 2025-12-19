@@ -2,7 +2,14 @@
 	"module": "prettier",
 	"name": "Prettier",
 	"title": "Code Formatter",
+	"category": "Developer",
+	"version": "3.7.4",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "prettier/prettier",
 	"description": "A tool to format and make prettier source code.",
 	"keywords": [
 		"Code",
@@ -10,18 +17,11 @@
 		"Web"
 	],
 	"proprietary": "",
-	"github": "prettier/prettier",
-	"category": "Developer",
-	"version": "3.7.4",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9470,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9470
+		]
 	}
 }

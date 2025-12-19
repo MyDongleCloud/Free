@@ -2,7 +2,14 @@
 	"module": "transmission",
 	"name": "Transmission",
 	"title": "BitTorrent",
+	"category": "Utils",
+	"version": "4.1.0",
+	"installMethod": "apt",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "json",
+	"github": "transmission/transmission",
 	"description": "A fast, easy, and free BitTorrent client.",
 	"keywords": [
 		"BitTorrent",
@@ -11,19 +18,12 @@
 		"Download"
 	],
 	"proprietary": "qBittorrent",
-	"github": "transmission/transmission",
-	"category": "Utils",
-	"version": "4.1.0",
-	"installMethod": "apt",
-	"web": true,
-	"finished": true,
-	"database": "json",
 	"default": {
 		"enabled": true,
+		"localPort": 9493,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9493,
 		"reverseProxy": [
 			{
 				"type": "http",

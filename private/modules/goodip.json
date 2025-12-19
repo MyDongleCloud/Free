@@ -2,7 +2,14 @@
 	"module": "goodip",
 	"name": "GoodIP",
 	"title": "VPN",
+	"category": "Essential",
+	"version": "2025-01-01",
+	"installMethod": "",
+	"web": false,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "",
 	"description": "A virtual private network tool.",
 	"keywords": [
 		"VPN",
@@ -10,13 +17,6 @@
 		"Network"
 	],
 	"proprietary": "NordVPN|ExpressVPN",
-	"github": "",
-	"category": "Essential",
-	"version": "2025-01-01",
-	"installMethod": "",
-	"web": false,
-	"finished": false,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

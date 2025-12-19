@@ -2,7 +2,14 @@
 	"module": "phpbb",
 	"name": "phpBB",
 	"title": "Bulletin Board",
+	"category": "Productivity",
+	"version": "release-3.3.15",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "phpbb/phpbb",
 	"description": "A flat-forum bulletin board software solution.",
 	"keywords": [
 		"Forum",
@@ -11,18 +18,11 @@
 		"Web"
 	],
 	"proprietary": "vBulletin",
-	"github": "phpbb/phpbb",
-	"category": "Productivity",
-	"version": "release-3.3.15",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9465,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9465
+		]
 	}
 }

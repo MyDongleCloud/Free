@@ -2,7 +2,14 @@
 	"module": "ncdu",
 	"name": "NCurses Disk Usage",
 	"title": "Disk Usage",
+	"category": "Utils",
+	"version": "1.22",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "rofl0r/ncdu",
 	"description": "A tool to calculate and visualize used disk space.",
 	"keywords": [
 		"Storage",
@@ -11,13 +18,6 @@
 		"Capacity"
 	],
 	"proprietary": "",
-	"github": "rofl0r/ncdu",
-	"category": "Utils",
-	"version": "1.22",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/ncdu"

@@ -2,7 +2,14 @@
 	"module": "nginx",
 	"name": "NGINX",
 	"title": "Proxy Server",
+	"category": "Developer",
+	"version": "1.26.3",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "nginx/nginx",
 	"description": "A high-performance HTTP and reverse proxy server.",
 	"keywords": [
 		"HTTP",
@@ -11,13 +18,6 @@
 		"Web"
 	],
 	"proprietary": "F5 BIG-IP",
-	"github": "nginx/nginx",
-	"category": "Developer",
-	"version": "1.26.3",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

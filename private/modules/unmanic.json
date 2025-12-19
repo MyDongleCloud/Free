@@ -2,7 +2,14 @@
 	"module": "unmanic",
 	"name": "Unmanic",
 	"title": "Media Library",
+	"category": "Utils",
+	"version": "HEAD",
+	"installMethod": "pip",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "Unmanic/unmanic",
 	"description": "A library optimizer for removing unused metadata from media files.",
 	"keywords": [
 		"Media",
@@ -11,18 +18,11 @@
 		"Library"
 	],
 	"proprietary": "",
-	"github": "Unmanic/unmanic",
-	"category": "Utils",
-	"version": "HEAD",
-	"installMethod": "pip",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9497,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9497
+		]
 	}
 }

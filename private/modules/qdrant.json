@@ -2,7 +2,14 @@
 	"module": "qdrant",
 	"name": "Qdrant",
 	"title": "Vector Search",
+	"category": "Utils",
+	"version": "v1.14.1",
+	"installMethod": "tar",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "qdrant/qdrant",
 	"description": "High-performance, massive-scale Vector Database and Vector Search Engine.",
 	"keywords": [
 		"Vector",
@@ -11,13 +18,6 @@
 		"Engine"
 	],
 	"proprietary": "Pinecone",
-	"github": "qdrant/qdrant",
-	"category": "Utils",
-	"version": "v1.14.1",
-	"installMethod": "tar",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/qdrant"

@@ -2,7 +2,14 @@
 	"module": "postfix",
 	"name": "Postfix",
 	"title": "Mail Agent",
+	"category": "Essential",
+	"version": "3.10.4",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "",
 	"description": "A mail transfer agent for routing and delivering electronic mail.",
 	"keywords": [
 		"Email",
@@ -11,17 +18,10 @@
 		"Mail"
 	],
 	"proprietary": "Microsoft Exchange",
-	"github": "",
-	"category": "Essential",
-	"version": "3.10.4",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
+		"reset": true,
 		"setup": true,
 		"setupDependencies": [],
-		"setupRoot": true,
-		"reset": true
+		"setupRoot": true
 	}
 }

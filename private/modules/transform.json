@@ -2,7 +2,14 @@
 	"module": "transform",
 	"name": "Transform",
 	"title": "Web Converter",
+	"category": "Developer",
+	"version": "e1294208",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "ritz078/transform",
 	"description": "A polyglot tool to convert web.",
 	"keywords": [
 		"Code",
@@ -10,18 +17,11 @@
 		"Web"
 	],
 	"proprietary": "",
-	"github": "ritz078/transform",
-	"category": "Developer",
-	"version": "e1294208",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9492,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9492
+		]
 	}
 }

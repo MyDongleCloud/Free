@@ -2,7 +2,14 @@
 	"module": "erugo",
 	"name": "Erugo",
 	"title": "File Sharing",
+	"category": "Utils",
+	"version": "v0.0.011",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "ErugoOSS/Erugo",
 	"description": "A file-sharing platform with secure, customizable file-transfer capabilities through an elegant user interface.",
 	"keywords": [
 		"File",
@@ -10,18 +17,11 @@
 		"Upload"
 	],
 	"proprietary": "",
-	"github": "ErugoOSS/Erugo",
-	"category": "Utils",
-	"version": "v0.0.011",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9417,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9417
+		]
 	}
 }

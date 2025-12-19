@@ -2,7 +2,14 @@
 	"module": "tabby",
 	"name": "Tabby",
 	"title": "AI Code Helper",
+	"category": "Developer",
+	"version": "v0.31.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": true,
+	"database": "sqlite",
+	"github": "TabbyML/tabby",
 	"description": "An AI tool to better code.",
 	"keywords": [
 		"Developer",
@@ -10,34 +17,20 @@
 		"Code"
 	],
 	"proprietary": "Github Copilot",
-	"github": "TabbyML/tabby",
-	"category": "Developer",
-	"version": "v0.31.2",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupDependencies": [
-			"llamacpp"
-		],
-		"reset": true,
-		"config": true,
-		"configFile": "/disk/admin/modules/tabby/config.toml",
-		"services": [
-			"tabby"
-		],
+		"addConfigEnd": "Header unset Content-Security-Policy",
 		"alias": [
 			"aicode"
 		],
-		"addConfigEnd": "Header unset Content-Security-Policy",
+		"config": true,
+		"configFile": "/disk/admin/modules/tabby/config.toml",
+		"enabled": true,
+		"localPort": 9490,
 		"permissions": [
 			"_localnetwork_",
 			"_groupadmin_"
 		],
-		"localPort": 9490,
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -49,6 +42,13 @@
 				"port": 8100,
 				"path": "/"
 			}
+		],
+		"services": [
+			"tabby"
+		],
+		"setup": true,
+		"setupDependencies": [
+			"llamacpp"
 		]
 	}
 }

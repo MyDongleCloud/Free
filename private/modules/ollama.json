@@ -2,7 +2,14 @@
 	"module": "ollama",
 	"name": "Ollama",
 	"title": "Chatbot backend",
+	"category": "Utils",
+	"version": "v0.9.7-rc1",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
 	"ai": true,
+	"database": "",
+	"github": "ollama/ollama",
 	"description": "A platform to get up and running with large language models locally.",
 	"keywords": [
 		"LLM",
@@ -11,13 +18,6 @@
 		"Language"
 	],
 	"proprietary": "",
-	"github": "ollama/ollama",
-	"category": "Utils",
-	"version": "v0.9.7-rc1",
-	"installMethod": "clone",
-	"web": false,
-	"finished": false,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

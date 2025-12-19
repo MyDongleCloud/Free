@@ -2,7 +2,14 @@
 	"module": "rspamd",
 	"name": "Rspamd",
 	"title": "Spam Filter",
+	"category": "Utils",
+	"version": "3.12.1",
+	"installMethod": "apt",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "rspamd/rspamd",
 	"description": "A fast, free and open-source spam filtering system.",
 	"keywords": [
 		"Spam",
@@ -11,18 +18,11 @@
 		"Security"
 	],
 	"proprietary": "SpamTitan",
-	"github": "rspamd/rspamd",
-	"category": "Utils",
-	"version": "3.12.1",
-	"installMethod": "apt",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9479,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9479
+		]
 	}
 }

@@ -2,7 +2,14 @@
 	"module": "acme",
 	"name": "acme.sh",
 	"title": "ACME Shell",
+	"category": "Utils",
+	"version": "3.1.1",
+	"installMethod": "wget",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "acmesh-official/acme.sh",
 	"description": "A pure Unix shell script implementing ACME client protocol.",
 	"keywords": [
 		"ACME",
@@ -13,13 +20,6 @@
 		"Certificates"
 	],
 	"proprietary": "DigiCert CertCentral",
-	"github": "acmesh-official/acme.sh",
-	"category": "Utils",
-	"version": "3.1.1",
-	"installMethod": "wget",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/acme.sh"

@@ -2,7 +2,14 @@
 	"module": "librephotos",
 	"name": "LibrePhotos",
 	"title": "Photos Management",
+	"category": "Personal",
+	"version": "HEAD",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "LibrePhotos/librephotos",
 	"description": "A photo management service.",
 	"keywords": [
 		"Photos",
@@ -10,18 +17,11 @@
 		"Gallery"
 	],
 	"proprietary": "Google Photos",
-	"github": "LibrePhotos/librephotos",
-	"category": "Personal",
-	"version": "HEAD",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9438,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9438
+		]
 	}
 }

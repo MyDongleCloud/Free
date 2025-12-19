@@ -2,7 +2,14 @@
 	"module": "typesensedashboard",
 	"name": "Typesense Dashboard",
 	"title": "Typesense Viewer",
+	"category": "Developer",
+	"version": "v2.4.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "bfritscher/typesense-dashboard",
 	"description": "A tool to view Typesense.",
 	"keywords": [
 		"Search",
@@ -10,18 +17,11 @@
 		"Web"
 	],
 	"proprietary": "",
-	"github": "bfritscher/typesense-dashboard",
-	"category": "Developer",
-	"version": "v2.4.1",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9496,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9496
+		]
 	}
 }

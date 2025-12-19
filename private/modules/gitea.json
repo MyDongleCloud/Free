@@ -2,7 +2,14 @@
 	"module": "gitea",
 	"name": "Gitea",
 	"title": "Git Web",
+	"category": "Developer",
+	"version": "v1.24.3",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "go-gitea/gitea",
 	"description": "A source code Git service.",
 	"keywords": [
 		"Git",
@@ -10,18 +17,11 @@
 		"Control"
 	],
 	"proprietary": "GitHub|GitLab|Bitbucket",
-	"github": "go-gitea/gitea",
-	"category": "Developer",
-	"version": "v1.24.3",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9422,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9422
+		]
 	}
 }

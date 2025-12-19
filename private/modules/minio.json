@@ -2,7 +2,14 @@
 	"module": "minio",
 	"name": "MinIO",
 	"title": "Object Storage",
+	"category": "Developer",
+	"version": "2025-07-18",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "minio/minio",
 	"description": "High Performance S3-compatible Object Storage.",
 	"keywords": [
 		"Storage",
@@ -11,18 +18,11 @@
 		"Cloud"
 	],
 	"proprietary": "Amazon S3",
-	"github": "minio/minio",
-	"category": "Developer",
-	"version": "2025-07-18",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9451,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9451
+		]
 	}
 }

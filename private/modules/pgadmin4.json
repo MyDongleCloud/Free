@@ -2,7 +2,14 @@
 	"module": "pgadmin4",
 	"name": "pg Admin 4",
 	"title": "PostgreSQL Viewer",
+	"category": "Utils",
+	"version": "REL-9_10",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "pgadmin-org/pgadmin4",
 	"description": "A feature rich administration and development platform for PostgreSQL.",
 	"keywords": [
 		"Database",
@@ -12,18 +19,11 @@
 		"Web"
 	],
 	"proprietary": "",
-	"github": "pgadmin-org/pgadmin4",
-	"category": "Utils",
-	"version": "REL-9_10",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9462,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9462
+		]
 	}
 }

@@ -2,7 +2,14 @@
 	"module": "imagemagick",
 	"name": "ImageMagick",
 	"title": "Image Editor",
+	"category": "Utils",
+	"version": "7.1.1.43",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "ImageMagick/ImageMagick",
 	"description": "A software suite to create, edit, compose, or convert images in any format.",
 	"keywords": [
 		"Image",
@@ -11,13 +18,6 @@
 		"Graphics"
 	],
 	"proprietary": "Adobe Photoshop",
-	"github": "ImageMagick/ImageMagick",
-	"category": "Utils",
-	"version": "7.1.1.43",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/convert"

@@ -2,19 +2,19 @@
 	"module": "crystal",
 	"name": "Crystal",
 	"title": "Crystal Language",
-	"ai": false,
-	"description": "A general-purpose, object-oriented programming language.",
-	"keywords": [
-		"Language"
-	],
-	"proprietary": "",
-	"github": "crystal-lang/crystal",
 	"category": "Developer",
 	"version": "1.18.2",
 	"installMethod": "deb",
 	"web": false,
 	"finished": true,
+	"ai": false,
 	"database": "",
+	"github": "crystal-lang/crystal",
+	"description": "A general-purpose, object-oriented programming language.",
+	"keywords": [
+		"Language"
+	],
+	"proprietary": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/crystal"

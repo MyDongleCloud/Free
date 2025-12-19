@@ -2,7 +2,14 @@
 	"module": "youtransfer",
 	"name": "YouTransfer",
 	"title": "File Transfer",
+	"category": "Utils",
+	"version": "1.0.6",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "YouTransfer/YouTransfer",
 	"description": "A simple but elegant self-hosted file transfer & sharing solution.",
 	"keywords": [
 		"File",
@@ -10,18 +17,11 @@
 		"Upload"
 	],
 	"proprietary": "",
-	"github": "YouTransfer/YouTransfer",
-	"category": "Utils",
-	"version": "1.0.6",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9505,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9505
+		]
 	}
 }

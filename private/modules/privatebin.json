@@ -2,7 +2,14 @@
 	"module": "privatebin",
 	"name": "PrivateBin",
 	"title": "Private Pastebin",
+	"category": "Utils",
+	"version": "1.7.8",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "PrivateBin/PrivateBin",
 	"description": "A minimalist online pastebin with zero knowledge of pasted data.",
 	"keywords": [
 		"Pastebin",
@@ -11,22 +18,15 @@
 		"Web"
 	],
 	"proprietary": "Pastebin",
-	"github": "PrivateBin/PrivateBin",
-	"category": "Utils",
-	"version": "1.7.8",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "",
 	"default": {
 		"enabled": true,
-		"setup": true,
-		"setupDependencies": [],
-		"setupRoot": true,
-		"reset": true,
+		"localPort": 9471,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9471
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true
 	}
 }

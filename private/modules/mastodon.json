@@ -2,7 +2,14 @@
 	"module": "mastodon",
 	"name": "Mastodon",
 	"title": "Decentralized Social Network",
+	"category": "Personal",
+	"version": "",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "mastodon/mastodon",
 	"description": "A self-hosted, globally interconnected microblogging community.",
 	"keywords": [
 		"Server",
@@ -10,18 +17,11 @@
 		"Network"
 	],
 	"proprietary": "",
-	"github": "mastodon/mastodon",
-	"category": "Personal",
-	"version": "",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9446,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9446
+		]
 	}
 }

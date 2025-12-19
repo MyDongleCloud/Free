@@ -2,7 +2,14 @@
 	"module": "postgresql",
 	"name": "PostgreSQL",
 	"title": "PostgreSQL Database",
+	"category": "Developer",
+	"version": "17.6",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "postgres/postgres",
 	"description": "A database management system.",
 	"keywords": [
 		"Database",
@@ -11,17 +18,10 @@
 		"PostgreSQL"
 	],
 	"proprietary": "",
-	"github": "postgres/postgres",
-	"category": "Developer",
-	"version": "17.6",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
+		"config": true,
 		"setup": true,
 		"setupDependencies": [],
-		"setupRoot": true,
-		"config": true
+		"setupRoot": true
 	}
 }

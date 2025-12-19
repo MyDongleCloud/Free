@@ -2,7 +2,14 @@
 	"module": "java",
 	"name": "Java",
 	"title": "Java Language",
+	"category": "Developer",
+	"version": "21.0.9",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "openjdk/jdk",
 	"description": "A general-purpose programming language designed for portability and security.",
 	"keywords": [
 		"Programming",
@@ -11,13 +18,6 @@
 		"OOP"
 	],
 	"proprietary": "Oracle JDK",
-	"github": "openjdk/jdk",
-	"category": "Developer",
-	"version": "21.0.9",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/java"

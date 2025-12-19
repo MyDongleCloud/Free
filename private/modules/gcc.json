@@ -2,7 +2,14 @@
 	"module": "gcc",
 	"name": "GCC",
 	"title": "GNU Compiler",
+	"category": "Developer",
+	"version": "14.2.0",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "gcc-mirror/gcc",
 	"description": "A GNU Compiler Collection.",
 	"keywords": [
 		"Compiler",
@@ -11,13 +18,6 @@
 		"C++"
 	],
 	"proprietary": "Intel C++ Compiler",
-	"github": "gcc-mirror/gcc",
-	"category": "Developer",
-	"version": "14.2.0",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/gcc",

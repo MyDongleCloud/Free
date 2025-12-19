@@ -2,7 +2,14 @@
 	"module": "cyberchef",
 	"name": "CyberChef",
 	"title": "Data Tool",
+	"category": "Utils",
+	"version": "v10.19.4",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "gchq/CyberChef",
 	"description": "A web app for encryption, encoding, compression and data analysis",
 	"keywords": [
 		"Encryption",
@@ -11,18 +18,11 @@
 		"Analysis"
 	],
 	"proprietary": "Kryptel",
-	"github": "gchq/CyberChef",
-	"category": "Utils",
-	"version": "v10.19.4",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9412,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9412
+		]
 	}
 }

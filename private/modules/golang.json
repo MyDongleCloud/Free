@@ -2,7 +2,14 @@
 	"module": "golang",
 	"name": "Go",
 	"title": "Go Language",
+	"category": "Developer",
+	"version": "1.25.5",
+	"installMethod": "wget",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "golang/go",
 	"description": "A programming language that makes it easy to build simple, reliable, and efficient software.",
 	"keywords": [
 		"Language",
@@ -11,13 +18,6 @@
 		"Efficient"
 	],
 	"proprietary": "(No direct proprietary equivalent)",
-	"github": "golang/go",
-	"category": "Developer",
-	"version": "1.25.5",
-	"installMethod": "wget",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/local/bin/go"

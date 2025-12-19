@@ -2,7 +2,14 @@
 	"module": "yourls",
 	"name": "YOURLS",
 	"title": "URL Shortener",
+	"category": "Utils",
+	"version": "1.10.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "mysql",
+	"github": "YOURLS/YOURLS",
 	"description": "A powerful and customizable, URL shortener.",
 	"keywords": [
 		"URL",
@@ -10,25 +17,18 @@
 		"Web"
 	],
 	"proprietary": "Bitly",
-	"github": "YOURLS/YOURLS",
-	"category": "Utils",
-	"version": "1.10.2",
-	"installMethod": "clone",
-	"web": true,
-	"finished": true,
-	"database": "mysql",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupDependencies": [
-			"mysql"
-		],
-		"reset": true,
 		"config": true,
+		"enabled": true,
+		"homepage": "/admin",
+		"localPort": 9504,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"homepage": "/admin",
-		"localPort": 9504
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		]
 	}
 }

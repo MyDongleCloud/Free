@@ -2,7 +2,14 @@
 	"module": "homeassistant",
 	"name": "Home Assistant",
 	"title": "Home Automation",
+	"category": "Personal",
+	"version": "2025.10.3",
+	"installMethod": "pip",
+	"web": true,
+	"finished": true,
 	"ai": false,
+	"database": "sqlite",
+	"github": "home-assistant/core",
 	"description": "An home automation that puts local control and privacy first.",
 	"keywords": [
 		"Home",
@@ -11,30 +18,18 @@
 		"Smart"
 	],
 	"proprietary": "Samsung SmartThings",
-	"github": "home-assistant/core",
-	"category": "Personal",
-	"version": "2025.10.3",
-	"installMethod": "pip",
-	"web": true,
-	"finished": true,
-	"database": "sqlite",
 	"default": {
-		"enabled": true,
-		"setup": true,
-		"setupDependencies": [],
-		"reset": true,
-		"config": true,
+		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tSetEnvIf Request_URI ^/auth/authorize no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"alias": [
 			"home"
 		],
-		"services": [
-			"homeassistant"
-		],
-		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tSetEnvIf Request_URI ^/auth/authorize no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"config": true,
+		"enabled": true,
+		"localPort": 9425,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9425,
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -46,6 +41,11 @@
 				"port": 8123,
 				"path": "/api/websocket"
 			}
-		]
+		],
+		"services": [
+			"homeassistant"
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }

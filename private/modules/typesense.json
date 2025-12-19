@@ -2,20 +2,20 @@
 	"module": "typesense",
 	"name": "Typesense",
 	"title": "Very Fast Search",
+	"category": "Developer",
+	"version": "29",
+	"installMethod": "deb",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "typesense/typesense",
 	"description": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
 	"keywords": [
 		"Search",
 		"Engine"
 	],
 	"proprietary": "",
-	"github": "typesense/typesense",
-	"category": "Developer",
-	"version": "29.0",
-	"installMethod": "deb",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/typesense-server"

@@ -2,7 +2,14 @@
 	"module": "stackedit",
 	"name": "StackEdit",
 	"title": "Stack Editor",
+	"category": "Developer",
+	"version": "v5.15.4",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "benweet/stackedit",
 	"description": "An in-browser Markdown editor.",
 	"keywords": [
 		"Markdown",
@@ -11,18 +18,11 @@
 		"Writing"
 	],
 	"proprietary": "Typora",
-	"github": "benweet/stackedit",
-	"category": "Developer",
-	"version": "v5.15.4",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9484,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9484
+		]
 	}
 }

@@ -2,7 +2,14 @@
 	"module": "flarum",
 	"name": "Flarum",
 	"title": "Simple Forum",
+	"category": "Productivity",
+	"version": "v1.8.1",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "flarum/flarum",
 	"description": "A simple forum software for building great communities.",
 	"keywords": [
 		"Forum",
@@ -11,19 +18,12 @@
 		"Web"
 	],
 	"proprietary": "Discourse",
-	"github": "flarum/flarum",
-	"category": "Productivity",
-	"version": "v1.8.1",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9419,
+		"path": "/usr/local/modules/flarum/public",
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9419,
-		"path": "/usr/local/modules/flarum/public"
+		]
 	}
 }

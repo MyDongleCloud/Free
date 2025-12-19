@@ -2,7 +2,14 @@
 	"module": "audiobookshelf",
 	"name": "Audiobookshelf",
 	"title": "Audiobook Podcast",
+	"category": "Personal",
+	"version": "v2.26.2",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "advplyr/audiobookshelf",
 	"description": "An Audiobook and podcast server to organize audio files",
 	"keywords": [
 		"Audiobooks",
@@ -10,19 +17,12 @@
 		"Streaming"
 	],
 	"proprietary": "Audible",
-	"github": "advplyr/audiobookshelf",
-	"category": "Personal",
-	"version": "v2.26.2",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9403,
 		"permissions": [
 			"_groupadmin_"
 		],
-		"localPort": 9403,
 		"reverseProxy": [
 			{
 				"type": "http",

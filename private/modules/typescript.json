@@ -2,20 +2,20 @@
 	"module": "typescript",
 	"name": "TypeScript",
 	"title": "TypeScript Language",
+	"category": "Backend",
+	"version": "",
+	"installMethod": "tar",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "microsoft/TypeScript",
 	"description": "A superset of JavaScript that compiles to clean JavaScript output.",
 	"keywords": [
 		"Language",
 		"Javascript"
 	],
 	"proprietary": "",
-	"github": "microsoft/TypeScript",
-	"category": "Backend",
-	"version": "",
-	"installMethod": "tar",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

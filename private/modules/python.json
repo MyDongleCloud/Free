@@ -2,20 +2,20 @@
 	"module": "python",
 	"name": "Python",
 	"title": "Python Language",
+	"category": "Developer",
+	"version": "3.13.5",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "python/cpython",
 	"description": "A popular scripting language.",
 	"keywords": [
 		"Language",
 		"Interpreter"
 	],
 	"proprietary": "ActivePython",
-	"github": "python/cpython",
-	"category": "Developer",
-	"version": "3.13.5",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": [
 			"/usr/bin/python",

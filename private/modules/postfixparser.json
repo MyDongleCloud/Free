@@ -2,7 +2,14 @@
 	"module": "postfixparser",
 	"name": "Postfix Parser",
 	"title": "Postfix Parser",
+	"category": "Utils",
+	"version": "",
+	"installMethod": "apt",
+	"web": false,
+	"finished": true,
 	"ai": false,
+	"database": "",
+	"github": "",
 	"description": "A parser of Postfix mail server logs.",
 	"keywords": [
 		"Email",
@@ -12,13 +19,6 @@
 		"Log"
 	],
 	"proprietary": "",
-	"github": "",
-	"category": "Utils",
-	"version": "",
-	"installMethod": "apt",
-	"web": false,
-	"finished": true,
-	"database": "",
 	"default": {
 		"cmds": []
 	}

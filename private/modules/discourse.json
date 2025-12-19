@@ -2,7 +2,14 @@
 	"module": "discourse",
 	"name": "Discourse",
 	"title": "Community Discussion",
+	"category": "Personal",
+	"version": "v3.4.6",
+	"installMethod": "clone",
+	"web": true,
+	"finished": false,
 	"ai": false,
+	"database": "",
+	"github": "discourse/discourse",
 	"description": "A civilized discussion platform for your community.",
 	"keywords": [
 		"Forum",
@@ -11,18 +18,11 @@
 		"Web"
 	],
 	"proprietary": "vBulletin",
-	"github": "discourse/discourse",
-	"category": "Personal",
-	"version": "v3.4.6",
-	"installMethod": "clone",
-	"web": true,
-	"finished": false,
-	"database": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9413,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9413
+		]
 	}
 }

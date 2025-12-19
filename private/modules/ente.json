@@ -2,24 +2,24 @@
 	"module": "ente",
 	"name": "Ente",
 	"title": "Cloud Manager",
-	"ai": false,
-	"description": "An end-to-end encrypted cloud for photos, videos and 2FA secrets.",
-	"keywords": [
-		"Cloud"
-	],
-	"proprietary": "",
-	"github": "ente-io/ente",
 	"category": "Personal",
 	"version": "v2.0.34",
 	"installMethod": "clone",
 	"web": true,
 	"finished": false,
+	"ai": false,
 	"database": "",
+	"github": "ente-io/ente",
+	"description": "An end-to-end encrypted cloud for photos, videos and 2FA secrets.",
+	"keywords": [
+		"Cloud"
+	],
+	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"localPort": 9416,
 		"permissions": [
 			"_groupadmin_"
-		],
-		"localPort": 9416
+		]
 	}
 }
