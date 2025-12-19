@@ -263,18 +263,18 @@ begin:
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
 					writePermissions(elPermissions, elLocalRanges, pfM);
-					if (cJSON_HasObjectItem(elModule2, "DirectoryIndex"))
-						writeDirectoryIndex(cJSON_GetStringValue2(elModule2, "DirectoryIndex"), pfM);
-					else if (cJSON_HasObjectItem(elModule, "DirectoryIndex"))
-						writeDirectoryIndex(cJSON_GetStringValue2(elModule, "DirectoryIndex"), pfM);
-					if (cJSON_HasObjectItem(elModule2, "FollowSymLinks"))
-						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "FollowSymLinks")), pfM);
-					else if (cJSON_GetObjectItem(elModule, "FollowSymLinks"))
-						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "FollowSymLinks")), pfM);
-					if (cJSON_HasObjectItem(elModule2, "Indexes"))
-						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "Indexes")), pfM);
-					else if (cJSON_GetObjectItem(elModule, "Indexes"))
-						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "Indexes")), pfM);
+					if (cJSON_HasObjectItem(elModule2, "directoryIndex"))
+						writeDirectoryIndex(cJSON_GetStringValue2(elModule2, "directoryIndex"), pfM);
+					else if (cJSON_HasObjectItem(elModule, "directoryIndex"))
+						writeDirectoryIndex(cJSON_GetStringValue2(elModule, "directoryIndex"), pfM);
+					if (cJSON_HasObjectItem(elModule2, "followSymLinks"))
+						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "followSymLinks")), pfM);
+					else if (cJSON_GetObjectItem(elModule, "followSymLinks"))
+						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "followSymLinks")), pfM);
+					if (cJSON_HasObjectItem(elModule2, "indexes"))
+						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "indexes")), pfM);
+					else if (cJSON_GetObjectItem(elModule, "indexes"))
+						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "indexes")), pfM);
 
 					strcpy(sz, "\t</Directory>\n");
 					fwrite(sz, strlen(sz), 1, pfM);

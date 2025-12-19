@@ -26,7 +26,7 @@
 		"reset": true,
 		"config": true,
 		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
-		"FollowSymLinks": true,
+		"followSymLinks": true,
 		"permissions": [
 			"_groupadmin_"
 		],
