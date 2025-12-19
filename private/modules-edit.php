@@ -38,7 +38,7 @@ exec("libreoffice " . $csvPath);
 
 $data = file_get_contents($csvPath);
 $modules = explode("\n", $data);
-$name = explode(";", $modules[0]);
+$names = explode(";", $modules[0]);
 for ($i = 1; $i < count($modules); $i++) {
 	if (strlen($modules[$i]) == 0)
 		continue;
