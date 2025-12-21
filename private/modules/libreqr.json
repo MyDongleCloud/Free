@@ -1,7 +1,7 @@
 {
 	"module": "libreqr",
 	"name": "Libreqr",
-	"title": "Advanced QR Code",
+	"title": "QR Code Creator",
 	"category": "Utils",
 	"version": "2.0.1",
 	"installMethod": "git",

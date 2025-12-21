@@ -1,7 +1,7 @@
 {
 	"module": "qrcodegenerator",
 	"name": "QR Code Generator",
-	"title": "QR Code",
+	"title": "QR Code Generator",
 	"category": "Utils",
 	"version": "HEAD",
 	"installMethod": "clone",

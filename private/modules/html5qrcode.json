@@ -1,7 +1,7 @@
 {
 	"module": "html5qrcode",
 	"name": "Html5-QRCode",
-	"title": "QR Code",
+	"title": "QR Code Reader",
 	"category": "Utils",
 	"version": "v2.3.8",
 	"installMethod": "clone",

@@ -1,7 +1,7 @@
 {
 	"module": "openwebui",
 	"name": "Open WebUI",
-	"title": "Legacy Chatbot",
+	"title": "Chatbot",
 	"category": "Essential",
 	"version": "v0.6.41",
 	"installMethod": "pip",
