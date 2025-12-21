@@ -21,9 +21,9 @@ done
 PW=`pwd`
 
 if [ $BUILD = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "BUILD"
-	echo "#####################################"
+	echo "################################"
 	mkdir -p ../build
 	cd ../build
 	rm -rf lvgl
@@ -39,9 +39,9 @@ if [ $BUILD = 1 ]; then
 fi
 
 if [ $CLEAN = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "CLEAN"
-	echo "#####################################"
+	echo "################################"
 	cd ../build
 	find lvgl \( -name "*.h" -o -name "*.a" \) -print0 | tar -cjpf a.tbz2 --null -T -
 	rm -rf lvgl

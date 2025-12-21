@@ -27,9 +27,9 @@ done
 PW=`pwd`
 
 if [ $SETUP = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "SETUP"
-	echo "#####################################"
+	echo "################################"
 	cd /opt
 	rm -rf /opt/emsdk
 	git clone https://github.com/emscripten-core/emsdk.git
@@ -42,9 +42,9 @@ if [ $SETUP = 1 ]; then
 fi
 
 if [ $LOCAL = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "LOCAL"
-	echo "#####################################"
+	echo "################################"
 	echo "PATH=/opt/emsdk:/opt/emsdk/upstream/emscripten:\$PATH"
 	PATH=/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH
 	#export PATH=/opt/emsdk:/opt/emsdk/upstream/emscripten:$PATH
@@ -65,9 +65,9 @@ if [ $BUILD = 2 ]; then
 fi
 
 if [ $BUILD = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "BUILD"
-	echo "#####################################"
+	echo "################################"
 	mkdir -p ../build
 	cd ../build
 	rm -rf lvgl-web
@@ -84,9 +84,9 @@ if [ $BUILD = 1 ]; then
 fi
 
 if [ $CLEAN = 1 ]; then
-	echo "#####################################"
+	echo "################################"
 	echo "CLEAN"
-	echo "#####################################"
+	echo "################################"
 	cd ../build
 	find lvgl-web \( -name "*.h" -o -name "*.a" \) -print0 | tar -cjpvf a.tbz2 --null -T -
 	rm -rf lvgl-web
