@@ -20,6 +20,18 @@ do
 done
 
 echo "#Create user homeassistant##################"
+TIMEOUT=10
+echo "$TIMEOUT seconds to watch homeassistant starting..."
+while [ $TIMEOUT -gt 0 ]; do
+    sleep 1
+    TIMEOUT=$((TIMEOUT - 1))
+    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for homeassistant" && exit
+	nc -z localhost 8123 2> /dev/null
+	if [ $? = 0 ]; then
+		break
+	fi
+done
+
 DATE=`date +%s`
 URL="http://localhost:8123"
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`

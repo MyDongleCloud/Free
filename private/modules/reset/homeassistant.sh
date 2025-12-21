@@ -43,15 +43,4 @@ http:
 EOF
 systemctl start homeassistant.service
 systemctl enable homeassistant.service
-TIMEOUT=10
-echo "10 seconds to watch homeassistant starting..."
-while [ $TIMEOUT -gt 0 ]; do
-    sleep 1
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for homeassistant" && break
-	nc -z localhost 8123 2> /dev/null
-	if [ $? = 0 ]; then
-		break
-	fi
-done
 /usr/local/modules/mydonglecloud/reset/homeassistant-user.sh
