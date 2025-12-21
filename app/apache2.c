@@ -178,7 +178,7 @@ AppALEnabled %s\n\
 		}
 	}
 	strcpy(sz, "\
-	RewriteCond %{HTTP_HOST} ^(app\\.)?(.*)\n\
+	RewriteCond %{HTTP_HOST} ^(app\\.|www\\.)?(.*)\n\
 	RewriteRule ^/m/([^/]+)(.*) %{REQUEST_SCHEME}://$1.%2$2 [NC,L]\n\
 </Macro>\n\n\n");
 	fwrite(sz, strlen(sz), 1, pfM);
