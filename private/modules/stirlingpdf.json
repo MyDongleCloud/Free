@@ -24,10 +24,11 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
-				"port": 8096,
+				"port": 8105,
 				"path": "/"
 			}
 		],
@@ -36,6 +37,7 @@
 		],
 		"setupDependencies": [
 			"java"
-		]
+		],
+		"setup": true
 	}
 }

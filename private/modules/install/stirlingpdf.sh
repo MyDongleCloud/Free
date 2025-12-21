@@ -21,4 +21,3 @@ cp -a scripts stirling-pdf/build/libs/stirling-pdf-*.jar /usr/local/modules/stir
 PATH=$PATHOLD
 export PATH=$PATHOLD
 echo "PATH restored: $PATH"
-ln -sf /etc/systemd/system/stirlingpdf.service /etc/systemd/system/multi-user.target.wants/stirlingpdf.service
