@@ -54,15 +54,4 @@ EOF
 ln -sf /disk/admin/modules/tabby /disk/admin/.tabby
 systemctl start tabby.service
 systemctl enable tabby.service
-TIMEOUT=10
-echo "10 seconds to watch tabby starting..."
-while [ $TIMEOUT -gt 0 ]; do
-    sleep 1
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for tabby" && break
-	nc -z localhost 8100 2> /dev/null
-	if [ $? = 0 ]; then
-		break
-	fi
-done
 /usr/local/modules/mydonglecloud/reset/tabby-user.sh

@@ -20,6 +20,18 @@ do
 done
 
 echo "#Create user tabby##################"
+TIMEOUT=10
+echo "10 seconds to watch tabby starting..."
+while [ $TIMEOUT -gt 0 ]; do
+    sleep 1
+    TIMEOUT=$((TIMEOUT - 1))
+    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for tabby" && exit
+	nc -z localhost 8100 2> /dev/null
+	if [ $? = 0 ]; then
+		break
+	fi
+done
+
 DATE=`date +%s`
 URL="http://localhost:8100"
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
