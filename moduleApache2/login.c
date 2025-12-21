@@ -56,7 +56,7 @@ static char *html[][8] = {
 
 static char *post[][6] = {
 	{ "adminer", "/conf.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "bugzilla", "/inex.cgi", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
+	{ "bugzilla", "/index.cgi", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
 	{ "homeassistant", "/auth/login_flow", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
 	{ "librechat", "/api/auth/login", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
 	{ "mantisbugtracker", "/login_password_page.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
