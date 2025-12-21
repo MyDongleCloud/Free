@@ -90,5 +90,5 @@ store("/../client/src/assets/i18n/keywords-en.json", array("keywords" => $module
 $modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
 $modulesMarkdownFooter="\n||||" . number_format($starsTotal / 1000 / 1000, 2) . "M ⭐|||";
 file_put_contents(__DIR__ . "/../build/README-modules.md", $modulesMarkdownHeader . implode("\n", $modulesMarkdown) . $modulesMarkdownFooter);
-system("rm -rf " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/reset/; cp -a " . __DIR__ . "/modules/reset/ " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/");
+system("cp " . __DIR__ . "/modules/reset/* " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/reset/");
 ?>
