@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=java -jar /usr/local/modules/piped/pipedbackend/build/libs/piped-1.0-all.jar
+ExecStart=/usr/bin/java -jar /usr/local/modules/piped/pipedbackend/build/libs/piped-1.0-all.jar
 WorkingDirectory=/disk/admin/modules/piped
 StandardOutput=inherit
 StandardError=inherit

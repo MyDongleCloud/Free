@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=pnpm run start
+ExecStart=/usr/local/bin/pnpm run start
 WorkingDirectory=/usr/local/modules/lobechat
 StandardOutput=inherit
 StandardError=inherit
