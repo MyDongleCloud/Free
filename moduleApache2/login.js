@@ -31,10 +31,12 @@ function _app_Credentials() {
 	_app_Color(_app_Arg1);
 	_app_Arg1.value = '%s';
 	_app_Arg1.dispatchEvent(new Event('input', { bubbles: true }));
+	_app_Arg1.dispatchEvent(new Event('change', { bubbles: true }));
 	_app_React(_app_Arg1);
 	_app_Color(_app_Arg2);
 	_app_Arg2.value = '%s';
 	_app_Arg2.dispatchEvent(new Event('input', { bubbles: true }));
+	_app_Arg2.dispatchEvent(new Event('change', { bubbles: true }));
 	_app_React(_app_Arg2);
 	_app_Arg3.click();
 	setTimeout(_app_Close, 1000);
