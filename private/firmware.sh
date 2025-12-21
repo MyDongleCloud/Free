@@ -65,6 +65,7 @@ fi
 if [ -f /tmp/os${POSTNAME}.img ]; then
 	echo "No creation as /tmp/os${POSTNAME}.img already exists"
 else
+	php modules-update.php
 	tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C ${ROOTFS}/lib/modules/
 	rm -rf ${ROOTFS}/home/ai/app ${ROOTFS}/home/ai/moduleApache2 ${ROOTFS}/home/ai/moduleIpApache2 ${ROOTFS}/home/ai/pam
 	../auth/prepare.sh -c
