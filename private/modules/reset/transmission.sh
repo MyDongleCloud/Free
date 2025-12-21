@@ -1,3 +1,36 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for transmission [-h -r]"
+echo "h:	Print this usage and exit"
+echo "r:	Reset"
+exit 0
+}
+
+if [ "m`id -u`" = "m0" ]; then
+	echo "You should not be root"
+	exit 0
+fi
+
+RESET=0
+while getopts hr opt
+do
+	case "$opt" in
+		h) helper;;
+		r) RESET=1;;
+	esac
+done
+
+if [ $RESET != 1 ]; then
+	exit 0
+fi
+
+echo "#Reset transmission##################"
+systemctl stop transmission-daemon.service
+rm -rf /disk/admin/modules/transmission
+mkdir /disk/admin/modules/transmission
+cat > /disk/admin/modules/transmission/settings.json << EOF
 {
     "alt-speed-down": 50,
     "alt-speed-enabled": false,
@@ -86,3 +119,6 @@
     "watch-dir-enabled": false,
     "watch-dir-force-generic": false
 }
+EOF
+systemctl start transmission-daemon.service
+systemctl enable transmission-daemon.service
