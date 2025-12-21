@@ -16,6 +16,8 @@ isDevCheckbox: boolean;
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {}
 
 async longCopyright() {
+	this.global.developerSet();
+	this.global.presentToast(this.global.developer ? "You are in developer mode now." : "You are in standard mode now.", "bug-outline");
 }
 
 }

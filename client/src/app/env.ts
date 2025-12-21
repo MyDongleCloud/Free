@@ -51,7 +51,7 @@ themeSel = "system";
 darkVal = false;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
-	this.developer = window.location.hostname == "localhost" && window.location.port == "8100";
+	this.developer = this.developerGet();
 	this.consolelog(0, "%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
 	this.consolelog(0, "%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
 	this.consolelog(0, "%cVersion: " + this.VERSION, "background-color:#646464; border-radius:5px; padding:5px;");
@@ -139,6 +139,23 @@ async AuthStatus() {
 	if (ret["demo"] === true)
 		this.demo = true;
 	this.consolelog(2, "Auth Status: ", ret);
+}
+
+developerSet(a = null) {
+	if (a === null)
+		this.developer = !this.developer;
+	else
+		this.developer = a;
+	sessionStorage.setItem("developer", String(this.developer));
+}
+
+developerGet() {
+	if (sessionStorage.getItem("developer") === null) {
+		const val = window.location.hostname == "localhost" && window.location.port == "8100";
+		sessionStorage.setItem("developer", String(val));
+		return val;
+	} else
+		return sessionStorage.getItem("developer") === "true";
 }
 
 async getSession() {
