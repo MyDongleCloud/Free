@@ -46,6 +46,8 @@
 			"homeassistant"
 		],
 		"setup": true,
-		"setupDependencies": []
+		"setupDependencies": [
+			"zigbee2mqtt"
+		]
 	}
 }
