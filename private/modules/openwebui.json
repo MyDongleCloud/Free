@@ -41,6 +41,7 @@
 		"services": [
 			"openwebui"
 		],
-		"setup": true
+		"setup": true,
+		"setupDependencies": []
 	}
 }

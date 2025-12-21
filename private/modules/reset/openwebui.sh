@@ -39,3 +39,4 @@ DATA_DIR=/disk/admin/modules/openwebui/data
 EOF
 systemctl start openwebui.service
 systemctl enable openwebui.service
+/usr/local/modules/mydonglecloud/reset/openwebui-user.sh
