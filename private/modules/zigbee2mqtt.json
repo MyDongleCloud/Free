@@ -24,6 +24,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -38,6 +39,8 @@
 		],
 		"services": [
 			"zigbee2mqtt"
-		]
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }
