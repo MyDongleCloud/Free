@@ -219,6 +219,7 @@
 		"Upgrade needed. A new version is available here.": "Mise à jour nécessaire. Une nouvelle version est disponible ici."
 	},
 	"wrapper": {
+		"The integration of this module is not yet finished. Check the next monthly release of MyDongle.Cloud.": "L'intégration de ce module n'est pas fini. Consultez la prochaine publication mensuelle de MyDongle.Cloud.",
 		"This module is not accessible in the web demo. Download and run MyDongle.Cloud on your Raspberry Pi to get access to the whole demo.": "Ce module n'est pas accessible dans la démo web. Téléchargez et exécutez MyDongle.Cloud sur votre Raspberry Pi pour accéder à l'ensemble de la démo."
 	}
 }

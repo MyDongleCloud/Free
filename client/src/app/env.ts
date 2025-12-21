@@ -306,7 +306,7 @@ openModule(identifier:number|string, extract:boolean = false, page:string = null
 	}
 	const subdomain = this.modulesData[id].alias[0] ?? this.modulesData[id].module;
 	const page_ = page ?? this.modulesData[id].homepage ?? "";
-	if (extract && !this.demo)
+	if (extract && !this.demo && (this.modulesData[id].finished || this.developer))
 		window.open(location.protocol + "//" + location.host + "/m/" + subdomain + page_, "_blank");
 	else {
 		this.navCtrl.setDirection('root');

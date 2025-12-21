@@ -18,6 +18,7 @@ subdomain: string = "";
 page: string = "";
 title: string = "";
 nameP: string = "";
+finished: boolean = true;
 safeUrl: SafeResourceUrl;
 
 constructor(public global: Global, private route: ActivatedRoute, private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef) {
@@ -27,7 +28,9 @@ constructor(public global: Global, private route: ActivatedRoute, private saniti
 		this.page = params?.page;
 		this.title = modulesMeta[this.module].title;
 		this.nameP = " (" + modulesMeta[this.module].name + ")";
-		this.update();
+		this.finished = modulesMeta[this.module].finished;
+		if (!this.global.demo && (this.global.developer || this.finished))
+			this.update();
 	});
 }
 
