@@ -4,12 +4,12 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=node dist/index.js
+ExecStart=/usr/local/bin/node dist/index.js
 WorkingDirectory=/usr/local/modules/webssh2
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
-RestartSec=2s
+RestartSec=5s
 User=admin
 
 [Install]
