@@ -31,6 +31,7 @@ installModule() {
 		echo "################################"
 		echo "Module: $1"
 		echo "################################"
+		DATESTARTM=`date +%s`
 		OS=$OS PP=$PP $PP/modules/install/$1.sh
 		touch /home/ai/build/_modulesInstalled/$1
 		DATEFINISHM=`date +%s`
@@ -232,7 +233,6 @@ else
 	clone bugzilla bugzilla/bugzilla release-5.3.3
 	clone changedetection dgtlmoon/changedetection.io 0.50.7
 	clone convertx C4illin/ConvertX v0.14.1
-	clone crystal crystal-lang/crystal 1.18.2
 	clone cssunminifier mrcoles/cssunminifier c5cad8ab
 	clone cyberchef gchq/CyberChef v10.19.4
 	clone discourse discourse/discourse v3.4.6
@@ -246,7 +246,6 @@ else
 	clone immich immich-app/immich v1.135.3
 	clone invidious iv-org/invidious v2.20250913.0
 	clone iopaint Sanster/IOPaint iopaint-1.5.3
-	clone jellyfin jellyfin/jellyfin v10.10.7
 	clone joomla joomla/joomla-cms 5.3.2
 	clone joplin laurent22/joplin server-v3.4.1
 	clone jstinker johncipponeri/jstinker master
@@ -331,9 +330,10 @@ chown -R admin:admin rootfs/disk/admin
 cp -a rootfs/* /
 rm -rf rootfs
 chown -R root:root /usr/local
-chown -R www-data:www-data /usr/local/modules/libreqr/css
 chown -R ai:ai /home/ai
+chown -R www-data:admin /usr/local/modules/libreqr/css
 chown -R www-data:admin /disk/admin/modules/roundcube
+chown -R www-data:admin /usr/local/modules/limesurvey/tmp
 chown -R admin:admin /usr/local/modules/lobechat/.next/cache /usr/local/modules/lobechat/.next/server
 chown -R admin:admin /usr/local/modules/openwebui/lib/python3.11/site-packages/open_webui/static/
 mv /var/lib/mysql /disk/admin/modules
