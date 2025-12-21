@@ -33,6 +33,9 @@ installModule() {
 		echo "################################"
 		OS=$OS PP=$PP $PP/modules/install/$1.sh
 		touch /home/ai/build/_modulesInstalled/$1
+		DATEFINISHM=`date +%s`
+		DELTAM=$((DATEFINISHM - DATESTARTM))
+		echo "Done in $((DELTAM / 60))m $((DELTAM % 60))s"
 	fi
 }
 
