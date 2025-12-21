@@ -321,7 +321,7 @@ dismissToast() {
 	this.toast.next({ show:false });
 }
 
-presentToast(message, icon, delay) {
+presentToast(message, icon, delay = 3000) {
 	this.toast.next({ show:true, message, icon, delay });
 }
 
