@@ -38,6 +38,10 @@ foreach ($files as $file) {
 		echo "\n\nReset for " . $name . " doesn't exist but has default.setup property\n\n";
 		exit;
 	}
+	if (isset($module["default"]["setup"]) && !isset($module["default"]["setupDependencies"])) {
+		echo "\n\default.SetupDependencies for " . $name . " doesn't exist but has default.setup property\n\n";
+		exit;
+	}
 	if ($module["web"] === true) {
 		if (isset($modulesLocalPort[$module["default"]["localPort"]])) {
 			echo "\nProblem localPort " . $module["default"]["localPort"] . " for " . $name . "\n\n";
