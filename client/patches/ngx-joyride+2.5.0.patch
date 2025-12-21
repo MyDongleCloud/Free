@@ -1,0 +1,26 @@
+diff --git a/node_modules/ngx-joyride/fesm2015/ngx-joyride.mjs b/node_modules/ngx-joyride/fesm2015/ngx-joyride.mjs
+index 1ccbf6d..574e27c 100644
+--- a/node_modules/ngx-joyride/fesm2015/ngx-joyride.mjs
++++ b/node_modules/ngx-joyride/fesm2015/ngx-joyride.mjs
+@@ -1064,7 +1064,7 @@ class JoyrideStepComponent {
+         this.customCounter = this.templateService.getCounter();
+     }
+     keyEvent(event) {
+-        console.log(event);
++        //console.log(event);
+         if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+             if (this.isLastStep()) {
+                 this.close();
+diff --git a/node_modules/ngx-joyride/fesm2020/ngx-joyride.mjs b/node_modules/ngx-joyride/fesm2020/ngx-joyride.mjs
+index 72dbe25..e8ad6e5 100644
+--- a/node_modules/ngx-joyride/fesm2020/ngx-joyride.mjs
++++ b/node_modules/ngx-joyride/fesm2020/ngx-joyride.mjs
+@@ -1057,7 +1057,7 @@ class JoyrideStepComponent {
+         this.customCounter = this.templateService.getCounter();
+     }
+     keyEvent(event) {
+-        console.log(event);
++        //console.log(event);
+         if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+             if (this.isLastStep()) {
+                 this.close();
