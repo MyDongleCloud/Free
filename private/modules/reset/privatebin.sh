@@ -27,7 +27,11 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset privatebin##################"
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 rm -rf /disk/admin/modules/privatebin
 mkdir -p /disk/admin/modules/privatebin/data
 cp /usr/local/modules/privatebin/cfg/conf.sample.php /disk/admin/modules/privatebin/conf.php
-chown -R www-data:admin /disk/admin/modules/privatebin
+sed -i -e 's@; name = "PrivateBin"@name = "PrivateBin of ${CLOUDNAME}"@' /disk/admin/modules/privatebin/conf.php
+sed -i -e 's@dir = PATH "data"@dir = /disk/admin/modules/privatebin/data@' /disk/admin/modules/privatebin/conf.php
+chown -R admin:admin /disk/admin/modules/privatebin
+chown -R www-data:admin /disk/admin/modules/privatebin/data

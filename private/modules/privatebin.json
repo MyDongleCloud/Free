@@ -20,6 +20,7 @@
 	"proprietary": "Pastebin",
 	"default": {
 		"enabled": true,
+		"followSymLinks": true,
 		"localPort": 9471,
 		"permissions": [
 			"_groupadmin_"
