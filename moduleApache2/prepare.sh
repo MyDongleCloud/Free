@@ -17,7 +17,7 @@ while getopts hm opt; do
 done
 
 if [ $MINIFY = 1 ]; then
-	JS=$(cat login.js | sed 's/\&/\\&/g')
+	JS=$(cat login.js | sed 's@&@\\&@g' | sed 's@|@\\|@g')
 	JS=$(echo $JS | tr '\n' ' ')
 	SEARCH=$(grep -oE '\<_app_[a-zA-Z0-9_]*\>' login.js | sort -u | tr '\n' ' ')
 	for ss in $SEARCH; do
