@@ -6,9 +6,9 @@
 	"version": "v10.10.7",
 	"installMethod": "clone",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"ai": false,
-	"database": "",
+	"database": "sqlite",
 	"github": "jellyfin/jellyfin",
 	"description": "A software system to manage and stream media.",
 	"keywords": [
@@ -22,6 +22,22 @@
 		"localPort": 9431,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8096,
+				"path": "/"
+			}
+		],
+		"services": [
+			"jellyfin"
+		],
+		"setup": true,
+		"setupDependencies": [
+			"sqlite"
+		],
+		"setupRoot": true
 	}
 }
