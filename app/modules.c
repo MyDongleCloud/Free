@@ -42,7 +42,7 @@ void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
 	if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 		PRINTF("Apache2: No creation of main.conf\n");
 	} else
-		buildApache2Conf(modulesDefault, modules, fqdn);
+		buildApache2Conf(elCloud, modulesDefault, modules, fqdn);
 #ifndef DESKTOP
 	serviceAction("apache2.service", "ReloadOrRestartUnit");
 #endif

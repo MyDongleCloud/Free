@@ -113,7 +113,7 @@ void rewrite(cJSON *el_Module, cJSON *el_Module2, int port, FILE *pfM) {
 			rewrite_(i->valuestring, port, pfM);
 }
 
-void buildApache2Conf(cJSON *modulesDefault, cJSON *modules, cJSON *fqdn) {
+void buildApache2Conf(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn) {
 	PRINTF("Modules:Apache2: Enter\n");
 #ifdef DESKTOP
 	FILE *pfP = fopen("/tmp/ports.conf", "w");
@@ -165,7 +165,7 @@ AppALEnabled %s\n\
 	Include /usr/local/modules/apache2/options-ssl-apache.conf\n\
 	SSLCertificateFile /disk/admin/modules/letsencrypt/fullchain.pem\n\
 	SSLCertificateKeyFile /disk/admin/modules/letsencrypt/privkey.pem\n\
-</Macro>\n", cJSON_IsTrue(cJSON_GetObjectItem(ap, "updateRemoteIP")) || cJSON_IsTrue(cJSON_GetObjectItem(ap2, "updateRemoteIP")) ? "on" : "off", cJSON_IsTrue(cJSON_GetObjectItem(ap, "autoLogin")) || cJSON_IsTrue(cJSON_GetObjectItem(ap, "autoLogin")) ? "on" : "off");
+</Macro>\n", cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(cloud, "security"), "updateRemoteIP")) ? "on" : "off", cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(cloud, "security"), "autoLogin")) ? "on" : "off");
 	fwrite(sz, strlen(sz), 1, pfM);
 	strcpy(sz, "<Macro Macro_Rewrite>\n");
 	fwrite(sz, strlen(sz), 1, pfM);
