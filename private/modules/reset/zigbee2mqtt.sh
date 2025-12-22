@@ -30,7 +30,7 @@ echo "#Reset zigbee2mqtt##################"
 systemctl stop zigbee2mqtt.service
 rm -rf /disk/admin/modules/zigbee2mqtt
 mkdir /disk/admin/modules/zigbee2mqtt
-ln -sf /var/log/zigbee2mqtt/log /disk/admin/modules/zigbee2mqtt/log
+ln -sf /var/log/zigbee2mqtt /disk/admin/modules/zigbee2mqtt/log
 cat > /disk/admin/modules/zigbee2mqtt/configuration.yaml << EOF
 version: 4
 mqtt:
