@@ -1,0 +1,25 @@
+{
+	"module": "scrcpy",
+	"name": "scrcpy",
+	"title": "Android Remote Control",
+	"category": "Utils",
+	"version": "v3.3.4",
+	"installMethod": "clone",
+	"web": false,
+	"finished": false,
+	"ai": false,
+	"database": "",
+	"github": "Genymobile/scrcpy",
+	"description": "An executable to display and control your Android device.",
+	"keywords": [
+		"Android",
+		"Remote",
+		"Control"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			"/usr/local/bin/scrcpy"
+		]
+	}
+}

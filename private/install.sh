@@ -277,6 +277,7 @@ else
 	clone projectsend projectsend/projectsend r1720
 	clone qrcodegenerator bizzycola/qrcode-generator HEAD
 	clone radaar Radarr/Radarr v5.27.2.10142
+	clone scrcpy Genymobile/scrcpy v3.3.4
 	clone searxng searxng/searxng 74ec225a
 	clone shields badges/shields server-2025-12-06
 	clone silverbullet silverbulletmd/silverbullet 2.3.0
