@@ -6,9 +6,9 @@
 	"version": "6.15.3+250708",
 	"installMethod": "clone",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"ai": false,
-	"database": "",
+	"database": "mysql",
 	"github": "LimeSurvey/LimeSurvey",
 	"description": "A powerful, open-source survey platform.",
 	"keywords": [
@@ -19,10 +19,18 @@
 	],
 	"proprietary": "SurveyMonkey",
 	"default": {
+		"config": true,
 		"enabled": true,
+		"followSymLinks": true,
 		"localPort": 9440,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [
+			"mysql"
+		],
+		"setupRoot": true
 	}
 }
