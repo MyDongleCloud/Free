@@ -22,7 +22,6 @@
 		"alias": [
 			"www"
 		],
-		"autoLogin": true,
 		"enabled": true,
 		"localPort": 80,
 		"localRanges": [
@@ -37,7 +36,6 @@
 		"reset": true,
 		"setup": true,
 		"setupDependencies": [],
-		"setupPriority": true,
-		"updateRemoteIP": true
+		"setupPriority": true
 	}
 }
