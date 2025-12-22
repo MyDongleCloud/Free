@@ -1,0 +1,26 @@
+{
+	"module": "ninja",
+	"name": "Ninja",
+	"title": "Ninja Build",
+	"category": "Developer",
+	"version": "1.7.0",
+	"installMethod": "deb",
+	"web": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "ninja-build/ninja",
+	"description": "The Ninja Build System.",
+	"keywords": [
+		"Build",
+		"System",
+		"Cross-platform",
+		"Automation"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			"/usr/bin/ninja"
+		]
+	}
+}
