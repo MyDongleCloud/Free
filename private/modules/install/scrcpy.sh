@@ -1,6 +1,7 @@
 #!/bin/sh
 
 apt-get -y install libavformat-dev libavcodec-dev libavutil-dev libswresample-dev libavdevice-dev libusb-1.0-0-dev libsdl2-dev
+apt-get -y install adb
 cd /usr/local/modules/scrcpy
 rm -rf build
 meson setup build

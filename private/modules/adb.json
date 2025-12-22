@@ -1,0 +1,25 @@
+{
+	"module": "adb",
+	"name": "adb",
+	"title": "Android Debug Bridge",
+	"category": "Developer",
+	"version": "34.0.5",
+	"installMethod": "deb",
+	"web": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "",
+	"description": "A command-line tool to communication with an Android device",
+	"keywords": [
+		"Android",
+		"Tools",
+		"Debug"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			"/usr/bin/adb"
+		]
+	}
+}
