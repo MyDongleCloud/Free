@@ -6,7 +6,7 @@
 	"version": "server-2025-12-06",
 	"installMethod": "clone",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "badges/shields",
@@ -22,6 +22,19 @@
 		"localPort": 9481,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8104,
+				"path": "/"
+			}
+		],
+		"services": [
+			"shields"
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }

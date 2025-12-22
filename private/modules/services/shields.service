@@ -1,0 +1,16 @@
+[Unit]
+Description=Shields
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/node server 8104
+WorkingDirectory=/usr/local/modules/shields
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target
