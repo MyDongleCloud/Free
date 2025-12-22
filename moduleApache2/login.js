@@ -33,11 +33,13 @@ function _app_Credentials() {
 	_app_Arg1.dispatchEvent(new Event('input', { bubbles: true }));
 	_app_Arg1.dispatchEvent(new Event('change', { bubbles: true }));
 	_app_React(_app_Arg1);
-	_app_Color(_app_Arg2);
-	_app_Arg2.value = '%s';
-	_app_Arg2.dispatchEvent(new Event('input', { bubbles: true }));
-	_app_Arg2.dispatchEvent(new Event('change', { bubbles: true }));
-	_app_React(_app_Arg2);
+	if (_app_Arg2 != null) {
+		_app_Color(_app_Arg2);
+		_app_Arg2.value = '%s';
+		_app_Arg2.dispatchEvent(new Event('input', { bubbles: true }));
+		_app_Arg2.dispatchEvent(new Event('change', { bubbles: true }));
+		_app_React(_app_Arg2);
+	}
 	_app_Arg3.click();
 	setTimeout(_app_Close, 1000);
 }
@@ -49,11 +51,16 @@ function _app_Insert() {
 		return;
 	_app_Form = document.querySelector('%s');
 	if (_app_Form !== null) {
-		_app_Arg1 = _app_Form.querySelector('%s');
-		_app_Arg2 = _app_Form.querySelector('%s');
-		_app_Arg3 = _app_Form.querySelector('%s');
-		if (_app_Arg1 !== null && _app_Arg2 !== null && _app_Arg3 !== null)
-			document.body.insertAdjacentHTML('beforeend', '<div id="_app_ButtonID"; style="display:flex; flex-direction:column; align-items:end; position:absolute; z-index:99; top:100px; right:50px;"><svg xmlns="http://www.w3.org/2000/svg" style="width:20px; height:20px; margin-bottom:6px; cursor:pointer;" onclick="window._app_Close();" viewBox="0 0 512 512"><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="white" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="white" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 320L192 192M192 320l128-128"/></svg><div style="background-color:#000f4e; color:white; font-weight:bold; text-align:center; border:2px solid white; border-radius:15px; padding:10px;">MyDongle.Cloud<br><button style="text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;" onclick="window._app_Credentials();">Automatic<br>Login</button></div>');
+		let _app_qS_Arg1 = '%s';
+		_app_Arg1 = _app_Form.querySelector(_app_qS_Arg1);
+		let _app_qS_Arg2 = '%s';
+		_app_Arg2 = _app_qS_Arg2 == "" ? null : _app_Form.querySelector(_app_qS_Arg2);
+		let _app_qS_Arg3 = '%s';
+		_app_Arg3 = _app_Form.querySelector(_app_qS_Arg3);
+		if (_app_Arg1 !== null && _app_Arg3 === null)
+			_app_Arg3 = document.querySelector(_app_qS_Arg3);
+		if (_app_Arg1 !== null && (_app_qS_Arg2 == "" || _app_Arg2 !== null) && _app_Arg3 !== null)
+			document.body.insertAdjacentHTML('beforeend', '<div id="_app_ButtonID"; style="display:flex; flex-direction:column; align-items:end; position:absolute; z-index:10001; top:100px; right:50px;"><svg xmlns="http://www.w3.org/2000/svg" style="width:20px; height:20px; margin-bottom:6px; cursor:pointer;" onclick="window._app_Close();" viewBox="0 0 512 512"><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="white" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="white" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 320L192 192M192 320l128-128"/></svg><div style="background-color:#000f4e; color:white; font-weight:bold; text-align:center; border:2px solid white; border-radius:15px; padding:10px;">MyDongle.Cloud<br><button style="text-align:center; background-color:#0092ce; color:white; margin-top:10px; border-radius:10px; padding:5px; cursor:pointer;" onclick="window._app_Credentials();">Automatic<br>Login</button></div>');
 		else
 			setTimeout(_app_Insert, 1000);
 	} else

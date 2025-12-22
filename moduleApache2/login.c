@@ -42,7 +42,7 @@ static char *html[][8] = {
 	{ "homeassistant", "/auth/authorize", "form", "input[name=username]", "input[name=password]", "ha-button", APP_V_USERNAME, APP_V_PASSWORD },
 	{ "librechat", NULL, "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
 	{ "librechat", "/login", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
-	{ "mantisbugtracker", "/login_page.php", "form[id=login-form]", "input[name=username]", "input[name=username]", "input[type=submit]", APP_V_USERNAME, APP_V_USERNAME },
+	{ "mantisbugtracker", "/login_page.php", "form[id=login-form]", "input[name=username]", "", "input[type=submit]", APP_V_USERNAME, "" },
 	{ "mantisbugtracker", "/login_password_page.php", "form[id=login-form]", "input[name=username]", "input[name=password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
 	{ "openwebui", "/auth", "form", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
 	{ "osticket", "/scp/login.php", "form[id=login]",  "input[name=userid]", "input[name=passwd]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
@@ -98,7 +98,7 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 			return rv;
 		}
 #define MIN2(a,b) ((a)>(b)?(b):(a))
-		PRINTFc("%.*s", MIN2(128, len), data);
+		//PRINTFc("%.*s", MIN2(128, len), data);
 		char *pos = strstr(data, "<head>");
 		if (pos == NULL) {
 			pos = strstr(data, "<html>");
