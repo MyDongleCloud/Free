@@ -1,0 +1,25 @@
+{
+	"module": "udisks2",
+	"name": "Udisks2",
+	"title": "Disk Auto Mount",
+	"category": "Utils",
+	"version": "2.10.1",
+	"installMethod": "deb",
+	"web": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "",
+	"description": "A tool to access, manipulate and mount disks and storage devices",
+	"keywords": [
+		"Disk",
+		"Mount",
+		"USB"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			"/usr/bin/udisksctl"
+		]
+	}
+}
