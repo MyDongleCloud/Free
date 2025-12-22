@@ -18,6 +18,7 @@
 	],
 	"proprietary": "Bitly",
 	"default": {
+		"addLineInDirectory": "RewriteBase /\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule ^.*$ /yourls-loader.php [L]",
 		"config": true,
 		"enabled": true,
 		"homepage": "/admin",
