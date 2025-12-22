@@ -1,12 +1,12 @@
 {
 	"module": "typesensedashboard",
 	"name": "Typesense Dashboard",
-	"title": "Typesense Viewer",
+	"title": "Search API Viewer",
 	"category": "Developer",
 	"version": "v2.4.1",
 	"installMethod": "clone",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "bfritscher/typesense-dashboard",
@@ -19,9 +19,22 @@
 	"proprietary": "",
 	"default": {
 		"enabled": true,
+		"followSymLinks": true,
 		"localPort": 9496,
+		"path": "/usr/local/modules/typesensedashboard/dist/spa",
 		"permissions": [
 			"_groupadmin_"
+		],
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8108,
+				"path": "/api",
+				"path2": "/"
+			}
+		],
+		"setupDependencies": [
+			"typesense"
 		]
 	}
 }

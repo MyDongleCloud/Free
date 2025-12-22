@@ -1,11 +1,11 @@
 {
 	"module": "typesense",
 	"name": "Typesense",
-	"title": "Very Fast Search",
+	"title": "Search API",
 	"category": "Developer",
 	"version": "29",
 	"installMethod": "deb",
-	"web": false,
+	"web": true,
 	"finished": true,
 	"ai": false,
 	"database": "",
@@ -17,8 +17,21 @@
 	],
 	"proprietary": "",
 	"default": {
-		"cmds": [
-			"/usr/bin/typesense-server"
-		]
+		"config": true,
+		"enabled": true,
+		"localPort": 9505,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8108,
+				"path": "/"
+			}
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }
