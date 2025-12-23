@@ -24,6 +24,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
@@ -33,6 +34,8 @@
 		],
 		"services": [
 			"triliumnotes"
-		]
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }
