@@ -1,9 +1,9 @@
 <div [style]="!ready ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--white to--blue-50">
 	<img src="assets/loading.gif" style="width:10%; height:10%; max-width:64px; max-height:64px;">
 </div>
-<div [style]="ready ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--white to--blue-50 py-12 px-4 sm:px-6 lg:px-8">
+<div [style]="ready ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--main to--blue-50 py-12 px-4 sm:px-6 lg:px-8">
 	<div class="max-w-md w-full">
-		<div class="bg--white rounded-2xl shadow-xl border border--gray-300 p-8">
+		<div class="bg--main rounded-2xl shadow-xl border border--gray-300 p-8">
 			<div class="text-center mb-8 flex items-center flex-col">
 				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/logo.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text--blue-600">{{L("My")}}</span><span style class="text--blue-200">Dongle.</span><span class="text--blue-600">Cloud</span></h1>
 				<div class="flex items-center gap-2 mb-2">

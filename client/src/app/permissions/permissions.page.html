@@ -1,6 +1,6 @@
-<div class="flex bg-sidebar h-screen text--gray-900 h-full">
+<div class="flex h-screen text--gray-900 h-full">
 	<app-sidebar></app-sidebar>
-	<div class="flex-1 flex flex-col bg--white overflow-x-auto">
+	<div class="flex-1 flex flex-col overflow-x-auto">
 		<app-topbar title="{{L('Permissions')}}"></app-topbar>
 		<div class="flex gap-3 mt-4 mr-4">
 			<div class="ml-4 relative">
@@ -13,7 +13,7 @@
 				<ion-icon name="refresh-outline" class="w-4 h-4"></ion-icon>
 			</button>
 			<div class="flex-1"></div>
-			<button (click)="getData()" [disabled]="dResetSave" class="inline-flex items-center gap-2 px-4 py-2 bg--white border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-50 transition-colors cursor-pointer disabled:bg--gray-100 disabled:cursor-default disabled:text--gray-400">
+			<button (click)="getData()" [disabled]="dResetSave" class="inline-flex items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-50 transition-colors cursor-pointer disabled:bg--gray-100 disabled:cursor-default disabled:text--gray-400">
 				<ion-icon name="refresh-outline" class="w-4 h-4"></ion-icon>
 				{{L("Reset")}}
 			</button>
@@ -38,7 +38,7 @@
 						<th scope="col" class="px-6 py-3 text-start text-xs hidden xl:table-cell font-medium text--gray-500 tracking-wider">{{L("DESCRIPTION")}}</th>
 					</tr>
 				</thead>
-				<tbody class="bg--white divide-y divide--gray-200">
+				<tbody class="divide-y divide--gray-200">
 					<tr class="hover:bg--gray-50" *ngFor="let card of filteredCards; let cc = index;">
 						<td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
 							<div class="text-sm font-medium text--gray-900"><a href="{{card.link}}" title="{{LMT(card.title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{LMT(card.title)}}</a></div>

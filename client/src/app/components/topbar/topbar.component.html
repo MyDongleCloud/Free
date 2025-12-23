@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between h-16 px-6 bg--white border-b border-sidebar-border">
+<div class="flex items-center justify-between h-16 px-6 border-b border-sidebar-border">
 	<div class="flex items-center space-x-2 text-sm ml-4 md:ml-0">
 		<a (click)="global.openPage('');" class="text--gray-700 text-lg hover:text--gray-900 transition-colors font-medium cursor-pointer cursor-pointer">{{LG("Dashboard")}}</a>
 		@if (title != LG("Dashboard")) {
@@ -24,7 +24,7 @@
 				<ion-icon name="chevron-down-outline" class="h-4 w-4 text--gray-400 cursor-pointer"></ion-icon>
 			</button>
 			@if (showUserMenu) {
-			<div class="absolute right-0 mt-2 w-56 bg--white rounded-lg shadow-lg border border--gray-200 z-50 user-menu-dropdown">
+			<div class="absolute bg--main right-0 mt-2 w-56 rounded-lg shadow-lg border border--gray-200 z-50 user-menu-dropdown">
 				<div class="p-4 border-b border--gray-200 md:hidden">
 					<p class="text-sm font-medium text--gray-900">{{global.session?.user?.name}}</p>
 					<p class="text-sm text--gray-500">{{global.session?.user?.email}}</p>

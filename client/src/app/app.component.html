@@ -4,4 +4,4 @@
 	<a href="javascript:void()" (click)="global.themeSet('dark')" title="{{LG('Dark')}}"><ion-icon name="moon-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'dark' ? 'border-b border--gray-900' : ''"></ion-icon></a>
 	<a href="javascript:void()" (click)="global.themeSet('system')" title="{{LG('System')}}"><ion-icon name="contrast-outline" class="h-4 w-4 pb-1" [class]="global.themeSel == 'system' ? 'border-b border--gray-900' : ''"></ion-icon></a>
 </div>
-<ion-router-outlet></ion-router-outlet>
+<ion-router-outlet class="bg--main"></ion-router-outlet>

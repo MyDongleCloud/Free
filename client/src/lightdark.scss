@@ -111,6 +111,9 @@
 	--color--yellow-800: var(--color-yellow-800);
 	--color--yellow-900: var(--color-yellow-900);
 	--color--yellow-950: var(--color-yellow-950);
+
+	--color--main: var(--color-white);
+	--color--sidebar: var(--color-gray-100);
 }
 
 body.dark {
@@ -226,4 +229,7 @@ body.dark {
 	--color--yellow-800: var(--color-yellow-200);
 	--color--yellow-900: var(--color-yellow-100);
 	--color--yellow-950: var(--color-yellow-50);
+
+	--color--main: var(--color-black);
+	--color--sidebar: var(--color-gray-900);
 }
