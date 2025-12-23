@@ -148,6 +148,17 @@ const mdcEndpoints = () => {
 					},
 					average: parseFloat(dataLoad.avgLoad.toFixed(2)) //%
 				};
+				const dataMem = await si.mem();
+				ret["mem"] = {
+					total: (dataMem.total / (1000 * 1000)).toFixed(0), //MB
+					used: (dataMem.active / (1000 * 1000)).toFixed(0), //MB
+					available: (dataMem.available / (1000 * 1000)).toFixed(0), //MB
+					swap: {
+						total: (dataMem.swaptotal / (1000 * 1000)).toFixed(0), //MB
+						used: (dataMem.swapused / (1000 * 1000)).toFixed(0), //MB
+						available: (dataMem.swapfree / (1000 * 1000)).toFixed(0) //MB
+					}
+				};
 				const dataStorage_ = await si.fsSize();
 				const dataStorage = dataStorage_.find(fs => fs.mount === "/");
 				if (dataStorage)
