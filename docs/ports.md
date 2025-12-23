@@ -18,6 +18,7 @@ This is the list of all used ports in the image, separated between listening por
 - betterauth: 8091 (reverseproxy)
 - mydongecloud app: 8093 (socket), 8094 (reverseproxy)
 - zigbee2mqtt: 8095 (reverseproxy)
+- jellyfin: 8096 (reverseproxy)
 - transmission: 8097 (reverseproxy)
 - tubesync: 8098 (reverseproxy)
 - llamacpp: 8099 (reverseproxy)
@@ -25,7 +26,10 @@ This is the list of all used ports in the image, separated between listening por
 - openwebui: 8101 (reverseproxy)
 - pipedbackend: 8102 (reverseproxy)
 - pipedproxy: 8103 (reverseproxy)
+- shields: 8104 (reverseproxy)
+- syncthing: 8384 (reverseproxy)
 - rspamd: 11332, 11333, 11334
+- stremio: 11470 (reverseproxy)
 - mongodb: 27017
 
 ### Listening ports (external aka. 0.0.0.0 or equivalent)
@@ -42,8 +46,8 @@ This is the list of all used ports in the image, separated between listening por
 - metube: 8089 (reverseproxy)
 - triliumnotes: 8090 (reverseproxy)
 - audiobookshelf: 8092 (reverseproxy)
-- stirlingpdf: 8096 (reverseproxy)
-- cockpit: 9090
+- stirlingpdf: 8105 (reverseproxy)
+- cockpit: 9090 (reverseproxy)
 
 ### Outgoing ports
 - frp: 7000 (main), xxx22 (ssh), xxx25 (mail), xx465 (smtp), xx993 (imap), xx995 (pop3)
