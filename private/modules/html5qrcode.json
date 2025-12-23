@@ -6,7 +6,7 @@
 	"version": "v2.3.8",
 	"installMethod": "clone",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "mebjas/html5-qrcode",
@@ -21,6 +21,7 @@
 	"default": {
 		"enabled": true,
 		"localPort": 9426,
+		"path": "/usr/local/modules/html5qrcode/examples/html5",
 		"permissions": [
 			"_groupadmin_"
 		]
