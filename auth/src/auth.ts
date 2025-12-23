@@ -27,7 +27,7 @@ const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
 const modulesPath = adminPath + "_config_/_modules_.json";
-let hardware = { "model": "Unknown" };
+let hardware = { "model":"Unknown" };
 if (process.env.PRODUCTION === "true")
 	try {
 		hardware["model"] = readFileSync( "/dev/dongle_platform/model", "utf-8").trimEnd();
@@ -164,9 +164,9 @@ const mdcEndpoints = () => {
 				if (dataStorage)
 					ret["storage"] = {
 						usage: parseFloat(dataStorage.use.toFixed(2)), //%
-						size: parseFloat((dataStorage.size / (1024 * 1024)).toFixed(0)), //MB
-						used: parseFloat((dataStorage.used / (1024 * 1024)).toFixed(0)), //MB
-						available: parseFloat((dataStorage.available / (1024 * 1024)).toFixed(0)) //MB
+						size: parseFloat((dataStorage.size / (1000 * 1000)).toFixed(0)), //MB
+						used: parseFloat((dataStorage.used / (1000 * 1000)).toFixed(0)), //MB
+						available: parseFloat((dataStorage.available / (1000 * 1000)).toFixed(0)) //MB
 					};
 				const dataNetwork_ = await si.networkStats();
 				let dataNetwork;
@@ -249,14 +249,13 @@ const mdcEndpoints = () => {
 			}, async(ctx) => {
 				if (ctx.context.session?.user?.role != "admin")
 					return Response.json({}, { status: 200 });
-				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh " + ctx.body?.module + " -r";
+				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh -r " + ctx.body?.module;
 				let ret;
 				try {
 					const output = execSync(tbe);
-					console.log("Reset " + ctx.body?.module + ":\n", output);
-					ret = { status:"success" };
+					ret = { status:"success", log:output.toString() };
 				} catch (error) {
-					ret = { status:"error" };
+					ret = { status:"error", log:output.toString() };
 				}
 				return Response.json(ret, { status:200 });
 			}),
