@@ -250,14 +250,13 @@ const mdcEndpoints = () => {
 				if (ctx.context.session?.user?.role != "admin")
 					return Response.json({}, { status: 200 });
 				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh -r " + ctx.body?.module;
-				let ret;
+				let ret = false;
+				let output;
 				try {
-					const output = execSync(tbe);
-					ret = { status:"success", log:output.toString() };
-				} catch (error) {
-					ret = { status:"error", log:output.toString() };
-				}
-				return Response.json(ret, { status:200 });
+					output = execSync(tbe);
+					ret = true;
+				} catch (e) {}
+				return Response.json({ status:ret ? "success" : "error", log:output.toString() }, { status:200 });
 			}),
 
 			moduleConfig: createAuthEndpoint("/module/config", {
