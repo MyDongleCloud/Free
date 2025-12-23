@@ -22,7 +22,7 @@
 		"addConfigEnd": "SetEnvIf Request_URI \"^/index.php\" no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"config": true,
 		"enabled": true,
-		"localPort": 9500,
+		"localPort": 9501,
 		"permissions": [
 			"_groupadmin_"
 		],

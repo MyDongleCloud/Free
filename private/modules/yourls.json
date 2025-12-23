@@ -22,7 +22,7 @@
 		"config": true,
 		"enabled": true,
 		"homepage": "/admin",
-		"localPort": 9504,
+		"localPort": 9505,
 		"permissions": [
 			"_groupadmin_"
 		],

@@ -20,7 +20,7 @@
 	"proprietary": "Medium",
 	"default": {
 		"enabled": true,
-		"localPort": 9503,
+		"localPort": 9504,
 		"permissions": [
 			"_groupadmin_"
 		]

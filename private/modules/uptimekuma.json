@@ -17,7 +17,7 @@
 	"proprietary": "",
 	"default": {
 		"enabled": true,
-		"localPort": 9498,
+		"localPort": 9499,
 		"permissions": [
 			"_groupadmin_"
 		]

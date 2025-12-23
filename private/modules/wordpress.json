@@ -20,7 +20,7 @@
 	"proprietary": "Wix|Squarespace",
 	"default": {
 		"enabled": true,
-		"localPort": 9502,
+		"localPort": 9503,
 		"permissions": [
 			"_groupadmin_"
 		]
