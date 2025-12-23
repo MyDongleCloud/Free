@@ -18,6 +18,7 @@
 	],
 	"proprietary": "Plex|Emby",
 	"default": {
+		"addConfigEnd": "SetEnvIf Request_URI ^/web/$ no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"enabled": true,
 		"localPort": 9431,
 		"permissions": [
