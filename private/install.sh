@@ -349,6 +349,7 @@ if [ $OS = "pios" ]; then
 	apt-get -y purge python3-rpi-lgpio rpicam-apps-core rpicam-apps-lite
 fi
 apt-get -y autoremove
+rm -f /etc/udev/rules.d/99-rpi-keyboard.rules
 rm -f /etc/systemd/system/multi-user.target.wants/nginx.service
 rm -f /etc/systemd/system/multi-user.target.wants/named.service
 rm -f /etc/systemd/system/multi-user.target.wants/sshswitch.service
