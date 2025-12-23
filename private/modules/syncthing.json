@@ -6,7 +6,7 @@
 	"version": "1.30.0",
 	"installMethod": "clone",
 	"web": true,
-	"finished": false,
+	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "syncthing/syncthing",
@@ -19,10 +19,24 @@
 	],
 	"proprietary": "Dropbox|Google Drive",
 	"default": {
+		"addConfigBegin": "RequestHeader set Host localhost",
 		"enabled": true,
 		"localPort": 9489,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8384,
+				"path": "/"
+			}
+		],
+		"services": [
+			"syncthing"
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }
