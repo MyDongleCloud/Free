@@ -46,7 +46,7 @@ echo "{ \"apikey\":\"${SALT}\" }" > /disk/admin/modules/_config_/typesense.json
 mkdir /disk/admin/modules/typesensedashboard
 cat > /disk/admin/modules/typesensedashboard/config.json << EOF
 {
-	"apiKey": ${SALT},
+	"apiKey": "${SALT}",
 	"node": {
 		"host": "AUTO",
 		"path": "/api"
