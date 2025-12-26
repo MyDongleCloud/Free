@@ -3,7 +3,7 @@
 	"name": "PrivateBin",
 	"title": "Private Pastebin",
 	"category": "Utils",
-	"version": "1.7.8",
+	"version": "2.0.3",
 	"installMethod": "clone",
 	"web": true,
 	"finished": true,
