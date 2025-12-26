@@ -48,7 +48,7 @@ cat > /disk/admin/modules/typesensedashboard/config.json << EOF
 {
 	"apiKey": "${SALT}",
 	"node": {
-		"host": "AUTO",
+		"host": "SAME",
 		"path": "/api"
 	}
 }
