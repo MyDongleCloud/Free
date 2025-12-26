@@ -15,6 +15,8 @@ This is the list of all used ports in the image, separated between listening por
 - redis: 6379
 - frp: 7400
 - meilisearch: 7700
+- metube: 8089 (reverseproxy)
+- triliumnotes: 8090 (reverseproxy)
 - betterauth: 8091 (reverseproxy)
 - mydongecloud app: 8093 (socket), 8094 (reverseproxy)
 - zigbee2mqtt: 8095 (reverseproxy)
@@ -27,6 +29,8 @@ This is the list of all used ports in the image, separated between listening por
 - pipedbackend: 8102 (reverseproxy)
 - pipedproxy: 8103 (reverseproxy)
 - shields: 8104 (reverseproxy)
+- stirlingpdf: 8105 (reverseproxy)
+- microbin: 8106 (reverseproxy)
 - syncthing: 8384 (reverseproxy)
 - rspamd: 11332, 11333, 11334
 - stremio: 11470 (reverseproxy)
@@ -43,10 +47,7 @@ This is the list of all used ports in the image, separated between listening por
 
 ### Listening ports (external) should be device only
 - homeassistant: 1900, 5353, 8123
-- metube: 8089 (reverseproxy)
-- triliumnotes: 8090 (reverseproxy)
 - audiobookshelf: 8092 (reverseproxy)
-- stirlingpdf: 8105 (reverseproxy)
 - cockpit: 9090 (reverseproxy)
 
 ### Outgoing ports
