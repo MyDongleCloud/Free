@@ -76,5 +76,12 @@ EOF
 php /tmp/yourls.php > /tmp/reset-yourls-$DATE.log 2>&1
 rm /tmp/yourls.php
 
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
+USE yourlsDB;
+DELETE FROM yourls_url;
+INSERT INTO yourls_url (keyword, url, title, timestamp, ip, clicks) VALUES ('mdc', 'https://mydongle.cloud', 'MyDongle.Cloud website', NOW(), '', 0);
+UPDATE yourls_options SET option_value='a:2:{i:0;s:27:"random-shorturls/plugin.php";i:1;s:27:"allow-privatebin/plugin.php";}' WHERE option_name ='active_plugins';
+EOF
+
 rm -f /disk/admin/modules/yourls/conf.txt
 echo "{\"username\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/yourls.json
