@@ -24,6 +24,7 @@
 		"homepage": "/admin",
 		"localPort": 9505,
 		"permissions": [
+			"_dongle_",
 			"_groupadmin_"
 		],
 		"reset": true,
