@@ -50,6 +50,8 @@ if [ $FORCE = 0 -a "m`blockdev --getsize64 ${DISK}`" != "m128035676160" ]; then
 	exit 0
 fi
 
+DATESTART=`date +%s`
+
 umount ${DISK}*
 umount ${DISK}*
 rm -f ../build/img/flasher-m${POSTNAME}-s.img ../build/img/upgrade.bin ../build/img/partition1.zip
@@ -149,7 +151,11 @@ EOF
 	echo "######## WARNING ########"
 	echo "${ROOTFS}/etc/fstab has been modified. It will be reverted once squashfs is finished"
 	cd ${ROOTFS}
+	DATESTARTS=`date +%s`
 	mksquashfs . /tmp/os${POSTNAME}.img -ef /tmp/squashfs-exclude.txt
+	DATEFINISHS=`date +%s`
+	DELTAS=$((DATEFINISHS - DATESTARTS))
+	echo "Squashfs done in $((DELTAS / 60))m $((DELTAS % 60))s"
 	cd ${PP}
 	sed -i -e 's|LABEL=rootfs  /disk|#LABEL=rootfs  /disk|' ${ROOTFS}/etc/fstab
 	rm -f /tmp/squashfs-exclude.txt
@@ -250,3 +256,7 @@ EOF
 	echo -n "\e[m"
 	echo "*******************************************************"
 fi
+
+DATEFINISH=`date +%s`
+DELTA=$((DATEFINISH - DATESTART))
+echo "Done in $((DELTA / 60))m $((DELTA % 60))s"
