@@ -292,7 +292,7 @@ else
 	clone tabby/crates/llama-cpp-server/llama.cpp ggerganov/llama.cpp 16cc3c606efe1640a165f666df0e0dc7cc2ad869
 	clone transform ritz078/transform e1294208
 	clone tubesync meeb/tubesync v0.15.10
-	clone typesensedashboard bfritscher/typesense-dashboard v2.4.1
+	clone typesensedashboard bfritscher/typesense-dashboard v2.4.4
 	clone umtpresponder viveris/uMTP-Responder umtprd-1.6.8
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webssh2 billchurch/webssh2 webssh2-server-v2.3.4
