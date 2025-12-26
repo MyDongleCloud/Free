@@ -163,7 +163,6 @@ async getSession() {
 	this.consolelog(2, "Auth get-session: ", this.session);
 	if (this.session != null) {
 		const jwt = await this.httpClient.get("/_app_/auth/token", {headers:{"content-type": "application/json"}}).toPromise();
-		this.setCookie("jwt", jwt["token"]);
 		this.settings = JSON.parse(this.session.user.settings);
 		await this.translate.use(this.settings.lang);
 		await this.modulesDataPrepare();

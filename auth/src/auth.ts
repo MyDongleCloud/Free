@@ -66,6 +66,19 @@ export const jwkInit = async () => {
 	writeFileSync(jwkPath, fileContent, "utf-8");
 }
 
+function findDomain(hostname) {
+	const fqdn = hostname.replace(/^([^:]*)(?::\d+)?$/i, '$1');
+	let domain;
+	const parts = fqdn.split('.');
+	if (parts.length <= 2 || !isNaN(Number(parts[parts.length - 1])))
+		domain = fqdn;
+	else {
+		const sliceIndex = (parts[parts.length - 2] === "mydongle" || parts[parts.length - 2] === "mondongle" || parts[parts.length - 2] === "myd") ? -3 : -2;
+		domain = parts.slice(sliceIndex).join('.');
+	}
+	return domain;
+}
+
 const sendToDongle = (data) => {
 	const client = net.createConnection({ host:"127.0.0.1", port:8093 });
 	client.on("connect", () => {
@@ -415,6 +428,14 @@ export const auth = betterAuth({
 					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"]?.email !== "")
 						sendSignInNotification(ctx.context.returned?.["user"]?.email);
 				}
+			}
+			if (ctx.path == "/token" && ctx.context.returned?.["token"]) {
+				ctx.setCookie("jwt", ctx.context.returned["token"], {
+					httpOnly: true,
+					domain: findDomain(ctx.request?.headers.get("host") || ""),
+					path: "/"
+				});
+				ctx.context.returned["token"] = "";
 			}
 			if (ctx.path == "/sign-up/email") {
 				if (statusDemo)
