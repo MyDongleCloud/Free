@@ -24,54 +24,52 @@ typedef struct {
 #define PRINTFc_(level, format, ...) {ap_log_cerror(APLOG_MARK, level, 0, f->c, format, ##__VA_ARGS__);}
 #define PRINTFc(format, ...) PRINTFc_(APLOG_ERR, format, ##__VA_ARGS__)
 
-#define APP_V_USERNAME "_app_username_"
-#define APP_V_EMAIL "_app_email_@app.com"
-#define APP_V_EMAIL2 "_app_email_%40app.com"
-#define APP_V_PASSWORD "_app_.1.Password_"
-#define APP_N_USERNAME "username"
-#define APP_N_EMAIL "email"
-#define APP_N_PASSWORD "password"
+#define VAL0 "_app_username_"
+#define VAL1 "_app_email_@app.com"
+#define VAL2 "_app_.1.Password_"
+#define VAL3 "_app_email_%40app.com"
+#define VAL4 ""
 #define CONF_PATH "/disk/admin/modules/_config_/%s.json"
 #define INJECTION "<script type='module'>\n\
 </script>"
 
 static char *html[][8] = {
-	{ "adminer", "/conf.php", "form[method=post]", "input[name=\"auth[username]\"]", "input[name=\"auth[password]\"]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "bugzilla", "/index.cgi", "form[id=mini_login_top]", "input[name=Bugzilla_login]", "input[name=Bugzilla_password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "homeassistant", NULL, "form", "input[name=username]", "input[name=password]", "ha-button", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "homeassistant", "/auth/authorize", "form", "input[name=username]", "input[name=password]", "ha-button", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "jellyfin", "/web/", "form[class*=manualLoginForm]", "input[id=txtManualName]", "input[id=txtManualPassword]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "librechat", NULL, "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
-	{ "librechat", "/login", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
-	{ "limesurvey", "/index.php/admin/authentication/sa/login", "form[name=loginform]", "input[name=user]", "input[name=password]", "button[name=login_submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "mantisbugtracker", "/login_page.php", "form[id=login-form]", "input[name=username]", "", "input[type=submit]", APP_V_USERNAME, "" },
-	{ "mantisbugtracker", "/login_password_page.php", "form[id=login-form]", "input[name=username]", "input[name=password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "openwebui", "/auth", "form", "input[id=email]", "input[id=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
-	{ "osticket", "/scp/login.php", "form[id=login]",  "input[name=userid]", "input[name=passwd]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "projectsend", "/index.php", "form[id=login_form]", "input[name=username]", "input[name=password]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "roundcube", "/index.php", "form[id=login-form]", "input[name=_user]", "input[name=_pass]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
-	{ "tabby", NULL, "form", "input[name=email]", "input[name=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
-	{ "tabby", "/auth/signin", "form", "input[name=email]", "input[name=password]", "button[type=submit]", APP_V_EMAIL, APP_V_PASSWORD },
-	{ "webtrees", "/index.php", "form[class=\"wt-page-options wt-page-options-login\"]", "input[name=username]", "input[name=password]", "button[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
-	{ "yourls", "/admin/index.php", "form[method=post]", "input[name=username]", "input[name=password]", "input[type=submit]", APP_V_USERNAME, APP_V_PASSWORD },
+	{ "adminer", "/conf.php", "form[method=post]", "input[name=\"auth[username]\"]", "input[name=\"auth[password]\"]", "input[type=submit]", VAL0, VAL2 },
+	{ "bugzilla", "/index.cgi", "form[id=mini_login_top]", "input[name=Bugzilla_login]", "input[name=Bugzilla_password]", "input[type=submit]", VAL0, VAL2 },
+	{ "homeassistant", "/", "form", "input[name=username]", "input[name=password]", "ha-button", VAL0, VAL2 },
+	{ "homeassistant", "/auth/authorize", "form", "input[name=username]", "input[name=password]", "ha-button", VAL0, VAL2 },
+	{ "jellyfin", "/web/", "form[class*=manualLoginForm]", "input[id=txtManualName]", "input[id=txtManualPassword]", "button[type=submit]", VAL0, VAL2 },
+	{ "librechat", "/", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", VAL1, VAL2 },
+	{ "librechat", "/login", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", VAL1, VAL2 },
+	{ "limesurvey", "/index.php/admin/authentication/sa/login", "form[name=loginform]", "input[name=user]", "input[name=password]", "button[name=login_submit]", VAL0, VAL2 },
+	{ "mantisbugtracker", "/login_page.php", "form[id=login-form]", "input[name=username]", VAL4, "input[type=submit]", VAL0, VAL4 },
+	{ "mantisbugtracker", "/login_password_page.php", "form[id=login-form]", "input[name=username]", "input[name=password]", "input[type=submit]", VAL0, VAL2 },
+	{ "openwebui", "/auth", "form", "input[id=email]", "input[id=password]", "button[type=submit]", VAL1, VAL2 },
+	{ "osticket", "/scp/login.php", "form[id=login]",  "input[name=userid]", "input[name=passwd]", "button[type=submit]", VAL0, VAL2 },
+	{ "projectsend", "/index.php", "form[id=login_form]", "input[name=username]", "input[name=password]", "button[type=submit]", VAL0, VAL2 },
+	{ "roundcube", "/index.php", "form[id=login-form]", "input[name=_user]", "input[name=_pass]", "button[type=submit]", VAL1, VAL2 },
+	{ "tabby", "/", "form", "input[name=email]", "input[name=password]", "button[type=submit]", VAL1, VAL2 },
+	{ "tabby", "/auth/signin", "form", "input[name=email]", "input[name=password]", "button[type=submit]", VAL1, VAL2 },
+	{ "webtrees", "/index.php", "form[class=\"wt-page-options wt-page-options-login\"]", "input[name=username]", "input[name=password]", "button[type=submit]", VAL0, VAL2 },
+	{ "yourls", "/admin/index.php", "form[method=post]", "input[name=username]", "input[name=password]", "input[type=submit]", VAL0, VAL2 },
 };
 
 static char *post[][6] = {
-	{ "adminer", "/conf.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "bugzilla", "/index.cgi", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "homeassistant", "/auth/login_flow", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "jellyfin", "/Users/authenticatebyname", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "librechat", "/api/auth/login", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
-	{ "limesurvey", "/index.php/admin/authentication/sa/login", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "mantisbugtracker", "/login_password_page.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "mantisbugtracker", "/login.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "openwebui", "/api/v1/auths/signin", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
-	{ "osticket", "/scp/login.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "projectsend", "/index.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "roundcube", "/index.php", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
-	{ "tabby", "/graphql", APP_N_EMAIL, APP_N_PASSWORD , APP_V_EMAIL, APP_V_PASSWORD },
-	{ "webtrees", "/index.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD },
-	{ "yourls", "/admin/index.php", APP_N_USERNAME, APP_N_PASSWORD , APP_V_USERNAME, APP_V_PASSWORD }
+	{ "adminer", "/conf.php", "username", "password" , VAL0, VAL2 },
+	{ "bugzilla", "/index.cgi", "username", "password" , VAL0, VAL2 },
+	{ "homeassistant", "/auth/login_flow", "username", "password" , VAL0, VAL2 },
+	{ "jellyfin", "/Users/authenticatebyname", "username", "password" , VAL0, VAL2 },
+	{ "librechat", "/api/auth/login", "email", "password" , VAL1, VAL2 },
+	{ "limesurvey", "/index.php/admin/authentication/sa/login", "username", "password" , VAL0, VAL2 },
+	{ "mantisbugtracker", "/login_password_page.php", "username", "password" , VAL0, VAL2 },
+	{ "mantisbugtracker", "/login.php", "username", "password" , VAL0, VAL2 },
+	{ "openwebui", "/api/v1/auths/signin", "email", "password" , VAL1, VAL2 },
+	{ "osticket", "/scp/login.php", "username", "password" , VAL0, VAL2 },
+	{ "projectsend", "/index.php", "username", "password" , VAL0, VAL2 },
+	{ "roundcube", "/index.php", "email", "password" , VAL1, VAL2 },
+	{ "tabby", "/graphql", "email", "password" , VAL1, VAL2 },
+	{ "webtrees", "/index.php", "username", "password" , VAL0, VAL2 },
+	{ "yourls", "/admin/index.php", "username", "password" , VAL0, VAL2 }
 };
 
 //Functions
@@ -140,7 +138,7 @@ static void replace(ap_filter_t *f, char *input, char *search1, char *search2, c
 		strcat(tmp, posArg1 + strlen(search1));
 	} else {
 		if (strchr(search1, '@') != NULL) {
-			replace(f, input, APP_V_EMAIL2, search2, arg1, arg2, output);
+			replace(f, input, VAL3, search2, arg1, arg2, output);
 			return;
 		}
 		tmp = malloc(strlen(input) + 1);
@@ -237,7 +235,7 @@ static void insert_filter(request_rec *r) {
 		int c = strcmp(confVH->name, html[i][0]);
 		if (c < 0)
 			break;
-		if (c == 0 && ((html[i][1] == NULL && strcmp(r->uri, "/") == 0) || (html[i][1] != NULL && strncmp(r->uri, html[i][1], strlen(html[i][1])) == 0))) {
+		if (c == 0 && memcmp(r->uri, html[i][1], strlen(html[i][1]) + (strlen(html[i][1]) == 1 ? 1 : 0)) == 0) {
 			if (!ctx)
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundHtml = i;
@@ -253,7 +251,7 @@ static void insert_filter(request_rec *r) {
 		int c = strcmp(confVH->name, post[i][0]);
 		if (c < 0)
 			break;
-		if (c == 0 && strncmp(r->uri, post[i][1], strlen(post[i][1])) == 0) {
+		if (c == 0 && memcmp(r->uri, post[i][1], strlen(post[i][1])) == 0) {
 			if (!ctx)
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundPost = i;
