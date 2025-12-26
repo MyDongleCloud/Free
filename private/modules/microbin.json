@@ -1,0 +1,41 @@
+{
+	"module": "microbin",
+	"name": "MicroBin",
+	"title": "Simple Pastebin",
+	"category": "Utils",
+	"version": "v2.0.4",
+	"installMethod": "clone",
+	"web": true,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "szabodanika/microbin",
+	"description": "A minimalist online pastebin with zero knowledge of pasted data.",
+	"keywords": [
+		"Pastebin",
+		"Privacy",
+		"Zero-knowledge",
+		"Web"
+	],
+	"proprietary": "Pastebin",
+	"default": {
+		"enabled": true,
+		"localPort": 9507,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8106,
+				"path": "/"
+			}
+		],
+		"services": [
+			"microbin"
+		],
+		"setup": true,
+		"setupDependencies": []
+	}
+}

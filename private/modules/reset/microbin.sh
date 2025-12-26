@@ -1,0 +1,38 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for microbin [-h -r]"
+echo "h:	Print this usage and exit"
+echo "r:	Reset"
+exit 0
+}
+
+if [ "m`id -u`" = "m0" ]; then
+	echo "You should not be root"
+	exit 0
+fi
+
+RESET=0
+while getopts hr opt
+do
+	case "$opt" in
+		h) helper;;
+		r) RESET=1;;
+	esac
+done
+
+if [ $RESET != 1 ]; then
+	exit 0
+fi
+
+echo "#Reset microbin##################"
+systemctl stop microbin.service
+rm -rf /disk/admin/modules/microbin
+mkdir /disk/admin/modules/microbin
+cp /usr/local/modules/microbin/.env /disk/admin/modules/microbin/
+sed -i -e 's/export MICROBIN_PORT=8080/export MICROBIN_PORT=8106/' /disk/admin/modules/microbin/.env
+sed -i -e 's/export MICROBIN_BIND="0.0.0.0"/export MICROBIN_BIND="127.0.0.1"/' /disk/admin/modules/microbin/.env
+sed -i -e 's/export MICROBIN_DATA_DIR="microbin_data"/export MICROBIN_DATA_DIR="/disk/admin/modules/microbin"/' /disk/admin/modules/microbin/.env
+systemctl start microbin.service
+systemctl enable microbin.service
