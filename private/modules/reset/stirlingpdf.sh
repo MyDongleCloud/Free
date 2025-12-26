@@ -32,6 +32,7 @@ rm -rf /disk/admin/modules/stirlingpdf
 mkdir -p /disk/admin/modules/stirlingpdf/configs
 cat > /disk/admin/modules/stirlingpdf/configs/custom_settings.yml << EOF
 server:
+  address: 127.0.0.1
   port: 8105
 
 system:
