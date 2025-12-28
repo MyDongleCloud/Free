@@ -19,6 +19,7 @@
 	],
 	"proprietary": "Jira",
 	"default": {
+		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
 		"autoLogin": {
 			"inject": [
 				{
@@ -41,7 +42,6 @@
 				}
 			]
 		},
-		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
 		"config": true,
 		"enabled": true,
 		"followSymLinks": true,

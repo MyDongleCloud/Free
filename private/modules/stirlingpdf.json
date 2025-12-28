@@ -35,9 +35,9 @@
 		"services": [
 			"stirlingpdf"
 		],
+		"setup": true,
 		"setupDependencies": [
 			"java"
-		],
-		"setup": true
+		]
 	}
 }

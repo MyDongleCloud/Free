@@ -28,7 +28,7 @@
 				{
 					"url": "/scp/login.php",
 					"form": "form[id=login]",
-					"arg1":  "input[name=userid]",
+					"arg1": "input[name=userid]",
 					"arg2": "input[name=passwd]",
 					"arg3": "button[type=submit]",
 					"val1": 0,

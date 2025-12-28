@@ -20,6 +20,9 @@
 	"proprietary": "Samsung SmartThings",
 	"default": {
 		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tSetEnvIf Request_URI ^/auth/authorize no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"alias": [
+			"home"
+		],
 		"autoLogin": {
 			"inject": [
 				{
@@ -51,9 +54,6 @@
 				}
 			]
 		},
-		"alias": [
-			"home"
-		],
 		"config": true,
 		"enabled": true,
 		"localPort": 9425,
