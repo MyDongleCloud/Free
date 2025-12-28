@@ -34,42 +34,9 @@ typedef struct {
 </script>"
 
 static char *html[][8] = {
-	{ "adminer", "/conf.php", "form[method=post]", "input[name=\"auth[username]\"]", "input[name=\"auth[password]\"]", "input[type=submit]", VAL0, VAL2 },
-	{ "bugzilla", "/index.cgi", "form[id=mini_login_top]", "input[name=Bugzilla_login]", "input[name=Bugzilla_password]", "input[type=submit]", VAL0, VAL2 },
-	{ "homeassistant", "/", "form", "input[name=username]", "input[name=password]", "ha-button", VAL0, VAL2 },
-	{ "homeassistant", "/auth/authorize", "form", "input[name=username]", "input[name=password]", "ha-button", VAL0, VAL2 },
-	{ "jellyfin", "/web/", "form[class*=manualLoginForm]", "input[id=txtManualName]", "input[id=txtManualPassword]", "button[type=submit]", VAL0, VAL2 },
-	{ "librechat", "/", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", VAL1, VAL2 },
-	{ "librechat", "/login", "form[method=POST]", "input[id=email]", "input[id=password]", "button[type=submit]", VAL1, VAL2 },
-	{ "limesurvey", "/index.php/admin/authentication/sa/login", "form[name=loginform]", "input[name=user]", "input[name=password]", "button[name=login_submit]", VAL0, VAL2 },
-	{ "mantisbugtracker", "/login_page.php", "form[id=login-form]", "input[name=username]", VAL4, "input[type=submit]", VAL0, VAL4 },
-	{ "mantisbugtracker", "/login_password_page.php", "form[id=login-form]", "input[name=username]", "input[name=password]", "input[type=submit]", VAL0, VAL2 },
-	{ "openwebui", "/auth", "form", "input[id=email]", "input[id=password]", "button[type=submit]", VAL1, VAL2 },
-	{ "osticket", "/scp/login.php", "form[id=login]",  "input[name=userid]", "input[name=passwd]", "button[type=submit]", VAL0, VAL2 },
-	{ "projectsend", "/index.php", "form[id=login_form]", "input[name=username]", "input[name=password]", "button[type=submit]", VAL0, VAL2 },
-	{ "roundcube", "/index.php", "form[id=login-form]", "input[name=_user]", "input[name=_pass]", "button[type=submit]", VAL1, VAL2 },
-	{ "tabby", "/", "form", "input[name=email]", "input[name=password]", "button[type=submit]", VAL1, VAL2 },
-	{ "tabby", "/auth/signin", "form", "input[name=email]", "input[name=password]", "button[type=submit]", VAL1, VAL2 },
-	{ "webtrees", "/index.php", "form[class=\"wt-page-options wt-page-options-login\"]", "input[name=username]", "input[name=password]", "button[type=submit]", VAL0, VAL2 },
-	{ "yourls", "/admin/index.php", "form[method=post]", "input[name=username]", "input[name=password]", "input[type=submit]", VAL0, VAL2 },
 };
 
 static char *post[][6] = {
-	{ "adminer", "/conf.php", "username", "password" , VAL0, VAL2 },
-	{ "bugzilla", "/index.cgi", "username", "password" , VAL0, VAL2 },
-	{ "homeassistant", "/auth/login_flow", "username", "password" , VAL0, VAL2 },
-	{ "jellyfin", "/Users/authenticatebyname", "username", "password" , VAL0, VAL2 },
-	{ "librechat", "/api/auth/login", "email", "password" , VAL1, VAL2 },
-	{ "limesurvey", "/index.php/admin/authentication/sa/login", "username", "password" , VAL0, VAL2 },
-	{ "mantisbugtracker", "/login_password_page.php", "username", "password" , VAL0, VAL2 },
-	{ "mantisbugtracker", "/login.php", "username", "password" , VAL0, VAL2 },
-	{ "openwebui", "/api/v1/auths/signin", "email", "password" , VAL1, VAL2 },
-	{ "osticket", "/scp/login.php", "username", "password" , VAL0, VAL2 },
-	{ "projectsend", "/index.php", "username", "password" , VAL0, VAL2 },
-	{ "roundcube", "/index.php", "email", "password" , VAL1, VAL2 },
-	{ "tabby", "/graphql", "email", "password" , VAL1, VAL2 },
-	{ "webtrees", "/index.php", "username", "password" , VAL0, VAL2 },
-	{ "yourls", "/admin/index.php", "username", "password" , VAL0, VAL2 }
 };
 
 //Functions

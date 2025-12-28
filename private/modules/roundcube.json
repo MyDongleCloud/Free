@@ -22,6 +22,28 @@
 		"alias": [
 			"webmail"
 		],
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/index.php",
+					"form": "form[id=login-form]",
+					"arg1": "input[name=_user]",
+					"arg2": "input[name=_pass]",
+					"arg3": "button[type=submit]",
+					"val1": 1,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/index.php",
+					"arg1": "email",
+					"arg2": "password",
+					"val1": 1,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"enabled": true,
 		"localPort": 9478,

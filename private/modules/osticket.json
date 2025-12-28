@@ -23,6 +23,28 @@
 			"helpdesk",
 			"support"
 		],
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/scp/login.php",
+					"form": "form[id=login]",
+					"arg1":  "input[name=userid]",
+					"arg2": "input[name=passwd]",
+					"arg3": "button[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/scp/login.php",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"enabled": true,
 		"localPort": 9458,

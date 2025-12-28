@@ -20,6 +20,28 @@
 	],
 	"proprietary": "",
 	"default": {
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/conf.php",
+					"form": "form[method=post]",
+					"arg1": "input[name=\\\"auth[username]\\\"]",
+					"arg2": "input[name=\\\"auth[password]\\\"]",
+					"arg3": "input[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/conf.php",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"directoryIndex": "conf.php",
 		"enabled": true,

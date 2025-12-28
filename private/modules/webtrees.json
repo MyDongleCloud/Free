@@ -20,6 +20,28 @@
 	"proprietary": "Ancestry.com",
 	"default": {
 		"addConfigEnd": "SetEnvIf Request_URI \"^/index.php\" no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/index.php",
+					"form": "form[class=\\\"wt-page-options wt-page-options-login\\\"]",
+					"arg1": "input[name=username]",
+					"arg2": "input[name=password]",
+					"arg3": "button[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/index.php",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"enabled": true,
 		"localPort": 9501,

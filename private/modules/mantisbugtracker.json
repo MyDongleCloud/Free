@@ -20,6 +20,44 @@
 	"proprietary": "Jira",
 	"default": {
 		"addConfigEnd": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/login_page.php",
+					"form": "form[id=login-form]",
+					"arg1": "input[name=username]",
+					"arg2": "",
+					"arg3": "input[type=submit]",
+					"val1": 0,
+					"val2": 4
+				},
+				{
+					"url": "/login_password_page.php",
+					"form": "form[id=login-form]",
+					"arg1": "input[name=username]",
+					"arg2": "input[name=password]",
+					"arg3": "input[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/login_password_page.php",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				},
+				{
+					"url": "/login.php",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"enabled": true,
 		"localPort": 9444,

@@ -19,6 +19,28 @@
 	"proprietary": "Bitly",
 	"default": {
 		"addLineInDirectory": "RewriteBase /\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule ^.*$ /yourls-loader.php [L]",
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/admin/index.php",
+					"form": "form[method=post]",
+					"arg1": "input[name=username]",
+					"arg2": "input[name=password]",
+					"arg3": "input[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/admin/index.php",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"enabled": true,
 		"homepage": "/admin",

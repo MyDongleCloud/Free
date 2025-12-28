@@ -19,6 +19,28 @@
 	],
 	"proprietary": "SurveyMonkey",
 	"default": {
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/index.php/admin/authentication/sa/login",
+					"form": "form[name=loginform]",
+					"arg1": "input[name=user]",
+					"arg2": "input[name=password]",
+					"arg3": "button[name=login_submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/index.php/admin/authentication/sa/login",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"enabled": true,
 		"followSymLinks": true,

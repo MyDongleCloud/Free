@@ -18,6 +18,37 @@
 	"proprietary": "",
 	"default": {
 		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tSetEnvIf Request_URI ^/login no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/",
+					"form": "form[method=POST]",
+					"arg1": "input[id=email]",
+					"arg2": "input[id=password]",
+					"arg3": "button[type=submit]",
+					"val1": 1,
+					"val2": 2
+				},
+				{
+					"url": "/login",
+					"form": "form[method=POST]",
+					"arg1": "input[id=email]",
+					"arg2": "input[id=password]",
+					"arg3": "button[type=submit]",
+					"val1": 1,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/api/auth/login",
+					"arg1": "email",
+					"arg2": "password",
+					"val1": 1,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"enabled": true,
 		"localPort": 9437,

@@ -19,6 +19,28 @@
 	],
 	"proprietary": "Jira",
 	"default": {
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/index.cgi",
+					"form": "form[id=mini_login_top]",
+					"arg1": "input[name=Bugzilla_login]",
+					"arg2": "input[name=Bugzilla_password]",
+					"arg3": "input[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/index.cgi",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
 		"config": true,
 		"enabled": true,

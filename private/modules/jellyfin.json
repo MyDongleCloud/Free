@@ -19,6 +19,28 @@
 	"proprietary": "Plex|Emby",
 	"default": {
 		"addConfigEnd": "SetEnvIf Request_URI ^/web/$ no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/web/",
+					"form": "form[class*=manualLoginForm]",
+					"arg1": "input[id=txtManualName]",
+					"arg2": "input[id=txtManualPassword]",
+					"arg3": "button[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/Users/authenticatebyname",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
 		"enabled": true,
 		"localPort": 9431,
 		"permissions": [

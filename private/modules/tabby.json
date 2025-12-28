@@ -22,6 +22,37 @@
 		"alias": [
 			"aicode"
 		],
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/",
+					"form": "form",
+					"arg1": "input[name=email]",
+					"arg2": "input[name=password]",
+					"arg3": "button[type=submit]",
+					"val1": 1,
+					"val2": 2
+				},
+				{
+					"url": "/auth/signin",
+					"form": "form",
+					"arg1": "input[name=email]",
+					"arg2": "input[name=password]",
+					"arg3": "button[type=submit]",
+					"val1": 1,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/graphql",
+					"arg1": "email",
+					"arg2": "password",
+					"val1": 1,
+					"val2": 2
+				}
+			]
+		},
 		"config": true,
 		"configFile": "/disk/admin/modules/tabby/config.toml",
 		"enabled": true,
