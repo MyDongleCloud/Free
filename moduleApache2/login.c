@@ -115,7 +115,7 @@ static void replace(ap_filter_t *f, char *input, char *search1, char *search2, c
 	if (posArg2 && arg2) {
 		*posArg2 = '\0';
 		*output = apr_pstrcat(f->r->pool, tmp, arg2, posArg2 + strlen(search2), NULL);
-	} else//Case impossible
+	} else
 		*output = apr_pstrcat(f->r->pool, tmp, NULL);
 	free(tmp);
 }
@@ -162,15 +162,13 @@ static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input
 			if (el) {
 				char *arg1 = cJSON_GetStringValue2(el, post[ctx->foundPost][2]);
 				char *arg2 = cJSON_GetStringValue2(el, post[ctx->foundPost][3]);
-				if (arg1 && arg2) {
-					replace(f, buffer, post[ctx->foundPost][4], post[ctx->foundPost][5], arg1, arg2, &newBuffer);
-					ret = 1;
-					len = strlen(newBuffer);
-					//PRINTFc("APP: Post After %lu##%s##", len, newBuffer);
-					char *len_str = apr_palloc(f->r->pool, 32);
-					snprintf(len_str, 32, "%lu", len);
-					apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
-				}
+				replace(f, buffer, post[ctx->foundPost][4], post[ctx->foundPost][5], arg1, arg2, &newBuffer);
+				ret = 1;
+				len = strlen(newBuffer);
+				//PRINTFc("APP: Post After %lu##%s##", len, newBuffer);
+				char *len_str = apr_palloc(f->r->pool, 32);
+				snprintf(len_str, 32, "%lu", len);
+				apr_table_setn(f->r->subprocess_env, "CONTENT_LENGTH", len_str);
 			}
 		}
 		if (ret == 0)
