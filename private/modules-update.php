@@ -5,6 +5,7 @@ function store($p, $o) {
 
 if (PHP_SAPI !== "cli")
 	exit;
+$bypassGithub = $argc == 2 && $argv[1] == "-n";
 $pathkey = __DIR__ . "/password-githubkey.txt";
 $githubAPIKey = file_get_contents($pathkey);
 $modulesPath = __DIR__ . "/modules";
@@ -53,7 +54,7 @@ foreach ($files as $file) {
 		array_push($modulesSetup, $name);
 	if (isset($module["default"]["reset"]))
 		array_push($modulesReset, $name);
-	if ($module["github"] != "") {
+	if (!$bypassGithub && $module["github"] != "") {
 		$headers = array("Accept: application/json", "Authorization: Bearer " . $githubAPIKey, "X-GitHub-Api-Version: 2022-11-28", "User-Agent: MyDongleCloud");
 		$ch = curl_init("https://api.github.com/repos/" . $module["github"]);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
