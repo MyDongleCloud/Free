@@ -35,27 +35,27 @@
 				{
 					"url": "/login_password_page.php",
 					"form": "form[id=login-form]",
-					"arg1": "input[name=username]",
-					"arg2": "input[name=password]",
+					"arg1": "input[name=password]",
+					"arg2": "",
 					"arg3": "input[type=submit]",
-					"val1": 0,
-					"val2": 2
+					"val1": 2,
+					"val2": 4
 				}
 			],
 			"post": [
 				{
 					"url": "/login_password_page.php",
 					"arg1": "username",
-					"arg2": "password",
+					"arg2": "",
 					"val1": 0,
-					"val2": 2
+					"val2": 4
 				},
 				{
 					"url": "/login.php",
-					"arg1": "username",
-					"arg2": "password",
-					"val1": 0,
-					"val2": 2
+					"arg1": "password",
+					"arg2": "",
+					"val1": 2,
+					"val2": 4
 				}
 			]
 		},
