@@ -207,7 +207,7 @@ const mdcEndpoints = () => {
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				if (ctx.context.session?.user?.role != "admin")
-					return Response.json({}, { status: 200 });
+					return Response.json({}, { status:200 });
 				let path = ctx.body?.path;
 				path = path.replace(/\/\/+/g, "/");
 				while (path.includes("/../"))
@@ -216,16 +216,16 @@ const mdcEndpoints = () => {
 				const fullPath = rootPath + path;
 				const stats = fs.statSync(fullPath);
 				if (stats.isDirectory())
-					return Response.json(folderAndChildren(fullPath), { status: 200 });
+					return Response.json(folderAndChildren(fullPath), { status:200 });
 				else
-					return new Response(fs.readFileSync(fullPath, "utf8"), { status: 200 });
+					return new Response(fs.readFileSync(fullPath, "utf8"), { status:200 });
 			}),
 
 			modulesData: createAuthEndpoint("/modules/data", {
 				method: "GET",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
-				return new Response(fs.readFileSync(modulesPath, "utf-8"), { status: 200 });
+				return new Response(fs.readFileSync(modulesPath, "utf-8"), { status:200 });
 			}),
 
 			modulesPermissions: createAuthEndpoint("/module/permissions", {
@@ -261,7 +261,7 @@ const mdcEndpoints = () => {
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				if (ctx.context.session?.user?.role != "admin")
-					return Response.json({}, { status: 200 });
+					return Response.json({ status:"error" }, { status:200 });
 				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh -r " + ctx.body?.module;
 				let ret = false;
 				let output;
@@ -311,7 +311,7 @@ const mdcEndpoints = () => {
 				const jwks = await jwksRes.json();
 				const key = await jose.importJWK(jwks.keys[0], "ES256") as jose.KeyObject;
 				const pem = await jose.exportSPKI(key);
-				return new Response(pem, { status: 200 });
+				return new Response(pem, { status:200 });
 			})
 		}
 	} satisfies BetterAuthPlugin
@@ -395,14 +395,6 @@ export const auth = betterAuth({
 		mdcEndpoints()
 	],
 	hooks: {
-/*
-		before: createAuthMiddleware(async (ctx) => {
-			console.log("???????????????????????????");
-			//console.log(ctx.headers);
-			console.log(ctx.body);
-			console.log("???????????????????????????");
-		}),
-*/
 		after: createAuthMiddleware(async (ctx) => {
 /*
 			console.log("###########################");
@@ -430,9 +422,10 @@ export const auth = betterAuth({
 				}
 			}
 			if (ctx.path == "/token" && ctx.context.returned?.["token"]) {
+				const domain = findDomain(ctx.request?.headers.get("host") || "");
 				ctx.setCookie("jwt", ctx.context.returned["token"], {
 					httpOnly: true,
-					domain: findDomain(ctx.request?.headers.get("host") || ""),
+					domain,
 					path: "/"
 				});
 				ctx.context.returned["token"] = "";
