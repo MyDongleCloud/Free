@@ -20,6 +20,29 @@
 	],
 	"proprietary": "Evernote",
 	"default": {
+		"addConfigEnd": "SetEnvIf Request_URI ^/login no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/login",
+					"form": "form[action=login]",
+					"arg1": "input[name=password]",
+					"arg2": "",
+					"arg3": "button",
+					"val1": 2,
+					"val2": 4
+				}
+			],
+			"post": [
+				{
+					"url": "/login",
+					"arg1": "password",
+					"arg2": "",
+					"val1": 2,
+					"val2": 4
+				}
+			]
+		},
 		"enabled": true,
 		"localPort": 9494,
 		"permissions": [
