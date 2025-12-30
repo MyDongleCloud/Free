@@ -20,9 +20,18 @@
 	],
 	"proprietary": "",
 	"default": {
-		"addConfigEnd": "SetEnvIf Request_URI ^/auth no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tSetEnvIf Request_URI ^/auth no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"autoLogin": {
 			"inject": [
+				{
+					"url": "/",
+					"form": "form",
+					"arg1": "input[id=email]",
+					"arg2": "input[id=password]",
+					"arg3": "button[type=submit]",
+					"val1": 1,
+					"val2": 2
+				},
 				{
 					"url": "/auth",
 					"form": "form",
