@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { Settings } from './myinterface';
+import { Settings, CategoriesEx } from './myinterface';
 import { VERSION } from './version';
 import modulesDefault from './modulesdefault.json';
 import modulesMeta from './modulesmeta.json';
@@ -412,45 +412,40 @@ colorWord(st, bckgd = true) {
 	if (st == "_disabled_")
 		return (bckgd ? "bg--red-100 " : "") + "text--red-800";
 
-	else if (st == "_public_")
+	if (st == "_public_")
 		return (bckgd ? "bg--green-100 " : "") + "text--green-800";
-	else if (st == "_localnetwork_")
+	if (st == "_localnetwork_")
 		return (bckgd ? "bg--amber-100 " : "") + "text--amber-800";
-	else if (st == "_groupadmin_" || st == "admin")
+	if (st == "_groupadmin_" || st == "admin")
 		return (bckgd ? "bg--orange-100 " : "") + "text--orange-800";
-	else if (st == "_groupuser_" || st == "users")
+	if (st == "_groupuser_" || st == "users")
 		return (bckgd ? "bg--purple-100 " : "") + "text--purple-800";
 
-	else if (st == "Essential")
-		return (bckgd ? "bg--yellow-100 " : "") + "text--yellow-600";
-	else if (st == "Personal")
-		return (bckgd ? "bg--blue-100 " : "") + "text--blue-600";
-	else if (st == "Productivity")
-		return (bckgd ? "bg--purple-100 " : "") + "text--purple-600";
-	else if (st == "Utils")
-		return (bckgd ? "bg--cyan-100 " : "") + "text--cyan-600";
-	else if (st == "Developer")
-		return (bckgd ? "bg--red-100 " : "") + "text--red-600";
-	else if (st == "AI")
-		return (bckgd ? "bg--red-100 " : "") + "text--black";
-
-	else
-		return (bckgd ? "bg--gray-100 " : "") + "text--gray-600";
+	if (CategoriesEx[st])
+		return (bckgd ? "bg--" + CategoriesEx[st].color + "-100 " : "") + "text--" + CategoriesEx[st].color + "-600";
+/*
+bg--yellow-100 text--yellow-600
+bg--purple-100 text--purple-600
+bg--blue-100 text--blue-600
+bg--cyan-100 text--cyan-600
+bg--red-100 text--red-600
+bg--red-100 text--black
+*/
+	return (bckgd ? "bg--gray-100 " : "") + "text--gray-600";
 }
+ 
 
 colorWord2(st) {
-	if (st == "Essential")
-		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--yellow-600)]";
-	else if (st == "Personal")
-		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--blue-600)]";
-	else if (st == "Productivity")
-		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--purple-600)]";
-	else if (st == "Utils")
-		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--cyan-600)]";
-	else if (st == "Developer")
-		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--red-600)]";
-	else
-		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--gray-600)]";
+	if (CategoriesEx[st])
+		return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--" + CategoriesEx[st].color + "-600)]";
+/*
+translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--yellow-600)]
+translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--purple-600)]
+translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--blue-600)]
+translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--cyan-600)]
+translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--red-600)]
+*/
+	return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--gray-600)]";
 }
 
 colorPercent(p, limits = [ 80, 50 ]) {

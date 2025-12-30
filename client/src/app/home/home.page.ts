@@ -36,6 +36,7 @@ showDetails: boolean = false;
 showTerminal: boolean = false;
 showDone: boolean = true;
 showNotDone: boolean = true;
+CategoriesBar = CategoriesBar;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService) {
 	global.refreshUI.subscribe(event => {
