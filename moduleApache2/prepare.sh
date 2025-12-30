@@ -34,19 +34,16 @@ else
 	rm -f login.js.tmp
 fi
 
-OUTPUT=""
-for NAME in `ls ../private/modules`; do
-	NAME="${NAME%?????}"
-	TMP=`jq -r '.default.autoLogin.inject[] | "{ \"_NAME_\", \"\(.url)\", \"\(.form)\", \"\(.arg1)\", \"\(.arg2)\", \"\(.arg3)\", VAL\(.val1), VAL\(.val2) },"' ../private/modules/${NAME}.json 2> /dev/null`
-	INJECT=$INJECT\\n`echo $TMP | sed "s/_NAME_/${NAME}/g"`
-	TMP=`jq -r '.default.autoLogin.post[] | "{ \"_NAME_\", \"\(.url)\", \"\(.arg1)\", \"\(.arg2)\", VAL\(.val1), VAL\(.val2) },"' ../private/modules/${NAME}.json 2> /dev/null`
-	POST=$POST\\n`echo $TMP | sed "s/_NAME_/${NAME}/g"`
-done
-echo $INJECT | sed 's@}, {@},\n{@' | tr -s '\n' > login.tmp
+PP=/usr/local/modules/mydonglecloud/modulesdefault.json
+if [ ! -f "/usr/local/modules/mydonglecloud/version.txt" ]; then
+	PP="../rootfs$PP"
+fi
+jq -r 'to_entries[] | .key as $name | .value.autoLogin.inject[]? | "\t{ \"\($name)\", \"\(.url)\", \"\(.form)\", \"\(.arg1)\", \"\(.arg2)\", \"\(.arg3)\", VAL\(.val1), VAL\(.val2) },"' $PP > login.tmp
 sed "/static char \*html\[\]\[8\] = {/ {
 	r login.tmp
 }" login_.c > login__.c
-echo $POST | sed 's@}, {@},\n{@' | tr -s '\n' > login.tmp
+
+jq -r 'to_entries[] | .key as $name | .value.autoLogin.post[]? | "\t{ \"\($name)\", \"\(.url)\", \"\(.arg1)\", \"\(.arg2)\", VAL\(.val1), VAL\(.val2) },"' $PP > login.tmp
 sed "/static char \*post\[\]\[6\] = {/ {
 	r login.tmp
 }" login__.c > login_.c
