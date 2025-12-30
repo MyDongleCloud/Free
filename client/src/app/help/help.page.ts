@@ -13,4 +13,10 @@ LG(st) { return this.global.mytranslateG(st); }
 
 constructor(public global: Global, private cdr: ChangeDetectorRef) {}
 
+welcomeTour() {
+	this.global.settings.welcomeTourShown = false;
+	this.global.settingsSave();
+	this.global.openPage("");
+}
+
 }

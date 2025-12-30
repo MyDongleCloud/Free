@@ -15,6 +15,10 @@
 			<button (click)="global.openBrowser('https://community.mydongle.cloud');" class="bg--blue-600 inline-flex items-center gap-2 px-4 py-2 text--white rounded-lg text-sm font-medium transition-colors mr-2 cursor-pointer">
 				<span class="text-lg">{{L("Open the forum website")}}</span>
 			</button>
+			<div>{{L("Show again welcome tour on home page:")}}</div>
+			<button (click)="welcomeTour();" class="bg--blue-600 inline-flex items-center gap-2 px-4 py-2 text--white rounded-lg text-sm font-medium transition-colors mr-2 cursor-pointer">
+				<span class="text-lg">{{L("Show welcome tour")}}</span>
+			</button>
 		</div>
 	</div>
 </div>
