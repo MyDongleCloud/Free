@@ -21,6 +21,10 @@
 	"proprietary": "Oracle Database",
 	"default": {
 		"config": true,
+		"enabled": true,
+		"services": [
+			"mysql"
+		],
 		"setup": true,
 		"setupDependencies": [],
 		"setupRoot": true

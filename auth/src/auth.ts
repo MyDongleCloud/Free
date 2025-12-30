@@ -256,6 +256,17 @@ const mdcEndpoints = () => {
 				return Response.json(ret, { status:200 });
 			}),
 
+			moduleRefresh: createAuthEndpoint("/module/refresh", {
+				method: "POST",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				if (ctx.context.session?.user?.role != "admin")
+					return Response.json({ status:"error" }, { status:200 });
+				if (process.env.PRODUCTION === "true")
+					ctx.body?.services?.forEach((value) => { execSync("systemctl restart " + value); });
+				return Response.json({ status:"success" }, { status:200 });
+			}),
+
 			moduleReset: createAuthEndpoint("/module/reset", {
 				method: "POST",
 				use: [sensitiveSessionMiddleware]

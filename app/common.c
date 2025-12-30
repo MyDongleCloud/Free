@@ -488,3 +488,26 @@ void serviceAction(const char *name, const char *action) {
 	}
 	sd_bus_close(bus);
 }
+
+int serviceState(const char *name) {
+    sd_bus *bus = NULL;
+    sd_bus_error error = SD_BUS_ERROR_NULL;
+    char path[256];
+    int r = sd_bus_open_system(&bus);
+	if (r < 0) {
+		PRINTF("Failed to connect to system bus: %s\n", strerror(-r));
+		return -1;
+	}
+    snprintf(path, sizeof(path), "/org/freedesktop/systemd1/unit/%s_2eservice", "jellyfin");
+	char *state;
+    r = sd_bus_get_property_string(bus, "org.freedesktop.systemd1", path, "org.freedesktop.systemd1.Unit", "ActiveState", &error, &state);
+	if (r < 0) {
+		PRINTF("Failed unit %s: %s\n", name, error.message);
+		sd_bus_error_free(&error);
+		return -1;
+	}
+    sd_bus_close(bus);
+    int ret = strcmp(state, "active") == 0;
+	free(state);
+	return ret;
+}

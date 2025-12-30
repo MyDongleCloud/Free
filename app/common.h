@@ -37,5 +37,6 @@ int hardwareVersion();
 int downloadURLBuffer(char *szURL, char *buf, char *header, char *post, char *cookieI, char *cookieO);
 int getLocalIP(char *szIPCurrent);
 void serviceAction(const char *name, const char *action);
+int serviceState(const char *name);
 
 #endif
