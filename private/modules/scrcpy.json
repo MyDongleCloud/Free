@@ -6,6 +6,7 @@
 	"version": "v3.3.4",
 	"installMethod": "clone",
 	"web": false,
+	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",

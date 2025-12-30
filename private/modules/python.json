@@ -6,6 +6,7 @@
 	"version": "3.13.5",
 	"installMethod": "apt",
 	"web": false,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "",

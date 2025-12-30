@@ -6,6 +6,7 @@
 	"version": "5.3.3",
 	"installMethod": "clone",
 	"web": true,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "sqlite",

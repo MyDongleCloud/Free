@@ -6,6 +6,7 @@
 	"version": "3.1.11.1",
 	"installMethod": "apt",
 	"web": true,
+	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",

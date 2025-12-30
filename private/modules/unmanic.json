@@ -6,6 +6,7 @@
 	"version": "HEAD",
 	"installMethod": "pip",
 	"web": true,
+	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",

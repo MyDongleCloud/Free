@@ -6,6 +6,7 @@
 	"version": "2025.10.3",
 	"installMethod": "pip",
 	"web": true,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "sqlite",

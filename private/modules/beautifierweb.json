@@ -6,6 +6,7 @@
 	"version": "a1fa4975",
 	"installMethod": "clone",
 	"web": true,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "",

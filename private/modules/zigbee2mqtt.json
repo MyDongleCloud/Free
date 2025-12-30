@@ -6,6 +6,7 @@
 	"version": "2.5.1",
 	"installMethod": "npm",
 	"web": true,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "sqlite",

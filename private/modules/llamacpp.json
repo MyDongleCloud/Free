@@ -6,6 +6,7 @@
 	"version": "b7315",
 	"installMethod": "clone",
 	"web": true,
+	"essential": false,
 	"finished": true,
 	"ai": true,
 	"database": "",

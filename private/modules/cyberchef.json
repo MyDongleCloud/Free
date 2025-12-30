@@ -6,6 +6,7 @@
 	"version": "v10.19.4",
 	"installMethod": "clone",
 	"web": true,
+	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",

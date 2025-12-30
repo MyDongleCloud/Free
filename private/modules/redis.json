@@ -6,6 +6,7 @@
 	"version": "8.0.2",
 	"installMethod": "apt",
 	"web": false,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "",

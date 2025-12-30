@@ -6,6 +6,7 @@
 	"version": "2.1.25",
 	"installMethod": "clone",
 	"web": true,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "mysql",
