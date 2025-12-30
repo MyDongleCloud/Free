@@ -73,7 +73,6 @@ foreach ($files as $file) {
 		$modulesDefault[$name]["web"] = true;
 	foreach($module["keywords"] as $k)
 		$modulesKeywords[$k] =  "";
-	unset($module["default"]);
 	$modulesMeta[$name] = $module;
 	$modulesTranslationTitle[$module["title"]] = "";
 	$modulesTranslationDescription[$module["description"]] = "";
