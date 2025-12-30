@@ -11,6 +11,8 @@ export class TopbarComponent implements AfterViewInit, OnDestroy {
 LG(st) { return this.global.mytranslateG(st); }
 @Input() title: string = "";
 @Input() nameP: string = "";
+@Input() public modulesTotal;
+@Input() public modulesStarsTotal;
 private documentClickListener: (() => void) | null = null;
 showUserMenu:boolean = false;
 initials: string = "";

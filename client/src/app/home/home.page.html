@@ -1,7 +1,7 @@
 <div class="flex h-screen">
-	<app-sidebar [modulesTotal]="filteredCards?.length"></app-sidebar>
+	<app-sidebar #sidebar [modulesTotal]="filteredCards?.length"></app-sidebar>
 	<div class="flex-1 flex flex-col overflow-x-auto">
-		<app-topbar title="{{L('Dashboard')}}"></app-topbar>
+		<app-topbar title="{{L('Dashboard')}}" [modulesTotal]="filteredCards?.length" [modulesStarsTotal]="global.formatCount(filteredGithubStars)"></app-topbar>
 		<div>
 			<div class="flex gap-3 mx-4 mt-4">
 				<div joyrideStep="anchor4" title="Filter" text="Filter to find a specific module." stepPosition="right" class="relative">
@@ -14,8 +14,21 @@
 					<ion-icon name="refresh-outline" class="w-4 h-4"></ion-icon>
 				</button>
 				<div class="flex-1"></div>
-				<div class="flex items-center mr-3" [class]="global.developer ? '' : 'hidden'">
-					<input type="checkbox" [(ngModel)]="showDone" labelPlacement="end" (change)="filterCards()" class="form-checkbox h-4 w-4 mr-2">{{L("Done")}}<input type="checkbox" [(ngModel)]="showNotDone" labelPlacement="end" (change)="filterCards()" class="form-checkbox h-4 w-4 ml-6 mr-2">{{L("Not yet done")}}
+				<div class="rounded-lg border border--gray-200 bg--white p-1 hidden lg:flex gap-1">
+					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="checkbox" [(ngModel)]="showDone" (change)="filterCards()" class="peer sr-only"/>
+						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 flex items-center justify-center leading-none transition-all duration-300">
+						<ion-icon name="checkmark-circle-outline" class="block w-5 h-5"></ion-icon>
+						</span>
+					</label>
+					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+						<input type="checkbox" [(ngModel)]="showNotDone" (change)="filterCards()" class="peer sr-only"/>
+						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+						<span class="relative z-10 flex items-center justify-center leading-none transition-all duration-300">
+						<ion-icon name="alert-circle-outline" class="block w-5 h-5"></ion-icon>
+						</span>
+					</label>
 				</div>
 				<button (click)="showDetails = !showDetails;" class="inline-flex items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-200 transition-colors cursor-pointer" [class]="showDetails ? 'bg--gray-100': ''" [style]="showDetails ? 'bx-shadow:inset 0 2px 4px rgba(0, 0, 0, 0.2);' : ''">
 					<ion-icon name="aperture-outline" class="w-4 h-4"></ion-icon>
@@ -28,93 +41,37 @@
 			</div>
 			<div class="flex gap-3 mx-4 mt-4 items-center">
 				<div joyrideStep="anchor5" title="Categories" text="Filter the modules by category." stepPosition="bottom" class="flex rounded-lg border border--gray-200 bg--white p-1">
-					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="category" [(ngModel)]="category" value="All" class="peer sr-only" checked (change)="filterCards()" />
-						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
-							<ion-icon name="apps-outline" class="w-5 h-5"></ion-icon>
-						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">{{L("All")}}</span>
-					</label>
-
-					<label class="bg--gray-200 w-[1px] mx-1"></label>
-
-					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="category" [(ngModel)]="category" value="Essential" class="peer sr-only" (change)="filterCards()" />
-						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
-							<ion-icon name="star-outline" class="w-5 h-5" [class]="global.colorWord('Essential', false)"></ion-icon>
-						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('Essential', false)">{{LG("Essential")}}</span>
-					</label>
-
-					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="category" [(ngModel)]="category" value="Personal" class="peer sr-only" (change)="filterCards()" />
-						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
-							<ion-icon name="person-outline" class="w-5 h-5" [class]="global.colorWord('Personal', false)"></ion-icon>
-						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('Personal', false)">{{LG("Personal")}}</span>
-					</label>
-
-					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="category" [(ngModel)]="category" value="Productivity" class="peer sr-only" (change)="filterCards()" />
-						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
-							<ion-icon name="attach-outline" class="w-5 h-5" [class]="global.colorWord('Productivity', false)"></ion-icon>
-						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('Productivity', false)">{{LG("Productivity")}}</span>
-					</label>
-
-					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="category" [(ngModel)]="category" value="Utils" class="peer sr-only" (change)="filterCards()" />
-						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
-							<ion-icon name="hammer-outline" class="w-5 h-5" [class]="global.colorWord('Utils', false)"></ion-icon>
-						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('Utils', false)">{{LG("Utils")}}</span>
-					</label>
-
-					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="category" [(ngModel)]="category" value="Developer" class="peer sr-only" (change)="filterCards()" />
-						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
-							<ion-icon name="code-slash-outline" class="w-5 h-5" [class]="global.colorWord('Developer', false)"></ion-icon>
-						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('Developer', false)">{{LG("Developer")}}</span>
-					</label>
-
-					<label class="bg--gray-200 w-[1px] mx-1"></label>
-
-					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-						<input type="radio" name="category" [(ngModel)]="category" value="ai" class="peer sr-only" (change)="filterCards()" />
-						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
-							<ion-icon name="bulb-outline" class="w-5 h-5" [class]="global.colorWord('AI', false)"></ion-icon>
-						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900" [class]="global.colorWord('AI', false)">{{LG("AI")}}</span>
-					</label>
+					<div class="flex" *ngFor="let cat of CategoriesBar;">
+						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300" *ngIf="!cat.separator">
+							<input type="radio" name="category" [(ngModel)]="category" value="{{LG(cat.value.name)}}" class="peer sr-only" (change)="filterCards()" />
+							<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300">
+								<ion-icon name="{{cat.value.icon}}" class="w-5 h-5" [class]="global.colorWord(cat.value.name, false)"></ion-icon>
+							</span>
+							<span class="relative z-10 text-sm font-medium transition-all duration-300" [class]="global.colorWord(cat.value.name, false)">{{LG(cat.value.name)}}</span>
+						</label>
+						<label class="bg--gray-200 w-[2px] mx-1" *ngIf="cat.separator"></label>
+					</div>
 				</div>
+				<div class="flex-1"></div>
 				<div joyrideStep="anchor6" title="Presentation" text="List the modules by card or in a table." stepPosition="bottom" class="rounded-lg border border--gray-200 bg--white p-1 hidden lg:flex">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="presentation" [(ngModel)]="presentation" value="cards" class="peer sr-only" checked/>
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
+						<span class="relative z-10 text-sm font-medium transition-all duration-300">
 							<ion-icon name="apps-outline" class="w-5 h-5"></ion-icon>
 						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">{{L("Cards")}}</span>
+						<span class="relative z-10 text-sm font-medium transition-all duration-300">{{L("Cards")}}</span>
 					</label>
 					<label class="relative flex flex-col grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="presentation" [(ngModel)]="presentation" value="table" class="peer sr-only"/>
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">
+						<span class="relative z-10 text-sm font-medium transition-all duration-300">
 							<ion-icon name="list" class="w-5 h-5"></ion-icon>
 						</span>
-						<span class="relative z-10 text-sm font-medium transition-all duration-300 peer-checked:text--gray-900">{{L("Table")}}</span>
+						<span class="relative z-10 text-sm font-medium transition-all duration-300">{{L("Table")}}</span>
 					</label>
 				</div>
-				<div class="flex-1"></div>
-				<div class="text-right hidden lg:block">{{filteredCards?.length}}&nbsp;{{L(filteredCards?.length > 1 ? "modules": "module")}}<br>{{global.formatCount(filteredGithubStars)}}&nbsp;⭐</div>
 			</div>
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">

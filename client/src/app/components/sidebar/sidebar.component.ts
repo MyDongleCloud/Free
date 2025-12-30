@@ -13,10 +13,10 @@ showMobileMenu: boolean = false;
 @Input() public modulesTotal = null;
 private documentClickListener: (() => void) | null = null;
 cards = this.global.modulesData;
-filteredModules;
+sidebarFilteredModules;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private elRef: ElementRef, private renderer: Renderer2) {
-	this.filterCards();
+	this.sidebarFilterCards();
 }
 
 ngAfterViewInit() {
@@ -37,19 +37,23 @@ ngOnDestroy() {
 	}
 }
 
-filterClick(type) {
+refresh() {
+	this.cdr.detectChanges();
+}
+
+sidebarFilterClick(type) {
 	if (this.global.sidebarFilterType == type)
 		this.global.sidebarFilterType = "";
 }
 
-filterCards() {
+sidebarFilterCards() {
 	const term = this.global.sidebarSearchTerm.toLowerCase();
-	this.filteredModules = this.cards.filter(card => {
-		if (this.global.sidebarFilterType == "essentials")
-			return card.category.includes("Essential") && card.web;
-		else if (this.global.sidebarFilterType == "bookmarks")
+	this.sidebarFilteredModules = this.cards.filter(card => {
+		if (this.global.sidebarFilterType == "Essential")
+			return card.essential && card.web;
+		else if (this.global.sidebarFilterType == "Bookmarks")
 			return this.global.settings.bookmarks.includes(card.module);
-		else if (this.global.sidebarFilterType == "search")
+		else if (this.global.sidebarFilterType == "Search")
 			return this.global.sidebarSearchTerm == "" ? null : (card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.some(pr => pr.toLowerCase().includes(term)) || card.keywords.some(kw => kw.toLowerCase().includes(term)));
 		else
 			return null;

@@ -1,9 +1,10 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { JoyrideService } from 'ngx-joyride';
-import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
+import { Global } from '../env';
+import { CategoriesBar } from '../myinterface';
 
 @Component({
 	selector: 'app-home',
@@ -75,7 +76,7 @@ filterCards() {
 		if (this.showNotDone == false && !card.finished)
 			return false;
 		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
-		return this.category == "All" ? ret : this.category == "ai" ? (ret && card.ai) : (ret && card.category.includes(this.category));
+		return this.category == "All" ? ret : this.category == "AI" ? (ret && card.ai) : this.category == "Essential" ? (ret && card.essential) : (ret && card.category.includes(this.category));
 	});
 	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);
 	this.sortCards();
