@@ -44,7 +44,10 @@ fi
 rm -rf web
 mkdir web
 cp /tmp/docsify/lib/docsify.min.js /tmp/docsify/lib/plugins/zoom-image.min.js /tmp/docsify/lib/plugins/search.min.js /tmp/docsify/lib/themes/vue.css web
-cp index.html tailwindcss-4.js modules.md ports.md _sidebar.md favicon.ico ../README.md ../build/modulesmeta.json web
+cp index.html tailwindcss-4.js modules.md ports.md _sidebar.md favicon.ico ../README.md web
+cp  ../build/modulesmeta.json web/modulesmeta_latest.json
+cp ../release/modulesmeta*.json web 2> /dev/null
+ls -r ../release/modulesmeta_*.json 2> /dev/null | jq -R -s 'split("\n") | map(select(length > 0) | split("_")[1] | split(".")[0]) | {list: (["latest"] + .)}' > web/releases.json
 sed -i '/<TABLE_MODULES>/ {
 r ../build/README-modules.md
 d

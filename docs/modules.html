@@ -13,6 +13,9 @@ async function loadJson(st) {
 		if (!response.ok) return;
 		data = await response.json();
 	} catch(e) { return; }
+	fillTableHeader();
+	fillTableContent();
+	filterTable();
 }
 
 function fillTableHeader() {
@@ -202,20 +205,34 @@ function updateClass() {
 	});
 }
 
+function versionChange() {
+	loadJson(document.getElementById("versionID").value);
+}
+
 async function onStart() {
-	await loadJson("modulesmeta.json");
-	fillTableHeader();
-	fillTableContent();
-	filterTable();
+	const selectElement = document.getElementById("versionID");
+	try {
+		const response = await fetch("releases.json");
+		if (!response.ok) return;
+		const ret = await response.json();
+		selectElement.innerHTML = "";
+		ret.list.forEach(version => {
+			const option = document.createElement("option");
+			option.value = "modulesmeta_" + version + ".json";
+			option.textContent = version;
+			selectElement.appendChild(option);
+		});
+		selectElement.selectedIndex = 0;
+		versionChange();
+	} catch(e) { return; }
 }
 </script>
 </head>
 <body onload="onStart();">
 <div class="flex flex-col h-screen px-2 bg-white text-black">
 	<div class="py-2">
-		<label for="version">Version:</label>
-		<select id="version" name="selectedOption" class="border rounded">
-			<option value="HEAD">HEAD</option>
+		<label for="versionID">Version:</label>
+		<select id="versionID" name="selectedOption" class="border rounded" onchange="versionChange();">
 		</select>
 	</div>
 	<div class="py-2 relative flex items-center gap-2">
