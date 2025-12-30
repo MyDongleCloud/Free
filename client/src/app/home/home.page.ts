@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { JoyrideService } from 'ngx-joyride';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { CategoriesBar } from '../myinterface';
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.page.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: false
 })
 
@@ -22,6 +23,7 @@ LMD(st) { return this.global.mytranslateMD(st); }
 @ViewChild("modalModuleInfo") modalModuleInfo: IonModal;
 @ViewChild("modalModuleSettings") modalModuleSettings: IonModal;
 @ViewChild("searchTermE") searchTermE: ElementRef;
+@ViewChild("sidebar") sidebar: any;
 cardIdCur = 0;
 cardConfig;
 cards = this.global.modulesData;
@@ -40,6 +42,10 @@ CategoriesBar = CategoriesBar;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService) {
 	global.refreshUI.subscribe(event => {
+		if (event === "onlySidebar") {
+			this.sidebar.refresh();
+			return;
+		}
 		this.filterCards();
 		this.cdr.detectChanges();
 	});

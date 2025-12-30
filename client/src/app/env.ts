@@ -527,6 +527,7 @@ review() {
 
 async statsPolling() {
 	this.statsData = await this.httpClient.get("/_app_/auth/stats", {headers:{"content-type": "application/json"}}).toPromise();
+	this.refreshUI.next("onlySidebar");
 }
 
 statsPeriodChange(incDir) {
