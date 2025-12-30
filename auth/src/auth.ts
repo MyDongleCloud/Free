@@ -420,6 +420,10 @@ export const auth = betterAuth({
 					if (cloud?.security?.signInNotification === true && ctx.context.returned?.["user"]?.email !== "")
 						sendSignInNotification(ctx.context.returned?.["user"]?.email);
 				}
+				const domain = findDomain(ctx.request?.headers.get("host") || "");
+				const currentCookie = ctx?.context?.responseHeaders?.get("set-cookie");
+				if (currentCookie)
+					ctx?.context?.responseHeaders?.set("set-cookie", currentCookie + "; Domain=" + domain);
 			}
 			if (ctx.path == "/token" && ctx.context.returned?.["token"]) {
 				const domain = findDomain(ctx.request?.headers.get("host") || "");
