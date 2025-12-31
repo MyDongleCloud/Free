@@ -76,7 +76,8 @@
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
 			<span joyrideStep="anchor1" title="Welcome" text="This small guide tour will briefly explain the features of this app." stepPosition="center"></span>
-			<div joyrideStep="anchor2" title="Modules" text="These are all available modules." stepPosition="top" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" *ngIf="presentation == 'cards'">
+			<div class="m-3" *ngIf="category == 'Tag' && filteredCards.length == 0">{{L("There is no tagged module. Use the icon")}} <ion-icon name="bookmark-outline" class="w-4 h-4"></ion-icon> {{L("to tag your prefered modules.")}}</div>
+ 			<div joyrideStep="anchor2" title="Modules" text="These are all available modules." stepPosition="top" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" *ngIf="presentation == 'cards'">
 				<div class="rounded-xl border border--gray-200 p-3 shadow-sm flex flex-col" *ngFor="let card of filteredCards; let cc = index;" [class]="card.web != true ? 'bg--indigo-50' : ''">
 					<div class="flex flex-col">
 						<div class="min-w-full flex items-center">

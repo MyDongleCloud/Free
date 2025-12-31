@@ -83,7 +83,16 @@ filterCards() {
 		if (this.showNotDone == false && !card.finished)
 			return false;
 		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
-		return this.category == "All" ? ret : this.category == "AI" ? (ret && card.ai) : this.category == "Essential" ? (ret && card.essential) : (ret && card.category.includes(this.category));
+		if (this.category == "All")
+			return ret;
+		else if (this.category == "AI")
+			return ret && card.ai;
+		else if (this.category == "Essential")
+			return ret && card.essential;
+		else if (this.category == "Tag")
+			return ret && this.global.settings.bookmarks.includes(card.module);
+		else
+			return ret && card.category.includes(this.category);
 	});
 	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);
 	this.sortCards();
@@ -113,8 +122,10 @@ toggleSortDirection(p) {
 
 bookmark(m) {
 	this.cards[this.global.modulesDataFindId(m)]["bookmark"] = !this.cards[this.global.modulesDataFindId(m)]["bookmark"];
-	this.global.settings.bookmarks.push(m);
+	this.global.settings.bookmarks = this.cards.filter(card => card.bookmark === true).map(card => card.module);//.join("|");
 	this.global.settingsSave();
+	if (this.category == "Tag")
+		this.filterCards();
 	this.sidebarComponent.filterCards();
 }
 
@@ -180,7 +191,7 @@ ngOnInit() {
 		    this.joyrideService.startTour({
 				steps: ["anchor1", "anchor2", "anchor3", "anchor4", "anchor5", "anchor6", "anchor7", "anchor8", "anchor9", "anchor10"]
 			});
-		}, 2000);
+		}, 1000);
 		this.global.settings.welcomeTourShown = true;
 		this.global.settingsSave();
 	}

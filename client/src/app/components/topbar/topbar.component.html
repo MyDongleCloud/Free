@@ -1,7 +1,7 @@
 <div class="flex items-center justify-between h-16 px-6 border-b border-sidebar-border">
 	<div class="flex items-center space-x-2 text-sm ml-4 md:ml-0">
 		@if (title != LG("Dashboard")) {
-		<a (click)="global.openPage('');" class="text--gray-700 text-lg hover:text--gray-900 transition-colors font-medium cursor-pointer cursor-pointer">{{LG("Dashboard")}}</a>
+		<a (click)="global.openPage('');" class="text--gray-700 text-lg hover:text--gray-900 transition-colors font-medium cursor-pointer">{{LG("Dashboard")}}</a>
 		<ion-icon name="chevron-forward-outline" class="w-4 h-4 text--gray-700"></ion-icon>
 		<span class="text--gray-700 font-medium text-lg">
 			{{title}}{{nameP}}

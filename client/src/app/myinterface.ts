@@ -68,7 +68,7 @@ export const CategoriesEx = {
 		icon: "bulb-outline",
 		color: "black"
 	},
-	"Tag": {
+	"Bookmark": {
 		name: "Tag",
 		icon: "bookmarks-outline",
 		color: "black"
@@ -100,5 +100,5 @@ export const CategoriesBar = [
 	{ separator:true },
 	{ separator:false, value:CategoriesEx["AI"] },
 	{ separator:true },
-	{ separator:false, value:CategoriesEx["Tag"] }
+	{ separator:false, value:CategoriesEx["Bookmark"] }
 ];

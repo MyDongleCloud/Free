@@ -63,6 +63,8 @@
 		"Settings:": "Paramètres :",
 		"Table": "Tableau",
 		"Terminal modules": "Modules de terminal",
+		"There is no tagged module. Use the icon": "Il n'y a pas de module taggé. Utilisez cette icône",
+		"to tag your prefered modules.": "pour tagger vos modules préférés.",
 		"TITLE": "TITRE"
 	},
 	"login": {
@@ -165,6 +167,7 @@
 		"Sign-In": "Connexion",
 		"SSH" : "SSH",
 		"SSH settings can be tuned in the SSH module." : "Les paramètres SSH peuvent être ajustés dans le module SSH.",
+		"SSID": "SSID",
 		"Sudo" : "Sudo",
 		"Wi-Fi": "Wi-Fi"
 	},

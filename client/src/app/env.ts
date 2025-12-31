@@ -504,7 +504,7 @@ async modulesDataPrepare() {
 			value[key2] = value2;
 		});
 		value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
-		value["bookmark"] = false;
+		value["bookmark"] = this.settings.bookmarks?.includes(key)?? false;
 		this.modulesData.push(value);
 	});
 	this.refreshUI.next(true);
