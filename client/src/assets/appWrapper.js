@@ -101,11 +101,13 @@ function appConnectToggle() {
 			console.log("Socket onerror " + JSON.stringify(e));
 			socket = null;
 			if (thisble) thisble.connectedWS = 0;
+			appCommunicationStatus(0);
 		}
 		socket.onclose = (e) => {
 			console.log("Socket onclose");
 			socket = null;
 			if (thisble) thisble.connectedWS = 0;
+			appCommunicationStatus(0);
 		}
 		socket.onmessage = (msg) => {
 			appServerReceiveHtml(msg.data, 1);
