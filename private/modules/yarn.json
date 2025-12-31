@@ -1,0 +1,26 @@
+{
+	"module": "yarn",
+	"name": "yarn",
+	"title": "Package Manager",
+	"category": "Developer",
+	"version": "1.22.22",
+	"installMethod": "npm",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "yarnpkg/yarn",
+	"description": "An  open-source package manager for JavaScript that automates the process of installing, updating, and managing project dependencies.",
+	"keywords": [
+		"Package",
+		"Manager",
+		"yarn"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			"/usr/local/bin/yarn"
+		]
+	}
+}
