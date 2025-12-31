@@ -82,7 +82,7 @@ else
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
 	cp modules/services/* ${ROOTFS}/etc/systemd/system/
 
-	if [ -f ${ROOTFS}/home/ai/app/app -a $(find ../app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/home/ai/app/app ]; then
+	if [ -f ${ROOTFS}/usr/local/modules/mydonglecloud/app -a $(find ../app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/mydonglecloud/app ]; then
 		rm -rf ${ROOTFS}/home/ai/app
 		cp -a ../app ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/app && make clean && make'
