@@ -41,7 +41,7 @@ export const Categories = {
 	},
 	"Torrent": {
 		name: "Torrent",
-		icon: "play-outline",
+		icon: "magnet-outline",
 		color: "blue"
 	},
 	"Utils": {
