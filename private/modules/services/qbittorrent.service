@@ -1,0 +1,15 @@
+[Unit]
+Description=qBittorrent
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qbittorrent-nox --profile=/disk/admin/modules/qbittorrent
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

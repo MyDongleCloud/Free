@@ -1,0 +1,63 @@
+{
+	"module": "qbittorrent",
+	"name": "qBittorrent",
+	"title": "BitTorrent",
+	"category": "Torrent",
+	"version": "5.1.2",
+	"installMethod": "deb",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "qbittorrent/qBittorrent",
+	"description": "A complete BitTorrent client.",
+	"keywords": [
+		"BitTorrent",
+		"Client",
+		"P2P",
+		"Download"
+	],
+	"proprietary": "qBittorrent",
+	"default": {
+		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/",
+					"form": "form[id=loginform]",
+					"arg1": "input[id=username]",
+					"arg2": "input[id=password]",
+					"arg3": "input[id=loginButton]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
+
+		"enabled": true,
+		"localPort": 9526,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8109,
+				"path": "/"
+			}
+		],
+		"setup": true,
+		"setupDependencies": []
+	}
+}

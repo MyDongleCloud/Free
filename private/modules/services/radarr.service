@@ -1,0 +1,15 @@
+[Unit]
+Description=Radarr
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/modules/radarr/Radarr -nobrowser -data=/disk/admin/modules/radarr/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

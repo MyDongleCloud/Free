@@ -39,6 +39,11 @@ export const Categories = {
 		icon: "play-outline",
 		color: "blue"
 	},
+	"Torrent": {
+		name: "Torrent",
+		icon: "play-outline",
+		color: "blue"
+	},
 	"Utils": {
 		name: "Utils",
 		icon: "hammer-outline",
@@ -91,6 +96,7 @@ export const CategoriesBar = [
 	{ separator:true },
 	{ separator:false, value:CategoriesEx["Personal"] },
 	{ separator:false, value:CategoriesEx["Media"] },
+	{ separator:false, value:CategoriesEx["Torrent"] },
 	{ separator:true },
 	{ separator:false, value:CategoriesEx["Utils"] },
 	{ separator:false, value:CategoriesEx["Server"] },

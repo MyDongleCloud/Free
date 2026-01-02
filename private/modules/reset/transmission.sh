@@ -86,7 +86,7 @@ cat > /disk/admin/modules/transmission/settings.json << EOF
     "rpc-host-whitelist": "",
     "rpc-host-whitelist-enabled": false,
     "rpc-password": "",
-    "rpc-port": 8097,
+    "rpc-port": 9091,
     "rpc-socket-mode": "0750",
     "rpc-url": "/",
     "rpc-username": "",

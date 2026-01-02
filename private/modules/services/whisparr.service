@@ -1,0 +1,15 @@
+[Unit]
+Description=Whisparr
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/modules/whisparr/Whisparr -nobrowser -data=/disk/admin/modules/whisparr/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

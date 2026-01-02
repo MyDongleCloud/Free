@@ -276,12 +276,10 @@ else
 	clone privatebin PrivateBin/PrivateBin 2.0.3
 	clone projectsend projectsend/projectsend r1720
 	clone qrcodegenerator bizzycola/qrcode-generator HEAD
-	clone radaar Radarr/Radarr v5.27.2.10142
 	clone scrcpy Genymobile/scrcpy v3.3.4
 	clone searxng searxng/searxng 74ec225a
 	clone shields badges/shields server-2025-12-06
 	clone silverbullet silverbulletmd/silverbullet 2.3.0
-	clone sonarr Sonarr/Sonarr v4.0.15.2941
 	clone stackedit benweet/stackedit v5.15.4
 	clone stirlingpdf Stirling-Tools/Stirling-PDF v1.0.2
 	clone stremio Stremio/stremio-web v5.0.0-beta.29
