@@ -32,3 +32,4 @@ rm -rf /disk/admin/modules/portainer
 mkdir /disk/admin/modules/portainer
 systemctl start portainer.service
 systemctl enable portainer.service
+/usr/local/modules/mydonglecloud/reset/portainer-user.sh
