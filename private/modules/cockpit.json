@@ -28,6 +28,11 @@
 				"type": "http",
 				"port": 9090,
 				"path": "/"
+			},
+			{
+				"type": "ws",
+				"port": 9090,
+				"path": "/"
 			}
 		]
 	}
