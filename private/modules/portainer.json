@@ -1,0 +1,68 @@
+{
+	"module": "portainer",
+	"name": "Portainer",
+	"title": "Container Management",
+	"category": "Utils",
+	"version": "2.33.6",
+	"installMethod": "wget",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "portainer/portainer",
+	"description": "An utility to manage easily Dockers and Kubernetes.",
+	"keywords": [
+		""
+	],
+	"proprietary": "",
+	"default": {
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/",
+					"form": "form",
+					"arg1": "input[id=username]",
+					"arg2": "input[id=password]",
+					"arg3": "button[type=submit]",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
+
+		"config": true,
+		"enabled": true,
+		"localPort": 9527,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 9000,
+				"path": "/"
+			},
+			{
+				"type": "ws",
+				"port": 9000,
+				"path": "/"
+			}
+		],
+		"services": [
+			"portainer"
+		],
+		"setup": true,
+		"setupDependencies": []
+	}
+}
