@@ -59,9 +59,7 @@
 			"jellyfin"
 		],
 		"setup": true,
-		"setupDependencies": [
-			"sqlite"
-		],
+		"setupDependencies": [],
 		"setupRoot": true
 	}
 }
