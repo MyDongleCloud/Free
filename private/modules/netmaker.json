@@ -1,0 +1,25 @@
+{
+	"module": "netmaker",
+	"name": "Netmaker",
+	"title": "WireGuard Manager",
+	"category": "Developer",
+	"version": "v1.4.0",
+	"installMethod": "wget",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "gravitl/netmaker",
+	"description": "A XXX.",
+	"keywords": [
+		"VPN",
+		"WireGuard"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			"/usr/local/bin/nmctl"
+		]
+	}
+}
