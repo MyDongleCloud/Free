@@ -26,7 +26,7 @@
 		],
 		"enabled": true,
 		"homepage": "/access",
-		"localPort": 9500,
+		"localPort": 9515,
 		"permissions": [
 			"_groupadmin_"
 		],

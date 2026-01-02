@@ -21,7 +21,7 @@
 	"proprietary": "Mailchimp",
 	"default": {
 		"enabled": true,
-		"localPort": 9466,
+		"localPort": 9473,
 		"path": "/usr/local/modules/phplist/public_html",
 		"permissions": [
 			"_groupadmin_"

@@ -22,7 +22,7 @@
 	"default": {
 		"addConfigBegin": "RequestHeader set Host localhost",
 		"enabled": true,
-		"localPort": 9489,
+		"localPort": 9504,
 		"permissions": [
 			"_groupadmin_"
 		],

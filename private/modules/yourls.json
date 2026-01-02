@@ -45,7 +45,7 @@
 		"config": true,
 		"enabled": true,
 		"homepage": "/admin",
-		"localPort": 9505,
+		"localPort": 9521,
 		"permissions": [
 			"_dongle_",
 			"_groupadmin_"

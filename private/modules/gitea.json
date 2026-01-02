@@ -20,7 +20,7 @@
 	"proprietary": "GitHub|GitLab|Bitbucket",
 	"default": {
 		"enabled": true,
-		"localPort": 9422,
+		"localPort": 9425,
 		"permissions": [
 			"_groupadmin_"
 		]

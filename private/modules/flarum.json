@@ -21,7 +21,7 @@
 	"proprietary": "Discourse",
 	"default": {
 		"enabled": true,
-		"localPort": 9419,
+		"localPort": 9422,
 		"path": "/usr/local/modules/flarum/public",
 		"permissions": [
 			"_groupadmin_"

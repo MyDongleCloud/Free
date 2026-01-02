@@ -44,7 +44,7 @@
 		"config": true,
 		"enabled": true,
 		"followSymLinks": true,
-		"localPort": 9472,
+		"localPort": 9481,
 		"permissions": [
 			"_groupadmin_"
 		],

@@ -23,7 +23,7 @@
 	"default": {
 		"addConfigBegin": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
 		"enabled": true,
-		"localPort": 9495,
+		"localPort": 9510,
 		"permissions": [
 			"_groupadmin_"
 		],

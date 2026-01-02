@@ -20,7 +20,7 @@
 	"proprietary": "Plex|Emby",
 	"default": {
 		"enabled": true,
-		"localPort": 9486,
+		"localPort": 9501,
 		"permissions": [
 			"_groupadmin_"
 		]

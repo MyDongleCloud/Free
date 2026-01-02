@@ -21,7 +21,7 @@
 	"proprietary": "SpamTitan",
 	"default": {
 		"enabled": true,
-		"localPort": 9479,
+		"localPort": 9491,
 		"permissions": [
 			"_groupadmin_"
 		]

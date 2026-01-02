@@ -39,10 +39,9 @@
 				}
 			]
 		},
-
 		"config": true,
 		"enabled": true,
-		"localPort": 9527,
+		"localPort": 9478,
 		"permissions": [
 			"_groupadmin_"
 		],

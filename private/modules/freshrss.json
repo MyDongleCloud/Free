@@ -24,7 +24,7 @@
 			"rss"
 		],
 		"enabled": true,
-		"localPort": 9420,
+		"localPort": 9423,
 		"path": "/usr/local/modules/freshrss/p",
 		"permissions": [
 			"_groupadmin_"

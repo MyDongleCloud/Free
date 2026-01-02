@@ -22,7 +22,7 @@
 	"default": {
 		"config": true,
 		"enabled": true,
-		"localPort": 9469,
+		"localPort": 9477,
 		"path": "/usr/local/modules/piped/dist",
 		"permissions": [
 			"_groupadmin_"

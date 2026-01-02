@@ -21,7 +21,7 @@
 	"proprietary": "Amazon S3",
 	"default": {
 		"enabled": true,
-		"localPort": 9451,
+		"localPort": 9457,
 		"permissions": [
 			"_groupadmin_"
 		]

@@ -52,7 +52,7 @@
 		},
 		"config": true,
 		"enabled": true,
-		"localPort": 9437,
+		"localPort": 9441,
 		"permissions": [
 			"_groupadmin_"
 		],

@@ -45,7 +45,7 @@
 			]
 		},
 		"enabled": true,
-		"localPort": 9510,
+		"localPort": 9482,
 		"permissions": [
 			"_groupadmin_"
 		],

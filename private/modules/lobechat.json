@@ -22,7 +22,7 @@
 	"default": {
 		"config": true,
 		"enabled": true,
-		"localPort": 9443,
+		"localPort": 9448,
 		"permissions": [
 			"_groupadmin_"
 		],

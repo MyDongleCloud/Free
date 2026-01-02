@@ -21,7 +21,7 @@
 	"proprietary": "Adobe Acrobat",
 	"default": {
 		"enabled": true,
-		"localPort": 9460,
+		"localPort": 9467,
 		"permissions": [
 			"_groupadmin_"
 		]

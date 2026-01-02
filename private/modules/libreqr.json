@@ -21,7 +21,7 @@
 	"proprietary": "QR Code Generator",
 	"default": {
 		"enabled": true,
-		"localPort": 9439,
+		"localPort": 9443,
 		"permissions": [
 			"_groupadmin_"
 		]

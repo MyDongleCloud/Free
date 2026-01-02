@@ -21,7 +21,7 @@
 	"proprietary": "Typora",
 	"default": {
 		"enabled": true,
-		"localPort": 9445,
+		"localPort": 9450,
 		"permissions": [
 			"_groupadmin_"
 		]

@@ -21,7 +21,7 @@
 	"proprietary": "WordPress",
 	"default": {
 		"enabled": true,
-		"localPort": 9487,
+		"localPort": 9502,
 		"permissions": [
 			"_groupadmin_"
 		]

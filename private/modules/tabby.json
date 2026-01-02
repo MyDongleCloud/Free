@@ -57,7 +57,7 @@
 		"config": true,
 		"configFile": "/disk/admin/modules/tabby/config.toml",
 		"enabled": true,
-		"localPort": 9490,
+		"localPort": 9505,
 		"permissions": [
 			"_localnetwork_",
 			"_groupadmin_"

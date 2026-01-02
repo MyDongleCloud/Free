@@ -22,7 +22,7 @@
 	"default": {
 		"bindingPort": 7000,
 		"enabled": true,
-		"localPort": 9421,
+		"localPort": 9424,
 		"permissions": [
 			"_groupadmin_"
 		],
