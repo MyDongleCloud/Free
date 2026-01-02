@@ -131,7 +131,6 @@ localPort = %d\n", elModuleSt->string, type, strncmp(type, "http", 4) == 0 ? "tr
 					cJSON *service;
 					cJSON_ArrayForEach(service, cJSON_GetObjectItem(elModule, "services")) {
 						if (serviceState(cJSON_GetStringValue(service)) != cJSON_IsTrue(elEnabled)) {
-							PRINTF("##############Module:%s: %s service\n", elModule->string, cJSON_IsTrue(elEnabled) ? "ReloadOrRestartUnit" : "StopUnit");
 #ifndef DESKTOP
 							serviceAction("apache2.service", cJSON_IsTrue(elEnabled) ? "ReloadOrRestartUnit" : "StopUnit");
 #endif
