@@ -152,8 +152,8 @@ AppALEnabled %s\n\
 	RewriteEngine On\n\
 	ProxyRequests Off\n\
 	ProxyPreserveHost on\n\
-	RequestHeader set \"X-Forwarded-Proto\" expr=%{REQUEST_SCHEME}\n\
-	RequestHeader set \"X-Forwarded-Host\" expr=%{HTTP_HOST}\n\
+	RequestHeader set \"X-Forwarded-Proto\" expr=%%{REQUEST_SCHEME}\n\
+	RequestHeader set \"X-Forwarded-Host\" expr=%%{HTTP_HOST}\n\
 	ProxyVia On\n\
 	ProxyPass /_app_/auth/ http://localhost:8091/auth/\n\
 	Alias /_app_ /usr/local/modules/apache2/pages\n\
@@ -301,10 +301,19 @@ begin:
 	ErrorDocument 500 /_app_/error.php\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
+				if (cJSON_HasObjectItem(elModule, "autoLoginNoGzip")) {
+					cJSON *al = NULL;
+					cJSON_ArrayForEach(al, cJSON_GetObjectItem(elModule, "autoLoginNoGzip")) {
+						sprintf(sz, "\tSetEnvIf Request_URI %s no_gzip\n", al->valuestring);
+						fwrite(sz, strlen(sz), 1, pfM);
+					}
+					strcpy(sz, "\tRequestHeader unset Accept-Encoding env=no_gzip\n");
+					fwrite(sz, strlen(sz), 1, pfM);
+				}
 			} else {
 				snprintf(sz, sizeof(sz), "\
 	RewriteCond %%{REQUEST_URI} !^/_app_/disabled.php$\n\
-	RewriteRule ^/.*$ /_app_/disabled.php?m=%s%s [PT,L]\n\n", elModule->string, !ready ? "&notSetup" : "");
+	RewriteRule ^/.*$ /_app_/disabled.php?m=%s%s [PT,L]\n", elModule->string, !ready ? "&notSetup" : "");
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 			writeLog(elModule->string, pfM);

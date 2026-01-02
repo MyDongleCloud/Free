@@ -21,7 +21,6 @@
 	],
 	"proprietary": "",
 	"default": {
-		"addConfigEnd": "SetEnvIf Request_URI ^/login no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"autoLogin": {
 			"inject": [
 				{
@@ -44,6 +43,9 @@
 				}
 			]
 		},
+		"autoLoginNoGzip": [
+			"^/login"
+		],
 		"enabled": true,
 		"localPort": 9518,
 		"permissions": [

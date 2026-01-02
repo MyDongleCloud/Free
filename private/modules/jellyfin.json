@@ -19,7 +19,6 @@
 	],
 	"proprietary": "Plex|Emby",
 	"default": {
-		"addConfigEnd": "SetEnvIf Request_URI ^/web/$ no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"autoLogin": {
 			"inject": [
 				{
@@ -42,6 +41,9 @@
 				}
 			]
 		},
+		"autoLoginNoGzip": [
+			"^/web/$"
+		],
 		"enabled": true,
 		"localPort": 9435,
 		"permissions": [

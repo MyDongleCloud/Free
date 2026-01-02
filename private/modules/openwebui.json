@@ -20,7 +20,6 @@
 	],
 	"proprietary": "",
 	"default": {
-		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tSetEnvIf Request_URI ^/auth no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"autoLogin": {
 			"inject": [
 				{
@@ -42,6 +41,10 @@
 					"val2": 2
 				}
 			],
+		"autoLoginNoGzip": [
+			"^/$",
+			"^/auth"
+		],
 			"post": [
 				{
 					"url": "/api/v1/auths/signin",

@@ -20,7 +20,6 @@
 	],
 	"proprietary": "Ancestry.com",
 	"default": {
-		"addConfigEnd": "SetEnvIf Request_URI \"^/index.php\" no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"autoLogin": {
 			"inject": [
 				{
@@ -43,6 +42,9 @@
 				}
 			]
 		},
+		"autoLoginNoGzip": [
+			"^/index.php"
+		],
 		"config": true,
 		"enabled": true,
 		"localPort": 9516,

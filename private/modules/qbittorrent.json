@@ -20,7 +20,6 @@
 	],
 	"proprietary": "qBittorrent",
 	"default": {
-		"addConfigEnd": "SetEnvIf Request_URI ^/$ no_gzip\n\tRequestHeader unset Accept-Encoding env=no_gzip",
 		"autoLogin": {
 			"inject": [
 				{
@@ -43,6 +42,9 @@
 				}
 			]
 		},
+		"autoLoginNoGzip": [
+			"^/$"
+		],
 		"enabled": true,
 		"localPort": 9484,
 		"permissions": [
