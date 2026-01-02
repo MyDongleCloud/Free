@@ -37,3 +37,4 @@ chown -R jellyfin:jellyfin /disk/admin/modules/jellyfin/config/
 chown -R jellyfin:jellyfin /disk/admin/modules/jellyfin/data/
 systemctl start jellyfin.service
 systemctl enable jellyfin.service
+/usr/local/modules/mydonglecloud/reset/jellyfin-user.sh
