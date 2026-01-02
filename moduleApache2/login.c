@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "http_request.h"
+#include "http_protocol.h"
 #include "http_log.h"
 #include "apr_strings.h"
 #include "apr_shm.h"
@@ -56,7 +57,7 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 			break;
 		if (ctx->processedHtml || APR_BUCKET_IS_FLUSH(b) || APR_BUCKET_IS_METADATA(b)) {
 			if (APR_BUCKET_IS_FLUSH(b))
-		        APR_BUCKET_REMOVE(b);
+				APR_BUCKET_REMOVE(b);
 			continue;
 		}
 		const char *data;
@@ -86,12 +87,18 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 		apr_bucket *inject_b = apr_bucket_transient_create(szScript, strlen(szScript), f->c->bucket_alloc);
 		apr_bucket_split(b, offset);
 		APR_BUCKET_INSERT_AFTER(b, inject_b);
+		const char *cl_str = apr_table_get(f->r->headers_out, "Content-Length");
+		if (cl_str) {
+			apr_off_t current_len = (apr_off_t)apr_atoi64(cl_str);
+			apr_size_t insert_size = strlen(szScript);
+			ap_set_content_length(f->r, current_len + (apr_off_t)insert_size);
+		}
 		ctx->processedHtml = 1;
 	}
-    apr_status_t rv = ap_pass_brigade(f->next, ctx->saved_bb);
-    apr_brigade_cleanup(ctx->saved_bb);
+	apr_status_t rv = ap_pass_brigade(f->next, ctx->saved_bb);
+	apr_brigade_cleanup(ctx->saved_bb);
 	ctx->saved_bb = NULL;
-    return rv;
+	return rv;
 }
 
 static void replace(ap_filter_t *f, char *input, char *search1, char *search2, char *arg1, char *arg2, char **output) {
