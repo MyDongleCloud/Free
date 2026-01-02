@@ -1,25 +1,25 @@
 {
-	"module": "erugo",
-	"name": "Erugo",
-	"title": "File Sharing",
-	"category": "Collaboration",
-	"version": "v0.2.0",
+	"module": "droppy",
+	"name": "droppy",
+	"title": "File Storage",
+	"category": "Utils",
+	"version": "v1.3.1",
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",
-	"github": "ErugoOSS/Erugo",
-	"description": "A file-sharing platform.",
+	"github": "droppyjs/droppy",
+	"description": "A file storage.",
 	"keywords": [
 		"File",
-		"Sharing"
+		"Storage"
 	],
 	"proprietary": "",
 	"default": {
 		"enabled": true,
-		"localPort": 9521,
+		"localPort": 9519,
 		"permissions": [
 			"_groupadmin_"
 		]

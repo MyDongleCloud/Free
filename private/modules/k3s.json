@@ -1,0 +1,28 @@
+{
+	"module": "k3s",
+	"name": "Lightweight Kubernetes",
+	"title": "XXX",
+	"category": "Server",
+	"version": "v1.35.0+k3s1",
+	"installMethod": "clone",
+	"web": false,
+	"essential": false,
+	"finished": false,
+	"ai": false,
+	"database": "",
+	"github": "k3s-io/k3s",
+	"description": "Lightweight optimized Kubernetes for low-RAM hardware.",
+	"keywords": [
+		"Container",
+		"Virtualization",
+		"DevOps",
+		"Deployment",
+		"Orchestration"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			""
+		]
+	}
+}

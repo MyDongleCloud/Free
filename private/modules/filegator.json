@@ -1,25 +1,25 @@
 {
-	"module": "erugo",
-	"name": "Erugo",
-	"title": "File Sharing",
+	"module": "filegator",
+	"name": "FileGator",
+	"title": "File Manager",
 	"category": "Collaboration",
-	"version": "v0.2.0",
+	"version": "v7.13.0",
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",
-	"github": "ErugoOSS/Erugo",
-	"description": "A file-sharing platform.",
+	"github": "filegator/filegator",
+	"description": "A powerful Multi-User File Manager.",
 	"keywords": [
 		"File",
-		"Sharing"
+		"Manager"
 	],
 	"proprietary": "",
 	"default": {
 		"enabled": true,
-		"localPort": 9521,
+		"localPort": 9520,
 		"permissions": [
 			"_groupadmin_"
 		]

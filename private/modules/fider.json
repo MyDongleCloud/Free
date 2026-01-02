@@ -1,25 +1,25 @@
 {
-	"module": "erugo",
-	"name": "Erugo",
-	"title": "File Sharing",
+	"module": "fider",
+	"name": "Fider",
+	"title": "Feed-back Platform",
 	"category": "Collaboration",
-	"version": "v0.2.0",
+	"version": "v0.32.0",
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",
-	"github": "ErugoOSS/Erugo",
-	"description": "A file-sharing platform.",
+	"github": "getfider/fider",
+	"description": "An open platform to collect and prioritize feedback.",
 	"keywords": [
-		"File",
-		"Sharing"
+		"Feed-back",
+		"Platform"
 	],
 	"proprietary": "",
 	"default": {
 		"enabled": true,
-		"localPort": 9521,
+		"localPort": 9523,
 		"permissions": [
 			"_groupadmin_"
 		]

@@ -1,17 +1,17 @@
 {
-	"module": "erugo",
-	"name": "Erugo",
+	"module": "sharry",
+	"name": "Sharry",
 	"title": "File Sharing",
 	"category": "Collaboration",
-	"version": "v0.2.0",
+	"version": "v1.15.0",
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",
-	"github": "ErugoOSS/Erugo",
-	"description": "A file-sharing platform.",
+	"github": "eikek/sharry",
+	"description": "A file sharing web application.",
 	"keywords": [
 		"File",
 		"Sharing"
@@ -19,7 +19,7 @@
 	"proprietary": "",
 	"default": {
 		"enabled": true,
-		"localPort": 9521,
+		"localPort": 9516,
 		"permissions": [
 			"_groupadmin_"
 		]

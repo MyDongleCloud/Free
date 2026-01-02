@@ -169,7 +169,7 @@ npm -g update npm node-gyp pnpm yarn
 echo "################################"
 echo "npm Packages"
 echo "################################"
-npm -g install @angular/cli @ionic/cli @vue/cli cordova-res pnpm
+npm -g install @angular/cli @ionic/cli @vue/cli cordova-res
 
 echo "################################"
 echo "pcpp"
@@ -238,10 +238,15 @@ else
 	clone discourse discourse/discourse v3.4.6
 	clone docsify docsifyjs/docsify v4.13.1
 	clone docusaurus facebook/docusaurus v3.9.2
+	clone droppy droppyjs/droppy v1.3.1
+	clone erugo ErugoOSS/Erugo v0.2.0
+	clone fider getfider/fider v0.32.0
+	clone filegator filegator/filegator v7.13.0
 	clone flarum flarum/flarum v1.8.1
 	clone freshrss FreshRSS/FreshRSS 1.26.3
 	clone gitea go-gitea/gitea v1.24.3
 	clone grav getgrav/grav 1.7.48
+	clone hoodik hudikhq/hoodik v1.8.1
 	clone html5qrcode mebjas/html5-qrcode v2.3.8
 	clone immich immich-app/immich v1.135.3
 	clone invidious iv-org/invidious v2.20250913.0
@@ -249,6 +254,7 @@ else
 	clone joomla joomla/joomla-cms 5.3.2
 	clone joplin laurent22/joplin server-v3.4.1
 	clone jstinker johncipponeri/jstinker master
+	clone k3s k3s-io/k3s v1.35.0+k3s1
 	clone karakeep karakeep-app/karakeep v0.26.0
 	clone librechat danny-avila/LibreChat v0.7.9
 	clone librephotos LibrePhotos/librephotos HEAD
@@ -269,20 +275,26 @@ else
 	clone phpbb phpbb/phpbb release-3.3.15
 	clone phpsandbox Corveda/PHPSandbox v3.1
 	clone pihole pi-hole/pi-hole v.6.1.4
-	clone piped TeamPiped/Piped 1c3cfd23
+	clone pingvinshare stonith404/pingvin-share v1.13.0
 	clone pipedbackend TeamPiped/Piped-Backend c5921f6b
 	clone pipedproxy TeamPiped/Piped-Proxy b195686c
+	clone piped TeamPiped/Piped 1c3cfd23
 	clone prettier prettier/prettier 3.7.4
 	clone privatebin PrivateBin/PrivateBin 2.0.3
 	clone projectsend projectsend/projectsend r1720
+	clone psitransfer psi-4ward/psitransfer v2.3.1
 	clone qrcodegenerator bizzycola/qrcode-generator HEAD
 	clone scrcpy Genymobile/scrcpy v3.3.4
 	clone searxng searxng/searxng 74ec225a
+	clone shafi dealfonso/shafi e55e339f
+	clone sharry eikek/sharry v1.15.0
 	clone shields badges/shields server-2025-12-06
 	clone silverbullet silverbulletmd/silverbullet 2.3.0
+	clone sqliteweb coleifer/sqlite-web 0.6.6
 	clone stackedit benweet/stackedit v5.15.4
 	clone stirlingpdf Stirling-Tools/Stirling-PDF v1.0.2
 	clone stremio Stremio/stremio-web v5.0.0-beta.29
+	clone studio outerbase/studio v0.10.2
 	clone sunrisecms cityssm/sunrise-cms v1.0.0-alpha.19
 	clone superset apache/superset 5.0.0
 	clone syncthing syncthing/syncthing v1.30.0

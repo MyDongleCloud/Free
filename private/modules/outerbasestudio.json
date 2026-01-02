@@ -1,0 +1,27 @@
+{
+	"module": "outerbasestudio",
+	"name": "Outerbase Studio",
+	"title": "Database Viewer",
+	"category": "Database",
+	"version": "v0.10.2",
+	"installMethod": "clone",
+	"web": true,
+	"essential": false,
+	"finished": false,
+	"ai": false,
+	"database": "",
+	"github": "outerbase/studio",
+	"description": "A multi-type database Viewer.",
+	"keywords": [
+		"Database",
+		"Viewer"
+	],
+	"proprietary": "",
+	"default": {
+		"enabled": true,
+		"localPort": 9518,
+		"permissions": [
+			"_groupadmin_"
+		]
+	}
+}

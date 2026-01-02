@@ -1,0 +1,26 @@
+{
+	"module": "sqliteweb",
+	"name": "sqlite-web",
+	"title": "Sqlite Viewer",
+	"category": "Database",
+	"version": "0.6.6",
+	"installMethod": "clone",
+	"web": true,
+	"essential": false,
+	"finished": false,
+	"ai": false,
+	"database": "sqlite",
+	"github": "coleifer/sqlite-web",
+	"description": "A web-based SQLite database browser.",
+	"keywords": [
+		""
+	],
+	"proprietary": "",
+	"default": {
+		"enabled": true,
+		"localPort": 9517,
+		"permissions": [
+			"_groupadmin_"
+		]
+	}
+}

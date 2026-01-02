@@ -1,25 +1,25 @@
 {
-	"module": "erugo",
-	"name": "Erugo",
+	"module": "shafi",
+	"name": "ShaFi",
 	"title": "File Sharing",
 	"category": "Collaboration",
-	"version": "v0.2.0",
+	"version": "e55e339f",
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
 	"finished": false,
 	"ai": false,
 	"database": "",
-	"github": "ErugoOSS/Erugo",
-	"description": "A file-sharing platform.",
+	"github": "dealfonso/shafi",
+	"description": "A platform to share files similar to WeTransfer.",
 	"keywords": [
 		"File",
 		"Sharing"
 	],
-	"proprietary": "",
+	"proprietary": "WeTransfer",
 	"default": {
 		"enabled": true,
-		"localPort": 9521,
+		"localPort": 9515,
 		"permissions": [
 			"_groupadmin_"
 		]
