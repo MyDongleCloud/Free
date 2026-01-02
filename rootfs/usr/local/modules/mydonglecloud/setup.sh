@@ -65,5 +65,6 @@ else
 	fi
 	if [ $JSON = 1 ]; then
 		jq ".$NAME.setupDone = true" $MODULES > $MODULES.tmp && mv $MODULES.tmp $MODULES
+		chown admin:admin $MODULES
 	fi
 fi
