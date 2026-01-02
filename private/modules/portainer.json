@@ -39,6 +39,9 @@
 				}
 			]
 		},
+		"autoLoginNoGzip": [
+			"^/$"
+		],
 		"config": true,
 		"enabled": true,
 		"localPort": 9478,
