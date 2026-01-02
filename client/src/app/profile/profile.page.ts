@@ -2,6 +2,7 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
 import { Global } from '../env';
+import { Settings, CategoriesEx } from '../myinterface';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -57,6 +58,12 @@ async showTwoFA() {
 
 closeTwoFA() {
 	this.modalTwoFA.dismiss();
+}
+
+resetSettings() {
+	this.global.settings = { lang:"en", welcomeTourShown:false } as Settings;
+	this.global.settingsSave();
+	this.global.presentToast("The settings of this profile have been resetted!", "alert-circle-outline");
 }
 
 }

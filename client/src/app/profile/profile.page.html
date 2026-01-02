@@ -50,6 +50,10 @@
 										<input type="checkbox" [(ngModel)]="global.settings.powerUser" class="w-4 h-4 text--blue-600 focus:ring--blue-500 border--gray-300 rounded">
 									</div>
 								</div>
+								<button (click)="resetSettings()" class="inline-flex items-center gap-2 px-4 py-2 bg--yellow-600 text--white rounded-lg text-sm font-medium hover:bg--yellow-700 transition-colors cursor-pointer">
+									<ion-icon name="refresh-outline" class="text--white w-4 h-4"></ion-icon>
+									<span class="text-lg">{{L("Reset Profile Settings")}}</span>
+								</button>
 							</div>
 						</div>
 					</div>
