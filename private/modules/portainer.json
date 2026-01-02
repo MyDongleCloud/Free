@@ -2,7 +2,7 @@
 	"module": "portainer",
 	"name": "Portainer",
 	"title": "Container Management",
-	"category": "Utils",
+	"category": "Server",
 	"version": "2.33.6",
 	"installMethod": "wget",
 	"web": true,
