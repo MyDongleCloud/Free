@@ -89,21 +89,21 @@ else
 	else
 		echo "Nothing to update for app"
 	fi
-	if [ -f ${ROOTFS}/home/ai/moduleApache2/mod_app.so -a $(find ../moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/home/ai/moduleApache2/mod_app.so ]; then
+	if [ -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -a $(find ../moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleApache2
 		cp -a ../moduleApache2 ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleApache2 && make clean && make'
 	else
 		echo "Nothing to update for moduleApache2"
 	fi
-	if [ -f ${ROOTFS}/home/ai/moduleApache2/mod_app_ip.so -a $(find ../moduleIpApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/home/ai/moduleIpApache2/mod_app_ip.so ]; then
+	if [ -f ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so -a $(find ../moduleIpApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleIpApache2
 		cp -a ../moduleIpApache2 ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleIpApache2 && make clean && make'
 	else
 		echo "Nothing to update for moduleIpApache2"
 	fi
-	if [ -f ${ROOTFS}/home/ai/pam/pam_app.so -a $(find ../pam -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/home/ai/pam/pam_app.so ]; then
+	if [ -f ${ROOTFS}/usr/local/modules/pam/pam_app.so -a $(find ../pam -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/pam/pam_app.so ]; then
 		rm -rf ${ROOTFS}/home/ai/pam
 		cp -a ../pam ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/pam && make clean && make'
@@ -111,7 +111,7 @@ else
 		echo "Nothing to update for pam"
 	fi
 	cp /etc/resolv.conf /tmp/2/etc/resolv.conf
-	if [ -d ${ROOTFS}/home/ai/auth/betterauth -a $(find ../auth/src/ -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/home/ai/auth/betterauth ]; then
+	if [ -d ${ROOTFS}/usr/local/modules/betterauth -a $(find ../auth/src/ -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/betterauth ]; then
 		rm -rf ${ROOTFS}/home/ai/auth
 		cp -a ../auth ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/auth && ./prepare.sh -i'
