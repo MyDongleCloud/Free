@@ -152,6 +152,8 @@ AppALEnabled %s\n\
 	RewriteEngine On\n\
 	ProxyRequests Off\n\
 	ProxyPreserveHost on\n\
+	RequestHeader set \"X-Forwarded-Proto\" expr=%{REQUEST_SCHEME}\n\
+	RequestHeader set \"X-Forwarded-Host\" expr=%{HTTP_HOST}\n\
 	ProxyVia On\n\
 	ProxyPass /_app_/auth/ http://localhost:8091/auth/\n\
 	Alias /_app_ /usr/local/modules/apache2/pages\n\
