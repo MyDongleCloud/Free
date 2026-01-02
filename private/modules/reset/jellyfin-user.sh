@@ -2,9 +2,8 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for jellyfin-user [-h -r]"
+echo "Usage for jellyfin-user [-h]"
 echo "h:	Print this usage and exit"
-echo "r:	Reset"
 exit 0
 }
 
