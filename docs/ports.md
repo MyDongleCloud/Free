@@ -1,10 +1,10 @@
-This page documents the involved ports in both image and server.
+This page documents the ports that are used both in the image/device and on the server.
 
-# Used ports in image
+# Used ports in the image
 
 This is the list of all used ports in the image, separated between listening ports and outgoing ports.
 
-### Listening ports (device only aka. 127.0.0.1 or equivalent)
+### Listening ports (127.0.0.1)
 - mosquitto: 1883 (zigbee2mqtt)
 - webssh2: 2222 (reverseproxy)
 - betterauthstudio: 3002
@@ -15,13 +15,14 @@ This is the list of all used ports in the image, separated between listening por
 - redis: 6379
 - frp: 7400
 - meilisearch: 7700
+- whisparr: 6969 (reverseproxy)
+- radarr: 7878 (reverseproxy)
 - metube: 8089 (reverseproxy)
 - triliumnotes: 8090 (reverseproxy)
 - betterauth: 8091 (reverseproxy)
 - mydongecloud app: 8093 (socket), 8094 (reverseproxy)
 - zigbee2mqtt: 8095 (reverseproxy)
 - jellyfin: 8096 (reverseproxy)
-- transmission: 8097 (reverseproxy)
 - tubesync: 8098 (reverseproxy)
 - llamacpp: 8099 (reverseproxy)
 - tabby: 8100 (reverseproxy)
@@ -31,21 +32,28 @@ This is the list of all used ports in the image, separated between listening por
 - shields: 8104 (reverseproxy)
 - stirlingpdf: 8105 (reverseproxy)
 - microbin: 8106 (reverseproxy)
+- typesense: 8107, 8108 (reverseproxy)
+- qbittorent: 8109 (reverseproxy)
 - syncthing: 8384 (reverseproxy)
+- lidarr: 8686 (reverseproxy)
+- sonarr: 8989 (reverseproxy)
+- portainer: 9000 (reverseproxy), 19443
+- transmission: 9091 (reverseproxy)
+- prowlarr: 9696 (reverseproxy)
 - rspamd: 11332, 11333, 11334
 - stremio: 11470 (reverseproxy)
 - mongodb: 27017
 
-### Listening ports (external aka. 0.0.0.0 or equivalent)
+### Listening ports (0.0.0.0)
 - ssh: 22
 - postfix: 25 (mail), 465 (smtp)
-- apache: 80 (http), 443 (https), 9400-9506 (modules)
+- apache: 80 (http), 443 (https), 9400-9526 (modules)
 - dovecot imaps: 110 (imaps), 143 (pop3s), 993 (imaps), 995 (pop3s)
 - networkmanager: 546 (dhcpv6)
 - avahi: 5353 (mdns)
 - transmission: 6771, 51413, 60562
 
-### Listening ports (external) should be device only
+### Listening ports (0.0.0.0 should be 127.0.0.1)
 - homeassistant: 1900, 5353, 8123
 - audiobookshelf: 8092 (reverseproxy)
 - cockpit: 9090 (reverseproxy)
