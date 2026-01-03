@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "json",
+	"database": "",
 	"github": "transmission/transmission",
 	"description": "A fast, easy, and free BitTorrent client.",
 	"keywords": [

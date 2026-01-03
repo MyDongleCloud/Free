@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "",
+	"database": "sqlite",
 	"github": "Prowlarr/Prowlarr",
 	"description": "A central collection manager for Usenet and BitTorrent users.",
 	"keywords": [
