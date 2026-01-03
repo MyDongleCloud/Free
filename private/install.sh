@@ -306,6 +306,7 @@ else
 	clone umtpresponder viveris/uMTP-Responder umtprd-1.6.8
 	clone uptime louislam/uptime-kuma 1.23.16
 	clone webssh2 billchurch/webssh2 webssh2-server-v2.3.4
+	clone wgdashboard WGDashboard/WGDashboard v4.3.1
 	clone webtrees fisharebest/webtrees 2.1.25
 	clone yourls YOURLS/YOURLS 1.10.2
 	clone zola getzola/zola v0.21.0

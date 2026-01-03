@@ -1,0 +1,18 @@
+[Unit]
+Description=WGDashboard
+After=network.target
+
+[Service]
+Environment=PATH=/usr/local/modules/wgdashboard/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Type=simple
+ExecStart=sudo /usr/local/modules/wgdashboard/wgd/bin/gunicorn --config gunicorn.conf.py
+PIDFile=/usr/local/modules/wgdashboard/src/gunicorn.pid
+WorkingDirectory=/usr/local/modules/wgdashboard/src
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=ai
+
+[Install]
+WantedBy=multi-user.target

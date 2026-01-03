@@ -1,0 +1,67 @@
+{
+	"module": "wgdashboard",
+	"name": "WGDashboard",
+	"title": "VPN Manager",
+	"category": "server",
+	"version": "v4.3.1",
+	"installMethod": "clone",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "sqlite",
+	"github": "WGDashboard/WGDashboard",
+	"description": "A web interface to manage WireGuard.",
+	"keywords": [
+		"WireGuard",
+		"VPN",
+		"Server"
+	],
+	"proprietary": "",
+	"default": {
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/",
+					"form": "form",
+					"arg1": "input[id=username]",
+					"arg2": "input[id=password]",
+					"arg3": "button",
+					"val1": 0,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/",
+					"arg1": "username",
+					"arg2": "password",
+					"val1": 0,
+					"val2": 2
+				}
+			]
+		},
+		"autoLoginNoGzip": [
+			"^/$"
+		],
+		"enabled": true,
+		"localPort": 9523,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 10086,
+				"path": "/"
+			}
+		],
+		"services": [
+			"wireguarddashboard"
+		],
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true
+	}
+}

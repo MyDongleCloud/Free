@@ -1,0 +1,25 @@
+{
+	"module": "wireguardtools",
+	"name": "WireGuard Tools",
+	"title": "VPN Server Tools",
+	"category": "Server",
+	"version": "",
+	"installMethod": "apt",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "WireGuard/wireguard-tools",
+	"description": "",
+	"keywords": [
+		"VPN"
+	],
+	"proprietary": "",
+	"default": {
+		"cmds": [
+			"/usr/bin/wg",
+			"/usr/bin/wg-quick"
+		]
+	}
+}

@@ -40,6 +40,7 @@ This is the list of all used ports in the image, separated between listening por
 - portainer: 9000 (reverseproxy), 19443
 - transmission: 9091 (reverseproxy)
 - prowlarr: 9696 (reverseproxy)
+- wgdashboard: 10086
 - rspamd: 11332, 11333, 11334
 - stremio: 11470 (reverseproxy)
 - mongodb: 27017

@@ -1,0 +1,22 @@
+{
+	"module": "wireguard",
+	"name": "WireGuard",
+	"title": "VPN Backend",
+	"category": "Server",
+	"version": "",
+	"installMethod": "apt",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "WireGuard/wireguard-linux",
+	"description": "",
+	"keywords": [
+		"VPN",
+		"Server"
+	],
+	"proprietary": "",
+	"default": {
+	}
+}
