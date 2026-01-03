@@ -32,7 +32,7 @@ function fillTableHeader() {
 		const th = document.createElement("th");
 		th.scope = "col";
 		let tmp = header.charAt(0).toUpperCase() + header.slice(1);
-		if (header == "ai" || header == "web" || header == "finished")
+		if (header == "ai" || header == "web" || header == "finished" || header == "essential")
 			tmp = tmp + "&nbsp;<input type='checkbox' id='" + header + "ID' onchange='filterTable()' class='border rounded'>";
 		if (header == "module")
 			tmp = "<a href='javascript:sort(0);' title='Toggle Sort'>" + tmp + "&nbsp;&nbsp;&nbsp;<a href='javascript:sort(-1);' title='Sort Descending' data-class='sortDir != 1 ? \"\" : \"text-gray-700\"'>↓</a>&nbsp;&nbsp;&nbsp;<a href='javascript:sort(1)' title='Sort Ascending' data-class='sortDir == 1 ? \"\" : \"text-gray-700\"'>↑</a>";
