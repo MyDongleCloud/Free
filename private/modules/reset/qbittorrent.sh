@@ -33,6 +33,7 @@ HASH=`python3 -c "import hashlib, os, base64; s=os.urandom(16); p=\"${PASSWD}\";
 systemctl stop qbittorrent.service
 rm -rf /disk/admin/modules/qbittorrent
 mkdir -p /disk/admin/modules/qbittorrent/qBittorrent/config/
+mkdir -p /disk/admin/modules/qbittorrent/qBittorrent/downloads/
 cat > /disk/admin/modules/qbittorrent/qBittorrent/config/qBittorrent.conf << EOF
 [BitTorrent]
 Session\Port=8796
