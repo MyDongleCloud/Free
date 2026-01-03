@@ -1,7 +1,7 @@
 {
 	"module": "whisparr",
 	"name": "Whisparr",
-	"title": "Adult Movie Collection Manager Movies Adult",
+	"title": "Collection Manager Movies Adult",
 	"category": "Torrent",
 	"version": "v4.0.16.2944",
 	"installMethod": "wget",
