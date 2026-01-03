@@ -82,7 +82,7 @@ filterCards() {
 			return false;
 		if (this.showNotDone == false && !card.finished)
 			return false;
-		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
+		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.alias.join(" ").toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
 		if (this.category == "All")
 			return ret;
 		else if (this.category == "AI")
