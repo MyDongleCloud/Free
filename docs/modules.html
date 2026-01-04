@@ -92,6 +92,8 @@ function fillTableContent() {
 				tr.data_web = vvalue;
 			if (kkey == "finished")
 				tr.data_finished = vvalue;
+			if (kkey == "essential")
+				tr.data_essential = vvalue;
 			if (kkey == "githubStars")
 				tr.data_githubStars	= vvalue;
 			tr.appendChild(td);
@@ -120,7 +122,8 @@ function filterTable() {
 	const ai = document.getElementById("aiID").checked;
 	const web = document.getElementById("webID").checked;
 	const finished = document.getElementById("finishedID").checked;
-	const dirty = search != "" || category != 0 || installMethod != 0 || database != 0 || ai || web || finished;
+	const essential = document.getElementById("essentialID").checked;
+	const dirty = search != "" || category != 0 || installMethod != 0 || database != 0 || ai || web || finished || essential;
 	document.getElementById("resetID").disabled = !dirty;
 
 	const tbody = document.getElementById("dataTbody");
@@ -148,6 +151,10 @@ function filterTable() {
 			return;
 		}
 		if (finished && !row.data_finished) {
+			row.style.visibility = "collapse";
+			return;
+		}
+		if (essential && !row.data_essential) {
 			row.style.visibility = "collapse";
 			return;
 		}
@@ -182,6 +189,7 @@ function reset() {
 	document.getElementById("aiID").checked = false;
 	document.getElementById("webID").checked = false;
 	document.getElementById("finishedID").checked = false;
+	document.getElementById("essentialID").checked = false;
 	document.getElementById("categoryID").selectedIndex = 0;
 	document.getElementById("installMethodID").selectedIndex = 0;
 	document.getElementById("databaseID").selectedIndex = 0;
