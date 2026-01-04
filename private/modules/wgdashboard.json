@@ -41,9 +41,6 @@
 				}
 			]
 		},
-		"autoLoginNoGzip": [
-			"^/$"
-		],
 		"enabled": true,
 		"localPort": 9523,
 		"permissions": [
