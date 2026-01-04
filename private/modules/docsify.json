@@ -23,6 +23,7 @@
 			"docs"
 		],
 		"enabled": true,
+		"followSymLinks": true,
 		"localPort": 9414,
 		"path": "/disk/admin/modules/docsify",
 		"permissions": [
@@ -30,7 +31,6 @@
 		],
 		"reset": true,
 		"setup": true,
-		"setupDependencies": [],
-		"symlinks": true
+		"setupDependencies": []
 	}
 }
