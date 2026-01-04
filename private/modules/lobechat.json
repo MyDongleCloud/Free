@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": true,
-	"database": "",
+	"database": "postgresql",
 	"github": "lobehub/lobe-chat",
 	"description": "A modern design AI Agent Workspace.",
 	"keywords": [
