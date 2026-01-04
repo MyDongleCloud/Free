@@ -54,6 +54,12 @@ static void writeSymlinks(int b, FILE *pfM) {
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
+static void writeMultiViews(int b, FILE *pfM) {
+	char sz[256];
+	sprintf(sz, "\t\tOptions %sMultiViews\n", b ? "+" : "-");
+	fwrite(sz, strlen(sz), 1, pfM);
+}
+
 static void writeIndexes(int b, FILE *pfM) {
 	char sz[256];
 	sprintf(sz, "\t\tOptions %sIndexes\n", b ? "+" : "-");
@@ -273,6 +279,10 @@ begin:
 						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "followSymLinks")), pfM);
 					else if (cJSON_GetObjectItem(elModule, "followSymLinks"))
 						writeSymlinks(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "followSymLinks")), pfM);
+					if (cJSON_HasObjectItem(elModule2, "multiViews"))
+						writeMultiViews(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "multiViews")), pfM);
+					else if (cJSON_GetObjectItem(elModule, "multiViews"))
+						writeMultiViews(cJSON_IsTrue(cJSON_GetObjectItem(elModule, "multiViews")), pfM);
 					if (cJSON_HasObjectItem(elModule2, "indexes"))
 						writeIndexes(cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "indexes")), pfM);
 					else if (cJSON_GetObjectItem(elModule, "indexes"))
