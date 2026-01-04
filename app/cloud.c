@@ -100,22 +100,23 @@ void cloudSetup(cJSON *el) {
 	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();
-	int extended = cJSON_IsTrue(cJSON_GetObjectItem(el, "setupFull"));
 	cJSON *elModule;
 	int total = 1;
 	cJSON_ArrayForEach(elModule, modulesDefault)
 		if (cJSON_IsTrue(cJSON_GetObjectItem(elModule, "setup")))
-			if (extended || cJSON_IsTrue(cJSON_GetObjectItem(elModule, "setupPriority")))
-				total++;
+			total++;
 	int i = 1;
 	setupLoop(&i, total, modulesDefault, modules, 1);
-	if (extended)
-		setupLoop(&i, total, modulesDefault, modules, 0);
-	logicSetup(L("Finalization"), 100);
+	PRINTF("Saving(1) _modules_.json during setup\n");
+	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
 	communicationString("{\"status\":2}");
+	buzzer(1);
+	setupLoop(&i, total, modulesDefault, modules, 0);
+	logicSetup(L("Finalization"), 100);
+	communicationString("{\"status\":3}");
 	cJSON_Delete(cloud);
 	cJSON_Delete(modulesDefault);
-	PRINTF("Saving _modules_.json during setup\n");
+	PRINTF("Saving(2) _modules_.json during setup\n");
 	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
 	cJSON_Delete(modules);
 	logicMessage(1, 1);
