@@ -40,7 +40,7 @@
 				</button>
 			</div>
 			<div class="flex gap-3 mx-4 mt-4 items-center">
-				<div joyrideStep="anchor5" title="Categories" text="Filter the modules by category." stepPosition="bottom" class="flex rounded-lg border border--gray-200 bg--white p-1">
+				<div joyrideStep="anchor5" title="Categories" text="Filter the modules by category." stepPosition="bottom" class="flex rounded-lg border border--gray-200 p-1">
 					<div class="flex" *ngFor="let cat of CategoriesBar;">
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300" *ngIf="!cat.separator">
 							<input type="radio" name="category" [(ngModel)]="category" value="{{LG(cat.value.name)}}" class="peer sr-only" (change)="filterCards()" />
@@ -54,7 +54,7 @@
 					</div>
 				</div>
 				<div class="flex-1"></div>
-				<div joyrideStep="anchor6" title="Presentation" text="List the modules by card or in a table." stepPosition="bottom" class="rounded-lg border border--gray-200 bg--white p-1 hidden lg:flex">
+				<div joyrideStep="anchor6" title="Presentation" text="List the modules by card or in a table." stepPosition="bottom" class="rounded-lg border border--gray-200 p-1 hidden lg:flex">
 					<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
 						<input type="radio" name="presentation" [(ngModel)]="presentation" value="cards" class="peer sr-only" checked/>
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
@@ -145,7 +145,7 @@
 							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text--gray-500 tracking-wider" *ngIf="showDetails">{{L("KEYWORDS")}}</th>
 						</tr>
 					</thead>
-					<tbody class="bg--white divide-y divide--gray-200">
+					<tbody class="divide-y divide--gray-200">
 						<tr class="hover:bg--gray-50" *ngFor="let card of filteredCards; let cc = index;" [class]="global.developer && card.status != 'done' ? 'bg-repeatline' : !card.enabled ? 'bg--red-50' : card.web != true ? 'bg--indigo-50' : ''">
 							<td class="px-6 py-4 whitespace-nowrap">
 								<div class="text-sm font-medium text--gray-900" [class.line-through]="card?.completed"><a title="{{LMT(card.title)}}" (click)="global.openModule(card.module);" class="cursor-pointer">{{LMT(card.title)}}</a><ion-icon name="open-outline" class="ml-2 h-4 w-4 cursor-pointer" (click)="global.openModule(card.module, true);"></ion-icon></div>
