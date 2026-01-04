@@ -226,7 +226,7 @@ async function onStart() {
 		selectElement.innerHTML = "";
 		ret.list.forEach(version => {
 			const option = document.createElement("option");
-			option.value = "modulesmeta_" + version + ".json";
+			option.value = "modules_" + version + ".json";
 			option.textContent = version;
 			selectElement.appendChild(option);
 		});
