@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script src="tailwindcss-4.js"></script>
+<style type="text/tailwindcss">
+@theme {
+	--color-main: #ffffff;
+	--color-sidebar: #ffffff;
+}
+</style>
 <script>
 let data;
 
@@ -75,7 +81,7 @@ function fillTableContent() {
 			const td = document.createElement("td");
 			if (iindex == 0) {
 				vvalue = "<span class='text-sm'>" + (count++) + "</span> <span class='font-bold'>" + vvalue + "</span>";
-				td.className = "border-b border-gray-300 whitespace-nowrap px-2  sticky left-0 z-9 bg-white border-r";
+				td.className = "border-b border-gray-300 whitespace-nowrap px-2 sticky left-0 z-9 bg-sidebar border-r";
 			} else
 				td.className = " border-b border-gray-300 whitespace-nowrap px-2 overflow-hidden text-ellipsis max-w-xs px-2";
 			td.innerHTML = vvalue === false ? "" : vvalue;
@@ -237,7 +243,7 @@ async function onStart() {
 </script>
 </head>
 <body onload="onStart();">
-<div class="flex flex-col h-screen px-2 bg-white text-black">
+<div class="flex flex-col h-screen px-2 bg-main text-black">
 	<div class="py-2">
 		<label for="versionID">Version:</label>
 		<select id="versionID" name="selectedOption" class="border rounded" onchange="versionChange();">
@@ -248,7 +254,7 @@ async function onStart() {
 			<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>
 		</div>
 		<input type="text" id="searchID" oninput="filterTable()" placeholder="Filter modules..." class="pl-10 pr-4 border border-gray-300 text-gray-500 rounded-lg">
-		<button id="resetID" onclick="reset()" disabled class="inline-flex items-center bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer disabled:bg-gray-100 disabled:cursor-default disabled:text-gray-400">
+		<button id="resetID" onclick="reset()" disabled class="inline-flex items-center border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer disabled:bg-gray-100 disabled:cursor-default disabled:text-gray-400">
 			<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 512 512"><path d="M320 146s24.36-12-64-12a160 160 0 10160 160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 58l80 80-80 80"/></svg>
 		</button>
 		<span id="countID" class="ml-2"></span>
