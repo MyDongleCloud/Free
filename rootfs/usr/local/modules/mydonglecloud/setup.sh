@@ -41,7 +41,7 @@ MODULES=/disk/admin/modules/_config_/_modules_.json
 shift $((OPTIND -1))
 NAME=$1
 if [ $DEPENDENCIES = 1 ]; then
-	LIST2=`jq -r ".$NAME.setupDependencies | join(\" \")" $PP/modulesdefault.json 2> /dev/null`
+	LIST2=`jq -r ".\"$NAME\".setupDependencies | join(\" \")" $PP/modulesdefault.json 2> /dev/null`
 	for tt in $LIST2; do
 		ALREADYDONE=`jq -r ".$tt.setupDone" $MODULES 2> /dev/null`
 		if [ "$ALREADYDONE" != "true" ]; then
@@ -50,7 +50,7 @@ if [ $DEPENDENCIES = 1 ]; then
 	done
 fi
 if [ $USER = -1 ]; then
-	USER=`jq -r ".$NAME.setupRoot | if . == true then 1 else 0 end" $PP/modulesdefault.json 2> /dev/null`
+	USER=`jq -r ".\"$NAME\".setupRoot | if . == true then 1 else 0 end" $PP/modulesdefault.json 2> /dev/null`
 fi
 if [ $RESET = 1 ]; then
 	ARGr="-r"
@@ -64,7 +64,7 @@ else
 		su admin -c "$PP/reset/$NAME.sh $ARGr"
 	fi
 	if [ $JSON = 1 ]; then
-		jq ".$NAME.setupDone = true" $MODULES > $MODULES.tmp && mv $MODULES.tmp $MODULES
+		jq ".\"$NAME\".setupDone = true" $MODULES > $MODULES.tmp && mv $MODULES.tmp $MODULES
 		chown admin:admin $MODULES
 	fi
 fi
