@@ -43,9 +43,6 @@
 				}
 			]
 		},
-		"autoLoginNoGzip": [
-			"^/login"
-		],
 		"config": true,
 		"enabled": true,
 		"followSymLinks": true,
