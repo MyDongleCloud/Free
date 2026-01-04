@@ -80,7 +80,7 @@ foreach ($files as $file) {
 	$modulesMarkdown[$count] = str_replace("0.0k", "", $modulesMarkdown[$count]);
 	$count++;
 }
-echo "\n\nSetup: " . implode(", ", $modulesSetup) . "\n\nReset: " . implode(", ", $modulesReset) . "\n\n" . $count . " modules for " . $starsTotal . " ⭐\n";
+echo "\n\nSetup (" . count($modulesSetup) . "): " . implode(", ", $modulesSetup) . "\n\nReset (" . count($modulesReset) . "): " . implode(", ", $modulesReset) . "\n\n" . $count . " modules for " . $starsTotal . " ⭐\n";
 if (!is_dir(__DIR__ . "/../build"))
 	mkdir(__DIR__ . "/../build");
 store("/../build/modulesmeta.json", $modulesMeta);
