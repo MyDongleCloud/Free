@@ -40,7 +40,7 @@ function _app_Credentials() {
 		_app_Arg2.dispatchEvent(new Event('change', { bubbles: true }));
 		_app_React(_app_Arg2);
 	}
-	_app_Arg3.click();
+	setTimeout(() => { _app_Arg3.click(); }, 100);
 	setTimeout(_app_Close, 1000);
 }
 window._app_Credentials = _app_Credentials;
