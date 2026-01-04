@@ -2,9 +2,10 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for tabby [-h -r]"
+echo "Usage for tabby [-h -r -w]"
 echo "h:	Print this usage and exit"
 echo "r:	Reset"
+echo "w:	Wait for user creation"
 exit 0
 }
 
@@ -14,11 +15,13 @@ if [ "m`id -u`" = "m0" ]; then
 fi
 
 RESET=0
-while getopts hr opt
+WAIT=0
+while getopts hrw opt
 do
 	case "$opt" in
 		h) helper;;
 		r) RESET=1;;
+		w) WAIT=1;;
 	esac
 done
 
@@ -54,4 +57,8 @@ EOF
 ln -sf /disk/admin/modules/tabby /disk/admin/.tabby
 systemctl start tabby.service
 systemctl enable tabby.service
-/usr/local/modules/mydonglecloud/reset/tabby-user.sh
+if [ $WAIT = 1 ]; then
+	/usr/local/modules/mydonglecloud/reset/tabby-user.sh
+else
+	/usr/local/modules/mydonglecloud/reset/tabby-user.sh &
+fi

@@ -2,9 +2,10 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for webtrees [-h -r]"
+echo "Usage for jellyfin [-h -r -w]"
 echo "h:	Print this usage and exit"
 echo "r:	Reset"
+echo "w:	Wait for user creation"
 exit 0
 }
 
@@ -14,11 +15,13 @@ if [ "m`id -u`" != "m0" ]; then
 fi
 
 RESET=0
-while getopts hr opt
+WAIT=0
+while getopts hrw opt
 do
 	case "$opt" in
 		h) helper;;
 		r) RESET=1;;
+		w) WAIT=1;;
 	esac
 done
 
@@ -37,4 +40,8 @@ chown -R jellyfin:jellyfin /disk/admin/modules/jellyfin/config/
 chown -R jellyfin:jellyfin /disk/admin/modules/jellyfin/data/
 systemctl start jellyfin.service
 systemctl enable jellyfin.service
-/usr/local/modules/mydonglecloud/reset/jellyfin-user.sh
+if [ $WAIT = 1 ]; then
+	/usr/local/modules/mydonglecloud/reset/jellyfin-user.sh
+else
+	/usr/local/modules/mydonglecloud/reset/jellyfin-user.sh &
+fi
