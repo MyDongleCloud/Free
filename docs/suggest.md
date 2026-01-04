@@ -62,7 +62,9 @@ Each module is described by an exhaustive json config file:
 		},
 		"config": "A boolean to indicate if the module has a user configuration.",
 		"enabled": "A boolean if the module web interface is enabled or not.",
+		"indexes": "A boolean if indexes should be added or removed.",
 		"localPort": "The local port of the Apache2 module virtual host.",
+		"multiViews": "A boolean if multiviews should be added or removed.",
 		"permissions": [
 			"The permission of the module, usually _groupadmin_."
 		],
@@ -81,7 +83,8 @@ Each module is described by an exhaustive json config file:
 		"setup": "A boolean if the module needs setup.",
 		"setupDependencies": [
 			"The module dependencies of the module itself."
-		]
+		],
+		"symlinks": "A boolean if symlinks should be added or removed."
 	}
 }
 
