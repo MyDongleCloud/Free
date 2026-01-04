@@ -226,9 +226,11 @@ else
 		cd $1
 		git checkout $3
 		rm -rf .git
+		cd ..
 	}
 
 	clone audiobookshelf advplyr/audiobookshelf v2.26.2
+	clone awesomeselfhosted	awesome-selfhosted/awesome-selfhosted-html becfdb62
 	clone beautifierweb beautifier/beautifier.io a1fa4975
 	clone bugzilla bugzilla/bugzilla release-5.3.3
 	clone changedetection dgtlmoon/changedetection.io 0.50.7

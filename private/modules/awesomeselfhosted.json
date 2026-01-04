@@ -1,0 +1,28 @@
+{
+	"module": "awesomeselfhosted",
+	"name": "Awesome-Selfhosted",
+	"title": "Selfhosted List",
+	"category": "Knowledge",
+	"version": "becfdb62",
+	"installMethod": "clone",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "awesome-selfhosted/awesome-selfhosted-html",
+	"description": "An exhaustive list of selfhosted apps.",
+	"keywords": [
+		"Web",
+		"Docs",
+		"Documentation"
+	],
+	"proprietary": "",
+	"default": {
+		"enabled": true,
+		"localPort": 9524,
+		"permissions": [
+			"_groupadmin_"
+		]
+	}
+}
