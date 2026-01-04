@@ -232,6 +232,7 @@ else
 	clone 2fauth Bubka/2FAuth v5.6.1
 	clone audiobookshelf advplyr/audiobookshelf v2.26.2
 	clone awesomeselfhosted	awesome-selfhosted/awesome-selfhosted-html becfdb62
+	clone automatisch automatisch/automatisch v0.15.0
 	clone beautifierweb beautifier/beautifier.io a1fa4975
 	clone bugzilla bugzilla/bugzilla release-5.3.3
 	clone changedetection dgtlmoon/changedetection.io 0.50.7
