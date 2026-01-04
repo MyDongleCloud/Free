@@ -146,7 +146,7 @@ installModule python
 echo "################################"
 echo "Modules via apt"
 echo "################################"
-apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libapache2-mod-authnz-external libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-gd php-sqlite3 php-xml php-yaml php-curl php-zip php-apcu php-memcache php-redis php-ldap procmail rspamd sqlite3 php-imagick
+apt-get -y install certbot dovecot-imapd dovecot-pop3d ffmpeg fscrypt goaccess hugo imagemagick libapache2-mod-php libapache2-mod-authnz-external libpam-fscrypt mosquitto nginx pandoc php php-json php-mysql php-gd php-sqlite3 php-xml php-yaml php-curl php-zip php-apcu php-memcache php-redis php-ldap php-bcmath php-imagick procmail rspamd sqlite3
 
 echo "################################"
 echo "devmem2"
@@ -229,6 +229,7 @@ else
 		cd ..
 	}
 
+	clone 2fauth Bubka/2FAuth v5.6.1
 	clone audiobookshelf advplyr/audiobookshelf v2.26.2
 	clone awesomeselfhosted	awesome-selfhosted/awesome-selfhosted-html becfdb62
 	clone beautifierweb beautifier/beautifier.io a1fa4975

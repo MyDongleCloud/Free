@@ -1,0 +1,65 @@
+{
+	"module": "2fauth",
+	"name": "2FAuth",
+	"title": "Two-Form Authentication",
+	"category": "Utils",
+	"version": "v5.6.1",
+	"installMethod": "clone",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "sqlite",
+	"github": "Bubka/2FAuth",
+	"description": "A Web app to manage your Two-Factor Authentication (2FA) accounts and generate their security codes.",
+	"keywords": [
+		"2FA",
+		"Authentication"
+	],
+	"proprietary": "Google Authenticator",
+	"default": {
+		"alias": [
+			"2fa"
+		],
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/index.php",
+					"form": "form[id=frmLegacyLogin]",
+					"arg1": "input[id=emlEmail]",
+					"arg2": "input[id=pwdPassword]",
+					"arg3": "button[id=btnSignIn]",
+					"val1": 1,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/index.php",
+					"arg1": "email",
+					"arg2": "password",
+					"val1": 1,
+					"val2": 2
+				}
+			]
+		},
+		"autoLoginNoGzip": [
+			"^/login"
+		],
+		"config": true,
+		"enabled": true,
+		"followSymLinks": true,
+		"addLineInDirectory": "AllowOverride FileInfo Options=MultiViews,Indexes,FollowSymLinks",
+		"indexes": true,
+		"localPort": 9526,
+		"multiViews": true,
+		"path": "/usr/local/modules/2fauth/public",
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true
+	}
+}
