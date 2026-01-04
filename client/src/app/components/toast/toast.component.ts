@@ -41,7 +41,8 @@ showToast(message, icon, delay) {
 	this.instant = false;
 	this.hide = false;
     setTimeout(() => { this.show = true; }, 10);
-    setTimeout(() => { this.dismissToast(false); }, delay);
+	if (delay > 0)
+	    setTimeout(() => { this.dismissToast(false); }, delay);
     this.addEscapeListener();
 }
 
