@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { JoyrideService } from 'ngx-joyride';
 import { HttpClient } from '@angular/common/http';
@@ -40,7 +41,17 @@ showDone: boolean = true;
 showNotDone: boolean = true;
 CategoriesBar = CategoriesBar;
 
-constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService) {
+constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService, private route: ActivatedRoute) {
+	this.route.queryParams.subscribe((params) => {
+		if (params.search)
+			setTimeout(() => {
+				this.searchTerm = params?.search;
+				this.filterCards();
+				if (params.settings === "true")
+					this.settings(params.search);
+				this.cdr.detectChanges();
+			}, 250);
+	});
 	global.refreshUI.subscribe(event => {
 		if (event === "onlySidebar") {
 			this.sidebar.refresh();

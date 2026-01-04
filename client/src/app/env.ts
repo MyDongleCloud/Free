@@ -281,7 +281,11 @@ openBrowser(url: string) {
 
 openPage(url: string) {
 	this.navCtrl.setDirection('root');
-	this.router.navigate(["/" + url]);
+	const [path, queryString] = url.split("?");
+	const params = new URLSearchParams(queryString);
+	const obj = {};
+	params.forEach((value, key) => { obj[key] = value; });
+	this.router.navigate([path], { queryParams:obj });
 }
 
 async setupModule(identifier:number|string) {
