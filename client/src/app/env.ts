@@ -486,6 +486,8 @@ async modulesDataPrepare() {
 			this.consolelog(1, "Error: " + key + " not in modulesmeta");
 			return;
 		}
+		if (value["reservedToFirstUser"] === true && this.session.user.username != this.session.cloud.info.name)
+			return;
 		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
 		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true;
 		value["permissions"] = modules[key]?.permissions ?? value["permissions"];

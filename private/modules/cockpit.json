@@ -25,6 +25,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"reservedToFirstUser": true,
 		"reverseProxy": [
 			{
 				"type": "http",

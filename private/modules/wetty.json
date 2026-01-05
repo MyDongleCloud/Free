@@ -24,6 +24,7 @@
 		"localPort": 9517,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reservedToFirstUser": true
 	}
 }
