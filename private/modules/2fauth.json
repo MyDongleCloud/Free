@@ -18,6 +18,7 @@
 	],
 	"proprietary": "Google Authenticator",
 	"default": {
+		"addLineInDirectory": "AllowOverride FileInfo Options=MultiViews,Indexes,FollowSymLinks",
 		"alias": [
 			"2fa"
 		],
@@ -46,7 +47,6 @@
 		"config": true,
 		"enabled": true,
 		"followSymLinks": true,
-		"addLineInDirectory": "AllowOverride FileInfo Options=MultiViews,Indexes,FollowSymLinks",
 		"indexes": true,
 		"localPort": 9526,
 		"multiViews": true,
