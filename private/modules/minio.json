@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "minio/minio",
-	"description": "High Performance S3-compatible Object Storage.",
+	"description": "A high-performance object storage server compatible with Amazon S3 APIs.",
 	"keywords": [
 		"Storage",
 		"Object",

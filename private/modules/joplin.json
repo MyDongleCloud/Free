@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "laurent22/joplin",
-	"description": "A note taking and to-do application with synchronization capabilities.",
+	"description": "A note taking and to-do application with synchronization capabilities, with markdown editor and encryption support.",
 	"keywords": [
 		"Notes",
 		"To-do",

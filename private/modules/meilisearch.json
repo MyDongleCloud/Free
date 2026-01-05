@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "meilisearch/meilisearch",
-	"description": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
+	"description": "An ultra relevant, instant and typo-tolerant full-text search API, bringing AI-powered hybrid search to your sites and applications.",
 	"keywords": [
 		"Search",
 		"Engine"

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "advplyr/audiobookshelf",
-	"description": "An Audiobook and podcast server to organize audio files",
+	"description": "An Audiobook and podcast server that streams all audio formats, keeps and syncs progress across devices.",
 	"keywords": [
 		"Audiobooks",
 		"Podcasts",

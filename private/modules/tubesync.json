@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "sqlite",
 	"github": "meeb/tubesync",
-	"description": "A syncer of YouTube channels and playlists.",
+	"description": "A syncer of YouTube channels and playlists to a locally hosted media server.",
 	"keywords": [
 		"YouTube",
 		"Download",

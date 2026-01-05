@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "sqlite",
 	"github": "qbittorrent/qBittorrent",
-	"description": "A complete BitTorrent client.",
+	"description": "A free cross-platform bittorrent client with a feature rich Web UI for remote access.",
 	"keywords": [
 		"BitTorrent",
 		"Client",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "postgresql",
 	"github": "iv-org/invidious",
-	"description": "A Youtube front-end with focus on privacy.",
+	"description": "An alternative YouTube front-end with focus on privacy.",
 	"keywords": [
 		"Web",
 		"Youtube",

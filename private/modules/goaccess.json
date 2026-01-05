@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "allinurl/goaccess",
-	"description": "A real-time web log analyzer and interactive viewer",
+	"description": "A real-time web log analyzer and interactive viewer that runs in a terminal.",
 	"keywords": [
 		"Logs",
 		"Analytics",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "filegator/filegator",
-	"description": "A powerful Multi-User File Manager.",
+	"description": "A powerful multi-user file manager with a single page front-end.",
 	"keywords": [
 		"File",
 		"Manager"

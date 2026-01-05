@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "dgtlmoon/changedetection.io",
-	"description": "A tool for tracking changes on web pages.",
+	"description": "A tool for tracking changes and stay up-to-date with web-site content changes.",
 	"keywords": [
 		"Change",
 		"Detection",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "mastodon/mastodon",
-	"description": "A self-hosted, globally interconnected microblogging community.",
+	"description": "A federated, globally interconnected microblogging community.",
 	"keywords": [
 		"Server",
 		"Social",

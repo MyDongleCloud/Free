@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "mysql",
 	"github": "fisharebest/webtrees",
-	"description": "A genealogy application.",
+	"description": "The web's leading online collaborative genealogy application.",
 	"keywords": [
 		"Genealogy",
 		"Family",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "photoview/photoview",
-	"description": "A simple and user-friendly photo gallery personal server.",
+	"description": "A simple and user-friendly photo gallery personal server, aiming to provide an easy and fast way to navigate thousands of high resolution photos.",
 	"keywords": [
 		"Photo",
 		"Gallery",

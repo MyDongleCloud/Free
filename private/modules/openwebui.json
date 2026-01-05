@@ -11,7 +11,7 @@
 	"ai": true,
 	"database": "sqlite",
 	"github": "open-webui/open-webui",
-	"description": "A user-friendly WebUI for LLMs.",
+	"description": "A user-friendly AI Interface, supports Ollama, OpenAI API.",
 	"keywords": [
 		"LLM",
 		"WebUI",

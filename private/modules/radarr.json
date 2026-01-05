@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "sqlite",
 	"github": "Radarr/Radarr",
-	"description": "A TVshow collection manager for Usenet and BitTorrent users.",
+	"description": "A TVshows collection manager for Usenet and BitTorrent users.",
 	"keywords": [
 		"PVR",
 		"Manager",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "mysql",
 	"github": "vrana/adminer",
-	"description": "A tool to browse MySQL databases.",
+	"description": "A database management available for MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch, MongoDB and others.",
 	"keywords": [
 		"Database",
 		"SQL",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "dovecot/core",
-	"description": "A secure IMAP and POP3 email server.",
+	"description": "A secure IMAP and POP3 email server written primarily with security in mind.",
 	"keywords": [
 		"Email",
 		"Imap",

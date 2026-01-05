@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "opf/openproject",
-	"description": "A\u00a0project management software.",
+	"description": "A\u00a0manager of your projects, tasks and goals, allowing to collaborate via work packages and link them to your pull requests on Github.",
 	"keywords": [
 		"Project Management"
 	],

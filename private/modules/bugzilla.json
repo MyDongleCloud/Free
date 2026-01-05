@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "sqlite",
 	"github": "bugzilla/bugzilla",
-	"description": "A Web-based general-purpose bugtracker and testing tool.",
+	"description": "A web-based general-purpose bugtracker and testing tool.",
 	"keywords": [
 		"Bug",
 		"Tracker",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "searxng/searxng",
-	"description": "A free internet metasearch engine.",
+	"description": "A free internet metasearch engine which aggregates results from various search services and databases.",
 	"keywords": [
 		"Google",
 		"Search",

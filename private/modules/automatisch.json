@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "postgresql",
 	"github": "automatisch/automatisch",
-	"description": "Build workflow automation without spending time and money.",
+	"description": "A business automation tool that lets you connect different services like Twitter, Slack, and more to automate your business processes.",
 	"keywords": [
 		"Business",
 		"Automation"

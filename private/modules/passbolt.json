@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "passbolt/passbolt_api",
-	"description": "A Password manager for teams.",
+	"description": "A collaborative password manager for teams.",
 	"keywords": [
 		"Password",
 		"Teams"

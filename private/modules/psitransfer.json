@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "psi-4ward/psitransfer",
-	"description": "A simple open source file sharing solution.",
+	"description": "A simple file sharing solution with robust up-/download-resume and password protection.",
 	"keywords": [
 		"File",
 		"Sharing"

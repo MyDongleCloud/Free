@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "phpbb/phpbb",
-	"description": "A flat-forum bulletin board software solution.",
+	"description": "A flat-forum bulletin board software solution that can be used to stay in touch with a group of people.",
 	"keywords": [
 		"Forum",
 		"Bulletin",

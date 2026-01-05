@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "butlerx/wetty",
-	"description": "A tool to access terminal in a browser.",
+	"description": "A tool to access terminal in a browser over http/https.",
 	"keywords": [
 		"SSH",
 		"Web",

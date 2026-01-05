@@ -11,7 +11,7 @@
 	"ai": true,
 	"database": "",
 	"github": "photoprism/photoprism",
-	"description": "AI-powered photos app for the decentralized web.",
+	"description": "A personal photo management system to browse, organize, and share your personal photo collection, using the latest technologies to automatically tag and find pictures.",
 	"keywords": [
 		"Photos",
 		"AI",

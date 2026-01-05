@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "FreshRSS/FreshRSS",
-	"description": "A free, self-hostable news aggregator.",
+	"description": "An RSS feed aggregator.",
 	"keywords": [
 		"RSS",
 		"Feed",

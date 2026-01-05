@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "mysql",
 	"github": "LimeSurvey/LimeSurvey",
-	"description": "A powerful, open-source survey platform.",
+	"description": "A powerful, feature-rich web-based survey platform, supporting extensive survey logic.",
 	"keywords": [
 		"Survey",
 		"Tool",

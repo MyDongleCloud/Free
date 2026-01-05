@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "live-codes/livecodes",
-	"description": "A sandbox for code.",
+	"description": "A feature-rich client-side code playground for React, Vue, Svelte, Solid, Typescript, Python, Go, Ruby, PHP and 90+ other languages.",
 	"keywords": [
 		"Sandbox",
 		"Editor",

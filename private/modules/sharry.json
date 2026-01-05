@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "eikek/sharry",
-	"description": "A file sharing web application.",
+	"description": "An app to share files easily over the internet between authenticated and anonymous users.",
 	"keywords": [
 		"File",
 		"Sharing"

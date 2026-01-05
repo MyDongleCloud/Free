@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "silverbulletmd/silverbullet",
-	"description": "A Programmable Personal Knowledge Management Platform.",
+	"description": "A note-taking application optimized for people with a hacker mindset.",
 	"keywords": [
 		"Knowledge",
 		"Management"

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "sqlite",
 	"github": "TriliumNext/Trilium",
-	"description": "A tool to build your hierarchical notes.",
+	"description": "A cross-platform hierarchical note taking application with focus on building large personal knowledge bases.",
 	"keywords": [
 		"Notes",
 		"Hierarchical",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "syncthing/syncthing",
-	"description": "A continuous file synchronization program.",
+	"description": "A continuous peer-to-peer file synchronization tool.",
 	"keywords": [
 		"File",
 		"Sync",

@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "sqlite",
 	"github": "alexta69/metube",
-	"description": "A web GUI for youtube-dl, allowing you to download videos from YouTube and other sites.",
+	"description": "A web GUI for youtube-dl, with playlist support to download videos from dozens of websites.",
 	"keywords": [
 		"YouTube",
 		"Download",

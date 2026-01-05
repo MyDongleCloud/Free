@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "sqlite",
 	"github": "roundcube/roundcubemail",
-	"description": "A browser-based multilingual mail client.",
+	"description": "A browser-based multilingual mail client with an application-like user interface.",
 	"keywords": [
 		"Email",
 		"IMAP",
