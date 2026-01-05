@@ -509,6 +509,16 @@ async modulesDataPrepare() {
 		});
 		value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
 		value["bookmark"] = this.settings.bookmarks?.includes(key)?? false;
+		const items = [
+			value["module"],
+			value["name"],
+			value["title"],
+			value["category"],
+			...value["keywords"],
+			...(value["proprietary"].split("|")),
+			...value["alias"],
+		].filter(item => item !== "").map(v => v.toLowerCase());
+		value["hayStack"] = [...new Set(items)];
 		this.modulesData.push(value);
 	});
 	this.refreshUI.next(true);

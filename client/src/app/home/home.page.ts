@@ -84,8 +84,23 @@ private lastCtrlFPressTimestamp: number = 0;
 	}
 }
 
+validation(input, isFinalized, tokens, keywords) {
+	return tokens.every((token, index) => {
+		const isLastToken = index === tokens.length - 1;
+		const isQuoted = input.includes(`"${token}"`);
+		return keywords.some(kw => {
+			if (isQuoted || !isLastToken || isFinalized)
+				return kw === token || kw.split(" ").some(word => word === token);
+			return kw.split(" ").some(word => word.startsWith(token));
+		});
+	});
+}
+
 filterCards() {
-	const term = this.searchTerm.toLowerCase();
+	const input = this.searchTerm.toLowerCase();
+	const retI = (!input.trim()) ? true : false;
+	const isFinalized = retI ? false : input.endsWith(" ");
+	const tokens = retI ? [] : [...input.toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)].map(m => m[1] || m[2]);
 	this.filteredCards = this.cards.filter(card => {
 		if (this.showTerminal == false && card.web == false)
 			return false;
@@ -93,7 +108,7 @@ filterCards() {
 			return false;
 		if (this.showNotDone == false && !card.finished)
 			return false;
-		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.alias.join(" ").toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
+		const ret = retI || this.validation(input, isFinalized, tokens, card.hayStack);
 		if (this.category == "All")
 			return ret;
 		else if (this.category == "AI")
