@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "mysql",
+	"database": "",
 	"github": "vrana/adminer",
 	"description": "A database management available for MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch, MongoDB and others.",
 	"keywords": [
