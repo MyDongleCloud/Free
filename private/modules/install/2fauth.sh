@@ -16,7 +16,7 @@ APP_ENV=local
 APP_TIMEZONE=UTC
 APP_DEBUG=false
 SITE_OWNER=mail@example.com
-APP_KEY=base64:D6jcZlZi4Csz6kN5z1Pb7vGtvFcyW/6Ywt4QlLpgOxI=
+APP_KEY=base64:
 APP_URL=http://localhost
 APP_SUBDIRECTORY=
 IS_DEMO_APP=false
@@ -66,6 +66,8 @@ VITE_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 MIX_ENV=local
 EOF
+KEY=$(head -c 32 /dev/urandom | base64 | tr -d '\n')
+sed -i -e "s@^APP_KEY=.*@APP_KEY=base64:${KEY}@" .env
 sqlite3 database/database.sqlite ""
 php artisan 2fauth:install --no-interaction
 mv .env env
