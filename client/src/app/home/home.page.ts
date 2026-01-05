@@ -112,7 +112,10 @@ filterCards() {
 }
 
 filterCategory(c) {
-	this.category = c;
+	if (this.category == c.value.name)
+		this.category = "All";
+	else
+		this.category = c.value.name;
 	this.filterCards();
 }
 

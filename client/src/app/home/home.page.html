@@ -43,7 +43,7 @@
 				<div joyrideStep="anchor5" title="Categories" text="Filter the modules by category." stepPosition="bottom" class="flex rounded-lg border border--gray-200 p-1">
 					<div class="flex" *ngFor="let cat of CategoriesBar;">
 						<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300" *ngIf="!cat.separator">
-							<input type="radio" name="category" [(ngModel)]="category" value="{{LG(cat.value.name)}}" class="peer sr-only" (change)="filterCards()" />
+							<input type="radio" name="category" [(ngModel)]="category" value="{{LG(cat.value.name)}}" class="peer sr-only" (click)="filterCategory(cat);"/>
 							<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 							<span class="relative z-10 text-sm font-medium transition-all duration-300">
 								<ion-icon name="{{cat.value.icon}}" class="w-5 h-5" [class]="global.colorWord(cat.value.name, false)"></ion-icon>
