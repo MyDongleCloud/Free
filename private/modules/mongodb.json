@@ -14,10 +14,10 @@
 	"description": "A general-purpose, document-based, distributed database.",
 	"keywords": [
 		"Database",
-		"NoSQL",
-		"MongoDB",
+		"Distributed",
 		"Document",
-		"Distributed"
+		"Document-based",
+		"NoSQL"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,15 @@
 	"github": "gohugoio/hugo",
 	"description": "A fast and modern static site generator.",
 	"keywords": [
-		"Static",
-		"Site",
+		"Blog creation",
+		"Content management",
+		"Documentation sites",
 		"Generator",
-		"Web"
+		"Multilingual support",
+		"Site",
+		"Static",
+		"Static site generator",
+		"Website builder"
 	],
 	"proprietary": "Squarespace",
 	"default": {

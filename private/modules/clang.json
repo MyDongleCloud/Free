@@ -13,10 +13,14 @@
 	"github": "llvm/llvm-project",
 	"description": "A C language family frontend for LLVM.",
 	"keywords": [
-		"Compiler",
 		"C",
+		"C language",
+		"Clang",
+		"Compiler",
+		"Development",
 		"LLVM",
-		"Frontend"
+		"Libraries",
+		"Source code"
 	],
 	"proprietary": "Microsoft Visual C++",
 	"default": {

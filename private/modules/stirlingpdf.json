@@ -13,10 +13,18 @@
 	"github": "Stirling-Tools/Stirling-PDF",
 	"description": "A web app to perform merging, splitting, file conversions and OCR on PDF files.",
 	"keywords": [
+		"Convert PDF",
+		"Digital signatures",
+		"Document management",
+		"Manipulation",
+		"Merge PDFs",
+		"Online PDF tool",
 		"PDF",
-		"Tool",
-		"Web",
-		"Manipulation"
+		"PDF compression",
+		"PDF editor",
+		"PDF manipulation",
+		"PDF security",
+		"Split PDFs"
 	],
 	"proprietary": "Adobe Acrobat",
 	"default": {

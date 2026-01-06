@@ -13,11 +13,11 @@
 	"github": "Prowlarr/Prowlarr",
 	"description": "A central collection manager for Usenet and BitTorrent users.",
 	"keywords": [
-		"PVR",
-		"Manager",
 		"Automation",
-		"Torrent",
-		"BitTorrent"
+		"BitTorrent",
+		"Manager",
+		"PVR",
+		"Torrent"
 	],
 	"proprietary": "",
 	"default": {

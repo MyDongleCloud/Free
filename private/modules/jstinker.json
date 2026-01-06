@@ -13,9 +13,14 @@
 	"github": "johncipponeri/jstinker",
 	"description": "A sandbox for Javascript.",
 	"keywords": [
-		"Sandbox",
+		"Code formatting",
+		"Code playground",
 		"Editor",
-		"Online"
+		"HTML/CSS/JS preview",
+		"JavaScript sandbox",
+		"Sandbox",
+		"Syntax checking",
+		"Web development tools"
 	],
 	"proprietary": "JsFiddle",
 	"default": {

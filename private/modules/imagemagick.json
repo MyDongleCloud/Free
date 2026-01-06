@@ -13,10 +13,16 @@
 	"github": "ImageMagick/ImageMagick",
 	"description": "A software suite to create, edit, compose, or convert images in any format.",
 	"keywords": [
-		"Image",
-		"Editing",
 		"Conversion",
-		"Graphics"
+		"Digital images",
+		"Editing",
+		"File conversion",
+		"Graphic design",
+		"Graphics",
+		"Image",
+		"Image editing",
+		"Image formats",
+		"Photo manipulation"
 	],
 	"proprietary": "Adobe Photoshop",
 	"default": {

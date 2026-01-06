@@ -14,9 +14,14 @@
 	"description": "A web-based general-purpose bugtracker and testing tool.",
 	"keywords": [
 		"Bug",
-		"Tracker",
+		"Bug tracking",
+		"Error reporting",
+		"Issue tracker",
+		"Project management",
+		"Quality assurance",
 		"Testing",
-		"Web"
+		"Tracker",
+		"User feedback"
 	],
 	"proprietary": "Jira",
 	"default": {

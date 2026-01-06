@@ -13,10 +13,18 @@
 	"github": "",
 	"description": "A service for generating temporary, disposable email addresses.",
 	"keywords": [
-		"Email",
-		"Temporary",
+		"Anonymous email",
 		"Disposable",
-		"Privacy"
+		"Disposable email",
+		"Email",
+		"Fake email",
+		"One-time email",
+		"Privacy",
+		"Privacy email",
+		"Short-term email",
+		"Temporary",
+		"Temporary email",
+		"Throwaway email"
 	],
 	"proprietary": "Temp-Mail",
 	"default": {

@@ -13,9 +13,16 @@
 	"github": "Stremio/stremio-web",
 	"description": "A software system to manage and stream media.",
 	"keywords": [
+		"Discover videos",
+		"Free entertainment",
 		"Media",
+		"Media center",
+		"Organize content",
 		"Streaming",
-		"Video"
+		"Streaming addons",
+		"Video",
+		"Video streaming",
+		"Watch movies"
 	],
 	"proprietary": "Plex|Emby",
 	"default": {

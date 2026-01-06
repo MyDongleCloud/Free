@@ -13,7 +13,13 @@
 	"github": "portainer/portainer",
 	"description": "An utility to manage easily Dockers and Kubernetes.",
 	"keywords": [
-		""
+		"Containers",
+		"Containers Management",
+		"Docker",
+		"K3s",
+		"K8s",
+		"Kubernetes",
+		"Virtualization"
 	],
 	"proprietary": "",
 	"default": {

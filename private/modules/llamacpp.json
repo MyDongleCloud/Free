@@ -13,10 +13,14 @@
 	"github": "ggml-org/llama.cpp",
 	"description": "A tool to enable LLM inference with minial setup and outstanding performance.",
 	"keywords": [
+		"AI tool",
+		"Chatbot",
 		"LLM",
-		"Local",
-		"AI",
-		"Language"
+		"Language",
+		"Language model",
+		"Local AI",
+		"Machine learning",
+		"Model inference"
 	],
 	"proprietary": "",
 	"default": {

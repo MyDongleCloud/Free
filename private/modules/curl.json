@@ -13,8 +13,10 @@
 	"github": "curl/curl",
 	"description": "An advanced tool to download url.",
 	"keywords": [
-		"Web",
-		"Download"
+		"Data transfer",
+		"Download",
+		"URL download",
+		"Web protocols"
 	],
 	"proprietary": "",
 	"default": {

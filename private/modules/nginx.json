@@ -13,10 +13,15 @@
 	"github": "nginx/nginx",
 	"description": "A high-performance HTTP and reverse proxy server, mail proxy server, and generic TCP/UDP proxy server.",
 	"keywords": [
+		"Content caching",
 		"HTTP",
+		"HTTP proxy",
+		"Load balancer",
 		"Proxy",
+		"Reverse proxy",
 		"Server",
-		"Web"
+		"TLS encryption",
+		"Web server"
 	],
 	"proprietary": "F5 BIG-IP",
 	"default": {

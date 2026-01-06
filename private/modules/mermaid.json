@@ -13,10 +13,15 @@
 	"github": "mermaid-js/mermaid",
 	"description": "A generation tool for diagrams like flowcharts or sequence diagrams from text in a similar manner as markdown.",
 	"keywords": [
+		"Charts",
 		"Diagram",
-		"Visualization",
-		"Text",
-		"Code"
+		"Diagram tool",
+		"Documentation",
+		"Flowcharts",
+		"Live editor",
+		"Markdown",
+		"Text-based diagrams",
+		"Visualization"
 	],
 	"proprietary": "Lucidchart",
 	"default": {

@@ -13,10 +13,18 @@
 	"github": "photoprism/photoprism",
 	"description": "A personal photo management system to browse, organize, and share your personal photo collection, using the latest technologies to automatically tag and find pictures.",
 	"keywords": [
-		"Photos",
-		"AI",
+		"AI photos",
+		"AI-powered",
 		"Decentralized",
-		"Gallery"
+		"Decentralized web",
+		"Digital photos",
+		"Gallery",
+		"Photo gallery",
+		"Photo management",
+		"Photo organization",
+		"Photos",
+		"Smart photo app",
+		"Web-based gallery"
 	],
 	"proprietary": "Google Photos",
 	"default": {

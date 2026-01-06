@@ -13,9 +13,14 @@
 	"github": "mastodon/mastodon",
 	"description": "A federated, globally interconnected microblogging community.",
 	"keywords": [
-		"Server",
+		"Community",
+		"Decentralized",
+		"Federated",
+		"Microblogging",
+		"Moderation tools",
+		"Network",
 		"Social",
-		"Network"
+		"Social network"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,17 @@
 	"github": "jgm/pandoc",
 	"description": "A universal document converter.",
 	"keywords": [
-		"Document",
 		"Converter",
+		"Document",
+		"Document converter",
+		"Documentation",
+		"File formats",
+		"Format",
+		"Format transformation",
 		"Markup",
-		"Format"
+		"Markup conversion",
+		"Text processing",
+		"Universal tool"
 	],
 	"proprietary": "Adobe Acrobat",
 	"default": {

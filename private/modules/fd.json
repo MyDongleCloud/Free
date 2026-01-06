@@ -13,10 +13,16 @@
 	"github": "sharkdp/fd",
 	"description": "A simple, fast and user-friendly alternative to 'find'.",
 	"keywords": [
-		"Find",
+		"Alternative to find",
+		"Directory search",
+		"Disk",
+		"Fast search",
+		"File finder",
+		"File search",
 		"Files",
-		"Folders",
-		"Disk"
+		"Filesystem",
+		"Find",
+		"Folders"
 	],
 	"proprietary": "",
 	"default": {

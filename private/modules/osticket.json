@@ -13,10 +13,13 @@
 	"github": "osTicket/osTicket",
 	"description": "A support ticketing ticket system.",
 	"keywords": [
-		"Ticket",
-		"Support",
+		"Customer support",
 		"Helpdesk",
-		"Web"
+		"Helpdesk software",
+		"Support",
+		"Support ticket system",
+		"Ticket",
+		"Ticket management"
 	],
 	"proprietary": "Zendesk",
 	"default": {

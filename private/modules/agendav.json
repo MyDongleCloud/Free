@@ -13,7 +13,10 @@
 	"github": "agendav/agendav",
 	"description": "A CalDAV web client similar to Google Calendar.",
 	"keywords": [
-		"Calendar"
+		"CalDAV",
+		"Calendar",
+		"Scheduling",
+		"Shared calendar"
 	],
 	"proprietary": "",
 	"default": {

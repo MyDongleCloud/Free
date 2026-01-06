@@ -13,9 +13,15 @@
 	"github": "",
 	"description": "A virtual private network tool.",
 	"keywords": [
+		"IP address",
+		"Internet tool",
+		"Network",
+		"Network security",
+		"Online privacy",
+		"Private network",
+		"Secure connection",
 		"VPN",
-		"IP",
-		"Network"
+		"Virtual network"
 	],
 	"proprietary": "NordVPN|ExpressVPN",
 	"default": {

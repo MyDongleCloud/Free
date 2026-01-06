@@ -13,8 +13,13 @@
 	"github": "lvgl/lvgl",
 	"description": "An embedded graphics library to create beautiful UIs for any MCU, MPU and display type.",
 	"keywords": [
+		"Embedded graphics",
+		"Microcontroller",
+		"Real-time rendering",
 		"UI",
-		"Manager"
+		"UI development",
+		"User interface",
+		"Widgets"
 	],
 	"proprietary": "",
 	"default": {

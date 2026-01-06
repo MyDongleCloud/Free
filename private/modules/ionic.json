@@ -13,10 +13,15 @@
 	"github": "ionic-team/ionic-framework",
 	"description": "A powerful cross-platform UI toolkit for building native-quality iOS, Android, and Progressive Web Apps with HTML, CSS, and JavaScript.",
 	"keywords": [
-		"UI",
-		"Mobile",
+		"App development",
 		"Cross-platform",
-		"Framework"
+		"Framework",
+		"JavaScript",
+		"Mobile apps",
+		"Progressive Web Apps",
+		"UI",
+		"User interface",
+		"Web apps"
 	],
 	"proprietary": "Flutter",
 	"default": {

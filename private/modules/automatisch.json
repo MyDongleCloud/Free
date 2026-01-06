@@ -13,8 +13,11 @@
 	"github": "automatisch/automatisch",
 	"description": "A business automation tool that lets you connect different services like Twitter, Slack, and more to automate your business processes.",
 	"keywords": [
+		"Automation",
 		"Business",
-		"Automation"
+		"Business Processes",
+		"Connect",
+		"Services"
 	],
 	"proprietary": "Zapier",
 	"default": {

@@ -13,10 +13,19 @@
 	"github": "apache/superset",
 	"description": "A modern data exploration and visualization platform.",
 	"keywords": [
-		"Data",
-		"Visualization",
+		"Analytics",
 		"BI",
-		"Analytics"
+		"Business intelligence",
+		"Charts",
+		"Dashboards",
+		"Data",
+		"Data analytics",
+		"Data exploration",
+		"Data visualization",
+		"Database integration",
+		"Interactive reports",
+		"SQL editor",
+		"Visualization"
 	],
 	"proprietary": "Tableau",
 	"default": {

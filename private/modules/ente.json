@@ -13,7 +13,14 @@
 	"github": "ente-io/ente",
 	"description": "An end-to-end encrypted cloud for photos, videos and 2FA secrets.",
 	"keywords": [
-		"Cloud"
+		"Cloud storage",
+		"Encryption",
+		"Free storage",
+		"Photo backup",
+		"Photos",
+		"Privacy",
+		"Secure sharing",
+		"Two-factor authentication"
 	],
 	"proprietary": "",
 	"default": {

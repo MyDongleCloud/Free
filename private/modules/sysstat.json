@@ -13,7 +13,15 @@
 	"github": "sysstat/sysstat",
 	"description": "A performance monitoring tools.",
 	"keywords": [
-		"Stats Tools"
+		"CPU statistics",
+		"Data collection",
+		"Disk activity",
+		"Linux utilities",
+		"Network analysis",
+		"Performance tools",
+		"Stats Tools",
+		"System activity reports",
+		"System monitoring"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,10 @@
 	"github": "discourse/discourse",
 	"description": "A civilized discussion platform for your community.",
 	"keywords": [
-		"Forum",
-		"Community",
 		"Discussion",
-		"Web"
+		"Forum",
+		"Real-time chat",
+		"Support"
 	],
 	"proprietary": "vBulletin",
 	"default": {

@@ -13,9 +13,11 @@
 	"github": "YOURLS/YOURLS",
 	"description": "A powerful and customizable, URL shortener, featuring password protection, URL customization, bookmarklets, statistics, API, plugins.",
 	"keywords": [
-		"URL",
+		"Analytics",
+		"Link management",
 		"Shortener",
-		"Web"
+		"URL",
+		"URL shortener"
 	],
 	"proprietary": "Bitly",
 	"default": {

@@ -13,10 +13,11 @@
 	"github": "",
 	"description": "A tool for generating and managing QR codes.",
 	"keywords": [
-		"QR",
-		"Code",
+		"Codes",
 		"Generator",
-		"Utility"
+		"QR",
+		"QR code",
+		"Scan"
 	],
 	"proprietary": "QR Code Generator",
 	"default": {

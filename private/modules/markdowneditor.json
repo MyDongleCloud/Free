@@ -13,10 +13,13 @@
 	"github": "jbt/markdown-editor",
 	"description": "An editor for Markdown files.",
 	"keywords": [
-		"Markdown",
+		"Code Attribution",
 		"Editor",
-		"Live",
-		"Writing"
+		"GitHub-Flavored",
+		"Markdown",
+		"Markdown Guide",
+		"Writing",
+		"Writing Tool"
 	],
 	"proprietary": "Typora",
 	"default": {

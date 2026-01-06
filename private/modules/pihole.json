@@ -14,9 +14,17 @@
 	"description": "A network-wide ad blocking system creating a blackhole for Internet advertisements.",
 	"keywords": [
 		"Ad",
+		"Ad blocker",
 		"Blocking",
 		"DNS",
-		"Network"
+		"DNS filtering",
+		"Dashboard interface",
+		"Device security",
+		"Home network",
+		"Internet speed",
+		"Network",
+		"Network protection",
+		"Privacy tool"
 	],
 	"proprietary": "NextDNS",
 	"default": {

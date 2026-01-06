@@ -13,7 +13,14 @@
 	"github": "sebhildebrandt/systeminformation",
 	"description": "A system Information Library.",
 	"keywords": [
-		"Stats Library"
+		"CPU stats",
+		"Disk details",
+		"Hardware monitoring",
+		"Memory usage",
+		"Network data",
+		"Operating system",
+		"Stats Library",
+		"System information"
 	],
 	"proprietary": "",
 	"default": {

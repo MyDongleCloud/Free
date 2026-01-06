@@ -14,8 +14,9 @@
 	"description": "A command-line tool to communication with an Android device",
 	"keywords": [
 		"Android",
-		"Tools",
-		"Debug"
+		"Apk",
+		"Debug",
+		"Logcat"
 	],
 	"proprietary": "",
 	"default": {

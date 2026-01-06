@@ -13,7 +13,16 @@
 	"github": "schej-it/timeful.app",
 	"description": "A scheduling platform helps you find the best time for a group to meet.",
 	"keywords": [
-		"Scheduler"
+		"Availability poll",
+		"Calendar integration",
+		"Email notifications",
+		"Free tool",
+		"Group meetings",
+		"Meeting planner",
+		"Scheduler",
+		"Scheduling",
+		"Time management",
+		"Time zones"
 	],
 	"proprietary": "",
 	"default": {

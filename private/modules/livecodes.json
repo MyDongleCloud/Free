@@ -13,9 +13,13 @@
 	"github": "live-codes/livecodes",
 	"description": "A feature-rich client-side code playground for React, Vue, Svelte, Solid, Typescript, Python, Go, Ruby, PHP and 90+ other languages.",
 	"keywords": [
-		"Sandbox",
+		"Code playground",
+		"Code sharing",
+		"Developer tools",
 		"Editor",
-		"Online"
+		"Online editor",
+		"Sandbox",
+		"Web development"
 	],
 	"proprietary": "JsFiddle",
 	"default": {

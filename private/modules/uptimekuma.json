@@ -13,7 +13,11 @@
 	"github": "louislam/uptime-kuma",
 	"description": "\"A fancy monitoring tool like \"\"Uptime Robot\"\".\"",
 	"keywords": [
-		"Monitoring"
+		"Monitoring",
+		"Monitoring tool",
+		"Notifications",
+		"Status pages",
+		"Website uptime"
 	],
 	"proprietary": "",
 	"default": {

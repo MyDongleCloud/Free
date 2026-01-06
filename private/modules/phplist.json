@@ -13,10 +13,14 @@
 	"github": "phpList/core",
 	"description": "A newsletter manager.",
 	"keywords": [
-		"Newsletter",
+		"Database access",
 		"Email",
-		"Manager",
-		"Marketing"
+		"Email marketing",
+		"Email sending",
+		"Logging",
+		"Marketing",
+		"Newsletter",
+		"Newsletter manager"
 	],
 	"proprietary": "Mailchimp",
 	"default": {

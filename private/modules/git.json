@@ -13,10 +13,17 @@
 	"github": "git/git",
 	"description": "A distributed version control system.",
 	"keywords": [
-		"Version",
+		"Code management",
+		"Collaboration",
 		"Control",
+		"Distributed system",
+		"Documentation",
 		"Git",
-		"SCM"
+		"SCM",
+		"Software development",
+		"Tutorial",
+		"Version",
+		"Version control"
 	],
 	"proprietary": "Microsoft Team Foundation Version Control",
 	"default": {

@@ -14,9 +14,12 @@
 	"description": "A clean minimalist, privacy-focused blogging platform.",
 	"keywords": [
 		"Blog",
+		"Blogging",
+		"Community",
+		"Minimalist",
 		"Privacy",
-		"Writing",
-		"Minimalist"
+		"Publishing",
+		"Writing"
 	],
 	"proprietary": "Medium",
 	"default": {

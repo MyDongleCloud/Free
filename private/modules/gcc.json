@@ -13,10 +13,13 @@
 	"github": "gcc-mirror/gcc",
 	"description": "A GNU Compiler Collection.",
 	"keywords": [
-		"Compiler",
-		"GNU",
 		"C",
-		"C++"
+		"C++",
+		"Code",
+		"Compiler",
+		"Development",
+		"GNU",
+		"Programming"
 	],
 	"proprietary": "Intel C++ Compiler",
 	"default": {

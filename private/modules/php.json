@@ -13,10 +13,11 @@
 	"github": "php/php-src",
 	"description": "A popular general-purpose scripting language.",
 	"keywords": [
-		"Scripting",
 		"Language",
-		"Web",
-		"PHP"
+		"Programming",
+		"Scripting",
+		"Scripting language",
+		"Web development"
 	],
 	"proprietary": "Zend PHP",
 	"default": {

@@ -13,10 +13,15 @@
 	"github": "openjdk/jdk",
 	"description": "A general-purpose programming language designed for portability and security.",
 	"keywords": [
-		"Programming",
-		"Language",
+		"Development",
+		"JDK",
 		"JVM",
-		"OOP"
+		"Java",
+		"Language",
+		"OOP",
+		"OpenJDK",
+		"Programming",
+		"Programming language"
 	],
 	"proprietary": "Oracle JDK",
 	"default": {

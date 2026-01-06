@@ -13,10 +13,11 @@
 	"github": "torvalds/linux",
 	"description": "A Linux kernel for various architectures.",
 	"keywords": [
-		"Linux",
 		"Kernel",
+		"Linux",
 		"OS",
-		"Source"
+		"Operating system",
+		"System core"
 	],
 	"proprietary": "Microsoft Windows",
 	"default": {

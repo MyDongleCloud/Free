@@ -13,7 +13,11 @@
 	"github": "advplyr/audiobookshelf",
 	"description": "An Audiobook and podcast server that streams all audio formats, keeps and syncs progress across devices.",
 	"keywords": [
+		"Audio content",
+		"Audio files",
 		"Audiobooks",
+		"Digital library",
+		"Listening",
 		"Podcasts",
 		"Streaming"
 	],

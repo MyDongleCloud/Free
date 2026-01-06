@@ -13,10 +13,17 @@
 	"github": "Corveda/PHPSandbox",
 	"description": "A PHP-based sandboxing library with a full suite of configuration and validation options.",
 	"keywords": [
-		"PHP",
+		"Blacklisting",
+		"Code security",
+		"Code validation",
+		"Custom configuration",
+		"Function restrictions",
+		"Online editor",
+		"PHP execution",
+		"PHP sandbox",
 		"Sandbox",
-		"Editor",
-		"Online"
+		"Sandbox testing",
+		"Whitelisting"
 	],
 	"proprietary": "PHPFiddle",
 	"default": {

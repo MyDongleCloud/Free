@@ -13,10 +13,17 @@
 	"github": "rust-lang/rust",
 	"description": "A systems programming language that runs blazingly fast.",
 	"keywords": [
+		"Coding productivity",
+		"Community support",
+		"Developer tools",
+		"Fast performance",
 		"Language",
+		"Memory efficiency",
+		"Programming",
+		"Programming language",
+		"Reliable software",
 		"Systems",
-		"Fast",
-		"Programming"
+		"Systems programming"
 	],
 	"proprietary": "",
 	"default": {

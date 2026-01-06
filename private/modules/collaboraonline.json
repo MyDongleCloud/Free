@@ -13,10 +13,17 @@
 	"github": "",
 	"description": "An online office suite for collaborative editing.",
 	"keywords": [
-		"Office",
+		"Cloud office suite",
 		"Collaboration",
-		"Online",
-		"Suite"
+		"Collaborative editing",
+		"Document collaboration",
+		"Office",
+		"Office tools online",
+		"Online office suite",
+		"Real-time editing",
+		"Shared document",
+		"Suite",
+		"Teamwork"
 	],
 	"proprietary": "Microsoft 365",
 	"default": {

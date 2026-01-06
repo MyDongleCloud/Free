@@ -13,9 +13,13 @@
 	"github": "mkdocs/mkdocs",
 	"description": "A static docs generator.",
 	"keywords": [
-		"Web",
 		"Docs",
-		"Documentation"
+		"Documentation",
+		"Easy to use",
+		"HTML files",
+		"Markdown",
+		"Project docs",
+		"Static site generator"
 	],
 	"proprietary": "",
 	"default": {

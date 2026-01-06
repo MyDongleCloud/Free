@@ -14,10 +14,10 @@
 	"description": "A self-contained, serverless, zero-configuration, transactional SQL database engine.",
 	"keywords": [
 		"Database",
+		"Embedded",
 		"SQL",
 		"SQLite",
-		"Serverless",
-		"Embedded"
+		"Serverless"
 	],
 	"proprietary": "Microsoft SQL Server Compact",
 	"default": {

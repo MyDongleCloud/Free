@@ -13,7 +13,14 @@
 	"github": "passbolt/passbolt_api",
 	"description": "A collaborative password manager for teams.",
 	"keywords": [
+		"Browser extension",
+		"Encryption",
 		"Password",
+		"Password manager",
+		"Password sharing",
+		"Privacy",
+		"Security",
+		"Team collaboration",
 		"Teams"
 	],
 	"proprietary": "",

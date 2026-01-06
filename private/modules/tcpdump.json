@@ -13,8 +13,13 @@
 	"github": "the-tcpdump-group/tcpdump",
 	"description": "A network TCP dumper and dissector.",
 	"keywords": [
+		"Dumper",
+		"Network",
+		"Networking",
 		"TCP",
-		"Dumper"
+		"Test",
+		"UDP",
+		"Watch"
 	],
 	"proprietary": "",
 	"default": {

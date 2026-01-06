@@ -13,10 +13,16 @@
 	"github": "beautifier/beautifier.io",
 	"description": "An online tool to reformat javascript.",
 	"keywords": [
+		"Beautifier",
+		"Cleanup code",
 		"Code",
+		"Formatter",
+		"Indentation",
+		"JavaScript formatter",
 		"Javascript",
 		"Obfuscate",
-		"Formatter"
+		"Optimization",
+		"Refactor"
 	],
 	"proprietary": "",
 	"default": {

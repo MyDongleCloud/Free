@@ -13,9 +13,12 @@
 	"github": "WGDashboard/WGDashboard",
 	"description": "A web interface to manage WireGuard.",
 	"keywords": [
-		"WireGuard",
+		"Privacy",
+		"Private",
+		"Secure",
+		"Security",
 		"VPN",
-		"Server"
+		"WireGuard"
 	],
 	"proprietary": "",
 	"default": {

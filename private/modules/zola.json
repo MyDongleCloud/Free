@@ -13,9 +13,14 @@
 	"github": "getzola/zola",
 	"description": "A static site generator.",
 	"keywords": [
-		"Web",
 		"Docs",
-		"Documentation"
+		"Documentation",
+		"Documentation tool",
+		"Live reload",
+		"Multilingual support",
+		"Static site generator",
+		"Template engine",
+		"Website builder"
 	],
 	"proprietary": "",
 	"default": {

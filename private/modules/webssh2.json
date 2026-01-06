@@ -13,10 +13,15 @@
 	"github": "billchurch/webssh2",
 	"description": "A web SSH Client in a browser.",
 	"keywords": [
+		"Browser terminal",
+		"Client",
+		"Remote access",
 		"SSH",
-		"Web",
+		"SSH connection",
+		"Secure shell",
 		"Terminal",
-		"Client"
+		"Web SSH client",
+		"Web-based terminal"
 	],
 	"proprietary": "",
 	"default": {

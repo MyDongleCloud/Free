@@ -13,10 +13,12 @@
 	"github": "bizzycola/qrcode-generator",
 	"description": "Simple QR code generator.",
 	"keywords": [
-		"QR",
-		"Code",
 		"Generator",
-		"Image"
+		"Image",
+		"QR",
+		"QR code",
+		"Simple",
+		"URL"
 	],
 	"proprietary": "QR Code Generator",
 	"default": {

@@ -13,7 +13,14 @@
 	"github": "mirror/wget",
 	"description": "A tool to download any url.",
 	"keywords": [
-		"Download/URL"
+		"Command-line",
+		"Download",
+		"Download URL",
+		"Fetch",
+		"File",
+		"Internet",
+		"Retrieve",
+		"URL"
 	],
 	"proprietary": "",
 	"default": {

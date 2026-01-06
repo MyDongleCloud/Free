@@ -13,10 +13,15 @@
 	"github": "Sanster/IOPaint",
 	"description": "An image inpainting tool powered by AI models to remove or replace anything on pictures.",
 	"keywords": [
+		"AI image editing",
+		"Background editing",
+		"Editing",
 		"Image",
+		"Image inpainting",
 		"Inpainting",
-		"AI",
-		"Editing"
+		"Object removal",
+		"Photo enhancement",
+		"Photo retouching"
 	],
 	"proprietary": "Adobe Photoshop",
 	"default": {

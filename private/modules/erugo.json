@@ -13,8 +13,12 @@
 	"github": "ErugoOSS/Erugo",
 	"description": "A file-sharing platform.",
 	"keywords": [
+		"Data sharing",
 		"File",
-		"Sharing"
+		"File sharing",
+		"Secure transfer",
+		"Sharing",
+		"Upload files"
 	],
 	"proprietary": "",
 	"default": {

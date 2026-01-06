@@ -13,7 +13,11 @@
 	"github": "",
 	"description": "A tool to test networking.",
 	"keywords": [
+		"Check",
+		"Connection",
+		"Diagnose",
 		"Network",
+		"Networking",
 		"Tester"
 	],
 	"proprietary": "",

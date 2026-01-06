@@ -13,10 +13,13 @@
 	"github": "open-webui/open-webui",
 	"description": "A user-friendly AI Interface, supports Ollama, OpenAI API.",
 	"keywords": [
-		"LLM",
-		"WebUI",
-		"AI",
-		"Chat"
+		"AI chatbot",
+		"AI models",
+		"Chat",
+		"Chatbot",
+		"LLMs",
+		"Language",
+		"Language model"
 	],
 	"proprietary": "",
 	"default": {

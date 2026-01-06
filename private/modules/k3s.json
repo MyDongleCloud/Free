@@ -14,10 +14,10 @@
 	"description": "Lightweight optimized Kubernetes for low-RAM hardware.",
 	"keywords": [
 		"Container",
-		"Virtualization",
-		"DevOps",
 		"Deployment",
-		"Orchestration"
+		"DevOps",
+		"Orchestration",
+		"Virtualization"
 	],
 	"proprietary": "",
 	"default": {

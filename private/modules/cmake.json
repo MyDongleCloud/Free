@@ -13,10 +13,13 @@
 	"github": "Kitware/CMake",
 	"description": "A Cross-platform open-source build system.",
 	"keywords": [
+		"Automation",
 		"Build",
-		"System",
+		"Build system",
+		"Coding",
+		"Compilation",
 		"Cross-platform",
-		"Automation"
+		"Software development"
 	],
 	"proprietary": "Microsoft Visual Studio",
 	"default": {

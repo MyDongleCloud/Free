@@ -13,9 +13,18 @@
 	"github": "janisadhi/Server_Performance_Stats",
 	"description": "A script to get live server performance stats.",
 	"keywords": [
-		"Server",
+		"CPU usage",
+		"Disk usage",
 		"Health",
-		"Stats"
+		"Linux script",
+		"Live stats",
+		"Memory usage",
+		"Monitoring",
+		"Server health",
+		"Server performance",
+		"Stats",
+		"System resources",
+		"Top processes"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,11 +13,14 @@
 	"github": "docker/compose",
 	"description": "A platform for developing, shipping, and running applications in containers.",
 	"keywords": [
-		"Container",
-		"Virtualization",
-		"DevOps",
+		"Application Development",
+		"Containers",
 		"Deployment",
-		"Orchestration"
+		"DevOps",
+		"Docker Compose",
+		"Multi-container Apps",
+		"Orchestration",
+		"Virtualization"
 	],
 	"proprietary": "",
 	"default": {

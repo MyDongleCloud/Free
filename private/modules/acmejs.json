@@ -13,12 +13,18 @@
 	"github": "therootcompany/acme.js",
 	"description": "A JavaScript ACME client for Let's Encrypt.",
 	"keywords": [
-		"ACME",
-		"LetsEncrypt",
-		"SSL",
-		"TLS",
+		"Automated certificate",
+		"Certificates",
+		"Domain validation",
+		"Free SSL",
 		"JavaScript",
-		"Certificates"
+		"Let's Encrypt",
+		"LetsEncrypt",
+		"Online demo",
+		"SSL",
+		"SSL certificate",
+		"TLS",
+		"Web security"
 	],
 	"proprietary": "Sectigo",
 	"default": {

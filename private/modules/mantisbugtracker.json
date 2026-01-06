@@ -14,9 +14,14 @@
 	"description": "A web-based bug tracking system for software development.",
 	"keywords": [
 		"Bug",
+		"Bug tracking",
+		"Error reporting",
+		"Issue tracker",
+		"Project management",
+		"Quality assurance",
+		"Testing",
 		"Tracker",
-		"Web",
-		"Issue"
+		"User feedback"
 	],
 	"proprietary": "Jira",
 	"default": {

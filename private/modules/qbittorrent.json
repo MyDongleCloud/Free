@@ -15,8 +15,8 @@
 	"keywords": [
 		"BitTorrent",
 		"Client",
-		"P2P",
-		"Download"
+		"Download",
+		"P2P"
 	],
 	"proprietary": "qBittorrent",
 	"default": {

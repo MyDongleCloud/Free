@@ -13,10 +13,15 @@
 	"github": "benweet/stackedit",
 	"description": "An in-browser Markdown editor.",
 	"keywords": [
-		"Markdown",
+		"Collaborative writing",
+		"Document creation",
 		"Editor",
-		"Browser",
-		"Writing"
+		"In-browser editor",
+		"Markdown",
+		"Markdown editor",
+		"Online text editor",
+		"Writing",
+		"Writing tool"
 	],
 	"proprietary": "Typora",
 	"default": {

@@ -13,10 +13,16 @@
 	"github": "home-assistant/core",
 	"description": "An home automation that puts local control and privacy first.",
 	"keywords": [
-		"Home",
 		"Automation",
+		"Automation system",
+		"Connected devices",
+		"Home",
+		"Home automation",
+		"Home management",
 		"IoT",
-		"Smart"
+		"Local control",
+		"Privacy",
+		"Smart home"
 	],
 	"proprietary": "Samsung SmartThings",
 	"default": {

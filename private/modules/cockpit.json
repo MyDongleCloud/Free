@@ -13,8 +13,12 @@
 	"github": "cockpit-project/cockpit",
 	"description": "A server health suite with graphical interface.",
 	"keywords": [
-		"Server",
-		"Health"
+		"Dashboard",
+		"Health",
+		"Linux administration",
+		"Server management",
+		"Sysadmin tools",
+		"System monitoring"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,18 @@
 	"github": "projectdiscovery/katana",
 	"description": "A crawling and spidering engine.",
 	"keywords": [
-		"Web",
 		"Crawling",
+		"Customizable output",
+		"Headless browsing",
+		"JavaScript parsing",
+		"Scope control",
+		"Search",
+		"Search Engine",
 		"Spider",
-		"Search"
+		"Spidering engine",
+		"URL discovery",
+		"Web crawling",
+		"Website crawler"
 	],
 	"proprietary": "",
 	"default": {

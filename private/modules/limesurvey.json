@@ -13,10 +13,14 @@
 	"github": "LimeSurvey/LimeSurvey",
 	"description": "A powerful, feature-rich web-based survey platform, supporting extensive survey logic.",
 	"keywords": [
-		"Survey",
-		"Tool",
+		"Customizable surveys",
+		"Data analysis",
+		"Feedback collection",
+		"Online questionnaires",
 		"Questionnaire",
-		"Research"
+		"Research",
+		"Survey",
+		"Survey platform"
 	],
 	"proprietary": "SurveyMonkey",
 	"default": {

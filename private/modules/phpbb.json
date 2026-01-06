@@ -13,10 +13,15 @@
 	"github": "phpbb/phpbb",
 	"description": "A flat-forum bulletin board software solution that can be used to stay in touch with a group of people.",
 	"keywords": [
-		"Forum",
-		"Bulletin",
 		"Board",
-		"Web"
+		"Bulletin",
+		"Bulletin board",
+		"Contribution",
+		"Development",
+		"Documentation",
+		"Forum",
+		"Forum software",
+		"PHP"
 	],
 	"proprietary": "vBulletin",
 	"default": {

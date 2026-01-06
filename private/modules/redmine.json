@@ -13,7 +13,15 @@
 	"github": "redmine/redmine",
 	"description": "A flexible project management web application.",
 	"keywords": [
-		"Project Management"
+		"Collaboration",
+		"Flexible",
+		"Organization",
+		"Planning",
+		"Project management",
+		"Software",
+		"Tasks",
+		"Teamwork",
+		"Web application"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,12 @@
 	"github": "mebjas/html5-qrcode",
 	"description": "A minimal QR code scanner using HTML5.",
 	"keywords": [
+		"Barcode scanner",
+		"Camera scanning",
+		"File scanning",
 		"QR",
-		"Scanner",
-		"HTML5",
-		"Web"
+		"QR code scanner",
+		"Scanner"
 	],
 	"proprietary": "QR Code Scanner",
 	"default": {

@@ -13,9 +13,15 @@
 	"github": "immich-app/immich",
 	"description": "A photo and video management solution.",
 	"keywords": [
+		"Album sharing",
+		"Auto backup",
+		"Backup",
+		"Media management",
 		"Photo",
+		"Photo backup",
+		"Photo organization",
 		"Video",
-		"Backup"
+		"Video backup"
 	],
 	"proprietary": "Google Photos",
 	"default": {

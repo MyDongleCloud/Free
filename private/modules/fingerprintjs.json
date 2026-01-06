@@ -13,10 +13,14 @@
 	"github": "fingerprintjs/fingerprintjs",
 	"description": "A tool to get a unique fingerprint ID for each site visitor.",
 	"keywords": [
-		"Web",
-		"Website",
 		"Fingerprint",
-		"Tracking"
+		"Online identification",
+		"Tracking",
+		"Unique ID",
+		"User tracking",
+		"Visitor fingerprinting",
+		"Visitor identification",
+		"Website tracking"
 	],
 	"proprietary": "",
 	"default": {

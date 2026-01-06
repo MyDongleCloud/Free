@@ -13,10 +13,13 @@
 	"github": "lobehub/lobe-chat",
 	"description": "A modern design AI Agent Workspace.",
 	"keywords": [
-		"LLM",
-		"WebUI",
-		"AI",
-		"Chat"
+		"AI chatbot",
+		"AI models",
+		"Chat",
+		"Chatbot",
+		"LLMs",
+		"Language",
+		"Language model"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,17 @@
 	"github": "rspamd/rspamd",
 	"description": "A fast, free and open-source spam filtering system.",
 	"keywords": [
-		"Spam",
-		"Filter",
+		"Anti-spam",
 		"Email",
-		"Security"
+		"Email processing",
+		"Email security",
+		"Fast spam detection",
+		"Filter",
+		"MTA integration",
+		"Message analysis",
+		"Security",
+		"Spam",
+		"Spam filter"
 	],
 	"proprietary": "SpamTitan",
 	"default": {

@@ -13,8 +13,17 @@
 	"github": "MyDongleCloud/free",
 	"description": "The application to manage MyDongle.Cloud.",
 	"keywords": [
-		"MyDongle",
-		"Cloud"
+		"Cloud",
+		"Collaborative tools",
+		"Data sovereignty",
+		"Dongle",
+		"Personal cloud",
+		"Privacy",
+		"Raspberry",
+		"Raspberry Pi",
+		"Self-hosted",
+		"Self-hosting",
+		"Selfhosted"
 	],
 	"proprietary": "",
 	"default": {

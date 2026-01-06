@@ -13,8 +13,10 @@
 	"github": "getfider/fider",
 	"description": "An open platform to collect and prioritize feedback.",
 	"keywords": [
+		"Collect",
 		"Feed-back",
-		"Platform"
+		"Platform",
+		"Prioritize"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,7 +13,14 @@
 	"github": "mattermost/mattermost",
 	"description": "A platform for secure collaboration across the entire software development lifecycle.",
 	"keywords": [
-		"Collaboration"
+		"Chat platform",
+		"Collaboration",
+		"Desktop apps",
+		"Mobile apps",
+		"Secure messaging",
+		"Software development",
+		"Team communication",
+		"Workflow automation"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,14 @@
 	"github": "nodejs/node",
 	"description": "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
 	"keywords": [
+		"API documentation",
+		"Development environment",
 		"JavaScript",
+		"JavaScript runtime",
 		"Runtime",
-		"V8",
-		"Server"
+		"Security updates",
+		"Server-side",
+		"V8"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,10 +13,13 @@
 	"github": "cityssm/sunrise-cms",
 	"description": "An application to assist cemetery managers with managing their cemetery records.",
 	"keywords": [
+		"Burial site tracking",
 		"CMS",
+		"Cemetery management",
+		"Low system requirements",
 		"Municipal",
-		"Web",
-		"Simple"
+		"Municipal application",
+		"Record keeping"
 	],
 	"proprietary": "WordPress",
 	"default": {

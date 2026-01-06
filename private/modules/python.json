@@ -13,8 +13,13 @@
 	"github": "python/cpython",
 	"description": "A popular scripting language.",
 	"keywords": [
+		"Coding",
+		"Computer language",
+		"Interpreter",
 		"Language",
-		"Interpreter"
+		"Programming",
+		"Scripting language",
+		"Software development"
 	],
 	"proprietary": "ActivePython",
 	"default": {

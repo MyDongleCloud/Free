@@ -13,9 +13,16 @@
 	"github": "badges/shields",
 	"description": "A polyglot tool to convert web.",
 	"keywords": [
+		"Badges",
 		"Code",
-		"Badge",
-		"Web"
+		"Community",
+		"Customization",
+		"Development",
+		"Documentation",
+		"GitHub",
+		"Project status",
+		"SVG",
+		"Web tools"
 	],
 	"proprietary": "",
 	"default": {

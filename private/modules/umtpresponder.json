@@ -13,10 +13,18 @@
 	"github": "viveris/uMTP-Responder",
 	"description": "A manager for USB OTG file service.",
 	"keywords": [
+		"Device file sharing",
+		"Disk",
+		"File operations",
+		"Linux file manager",
 		"MTP",
-		"Protocol",
+		"MTP protocol",
 		"Media",
-		"Transfer"
+		"Protocol",
+		"Transfer",
+		"USB",
+		"USB OTG",
+		"USB file transfer"
 	],
 	"proprietary": "",
 	"default": {

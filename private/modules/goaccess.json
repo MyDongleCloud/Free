@@ -13,10 +13,16 @@
 	"github": "allinurl/goaccess",
 	"description": "A real-time web log analyzer and interactive viewer that runs in a terminal.",
 	"keywords": [
-		"Logs",
 		"Analytics",
-		"Terminal",
-		"Web"
+		"Data visualization",
+		"Interactive dashboard",
+		"Log analysis",
+		"Logs",
+		"Real-time monitoring",
+		"Server statistics",
+		"Web analytics",
+		"Web log viewer",
+		"Website traffic"
 	],
 	"proprietary": "Splunk",
 	"default": {

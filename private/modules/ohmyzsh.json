@@ -13,10 +13,13 @@
 	"github": "ohmyzsh/ohmyzsh",
 	"description": "A manager for your zsh configuration.",
 	"keywords": [
-		"Zsh",
+		"Community-driven",
+		"Developer tools",
 		"Shell",
-		"Framework",
-		"Configuration"
+		"Shell framework",
+		"Terminal customization",
+		"Zsh",
+		"Zsh configuration"
 	],
 	"proprietary": "PowerShell",
 	"default": {

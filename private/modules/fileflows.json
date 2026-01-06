@@ -13,10 +13,17 @@
 	"github": "",
 	"description": "An automation platform for processing and managing files.",
 	"keywords": [
+		"Automated tasks",
 		"Automation",
+		"Document workflow",
 		"File",
-		"Workflow",
-		"Processing"
+		"File automation",
+		"File handling",
+		"File organization",
+		"File processing",
+		"Processing",
+		"Task automation",
+		"Workflow"
 	],
 	"proprietary": "Zapier",
 	"default": {

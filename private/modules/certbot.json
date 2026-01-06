@@ -13,10 +13,14 @@
 	"github": "certbot/certbot",
 	"description": "A tool to obtain certs from Let's Encrypt on your server.",
 	"keywords": [
-		"HTTPS",
-		"SSL",
+		"Automation",
+		"Certbot",
 		"Certificates",
-		"Automation"
+		"HTTPS",
+		"Let's Encrypt",
+		"LetsEncrypt",
+		"SSL",
+		"Security"
 	],
 	"proprietary": "DigiCert CertCentral",
 	"default": {

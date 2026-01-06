@@ -13,10 +13,15 @@
 	"github": "Koenkk/zigbee2mqtt",
 	"description": "A Zigbee to MQTT bridge to get rid of your proprietary Zigbee bridges.",
 	"keywords": [
-		"Zigbee",
-		"MQTT",
 		"Bridge",
-		"IoT"
+		"Device integration",
+		"Home Assistant",
+		"Home automation",
+		"IoT",
+		"MQTT",
+		"Smart home",
+		"Supported devices",
+		"Zigbee"
 	],
 	"proprietary": "Philips Hue Bridge",
 	"default": {

@@ -14,10 +14,15 @@
 	"description": "A parser of Postfix mail server logs.",
 	"keywords": [
 		"Email",
-		"SMTP",
-		"Server",
+		"Log",
+		"Logs",
 		"Mail",
-		"Log"
+		"Mail logs",
+		"Mail server",
+		"Parser",
+		"Postfix",
+		"SMTP",
+		"Server logs"
 	],
 	"proprietary": "",
 	"default": {

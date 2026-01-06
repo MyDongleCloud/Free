@@ -13,8 +13,13 @@
 	"github": "WireGuard/wireguard-linux",
 	"description": "",
 	"keywords": [
-		"VPN",
-		"Server"
+		"Privacy",
+		"Private",
+		"Protected connection",
+		"Remote access",
+		"Secure",
+		"Security",
+		"VPN"
 	],
 	"proprietary": "",
 	"default": {

@@ -13,9 +13,16 @@
 	"github": "pnpm/pnpm",
 	"description": "A fast, disk space efficient package manager.",
 	"keywords": [
-		"Package",
+		"Dependency management",
+		"Disk space efficient",
+		"Fast installation",
+		"JavaScript tools",
 		"Manager",
-		"npm"
+		"Monorepos",
+		"Node.js",
+		"Npm",
+		"Package",
+		"Package manager"
 	],
 	"proprietary": "",
 	"default": {

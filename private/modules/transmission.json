@@ -14,9 +14,12 @@
 	"description": "A fast, easy, and free BitTorrent client.",
 	"keywords": [
 		"BitTorrent",
+		"BitTorrent client",
 		"Client",
-		"P2P",
-		"Download"
+		"Download",
+		"Download manager",
+		"File sharing",
+		"P2P"
 	],
 	"proprietary": "qBittorrent",
 	"default": {

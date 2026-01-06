@@ -14,9 +14,11 @@
 	"description": "A secure IMAP and POP3 email server written primarily with security in mind.",
 	"keywords": [
 		"Email",
-		"Imap",
-		"Pop",
-		"Server"
+		"IMAP",
+		"Mailing list",
+		"POP3",
+		"Secure",
+		"Security"
 	],
 	"proprietary": "Microsoft Exchange",
 	"default": {

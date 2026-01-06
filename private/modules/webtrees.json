@@ -13,10 +13,15 @@
 	"github": "fisharebest/webtrees",
 	"description": "The web's leading online collaborative genealogy application.",
 	"keywords": [
-		"Genealogy",
+		"Collaborative",
 		"Family",
-		"Tree",
-		"Web"
+		"Family tree",
+		"GEDCOM",
+		"GEDCOM files",
+		"Genealogy",
+		"Online application",
+		"Privacy settings",
+		"Tree"
 	],
 	"proprietary": "Ancestry.com",
 	"default": {

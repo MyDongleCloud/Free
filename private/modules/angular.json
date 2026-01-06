@@ -13,10 +13,13 @@
 	"github": "angular/angular",
 	"description": "A platform for building mobile and desktop web applications.",
 	"keywords": [
-		"Web",
+		"Community",
 		"Framework",
+		"JavaScript",
+		"Mobile application",
+		"SPA",
 		"TypeScript",
-		"SPA"
+		"Web development"
 	],
 	"proprietary": "React",
 	"default": {

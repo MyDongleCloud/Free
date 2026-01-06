@@ -13,10 +13,13 @@
 	"github": "iv-org/invidious",
 	"description": "An alternative YouTube front-end with focus on privacy.",
 	"keywords": [
-		"Web",
-		"Youtube",
 		"Ads",
-		"Privacy"
+		"No ads",
+		"Privacy",
+		"Privacy-focused",
+		"Video platform",
+		"YouTube alternative",
+		"Youtube"
 	],
 	"proprietary": "",
 	"default": {

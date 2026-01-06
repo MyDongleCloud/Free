@@ -13,11 +13,16 @@
 	"github": "vrana/adminer",
 	"description": "A database management available for MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch, MongoDB and others.",
 	"keywords": [
+		"Administration tool",
 		"Database",
-		"SQL",
+		"Database management",
+		"Database viewer",
+		"Development platform",
 		"MySQL",
-		"Viewer",
-		"Web"
+		"MySQL viewer",
+		"PostgreSQL",
+		"SQL",
+		"Viewer"
 	],
 	"proprietary": "",
 	"default": {

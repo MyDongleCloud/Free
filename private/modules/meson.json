@@ -13,10 +13,10 @@
 	"github": "mesonbuild/meson",
 	"description": "The Meson Build System.",
 	"keywords": [
+		"Automation",
 		"Build",
-		"System",
 		"Cross-platform",
-		"Automation"
+		"System"
 	],
 	"proprietary": "",
 	"default": {

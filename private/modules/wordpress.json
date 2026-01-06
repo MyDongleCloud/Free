@@ -13,10 +13,18 @@
 	"github": "WordPress/WordPress",
 	"description": "A Content Management System for creating websites and blogs.",
 	"keywords": [
-		"CMS",
 		"Blog",
-		"Web",
-		"Publishing"
+		"Blog creation",
+		"Blogging platform",
+		"CMS",
+		"Content management",
+		"Digital publishing",
+		"Online content",
+		"Publishing",
+		"User-friendly",
+		"Web publishing",
+		"Website builder",
+		"Website creator"
 	],
 	"proprietary": "Wix|Squarespace",
 	"default": {

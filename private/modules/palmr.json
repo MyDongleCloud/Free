@@ -14,8 +14,14 @@
 	"description": "A file-sharing platform focused on privacy and security to upload, manage, and share files.",
 	"keywords": [
 		"File",
+		"File management",
+		"File sharing",
+		"File transfer",
+		"Privacy",
+		"Security",
 		"Sharing",
-		"Upload"
+		"Upload",
+		"User-friendly"
 	],
 	"proprietary": "",
 	"default": {

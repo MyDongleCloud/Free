@@ -13,8 +13,15 @@
 	"github": "typesense/typesense",
 	"description": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
 	"keywords": [
+		"API",
+		"Cloud service",
+		"Documentation",
+		"Engine",
+		"Fast search",
 		"Search",
-		"Engine"
+		"Search engine",
+		"Search tool",
+		"Typo tolerance"
 	],
 	"proprietary": "",
 	"default": {

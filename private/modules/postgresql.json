@@ -14,9 +14,14 @@
 	"description": "A database management system.",
 	"keywords": [
 		"Database",
+		"Documentation",
+		"Management system",
+		"PostgreSQL",
 		"RDBMS",
 		"SQL",
-		"PostgreSQL"
+		"Software",
+		"Source code",
+		"Transactions"
 	],
 	"proprietary": "",
 	"default": {

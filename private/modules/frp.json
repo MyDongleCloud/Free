@@ -13,9 +13,13 @@
 	"github": "fatedier/frp",
 	"description": "A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.",
 	"keywords": [
-		"Proxy",
-		"Reverse",
+		"Internet access",
+		"Local server",
 		"NAT",
+		"Proxy",
+		"Remote access",
+		"Reverse",
+		"Reverse proxy",
 		"Tunnel"
 	],
 	"proprietary": "Ngrok",

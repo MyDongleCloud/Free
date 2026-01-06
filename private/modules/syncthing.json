@@ -13,10 +13,18 @@
 	"github": "syncthing/syncthing",
 	"description": "A continuous peer-to-peer file synchronization tool.",
 	"keywords": [
+		"Automatic sync",
+		"Backup",
+		"Continuous sync",
+		"Cross-platform",
+		"Data backup",
 		"File",
-		"Sync",
+		"File synchronization",
 		"P2P",
-		"Backup"
+		"Peer-to-peer",
+		"Privacy protection",
+		"Secure file sharing",
+		"Sync"
 	],
 	"proprietary": "Dropbox|Google Drive",
 	"default": {

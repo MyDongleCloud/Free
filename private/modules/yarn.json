@@ -13,9 +13,10 @@
 	"github": "yarnpkg/yarn",
 	"description": "An  open-source package manager for JavaScript that automates the process of installing, updating, and managing project dependencies.",
 	"keywords": [
-		"Package",
 		"Manager",
-		"yarn"
+		"Monorepos",
+		"Package",
+		"Yarn"
 	],
 	"proprietary": "",
 	"default": {

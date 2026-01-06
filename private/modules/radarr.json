@@ -13,11 +13,11 @@
 	"github": "Radarr/Radarr",
 	"description": "A TVshows collection manager for Usenet and BitTorrent users.",
 	"keywords": [
-		"PVR",
-		"Manager",
 		"Automation",
-		"Torrent",
-		"BitTorrent"
+		"BitTorrent",
+		"Manager",
+		"PVR",
+		"Torrent"
 	],
 	"proprietary": "",
 	"default": {

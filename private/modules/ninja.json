@@ -13,10 +13,10 @@
 	"github": "ninja-build/ninja",
 	"description": "The Ninja Build System.",
 	"keywords": [
+		"Automation",
 		"Build",
-		"System",
 		"Cross-platform",
-		"Automation"
+		"System"
 	],
 	"proprietary": "",
 	"default": {

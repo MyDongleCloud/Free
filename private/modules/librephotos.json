@@ -13,9 +13,14 @@
 	"github": "LibrePhotos/librephotos",
 	"description": "A photo management service with a slight focus on cool graphs.",
 	"keywords": [
-		"Photos",
-		"Alternative",
-		"Gallery"
+		"Face recognition",
+		"Gallery",
+		"Location-based photos",
+		"Photo albums",
+		"Photo management",
+		"Photo organization",
+		"Photo search",
+		"Photos"
 	],
 	"proprietary": "Google Photos",
 	"default": {

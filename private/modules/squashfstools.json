@@ -14,7 +14,11 @@
 	"description": "A set of tools for compression disk.",
 	"keywords": [
 		"Compression",
-		"Disk"
+		"Compression tools",
+		"Disk",
+		"Disk compression",
+		"File system tools",
+		"Software installation"
 	],
 	"proprietary": "",
 	"default": {

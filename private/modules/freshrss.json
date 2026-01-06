@@ -13,9 +13,14 @@
 	"github": "FreshRSS/FreshRSS",
 	"description": "An RSS feed aggregator.",
 	"keywords": [
-		"RSS",
+		"Aggregator",
+		"Content aggregation",
 		"Feed",
-		"Aggregator"
+		"News aggregator",
+		"News reader",
+		"Personalized news",
+		"RSS",
+		"RSS feed"
 	],
 	"proprietary": "Feedly",
 	"default": {

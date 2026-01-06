@@ -13,10 +13,13 @@
 	"github": "eclipse-mosquitto/mosquitto",
 	"description": "A message broker that implements MQTT protocol.",
 	"keywords": [
-		"MQTT",
+		"Authentication",
 		"Broker",
 		"IoT",
-		"Messaging"
+		"IoT messaging",
+		"Message broker",
+		"Messaging",
+		"Publish-subscribe"
 	],
 	"proprietary": "HiveMQ",
 	"default": {

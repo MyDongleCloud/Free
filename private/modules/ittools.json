@@ -13,9 +13,15 @@
 	"github": "CorentinTh/it-tools",
 	"description": "A collection of handy online tools for developers.",
 	"keywords": [
+		"Converters",
+		"Developers",
+		"Generators",
 		"IT",
+		"Online tools",
+		"Text encryption",
 		"Tools",
-		"Management"
+		"Utilities",
+		"Web development"
 	],
 	"proprietary": "",
 	"default": {

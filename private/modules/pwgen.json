@@ -13,8 +13,12 @@
 	"github": "tytso/pwgen",
 	"description": "A random password generator with multiple options.",
 	"keywords": [
+		"Generator",
 		"Password",
-		"Random"
+		"Random",
+		"Secure",
+		"Strong",
+		"Udev"
 	],
 	"proprietary": "",
 	"default": {

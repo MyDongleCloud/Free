@@ -13,9 +13,14 @@
 	"github": "jitsi/jitsi-meet",
 	"description": "A secure, Simple and Scalable Video Conferences tools suite based on WebRTC.",
 	"keywords": [
-		"Video",
 		"Conferencing",
-		"Secure",
+		"HD audio and video",
+		"Mobile apps",
+		"Online collaboration",
+		"Screen sharing",
+		"Secure meetings",
+		"Video",
+		"Video conferencing",
 		"WebRTC"
 	],
 	"proprietary": "Zoom|Microsoft Teams",

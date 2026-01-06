@@ -13,10 +13,15 @@
 	"github": "butlerx/wetty",
 	"description": "A tool to access terminal in a browser over http/https.",
 	"keywords": [
+		"Browser terminal",
+		"Client",
+		"Remote access",
 		"SSH",
-		"Web",
+		"SSH connection",
+		"Secure shell",
 		"Terminal",
-		"Client"
+		"Web SSH client",
+		"Web-based terminal"
 	],
 	"proprietary": "",
 	"default": {

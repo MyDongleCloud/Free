@@ -13,10 +13,12 @@
 	"github": "alexta69/metube",
 	"description": "A web GUI for youtube-dl, with playlist support to download videos from dozens of websites.",
 	"keywords": [
-		"YouTube",
 		"Download",
-		"GUI",
-		"Video"
+		"Download manager",
+		"Video",
+		"Video downloader",
+		"YouTube",
+		"YouTube downloader"
 	],
 	"proprietary": "4K Video Downloader",
 	"default": {

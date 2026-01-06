@@ -13,10 +13,15 @@
 	"github": "jelhan/croodle",
 	"description": "A simple scheduler tool for organizing meetings or to do polls on general topics.",
 	"keywords": [
-		"Scheduling",
-		"Poll",
+		"Calendar",
+		"Date organizer",
+		"Group planning",
 		"Meeting",
-		"Calendar"
+		"Meeting scheduler",
+		"Online polls",
+		"Poll",
+		"Poll creator",
+		"Scheduling"
 	],
 	"proprietary": "Calendly|Doodle",
 	"default": {

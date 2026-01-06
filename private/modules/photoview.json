@@ -13,10 +13,14 @@
 	"github": "photoview/photoview",
 	"description": "A simple and user-friendly photo gallery personal server, aiming to provide an easy and fast way to navigate thousands of high resolution photos.",
 	"keywords": [
-		"Photo",
+		"File system organization",
 		"Gallery",
-		"Simple",
-		"Web"
+		"Media scanner",
+		"Photo",
+		"Photo gallery",
+		"Photo management",
+		"RAW photo support",
+		"Sharing photos"
 	],
 	"proprietary": "Google Photos",
 	"default": {

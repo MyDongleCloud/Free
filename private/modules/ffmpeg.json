@@ -13,10 +13,14 @@
 	"github": "FFmpeg/FFmpeg",
 	"description": "A complete solution to record, convert and stream audio and video.",
 	"keywords": [
-		"Video",
 		"Audio",
+		"Audio processing",
+		"Conversion",
+		"Media player",
+		"Multimedia",
 		"Streaming",
-		"Conversion"
+		"Video",
+		"Video processing"
 	],
 	"proprietary": "Adobe Media Encoder",
 	"default": {

@@ -13,9 +13,15 @@
 	"github": "projectsend/projectsend",
 	"description": "A tool to share files with clients, focused on ease of use and privacy.",
 	"keywords": [
+		"Client management",
 		"File",
+		"File sharing",
+		"Multi-language",
+		"Privacy",
+		"Secure sharing",
 		"Sharing",
-		"Upload"
+		"Upload",
+		"Upload files"
 	],
 	"proprietary": "Dropbox",
 	"default": {

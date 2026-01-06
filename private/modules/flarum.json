@@ -13,10 +13,13 @@
 	"github": "flarum/flarum",
 	"description": "The next-generation forum software that makes online discussion fun again.",
 	"keywords": [
-		"Forum",
 		"Community",
+		"Community building",
 		"Discussion",
-		"Web"
+		"Discussion platform",
+		"Easy to use",
+		"Forum",
+		"Simple forum"
 	],
 	"proprietary": "Discourse",
 	"default": {

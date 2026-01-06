@@ -13,11 +13,16 @@
 	"github": "pgadmin-org/pgadmin4",
 	"description": "A feature rich administration and development platform for PostgreSQL.",
 	"keywords": [
+		"Administration tool",
 		"Database",
-		"SQL",
+		"Database management",
+		"Database viewer",
+		"Development platform",
+		"MySQL",
+		"MySQL viewer",
 		"PostgreSQL",
-		"Viewer",
-		"Web"
+		"SQL",
+		"Viewer"
 	],
 	"proprietary": "",
 	"default": {

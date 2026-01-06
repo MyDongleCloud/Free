@@ -13,9 +13,14 @@
 	"github": "TabbyML/tabby",
 	"description": "An AI tool to better code.",
 	"keywords": [
+		"AI coding assistant",
+		"AI coding models",
+		"Code",
+		"Code completion",
+		"Coding",
+		"Community-driven",
 		"Developer",
-		"AI",
-		"Code"
+		"Developer productivity"
 	],
 	"proprietary": "Github Copilot",
 	"default": {

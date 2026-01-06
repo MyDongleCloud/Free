@@ -14,9 +14,13 @@
 	"description": "A transactional relational database management system.",
 	"keywords": [
 		"Database",
+		"Management",
+		"MySQL",
 		"RDBMS",
+		"Relational",
 		"SQL",
-		"MySQL"
+		"System",
+		"Transactional"
 	],
 	"proprietary": "Oracle Database",
 	"default": {

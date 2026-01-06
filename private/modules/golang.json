@@ -13,10 +13,10 @@
 	"github": "golang/go",
 	"description": "A programming language that makes it easy to build simple, reliable, and efficient software.",
 	"keywords": [
+		"Go",
 		"Language",
 		"Programming",
-		"Go",
-		"Efficient"
+		"Programming language"
 	],
 	"proprietary": "(No direct proprietary equivalent)",
 	"default": {

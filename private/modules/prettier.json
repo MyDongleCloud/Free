@@ -13,9 +13,18 @@
 	"github": "prettier/prettier",
 	"description": "A tool to format and make prettier source code.",
 	"keywords": [
+		"Automatic formatting",
 		"Code",
+		"Code formatter",
+		"Code quality",
+		"Code review",
+		"Consistent style",
+		"Developer tool",
 		"Editor",
-		"Web"
+		"Editor integration",
+		"Pre-commit hook",
+		"Programming languages",
+		"Source code"
 	],
 	"proprietary": "",
 	"default": {

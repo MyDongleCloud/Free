@@ -13,10 +13,12 @@
 	"github": "jqlang/jq",
 	"description": "A command-line parser for json files.",
 	"keywords": [
+		"Data filtering",
+		"Data transformation",
 		"JSON",
-		"File",
+		"JSON processor",
 		"Parser",
-		"Config"
+		"Structured data"
 	],
 	"proprietary": "",
 	"default": {

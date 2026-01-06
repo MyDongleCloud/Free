@@ -13,8 +13,11 @@
 	"github": "meilisearch/meilisearch",
 	"description": "An ultra relevant, instant and typo-tolerant full-text search API, bringing AI-powered hybrid search to your sites and applications.",
 	"keywords": [
+		"AI-powered search",
+		"Engine",
+		"Fast search",
 		"Search",
-		"Engine"
+		"Search engine"
 	],
 	"proprietary": "",
 	"default": {

@@ -14,7 +14,11 @@
 	"description": "A web app to manage your Two-Factor Authentication (2FA) accounts and generate their security codes.",
 	"keywords": [
 		"2FA",
-		"Authentication"
+		"Authentication",
+		"Codes",
+		"Security",
+		"Two",
+		"Two-factor authentication"
 	],
 	"proprietary": "Google Authenticator",
 	"default": {

@@ -13,10 +13,14 @@
 	"github": "roundcube/roundcubemail",
 	"description": "A browser-based multilingual mail client with an application-like user interface.",
 	"keywords": [
+		"Address book",
+		"Browser-based",
+		"Client",
+		"Customizable",
 		"Email",
+		"Email client",
 		"IMAP",
-		"Webmail",
-		"Client"
+		"Webmail"
 	],
 	"proprietary": "Gmail",
 	"default": {

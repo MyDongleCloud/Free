@@ -13,10 +13,19 @@
 	"github": "dgtlmoon/changedetection.io",
 	"description": "A tool for tracking changes and stay up-to-date with web-site content changes.",
 	"keywords": [
+		"Automatic notifications",
+		"Browser automation",
 		"Change",
+		"Change detection",
+		"Content changes",
 		"Detection",
-		"Web",
-		"Tracking"
+		"Price tracking",
+		"Real-time alerts",
+		"Stock notifications",
+		"Tracking",
+		"Visual selector tool",
+		"Web page updates",
+		"Website monitoring"
 	],
 	"proprietary": "Visualping",
 	"default": {

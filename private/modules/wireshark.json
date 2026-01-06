@@ -13,8 +13,14 @@
 	"github": "wireshark/wireshark",
 	"description": "A network traffic analyzer and sniffer.",
 	"keywords": [
+		"Analyzer",
+		"Dumper",
 		"Network",
-		"Analyzer"
+		"Networking",
+		"TCP",
+		"Test",
+		"UDP",
+		"Watch"
 	],
 	"proprietary": "",
 	"default": {

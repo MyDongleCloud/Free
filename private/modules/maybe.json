@@ -13,10 +13,15 @@
 	"github": "maybe-finance/maybe",
 	"description": "A personal finance tool for everyone.",
 	"keywords": [
-		"Finance",
-		"Personal",
+		"App setup",
 		"Budget",
-		"Tool"
+		"Budget tool",
+		"Finance",
+		"Finance app",
+		"Financial tracking",
+		"Money management",
+		"Personal",
+		"Personal finance"
 	],
 	"proprietary": "Mint|YNAB",
 	"default": {

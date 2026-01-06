@@ -13,8 +13,13 @@
 	"github": "better-auth/better-auth",
 	"description": "A comprehensive authentication framework for TypeScript.",
 	"keywords": [
+		"Authentication",
+		"Backend",
 		"Identity",
-		"Backend"
+		"Security",
+		"Two-factor authentication",
+		"TypeScript",
+		"User identity"
 	],
 	"proprietary": "",
 	"default": {

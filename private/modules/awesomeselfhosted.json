@@ -13,9 +13,12 @@
 	"github": "awesome-selfhosted/awesome-selfhosted-html",
 	"description": "An exhaustive list of selfhosted apps.",
 	"keywords": [
-		"Web",
+		"Awesome",
 		"Docs",
-		"Documentation"
+		"Documentation",
+		"List",
+		"Self-hosted",
+		"Selfhosted"
 	],
 	"proprietary": "",
 	"default": {

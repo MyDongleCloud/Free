@@ -13,10 +13,16 @@
 	"github": "yt-dlp/yt-dlp",
 	"description": "A feature-rich command-line audio/video downloader.",
 	"keywords": [
-		"YouTube",
+		"Audio downloader",
+		"Command-line tool",
 		"Download",
-		"GUI",
-		"Video"
+		"Format selection",
+		"Media extraction",
+		"Playlist download",
+		"Video",
+		"Video downloader",
+		"YouTube",
+		"YouTube downloader"
 	],
 	"proprietary": "4K Video Downloader",
 	"default": {

@@ -13,9 +13,16 @@
 	"github": "bfritscher/typesense-dashboard",
 	"description": "A tool to view Typesense.",
 	"keywords": [
+		"API",
+		"Cloud service",
+		"Documentation",
+		"Engine",
+		"Fast search",
 		"Search",
-		"Viewer",
-		"Web"
+		"Search engine",
+		"Search tool",
+		"Typo tolerance",
+		"Viewer"
 	],
 	"proprietary": "",
 	"default": {

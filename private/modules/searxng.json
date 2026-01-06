@@ -13,9 +13,14 @@
 	"github": "searxng/searxng",
 	"description": "A free internet metasearch engine which aggregates results from various search services and databases.",
 	"keywords": [
-		"Google",
+		"Engine",
+		"Free",
+		"Metasearch",
+		"Online search",
+		"Privacy",
 		"Search",
-		"Engine"
+		"Search engine",
+		"Secure search"
 	],
 	"proprietary": "Google",
 	"default": {

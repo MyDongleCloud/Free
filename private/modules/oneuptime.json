@@ -13,7 +13,16 @@
 	"github": "OneUptime/oneuptime",
 	"description": "A complete open-source monitoring and observability platform.",
 	"keywords": [
-		"Monitor"
+		"Alerts",
+		"Application performance",
+		"Error tracking",
+		"Incident management",
+		"Logs management",
+		"Monitor",
+		"Monitoring platform",
+		"Observability",
+		"Status pages",
+		"Uptime monitoring"
 	],
 	"proprietary": "",
 	"default": {

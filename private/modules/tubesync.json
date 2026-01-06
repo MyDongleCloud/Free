@@ -13,11 +13,17 @@
 	"github": "meeb/tubesync",
 	"description": "A syncer of YouTube channels and playlists to a locally hosted media server.",
 	"keywords": [
-		"YouTube",
+		"Automatic downloads",
+		"Channel",
 		"Download",
-		"GUI",
+		"Local media server",
+		"Media organization",
+		"Playlist manager",
+		"Plex integration",
 		"Video",
-		"Channel"
+		"Video synchronization",
+		"YouTube",
+		"YouTube downloader"
 	],
 	"proprietary": "4K Video Downloader",
 	"default": {

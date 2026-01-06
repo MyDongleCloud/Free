@@ -13,12 +13,18 @@
 	"github": "acmesh-official/acme.sh",
 	"description": "A pure Unix shell script implementing ACME client protocol.",
 	"keywords": [
-		"ACME",
+		"Automated certificate",
+		"Certificate",
+		"Domain validation",
+		"Free certificate",
+		"Let's Encrypt",
 		"LetsEncrypt",
+		"Renewal",
 		"SSL",
-		"TLS",
+		"SSL certificate",
 		"Script",
-		"Certificates"
+		"Security",
+		"TLS"
 	],
 	"proprietary": "DigiCert CertCentral",
 	"default": {

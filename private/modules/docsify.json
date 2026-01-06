@@ -13,9 +13,11 @@
 	"github": "docsifyjs/docsify",
 	"description": "A live site for documentation.",
 	"keywords": [
-		"Web",
+		"Community",
+		"Contributing",
 		"Docs",
-		"Documentation"
+		"Documentation",
+		"Website generator"
 	],
 	"proprietary": "",
 	"default": {

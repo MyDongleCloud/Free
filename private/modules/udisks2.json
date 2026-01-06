@@ -13,9 +13,15 @@
 	"github": "",
 	"description": "A tool to access, manipulate and mount disks and storage devices",
 	"keywords": [
+		"Auto-mount",
 		"Disk",
+		"Harddisk",
+		"Harddrive",
 		"Mount",
-		"USB"
+		"Rules",
+		"USB",
+		"Udev",
+		"Umount"
 	],
 	"proprietary": "",
 	"default": {

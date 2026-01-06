@@ -51,6 +51,20 @@ cat > /disk/admin/modules/tabby/config.toml << EOF
 kind = "llama.cpp/embedding"
 api_endpoint = "http://localhost:8099"
 
+[model.completion.http]
+kind = "mistral/completion"
+api_endpoint = "https://aiproxy.mydongle.cloud"
+supported_models = ["codestral-latest"]
+model_name = "codestral-latest"
+api_key = "api.mistral.ai"
+
+[model.chat.http]
+kind = "mistral/chat"
+api_endpoint = "https://aiproxy.mydongle.cloud/v1"
+supported_models = ["mistral-large-latest", "codestral-latest"]
+model_name = "codestral-latest"
+api_key = "api.mistral.ai"
+
 [anonymousUsageTracking]
 disable = true
 EOF

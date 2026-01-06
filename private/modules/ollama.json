@@ -13,10 +13,16 @@
 	"github": "ollama/ollama",
 	"description": "A platform to get up and running with large language models locally.",
 	"keywords": [
-		"LLM",
+		"AI platform",
+		"CLI tool",
+		"Chatbot backend",
+		"Customize models",
+		"LLMs",
+		"Language",
+		"Language models",
 		"Local",
-		"AI",
-		"Language"
+		"Local AI",
+		"Model library"
 	],
 	"proprietary": "",
 	"default": {

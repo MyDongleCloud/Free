@@ -13,7 +13,14 @@
 	"github": "crystal-lang/crystal",
 	"description": "A general-purpose, object-oriented programming language.",
 	"keywords": [
-		"Language"
+		"Compile-time evaluation",
+		"Cross-platform",
+		"Language",
+		"Native code",
+		"Object-oriented",
+		"Programming language",
+		"Ruby-like",
+		"Type-checked"
 	],
 	"proprietary": "",
 	"default": {

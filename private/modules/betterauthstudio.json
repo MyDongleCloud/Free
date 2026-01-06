@@ -13,10 +13,19 @@
 	"github": "",
 	"description": "A frontend for Better Auth, an authentication framework.",
 	"keywords": [
+		"Access control",
+		"Account management",
+		"Authentication",
+		"Backend",
 		"Identity",
-		"Frontend",
-		"Users",
-		"Management"
+		"Identity management",
+		"Login system",
+		"Security",
+		"Two-factor authentication",
+		"TypeScript",
+		"User",
+		"User authentication",
+		"User identity"
 	],
 	"proprietary": "",
 	"default": {

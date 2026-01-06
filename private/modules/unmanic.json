@@ -13,10 +13,19 @@
 	"github": "Unmanic/unmanic",
 	"description": "A library optimizer for removing unused metadata from media files.",
 	"keywords": [
+		"Automated tool",
+		"Custom commands",
+		"File conversion",
+		"File optimizer",
+		"File processing",
+		"Library",
+		"Library management",
 		"Media",
-		"Optimizer",
+		"Media library",
+		"Media organization",
 		"Metadata",
-		"Library"
+		"Metadata removal",
+		"Optimizer"
 	],
 	"proprietary": "",
 	"default": {

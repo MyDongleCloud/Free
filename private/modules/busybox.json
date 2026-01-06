@@ -13,10 +13,12 @@
 	"github": "mirror/busybox",
 	"description": "A lightweight set of Unix utilities in a single executable.",
 	"keywords": [
+		"Embedded",
+		"Embedded systems",
 		"Unix",
-		"Utilities",
-		"Lightweight",
-		"Embedded"
+		"Unix tools",
+		"Unix utilities",
+		"Utilities"
 	],
 	"proprietary": "",
 	"default": {

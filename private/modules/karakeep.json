@@ -13,8 +13,14 @@
 	"github": "karakeep-app/karakeep",
 	"description": "A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search.",
 	"keywords": [
+		"AI tagging",
 		"Bookmark",
-		"Manager"
+		"Bookmark manager",
+		"Cross-platform",
+		"Full text search",
+		"Mobile apps",
+		"Notes and images",
+		"Save links"
 	],
 	"proprietary": "",
 	"default": {

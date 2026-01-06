@@ -13,10 +13,19 @@
 	"github": "qdrant/qdrant",
 	"description": "High-performance, massive-scale Vector Database and Vector Search Engine.",
 	"keywords": [
-		"Vector",
+		"AI applications",
+		"Cloud service",
+		"Data filtering",
+		"Database",
+		"Engine",
+		"High performance",
+		"Machine learning",
+		"Neural networks",
 		"Search",
 		"Similarity",
-		"Engine"
+		"Similarity search",
+		"Vector",
+		"Vector search"
 	],
 	"proprietary": "Pinecone",
 	"default": {

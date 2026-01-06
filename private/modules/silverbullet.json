@@ -13,8 +13,14 @@
 	"github": "silverbulletmd/silverbullet",
 	"description": "A note-taking application optimized for people with a hacker mindset.",
 	"keywords": [
-		"Knowledge",
-		"Management"
+		"Browser-based",
+		"Customizable platform",
+		"Knowledge management",
+		"Markdown editor",
+		"Personal notes",
+		"Productivity tools",
+		"Programming integration",
+		"Wiki-style linking"
 	],
 	"proprietary": "",
 	"default": {

@@ -14,6 +14,10 @@
 	"description": "A network mapper tool to test networking.",
 	"keywords": [
 		"Network",
+		"Network mapper",
+		"Network scanning",
+		"Network testing",
+		"Security tool",
 		"Tester"
 	],
 	"proprietary": "",

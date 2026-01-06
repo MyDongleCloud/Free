@@ -13,9 +13,16 @@
 	"github": "redis/redis",
 	"description": "A fast and feature-rich cache, data structure server, and document and vector query engine.",
 	"keywords": [
-		"Server",
 		"Data",
-		"Structure"
+		"Data server",
+		"Data structures",
+		"Document storage",
+		"Fast cache",
+		"In-memory",
+		"Query engine",
+		"Server software",
+		"Structure",
+		"Vector search"
 	],
 	"proprietary": "",
 	"default": {

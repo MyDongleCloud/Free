@@ -13,10 +13,11 @@
 	"github": "apache/httpd",
 	"description": "An HTTP Server Project built with security, efficiency and extensibility in mind.",
 	"keywords": [
+		"Apache",
 		"HTTP",
-		"Server",
-		"Web",
-		"Apache"
+		"HTTP Server",
+		"Web server",
+		"Website"
 	],
 	"proprietary": "Microsoft IIS",
 	"default": {

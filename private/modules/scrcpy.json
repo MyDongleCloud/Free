@@ -14,8 +14,9 @@
 	"description": "An executable to display and control your Android device.",
 	"keywords": [
 		"Android",
+		"Control",
 		"Remote",
-		"Control"
+		"Remote control"
 	],
 	"proprietary": "",
 	"default": {

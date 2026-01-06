@@ -13,8 +13,13 @@
 	"github": "danny-avila/LibreChat",
 	"description": "An enhanced ChatGPT Clone.",
 	"keywords": [
+		"AI chatbot",
+		"AI models",
 		"Chat",
-		"Chatbot"
+		"Chatbot",
+		"LLMs",
+		"Language",
+		"Language model"
 	],
 	"proprietary": "",
 	"default": {

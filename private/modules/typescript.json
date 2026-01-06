@@ -13,8 +13,13 @@
 	"github": "microsoft/TypeScript",
 	"description": "A superset of JavaScript that compiles to clean JavaScript output.",
 	"keywords": [
+		"Application development",
+		"Code compilation",
+		"Javascript",
 		"Language",
-		"Javascript"
+		"Microsoft",
+		"Programming language",
+		"Web development"
 	],
 	"proprietary": "",
 	"default": {
