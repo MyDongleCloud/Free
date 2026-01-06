@@ -17,6 +17,7 @@ foreach ($files as $file) {
 	$data = file_get_contents($fullPath);
 	$module = json_decode($data, true);
 	$module["keywords"] = implode(",", $module["keywords"]);
+	$module["proprietary"] = implode(",", $module["proprietary"]);
 	$modulesDefault[$module["module"]] = $module["default"];
 	unset($module["default"]);
 	if (count($csv) == 0) {
@@ -56,6 +57,12 @@ for ($i = 1; $i < count($modules); $i++) {
 	$out["keywords"] = array_map("ucfirst", $out["keywords"]);
 	sort($out["keywords"]);
 	$out["keywords"] = array_values(array_unique($out["keywords"], SORT_STRING));
+	$out["proprietary"] = explode(",", $out["proprietary"]);
+	$out["proprietary"] = array_map("ucfirst", $out["proprietary"]);
+	sort($out["proprietary"]);
+	$out["proprietary"] = array_values(array_unique($out["proprietary"], SORT_STRING));
+	if ($out["proprietary"][0] == "")
+		$out["proprietary"] = array();
 	store("/modules/" . $m[0] . ".json", $out);
 }
 ?>
