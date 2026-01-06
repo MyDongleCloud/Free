@@ -99,7 +99,7 @@
 							</p>
 							<div class="flex-1"></div>
 							<span class="text-sm mr-2" *ngIf="showDetails">{{L("Nº")}}{{cc + 1}}</span>
-							<ion-icon [name]="card?.bookmark ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="bookmark(card.module)" [class]="card?.bookmark ? '' : 'text--gray-300'" *ngIf="card.web"></ion-icon>
+							<ion-icon [name]="card?.tag ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="tag(card.module)" [class]="card?.tag ? '' : 'text--gray-300'" *ngIf="card.web"></ion-icon>
 							<ion-icon name="cloud-offline-outline" class="w-5 h-5 text--red-500 mr-2"  *ngIf="card.web && !card.enabled || card.notReady"></ion-icon>
 							<ion-icon [name]="card.permissions[0] == '_public_' ? 'lock-open-outline' : 'lock-closed-outline'" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.web && card.enabled && !card.notReady"></ion-icon>
 							<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.config"></ion-icon>

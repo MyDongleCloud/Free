@@ -5,7 +5,7 @@ export interface Settings {
 	welcomeTourShown: boolean,
 	powerUser: boolean,
 	dontShowAgain: object,
-	bookmarks: string[];
+	tags: string[];
 }
 
 export const Categories = {
@@ -73,7 +73,7 @@ export const CategoriesEx = {
 		icon: "bulb-outline",
 		color: "black"
 	},
-	"Bookmark": {
+	"Tag": {
 		name: "Tag",
 		icon: "bookmarks-outline",
 		color: "black"
@@ -106,5 +106,5 @@ export const CategoriesBar = [
 	{ separator:true },
 	{ separator:false, value:CategoriesEx["AI"] },
 	{ separator:true },
-	{ separator:false, value:CategoriesEx["Bookmark"] }
+	{ separator:false, value:CategoriesEx["Tag"] }
 ];

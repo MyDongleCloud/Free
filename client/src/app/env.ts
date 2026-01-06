@@ -514,7 +514,7 @@ async modulesDataPrepare() {
 			value[key2] = value2;
 		});
 		value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
-		value["bookmark"] = this.settings.bookmarks?.includes(key)?? false;
+		value["tag"] = this.settings.tags?.includes(key)?? false;
 		const items = [
 			value["module"],
 			value["name"],

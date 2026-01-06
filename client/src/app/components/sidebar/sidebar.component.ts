@@ -64,11 +64,11 @@ sidebarFilterCards() {
 	const isFinalized = retI ? false : input.endsWith(" ");
 	const tokens = retI ? [] : [...input.toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)].map(m => m[1] || m[2]);
 	this.sidebarFilteredModules = this.cards.filter(card => {
-		if (this.global.sidebarFilterType == "Essential")
+		if (this.global.sidebarFilterType == "essential")
 			return card.essential && card.web;
-		else if (this.global.sidebarFilterType == "Bookmarks")
-			return this.global.settings.bookmarks.includes(card.module);
-		else if (this.global.sidebarFilterType == "Search")
+		else if (this.global.sidebarFilterType == "tag")
+			return this.global.settings.tags.includes(card.module);
+		else if (this.global.sidebarFilterType == "search")
 			return !retI && this.validation(input, isFinalized, tokens, card.hayStack);
 		else
 			return false;

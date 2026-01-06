@@ -122,7 +122,7 @@ filterCards(typing = false) {
 		else if (this.category == "Essential")
 			return ret && card.essential;
 		else if (this.category == "Tag")
-			return ret && this.global.settings.bookmarks.includes(card.module);
+			return ret && this.global.settings.tags.includes(card.module);
 		else
 			return ret && card.category.includes(this.category);
 	});
@@ -157,13 +157,13 @@ toggleSortDirection(p) {
 	this.sortCards();
 }
 
-bookmark(m) {
-	this.cards[this.global.modulesDataFindId(m)]["bookmark"] = !this.cards[this.global.modulesDataFindId(m)]["bookmark"];
-	this.global.settings.bookmarks = this.cards.filter(card => card.bookmark === true).map(card => card.module);//.join("|");
+tag(m) {
+	this.cards[this.global.modulesDataFindId(m)]["tag"] = !this.cards[this.global.modulesDataFindId(m)]["tag"];
+	this.global.settings.tags = this.cards.filter(card => card.tag === true).map(card => card.module);//.join("|");
 	this.global.settingsSave();
 	if (this.category == "Tag")
 		this.filterCards();
-	this.sidebarComponent.filterCards();
+	this.sidebarComponent.sidebarFilterCards();
 }
 
 firstWords(st) {
