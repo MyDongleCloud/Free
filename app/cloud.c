@@ -36,9 +36,10 @@ void cloudInit() {
 }
 
 static void setup(int i, int total, char *name, int root, cJSON *modules) {
-	logicSetup(name, RANGE(1, 99, i * 100 / total));
+	int p = RANGE(1, 99, i * 100 / total);
+	logicSetup(name, p);
 	char sz[256];
-	snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":\"%s\"}", name);
+	snprintf(sz, sizeof(sz), "{\"a\":\"setup-status\", \"progress\":%d, \"name\":\"%s\"}", p, name);
 	communicationString(sz);
 	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh -j 0 -d 0 -u %d -r %s", root, name);
 	system(sz);
@@ -109,11 +110,10 @@ void cloudSetup(cJSON *el) {
 	setupLoop(&i, total, modulesDefault, modules, 1);
 	PRINTF("Saving(1) _modules_.json during setup\n");
 	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
-	communicationString("{\"status\":2}");
 	buzzer(1);
 	setupLoop(&i, total, modulesDefault, modules, 0);
 	logicSetup(L("Finalization"), 100);
-	communicationString("{\"status\":3}");
+	communicationString("{\"a\":\"setup-status\", \"progress\":100}");
 	cJSON_Delete(cloud);
 	cJSON_Delete(modulesDefault);
 	PRINTF("Saving(2) _modules_.json during setup\n");

@@ -24,6 +24,8 @@ import * as CSR from '@root/csr';
 import * as PEM from '@root/pem';
 import * as ENC from '@root/encoding/base64';
 
+declare var appConnectToggle: any;
+
 @Injectable({
 	providedIn: "root"
 })
@@ -49,6 +51,8 @@ statsPeriod;
 statsData;
 themeSel = "system";
 darkVal = false;
+setupUIProgress = 0;
+setupUIName = 0;
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	this.developer = this.developerGet();
@@ -524,6 +528,15 @@ async modulesDataPrepare() {
 		this.modulesData.push(value);
 	});
 	this.refreshUI.next(true);
+	if (!this.demo) {
+		let sDcount = 0;
+		Object.entries(modules).forEach(([key, value]) => {
+			if (value["setupDone"] === true)
+				sDcount++;
+		});
+		if (sDcount < 5 && this.setupUIProgress == 0)
+			this.setupUIInit();
+	}
 }
 
 modulesDataFindId(m) {
@@ -539,6 +552,27 @@ review() {
 	//this.settings.reviewRequestLastTime = Date.now();
 	this.settingsSave();
 	InAppReview.requestReview();
+}
+
+setupUIInit() {
+	this.setupUIProgress = 1;
+	this.setupUIName = "initialization";
+	this.presentToast("Setup is under progress...", "help-outline", 0);
+	appConnectToggle();
+	this.refreshUI.next("refresh");
+}
+
+setupUIRefresh(data) {
+	if (data.progress == 100) {
+		this.presentToast("Setup is now complete!", "help-outline", 0);
+		appConnectToggle();
+		this.setupUIProgress = 0;
+		this.setupUIName = "";
+	} else {
+		this.setupUIProgress = data.progress;
+		this.setupUIName = "module: " + data.name;
+	}
+	this.refreshUI.next("refresh");
 }
 
 async statsPolling() {

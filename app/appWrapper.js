@@ -101,14 +101,19 @@ function appConnectToggle() {
 			console.log("Socket onerror " + JSON.stringify(e));
 			socket = null;
 			if (thisble) thisble.connectedWS = 0;
+			appCommunicationStatus(0);
 		}
 		socket.onclose = (e) => {
 			console.log("Socket onclose");
 			socket = null;
 			if (thisble) thisble.connectedWS = 0;
+			appCommunicationStatus(0);
 		}
 		socket.onmessage = (msg) => {
-			appServerReceiveHtml(msg.data, 1);
+			if (thisble)
+				thisble.communicationReceive(msg.data);
+			else
+				appServerReceiveHtml(msg.data, 1);
 		}
 	}
 }
@@ -121,4 +126,9 @@ function appShutdown() {
 function appOtp(email) {
 	if (socket != null)
 		socket.send(JSON.stringify({ a:"otp", v:-1, e:email }));
+}
+
+function appLanguage(la) {
+	if (socket != null)
+		socket.send(JSON.stringify({ a:"language", l:la }));
 }

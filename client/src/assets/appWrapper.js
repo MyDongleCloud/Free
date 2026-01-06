@@ -110,7 +110,10 @@ function appConnectToggle() {
 			appCommunicationStatus(0);
 		}
 		socket.onmessage = (msg) => {
-			appServerReceiveHtml(msg.data, 1);
+			if (thisble)
+				thisble.communicationReceive(msg.data);
+			else
+				appServerReceiveHtml(msg.data, 1);
 		}
 	}
 }

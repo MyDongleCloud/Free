@@ -11,6 +11,7 @@ const UUID_DATA = "0000fff2-a82e-1000-8000-00805f9b34fb";
 
 const BLE_CHUNK = 182;
 
+declare var thisble: any;
 declare var appServerReceiveHtml: any;
 declare var appCommunicationStatus: any;
 
@@ -32,6 +33,7 @@ communicationEvent:Subject<any> = new Subject();
 
 constructor(private global: Global) {
 	this.bleClientInitialize();
+	thisble = this;
 }
 
 async bleClientInitialize() {
@@ -144,6 +146,8 @@ communicationReceive(st) {
 	const data = JSON.parse(st);
 	if (data.a === "state")
 		appServerReceiveHtml(st, 0);
+	else if (data.a === "setup-status")
+		this.global.setupUIRefresh(data);
 	else
 		this.communicationEvent.next({ msg:"communication", data:data });
 }

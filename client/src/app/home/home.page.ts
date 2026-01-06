@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { Global } from '../env';
 import { CategoriesBar } from '../myinterface';
+import { BleService } from '../ble';
 
 @Component({
 	selector: 'app-home',
@@ -41,7 +42,7 @@ showDone: boolean = true;
 showNotDone: boolean = true;
 CategoriesBar = CategoriesBar;
 
-constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService, private route: ActivatedRoute) {
+constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService, private route: ActivatedRoute, public ble: BleService) {
 	this.route.queryParams.subscribe((params) => {
 		if (params.search)
 			setTimeout(() => {
@@ -55,6 +56,9 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	global.refreshUI.subscribe(event => {
 		if (event === "onlySidebar") {
 			this.sidebar.refresh();
+			return;
+		} else if (event === "refresh") {
+			this.cdr.detectChanges();
 			return;
 		}
 		this.filterCards();
