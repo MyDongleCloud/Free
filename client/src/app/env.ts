@@ -52,7 +52,7 @@ statsData;
 themeSel = "system";
 darkVal = false;
 setupUIProgress = 0;
-setupUIName = 0;
+setupUIName = "";
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	this.developer = this.developerGet();
