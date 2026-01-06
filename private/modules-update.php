@@ -86,6 +86,7 @@ if (!is_dir(__DIR__ . "/../build"))
 store("/../build/modulesmeta.json", $modulesMeta);
 store("/../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json", $modulesDefault);
 store("/../client/src/assets/i18n/modules-en.json", array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription)));
+ksort($modulesKeywords);
 store("/../client/src/assets/i18n/keywords-en.json", array("keywords" => $modulesKeywords));
 $modulesMarkdownHeader="|Module|Title|Description|⭐|Category|Version|\n|-|-|-|:-:|-|:-:|\n";
 $modulesMarkdownFooter="\n||||" . number_format($starsTotal / 1000 / 1000, 2) . "M ⭐|||";

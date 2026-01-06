@@ -54,7 +54,9 @@ for ($i = 1; $i < count($modules); $i++) {
 	$out["finished"] = $out["finished"] === "1";
 	$out["default"] = $modulesDefault[$m[0]];
 	ksort($out["default"]);
-	//sort($out["keywords"]);
+	$out["keywords"] = array_map("ucfirst", $out["keywords"]);
+	sort($out["keywords"]);
+	$out["keywords"] = array_values(array_unique($out["keywords"], SORT_STRING));
 	store("/modules/" . $m[0] . ".json", $out);
 }
 ?>
