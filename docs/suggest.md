@@ -37,7 +37,7 @@ Each module is described by an exhaustive json config file:
 	"proprietary": "The proprietary equivalent of the module if any.",
 	"default": {
 		"addConfigEnd": "An option configuration to be added at the end of the Apache2 module virtual host.",
-		"alias": [ '' ],
+		"alias": [ "Optional alias or subdomain of the module." ],
 		"autoLogin": {
 			"inject": [
 				{
@@ -62,7 +62,7 @@ Each module is described by an exhaustive json config file:
 		},
 		"config": "A boolean to indicate if the module has a user configuration.",
 		"enabled": "A boolean if the module web interface is enabled or not.",
-		"followSymlinks": "A boolean if Apache2 FollowSymlinks directive should be added or removed."
+		"followSymlinks": "A boolean if Apache2 FollowSymlinks directive should be added or removed.",
 		"indexes": "A boolean if Apache2 Indexes directive should be added or removed.",
 		"localPort": "The local port of the Apache2 module virtual host.",
 		"multiViews": "A boolean if Apache2 MultiViews directive should be added or removed.",
