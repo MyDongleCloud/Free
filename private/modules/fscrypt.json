@@ -23,7 +23,9 @@
 		"Security",
 		"Storage"
 	],
-	"proprietary": "BitLocker",
+	"proprietary": [
+		"BitLocker"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/fscrypt"

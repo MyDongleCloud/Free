@@ -24,7 +24,9 @@
 		"Web log viewer",
 		"Website traffic"
 	],
-	"proprietary": "Splunk",
+	"proprietary": [
+		"Splunk"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9426,

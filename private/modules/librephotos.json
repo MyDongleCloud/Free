@@ -22,7 +22,9 @@
 		"Photo search",
 		"Photos"
 	],
-	"proprietary": "Google Photos",
+	"proprietary": [
+		"Google Photos"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9442,

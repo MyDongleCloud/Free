@@ -24,7 +24,7 @@
 		"Structure",
 		"Vector search"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/redis-cli"

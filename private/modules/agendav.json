@@ -18,7 +18,7 @@
 		"Scheduling",
 		"Shared calendar"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9402,

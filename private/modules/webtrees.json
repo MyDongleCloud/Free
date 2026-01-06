@@ -23,7 +23,9 @@
 		"Privacy settings",
 		"Tree"
 	],
-	"proprietary": "Ancestry.com",
+	"proprietary": [
+		"Ancestry.com"
+	],
 	"default": {
 		"autoLogin": {
 			"inject": [

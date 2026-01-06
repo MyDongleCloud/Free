@@ -24,7 +24,7 @@
 		"Storage management",
 		"Visualization"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/ncdu"

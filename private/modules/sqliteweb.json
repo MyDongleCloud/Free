@@ -21,7 +21,7 @@
 		"Serverless",
 		"Viewer"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9498,

@@ -23,7 +23,7 @@
 		"Polyglot tool",
 		"Web converter"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9507,

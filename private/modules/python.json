@@ -21,7 +21,9 @@
 		"Scripting language",
 		"Software development"
 	],
-	"proprietary": "ActivePython",
+	"proprietary": [
+		"ActivePython"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/python",

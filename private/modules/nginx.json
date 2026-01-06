@@ -23,7 +23,9 @@
 		"TLS encryption",
 		"Web server"
 	],
-	"proprietary": "F5 BIG-IP",
+	"proprietary": [
+		"F5 BIG-IP"
+	],
 	"default": {
 		"cmds": []
 	}

@@ -21,7 +21,10 @@
 		"Video",
 		"Video streaming"
 	],
-	"proprietary": "Plex|Emby",
+	"proprietary": [
+		"Emby",
+		"Plex"
+	],
 	"default": {
 		"autoLogin": {
 			"inject": [

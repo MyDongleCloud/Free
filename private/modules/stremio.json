@@ -24,7 +24,10 @@
 		"Video streaming",
 		"Watch movies"
 	],
-	"proprietary": "Plex|Emby",
+	"proprietary": [
+		"Emby",
+		"Plex"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9501,

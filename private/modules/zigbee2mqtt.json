@@ -23,7 +23,9 @@
 		"Supported devices",
 		"Zigbee"
 	],
-	"proprietary": "Philips Hue Bridge",
+	"proprietary": [
+		"Philips Hue Bridge"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9522,

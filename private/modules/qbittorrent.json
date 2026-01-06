@@ -18,7 +18,9 @@
 		"Download",
 		"P2P"
 	],
-	"proprietary": "qBittorrent",
+	"proprietary": [
+		"QBittorrent"
+	],
 	"default": {
 		"autoLogin": {
 			"inject": [

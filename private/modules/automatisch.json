@@ -19,7 +19,9 @@
 		"Connect",
 		"Services"
 	],
-	"proprietary": "Zapier",
+	"proprietary": [
+		"Zapier"
+	],
 	"default": {
 		"config": true,
 		"enabled": true,

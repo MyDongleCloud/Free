@@ -23,7 +23,7 @@
 		"Search tool",
 		"Typo tolerance"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"config": true,
 		"enabled": true,

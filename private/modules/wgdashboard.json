@@ -20,7 +20,7 @@
 		"VPN",
 		"WireGuard"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"autoLogin": {
 			"inject": [

@@ -24,7 +24,9 @@
 		"Serial port",
 		"UPDI"
 	],
-	"proprietary": "MPLAB X IDE",
+	"proprietary": [
+		"MPLAB X IDE"
+	],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/pymcuprog"

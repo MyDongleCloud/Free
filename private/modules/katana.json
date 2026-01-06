@@ -26,7 +26,7 @@
 		"Web crawling",
 		"Website crawler"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/katana"

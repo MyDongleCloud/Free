@@ -24,7 +24,7 @@
 		"Optimization",
 		"Refactor"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/css-beautify",

@@ -25,7 +25,11 @@
 		"Version",
 		"Version control"
 	],
-	"proprietary": "GitHub|GitLab|Bitbucket",
+	"proprietary": [
+		"Bitbucket",
+		"GitHub",
+		"GitLab"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9425,

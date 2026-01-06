@@ -21,7 +21,9 @@
 		"Sandbox",
 		"Web development"
 	],
-	"proprietary": "JsFiddle",
+	"proprietary": [
+		"JsFiddle"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9446,

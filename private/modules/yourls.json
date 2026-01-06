@@ -19,7 +19,9 @@
 		"URL",
 		"URL shortener"
 	],
-	"proprietary": "Bitly",
+	"proprietary": [
+		"Bitly"
+	],
 	"default": {
 		"addLineInDirectory": "RewriteBase /\n\t\tRewriteCond %{REQUEST_FILENAME} !-f\n\t\tRewriteCond %{REQUEST_FILENAME} !-d\n\t\tRewriteRule ^.*$ /yourls-loader.php [L]",
 		"autoLogin": {

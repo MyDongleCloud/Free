@@ -18,7 +18,9 @@
 		"Real-time chat",
 		"Support"
 	],
-	"proprietary": "vBulletin",
+	"proprietary": [
+		"VBulletin"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9413,

@@ -24,7 +24,9 @@
 		"SMTP",
 		"SMTP server"
 	],
-	"proprietary": "Microsoft Exchange",
+	"proprietary": [
+		"Microsoft Exchange"
+	],
 	"default": {
 		"reset": true,
 		"setup": true,

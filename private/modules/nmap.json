@@ -20,7 +20,7 @@
 		"Security tool",
 		"Tester"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/nmap"

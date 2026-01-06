@@ -21,7 +21,9 @@
 		"S3 compatible",
 		"Storage"
 	],
-	"proprietary": "Amazon S3",
+	"proprietary": [
+		"Amazon S3"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9457,

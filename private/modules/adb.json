@@ -18,7 +18,7 @@
 		"Debug",
 		"Logcat"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/adb"

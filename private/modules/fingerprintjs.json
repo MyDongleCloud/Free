@@ -22,7 +22,7 @@
 		"Visitor identification",
 		"Website tracking"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

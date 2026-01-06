@@ -25,7 +25,9 @@
 		"Task automation",
 		"Workflow"
 	],
-	"proprietary": "Zapier",
+	"proprietary": [
+		"Zapier"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9420,

@@ -22,7 +22,7 @@
 		"Machine learning",
 		"Model inference"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9447,

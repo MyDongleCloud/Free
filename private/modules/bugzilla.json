@@ -23,7 +23,9 @@
 		"Tracker",
 		"User feedback"
 	],
-	"proprietary": "Jira",
+	"proprietary": [
+		"Jira"
+	],
 	"default": {
 		"addLineInDirectory": "AddHandler cgi-script .cgi\n\t\tOptions +ExecCGI",
 		"autoLogin": {

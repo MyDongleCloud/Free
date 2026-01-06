@@ -20,7 +20,9 @@
 		"Two",
 		"Two-factor authentication"
 	],
-	"proprietary": "Google Authenticator",
+	"proprietary": [
+		"Google Authenticator"
+	],
 	"default": {
 		"addLineInDirectory": "AllowOverride FileInfo Options=MultiViews,Indexes,FollowSymLinks",
 		"alias": [

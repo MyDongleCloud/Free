@@ -27,7 +27,9 @@
 		"Hashes",
 		"Hexdump"
 	],
-	"proprietary": "Kryptel",
+	"proprietary": [
+		"Kryptel"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9412,

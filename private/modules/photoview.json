@@ -22,7 +22,9 @@
 		"RAW photo support",
 		"Sharing photos"
 	],
-	"proprietary": "Google Photos",
+	"proprietary": [
+		"Google Photos"
+	],
 	"default": {
 		"alias": [
 			"photos",

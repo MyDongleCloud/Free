@@ -19,7 +19,7 @@
 		"Search",
 		"Search engine"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/meilisearch"

@@ -22,7 +22,9 @@
 		"Realtime",
 		"Scalable"
 	],
-	"proprietary": "Firebase Realtime Database",
+	"proprietary": [
+		"Firebase Realtime Database"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/rethinkdb"

@@ -23,7 +23,10 @@
 		"Personal",
 		"Personal finance"
 	],
-	"proprietary": "Mint|YNAB",
+	"proprietary": [
+		"Mint",
+		"YNAB"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9453,

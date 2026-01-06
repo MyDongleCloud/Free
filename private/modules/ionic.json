@@ -23,7 +23,9 @@
 		"User interface",
 		"Web apps"
 	],
-	"proprietary": "Flutter",
+	"proprietary": [
+		"Flutter"
+	],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/ionic"

@@ -19,7 +19,7 @@
 		"Document-based",
 		"NoSQL"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"config": true,
 		"enabled": true,

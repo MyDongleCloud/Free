@@ -19,7 +19,9 @@
 		"Format conversion",
 		"Multi-format support"
 	],
-	"proprietary": "XE Currency",
+	"proprietary": [
+		"XE Currency"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9410,

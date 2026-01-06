@@ -22,7 +22,7 @@
 		"Programming integration",
 		"Wiki-style linking"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9496,

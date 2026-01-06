@@ -21,7 +21,9 @@
 		"GNU",
 		"Programming"
 	],
-	"proprietary": "Intel C++ Compiler",
+	"proprietary": [
+		"Intel C++ Compiler"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/gcc",

@@ -23,7 +23,7 @@
 		"Source code",
 		"Transactions"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"config": true,
 		"setup": true,

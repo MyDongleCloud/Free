@@ -21,7 +21,7 @@
 		"Programming language",
 		"Web development"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

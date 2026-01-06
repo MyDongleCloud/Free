@@ -22,7 +22,9 @@
 		"IMAP",
 		"Webmail"
 	],
-	"proprietary": "Gmail",
+	"proprietary": [
+		"Gmail"
+	],
 	"default": {
 		"alias": [
 			"webmail"

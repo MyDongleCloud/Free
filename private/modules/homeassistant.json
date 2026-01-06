@@ -24,7 +24,9 @@
 		"Privacy",
 		"Smart home"
 	],
-	"proprietary": "Samsung SmartThings",
+	"proprietary": [
+		"Samsung SmartThings"
+	],
 	"default": {
 		"alias": [
 			"home"

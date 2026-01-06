@@ -24,7 +24,7 @@
 		"SVG",
 		"Web tools"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9495,

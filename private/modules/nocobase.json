@@ -23,7 +23,7 @@
 		"Quick deployment",
 		"Workflow automation"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9459,

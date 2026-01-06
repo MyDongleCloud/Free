@@ -22,7 +22,9 @@
 		"RSS",
 		"RSS feed"
 	],
-	"proprietary": "Feedly",
+	"proprietary": [
+		"Feedly"
+	],
 	"default": {
 		"addLineInDirectory": "AllowOverride AuthConfig FileInfo Indexes Limit",
 		"alias": [

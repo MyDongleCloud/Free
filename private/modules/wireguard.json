@@ -21,7 +21,7 @@
 		"Security",
 		"VPN"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

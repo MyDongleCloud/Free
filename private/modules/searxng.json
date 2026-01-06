@@ -22,7 +22,9 @@
 		"Search engine",
 		"Secure search"
 	],
-	"proprietary": "Google",
+	"proprietary": [
+		"Google"
+	],
 	"default": {
 		"alias": [
 			"search"

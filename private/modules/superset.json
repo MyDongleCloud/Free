@@ -27,7 +27,9 @@
 		"SQL editor",
 		"Visualization"
 	],
-	"proprietary": "Tableau",
+	"proprietary": [
+		"Tableau"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9503,

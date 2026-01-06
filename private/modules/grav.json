@@ -18,7 +18,9 @@
 		"Flat-file",
 		"Wiki"
 	],
-	"proprietary": "WordPress",
+	"proprietary": [
+		"WordPress"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9427,

@@ -23,7 +23,7 @@
 		"System activity reports",
 		"System monitoring"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/iostat",

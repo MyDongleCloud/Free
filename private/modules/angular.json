@@ -21,7 +21,9 @@
 		"TypeScript",
 		"Web development"
 	],
-	"proprietary": "React",
+	"proprietary": [
+		"React"
+	],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/ng"

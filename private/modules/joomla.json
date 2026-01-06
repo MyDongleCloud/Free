@@ -24,7 +24,9 @@
 		"Web publishing",
 		"Website content"
 	],
-	"proprietary": "WordPress",
+	"proprietary": [
+		"WordPress"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9437,

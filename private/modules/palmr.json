@@ -23,7 +23,7 @@
 		"Upload",
 		"User-friendly"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9466,

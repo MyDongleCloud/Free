@@ -25,7 +25,9 @@
 		"Version",
 		"Version control"
 	],
-	"proprietary": "Microsoft Team Foundation Version Control",
+	"proprietary": [
+		"Microsoft Team Foundation Version Control"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/git"

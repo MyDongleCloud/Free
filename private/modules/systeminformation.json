@@ -22,7 +22,7 @@
 		"Stats Library",
 		"System information"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

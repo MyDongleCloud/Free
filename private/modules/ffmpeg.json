@@ -22,7 +22,9 @@
 		"Video",
 		"Video processing"
 	],
-	"proprietary": "Adobe Media Encoder",
+	"proprietary": [
+		"Adobe Media Encoder"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/ffmpeg"

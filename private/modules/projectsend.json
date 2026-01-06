@@ -23,7 +23,9 @@
 		"Upload",
 		"Upload files"
 	],
-	"proprietary": "Dropbox",
+	"proprietary": [
+		"Dropbox"
+	],
 	"default": {
 		"autoLogin": {
 			"inject": [

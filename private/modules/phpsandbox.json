@@ -25,7 +25,9 @@
 		"Sandbox testing",
 		"Whitelisting"
 	],
-	"proprietary": "PHPFiddle",
+	"proprietary": [
+		"PHPFiddle"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9474,

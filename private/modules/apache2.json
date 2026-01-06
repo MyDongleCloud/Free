@@ -19,7 +19,9 @@
 		"Web server",
 		"Website"
 	],
-	"proprietary": "Microsoft IIS",
+	"proprietary": [
+		"Microsoft IIS"
+	],
 	"default": {
 		"alias": [
 			"www"

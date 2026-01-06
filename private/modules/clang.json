@@ -22,7 +22,9 @@
 		"Libraries",
 		"Source code"
 	],
-	"proprietary": "Microsoft Visual C++",
+	"proprietary": [
+		"Microsoft Visual C++"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/clang",

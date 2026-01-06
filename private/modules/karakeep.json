@@ -22,7 +22,7 @@
 		"Notes and images",
 		"Save links"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9440,

@@ -22,7 +22,7 @@
 		"Upload",
 		"Upload files"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9421,

@@ -20,7 +20,7 @@
 		"VPN",
 		"WireGuard"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/nmctl"

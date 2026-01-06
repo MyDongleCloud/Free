@@ -24,7 +24,9 @@
 		"YouTube",
 		"YouTube downloader"
 	],
-	"proprietary": "4K Video Downloader",
+	"proprietary": [
+		"4K Video Downloader"
+	],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/yt-dlp",

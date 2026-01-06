@@ -23,7 +23,10 @@
 		"Video conferencing",
 		"WebRTC"
 	],
-	"proprietary": "Zoom|Microsoft Teams",
+	"proprietary": [
+		"Microsoft Teams",
+		"Zoom"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9436,

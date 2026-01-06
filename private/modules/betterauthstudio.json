@@ -27,7 +27,7 @@
 		"User authentication",
 		"User identity"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"alias": [
 			"identities",

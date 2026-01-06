@@ -21,7 +21,9 @@
 		"Zsh",
 		"Zsh configuration"
 	],
-	"proprietary": "PowerShell",
+	"proprietary": [
+		"PowerShell"
+	],
 	"default": {
 		"cmds": []
 	}

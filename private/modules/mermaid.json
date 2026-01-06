@@ -23,7 +23,9 @@
 		"Text-based diagrams",
 		"Visualization"
 	],
-	"proprietary": "Lucidchart",
+	"proprietary": [
+		"Lucidchart"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9454,

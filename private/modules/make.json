@@ -21,7 +21,9 @@
 		"Cross-platform",
 		"Software development"
 	],
-	"proprietary": "Apache Ant",
+	"proprietary": [
+		"Apache Ant"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/make"

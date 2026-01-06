@@ -22,7 +22,9 @@
 		"System",
 		"Transactional"
 	],
-	"proprietary": "Oracle Database",
+	"proprietary": [
+		"Oracle Database"
+	],
 	"default": {
 		"config": true,
 		"enabled": true,

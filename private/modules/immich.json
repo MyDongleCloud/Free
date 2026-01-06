@@ -23,7 +23,9 @@
 		"Video",
 		"Video backup"
 	],
-	"proprietary": "Google Photos",
+	"proprietary": [
+		"Google Photos"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9431,

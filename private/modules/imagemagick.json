@@ -24,7 +24,9 @@
 		"Image formats",
 		"Photo manipulation"
 	],
-	"proprietary": "Adobe Photoshop",
+	"proprietary": [
+		"Adobe Photoshop"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/convert"

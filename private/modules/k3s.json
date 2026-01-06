@@ -19,7 +19,7 @@
 		"Orchestration",
 		"Virtualization"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			""

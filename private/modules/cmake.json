@@ -21,7 +21,9 @@
 		"Cross-platform",
 		"Software development"
 	],
-	"proprietary": "Microsoft Visual Studio",
+	"proprietary": [
+		"Microsoft Visual Studio"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/cmake"

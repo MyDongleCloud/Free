@@ -22,7 +22,9 @@
 		"Developer",
 		"Developer productivity"
 	],
-	"proprietary": "Github Copilot",
+	"proprietary": [
+		"Github Copilot"
+	],
 	"default": {
 		"addConfigEnd": "Header unset Content-Security-Policy",
 		"alias": [

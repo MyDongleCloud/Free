@@ -21,7 +21,9 @@
 		"Writing",
 		"Writing Tool"
 	],
-	"proprietary": "Typora",
+	"proprietary": [
+		"Typora"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9450,

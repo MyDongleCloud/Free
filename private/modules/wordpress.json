@@ -26,7 +26,10 @@
 		"Website builder",
 		"Website creator"
 	],
-	"proprietary": "Wix|Squarespace",
+	"proprietary": [
+		"Squarespace",
+		"Wix"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9519,

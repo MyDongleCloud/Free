@@ -19,7 +19,9 @@
 		"SQLite",
 		"Serverless"
 	],
-	"proprietary": "Microsoft SQL Server Compact",
+	"proprietary": [
+		"Microsoft SQL Server Compact"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/sqlite3"

@@ -27,7 +27,7 @@
 		"Metadata removal",
 		"Optimizer"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9513,

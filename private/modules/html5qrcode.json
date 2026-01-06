@@ -20,7 +20,9 @@
 		"QR code scanner",
 		"Scanner"
 	],
-	"proprietary": "QR Code Scanner",
+	"proprietary": [
+		"QR Code Scanner"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9430,

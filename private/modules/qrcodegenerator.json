@@ -20,7 +20,9 @@
 		"Simple",
 		"URL"
 	],
-	"proprietary": "QR Code Generator",
+	"proprietary": [
+		"QR Code Generator"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9485,

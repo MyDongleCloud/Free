@@ -20,7 +20,7 @@
 		"Strong",
 		"Udev"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/pwgen"

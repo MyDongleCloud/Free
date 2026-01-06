@@ -23,7 +23,9 @@
 		"Programming",
 		"Programming language"
 	],
-	"proprietary": "Oracle JDK",
+	"proprietary": [
+		"Oracle JDK"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/java"

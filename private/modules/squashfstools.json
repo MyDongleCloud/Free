@@ -20,7 +20,7 @@
 		"File system tools",
 		"Software installation"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/mksquashfs",

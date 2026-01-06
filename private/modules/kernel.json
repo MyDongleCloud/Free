@@ -19,7 +19,9 @@
 		"Operating system",
 		"System core"
 	],
-	"proprietary": "Microsoft Windows",
+	"proprietary": [
+		"Microsoft Windows"
+	],
 	"default": {
 		"cmds": []
 	}

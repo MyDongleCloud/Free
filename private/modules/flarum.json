@@ -21,7 +21,9 @@
 		"Forum",
 		"Simple forum"
 	],
-	"proprietary": "Discourse",
+	"proprietary": [
+		"Discourse"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9422,

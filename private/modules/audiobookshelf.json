@@ -21,7 +21,9 @@
 		"Podcasts",
 		"Streaming"
 	],
-	"proprietary": "Audible",
+	"proprietary": [
+		"Audible"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9403,

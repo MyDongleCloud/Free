@@ -22,7 +22,7 @@
 		"Ruby-like",
 		"Type-checked"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/crystal"

@@ -23,7 +23,9 @@
 		"Photo enhancement",
 		"Photo retouching"
 	],
-	"proprietary": "Adobe Photoshop",
+	"proprietary": [
+		"Adobe Photoshop"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9433,

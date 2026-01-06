@@ -24,7 +24,7 @@
 		"Optimization",
 		"Refactor"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9404,

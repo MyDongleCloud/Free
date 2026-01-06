@@ -25,7 +25,9 @@
 		"YouTube",
 		"YouTube downloader"
 	],
-	"proprietary": "4K Video Downloader",
+	"proprietary": [
+		"4K Video Downloader"
+	],
 	"default": {
 		"addConfigBegin": "ProxyPass /static !\n\tAlias /static /usr/local/modules/tubesync/tubesync/static\n\t<Directory /usr/local/modules/tubesync/tubesync/static>\n\t\tRequire all granted\n\t</Directory>",
 		"enabled": true,

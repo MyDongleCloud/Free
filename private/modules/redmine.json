@@ -23,7 +23,7 @@
 		"Teamwork",
 		"Web application"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9488,

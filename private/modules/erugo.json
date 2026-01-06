@@ -20,7 +20,7 @@
 		"Sharing",
 		"Upload files"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9418,

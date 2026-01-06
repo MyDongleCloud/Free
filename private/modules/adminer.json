@@ -24,7 +24,7 @@
 		"SQL",
 		"Viewer"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"autoLogin": {
 			"inject": [

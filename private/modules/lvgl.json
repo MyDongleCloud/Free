@@ -21,7 +21,7 @@
 		"User interface",
 		"Widgets"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

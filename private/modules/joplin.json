@@ -22,7 +22,10 @@
 		"Synchronization",
 		"To-do"
 	],
-	"proprietary": "Evernote|OneNote",
+	"proprietary": [
+		"Evernote",
+		"OneNote"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9438,

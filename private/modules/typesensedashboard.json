@@ -24,7 +24,7 @@
 		"Typo tolerance",
 		"Viewer"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"followSymLinks": true,

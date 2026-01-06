@@ -22,7 +22,9 @@
 		"Reverse proxy",
 		"Tunnel"
 	],
-	"proprietary": "Ngrok",
+	"proprietary": [
+		"Ngrok"
+	],
 	"default": {
 		"bindingPort": 7000,
 		"enabled": true,

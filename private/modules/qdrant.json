@@ -27,7 +27,9 @@
 		"Vector",
 		"Vector search"
 	],
-	"proprietary": "Pinecone",
+	"proprietary": [
+		"Pinecone"
+	],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/qdrant"

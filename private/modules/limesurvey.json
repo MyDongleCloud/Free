@@ -22,7 +22,9 @@
 		"Survey",
 		"Survey platform"
 	],
-	"proprietary": "SurveyMonkey",
+	"proprietary": [
+		"SurveyMonkey"
+	],
 	"default": {
 		"autoLogin": {
 			"inject": [

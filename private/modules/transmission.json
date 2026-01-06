@@ -21,7 +21,9 @@
 		"File sharing",
 		"P2P"
 	],
-	"proprietary": "qBittorrent",
+	"proprietary": [
+		"QBittorrent"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9508,

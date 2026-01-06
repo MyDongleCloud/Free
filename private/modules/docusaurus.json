@@ -19,7 +19,7 @@
 		"Documentation",
 		"Website generator"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"alias": [
 			"docs_static"

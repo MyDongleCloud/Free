@@ -19,7 +19,9 @@
 		"Scripting language",
 		"Web development"
 	],
-	"proprietary": "Zend PHP",
+	"proprietary": [
+		"Zend PHP"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/php"

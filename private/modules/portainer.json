@@ -21,7 +21,7 @@
 		"Kubernetes",
 		"Virtualization"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"autoLogin": {
 			"inject": [

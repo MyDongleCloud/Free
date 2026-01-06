@@ -19,7 +19,7 @@
 		"PVR",
 		"Torrent"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"autoLogin": {
 			"inject": [

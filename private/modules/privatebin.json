@@ -24,7 +24,9 @@
 		"Secure sharing",
 		"Zero-knowledge"
 	],
-	"proprietary": "Pastebin",
+	"proprietary": [
+		"Pastebin"
+	],
 	"default": {
 		"enabled": true,
 		"followSymLinks": true,

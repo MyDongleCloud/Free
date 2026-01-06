@@ -22,7 +22,7 @@
 		"Server-side",
 		"V8"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/node",

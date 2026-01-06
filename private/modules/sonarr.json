@@ -26,7 +26,7 @@
 		"Torrent",
 		"Usenet"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"autoLogin": {
 			"inject": [

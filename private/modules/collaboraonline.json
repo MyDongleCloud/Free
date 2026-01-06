@@ -25,7 +25,9 @@
 		"Suite",
 		"Teamwork"
 	],
-	"proprietary": "Microsoft 365",
+	"proprietary": [
+		"Microsoft 365"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9409,

@@ -22,7 +22,9 @@
 		"Newsletter",
 		"Newsletter manager"
 	],
-	"proprietary": "Mailchimp",
+	"proprietary": [
+		"Mailchimp"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9473,

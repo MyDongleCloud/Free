@@ -24,7 +24,7 @@
 		"Package",
 		"Package manager"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/pnpm"

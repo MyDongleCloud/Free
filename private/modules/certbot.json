@@ -22,7 +22,9 @@
 		"SSL",
 		"Security"
 	],
-	"proprietary": "DigiCert CertCentral",
+	"proprietary": [
+		"DigiCert CertCentral"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/certbot"

@@ -20,7 +20,9 @@
 		"Secure",
 		"Security"
 	],
-	"proprietary": "Microsoft Exchange",
+	"proprietary": [
+		"Microsoft Exchange"
+	],
 	"default": {
 		"cmds": []
 	}

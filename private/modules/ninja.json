@@ -18,7 +18,7 @@
 		"Cross-platform",
 		"System"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/ninja"

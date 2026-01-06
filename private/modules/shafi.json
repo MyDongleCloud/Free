@@ -22,7 +22,9 @@
 		"Upload",
 		"Upload files"
 	],
-	"proprietary": "WeTransfer",
+	"proprietary": [
+		"WeTransfer"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9493,

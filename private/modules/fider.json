@@ -18,7 +18,7 @@
 		"Platform",
 		"Prioritize"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9419,

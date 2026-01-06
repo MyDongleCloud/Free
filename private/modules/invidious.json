@@ -21,7 +21,7 @@
 		"YouTube alternative",
 		"Youtube"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9432,

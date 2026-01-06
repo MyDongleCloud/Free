@@ -20,7 +20,7 @@
 		"Unix utilities",
 		"Utilities"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/sh"

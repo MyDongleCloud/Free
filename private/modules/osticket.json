@@ -21,7 +21,9 @@
 		"Ticket",
 		"Ticket management"
 	],
-	"proprietary": "Zendesk",
+	"proprietary": [
+		"Zendesk"
+	],
 	"default": {
 		"alias": [
 			"helpdesk",

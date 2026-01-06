@@ -21,7 +21,9 @@
 		"Publishing",
 		"Writing"
 	],
-	"proprietary": "Medium",
+	"proprietary": [
+		"Medium"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9520,

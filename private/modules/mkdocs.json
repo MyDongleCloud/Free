@@ -21,7 +21,7 @@
 		"Project docs",
 		"Static site generator"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

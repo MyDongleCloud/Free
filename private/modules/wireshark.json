@@ -22,7 +22,7 @@
 		"UDP",
 		"Watch"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/tshark"

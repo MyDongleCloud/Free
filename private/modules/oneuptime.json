@@ -24,7 +24,7 @@
 		"Status pages",
 		"Uptime monitoring"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"enabled": true,
 		"localPort": 9461,

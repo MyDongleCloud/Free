@@ -23,7 +23,10 @@
 		"VPN",
 		"Virtual network"
 	],
-	"proprietary": "NordVPN|ExpressVPN",
+	"proprietary": [
+		"ExpressVPN",
+		"NordVPN"
+	],
 	"default": {
 		"cmds": []
 	}

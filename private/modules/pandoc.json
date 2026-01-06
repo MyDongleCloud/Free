@@ -25,7 +25,9 @@
 		"Text processing",
 		"Universal tool"
 	],
-	"proprietary": "Adobe Acrobat",
+	"proprietary": [
+		"Adobe Acrobat"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9467,

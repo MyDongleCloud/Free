@@ -22,7 +22,9 @@
 		"Syntax checking",
 		"Web development tools"
 	],
-	"proprietary": "JsFiddle",
+	"proprietary": [
+		"JsFiddle"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9439,

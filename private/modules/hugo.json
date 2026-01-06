@@ -23,7 +23,9 @@
 		"Static site generator",
 		"Website builder"
 	],
-	"proprietary": "Squarespace",
+	"proprietary": [
+		"Squarespace"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/hugo"

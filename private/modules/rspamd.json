@@ -25,7 +25,9 @@
 		"Spam",
 		"Spam filter"
 	],
-	"proprietary": "SpamTitan",
+	"proprietary": [
+		"SpamTitan"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9491,

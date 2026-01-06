@@ -24,7 +24,7 @@
 		"YouTube alternative",
 		"Youtube"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"config": true,
 		"enabled": true,

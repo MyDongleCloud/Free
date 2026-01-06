@@ -19,7 +19,9 @@
 		"Secure",
 		"Security"
 	],
-	"proprietary": "Pastebin",
+	"proprietary": [
+		"Pastebin"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9456,

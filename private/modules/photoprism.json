@@ -26,7 +26,9 @@
 		"Smart photo app",
 		"Web-based gallery"
 	],
-	"proprietary": "Google Photos",
+	"proprietary": [
+		"Google Photos"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9470,

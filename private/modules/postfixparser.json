@@ -24,7 +24,7 @@
 		"SMTP",
 		"Server logs"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

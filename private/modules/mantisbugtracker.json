@@ -23,7 +23,9 @@
 		"Tracker",
 		"User feedback"
 	],
-	"proprietary": "Jira",
+	"proprietary": [
+		"Jira"
+	],
 	"default": {
 		"addConfigEnd": "<Directory /usr/local/modules/mantisbugtracker/admin>\n\t\tRequire all denied\n\t</Directory>",
 		"autoLogin": {

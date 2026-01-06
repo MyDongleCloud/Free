@@ -22,7 +22,7 @@
 		"Template engine",
 		"Website builder"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": []
 	}

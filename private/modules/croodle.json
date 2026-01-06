@@ -23,7 +23,10 @@
 		"Poll creator",
 		"Scheduling"
 	],
-	"proprietary": "Calendly|Doodle",
+	"proprietary": [
+		"Calendly",
+		"Doodle"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9411,

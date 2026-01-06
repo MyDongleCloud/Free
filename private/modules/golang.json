@@ -18,7 +18,9 @@
 		"Programming",
 		"Programming language"
 	],
-	"proprietary": "(No direct proprietary equivalent)",
+	"proprietary": [
+		"(No direct proprietary equivalent)"
+	],
 	"default": {
 		"cmds": [
 			"/usr/local/bin/go"

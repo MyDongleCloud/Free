@@ -20,7 +20,7 @@
 		"Parser",
 		"Structured data"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/jq"

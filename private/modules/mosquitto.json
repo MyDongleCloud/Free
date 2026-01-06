@@ -21,7 +21,9 @@
 		"Messaging",
 		"Publish-subscribe"
 	],
-	"proprietary": "HiveMQ",
+	"proprietary": [
+		"HiveMQ"
+	],
 	"default": {
 		"cmds": [
 			"/usr/bin/mosquitto_ctrl"

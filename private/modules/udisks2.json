@@ -23,7 +23,7 @@
 		"Udev",
 		"Umount"
 	],
-	"proprietary": "",
+	"proprietary": [],
 	"default": {
 		"cmds": [
 			"/usr/bin/udisksctl"

@@ -26,7 +26,9 @@
 		"PDF security",
 		"Split PDFs"
 	],
-	"proprietary": "Adobe Acrobat",
+	"proprietary": [
+		"Adobe Acrobat"
+	],
 	"default": {
 		"enabled": true,
 		"localPort": 9500,
