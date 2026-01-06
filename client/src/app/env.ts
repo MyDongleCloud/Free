@@ -517,7 +517,7 @@ async modulesDataPrepare() {
 			value["title"],
 			value["category"],
 			...value["keywords"],
-			...(value["proprietary"].split("|")),
+			...value["proprietary"],
 			...value["alias"],
 		].filter(item => item !== "").map(v => v.toLowerCase());
 		value["hayStack"] = [...new Set(items)];
