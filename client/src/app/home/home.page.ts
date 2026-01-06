@@ -96,11 +96,12 @@ validation(input, isFinalized, tokens, keywords) {
 	});
 }
 
-filterCards() {
+filterCards(typing = false) {
 	const input = this.searchTerm.toLowerCase();
 	const retI = (!input.trim()) ? true : false;
 	const isFinalized = retI ? false : input.endsWith(" ");
 	const tokens = retI ? [] : [...input.toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)].map(m => m[1] || m[2]);
+	let retAtLeastOnce = false;
 	this.filteredCards = this.cards.filter(card => {
 		if (this.showTerminal == false && card.web == false)
 			return false;
@@ -109,6 +110,7 @@ filterCards() {
 		if (this.showNotDone == false && !card.finished)
 			return false;
 		const ret = retI || this.validation(input, isFinalized, tokens, card.hayStack);
+		retAtLeastOnce = retAtLeastOnce || ret;
 		if (this.category == "All")
 			return ret;
 		else if (this.category == "AI")
@@ -120,6 +122,11 @@ filterCards() {
 		else
 			return ret && card.category.includes(this.category);
 	});
+	if (typing && !retI && retAtLeastOnce && this.filteredCards.length == 0 && this.category != "All") {
+		this.category = "All";
+		this.filterCards();
+		return;
+	}
 	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);
 	this.sortCards();
 	if (this.searchTerm != "")
@@ -127,10 +134,7 @@ filterCards() {
 }
 
 filterCategory(c) {
-	if (this.category == c.value.name)
-		this.category = "All";
-	else
-		this.category = c.value.name;
+	this.category =  this.category == c.value.name ? "All" : c.value.name;
 	this.filterCards();
 }
 
