@@ -600,7 +600,11 @@ void uiScreenSetup() {
 	lv_obj_add_style(label2, &labelStyle2, LV_STATE_DEFAULT);
 
 	lv_obj_t *label3 = lv_label_create(lv_screen_active());
+#ifdef WEB
+	lv_label_set_text(label3, "module");
+#else
 	lv_label_set_text(label3, lmdc.string);
+#endif
 	lv_obj_set_width(label3, 128);
 	lv_obj_set_style_text_align(label3, LV_TEXT_ALIGN_CENTER, 0);
 	lv_obj_set_pos(label3, 0, 92);

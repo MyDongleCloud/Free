@@ -529,12 +529,12 @@ async modulesDataPrepare() {
 	});
 	this.refreshUI.next(true);
 	if (!this.demo) {
-		let sDcount = 0;
+		let setupDoneCount = 0;
 		Object.entries(modules).forEach(([key, value]) => {
 			if (value["setupDone"] === true)
-				sDcount++;
+				setupDoneCount++;
 		});
-		if (sDcount < 5 && this.setupUIProgress == 0)
+		if (setupDoneCount < 5 && this.setupUIProgress == 0)
 			this.setupUIInit();
 	}
 }
@@ -558,14 +558,14 @@ setupUIInit() {
 	this.setupUIProgress = 1;
 	this.setupUIName = "initialization";
 	this.presentToast("Setup is under progress...", "help-outline", 0);
-	appConnectToggle();
+	appConnectToggle(true);
 	this.refreshUI.next("refresh");
 }
 
 setupUIRefresh(data) {
 	if (data.progress == 100) {
 		this.presentToast("Setup is now complete!", "help-outline", 0);
-		appConnectToggle();
+		appConnectToggle(false);
 		this.setupUIProgress = 0;
 		this.setupUIName = "";
 	} else {

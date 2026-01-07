@@ -76,13 +76,17 @@ function appServerReceiveHtml(data, doB64) {
 	Module._free(ptr);
 }
 
-function appConnectToggle() {
-	if (socket != null) {
+function appConnectToggle(onoff) {
+console.log("appConnectToggle", onoff);
+	if (typeof onoff == "undefined")
+		onoff = socket == null;
+	if (!onoff && socket != null) {
 		socket.send(JSON.stringify({ a:"connection", c:0 }));
 		socket.close();
 		socket = null;
 		if (thisble) thisble.connectedWS = 0;
-	} else {
+	}
+	if (onoff && socket == null) {
 		if (thisble) thisble.connectedWS = 1;
 		const protocol = "ws" + (window.location.protocol === "https:" ? "s" : "") + "://";
 		let host = window.location.hostname == "" || window.location.hostname == "localhost" ? "localhost:8094" : window.location.hostname;
