@@ -388,7 +388,7 @@ export const auth = betterAuth({
 			}
 		}),
 		//haveIBeenPwned({ customPasswordCompromisedMessage:"Please choose a more secure password." }),
-		//admin(),
+		admin(),
 		jwt({
 			jwt: {
 				expirationTime: "1w",
