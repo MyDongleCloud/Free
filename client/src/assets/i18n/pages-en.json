@@ -221,6 +221,14 @@
 	"splash": {
 		"Upgrade needed. A new version is available here.": ""
 	},
+	"users": {
+		"2FA": "",
+		"Full users management is available in the module": "",
+		"EMAIL": "",
+		"EMAIL VERIFIED": "",
+		"ROLE": "",
+		"USERNAME": ""
+	},
 	"wrapper": {
 		"The integration of this module is not yet finished. Check the next monthly release of MyDongle.Cloud.": "",
 		"This module is not accessible in the web demo. Download and run MyDongle.Cloud on your Raspberry Pi to get access to the whole demo.": ""

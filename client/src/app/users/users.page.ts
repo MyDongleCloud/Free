@@ -12,7 +12,7 @@ import modulesMeta from '../modulesmeta.json';
 
 export class Users {
 L(st) { return this.global.mytranslate(st); }
-LG(st) { return this.global.mytranslateG(st); }
+LM(st) { return this.global.mytranslateG(st); }
 users;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
@@ -25,7 +25,6 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 async getData() {
 	this.users = await this.httpClient.get("/_app_/auth/admin/list-users", {headers:{"content-type": "application/json"}}).toPromise();
 	this.global.consolelog(2, "Auth list-users: ", this.users);
-console.log(this.users.users);
 }
 
 
