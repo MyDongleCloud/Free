@@ -59,6 +59,6 @@ echo "{\"username\":\"root\", \"password\":\"${PASSWORD}\"}" > /disk/admin/modul
 chown admin:admin /disk/admin/modules/_config_/mysql.json
 {
 cat /disk/admin/modules/_config_/adminer.json 2>/dev/null || echo '{}'
-echo "{\"mysq_username\":\"root\", \"mysq_password\":\"${PASSWORD}\"}"
+echo "{\"mysql_username\":\"root\", \"mysql_password\":\"${PASSWORD}\"}"
 } | jq -s 'add' > /disk/admin/modules/_config_/adminer.json.tmp && mv /disk/admin/modules/_config_/adminer.json.tmp /disk/admin/modules/_config_/adminer.json
 chown admin:admin /disk/admin/modules/_config_/adminer.json
