@@ -1,7 +1,7 @@
 {
 	"module": "adminer",
 	"name": "Adminer",
-	"title": "MySQL Viewer",
+	"title": "Database Viewer",
 	"category": "Database",
 	"version": "5.2.1",
 	"installMethod": "apt",
@@ -29,7 +29,25 @@
 		"autoLogin": {
 			"inject": [
 				{
-					"url": "/conf.php",
+					"url": "/mysql.php",
+					"form": "form[method=post]",
+					"arg1": "input[name=\\\"auth[username]\\\"]",
+					"arg2": "input[name=\\\"auth[password]\\\"]",
+					"arg3": "input[type=submit]",
+					"val1": 0,
+					"val2": 2
+				},
+				{
+					"url": "/postgresql.php",
+					"form": "form[method=post]",
+					"arg1": "input[name=\\\"auth[username]\\\"]",
+					"arg2": "input[name=\\\"auth[password]\\\"]",
+					"arg3": "input[type=submit]",
+					"val1": 0,
+					"val2": 2
+				},
+				{
+					"url": "/mongodb.php",
 					"form": "form[method=post]",
 					"arg1": "input[name=\\\"auth[username]\\\"]",
 					"arg2": "input[name=\\\"auth[password]\\\"]",
@@ -40,19 +58,31 @@
 			],
 			"post": [
 				{
-					"url": "/conf.php",
-					"arg1": "username",
-					"arg2": "password",
+					"url": "/mysql.php",
+					"arg1": "mysql_username",
+					"arg2": "mysql_password",
+					"val1": 0,
+					"val2": 2
+				},
+				{
+					"url": "/postgresql.php",
+					"arg1": "postgresql_username",
+					"arg2": "postgresql_password",
+					"val1": 0,
+					"val2": 2
+				},
+				{
+					"url": "/mongodb.php",
+					"arg1": "mongodb_username",
+					"arg2": "mongodb_password",
 					"val1": 0,
 					"val2": 2
 				}
 			]
 		},
 		"config": true,
-		"directoryIndex": "conf.php",
 		"enabled": true,
 		"localPort": 9401,
-		"path": "/etc/adminer",
 		"permissions": [
 			"_groupadmin_"
 		]

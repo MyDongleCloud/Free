@@ -56,6 +56,9 @@ echo "[client]\nhost=localhost\nuser=root\npassword=${PASSWORD}" > /disk/admin/m
 chmod 755 /disk/admin/modules/mysql
 chown admin:admin /disk/admin/modules/mysql/conf.txt
 echo "{\"username\":\"root\", \"password\":\"${PASSWORD}\"}" > /disk/admin/modules/_config_/mysql.json
-ln -sf mysql.json /disk/admin/modules/_config_/adminer.json
 chown admin:admin /disk/admin/modules/_config_/mysql.json
-chown -h admin:admin /disk/admin/modules/_config_/adminer.json
+{
+cat /disk/admin/modules/_config_/adminer.json 2>/dev/null || echo '{}'
+echo "{\"mysq_username\":\"root\", \"mysq_password\":\"${PASSWORD}\"}"
+} | jq -s 'add' > /disk/admin/modules/_config_/adminer.json.tmp && mv /disk/admin/modules/_config_/adminer.json.tmp /disk/admin/modules/_config_/adminer.json
+chown admin:admin /disk/admin/modules/_config_/adminer.json

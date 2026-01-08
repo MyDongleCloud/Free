@@ -79,3 +79,8 @@ systemctl start mongodb.service
 systemctl enable mongodb.service
 echo "{\"username\":\"admin\", \"password\":\"${PASSWORD}\"}" > /disk/admin/modules/_config_/mongodb.json
 chown admin:admin /disk/admin/modules/_config_/mongodb.json
+{
+cat /disk/admin/modules/_config_/adminer.json 2>/dev/null || echo '{}'
+echo "{\"mongodb_username\":\"admin\", \"mongodb_password\":\"${PASSWORD}\"}"
+} | jq -s 'add' > /disk/admin/modules/_config_/adminer.json.tmp && mv /disk/admin/modules/_config_/adminer.json.tmp /disk/admin/modules/_config_/adminer.json
+chown admin:admin /disk/admin/modules/_config_/adminer.json
