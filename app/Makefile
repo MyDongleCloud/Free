@@ -82,7 +82,7 @@ OBJs_ZIGBEE := $(PRE)sbl.o \
 	$(PRE)main_zigbee.o
 
 MYCFLAGS_WEB = $(MYCFLAGS) -I ../build/lvgl-web/ -DWEB -Wno-pointer-sign -s USE_SDL=2
-MYLDFLAGS_WEB = -L ../build/lvgl-web/cmbuild/lib/ -llvgl -llvgl_thorvg -llvgl_demos -lSDL2 --shell-file /tmp/a.js -s SINGLE_FILE=1 -s INITIAL_MEMORY=33554432 -s EXPORTED_FUNCTIONS='["_main", "_button", "_communicationStatus", "_serverReceiveHtml", "_malloc", "_free", "lengthBytesUTF8", "stringToUTF8"]' -s MODULARIZE=1 -sEXPORT_NAME="appCreate"
+MYLDFLAGS_WEB = -L ../build/lvgl-web/cmbuild/lib/ -llvgl -llvgl_thorvg -llvgl_demos -lSDL2 --shell-file /tmp/a.js -s SINGLE_FILE=1 -s ALLOW_MEMORY_GROWTH=1 -s EXPORTED_FUNCTIONS='["_main", "_button", "_communicationStatus", "_serverReceiveHtml", "_malloc", "_free", "lengthBytesUTF8", "stringToUTF8"]' -s MODULARIZE=1 -sEXPORT_NAME="appCreate"
 
 .PHONY : clean
 
