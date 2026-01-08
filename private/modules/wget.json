@@ -13,7 +13,6 @@
 	"github": "mirror/wget",
 	"description": "A tool to download any url.",
 	"keywords": [
-		"Command-line",
 		"Download",
 		"Download URL",
 		"Fetch",
