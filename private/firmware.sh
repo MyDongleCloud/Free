@@ -68,7 +68,7 @@ if [ -f /tmp/os${POSTNAME}.img ]; then
 	echo "No creation as /tmp/os${POSTNAME}.img already exists"
 else
 	NEWEST=
-	if [ -f ../build/modulesmeta.json -a $(find modules -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ../build/modulesmeta.json ]; then
+	if [ ! -f ../build/modulesmeta.json -o $(find modules -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ../build/modulesmeta.json ]; then
 		php modules-update.php
 	else
 		echo "Nothing to update for modules"
@@ -82,28 +82,28 @@ else
 	cp -a ../rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
 	cp modules/services/* ${ROOTFS}/etc/systemd/system/
 
-	if [ -f ${ROOTFS}/usr/local/modules/mydonglecloud/app -a $(find ../app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/mydonglecloud/app ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/mydonglecloud/app -o $(find ../app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/mydonglecloud/app ]; then
 		rm -rf ${ROOTFS}/home/ai/app
 		cp -a ../app ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/app && make clean && make'
 	else
 		echo "Nothing to update for app"
 	fi
-	if [ -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -a $(find ../moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ../moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find modules -name "*.json" -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleApache2
 		cp -a ../moduleApache2 ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleApache2 && make clean && make'
 	else
 		echo "Nothing to update for moduleApache2"
 	fi
-	if [ -f ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so -a $(find ../moduleIpApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so -o $(find ../moduleIpApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleIpApache2
 		cp -a ../moduleIpApache2 ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleIpApache2 && make clean && make'
 	else
 		echo "Nothing to update for moduleIpApache2"
 	fi
-	if [ -f ${ROOTFS}/usr/local/modules/pam/pam_app.so -a $(find ../pam -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/pam/pam_app.so ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/pam/pam_app.so -o $(find ../pam -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/pam/pam_app.so ]; then
 		rm -rf ${ROOTFS}/home/ai/pam
 		cp -a ../pam ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/pam && make clean && make'
@@ -111,7 +111,7 @@ else
 		echo "Nothing to update for pam"
 	fi
 	cp /etc/resolv.conf /tmp/2/etc/resolv.conf
-	if [ -d ${ROOTFS}/usr/local/modules/betterauth -a $(find ../auth/src/ -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/betterauth ]; then
+	if [ ! -d ${ROOTFS}/usr/local/modules/betterauth -o $(find ../auth/src/ -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/betterauth ]; then
 		rm -rf ${ROOTFS}/home/ai/auth
 		cp -a ../auth ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/auth && ./prepare.sh -i'
