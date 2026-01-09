@@ -357,6 +357,7 @@ mv /var/lib/mysql /disk/admin/modules
 chown mysql:mysql /disk/admin/modules/mysql
 ln -sf /disk/admin/modules/mysql /var/lib/mysql
 chown -R admin:admin /disk/admin/modules/metube
+adduser admin www-data
 
 echo "################################"
 echo "Cleanup"
