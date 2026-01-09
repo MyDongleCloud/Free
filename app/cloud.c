@@ -16,6 +16,7 @@
 
 //Private variable
 static pthread_mutex_t cloudMutex = PTHREAD_MUTEX_INITIALIZER;
+static int inSetup = 0;
 
 //Functions
 void cloudInit() {
@@ -68,6 +69,10 @@ void setupLoop(int *i, int total, cJSON *modulesDefault, cJSON *modules, int pri
 }
 
 void cloudSetup(cJSON *el) {
+	if (inSetup) {
+		return;
+	}
+	inSetup = 1;
 	logicSetup(L("Initialization"), 0);
 	cJSON *elCloud = cJSON_GetObjectItem(el, "cloud");
 	cJSON *elSecurity = cJSON_GetObjectItem(elCloud, "security");
@@ -122,4 +127,5 @@ void cloudSetup(cJSON *el) {
 	logicMessage(1, 1);
 	jingle();
 	sync();
+	inSetup = 0;
 }
