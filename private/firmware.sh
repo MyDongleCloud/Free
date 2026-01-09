@@ -13,7 +13,7 @@ exit 0
 }
 
 DISK=/dev/sda
-LOSETUP=/dev/loop3
+LOSETUP=/dev/loop5
 POSTNAME=""
 FINAL=0
 CLEAN=0
