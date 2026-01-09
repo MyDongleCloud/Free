@@ -169,6 +169,8 @@
 		"SSH settings can be tuned in the SSH module." : "Les paramètres SSH peuvent être ajustés dans le module SSH.",
 		"SSID": "SSID",
 		"Sudo" : "Sudo",
+		"System internal / external IP addresses:": "Adresses IP interne et externe du système :",
+		"Your external IP address:": "Votre adresse IP externe :",
 		"Wi-Fi": "Wi-Fi"
 	},
 	"setup": {

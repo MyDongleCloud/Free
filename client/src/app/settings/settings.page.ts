@@ -16,6 +16,7 @@ adminSudo;
 ssh;
 signInNotification;
 dSave: boolean = true;
+externalIP = "";
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
@@ -24,6 +25,26 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	this.adminSudo = true;
 	this.signInNotification = true;
 	this.dSave = true;
+	this.getExternalIP().then((ip) => {
+		this.externalIP = ip;
+		if (this.externalIP == this.global.session?.hardware?.externalIP && this.global.session?.hardware?.internalIP != "")
+			this.global.presentToast("You seem to be on the same network as the system. You can directly access it through http://" + this.global.session?.hardware?.internalIP, "help-outline", 10000);
+	});
+}
+
+async getExternalIP() {
+	try {
+		let response = await fetch("https://mydongle.cloud/master/ip.json");
+		if (!response.ok)
+			response = await fetch("https://api.ipify.org?format=json");
+		if (response.ok) {
+			const data = await response.json();
+			return data["ip"];
+		}
+    } catch (error) {
+        console.error("Cannot get external IP address", error);
+    }
+	return "";
 }
 
 async save() {

@@ -27,7 +27,7 @@ const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
 const modulesPath = adminPath + "_config_/_modules_.json";
-let hardware = { "model":"Unknown" };
+let hardware = { model:"Unknown", internalIP:"", externalIP:"" };
 if (process.env.PRODUCTION === "true")
 	try {
 		hardware["model"] = readFileSync( "/dev/dongle_platform/model", "utf-8").trimEnd();
@@ -35,7 +35,7 @@ if (process.env.PRODUCTION === "true")
 else
 	hardware["model"] = "PC";
 
-function getInternalIpAddress() {
+function getInternalIp() {
 	const networkInterfaces = os.networkInterfaces();
 	for (const name of Object.keys(networkInterfaces)) {
 		const addresses = networkInterfaces[name];
@@ -44,15 +44,33 @@ function getInternalIpAddress() {
 				if (address.family === "IPv4" && !address.internal)
 					return address.address;
 	}
-	return undefined;
+	return "";
 }
+hardware["internalIP"] = getInternalIp();
+
+async function getExternalIp() {
+	try {
+		let response = await fetch("https://mydongle.cloud/master/ip.json");
+		if (!response.ok)
+			response = await fetch("https://api.ipify.org?format=json");
+		if (response.ok) {
+			const data = await response.json();
+			return data["ip"];
+		}
+    } catch (error) {
+        console.error("Cannot get external IP address", error);
+    }
+	return "";
+}
+getExternalIp().then((ip) => { hardware["externalIP"] = ip; });
+
 let trustedOrigins;
 if (process.env.PRODUCTION === "true") {
 	trustedOrigins = [ "*.mydongle.cloud", "*.mondongle.cloud", "*.myd.cd" ];
 	if (cloud?.domains)
 		cloud.info.domains.map( domain => trustedOrigins.push(`*.${domain}`) );
-	const internalIP = getInternalIpAddress();
-	internalIP && trustedOrigins.push(internalIP, internalIP + ":9400");
+	if (hardware["internalIP"] != "")
+		trustedOrigins.push(hardware["internalIP"], hardware["internalIP"] + ":9400");
 } else
 	trustedOrigins = [ "localhost:8100" ];
 
@@ -124,7 +142,16 @@ const mdcEndpoints = () => {
 				return Response.json(ret, { status:200 });
 			}),
 
-			update: createAuthEndpoint("/refresh", {
+			hardware: createAuthEndpoint("/hardware", {
+				method: "GET",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				hardware["internalIP"] = getInternalIp();
+				hardware["externalIP"] = await getExternalIp();
+				return Response.json(hardware, { status:200 });
+			}),
+
+			refresh: createAuthEndpoint("/refresh", {
 				method: "GET",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
