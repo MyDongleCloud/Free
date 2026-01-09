@@ -25,7 +25,7 @@ echo "$TIMEOUT seconds to watch portainer starting..."
 while [ $TIMEOUT -gt 0 ]; do
     sleep 1
     TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for jellyfin" && exit
+    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for portainer" && exit
 	nc -z localhost 9000 2> /dev/null
 	if [ $? = 0 ]; then
 		break

@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/modules/portainer/portainer --data "/usr/local/modules/portainer" --http-enabled --bind=:9000 --bind-https "127.0.0.1:19443"
+ExecStart=/usr/local/modules/portainer/portainer --data "/disk/admin/modules/portainer" --http-enabled --bind=:9000 --bind-https "127.0.0.1:19443"
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
