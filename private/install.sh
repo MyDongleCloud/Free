@@ -164,7 +164,7 @@ wget -nv https://nodejs.org/dist/latest-v22.x/$FILENODE
 tar -xJpf node-v*
 cp -a node-v*/bin/ node-v*/include/ node-v*/lib/ node-v*/share/ /usr/local
 cd ..
-npm -g update npm node-gyp pnpm yarn
+npm -g install npm node-gyp pnpm yarn
 
 echo "################################"
 echo "npm Packages"
