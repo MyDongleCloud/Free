@@ -350,6 +350,7 @@ chown -R ai:ai /home/ai
 chown -R www-data:admin /usr/local/modules/libreqr/css
 chown -R www-data:admin /disk/admin/modules/roundcube
 chown -R www-data:admin /usr/local/modules/limesurvey/tmp
+chown -R admin:www-data /usr/local/modules/2fauth/
 chown -R admin:admin /usr/local/modules/lobechat/.next/cache /usr/local/modules/lobechat/.next/server
 chown -R admin:admin /usr/local/modules/openwebui/lib/python3.11/site-packages/open_webui/static/
 mv /var/lib/mysql /disk/admin/modules

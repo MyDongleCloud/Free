@@ -62,7 +62,6 @@
 		],
 		"reset": true,
 		"setup": true,
-		"setupDependencies": [],
-		"setupRoot": true
+		"setupDependencies": []
 	}
 }

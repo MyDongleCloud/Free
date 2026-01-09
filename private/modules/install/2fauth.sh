@@ -1,15 +1,7 @@
 #!/bin/sh
 
-rm -rf /usr/local/modules/2fauth
-cd /usr/local/modules
-git clone https://github.com/Bubka/2FAuth 2fauth
-cd /usr/local/modules/2fauth
-git checkout v5.6.1
-rm -rf .git
-
 cd /usr/local/modules/2fauth
 composer -n install
-
 cat > .env << EOF
 APP_NAME=2FAuth
 APP_ENV=local
@@ -72,3 +64,5 @@ sqlite3 database/database.sqlite ""
 php artisan 2fauth:install --no-interaction
 mv .env env
 ln -sf /disk/admin/modules/2fauth/env .env
+rm database/database.sqlite
+rm bootstrap/cache/*
