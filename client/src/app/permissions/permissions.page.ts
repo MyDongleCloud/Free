@@ -175,13 +175,32 @@ async getData() {
 	this.filterCards();
 }
 
-filterCards() {
-	const term = this.searchTerm.toLowerCase();
-	this.filteredCards = this.cards.filter( card => {
-		let ret =  card.module.toLowerCase().includes(term) || card.name.toLowerCase().includes(term) || card.title.toLowerCase().includes(term) || card.proprietary.toLowerCase().includes(term) || card.keywords.some(kw => kw.toLowerCase().includes(term));
-		return ret;
+validation(input, isFinalized, tokens, keywords) {
+	return tokens.every((token, index) => {
+		const isLastToken = index === tokens.length - 1;
+		const isQuoted = input.includes(`"${token}"`);
+		return keywords.some(kw => {
+			if (isQuoted || !isLastToken || isFinalized)
+				return kw === token || kw.split(" ").some(word => word === token);
+			return kw.split(" ").some(word => word.startsWith(token));
+		});
 	});
+}
+
+filterCards(typing = false) {
+	const input = this.searchTerm.toLowerCase();
+	if (!input.trim())
+		this.filteredCards = this.cards;
+	else {
+		const isFinalized = input.endsWith(" ");
+		const tokens = [...input.toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)].map(m => m[1] || m[2]);
+		this.filteredCards = this.cards.filter(card => {
+			return this.validation(input, isFinalized, tokens, card.hayStack);
+		});
+	}
 	this.sortCards();
+	if (this.searchTerm != "")
+		this.searchTermE.nativeElement.focus();
 }
 
 async updateHits() {
