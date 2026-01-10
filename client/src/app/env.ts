@@ -502,7 +502,6 @@ async modulesDataPrepare() {
 		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
 			value[key2] = value2;
 		});
-		value["keywords"].unshift(value["web"] ? "Web" : "Command-line");
 		value["tag"] = this.settings.tags?.includes(key)?? false;
 		const items = [
 			value["module"],
