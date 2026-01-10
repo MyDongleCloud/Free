@@ -49,7 +49,7 @@ static void setup(int i, int total, char *name, int root, cJSON *modules) {
 	cJSON_AddItemToObject(modules, name, el);
 }
 
-void setupLoop(int *i, int total, cJSON *modulesDefault, cJSON *modules, int priority) {
+void setupLoop(int *i, int total, cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn, int priority) {
 	cJSON *elModule;
 	cJSON_ArrayForEach(elModule, modulesDefault)
 		if (cJSON_HasObjectItem(elModule, "setup") && cJSON_HasObjectItem(elModule, "setupPriority") == priority) {
@@ -101,7 +101,6 @@ void cloudSetup(cJSON *el) {
 	downloadURLBuffer("http://localhost:8091/auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, NULL);
 	free(post);
 	serviceAction("betterauth.service", "RestartUnit");
-	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
 	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
 	if (modules == NULL)
@@ -112,14 +111,15 @@ void cloudSetup(cJSON *el) {
 		if (cJSON_IsTrue(cJSON_GetObjectItem(elModule, "setup")))
 			total++;
 	int i = 1;
-	setupLoop(&i, total, modulesDefault, modules, 1);
+	cJSON *fqdn = fqdnInit(elCloud);
+	setupLoop(&i, total, elCloud, modulesDefault, modules, fqdn, 1);
 	PRINTF("Saving(1) _modules_.json during setup\n");
 	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
 	buzzer(1);
-	setupLoop(&i, total, modulesDefault, modules, 0);
+	setupLoop(&i, total, elCloud, modulesDefault, modules, fqdn, 0);
 	logicSetup(L("Finalization"), 100);
 	communicationString("{\"a\":\"setup-status\", \"progress\":100}");
-	cJSON_Delete(cloud);
+	cJSON_Delete(fqdn);
 	cJSON_Delete(modulesDefault);
 	PRINTF("Saving(2) _modules_.json during setup\n");
 	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");

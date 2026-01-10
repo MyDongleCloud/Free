@@ -11,11 +11,7 @@
 #include "apache2.h"
 
 //Functions
-void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
-	PRINTF("Modules:Setup: Enter\n");
-	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "info"))
-		return;
-	PRINTF("Modules:Setup: Do\n");
+cJSON *fqdnInit(cJSON *elCloud) {
 	char sz[256];
 	cJSON * elCloudAll = cJSON_GetObjectItem(elCloud, "info");
 	cJSON *fqdn = cJSON_CreateArray();
@@ -34,7 +30,15 @@ void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
 		s = cJSON_CreateString(ss->valuestring);
 		cJSON_AddItemToArray(fqdn, s);
 	}
+	return fqdn;
+}
 
+void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
+	PRINTF("Modules:Setup: Enter\n");
+	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "info"))
+		return;
+	PRINTF("Modules:Setup: Do\n");
+	cJSON *fqdn = fqdnInit(elCloud);
 	cJSON *elModule;
 	cJSON_ArrayForEach(elModule, modulesDefault) {
 		if (strcmp(elModule->string, "apache2") == 0) {
@@ -77,7 +81,7 @@ auth.tokenSource.file.path = \"" LOCAL_PATH "mydonglecloud/proxy-token.txt\"\n\
 user = \"%s\"\n\
 metadatas.token = \"%s\"\n\
 webServer.addr = \"127.0.0.1\"\n\
-webServer.port = 7400\n\n", port, cJSON_GetStringValue2(elCloudAll, "name"), cJSON_GetStringValue2(elModule3, "token"));
+webServer.port = 7400\n\n", port, cJSON_GetStringValue2(cJSON_GetObjectItem(elCloud, "info"), "name"), cJSON_GetStringValue2(elModule3, "token"));
 				fwrite(sz, strlen(sz), 1, pf);
 				for (int t = 0; t < cJSON_GetArraySize(elModuleS); t++) {
 					cJSON *elModuleSt = cJSON_GetArrayItem(elModuleS, t);
