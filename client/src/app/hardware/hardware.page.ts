@@ -36,14 +36,7 @@ button(k, l) {
 	appButton(k, l);
 }
 
-ionViewWillLeave() {
-	if (this.ble.connectedBLE == 2 || this.ble.connectedWS == 2)
-		connectToggle();
-}
-
 connectToggle() {
-	if (this.global.setupUIProgress != 0)
-		return;
 	if (this.typeBluetooth)
 		this.ble.connectToggle();
 	else

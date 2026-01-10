@@ -51,7 +51,6 @@
 		"Details": "",
 		"Disabled": "",
 		"Done": "",
-		"Final setup under progress": "",
 		"GITHUB": "",
 		"Info:": "",
 		"KEYWORDS": "",
@@ -107,7 +106,6 @@
 		"Welcome\nback!": ""
 	},
 	"permissions": {
-		"ACTIVATE": "",
 		"DESCRIPTION": "",
 		"DISABLED": "",
 		"GROUP\nADMIN": "",
@@ -119,6 +117,7 @@
 		"PUBLIC": "",
 		"Reset": "",
 		"Save": "",
+		"SETUP\nIN PROGRESS": "",
 		"TITLE": ""
 	},
 	"profile": {

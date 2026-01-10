@@ -171,14 +171,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			pthread_t pth;
 			pthread_create(&pth, NULL, cloudSetup_t, (void *)el);
 			return;
-		} else if (strcmp(action, "setup-status") == 0) {
-			int percent = (int)cJSON_GetNumberValue2(el, "p");
-			char *name = cJSON_GetStringValue2(el, "n");
-			PRINTF("communicationReceive: Setup-status %d %s\n", percent, name);
-			logicSetup(name, RANGE(percent, 1, 99));
-			char sz[256];
-			snprintf(sz, sizeof(sz), "{\"status\":1, \"name\":%s}", name);
-			communicationString(sz);
+		} else if (strcmp(action, "status") == 0) {
+			PRINTF("communicationReceive: status #%s#\n", data);
+			communicationString(data);
 		} else if (strcmp(action, "cloud") == 0) {
 			cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
 			cJSON_AddStringToObject(cloud, "a", "cloud");

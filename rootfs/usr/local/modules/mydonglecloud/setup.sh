@@ -2,10 +2,11 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for setup [-d v -h -j v -u v -r -R v] name"
+echo "Usage for setup [-d v -h -j v -u v -n -r -R v] name"
 echo "d v:	Do dependencies, 0:no 1:yes (default)"
 echo "h:	Print this usage and exit"
 echo "j v:	Update json, 0:no 1:yes (default)"
+echo "n:	Do notification"
 echo "u v:	Do as user, 0:admin, 1:root, -1:read from json (default)"
 echo "r:	Do reset"
 echo "R v:	Do reset, 0:no (default) 1:yes"
@@ -21,12 +22,14 @@ RESET=0
 USER=-1
 DEPENDENCIES=1
 JSON=1
-while getopts d:hj:u:rR: opt
+NOTIFY=0
+while getopts d:hj:nu:rR: opt
 do
 	case "$opt" in
 		d) DEPENDENCIES=$OPTARG;;
 		h) helper;;
 		j) JSON=$OPTARG;;
+		n) NOTIFY=1;;
 		u) USER=$OPTARG;;
 		r) RESET=1;;
 		R) RESET=$OPTARG;;
@@ -66,5 +69,8 @@ else
 	if [ $JSON = 1 ]; then
 		jq ".\"$NAME\".setupDone = true" $MODULES > $MODULES.tmp && mv $MODULES.tmp $MODULES
 		chown admin:admin $MODULES
+	fi
+	if [ $NOTIFY = 1 ]; then
+		echo -n "{ \"a\":\"status\", \"module\":\"$NAME\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
 	fi
 fi

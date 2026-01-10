@@ -13,8 +13,9 @@
 #include "common.h"
 #include "communication.h"
 #include "language.h"
+#include "apache2.h"
 
-//Private variable
+//Private variables
 static pthread_mutex_t cloudMutex = PTHREAD_MUTEX_INITIALIZER;
 static int inSetup = 0;
 
@@ -46,13 +47,14 @@ static void setup(int i, int total, char *name, int root, cJSON *modules) {
 	int p = RANGE(1, 99, i * 100 / total);
 	logicSetup(name, p);
 	char sz[256];
-	snprintf(sz, sizeof(sz), "{\"a\":\"setup-status\", \"progress\":%d, \"name\":\"%s\"}", p, name);
+	snprintf(sz, sizeof(sz), "{ \"a\":\"status\", \"progress\":%d, \"module\":\"%s\", \"state\":\"start\" }", p, name);
 	communicationString(sz);
-	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh -j 0 -d 0 -u %d -r %s", root, name);
+	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh -j 0 -d 0 -n -u %d -r %s", root, name);
 	system(sz);
 	cJSON *el = cJSON_CreateObject();
 	cJSON_AddBoolToObject(el, "setupDone", 1);
 	cJSON_AddItemToObject(modules, name, el);
+	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
 }
 
 void setupLoop(int *i, int total, cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn, int priority) {
@@ -64,13 +66,23 @@ void setupLoop(int *i, int total, cJSON *cloud, cJSON *modulesDefault, cJSON *mo
 				cJSON *elModuleDep = cJSON_GetObjectItem(modulesDefault, cJSON_GetStringValue(elModuleDepString));
 				if (cJSON_HasObjectItem(elModuleDep, "setup")) {
 					int setupAlreadyDone = cJSON_HasObjectItem(modules, elModuleDep->string) && cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(modules, elModuleDep->string), "setupDone"));
-					if (setupAlreadyDone == 0)
+					if (setupAlreadyDone == 0) {
 						setup((*i)++, total, elModuleDep->string, cJSON_HasObjectItem(elModuleDep, "setupRoot"), modules);
+						buildApache2Conf(cloud, modulesDefault, modules, fqdn);
+#ifndef DESKTOP
+						serviceAction("apache2.service", "ReloadOrRestartUnit");
+#endif
+					}
 				}
 			}
 			int setupAlreadyDone = cJSON_HasObjectItem(modules, elModule->string) && cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(modules, elModule->string), "setupDone"));
-			if (setupAlreadyDone == 0)
+			if (setupAlreadyDone == 0) {
 				setup((*i)++, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"), modules);
+				buildApache2Conf(cloud, modulesDefault, modules, fqdn);
+#ifndef DESKTOP
+				serviceAction("apache2.service", "ReloadOrRestartUnit");
+#endif
+			}
 		}
 }
 
@@ -133,7 +145,7 @@ void cloudSetup(cJSON *el) {
 	buzzer(1);
 	setupLoop(&i, total, elCloud, modulesDefault, modules, fqdn, 0);
 	logicSetup(L("Finalization"), 100);
-	communicationString("{\"a\":\"setup-status\", \"progress\":100}");
+	communicationString("{ \"a\":\"status\", \"progress\":100, \"module\":\"_setup_\", \"state\":\"finish\" }");
 	cJSON_Delete(fqdn);
 	cJSON_Delete(modulesDefault);
 	PRINTF("Saving(2) _modules_.json during setup\n");

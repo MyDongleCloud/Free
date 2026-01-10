@@ -146,8 +146,8 @@ communicationReceive(st) {
 	const data = JSON.parse(st);
 	if (data.a === "state")
 		appServerReceiveHtml(st, 0);
-	else if (data.a === "setup-status")
-		this.global.setupUIRefresh(data);
+	else if (data.a === "status")
+		this.global.statusRefresh(data);
 	else
 		this.communicationEvent.next({ msg:"communication", data:data });
 }

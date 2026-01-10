@@ -52,7 +52,7 @@ statsData;
 themeSel = "system";
 darkVal = false;
 setupUIProgress = 0;
-setupUIName = "";
+setupUIDesc = "";
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
 	this.developer = this.developerGet();
@@ -292,23 +292,12 @@ openPage(url: string) {
 	this.router.navigate([path], { queryParams:obj });
 }
 
-async setupModule(identifier:number|string) {
-	let id = identifier;
-	if (typeof identifier == "string")
-		id = this.modulesDataFindId(identifier);
-	if (await this.presentQuestion("Module Not Yet Ready", "Do you want to setup this module?", "this module has not yet gone through the initial setup. You can do this now; it will take just a few seconds.")) {
-		const data = { module:this.modulesData[id].module };
-		const ret = await this.httpClient.post("/_app_/auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
-		this.consolelog(2, "Auth module-reset: ", ret);
-	}
-}
-
 openModule(identifier:number|string, extract:boolean = false, page:string = null) {
 	let id = identifier;
 	if (typeof identifier == "string")
 		id = this.modulesDataFindId(identifier);
 	if (this.modulesData[id].notReady && !this.demo) {
-		this.setupModule(id);
+		this.presentToast("This module setup is under progress. It should be ready within 1 or 2 minutes...", "help-outline", 3000);
 		return;
 	}
 	const subdomain = this.modulesData[id].alias[0] ?? this.modulesData[id].module;
@@ -534,8 +523,12 @@ async modulesDataPrepare() {
 			if (value["setupDone"] === true)
 				setupDoneCount++;
 		});
-		if (setupDoneCount < 5 && this.setupUIProgress == 0)
-			this.setupUIInit();
+		if (setupDoneCount < 44 && this.setupUIProgress == 0) {
+			appConnectToggle(true);
+			this.presentToast("First-time setup is under progress...", "help-outline", 0);
+			this.setupUIDesc = "initialization";
+			this.setupUIProgress = 1;
+		}
 	}
 }
 
@@ -554,24 +547,19 @@ review() {
 	InAppReview.requestReview();
 }
 
-setupUIInit() {
-	this.setupUIProgress = 1;
-	this.setupUIName = "initialization";
-	this.presentToast("Setup is under progress...", "help-outline", 0);
-	appConnectToggle(true);
-	this.refreshUI.next("refresh");
-}
-
-setupUIRefresh(data) {
-	if (data.progress == 100) {
-		this.presentToast("Setup is now complete!", "help-outline", 0);
+async statusRefresh(data) {
+	if (data.progress)
+		this.setupUIProgress = data.progress;
+	if (data.module === "_setup_" && data.state === "finish") {
 		appConnectToggle(false);
 		this.setupUIProgress = 0;
-		this.setupUIName = "";
-	} else {
-		this.setupUIProgress = data.progress;
-		this.setupUIName = "module: " + data.name;
-	}
+		this.setupUIDesc = "";
+		this.modulesData.forEach((data) => { data["notReady"] = false; });
+		this.presentToast("First-time setup is now complete!", "help-outline", 0);
+	} else if (data.module && data.state === "start")
+		this.setupUIDesc = "module: " + data.module;
+	else if (data.module && data.state === "finish")
+		this.modulesData[this.modulesDataFindId(data.module)]["notReady"] = false;
 	this.refreshUI.next("refresh");
 }
 

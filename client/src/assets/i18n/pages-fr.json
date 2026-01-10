@@ -51,7 +51,6 @@
 		"Details": "Détails",
 		"Disabled": "Désactivé",
 		"Done": "Terminé",
-		"Final setup under progress": "Installation finale en cours",
 		"GITHUB": "GITHUB",
 		"Info:": "Détails de",
 		"KEYWORDS": "MOTS-CLÉS",
@@ -107,7 +106,6 @@
 		"Welcome\nback!": "Ravi de\nvous revoir"
 	},
 	"permissions": {
-		"Activate": "ACTIVER",
 		"DESCRIPTION": "DESCRIPTION",
 		"DISABLED": "DÉSACTIVÉ",
 		"GROUP\nADMIN": "GROUPE\nADMIN",
@@ -119,6 +117,7 @@
 		"PUBLIC": "PUBLIC",
 		"Reset": "Réinitialiser",
 		"Save": "Enregistrer",
+		"SETUP\nIN PROGRESS": "INSTALLATION\nEN COURS",
 		"TITLE": "TITRE"
 	},
 	"profile": {
