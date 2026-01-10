@@ -108,34 +108,37 @@ validation(input, isFinalized, tokens, keywords) {
 
 filterCards(typing = false) {
 	const input = this.searchTerm.toLowerCase();
-	const retI = (!input.trim()) ? true : false;
-	const isFinalized = retI ? false : input.endsWith(" ");
-	const tokens = retI ? [] : [...input.toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)].map(m => m[1] || m[2]);
-	let retAtLeastOnce = false;
-	this.filteredCards = this.cards.filter(card => {
-		if (this.showTerminal == false && card.web == false)
-			return false;
-		if (this.showDone == false && card.finished)
-			return false;
-		if (this.showNotDone == false && !card.finished)
-			return false;
-		const ret = retI || this.validation(input, isFinalized, tokens, card.hayStack);
-		retAtLeastOnce = retAtLeastOnce || ret;
-		if (this.category == "All")
-			return ret;
-		else if (this.category == "AI")
-			return ret && card.ai;
-		else if (this.category == "Essential")
-			return ret && card.essential;
-		else if (this.category == "Tag")
-			return ret && this.global.settings.tags.includes(card.module);
-		else
-			return ret && card.category.includes(this.category);
-	});
-	if (typing && !retI && retAtLeastOnce && this.filteredCards.length == 0 && this.category != "All") {
-		this.category = "All";
-		this.filterCards();
-		return;
+	if (!input.trim())
+		this.filteredCards = this.cards;
+	else {
+		const isFinalized = input.endsWith(" ");
+		const tokens = [...input.toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)].map(m => m[1] || m[2]);
+		let retAtLeastOnce = false;
+		this.filteredCards = this.cards.filter(card => {
+			if (this.showTerminal == false && card.web == false)
+				return false;
+			if (this.showDone == false && card.finished)
+				return false;
+			if (this.showNotDone == false && !card.finished)
+				return false;
+			const ret = this.validation(input, isFinalized, tokens, card.hayStack);
+			retAtLeastOnce = retAtLeastOnce || ret;
+			if (this.category == "All")
+				return ret;
+			else if (this.category == "AI")
+				return ret && card.ai;
+			else if (this.category == "Essential")
+				return ret && card.essential;
+			else if (this.category == "Tag")
+				return ret && this.global.settings.tags.includes(card.module);
+			else
+				return ret && card.category.includes(this.category);
+		});
+		if (typing && retAtLeastOnce && this.filteredCards.length == 0 && this.category != "All") {
+			this.category = "All";
+			this.filterCards();
+			return;
+		}
 	}
 	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);
 	this.sortCards();
