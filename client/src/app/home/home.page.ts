@@ -108,9 +108,26 @@ validation(input, isFinalized, tokens, keywords) {
 
 filterCards(typing = false) {
 	const input = this.searchTerm.toLowerCase();
-	if (!input.trim())
-		this.filteredCards = this.cards;
-	else {
+	if (!input.trim()) {
+		this.filteredCards = this.cards.filter(card => {
+			if (this.showTerminal == false && card.web == false)
+				return false;
+			if (this.showDone == false && card.finished)
+				return false;
+			if (this.showNotDone == false && !card.finished)
+				return false;
+			if (this.category == "All")
+				return true;
+			else if (this.category == "AI")
+				return card.ai;
+			else if (this.category == "Essential")
+				return card.essential;
+			else if (this.category == "Tag")
+				return this.global.settings.tags.includes(card.module);
+			else
+				return card.category.includes(this.category);
+		});
+	} else {
 		const isFinalized = input.endsWith(" ");
 		const tokens = [...input.toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)].map(m => m[1] || m[2]);
 		let retAtLeastOnce = false;
