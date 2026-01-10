@@ -39,6 +39,7 @@ static void *comSocket_t(void *arg) {
 	while (1) {
 		poll(fds, nfds, -1);
 		if (fds[0].revents & POLLIN) {
+			client_len = sizeof(client_addr);
 			int client_sock = accept(listen_sock, (struct sockaddr*)&client_addr, &client_len);
 			if (client_sock < 0) {
 				PRINTF("comSocket: error socket accept\n");
@@ -72,8 +73,8 @@ static void *comSocket_t(void *arg) {
 				} else {
 					communicationReceive(buf, nbytes, "socket");
 					memset(buf, 0, nbytes);
-					strcpy(buf, "{\"error\":0}");
-					write(fds[i].fd, buf, strlen(buf));
+					char *resp = "{\"error\":0}";
+					write(fds[i].fd, resp, strlen(resp));
 				}
 			}
 		}
