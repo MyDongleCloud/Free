@@ -1,17 +1,17 @@
 {
-	"module": "prettier",
-	"name": "Prettier",
-	"title": "Code Formatter",
+	"module": "prettierplayground",
+	"name": "Prettier Playground",
+	"title": "Code Formatter Playground",
 	"category": "Developer",
 	"version": "3.7.4",
 	"installMethod": "clone",
-	"web": false,
+	"web": true,
 	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "prettier/prettier",
-	"description": "A tool to format and make prettier source code.",
+	"description": "A sandbox to test code reformat.",
 	"keywords": [
 		"Automatic formatting",
 		"Code",
@@ -20,16 +20,17 @@
 		"Code review",
 		"Consistent style",
 		"Developer tool",
-		"Editor",
-		"Editor integration",
-		"Pre-commit hook",
-		"Programming languages",
+		"Sandbox",
 		"Source code"
 	],
 	"proprietary": [],
 	"default": {
-		"cmds": [
-			"/usr/local/bin/prettier"
+		"enabled": true,
+		"homepage": "/playground",
+		"localPort": 9479,
+		"path": "/usr/local/modules/prettier/website/build",
+		"permissions": [
+			"_groupadmin_"
 		]
 	}
 }
