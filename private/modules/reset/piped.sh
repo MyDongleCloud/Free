@@ -34,7 +34,8 @@ CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 SALT=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 dbpass=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
-sudo -u postgres psql << EOF
+export PGPASSWORD=`jq -r .password /disk/admin/modules/_config_/postgresql.json`
+su postgres -c "psql" << EOF
 DROP DATABASE IF EXISTS pipeddb;
 CREATE DATABASE pipeddb;
 DROP USER IF EXISTS pipeduser;
@@ -46,6 +47,7 @@ GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO pipeduser;
 GRANT CREATE ON SCHEMA public TO pipeduser;
 \q
 EOF
+unset PGPASSWORD
 
 rm -rf /disk/admin/modules/piped
 mkdir /disk/admin/modules/piped

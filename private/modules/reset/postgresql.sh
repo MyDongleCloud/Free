@@ -34,7 +34,7 @@ if [ $? = 0 ]; then
 	sed -i -e "s/^local all postgres md5/local all postgres peer/" /etc/postgresql/17/main/pg_hba.conf
 	systemctl restart postgresql.service
 fi
-sudo -u postgres psql <<-EOF
+su postgres -c "psql" << EOF
 ALTER USER postgres WITH PASSWORD '$PASSWORD';
 EOF
 sed -i -e "s/local *all *postgres *peer/local all postgres md5/" /etc/postgresql/17/main/pg_hba.conf

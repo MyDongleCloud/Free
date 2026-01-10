@@ -33,7 +33,8 @@ CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 KEY_VAULTS_SECRET=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 dbpass=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
-sudo -u postgres psql << EOF
+export PGPASSWORD=`jq -r .password /disk/admin/modules/_config_/postgresql.json`
+su postgres -c "psql" << EOF
 DROP DATABASE IF EXISTS lobechatdb;
 CREATE DATABASE lobechatdb;
 DROP USER IF EXISTS lobechatuser;
@@ -44,6 +45,7 @@ CREATE EXTENSION vector;
 \dx
 \q
 EOF
+unset PGPASSWORD
 
 rm -rf /disk/admin/modules/lobechat
 mkdir /disk/admin/modules/lobechat
