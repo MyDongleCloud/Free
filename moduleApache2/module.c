@@ -205,6 +205,20 @@ static int authorization(request_rec *r) {
 	const char *current_uri = r->uri;
 	if (current_uri != NULL && strncmp(current_uri, "/_app_/", 7) == 0)
 		return DECLINED;
+	//PRINTF("APP: name:%s uri:%s", confVH->name, r->uri);
+	//const apr_array_header_t *fields = apr_table_elts(r->headers_in);
+	//const apr_table_entry_t *e = (const apr_table_entry_t *)fields->elts;
+	//for (int i = 0; i < fields->nelts; i++) {
+	//	PRINTF("APP: Header(%d) %s = %s", i, e[i].key, e[i].val);
+	//}
+	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
+	if (confVH && confVH->name && strcmp(confVH->name, "prettierplayground") == 0) {
+		const char *sec_dest = apr_table_get(r->headers_in, "Sec-Fetch-Dest");
+		const char *sec_mode = apr_table_get(r->headers_in, "Sec-Fetch-Mode");
+		const char *sec_site = apr_table_get(r->headers_in, "Sec-Fetch-Site");
+		if (sec_dest && sec_site && sec_mode && (strcmp(sec_dest, "serviceworker") == 0 || strcmp(sec_dest, "worker") == 0) && (strcmp(sec_mode, "same-origin") == 0 || strcmp(sec_mode, "cors") == 0) && strcmp(sec_site, "same-origin") == 0)
+			return DECLINED;
+	}
 	return authorization2(r, 0);
 }
 
