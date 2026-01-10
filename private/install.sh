@@ -347,7 +347,7 @@ cp -a rootfs/* /
 rm -rf rootfs
 chown -R root:root /usr/local
 chown -R ai:ai /home/ai
-chown -R www-data:admin /usr/local/modules/libreqr/css
+chown -R admin:www-data /usr/local/modules/libreqr/css
 chown -R www-data:admin /disk/admin/modules/roundcube
 chown -R www-data:admin /usr/local/modules/limesurvey/tmp
 chown -R admin:www-data /usr/local/modules/2fauth/
