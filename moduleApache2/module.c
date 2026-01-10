@@ -197,7 +197,7 @@ int authorization2(request_rec *r, int strict) {
 	//PRINTF("APP: authorization2 cookieJwt: %s", cookieJwt);
 	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
 		return decodeAndCheck(s, cookieJwt, confVH->jwkPem, confVH->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
-	return !strict ? -4 : HTTP_UNAUTHORIZED;
+	return HTTP_UNAUTHORIZED;
 }
 
 static int authorization(request_rec *r) {
@@ -205,14 +205,7 @@ static int authorization(request_rec *r) {
 	const char *current_uri = r->uri;
 	if (current_uri != NULL && strncmp(current_uri, "/_app_/", 7) == 0)
 		return DECLINED;
-	int ret = authorization2(r, 0);
-	if (ret != -4)
-		return ret;
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
-	if (confVH->name != NULL && strcmp(confVH->name, "livecodes") == 0  && current_uri != NULL && strncmp(current_uri, "/livecodes/", 11) == 0)
-			return DECLINED;
-	//PRINTF("APP: authorization3 HTTP_UNAUTHORIZED name:%s uri:%s", confVH->name, r->uri);
-	return HTTP_UNAUTHORIZED;
+	return authorization2(r, 0);
 }
 
 static const command_rec directives[] = {
