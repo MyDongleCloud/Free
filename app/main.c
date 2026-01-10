@@ -16,6 +16,7 @@
 #include "comSocket.h"
 #include "comWebSocket.h"
 #endif
+#include "cJSON.h"
 #include "cloud.h"
 #include "common.h"
 #include "communication.h"

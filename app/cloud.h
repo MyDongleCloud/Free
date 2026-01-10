@@ -3,6 +3,6 @@
 
 //Global functions
 void cloudInit();
-void cloudSetup();
+void cloudSetup(cJSON *el);
 
 #endif

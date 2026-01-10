@@ -16,6 +16,7 @@
 #include "ui.h"
 #include "logic.h"
 #include "settings.h"
+#include "cJSON.h"
 #include "cloud.h"
 #include "diskNotify.h"
 
