@@ -104,6 +104,14 @@ void communicationDoState() {
 	pthread_create(&pth, NULL, communicationState_t, NULL);
 }
 
+#ifndef WEB
+static void *cloudSetup_t(void *arg) {
+	cJSON *el = (cJSON *)arg;
+	cloudSetup(el);
+	cJSON_Delete(el);
+}
+#endif
+
 void communicationReceive(unsigned char *data, int size, char *orig) {
 	//PRINTF("communicationReceive: (%d)#%s# via %s\n", size, data, orig);
 //Examples:
@@ -160,7 +168,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 		} else if (strcmp(action, "setup") == 0) {
 			PRINTF("communicationReceive: Setup\n");
 			touchClick();
-			cloudSetup(el);
+			pthread_t pth;
+			pthread_create(&pth, NULL, cloudSetup_t, (void *)el);
+			return;
 		} else if (strcmp(action, "setup-status") == 0) {
 			int percent = (int)cJSON_GetNumberValue2(el, "p");
 			char *name = cJSON_GetStringValue2(el, "n");
