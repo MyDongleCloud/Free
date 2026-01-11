@@ -1,0 +1,17 @@
+[Unit]
+Description=Invidious
+After=network.target
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/modules/invidious/invidious -o /var/log/invidious/invidious.log
+WorkingDirectory=/usr/local/modules/invidious
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

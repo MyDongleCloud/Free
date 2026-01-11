@@ -253,7 +253,6 @@ else
 	clone hoodik hudikhq/hoodik v1.8.1
 	clone html5qrcode mebjas/html5-qrcode v2.3.8
 	clone immich immich-app/immich v1.135.3
-	clone invidious iv-org/invidious v2.20250913.0
 	clone iopaint Sanster/IOPaint iopaint-1.5.3
 	clone joomla joomla/joomla-cms 5.3.2
 	clone joplin laurent22/joplin server-v3.4.1
@@ -374,7 +373,7 @@ rm -rf /var/cache/apt/archives/*.deb /home/ai/build/*.deb /home/ai/build/*.xz /h
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
 rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
 mkdir /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes
-chown admin:admin /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes
+chown admin:admin /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes /var/log/invidious
 
 echo "################################"
 echo "Finish install"

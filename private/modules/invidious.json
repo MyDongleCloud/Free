@@ -27,6 +27,24 @@
 		"localPort": 9432,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 3000,
+				"path": "/"
+			}
+		],
+		"services": [
+			"invidiouscompanion",
+			"invidious"
+		],
+		"setup": true,
+		"setupDependencies": [
+			"deno",
+			"postgresql"
+		],
+		"setupRoot": true
 	}
 }

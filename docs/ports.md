@@ -7,6 +7,7 @@ This is the list of all used ports in the image, separated between listening por
 ### Listening ports (127.0.0.1)
 - mosquitto: 1883 (zigbee2mqtt)
 - webssh2: 2222 (reverseproxy)
+- invidious: 3000, 8282 (reverseproxy)
 - betterauthstudio: 3002
 - librechat: 3080 (reverseproxy)
 - lobechat: 3210 (reverseproxy)

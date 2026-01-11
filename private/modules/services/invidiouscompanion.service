@@ -1,0 +1,37 @@
+[Unit]
+Description=Invidious Companion
+After=network.target
+After=syslog.target
+
+[Service]
+Type=simple
+
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+#BindReadOnlyPaths=/usr/local/modules/invidious/invidious-companion
+#BindPaths=/disk/admin/modules/invidious/tmp
+#BindPaths=/tmp/youtubei.js
+WorkingDirectory=/usr/local/modules/invidious/invidious-companion
+ExecStart=/usr/local/modules/invidious/invidious-companion/invidious_companion
+EnvironmentFile=/disk/admin/modules/invidious/companion.env
+Environment=CACHE_DIRECTORY=/tmp/youtubei.js
+
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

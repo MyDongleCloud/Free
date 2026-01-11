@@ -1,0 +1,72 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for invidious [-h -r]"
+echo "h:	Print this usage and exit"
+echo "r:	Reset"
+exit 0
+}
+
+if [ "m`id -u`" != "m0" ]; then
+	echo "You need to be root"
+	exit 0
+fi
+
+RESET=0
+while getopts hr opt
+do
+	case "$opt" in
+		h) helper;;
+		r) RESET=1;;
+	esac
+done
+
+if [ $RESET != 1 ]; then
+	exit 0
+fi
+
+echo "#Reset invidious##################"
+systemctl stop invidiouscompanion.service
+systemctl stop invidious.service
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+SALT=$(pwgen 16 1)
+export dbpass=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
+
+export PGPASSWORD=`jq -r .password /disk/admin/modules/_config_/postgresql.json`
+su postgres -c "psql" << EOF
+DROP DATABASE IF EXISTS invidiousdb;
+CREATE DATABASE invidiousdb;
+DROP USER IF EXISTS invidioususer;
+CREATE USER invidioususer WITH ENCRYPTED PASSWORD '${dbpass}';
+GRANT ALL PRIVILEGES ON DATABASE invidiousdb TO invidioususer;
+\c invidiousdb
+GRANT ALL PRIVILEGES ON SCHEMA public TO invidioususer;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO invidioususer;
+GRANT CREATE ON SCHEMA public TO invidioususer;
+\q
+EOF
+unset PGPASSWORD
+
+rm -rf /disk/admin/modules/invidious
+mkdir -p /disk/admin/modules/invidious/tmp
+cp /usr/local/modules/invidious/config/config.example.yml /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^  user:.*/  user: invidioususer/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^  password:.*/  password: ${dbpass}/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^  dbname:.*/  dbname: invidiousdb/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^hmac_key:.*/hmac_key: \"${SALT}\"/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/#invidious_companion:.*/invidious_companion:/" /disk/admin/modules/invidious/config.yml
+sed -i -e 's@#  \- private_url:.*@  - private_url: "http://localhost:8282/companion"@' /disk/admin/modules/invidious/config.yml
+sed -i -e "s/#invidious_companion_key:.*/invidious_companion_key: \"${SALT}\"/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/#host_binding:.*/host_binding: 127.0.0.1/" /disk/admin/modules/invidious/config.yml
+cd /usr/local/modules/invidious
+./invidious --migrate
+
+echo "{\"dbname\":\"invidiousdb\", \"dbuser\":\"invidioususer\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/invidious.json
+echo "SERVER_SECRET_KEY=${SALT}" > /disk/admin/modules/invidious/companion.env
+chown admin:admin /disk/admin/modules/_config_/invidious.json
+chown -R admin:admin /disk/admin/modules/invidious
+systemctl start invidiouscompanion.service
+systemctl start invidious.service
+systemctl enable invidiouscompanion.service
+systemctl enable invidious.service
