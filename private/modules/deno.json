@@ -1,0 +1,26 @@
+{
+	"module": "deno",
+	"name": "Deno",
+	"title": "Javascript Runtime",
+	"category": "Developer",
+	"version": "v2.6.4",
+	"installMethod": "wget",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "denoland/deno",
+	"description": "A modern runtime for JavaScript and TypeScript.",
+	"keywords": [
+		"Javascript",
+		"Runtime",
+		"Typescript"
+	],
+	"proprietary": [],
+	"default": {
+		"cmds": [
+			"/usr/local/bin/deno"
+		]
+	}
+}
