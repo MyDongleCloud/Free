@@ -297,7 +297,7 @@ openModule(identifier:number|string, extract:boolean = false, page:string = null
 	if (typeof identifier == "string")
 		id = this.modulesDataFindId(identifier);
 	if (this.modulesData[id].notReady && !this.demo) {
-		this.presentToast("This module setup is under progress. It should be ready within 1 or 2 minutes...", "help-outline", 3000);
+		this.presentToast("This module setup is under progress. It should be ready within 2 or 3 minutes...", "close-outline", 5000);
 		return;
 	}
 	const subdomain = this.modulesData[id].alias[0] ?? this.modulesData[id].module;
