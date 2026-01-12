@@ -58,7 +58,7 @@
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bDisabled']" [disabled]="card['enabledUnalterable']" (change)="update(card)" class="form-checkbox h-4 w-4"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? 'hidden' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic'] || card['permissionsPublicForbidden']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dLocal'] ? 'hidden' : ''"></div>
