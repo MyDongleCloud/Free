@@ -13,7 +13,6 @@
 	"github": "coleifer/sqlite-web",
 	"description": "A web-based SQLite database browser.",
 	"keywords": [
-		"Database",
 		"Embedded",
 		"SQL",
 		"SQLite",

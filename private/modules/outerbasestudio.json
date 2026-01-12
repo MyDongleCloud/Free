@@ -13,7 +13,6 @@
 	"github": "outerbase/studio",
 	"description": "A multi-type database Viewer.",
 	"keywords": [
-		"Database",
 		"MySQL",
 		"MySQL viewer",
 		"SQL",

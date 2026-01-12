@@ -13,7 +13,6 @@
 	"github": "mysql/mysql-server",
 	"description": "A transactional relational database management system.",
 	"keywords": [
-		"Database",
 		"Management",
 		"MySQL",
 		"RDBMS",

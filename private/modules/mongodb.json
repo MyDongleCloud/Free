@@ -13,7 +13,6 @@
 	"github": "mongodb/mongo",
 	"description": "A general-purpose, document-based, distributed database.",
 	"keywords": [
-		"Database",
 		"Distributed",
 		"Document",
 		"Document-based",

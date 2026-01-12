@@ -13,7 +13,6 @@
 	"github": "postgres/postgres",
 	"description": "A database management system.",
 	"keywords": [
-		"Database",
 		"Documentation",
 		"Management system",
 		"PostgreSQL",

@@ -1,7 +1,7 @@
 {
 	"module": "mattermost",
 	"name": "Mattermost",
-	"title": "Collaboration",
+	"title": "Software Collaboration",
 	"category": "Collaboration",
 	"version": "v11.1.0",
 	"installMethod": "clone",
@@ -14,7 +14,6 @@
 	"description": "A platform for secure collaboration across the entire software development lifecycle.",
 	"keywords": [
 		"Chat platform",
-		"Collaboration",
 		"Desktop apps",
 		"Mobile apps",
 		"Secure messaging",

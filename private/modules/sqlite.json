@@ -13,7 +13,6 @@
 	"github": "sqlite/sqlite",
 	"description": "A self-contained, serverless, zero-configuration, transactional SQL database engine.",
 	"keywords": [
-		"Database",
 		"Embedded",
 		"SQL",
 		"SQLite",

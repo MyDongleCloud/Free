@@ -14,7 +14,6 @@
 	"description": "A database management available for MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch, MongoDB and others.",
 	"keywords": [
 		"Administration tool",
-		"Database",
 		"Database management",
 		"Database viewer",
 		"Development platform",

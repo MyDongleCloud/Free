@@ -13,7 +13,6 @@
 	"github": "rethinkdb/rethinkdb",
 	"description": "A database tailored for realtime web.",
 	"keywords": [
-		"Database",
 		"Distributed",
 		"High availability",
 		"JSON documents",
