@@ -6,7 +6,7 @@
 	"version": "1c3cfd23",
 	"installMethod": "clone",
 	"web": true,
-	"essential": true,
+	"essential": false,
 	"finished": true,
 	"ai": false,
 	"database": "postgresql",
@@ -46,6 +46,11 @@
 				"port": 8103,
 				"path": "/_proxy_/",
 				"path2": "/"
+			},
+			{
+				"type": "http",
+				"port": 8103,
+				"path": "/api/"
 			}
 		],
 		"services": [

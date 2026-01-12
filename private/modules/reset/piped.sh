@@ -62,6 +62,7 @@ hibernate.connection.driver_class:org.postgresql.Driver
 hibernate.dialect:org.hibernate.dialect.PostgreSQLDialect
 hibernate.connection.username:pipeduser
 hibernate.connection.password:${dbpass}
+COMPROMISED_PASSWORD_CHECK:false
 EOF
 
 echo "{\"dbname\":\"pipeddb\", \"dbuser\":\"pipeduser\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/piped.json
