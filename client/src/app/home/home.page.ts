@@ -44,12 +44,12 @@ CategoriesBar = CategoriesBar;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService, private route: ActivatedRoute, public ble: BleService) {
 	this.route.queryParams.subscribe((params) => {
-		if (params.search)
+		if (params["search"])
 			setTimeout(() => {
-				this.searchTerm = params?.search;
+				this.searchTerm = params?.["search"];
 				this.filterCards();
-				if (params.settings === "true")
-					this.settings(params.search);
+				if (params["settings"] === "true")
+					this.settings(params["search"]);
 				this.cdr.detectChanges();
 			}, 250);
 	});
