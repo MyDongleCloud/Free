@@ -148,7 +148,7 @@ const mdcEndpoints = () => {
 			}, async(ctx) => {
 				hardware["internalIP"] = getInternalIp();
 				hardware["externalIP"] = await getExternalIp();
-				return Response.json(hardware, { status:200 });
+				return Response.json(hardware, { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
 			}),
 
 			refresh: createAuthEndpoint("/refresh", {
@@ -156,7 +156,7 @@ const mdcEndpoints = () => {
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
 				sendToDongle({ a:"refresh" });
-				return Response.json({ "status":"success" }, { status:200 });
+				return Response.json({ "status":"success" }, { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
 			}),
 
 			settingsUserSave: createAuthEndpoint("/settings-user/save", {
@@ -226,7 +226,7 @@ const mdcEndpoints = () => {
 							tx: dataNetwork.tx_sec ?? 0, //B
 						}
 					};
-				return Response.json(ret, { status:200 });
+				return Response.json(ret, { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
 			}),
 
 			serverLog: createAuthEndpoint("/server-log", {
@@ -252,7 +252,7 @@ const mdcEndpoints = () => {
 				method: "GET",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
-				return new Response(fs.readFileSync(modulesPath, "utf-8"), { status:200 });
+				return new Response(fs.readFileSync(modulesPath, "utf-8"), { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
 			}),
 
 			modulesPermissions: createAuthEndpoint("/module/permissions", {
