@@ -166,13 +166,13 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			if (arg1 && strcmp(arg1, "oath_success") == 0)
 				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
-			PRINTF("communicationReceive: Setup\n");
+			//PRINTF("communicationReceive: Setup\n");
 			touchClick();
 			pthread_t pth;
 			pthread_create(&pth, NULL, cloudSetup_t, (void *)el);
 			return;
 		} else if (strcmp(action, "status") == 0) {
-			PRINTF("communicationReceive: status #%s#\n", data);
+			//PRINTF("communicationReceive: status #%s#\n", data);
 			communicationString(data);
 		} else if (strcmp(action, "cloud") == 0) {
 			cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
@@ -180,7 +180,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			communicationJSON(cloud);
 			cJSON_Delete(cloud);
 		} else if (strcmp(action, "refresh") == 0) {
-			PRINTF("communicationReceive: Refresh\n");
+			//PRINTF("communicationReceive: Refresh\n");
 			touchClick();
 			cloudInit();
 #endif
