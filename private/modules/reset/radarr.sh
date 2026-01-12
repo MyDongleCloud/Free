@@ -35,13 +35,13 @@ rm -rf /disk/admin/modules/radarr
 mkdir /disk/admin/modules/radarr
 cat > /disk/admin/modules/radarr/config.xml << EOF
 <Config>
-	<BindAddress>*</BindAddress>
+	<BindAddress>127.0.0.1</BindAddress>
 	<Port>7878</Port>
 	<SslPort>9898</SslPort>
 	<EnableSsl>False</EnableSsl>
 	<LaunchBrowser>True</LaunchBrowser>
 	<ApiKey>${APIKEY}</ApiKey>
-	<AuthenticationMethod>Forms</AuthenticationMethod>
+	<AuthenticationMethod>External</AuthenticationMethod>
 	<AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
 	<Branch>master</Branch>
 	<LogLevel>debug</LogLevel>
@@ -51,6 +51,6 @@ cat > /disk/admin/modules/radarr/config.xml << EOF
 	<InstanceName>Radarr</InstanceName>
 </Config>
 EOF
-echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/radarr.json
+echo "{\"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/radarr.json
 systemctl start radarr.service
 systemctl enable radarr.service

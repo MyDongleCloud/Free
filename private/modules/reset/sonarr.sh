@@ -35,14 +35,14 @@ rm -rf /disk/admin/modules/sonarr
 mkdir /disk/admin/modules/sonarr
 cat > /disk/admin/modules/sonarr/config.xml << EOF
 <Config>
-	<BindAddress>*</BindAddress>
+	<BindAddress>127.0.0.1</BindAddress>
 	<Port>8989</Port>
 	<SslPort>9898</SslPort>
 	<EnableSsl>False</EnableSsl>
 	<LaunchBrowser>True</LaunchBrowser>
 	<ApiKey>${APIKEY}</ApiKey>
-	<AuthenticationMethod>None</AuthenticationMethod>
-	<AuthenticationRequired>Enabled</AuthenticationRequired>
+	<AuthenticationMethod>External</AuthenticationMethod>
+	<AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
 	<Branch>main</Branch>
 	<LogLevel>debug</LogLevel>
 	<SslCertPath></SslCertPath>
@@ -51,6 +51,6 @@ cat > /disk/admin/modules/sonarr/config.xml << EOF
 	<InstanceName>Sonarr</InstanceName>
 </Config>
 EOF
-echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/sonarr.json
+echo "{\"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/sonarr.json
 systemctl start sonarr.service
 systemctl enable sonarr.service

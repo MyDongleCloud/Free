@@ -35,14 +35,14 @@ rm -rf /disk/admin/modules/lidarr
 mkdir /disk/admin/modules/lidarr
 cat > /disk/admin/modules/lidarr/config.xml << EOF
 <Config>
-	<BindAddress>*</BindAddress>
+	<BindAddress>127.0.0.1</BindAddress>
 	<Port>8686</Port>
 	<SslPort>9898</SslPort>
 	<EnableSsl>False</EnableSsl>
 	<LaunchBrowser>True</LaunchBrowser>
 	<ApiKey>${APIKEY}</ApiKey>
-	<AuthenticationMethod>None</AuthenticationMethod>
-	<AuthenticationRequired>Enabled</AuthenticationRequired>
+	<AuthenticationMethod>External</AuthenticationMethod>
+	<AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
 	<Branch>master</Branch>
 	<LogLevel>debug</LogLevel>
 	<SslCertPath></SslCertPath>
@@ -51,6 +51,6 @@ cat > /disk/admin/modules/lidarr/config.xml << EOF
 	<InstanceName>Lidarr</InstanceName>
 </Config>
 EOF
-echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/lidarr.json
+echo "{\"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/lidarr.json
 systemctl start lidarr.service
 systemctl enable lidarr.service
