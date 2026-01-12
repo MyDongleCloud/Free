@@ -515,7 +515,7 @@ async modulesDataPrepare() {
 		value["hayStack"] = [...new Set(items)];
 		this.modulesData.push(value);
 	});
-	this.refreshUI.next(true);
+	this.refreshUI.next("modules");
 	if (!this.demo) {
 		let setupDoneCount = 0;
 		Object.entries(modules).forEach(([key, value]) => {

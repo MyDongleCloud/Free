@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, HostListener, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
 import modulesDefault from '../modulesdefault.json';
@@ -26,9 +27,19 @@ sortDirection = { title:"asc", name:"asc", category:"asc", hits:"asc" };
 dResetSave: boolean = true;
 stats;
 
-constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
+constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private route: ActivatedRoute) {
+	this.route.queryParams.subscribe((params) => {
+		if (params["search"]) {
+			this.searchTerm = params?.["search"];
+			setTimeout(() => {
+				this.getData();
+			}, 1);
+		}
+	});
+
 	global.refreshUI.subscribe(event => {
-		this.cdr.detectChanges();
+		if (event === "modules")
+			this.getData();
 	});
 	this.getData();
 }
@@ -73,7 +84,7 @@ compareAll() {
 	return ret;
 }
 
-update_(card) {
+updatePerm_(card) {
 	if (card["bDisabled"]) {
 		card["bPublic"] = false;
 		card["bLocal"] = false;
@@ -102,8 +113,8 @@ update_(card) {
 	}
 }
 
-update(c) {
-	setTimeout(() => { this.update_(c); this.dResetSave = this.compareAll(); }, 1);
+updatePerm(c) {
+	setTimeout(() => { this.updatePerm_(c); this.dResetSave = this.compareAll(); }, 1);
 }
 
 async save() {
@@ -135,9 +146,13 @@ async save() {
 	this.getData();
 }
 
-async getData() {
-	const stats = await this.httpClient.post("/_app_/auth/module/stats", JSON.stringify({ all:true }), {headers:{"content-type": "application/json"}}).toPromise();
-	this.global.consolelog(2, "Auth module-stats: ", stats);
+async getData(force = false) {
+	if (!this.stats || force) {
+		this.stats = await this.httpClient.post("/_app_/auth/module/stats", JSON.stringify({ all:true }), {headers:{"content-type": "application/json"}}).toPromise();
+		this.global.consolelog(2, "Auth module-stats: ", this.stats);
+	}
+	if (this.global.modulesData.length == 0)
+		return;
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
 	Object.entries(modulesDefault).forEach(([key, value]) => {
@@ -162,9 +177,9 @@ async getData() {
 				value["bAdmin"] ||= value["permissions"][i] == "_groupadmin_";
 				value["bUser"] ||= value["permissions"][i] == "_groupuser_";
 			}
-			value["hits"] = stats?.[key]?.hits ?? 0;
+			value["hits"] = this.stats?.[key]?.hits ?? 0;
 			this.cards.push(value);
-			this.update_(value);
+			this.updatePerm_(value);
 		}
 	});
 	this.cards.sort((a, b) => {
@@ -199,7 +214,7 @@ filterCards(typing = false) {
 		});
 	}
 	this.sortCards();
-	if (this.searchTerm != "")
+	if (this.searchTerm != "" && this.searchTermE)
 		this.searchTermE.nativeElement.focus();
 }
 
@@ -208,7 +223,7 @@ async updateHits() {
 	const ret = await this.httpClient.get("/_app_/auth/refresh", {headers:{"content-type": "application/json"}}).toPromise();
 	this.global.consolelog(2, "Auth Refresh: ", ret);
 	await this.global.sleepms(3000);
-	await this.getData();
+	await this.getData(true);
 	this.global.dismissToast();
 }
 

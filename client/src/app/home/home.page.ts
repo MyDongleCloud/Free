@@ -44,25 +44,25 @@ CategoriesBar = CategoriesBar;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private joyrideService: JoyrideService, private route: ActivatedRoute, public ble: BleService) {
 	this.route.queryParams.subscribe((params) => {
-		if (params["search"])
+		if (params["search"]) {
+			this.searchTerm = params?.["search"];
+			if (params["settings"] === "true")
+				this.settings(params["search"]);
 			setTimeout(() => {
-				this.searchTerm = params?.["search"];
 				this.filterCards();
-				if (params["settings"] === "true")
-					this.settings(params["search"]);
 				this.cdr.detectChanges();
-			}, 250);
+			}, 1);
+		}
 	});
 	global.refreshUI.subscribe(event => {
-		if (event === "onlySidebar") {
+		if (event === "onlySidebar")
 			this.sidebar.refresh();
-			return;
-		} else if (event === "refresh") {
+		else if (event === "refresh")
 			this.cdr.detectChanges();
-			return;
+		else if (event === "modules") {
+			this.filterCards();
+			this.cdr.detectChanges();
 		}
-		this.filterCards();
-		this.cdr.detectChanges();
 	});
 	const data1 = localStorage.getItem("sortProperty");
 	if (data1)
@@ -70,7 +70,7 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	const data2 = localStorage.getItem("sortDirection");
 	if (data2)
 		this.sortDirection = JSON.parse(data2);
-		global.sidebarFilterType = "";
+	global.sidebarFilterType = "";
 	this.filterCards();
 }
 
@@ -159,7 +159,7 @@ filterCards(typing = false) {
 	}
 	this.filteredGithubStars = Object.values(this.filteredCards).reduce((sum, card) => { return sum + (card["githubStars"] ?? 0); }, 0);
 	this.sortCards();
-	if (this.searchTerm != "")
+	if (this.searchTerm != "" && this.searchTermE)
 		this.searchTermE.nativeElement.focus();
 }
 

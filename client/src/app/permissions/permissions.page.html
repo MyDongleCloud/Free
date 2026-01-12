@@ -55,19 +55,19 @@
 							</div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bDisabled']" [disabled]="card['enabledUnalterable']" (change)="update(card)" class="form-checkbox h-4 w-4"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bDisabled']" [disabled]="card['enabledUnalterable']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic'] || card['permissionsPublicForbidden']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? 'hidden' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic'] || card['permissionsPublicForbidden']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dLocal'] ? 'hidden' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dLocal'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dAdmin'] ? 'hidden' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dAdmin'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (change)="update(card)" class="form-checkbox h-4 w-4" [class]="card['dUser'] ? 'hidden' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dUser'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap hidden xl:table-cell">
 							<div class="text-sm font-medium text--gray-900 max-w-xs truncate"><span>{{LMD(card.description)}}</span></div>
