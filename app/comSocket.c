@@ -58,7 +58,6 @@ static void *comSocket_t(void *arg) {
 		for (int i = 1; i < nfds; i++) {
 			if (fds[i].revents & (POLLIN | POLLHUP)) {
 				char buf[10240];
-				memset(buf, 0, sizeof(buf));
 				int nbytes = read(fds[i].fd, buf, sizeof(buf));
 				if (nbytes <= 0) {
 					if (nbytes == 0) {
@@ -71,6 +70,7 @@ static void *comSocket_t(void *arg) {
 					nfds--;
 					i--;
 				} else {
+					buf[nbytes] = '\0';
 					communicationReceive(buf, nbytes, "socket");
 					memset(buf, 0, nbytes);
 					char *resp = "{\"error\":0}";
