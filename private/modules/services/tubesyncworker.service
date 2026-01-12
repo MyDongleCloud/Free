@@ -1,0 +1,17 @@
+[Unit]
+Description=TubeSync Worker
+After=network.target
+
+[Service]
+Environment=PATH=/usr/local/modules/tubesync/env/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Type=simple
+ExecStart=python3 ./manage.py djangohuey
+WorkingDirectory=/usr/local/modules/tubesync/tubesync
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target
