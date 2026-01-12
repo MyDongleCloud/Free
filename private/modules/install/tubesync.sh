@@ -12,7 +12,7 @@ pip install django django-huey django-sass-processor pillow whitenoise gunicorn 
 cd tubesync
 sed -i -e 's|/config/tasks/|/disk/admin/modules/tubesync/tasks/|' common/huey.py
 sed -i -e 's|import yt_dlp.patch|#import yt_dlp.patch|' sync/youtube.py
-sed -i -e 's@/app/full_playlist.sh@./full_playlist.sh@' sync/youtube.py
+sed -i -e 's@/app/full_playlist\.sh@./full_playlist.sh@' sync/youtube.py
 cp tubesync/local_settings.py.example tubesync/local_settings.py
 cat >> tubesync/local_settings.py <<EOF
 DOWNLOAD_ROOT = Path('/disk/admin/modules/tubesync/downloads')
