@@ -3,7 +3,7 @@
 	"name": "Pi-hole",
 	"title": "Network Ad Blocker",
 	"category": "Server",
-	"version": "v.6.1.4",
+	"version": "v.6.3",
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
@@ -34,6 +34,18 @@
 		"localPort": 9475,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"permissionsPublicForbidden": true,
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8110,
+				"path": "/"
+			}
+		],
+		"services": [],
+		"setup": true,
+		"setupDependencies": []
 	}
 }

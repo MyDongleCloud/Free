@@ -277,7 +277,7 @@ else
 	clone photoview photoview/photoview v2.4.0
 	clone phpbb phpbb/phpbb release-3.3.15
 	clone phpsandbox Corveda/PHPSandbox v3.1
-	clone pihole pi-hole/pi-hole v.6.1.4
+	clone pihole pi-hole/pi-hole v6.3
 	clone pingvinshare stonith404/pingvin-share v1.13.0
 	clone pipedbackend TeamPiped/Piped-Backend c5921f6b
 	clone pipedproxy TeamPiped/Piped-Proxy b195686c

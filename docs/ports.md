@@ -35,6 +35,7 @@ This is the list of all used ports in the image, separated between listening por
 - microbin: 8106 (reverseproxy)
 - typesense: 8107, 8108 (reverseproxy)
 - qbittorent: 8109 (reverseproxy)
+- pihole: 8110 (reverseproxy)
 - syncthing: 8384 (reverseproxy)
 - lidarr: 8686 (reverseproxy)
 - sonarr: 8989 (reverseproxy)
