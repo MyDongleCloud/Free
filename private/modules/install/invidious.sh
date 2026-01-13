@@ -5,6 +5,8 @@ cd /usr/local/modules
 git clone https://github.com/iv-org/invidious
 cd invidious
 git checkout 5f84a5b
+sync
+echo 3 > /proc/sys/vm/drop_caches
 make
 ln -sf /disk/admin/modules/invidious/config.yml /usr/local/modules/invidious/config/
 mkdir /var/log/invidious/
