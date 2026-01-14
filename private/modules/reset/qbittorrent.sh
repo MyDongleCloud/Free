@@ -37,14 +37,10 @@ mkdir -p /disk/admin/modules/qbittorrent/qBittorrent/downloads/
 cat > /disk/admin/modules/qbittorrent/qBittorrent/config/qBittorrent.conf << EOF
 [BitTorrent]
 Session\Port=8796
+Session\Interface=wlan0
+Session\InterfaceAddress=0.0.0.0
 Session\QueueingSystemEnabled=false
 Session\SSL\Port=51037
-
-[Meta]
-MigrationVersion=8
-
-[Network]
-Cookies=@Invalid()
 
 [Preferences]
 WebUI\HostHeaderValidation=false
