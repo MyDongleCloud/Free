@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "k3s-io/k3s",
-	"description": "Lightweight optimized Kubernetes for low-RAM hardware.",
+	"description": "The lightweight optimized Kubernetes for low-RAM hardware.",
 	"keywords": [
 		"Container",
 		"Deployment",

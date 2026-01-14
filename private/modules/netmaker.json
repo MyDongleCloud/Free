@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "gravitl/netmaker",
-	"description": "A XXX.",
+	"description": "An automation tool for WireGuard.",
 	"keywords": [
 		"Privacy",
 		"Private",

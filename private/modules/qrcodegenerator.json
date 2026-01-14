@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "bizzycola/qrcode-generator",
-	"description": "Simple QR code generator.",
+	"description": "A simple QR code generator.",
 	"keywords": [
 		"Generator",
 		"Image",

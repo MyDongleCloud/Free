@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "WireGuard/wireguard-linux",
-	"description": "",
+	"description": "A VPN implementation integrated directly into the Linux kernel with state-of-the-art cryptography.",
 	"keywords": [
 		"Privacy",
 		"Private",
