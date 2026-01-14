@@ -52,6 +52,7 @@ if [ $? != 0 ]; then
 fi
 rm -f /tmp/initramfs_
 KERNEL=`ls /tmp/2/lib/modules/ | egrep ^6`
+echo "Kernel version: $KERNEL"
 mkdir -p /tmp/initramfs/usr/lib/modules/$KERNEL/kernel/fs/squashfs
 mkdir -p /tmp/initramfs/usr/lib/modules/$KERNEL/kernel/fs/overlayfs
 unxz -k /tmp/2/lib/modules/$KERNEL/kernel/fs/squashfs/squashfs.ko.xz
