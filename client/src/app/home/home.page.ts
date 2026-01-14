@@ -64,10 +64,10 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 			this.cdr.detectChanges();
 		}
 	});
-	const data1 = localStorage.getItem("sortProperty");
+	const data1 = localStorage.getItem("sortPropertyHome");
 	if (data1)
 		this.sortProperty = data1;
-	const data2 = localStorage.getItem("sortDirection");
+	const data2 = localStorage.getItem("sortDirectionHome");
 	if (data2)
 		this.sortDirection = JSON.parse(data2);
 	global.sidebarFilterType = "";
@@ -181,8 +181,8 @@ toggleSortDirection(p) {
 		this.sortDirection[this.sortProperty] = this.sortDirection[this.sortProperty] === "asc" ? "desc" : "asc";
 	this.sortProperty = p;
 	this.sortCards();
-	localStorage.setItem("sortProperty", this.sortProperty);
-	localStorage.setItem("sortDirection", JSON.stringify(this.sortDirection));
+	localStorage.setItem("sortPropertyHome", this.sortProperty);
+	localStorage.setItem("sortDirectionHome", JSON.stringify(this.sortDirection));
 }
 
 tag(m) {
