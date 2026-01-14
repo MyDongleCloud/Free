@@ -55,6 +55,7 @@ This is the list of all used ports in the image, separated between listening por
 - networkmanager: 546 (dhcpv6)
 - avahi: 5353 (mdns)
 - transmission: 6771, 51413, 60562
+- qbittorent: 8796, 51037
 
 ### Listening ports (0.0.0.0 should be 127.0.0.1)
 - homeassistant: 1900, 5353, 8123
