@@ -10,15 +10,19 @@
 				<input type="text" [(ngModel)]="searchTerm" #searchTermE (input)="filterCards()" placeholder="{{LG('Find modules...')}}" class="w-full pl-10 pr-4 py-2 border border--gray-300 text--gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring--blue-600 focus:border-transparent transition-colors">
 			</div>
 			<button (click)="searchTerm = ''; filterCards()" class="hidden items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-200 transition-colors cursor-pointer" [class]="searchTerm != '' ? 'inline-flex' : ''">
-				<ion-icon name="refresh-outline" class="w-4 h-4"></ion-icon>
+				<ion-icon name="refresh-outline" class="w-6 h-6"></ion-icon>
 			</button>
 			<div class="flex-1"></div>
+			<a href="https://docs.mydongle.cloud/#/permissions" target="_blank"><button class="inline-flex items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-50 transition-colors cursor-pointer disabled:bg--gray-100 disabled:cursor-default disabled:text--gray-400">
+				<ion-icon name="information-circle-outline" class="w-6 h-6"></ion-icon>
+				<span style="text-align:left">{{L("Understand")}}<br>{{L("Permissions")}}</span>
+			</button></a>
 			<button (click)="getData()" [disabled]="dResetSave" class="inline-flex items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-50 transition-colors cursor-pointer disabled:bg--gray-100 disabled:cursor-default disabled:text--gray-400">
-				<ion-icon name="refresh-outline" class="w-4 h-4"></ion-icon>
+				<ion-icon name="refresh-outline" class="w-6 h-6"></ion-icon>
 				{{L("Reset")}}
 			</button>
 			<button (click)="save()" [disabled]="dResetSave" class="inline-flex items-center gap-2 px-4 py-2 bg--blue-600 border border--gray-300 rounded-lg text-sm font-medium text--white hover:bg--blue-700 transition-colors cursor-pointer disabled:bg--gray-100 disabled:cursor-default disabled:text--gray-400">
-				<ion-icon name="save-outline" class="w-4 h-4"></ion-icon>
+				<ion-icon name="save-outline" class="w-6 h-6"></ion-icon>
 				{{L("Save")}}
 			</button>
 		</div>
