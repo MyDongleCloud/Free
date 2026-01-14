@@ -157,7 +157,7 @@ static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input
 		rv = apr_bucket_read(b, &data, &len, APR_BLOCK_READ);
 		if (rv != APR_SUCCESS)
 			goto end;
-		char *buffer = apr_pstrndup(f->r->pool, data, len + 1);
+		char *buffer = apr_pmemdup(f->r->pool, data, len + 1);
 		buffer[len] = '\0';
 		//PRINTFc("APP: Post Before %lu##%s##", len, buffer);
 		char *newBuffer = NULL;
