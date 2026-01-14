@@ -3,7 +3,7 @@
 	<div class="flex-1 flex flex-col overflow-x-auto">
 		<app-topbar title="{{L('Users')}}"></app-topbar>
 		<div class="mt-4 mx-4" *ngIf="this.global.session.user.username == this.global.session.cloud.info.name">
-			{{L("Full users management is available in the module")}} <span class="underline cursor-pointer" (click)="global.openPage('/?search=betterauthstudio')">{{LM("Identity Management")}}</span>.
+			{{L("Full users management is available in the module")}} <span class="underline cursor-pointer" (click)="global.openPage('/?search=betterauthstudio')">{{LMT("Identity Management")}}</span>.
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
 			<table class="min-w-full divide-y divide--gray-300">
@@ -25,7 +25,7 @@
 							<div class="text-sm font-medium text--gray-900">{{user["username"]}}</div>
 						</td>
 						<td class="px-2 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900">{{user["role"]}}</div>
+							<div class="text-sm font-medium text--gray-900">{{user["username"] == global.session.cloud.info.name ? "super admin" : user["role"]}}</div>
 						</td>
 						<td class="py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['twoFactorEnabled']" disabled="true" class="form-checkbox h-4 w-4"></div>

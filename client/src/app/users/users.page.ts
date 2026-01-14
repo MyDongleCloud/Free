@@ -12,7 +12,7 @@ import modulesMeta from '../modulesmeta.json';
 
 export class Users {
 L(st) { return this.global.mytranslate(st); }
-LM(st) { return this.global.mytranslateG(st); }
+LMT(st) { return this.global.mytranslateMT(st); }
 users;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
