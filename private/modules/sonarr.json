@@ -21,6 +21,7 @@
 		"Media organizer",
 		"PVR",
 		"PVR software",
+		"rr apps",
 		"TV show manager",
 		"Usenet"
 	],
@@ -69,6 +70,8 @@
 			"sonarr"
 		],
 		"setup": true,
-		"setupDependencies": []
+		"setupDependencies": [
+			"qbittorrent"
+		]
 	}
 }

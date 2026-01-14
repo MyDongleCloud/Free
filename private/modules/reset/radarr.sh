@@ -2,9 +2,10 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for radarr [-h -r]"
+echo "Usage for radarr [-h -r -w]"
 echo "h:	Print this usage and exit"
 echo "r:	Reset"
+echo "w:	Wait for user creation"
 exit 0
 }
 
@@ -14,11 +15,13 @@ if [ "m`id -u`" = "m0" ]; then
 fi
 
 RESET=0
-while getopts hr opt
+WAIT=0
+while getopts hrw opt
 do
 	case "$opt" in
 		h) helper;;
 		r) RESET=1;;
+		w) WAIT=1;;
 	esac
 done
 
@@ -54,3 +57,8 @@ EOF
 echo "{\"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/radarr.json
 systemctl start radarr.service
 systemctl enable radarr.service
+if [ $WAIT = 1 ]; then
+	/usr/local/modules/mydonglecloud/reset/radarr-user.sh
+else
+	/usr/local/modules/mydonglecloud/reset/radarr-user.sh &
+fi

@@ -2,9 +2,10 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for prowlarr [-h -r]"
+echo "Usage for prowlarr [-h -r -w]"
 echo "h:	Print this usage and exit"
 echo "r:	Reset"
+echo "w:	Wait for user creation"
 exit 0
 }
 
@@ -14,11 +15,13 @@ if [ "m`id -u`" = "m0" ]; then
 fi
 
 RESET=0
-while getopts hr opt
+WAIT=0
+while getopts hrw opt
 do
 	case "$opt" in
 		h) helper;;
 		r) RESET=1;;
+		w) WAIT=1;;
 	esac
 done
 
@@ -54,3 +57,8 @@ EOF
 echo "{\"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/prowlarr.json
 systemctl start prowlarr.service
 systemctl enable prowlarr.service
+if [ $WAIT = 1 ]; then
+	/usr/local/modules/mydonglecloud/reset/prowlarr-user.sh
+else
+	/usr/local/modules/mydonglecloud/reset/prowlarr-user.sh &
+fi

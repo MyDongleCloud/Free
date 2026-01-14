@@ -16,6 +16,7 @@
 		"Automation",
 		"BitTorrent",
 		"Manager",
+		"rr apps",
 		"PVR"
 	],
 	"proprietary": [],
@@ -63,6 +64,12 @@
 			"prowlarr"
 		],
 		"setup": true,
-		"setupDependencies": []
+		"setupDependencies": [
+			"lidarr",
+			"qbittorrent",
+			"radarr",
+			"sonarr",
+			"whisparr"
+		]
 	}
 }

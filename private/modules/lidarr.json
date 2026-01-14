@@ -16,6 +16,7 @@
 		"Automation",
 		"BitTorrent",
 		"Manager",
+		"rr apps",
 		"PVR"
 	],
 	"proprietary": [],
@@ -63,6 +64,8 @@
 			"radarr"
 		],
 		"setup": true,
-		"setupDependencies": []
+		"setupDependencies": [
+			"qbittorrent"
+		]
 	}
 }
