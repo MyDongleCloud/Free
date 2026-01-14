@@ -7,7 +7,7 @@
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
-	"finished": false,
+	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "pi-hole/pi-hole",
