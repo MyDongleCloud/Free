@@ -108,6 +108,7 @@ locale-gen
 echo "################################"
 echo "Upgrade"
 echo "################################"
+sed -i -e "s/Suites: trixie trixie-updates/Suites: trixie trixie-updates trixie-backports/" /etc/apt/sources.list.d/debian.sources
 apt-get update
 apt-get -y upgrade
 
