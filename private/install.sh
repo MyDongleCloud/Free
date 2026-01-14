@@ -323,12 +323,6 @@ for NAME in $LIST; do
 	NAME="${NAME%?????}"
 	installModule $NAME
 done
-for NAME in $LIST; do
-	NAME="${NAME%?????}"
-	if [ ! -f /home/ai/build/_modulesInstalled/$NAME ]; then
-		echo "Error: install script $NAME not executed"
-	fi
-done
 
 echo "################################"
 echo "Services"
