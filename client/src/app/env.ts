@@ -412,9 +412,9 @@ colorWord(st, bckgd = true) {
 	if (st == "_public_")
 		return (bckgd ? "bg--green-100 " : "") + "text--green-800";
 	if (st == "_localnetwork_")
-		return (bckgd ? "bg--amber-100 " : "") + "text--amber-800";
+		return (bckgd ? "bg--yellow-100 " : "") + "text--yellow-800";
 	if (st == "_groupadmin_" || st == "admin")
-		return (bckgd ? "bg--orange-100 " : "") + "text--orange-800";
+		return (bckgd ? "bg--yellow-100 " : "") + "text--yellow-800";
 	if (st == "_groupuser_" || st == "users")
 		return (bckgd ? "bg--purple-100 " : "") + "text--purple-800";
 
@@ -425,8 +425,7 @@ bg--yellow-100 text--yellow-600
 bg--purple-100 text--purple-600
 bg--blue-100 text--blue-600
 bg--cyan-100 text--cyan-600
-bg--red-100 text--red-600
-bg--red-100 text--black
+bg--orange-100 text--orange-600
 */
 	return (bckgd ? "bg--gray-100 " : "") + "text--gray-600";
 }
@@ -440,7 +439,7 @@ translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--yellow-600)]
 translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--purple-600)]
 translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--blue-600)]
 translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--cyan-600)]
-translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--red-600)]
+translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--orange-600)]
 */
 	return "translate-y-[-256px] drop-shadow-[0px_256px_0_var(--color--gray-600)]";
 }

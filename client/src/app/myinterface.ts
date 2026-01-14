@@ -57,12 +57,12 @@ export const Categories = {
 	"Developer": {
 		name: "Developer",
 		icon: "code-outline",
-		color: "red"
+		color: "orange"
 	},
 	"Database": {
 		name: "Database",
 		icon: "server-outline",
-		color: "red"
+		color: "orange"
 	}
 };
 
