@@ -133,6 +133,7 @@ static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input
 		return ap_get_brigade(f->next, bb, mode, block, readbytes);
 	//PRINTFc("APP: Post %lu %d", (long unsigned int)ctx, ctx->processedPost);
 	apr_status_t rv = 0;
+	int firstPassDone = 0;
 	apr_bucket_brigade *tmp_bb = NULL;
 	cJSON *el = NULL;
 	if (ctx->processedPost)
@@ -184,13 +185,14 @@ static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input
 		APR_BRIGADE_INSERT_TAIL(bb, reinsert_b);
 		apr_bucket_destroy(b);
 	}
+	firstPassDone = 1;
 end:
 	if (tmp_bb)
 		apr_brigade_destroy(tmp_bb);
 	if (el)
 		cJSON_Delete(el);
 	ctx->processedPost = 1;
-	return rv != 0 ? rv : ap_get_brigade(f->next, bb, mode, block, readbytes);
+	return firstPassDone ? 0 : rv != 0 ? rv : ap_get_brigade(f->next, bb, mode, block, readbytes);
 }
 
 static void insert_filter(request_rec *r) {
