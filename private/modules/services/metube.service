@@ -3,7 +3,6 @@ Description=MeTube
 After=network.target
 
 [Service]
-Environment=PATH=/usr/local/modules/metube/env/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Environment=HOST=127.0.0.1
 Environment=PORT=8089
 Environment=DOWNLOAD_DIR=/disk/admin/modules/metube
