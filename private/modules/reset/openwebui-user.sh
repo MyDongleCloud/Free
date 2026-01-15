@@ -43,12 +43,12 @@ passwd="${PASSWD}"
 
 data="{ \"email\": \"$email\", \"name\": \"$name\", \"password\": \"$passwd\" }"
 response=`curl -sS --fail -X POST $URL/api/v1/auths/signup -H "Content-Type: application/json" -d "$data"`
-echo $response
+#echo $response
 token=`echo $response | jq -r ".token"`
-echo "token: $token"
+#echo "token: $token"
 
 data="{ \"ENABLE_OPENAI_API\":true, \"OPENAI_API_BASE_URLS\":[\"https://aiproxy.mydongle.cloud/v1\"], \"OPENAI_API_KEYS\":[\"api.mistral.ai\"], \"OPENAI_API_CONFIGS\":{ \"additionalProp1\": {} } }"
 response=`curl -sS --fail -X POST $URL/openai/config/update -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data"`
-echo $response
+#echo $response
 
 echo "{\"name\":\"${name}\", \"email\":\"${email}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/openwebui.json
