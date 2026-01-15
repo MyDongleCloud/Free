@@ -1,0 +1,26 @@
+{
+	"module": "elixir",
+	"name": "Elixir",
+	"title": "Javascript Bundler",
+	"category": "Developer",
+	"version": "1.18.3",
+	"installMethod": "apt",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "elixir-lang/elixir",
+	"description": "A dynamic, functional language for building scalable and maintainable applications.",
+	"keywords": [
+		"Compilation",
+		"Language",
+		"Scalability"
+	],
+	"proprietary": [],
+	"default": {
+		"cmds": [
+			"/usr/bin/elixir"
+		]
+	}
+}
