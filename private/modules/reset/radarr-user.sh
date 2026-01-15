@@ -21,7 +21,7 @@ done
 
 echo "#Create radarr settings##################"
 PORT=7878
-TIMEOUT=10
+TIMEOUT=20
 echo "$TIMEOUT seconds to watch radarr starting..."
 while [ $TIMEOUT -gt 0 ]; do
     sleep 1
@@ -33,10 +33,14 @@ while [ $TIMEOUT -gt 0 ]; do
 	fi
 done
 
-sleep 10
+sleep 20
 URL="http://localhost:$PORT"
 PASSWD=`jq -r .password /disk/admin/modules/_config_/qbittorrent.json`
 APIKEY=`jq -r .apikey /disk/admin/modules/_config_/radarr.json`
-DATA="{ \"name\":\"qBittorrent\", \"implementation\":\"QBittorrent\", \"configContract\":\"QBittorrentSettings\", \"protocol\":\"torrent\", \"enable\":true, \"priority\":25, \"tags\":[], \"fields\":[ { \"name\":\"host\", \"value\":\"localhost\"}, { \"name\":\"port\", \"value\":8109 }, { \"name\":\"username\", \"value\":\"admin\" }, { \"name\":\"password\", \"value\":\"$PASSWD\" } ], \"enable\":true }"
+DATA="{ \"name\":\"qBittorrent\", \"implementation\":\"QBittorrent\", \"configContract\":\"QBittorrentSettings\", \"protocol\":\"torrent\", \"enable\":true, \"priority\":25, \"tags\":[], \"fields\":[ { \"name\":\"host\", \"value\":\"localhost\"}, { \"name\":\"port\", \"value\":8109 }, { \"name\":\"username\", \"value\":\"admin\" }, { \"name\":\"password\", \"value\":\"$PASSWD\" }, { \"name\": \"initialState\", \"value\": 2 } ], \"enable\":true }"
 response=`curl -sS --fail -X POST "$URL/api/v3/downloadclient" -H "X-Api-Key: $APIKEY" -H "Content-Type: application/json" -d "$DATA"`
-echo $response
+#echo $response
+
+DATA="{\"path\":\"/disk/admin/modules/radarr/downloads\"}"
+response=`curl -sS --fail -X POST "$URL/api/v3/rootfolder" -H "X-Api-Key: $APIKEY" -H "Content-Type: application/json" -d "$DATA"`
+#echo $response

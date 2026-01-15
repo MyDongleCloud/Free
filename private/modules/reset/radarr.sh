@@ -35,7 +35,7 @@ PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 APIKEY=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 systemctl stop radarr.service
 rm -rf /disk/admin/modules/radarr
-mkdir /disk/admin/modules/radarr
+mkdir -p /disk/admin/modules/radarr/downloads
 cat > /disk/admin/modules/radarr/config.xml << EOF
 <Config>
 	<BindAddress>127.0.0.1</BindAddress>

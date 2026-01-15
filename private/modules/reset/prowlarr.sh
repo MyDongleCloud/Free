@@ -35,7 +35,7 @@ PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 APIKEY=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 systemctl stop prowlarr.service
 rm -rf /disk/admin/modules/prowlarr
-mkdir /disk/admin/modules/prowlarr
+mkdir -p /disk/admin/modules/prowlarr/downloads
 cat > /disk/admin/modules/prowlarr/config.xml << EOF
 <Config>
 	<BindAddress>127.0.0.1</BindAddress>
