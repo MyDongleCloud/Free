@@ -280,9 +280,9 @@ else
 	clone phpsandbox Corveda/PHPSandbox v3.1
 	clone pihole pi-hole/pi-hole v6.3
 	clone pingvinshare stonith404/pingvin-share v1.13.0
-	clone pipedbackend TeamPiped/Piped-Backend c5921f6b
-	clone pipedproxy TeamPiped/Piped-Proxy b195686c
-	clone piped TeamPiped/Piped 1c3cfd23
+	clone piped TeamPiped/Piped 72c92b9
+	clone piped/pipedbackend TeamPiped/Piped-Backend c5921f6b
+	clone piped/pipedproxy TeamPiped/Piped-Proxy a973968
 	clone prettier prettier/prettier 3.7.4
 	clone privatebin PrivateBin/PrivateBin 2.0.3
 	clone projectsend projectsend/projectsend r1720
@@ -305,6 +305,7 @@ else
 	clone tabby TabbyML/tabby v0.31.2
 	clone tabby/crates/llama-cpp-server/llama.cpp ggerganov/llama.cpp 16cc3c606efe1640a165f666df0e0dc7cc2ad869
 	clone transform ritz078/transform e1294208
+	clone pinchflat kieraneglin/pinchflat v2025.9.26
 	clone tubesync meeb/tubesync v0.15.10
 	clone typesensedashboard bfritscher/typesense-dashboard v2.4.4
 	clone umtpresponder viveris/uMTP-Responder umtprd-1.6.8

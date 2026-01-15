@@ -59,6 +59,7 @@ This is the list of all used ports in the image, separated between listening por
 
 ### Listening ports (0.0.0.0 should be 127.0.0.1)
 - homeassistant: 1900, 5353, 8123
+- pinchflat: 4000 (reverseproxy)
 - audiobookshelf: 8092 (reverseproxy)
 - cockpit: 9090 (reverseproxy)
 

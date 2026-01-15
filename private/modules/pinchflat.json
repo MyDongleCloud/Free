@@ -1,0 +1,56 @@
+{
+	"module": "pinchflat",
+	"name": "Pinchflat",
+	"title": "YouTube Channels",
+	"category": "Media",
+	"version": "v2025.9.26",
+	"installMethod": "clone",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "sqlite",
+	"github": "kieraneglin/pinchflat",
+	"description": "A syncer of YouTube channels and playlists to a locally hosted media server.",
+	"keywords": [
+		"Automatic downloads",
+		"Channel",
+		"Download",
+		"Local media server",
+		"Media organization",
+		"Playlist manager",
+		"Plex integration",
+		"Video",
+		"Video synchronization",
+		"YouTube",
+		"YouTube downloader"
+	],
+	"proprietary": [
+		"4K Video Downloader"
+	],
+	"default": {
+		"enabled": true,
+		"localPort": 9527,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 4000,
+				"path": "/"
+			},
+			{
+				"type": "ws",
+				"port": 4000,
+				"path": "/"
+			}
+		],
+		"services": [
+			"pinchflat"
+		],
+		"setup": true,
+		"setupDependencies": []
+	}
+}
