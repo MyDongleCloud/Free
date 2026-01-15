@@ -27,7 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset piped##################"
-DATE=`date +%s`
 systemctl stop pipedbackend.service
 systemctl stop pipedproxy.service
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`

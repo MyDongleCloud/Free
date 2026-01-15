@@ -32,7 +32,6 @@ while [ $TIMEOUT -gt 0 ]; do
 	fi
 done
 
-DATE=`date +%s`
 URL="http://localhost:8101"
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)

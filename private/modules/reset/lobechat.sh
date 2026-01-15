@@ -27,7 +27,6 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset lobechat##################"
-DATE=`date +%s`
 systemctl stop lobechat.service
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 KEY_VAULTS_SECRET=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
