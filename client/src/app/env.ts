@@ -481,7 +481,7 @@ async modulesDataPrepare() {
 		if (value["reservedToFirstUser"] === true && this.session.user.username != this.session.cloud.info.name)
 			return;
 		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
-		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true;
+		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true && !this.demo;
 		value["permissions"] = modules[key]?.permissions ?? value["permissions"];
 		if (value["web"] !== true) {
 			value["permissions"] = ["_groupadmin_"];
