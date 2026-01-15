@@ -1,0 +1,35 @@
+{
+	"module": "ytdlsub",
+	"name": "ytdl-sub",
+	"title": "YouTube Channels",
+	"category": "Media",
+	"version": "2026.01.13",
+	"installMethod": "wget",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "jmbannon/ytdl-sub",
+	"description": "A syncer of YouTube channels and playlists to a locally hosted media server.",
+	"keywords": [
+		"Automatic downloads",
+		"Channel",
+		"Download",
+		"Local media server",
+		"Media organization",
+		"Playlist manager",
+		"Plex integration",
+		"Video",
+		"Video synchronization",
+		"YouTube",
+		"YouTube downloader"
+	],
+	"proprietary": [],
+	"default": {
+		"enabled": true,
+		"cmds": [
+			"/usr/local/bin/ytdl-sub"
+		]
+	}
+}
