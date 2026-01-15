@@ -55,7 +55,7 @@ void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
 			PRINTF("Modules:frp: Enter\n");
 			cJSON *elModule2 = cJSON_GetObjectItem(modules, "frp");
 			cJSON *elModule3 = cJSON_GetObjectItem(elCloud, "frp");
-			cJSON *elModuleS, *elModule2S, *elModule3S;
+			cJSON *elModuleS = NULL, *elModule2S = NULL, *elModule3S = NULL;
 			if (elModule)
 				elModuleS = cJSON_GetObjectItem(elModule, "protocols");
 			if (elModule2)
