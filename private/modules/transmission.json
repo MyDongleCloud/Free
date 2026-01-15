@@ -1,7 +1,7 @@
 {
 	"module": "transmission",
 	"name": "Transmission",
-	"title": "BitTorrent",
+	"title": "BitTorrent Light",
 	"category": "Torrent",
 	"version": "4.1.0",
 	"installMethod": "apt",
