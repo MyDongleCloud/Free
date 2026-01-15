@@ -20,4 +20,4 @@ cargo build --release
 sync
 echo 3 > /proc/sys/vm/drop_caches
 cp /usr/local/modules/piped/pipedproxy/target/release/piped-proxy /usr/local/bin
-rm -rf /usr/local/modules/tabby/target/
+rm -rf /usr/local/modules/piped/pipedproxy/target/
