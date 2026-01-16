@@ -12,17 +12,12 @@ if [ "m`id -u`" = "m0" ]; then
 	exit 0
 fi
 
-RESET=0
 while getopts h opt
 do
 	case "$opt" in
 		h) helper;;
 	esac
 done
-
-if [ $RESET != 1 ]; then
-	exit 0
-fi
 
 echo "#Reset stirlingpdf##################"
 systemctl stop stirlingpdf.service

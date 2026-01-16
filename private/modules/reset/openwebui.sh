@@ -2,9 +2,8 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for openwebui [-h -w]"
+echo "Usage for openwebui [-h]"
 echo "h:	Print this usage and exit"
-echo "w:	Wait for user creation"
 exit 0
 }
 
@@ -13,19 +12,12 @@ if [ "m`id -u`" = "m0" ]; then
 	exit 0
 fi
 
-RESET=0
-WAIT=0
-while getopts hrw opt
+while getopts h opt
 do
 	case "$opt" in
 		h) helper;;
-		w) WAIT=1;;
 	esac
 done
-
-if [ $RESET != 1 ]; then
-	exit 0
-fi
 
 echo "#Reset openwebui##################"
 systemctl stop openwebui.service
@@ -40,8 +32,5 @@ DATA_DIR=/disk/admin/modules/openwebui/data
 EOF
 systemctl start openwebui.service
 systemctl enable openwebui.service
-if [ $WAIT = 1 ]; then
-	/usr/local/modules/mydonglecloud/reset/openwebui-user.sh
-else
-	/usr/local/modules/mydonglecloud/reset/openwebui-user.sh &
-fi
+
+/usr/local/modules/mydonglecloud/reset/openwebui-user.sh &
