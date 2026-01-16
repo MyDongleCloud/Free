@@ -57,4 +57,4 @@ APIKEY=`echo $response | jq -r ".Items[0].AccessToken"`
 
 echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"apikey\":\"${APIKEY}\"}" > /disk/admin/modules/_config_/jellyfin.json
 
-echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
