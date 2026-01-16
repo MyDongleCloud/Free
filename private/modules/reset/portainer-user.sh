@@ -20,27 +20,35 @@ do
 done
 
 echo "#Create user portainer##################"
-TIMEOUT=30
-echo "$TIMEOUT seconds to watch portainer starting..."
+PORT=9000
+URL="http://localhost:$PORT"
+TIMEOUT=40
 while [ $TIMEOUT -gt 0 ]; do
     sleep 1
     TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for portainer" && exit
-	nc -z localhost 9000 2> /dev/null
+    [ $TIMEOUT -eq 0 ] && echo "Timeout port waiting for portainer" && exit
+	nc -z localhost $PORT 2> /dev/null
 	if [ $? = 0 ]; then
 		break
 	fi
 done
+TIMEOUT=40
+while [ $TIMEOUT -gt 0 ]; do
+    sleep 1
+    TIMEOUT=$((TIMEOUT - 1))
+    [ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for portainer" && exit
+	STATUS=`curl -s -o /dev/null -w "%{http_code}" "$URL/api/system/status"`
+	if [ $STATUS = 200 ]; then
+		break
+	fi
+done
+echo "Doing portainer user"
 
-echo -n "Waiting 10 seconds... "
-sleep 10
-echo "done"
-
-URL="http://localhost:9000"
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 data="{\"Username\":\"${CLOUDNAME}\", \"Password\":\"${PASSWD}\"}"
 response=`curl -X POST "${URL}/api/users/admin/init" -H "Content-Type: application/json" -d "$data"`
+#echo $reponse
 
 echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/portainer.json
 
