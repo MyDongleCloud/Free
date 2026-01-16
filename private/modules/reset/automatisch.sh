@@ -2,9 +2,8 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for automatisch [-h -r]"
+echo "Usage for automatisch [-h]"
 echo "h:	Print this usage and exit"
-echo "r:	Reset"
 exit 0
 }
 
@@ -14,11 +13,10 @@ if [ "m`id -u`" = "m0" ]; then
 fi
 
 RESET=0
-while getopts hr opt
+while getopts h opt
 do
 	case "$opt" in
 		h) helper;;
-		r) RESET=1;;
 	esac
 done
 

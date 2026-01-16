@@ -2,9 +2,8 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for openwebui [-h -r -w]"
+echo "Usage for openwebui [-h -w]"
 echo "h:	Print this usage and exit"
-echo "r:	Reset"
 echo "w:	Wait for user creation"
 exit 0
 }
@@ -20,7 +19,6 @@ while getopts hrw opt
 do
 	case "$opt" in
 		h) helper;;
-		r) RESET=1;;
 		w) WAIT=1;;
 	esac
 done

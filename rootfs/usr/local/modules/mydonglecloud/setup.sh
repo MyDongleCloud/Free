@@ -34,8 +34,8 @@ if [ ! -f $PP/reset/$NAME.sh ]; then
 	echo "#Doing nothing for $NAME##################"
 else
 	if [ $USER = 1 ]; then
-		$PP/reset/$NAME.sh -r
+		$PP/reset/$NAME.sh
 	else
-		su admin -c "$PP/reset/$NAME.sh -r"
+		su admin -c "$PP/reset/$NAME.sh"
 	fi
 fi
