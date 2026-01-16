@@ -296,8 +296,8 @@ openModule(identifier:number|string, extract:boolean = false, page:string = null
 	let id = identifier;
 	if (typeof identifier == "string")
 		id = this.modulesDataFindId(identifier);
-	if (this.modulesData[id].notReady && !this.demo) {
-		this.presentToast("This module setup is under progress. It should be ready within 2 or 3 minutes...", "close-outline", 5000);
+	if (this.modulesData[id].notReady != 0 && !this.demo) {
+		this.presentToast("This module setup is under progress. It should be ready shortly...", "close-outline", 5000);
 		return;
 	}
 	const subdomain = this.modulesData[id].alias[0] ?? this.modulesData[id].module;
@@ -481,7 +481,7 @@ async modulesDataPrepare() {
 		if (value["reservedToFirstUser"] === true && this.session.user.username != this.session.cloud.info.name)
 			return;
 		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
-		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true && !this.demo;
+		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true && !this.demo ? 2 : 0;
 		value["permissions"] = modules[key]?.permissions ?? value["permissions"];
 		if (value["web"] !== true) {
 			value["permissions"] = ["_groupadmin_"];
@@ -552,12 +552,13 @@ async statusRefresh(data) {
 		appConnectToggle(false);
 		this.setupUIProgress = 0;
 		this.setupUIDesc = "";
-		this.modulesData.forEach((data) => { data["notReady"] = false; });
+		this.modulesData.forEach((data) => { data["notReady"] = 0; });
 		this.presentToast("First-time setup is now complete!", "help-outline", 0);
-	} else if (data.module && data.state === "start")
+	} else if (data.module && data.state === "start") {
 		this.setupUIDesc = "module: " + data.module;
-	else if (data.module && data.state === "finish")
-		this.modulesData[this.modulesDataFindId(data.module)]["notReady"] = false;
+		this.modulesData[this.modulesDataFindId(data.module)]["notReady"] = 1;
+	} else if (data.module && data.state === "finish")
+		this.modulesData[this.modulesDataFindId(data.module)]["notReady"] = 0;
 	this.refreshUI.next("refresh");
 }
 

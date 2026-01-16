@@ -225,6 +225,7 @@ async moduleReset() {
 		if (await this.global.presentQuestion("Reset \"" + this.cards[this.cardIdCur].title + "\" (" + this.cards[this.cardIdCur].name + ")", "WARNING! All data will be lost", "This is your last chance. All data of this module will be erased and won't be recoverable. Are you absolutely sure to reset this module?")) {
 			this.global.presentToast("The module is being resetted. Please wait...", "alert-circle-outline");
 			const data = { module:this.global.modulesData[this.cardIdCur].module };
+			this.global.modulesData[this.cardIdCur]["notReady"] = 1;
 			const ret = await this.httpClient.post("/_app_/auth/module/reset", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
 			this.global.consolelog(2, "Auth module-reset: ", ret);
 			this.global.presentToast("The module has been resetted!", "alert-circle-outline");

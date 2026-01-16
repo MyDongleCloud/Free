@@ -54,8 +54,8 @@
 							<div class="text-sm font-medium text--gray-900 flex justify-center">{{card.hits}}</div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap" *ngIf="global.setupUIProgress != 0">
-							<div class="text-sm font-medium text--gray-900 flex justify-center" *ngIf="card.notReady">
-								<ion-icon name="cog-outline" class="w-4 h-4 cursor-pointer" disabled="true"></ion-icon>
+							<div class="text-sm font-medium flex justify-center" *ngIf="card.notReady != 0">
+								<ion-icon name="cog-outline" class="w-4 h-4 cursor-pointer" [class]="card.notReady == 2 ? 'text--gray-900' : 'text--red-500'" disabled="true"></ion-icon>
 							</div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
