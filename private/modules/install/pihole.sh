@@ -21,6 +21,5 @@ sleep 1
 systemctl stop pihole-FTL.service
 systemctl disable pihole-FTL.service
 mkdir /usr/local/modules/pihole
-mv /etc/pihole/pihole.toml /usr/local/modules/pihole/pihole.toml
+cp /etc/pihole/pihole.toml /usr/local/modules/pihole/pihole.toml
 mv /var/www/html/admin/ /usr/local/modules/pihole/
-ln -sf /disk/admin/modules/pihole/pihole.toml /etc/pihole/pihole.toml

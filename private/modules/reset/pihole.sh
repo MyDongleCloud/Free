@@ -21,9 +21,7 @@ done
 
 echo "#Reset pihole##################"
 systemctl stop pihole-FTL.service
-rm -rf /disk/admin/modules/pihole
-mkdir /disk/admin/modules/pihole
-cp /usr/local/modules/pihole/pihole.toml /disk/admin/modules/pihole/pihole.toml
+cp /usr/local/modules/pihole/pihole.toml /etc/pihole/pihole.toml
 systemctl start pihole-FTL.service
 systemctl enable pihole-FTL.service
 
