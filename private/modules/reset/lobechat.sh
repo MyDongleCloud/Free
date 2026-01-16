@@ -69,3 +69,5 @@ chown admin:admin /disk/admin/modules/_config_/lobechat.json
 chown -R admin:admin /disk/admin/modules/lobechat
 systemctl start lobechat.service
 systemctl enable lobechat.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

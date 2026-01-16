@@ -68,3 +68,5 @@ echo "{\"email\":\"${EMAIL}\", \"username\":\"${USERNAME}\", \"password\":\"${PA
 
 systemctl start librechat.service
 systemctl enable librechat.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

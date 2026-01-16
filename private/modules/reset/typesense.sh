@@ -55,3 +55,5 @@ cat > /disk/admin/modules/typesensedashboard/config.json << EOF
 EOF
 systemctl start typesense-server.service
 systemctl enable typesense-server.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

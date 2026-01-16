@@ -70,3 +70,5 @@ response=`curl -sS --fail -X POST $URL/api/onboarding/analytics -H "Authorizatio
 echo "analytics: $response"
 
 echo "{\"username\":\"${username}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/homeassistant.json
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

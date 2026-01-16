@@ -30,3 +30,5 @@ echo "#Reset shields##################"
 systemctl stop shields.service
 systemctl start shields.service
 systemctl enable shields.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

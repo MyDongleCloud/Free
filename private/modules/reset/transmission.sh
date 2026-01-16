@@ -122,3 +122,5 @@ cat > /disk/admin/modules/transmission/settings.json << EOF
 EOF
 systemctl start transmission-daemon.service
 systemctl enable transmission-daemon.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

@@ -95,3 +95,5 @@ chown admin:admin /disk/admin/modules/_config_/webtrees.json
 
 chown -R admin:admin /disk/admin/modules/webtrees
 chown -R www-data:admin /disk/admin/modules/webtrees/data
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

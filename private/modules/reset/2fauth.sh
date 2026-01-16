@@ -48,3 +48,5 @@ chmod 775 /disk/admin/modules/2fauth
 chmod 664 /disk/admin/modules/2fauth/database.sqlite
 chmod -R 775 /usr/local/modules/2fauth/storage
 echo "{\"email\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/2fauth.json
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

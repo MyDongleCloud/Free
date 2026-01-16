@@ -61,3 +61,5 @@ EOF
 echo "{\"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/triliumnotes.json
 systemctl start triliumnotes.service
 systemctl enable triliumnotes.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

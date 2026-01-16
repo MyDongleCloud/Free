@@ -32,3 +32,5 @@ rm -rf /disk/admin/modules/metube
 mkdir /disk/admin/modules/metube
 systemctl start metube.service
 systemctl enable metube.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

@@ -52,3 +52,5 @@ EOF
 echo "{\"username\":\"admin\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/qbittorrent.json
 systemctl start qbittorrent.service
 systemctl enable qbittorrent.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

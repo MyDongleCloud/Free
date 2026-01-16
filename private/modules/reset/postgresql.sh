@@ -46,3 +46,5 @@ cat /disk/admin/modules/_config_/adminer.json 2>/dev/null || echo '{}'
 echo "{\"postgresql_username\":\"postgres\", \"postgresql_password\":\"${PASSWORD}\"}"
 } | jq -s 'add' > /disk/admin/modules/_config_/adminer.json.tmp && mv /disk/admin/modules/_config_/adminer.json.tmp /disk/admin/modules/_config_/adminer.json
 chown admin:admin /disk/admin/modules/_config_/adminer.json
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

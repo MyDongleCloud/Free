@@ -42,3 +42,5 @@ YOURLS_PORT=9505
 sed -i -e "s@^; apiurl = \"https://yourls.example.com/yourls-api.php\"@apiurl = \"http://localhost:${YOURLS_PORT}/yourls-api.php\"@" /disk/admin/modules/privatebin/conf.php
 chown -R admin:admin /disk/admin/modules/privatebin
 chown -R www-data:admin /disk/admin/modules/privatebin/data
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

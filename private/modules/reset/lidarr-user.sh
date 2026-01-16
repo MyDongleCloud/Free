@@ -44,3 +44,5 @@ response=`curl -sS -X POST "$URL/api/v1/downloadclient" -H "X-Api-Key: $APIKEY" 
 DATA="{\"path\":\"/disk/admin/modules/lidarr/downloads\", \"name\":\"host\", \"DefaultMetadataProfileId\":1, \"DefaultQualityProfileId\":1}"
 response=`curl -sS --fail -X POST "$URL/api/v1/rootfolder" -H "X-Api-Key: $APIKEY" -H "Content-Type: application/json" -d "$DATA"`
 #echo $response
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

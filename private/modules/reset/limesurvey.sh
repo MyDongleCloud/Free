@@ -59,3 +59,5 @@ echo "{\"email\":\"${email}\", \"username\":\"${user}\", \"password\":\"${pass}\
 chown admin:admin /disk/admin/modules/_config_/limesurvey.json
 
 chown -R www-data:admin /disk/admin/modules/limesurvey
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

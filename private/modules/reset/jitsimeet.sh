@@ -27,3 +27,5 @@ if [ $RESET != 1 ]; then
 fi
 
 echo "#Reset jitsimeet##################"
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

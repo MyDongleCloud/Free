@@ -37,3 +37,5 @@ Go to <a href="/m/app">App</a>
 </body>
 </html>
 EOF
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

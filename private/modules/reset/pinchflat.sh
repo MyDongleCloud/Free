@@ -40,3 +40,5 @@ cd /usr/local/modules/pinchflat/_build/prod/rel/pinchflat
 /usr/local/modules/pinchflat/_build/prod/rel/pinchflat/bin/pinchflat eval "Pinchflat.Release.migrate"
 systemctl start pinchflat.service
 systemctl enable pinchflat.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

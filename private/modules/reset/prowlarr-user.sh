@@ -55,3 +55,5 @@ addApp "Whisparr" 6969
 DATA="{ \"name\": \"YTS\", \"enable\": true, \"protocol\": \"torrent\", \"priority\": 25, \"appProfileId\": 1, \"fields\": [ { \"name\": \"definitionFile\", \"value\": \"yts\" } ], \"implementationName\": \"Cardigann\", \"implementation\": \"Cardigann\", \"configContract\": \"CardigannSettings\", \"tags\": [] }"
 response=`curl -sS --fail -X POST "$URL/api/v1/indexer" -H "X-Api-Key: $APIKEY" -H "Content-Type: application/json" -d "$DATA"`
 #echo $response
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

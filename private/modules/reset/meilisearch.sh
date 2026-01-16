@@ -36,3 +36,5 @@ echo "MEILI_HOST=127.0.0.1\nMEILI_MASTER_KEY=$PASSWORD" > /disk/admin/modules/me
 echo "{\"key\":\"${PASSWORD}\"}" > /disk/admin/modules/_config_/meilisearch.json
 systemctl start meilisearch.service
 systemctl enable meilisearch.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

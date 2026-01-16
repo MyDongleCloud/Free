@@ -30,3 +30,5 @@ echo "#Reset llamacpp##################"
 systemctl stop llamacpp.service
 systemctl start llamacpp.service
 systemctl enable llamacpp.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

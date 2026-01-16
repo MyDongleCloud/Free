@@ -36,3 +36,5 @@ sed -i -e 's@export MICROBIN_BIND="0.0.0.0"@export MICROBIN_BIND="127.0.0.1"@' /
 sed -i -e 's@export MICROBIN_DATA_DIR="microbin_data"@export MICROBIN_DATA_DIR="/disk/admin/modules/microbin"@' /disk/admin/modules/microbin/.env
 systemctl start microbin.service
 systemctl enable microbin.service
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093

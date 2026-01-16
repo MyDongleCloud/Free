@@ -43,3 +43,5 @@ token=`jq -r ".data.register.accessToken" /tmp/tabby.txt`
 rm -f /tmp/tabby.txt
 echo "{\"name\":\"${CLOUDNAME}\", \"email\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/tabby.json
 curl -sS --fail -X POST $URL/graphql -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data-binary "{\"operationName\":\"updateNetworkSettingMutation\",\"query\":\"mutation updateNetworkSettingMutation(\$input: NetworkSettingInput!) {\n  updateNetworkSetting(input: \$input)\n}\",\"variables\":{\"input\":{\"externalUrl\":\"$URL2\"}}}"
+
+echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
