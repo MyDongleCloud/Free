@@ -300,7 +300,7 @@ const mdcEndpoints = () => {
 			}, async(ctx) => {
 				if (ctx.context.session?.user?.role != "admin")
 					return Response.json({ status:"error" }, { status:200 });
-				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh -r " + ctx.body?.module;
+				const tbe = "sudo /usr/local/modules/mydonglecloud/setup.sh " + ctx.body?.module;
 				let ret = false;
 				let output;
 				try {

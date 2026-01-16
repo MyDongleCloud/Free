@@ -3,12 +3,16 @@
 #include <time.h>
 #include <string.h>
 #include <unistd.h>
+#include <pthread.h>
 #include <sys/stat.h>
 #include "common.h"
 #include "macro.h"
 #include "cJSON.h"
 #include "json.h"
 #include "apache2.h"
+
+//Private variable
+static pthread_mutex_t modulesMutex = PTHREAD_MUTEX_INITIALIZER;
 
 //Functions
 cJSON *fqdnInit(cJSON *elCloud) {
@@ -145,4 +149,14 @@ localPort = %d\n", elModuleSt->string, type, strncmp(type, "http", 4) == 0 ? "tr
 		}
 	}
 	cJSON_Delete(fqdn);
+}
+
+void moduleSetupDone(char *moduleSt) {
+	pthread_mutex_lock(&modulesMutex);
+	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
+	cJSON *el = cJSON_CreateObject();
+	cJSON_AddBoolToObject(el, "setupDone", 1);
+	cJSON_AddItemToObject(modules, moduleSt, el);
+	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
+	pthread_mutex_unlock(&modulesMutex);
 }

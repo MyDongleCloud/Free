@@ -39,6 +39,7 @@
 #include "wifi.h"
 #include "common.h"
 #include "cloud.h"
+#include "modules.h"
 #endif
 #include "base64.h"
 #include "logic.h"
@@ -173,6 +174,7 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			return;
 		} else if (strcmp(action, "status") == 0) {
 			//PRINTF("communicationReceive: status #%s#\n", data);
+			moduleSetupDone(cJSON_GetStringValue2(el, "module"));
 			communicationString(data);
 		} else if (strcmp(action, "cloud") == 0) {
 			cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");

@@ -4,5 +4,6 @@
 //Global functions
 cJSON *fqdnInit(cJSON *elCloud);
 void modulesInit(cJSON *cloud, cJSON *modulesDefault, cJSON *modules);
+void moduleSetupDone(char *moduleSt);
 
 #endif

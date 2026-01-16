@@ -49,7 +49,7 @@ static void setup(int i, int total, char *name, int root, cJSON *modules) {
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{ \"a\":\"status\", \"progress\":%d, \"module\":\"%s\", \"state\":\"start\" }", p, name);
 	communicationString(sz);
-	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh -j 0 -d 0 -n -u %d -r %s", root, name);
+	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/setup.sh -u %d %s", root, name);
 	system(sz);
 	cJSON *el = cJSON_CreateObject();
 	cJSON_AddBoolToObject(el, "setupDone", 1);
