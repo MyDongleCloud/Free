@@ -1,0 +1,17 @@
+[Unit]
+Description=SearXNG
+After=network.target
+
+[Service]
+Environment=SEARXNG_SETTINGS_PATH=/disk/admin/modules/searxng/settings.yml
+Type=simple
+ExecStart=/usr/local/modules/searxng/penv/bin/python3 searx/webapp.py
+WorkingDirectory=/usr/local/modules/searxng
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target

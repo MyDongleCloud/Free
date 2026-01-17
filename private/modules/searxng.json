@@ -7,7 +7,7 @@
 	"installMethod": "clone",
 	"web": true,
 	"essential": true,
-	"finished": false,
+	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "searxng/searxng",
@@ -33,6 +33,19 @@
 		"localPort": 9492,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8111,
+				"path": "/"
+			}
+		],
+		"services": [
+			"searxng"
+		],
+		"setup": true,
+		"setupDependencies": []
 	}
 }
