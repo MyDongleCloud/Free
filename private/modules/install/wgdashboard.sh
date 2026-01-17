@@ -1,11 +1,11 @@
 #!/bin/sh
 
 cd /home/ai
-/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/wgdashboard/wgd -s
+/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/wgdashboard/penv -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
-PATH=/usr/local/modules/wgdashboard/wgd/bin:$PATHOLD
-export PATH=/usr/local/modules/wgdashboard/wgd/bin:$PATHOLD
+PATH=/usr/local/modules/wgdashboard/penv/bin:$PATHOLD
+export PATH=/usr/local/modules/wgdashboard/penv/bin:$PATHOLD
 echo "PATH new: $PATH python: `python --version`"
 cd /usr/local/modules/wgdashboard/src
 pip install -r requirements.txt

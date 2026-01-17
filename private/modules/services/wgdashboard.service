@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=sudo /usr/local/modules/wgdashboard/wgd/bin/gunicorn --config gunicorn.conf.py
+ExecStart=sudo /usr/local/modules/wgdashboard/penv/bin/gunicorn --config gunicorn.conf.py
 PIDFile=/usr/local/modules/wgdashboard/src/gunicorn.pid
 WorkingDirectory=/usr/local/modules/wgdashboard/src
 StandardOutput=inherit
