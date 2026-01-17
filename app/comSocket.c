@@ -72,9 +72,9 @@ static void *comSocket_t(void *arg) {
 				} else {
 					buf[nbytes] = '\0';
 					communicationReceive(buf, nbytes, "socket");
-					memset(buf, 0, nbytes);
-					char *resp = "{\"error\":0}";
-					write(fds[i].fd, resp, strlen(resp));
+					//memset(buf, 0, nbytes);
+					//char *resp = "{\"error\":0}";
+					//write(fds[i].fd, resp, strlen(resp));
 				}
 			}
 		}

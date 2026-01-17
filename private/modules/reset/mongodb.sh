@@ -55,8 +55,6 @@ EOF
 TIMEOUT=10
 echo "10 seconds to watch MongoDB stopping..."
 while [ $TIMEOUT -gt 0 ]; do
-	ps avx | grep mongod
-	pgrep -x mongod
 	pgrep -x mongod > /dev/null
     if [ $? = 1 ]; then
         break

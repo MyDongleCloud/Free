@@ -56,7 +56,7 @@ sed -i -e "s|^MONGO_URI=.*|MONGO_URI=mongodb://librechatUser:$DBPASS@127.0.0.1:2
 chown admin:admin /disk/admin/modules/librechat
 
 cd /usr/local/modules/librechat
-NODE_DEBUG=mongoose npm run create-user -- $EMAIL $NAME $USERNAME $PASSWD --email-verified=false
+NODE_DEBUG=mongoose npm run create-user -- $EMAIL $NAME $USERNAME $PASSWD --email-verified=false > /dev/null
 echo "{\"email\":\"${EMAIL}\", \"username\":\"${USERNAME}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/librechat.json
 
 systemctl start librechat.service

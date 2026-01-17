@@ -30,7 +30,7 @@ echo "SECRET_KEY_BASE=${SECRET_KEY_BASE}" > /disk/admin/modules/pinchflat/config
 export SECRET_KEY_BASE=${SECRET_KEY_BASE}
 export CONFIG_PATH=/disk/admin/modules/pinchflat/config
 cd /usr/local/modules/pinchflat/_build/prod/rel/pinchflat
-/usr/local/modules/pinchflat/_build/prod/rel/pinchflat/bin/pinchflat eval "Pinchflat.Release.migrate"
+/usr/local/modules/pinchflat/_build/prod/rel/pinchflat/bin/pinchflat eval "Pinchflat.Release.migrate" > /dev/null
 systemctl start pinchflat.service
 systemctl enable pinchflat.service
 
