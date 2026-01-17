@@ -26,7 +26,7 @@
 	],
 	"default": {
 		"enabled": true,
-		"localPort": 9446,
+		"localPort": 9449,
 		"permissions": [
 			"_groupadmin_"
 		]

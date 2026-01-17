@@ -31,7 +31,7 @@
 		],
 		"enabled": true,
 		"homepage": "/access",
-		"localPort": 9515,
+		"localPort": 9520,
 		"permissions": [
 			"_groupadmin_"
 		],

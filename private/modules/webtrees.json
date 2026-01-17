@@ -54,7 +54,7 @@
 		],
 		"config": true,
 		"enabled": true,
-		"localPort": 9516,
+		"localPort": 9521,
 		"permissions": [
 			"_groupadmin_"
 		],

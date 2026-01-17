@@ -53,7 +53,7 @@
 			"^/login"
 		],
 		"enabled": true,
-		"localPort": 9497,
+		"localPort": 9503,
 		"permissions": [
 			"_groupadmin_"
 		],

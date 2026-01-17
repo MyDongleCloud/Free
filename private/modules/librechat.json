@@ -60,7 +60,7 @@
 		],
 		"config": true,
 		"enabled": true,
-		"localPort": 9441,
+		"localPort": 9444,
 		"permissions": [
 			"_groupadmin_"
 		],

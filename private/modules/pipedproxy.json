@@ -1,7 +1,7 @@
 {
-	"module": "piped",
-	"name": "Piped",
-	"title": "Youtube Without Ads",
+	"module": "pipedproxy",
+	"name": "Piped Proxy",
+	"title": "Piped Proxy",
 	"category": "Media",
 	"version": "1c3cfd23",
 	"installMethod": "clone",
@@ -26,42 +26,20 @@
 	],
 	"proprietary": [],
 	"default": {
+		"addConfigBegin": "Header set Access-Control-Allow-Origin https://piped.gregoiregentil.mydongle.cloud",
 		"config": true,
 		"enabled": true,
-		"localPort": 9481,
-		"path": "/usr/local/modules/piped/dist",
+		"localPort": 9483,
 		"permissions": [
-			"_groupadmin_"
+			"_public_"
 		],
-		"reset": true,
 		"reverseProxy": [
 			{
 				"type": "http",
-				"port": 8102,
-				"path": "/_api_/",
-				"path2": "/"
-			},
-			{
-				"type": "http",
 				"port": 8103,
-				"path": "/_proxy_/",
-				"path2": "/"
-			},
-			{
-				"type": "http",
-				"port": 8103,
-				"path": "/api/"
+				"path": "/"
 			}
 		],
-		"services": [
-			"pipedbackend",
-			"pipedproxy"
-		],
-		"setup": true,
-		"setupDependencies": [
-			"java",
-			"postgresql"
-		],
-		"setupRoot": true
+		"services": []
 	}
 }

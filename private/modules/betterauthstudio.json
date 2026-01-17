@@ -34,7 +34,7 @@
 			"identity"
 		],
 		"enabled": true,
-		"localPort": 9405,
+		"localPort": 9408,
 		"permissions": [
 			"_groupadmin_"
 		],

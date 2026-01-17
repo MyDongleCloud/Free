@@ -54,7 +54,7 @@
 		"enabled": true,
 		"followSymLinks": true,
 		"indexes": true,
-		"localPort": 9526,
+		"localPort": 9401,
 		"multiViews": true,
 		"path": "/usr/local/modules/2fauth/public",
 		"permissions": [

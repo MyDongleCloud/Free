@@ -48,7 +48,7 @@
 			"^/$"
 		],
 		"enabled": true,
-		"localPort": 9484,
+		"localPort": 9490,
 		"permissions": [
 			"_groupadmin_"
 		],

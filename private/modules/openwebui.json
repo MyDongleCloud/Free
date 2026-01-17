@@ -59,7 +59,7 @@
 			"^/auth"
 		],
 		"enabled": true,
-		"localPort": 9463,
+		"localPort": 9466,
 		"permissions": [
 			"_groupadmin_"
 		],

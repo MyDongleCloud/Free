@@ -27,7 +27,7 @@
 	],
 	"default": {
 		"enabled": true,
-		"localPort": 9473,
+		"localPort": 9476,
 		"path": "/usr/local/modules/phplist/public_html",
 		"permissions": [
 			"_groupadmin_"

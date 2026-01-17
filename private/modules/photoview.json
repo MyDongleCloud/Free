@@ -31,7 +31,7 @@
 			"photo"
 		],
 		"enabled": true,
-		"localPort": 9471,
+		"localPort": 9474,
 		"permissions": [
 			"_groupadmin_"
 		]

@@ -54,7 +54,7 @@
 			"^/login"
 		],
 		"enabled": true,
-		"localPort": 9509,
+		"localPort": 9515,
 		"permissions": [
 			"_groupadmin_"
 		],
