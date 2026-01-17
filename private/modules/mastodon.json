@@ -7,9 +7,9 @@
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
-	"finished": false,
+	"finished": true,
 	"ai": false,
-	"database": "",
+	"database": "postgresql",
 	"github": "mastodon/mastodon",
 	"description": "A federated, globally interconnected microblogging community.",
 	"keywords": [
@@ -24,10 +24,49 @@
 	],
 	"proprietary": [],
 	"default": {
+		"alias": [
+			"social"
+		],
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/auth/sign_in",
+					"form": "form[id=new_user]",
+					"arg1": "input[id=user_email]",
+					"arg2": "input[id=user_password]",
+					"arg3": "button[name=button]",
+					"val1": 1,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/auth/sign_in",
+					"arg1": "email",
+					"arg2": "password",
+					"val1": 1,
+					"val2": 2
+				}
+			]
+		},
 		"enabled": true,
 		"localPort": 9451,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8112,
+				"path": "/"
+			}
+		],
+		"services": [
+			"mastodon"
+		],
+		"setup": true,
+		"setupDependencies": [],
+		"setupRoot": true
 	}
 }

@@ -267,6 +267,7 @@ else
 	clone lobechat lobehub/lobe-chat v1.143.0
 	clone mantisbugtracker mantisbt/mantisbt release-2.27.1
 	clone markdowneditor jbt/markdown-editor v2
+	clone mastodon https://github.com/tootsuite/mastodon.git v4.5.4
 	clone maybe maybe-finance/maybe v0.5.0
 	clone mermaid mermaid-js/mermaid mermaid@11.9.0
 	clone metube alexta69/metube HEAD
