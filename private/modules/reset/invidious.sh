@@ -48,10 +48,11 @@ sed -i -e "s/^  user:.*/  user: invidioususer/" /disk/admin/modules/invidious/co
 sed -i -e "s/^  password:.*/  password: ${dbpass}/" /disk/admin/modules/invidious/config.yml
 sed -i -e "s/^  dbname:.*/  dbname: invidiousdb/" /disk/admin/modules/invidious/config.yml
 sed -i -e "s/^hmac_key:.*/hmac_key: \"${SALT}\"/" /disk/admin/modules/invidious/config.yml
-sed -i -e "s/#invidious_companion:.*/invidious_companion:/" /disk/admin/modules/invidious/config.yml
-sed -i -e 's@#  \- private_url:.*@  - private_url: "http://localhost:8282/companion"@' /disk/admin/modules/invidious/config.yml
-sed -i -e "s/#invidious_companion_key:.*/invidious_companion_key: \"${SALT}\"/" /disk/admin/modules/invidious/config.yml
-sed -i -e "s/#host_binding:.*/host_binding: 127.0.0.1/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^#invidious_companion:.*/invidious_companion:/" /disk/admin/modules/invidious/config.yml
+sed -i -e 's@^#  \- private_url:.*@  - private_url: "http://localhost:8282/companion"@' /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^#invidious_companion_key:.*/invidious_companion_key: \"${SALT}\"/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^#host_binding:.*/host_binding: 127.0.0.1/" /disk/admin/modules/invidious/config.yml
+sed -i -e "s/^  #default_home:.*/  default_home: Trending/" /disk/admin/modules/invidious/config.yml
 cd /usr/local/modules/invidious
 ./invidious --migrate
 
