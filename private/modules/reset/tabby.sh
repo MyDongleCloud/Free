@@ -23,9 +23,9 @@ echo "#Reset tabby##################"
 TIMEOUT=10
 echo "10 seconds to watch for llam.cpp..."
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 1
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for llamacpp" && break
+	sleep 1
+	TIMEOUT=$((TIMEOUT - 1))
+	[ $TIMEOUT -eq 0 ] && echo "Timeout waiting for llamacpp" && break
 	nc -z localhost 8099 2> /dev/null
 	if [ $? = 0 ]; then
 		break

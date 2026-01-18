@@ -24,9 +24,9 @@ PORT=8096
 URL="http://localhost:$PORT"
 TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 3
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout port waiting for jellyfin" && exit
+	sleep 3
+	TIMEOUT=$((TIMEOUT - 1))
+	[ $TIMEOUT -eq 0 ] && echo "Timeout port waiting for jellyfin" && exit
 	nc -z localhost $PORT 2> /dev/null
 	if [ $? = 0 ]; then
 		break
@@ -34,9 +34,9 @@ while [ $TIMEOUT -gt 0 ]; do
 done
 TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 3
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for jellyfin" && exit
+	sleep 3
+	TIMEOUT=$((TIMEOUT - 1))
+	[ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for jellyfin" && exit
 	STATUS=`curl -sS -X POST "$URL/Startup/Configuration" -H "Content-Type: application/json" -d '{"UICulture":"en-US", "MetadataCountryCode":"US", "PreferredMetadataLanguage":"en"}' | grep -q -v "Jellyfin Server still starting. Please wait."`
 	if [ $? != 0 ]; then
 		break

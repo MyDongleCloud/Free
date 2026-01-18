@@ -40,7 +40,7 @@ PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 EMAIL="admin@$CLOUDNAME.mydongle.cloud"
 URL2="https://aicode.$CLOUDNAME.mydongle.cloud"
 
-curl -sS --fail -o /tmp/tabby.txt -X POST $URL/graphql -H "Content-Type: application/json" --data-binary "{\"operationName\":\"register\",\"query\":\"mutation register(\$name: String!, \$email: String!, \$password1: String!, \$password2: String!, \$invitationCode: String) {\n  register(\n    name: \$name\n    email: \$email\n    password1: \$password1\n    password2: \$password2\n    invitationCode: \$invitationCode\n  ) {\n    accessToken\n    refreshToken\n    __typename\n  }\n}\",\"variables\":{\"email\":\"$EMAIL\",\"name\":\"$CLOUDNAME\",\"password1\":\"$PASSWD\",\"password2\":\"$PASSWD\"}}"
+curl -sS --fail -o /tmp/tabby.txt -X POST $URL/graphql -H "Content-Type: application/json" --data-binary "{\"operationName\":\"register\",\"query\":\"mutation register(\$name: String!, \$email: String!, \$password1: String!, \$password2: String!, \$invitationCode: String) {\n  register(\n	name: \$name\n	email: \$email\n	password1: \$password1\n	password2: \$password2\n	invitationCode: \$invitationCode\n  ) {\n	accessToken\n	refreshToken\n	__typename\n  }\n}\",\"variables\":{\"email\":\"$EMAIL\",\"name\":\"$CLOUDNAME\",\"password1\":\"$PASSWD\",\"password2\":\"$PASSWD\"}}"
 token=`jq -r ".data.register.accessToken" /tmp/tabby.txt`
 rm -f /tmp/tabby.txt
 echo "{\"name\":\"${CLOUDNAME}\", \"email\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/tabby.json

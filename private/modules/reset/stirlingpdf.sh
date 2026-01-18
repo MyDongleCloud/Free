@@ -33,8 +33,8 @@ system:
 
 customPaths:
   pipeline:
-    watchedFoldersDir: "/disk/admin/modules/stirlingpdf/documents"
-    finishedFoldersDir: "/disk/admin/modules/stirlingpdf/documents"
+	watchedFoldersDir: "/disk/admin/modules/stirlingpdf/documents"
+	finishedFoldersDir: "/disk/admin/modules/stirlingpdf/documents"
 EOF
 systemctl start stirlingpdf.service
 systemctl enable stirlingpdf.service

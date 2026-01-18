@@ -6,6 +6,6 @@ cd pymcuprog
 cat > setup.py <<EOF
 from setuptools import setup
 if __name__ == '__main__':
-    setup()
+	setup()
 EOF
 python3 setup.py install

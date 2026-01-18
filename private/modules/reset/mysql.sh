@@ -28,9 +28,9 @@ mysqld_safe --skip-grant-tables --skip-networking &
 TIMEOUT=10
 echo "10 seconds to watch mysql starting..."
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 1
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout waiting for MySQL" && exit 1
+	sleep 1
+	TIMEOUT=$((TIMEOUT - 1))
+	[ $TIMEOUT -eq 0 ] && echo "Timeout waiting for MySQL" && exit 1
 	mysql -u root -e "SELECT 1" 2>&1 > /dev/null
 	if [ $? = 0 ]; then
 		break

@@ -24,9 +24,9 @@ PORT=8101
 URL="http://localhost:$PORT"
 TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 3
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout port waiting for openwebui" && exit
+	sleep 3
+	TIMEOUT=$((TIMEOUT - 1))
+	[ $TIMEOUT -eq 0 ] && echo "Timeout port waiting for openwebui" && exit
 	nc -z localhost $PORT 2> /dev/null
 	if [ $? = 0 ]; then
 		break
@@ -34,9 +34,9 @@ while [ $TIMEOUT -gt 0 ]; do
 done
 TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 3
-    TIMEOUT=$((TIMEOUT - 1))
-    [ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for openwebui" && exit
+	sleep 3
+	TIMEOUT=$((TIMEOUT - 1))
+	[ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for openwebui" && exit
 	STATUS=`curl -s -o /dev/null -w "%{http_code}" "$URL/health"`
 	if [ $STATUS = 200 ]; then
 		break
