@@ -52,4 +52,4 @@ response=`curl -sS -X POST "${URL}/api/users/admin/init" -H "Content-Type: appli
 
 echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/portainer.json
 
-echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
+echo {" \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

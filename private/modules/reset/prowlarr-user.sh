@@ -69,4 +69,4 @@ DATA="{ \"name\": \"EZTV\", \"enable\": true, \"protocol\": \"torrent\", \"prior
 response=`curl -sS -X POST "$URL/api/v1/indexer" -H "X-Api-Key: $APIKEY" -H "Content-Type: application/json" -d "$DATA"`
 #echo $response
 
-echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
+echo {" \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

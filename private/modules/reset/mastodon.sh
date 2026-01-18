@@ -85,8 +85,8 @@ RAILS_SERVE_STATIC_FILES=true
 EOF
 cd /usr/local/modules/mastodon
 RAILS_ENV=production bundle exec rake db:schema:load db:seed
-response=`RAILS_ENV=production bin/tootctl accounts create ${CLOUDNAME} --email admin@${CLOUDNAME}.mydongle.cloud --confirmed --role Owner`
-PASSWD=`echo $repsonse | cut -d ":" -f 2 | tr -d ' '`
+response=$(RAILS_ENV=production bin/tootctl accounts create ${CLOUDNAME} --email admin@${CLOUDNAME}.mydongle.cloud --confirmed --role Owner)
+PASSWD=$(echo "$response" | grep "New password:" | awk '{print $NF}')
 RAILS_ENV=production bin/tootctl accounts modify ${CLOUDNAME} --approve
 
 systemctl start mastodon.service
@@ -95,4 +95,4 @@ systemctl enable mastodon.service
 echo "{\"email\":\"${EMAIL}\", \"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"dbname\":\"mastodondb\", \"dbuser\":\"mastodonuser\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/mastodon.json
 chown admin:admin /disk/admin/modules/_config_/mastodon.json
 
-echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
+echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

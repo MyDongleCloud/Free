@@ -101,4 +101,4 @@ EOF
 
 echo "{\"username\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${database_name}\", \"dbuser\":\"${db_username}\", \"dbpass\":\"${db_password}\"}" > /disk/admin/modules/_config_/mantisbugtracker.json
 
-echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
+echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

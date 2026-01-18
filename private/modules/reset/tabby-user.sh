@@ -47,4 +47,4 @@ echo "{\"name\":\"${CLOUDNAME}\", \"email\":\"${EMAIL}\", \"password\":\"${PASSW
 respone=`curl -sS -X POST $URL/graphql -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data-binary "{\"operationName\":\"updateNetworkSettingMutation\",\"query\":\"mutation updateNetworkSettingMutation(\$input: NetworkSettingInput!) {\n  updateNetworkSetting(input: \$input)\n}\",\"variables\":{\"input\":{\"externalUrl\":\"$URL2\"}}}"`
 #echo $response
 
-echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
+echo {" \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

@@ -26,4 +26,4 @@ mkdir /disk/admin/modules/automatisch
 #systemctl start automatisch.service
 #systemctl enable automatisch.service
 
-echo -n "{ \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | nc -w 1 localhost 8093
+echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
