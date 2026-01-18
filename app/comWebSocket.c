@@ -73,7 +73,7 @@ static void onclose(ws_cli_conn_t *client) {
 }
 
 static void onmessage(ws_cli_conn_t *client, const unsigned char *msg, uint64_t size, int type) {
-	communicationReceive((char *)msg, strlen(msg), "websocket");
+	communicationReceive((char *)msg, size, "websocket");
 }
 
 int serverWriteDataWebSocket(unsigned char *data, int size) {
