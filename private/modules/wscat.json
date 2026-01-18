@@ -14,7 +14,7 @@
 	"description": "A tool for WebSockets.",
 	"keywords": [
 		"Communication",
-		"Network"
+		"Network",
 		"WebSocket",
 		"Ws",
 		"Wss"

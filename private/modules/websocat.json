@@ -14,7 +14,7 @@
 	"description": "A tool for WebSockets, like netcat or curl, for ws:// with advanced socat-like functions.",
 	"keywords": [
 		"Communication",
-		"Network"
+		"Network",
 		"WebSocket",
 		"Ws",
 		"Wss"
