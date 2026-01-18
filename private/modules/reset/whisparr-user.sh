@@ -22,9 +22,9 @@ done
 echo "#Create whisparr settings##################"
 PORT=6969
 URL="http://localhost:$PORT"
-TIMEOUT=40
+TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 1
+    sleep 3
     TIMEOUT=$((TIMEOUT - 1))
     [ $TIMEOUT -eq 0 ] && echo "Timeout port waiting for whisparr" && exit
 	nc -z localhost $PORT 2> /dev/null
@@ -32,9 +32,9 @@ while [ $TIMEOUT -gt 0 ]; do
 		break
 	fi
 done
-TIMEOUT=40
+TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
-    sleep 1
+    sleep 3
     TIMEOUT=$((TIMEOUT - 1))
     [ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for whisparr" && exit
 	STATUS=`curl -s -o /dev/null -w "%{http_code}" "$URL"`

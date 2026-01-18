@@ -22,9 +22,9 @@ done
 echo "#Create user tabby##################"
 PORT=8100
 URL="http://localhost:$PORT"
-TIMEOUT=40
+TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
-	sleep 1
+	sleep 3
 	TIMEOUT=$((TIMEOUT - 1))
 	[ $TIMEOUT -eq 0 ] && echo "Timeout port waiting for tabby" && exit
 	nc -z localhost $PORT 2> /dev/null
