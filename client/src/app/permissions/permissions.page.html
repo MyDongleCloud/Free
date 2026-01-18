@@ -48,7 +48,7 @@
 							<div class="text-sm font-medium text--gray-900"><a href="{{card.link}}" title="{{LMT(card.title)}}" target="_blank" style="color:var(--ion-color-secondary);">{{LMT(card.title)}}</a></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900"><a href="https://github.com/{{card.github}}" target="_blank">{{card.name}}</a></div>
+							<div class="text-sm font-medium text--gray-900 flex items-center" *ngIf="card.github != ''"><ion-icon name="logo-github" class="w-4 h-4 mr-2 cursor-pointer" ></ion-icon><a href="https://github.com/{{card.github}}" target="_blank">{{card.name}}</a></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center">{{card.hits}}</div>
