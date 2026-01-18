@@ -1,0 +1,28 @@
+{
+	"module": "websocat",
+	"name": "websocat",
+	"title": "WebSocket Tool",
+	"category": "Utils",
+	"version": "v1.14.1",
+	"installMethod": "wget",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "vi/websocat",
+	"description": "A tool for WebSockets, like netcat or curl, for ws:// with advanced socat-like functions.",
+	"keywords": [
+		"Communication",
+		"Network"
+		"WebSocket",
+		"Ws",
+		"Wss"
+	],
+	"proprietary": [],
+	"default": {
+		"cmds": [
+			"/usr/local/bin/websocat"
+		]
+	}
+}

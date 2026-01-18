@@ -1,0 +1,28 @@
+{
+	"module": "wscat",
+	"name": "wscat",
+	"title": "WebSocket Cat",
+	"category": "Utils",
+	"version": "v1.14.1",
+	"installMethod": "wget",
+	"web": false,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "websockets/wscat",
+	"description": "A tool for WebSockets.",
+	"keywords": [
+		"Communication",
+		"Network"
+		"WebSocket",
+		"Ws",
+		"Wss"
+	],
+	"proprietary": [],
+	"default": {
+		"cmds": [
+			"/usr/local/bin/wscat"
+		]
+	}
+}
