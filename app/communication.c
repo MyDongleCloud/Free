@@ -33,7 +33,6 @@
 #include "comHtml.h"
 #else
 #include "comBle.h"
-#include "comSocket.h"
 #include "comWebSocket.h"
 #include "json.h"
 #include "wifi.h"
@@ -114,7 +113,7 @@ static void *cloudSetup_t(void *arg) {
 #endif
 
 void communicationReceive(unsigned char *data, int size, char *orig) {
-	//PRINTF("communicationReceive: (%d)#%s# via %s\n", size, data, orig);
+//	PRINTF("communicationReceive: (%d)#%s# via %s\n", size, data, orig);
 //Examples:
 //{"a":"otp"}
 //{"a":"sutdown"}
@@ -124,8 +123,10 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 //{"a":"cloud"} -> {"a":"cloud", _cloud_.json }
 //{"a":"language", "l":""}
 	cJSON *el = cJSON_Parse(data);
-	if (el) {
-		char *action = cJSON_GetStringValue2(el, "a");
+	char *action = NULL;
+	if (el)
+		action = cJSON_GetStringValue2(el, "a");
+	if (action) {
 		if (strcmp(action, "otp") == 0) {
 			char *email = cJSON_GetStringValue2(el, "e");
 			PRINTF("communicationReceive: OTP by %s\n", email);

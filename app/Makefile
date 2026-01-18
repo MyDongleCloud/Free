@@ -24,7 +24,6 @@ OBJs := $(PRE)apache2.o \
 	$(PRE)common.o \
 	$(PRE)communication.o \
 	$(PRE)comBle.o \
-	$(PRE)comSocket.o \
 	$(PRE)comWebSocket.o \
 	$(PRE)diskNotify.o \
 	$(PRE)json.o \

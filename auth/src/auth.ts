@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { execSync } from "child_process";
 import { randomBytes } from "crypto";
+import { WebSocket } from "ws"	;
 import { betterAuth, BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
 import { username, customSession, emailOTP, magicLink, twoFactor, haveIBeenPwned, admin, jwt } from "better-auth/plugins";
@@ -97,16 +98,13 @@ function findDomain(hostname) {
 	return domain;
 }
 
-const sendToDongle = (data) => {
-	const client = net.createConnection({ host:"127.0.0.1", port:8093 });
-	client.on("connect", () => {
-		client.write(JSON.stringify(data));
-		client.end();
-	});
-	client.on("end", () => {
-	});
-	client.on("error", (err: Error) => {
-	});
+function sendToApp(data) {
+	const client = new WebSocket("ws://127.0.0.1:8094");
+	client.onopen = () => {
+		client.send(JSON.stringify(data));
+		client.close();
+	};
+
 }
 
 si.networkStats();
@@ -155,7 +153,7 @@ const mdcEndpoints = () => {
 				method: "GET",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
-				sendToDongle({ a:"refresh" });
+				sendToApp({ a:"refresh" });
 				return Response.json({ "status":"success" }, { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
 			}),
 
@@ -390,7 +388,7 @@ export const auth = betterAuth({
 		}),
 		emailOTP({
 			async sendVerificationOTP({ email, otp, type }) {
-				sendToDongle({ a:"passcode", v:parseInt(otp) });
+				sendToApp({ a:"passcode", v:parseInt(otp) });
 				if (type === "email-verification") {
 					sendVerificationEmail(email, otp);
 				} else if (type === "sign-in") {
@@ -409,7 +407,7 @@ export const auth = betterAuth({
 			skipVerificationOnEnable:true,
 			otpOptions: {
 				async sendOTP({ user, otp }, request) {
-					sendToDongle({ a:"otp", v:parseInt(otp), e:user?.["email"] });
+					sendToApp({ a:"otp", v:parseInt(otp), e:user?.["email"] });
 					sendSignInOTP(user?.["email"], otp);
 				}
 			}
@@ -450,7 +448,7 @@ export const auth = betterAuth({
 			console.log("###########################");
 */
 			if (ctx.path == "/two-factor/verify-otp" && ctx.context.returned?.["statusCode"] === undefined)
-				sendToDongle({ a:"otp", v:0 });
+				sendToApp({ a:"otp", v:0 });
 			if (ctx.path == "/sign-in/email" || ctx.path == "/sign-in/username") {
 				if (statusDemo)
 					console.log("Sign-in for " + ctx.context.returned?.["user"]?.email + ", " + ctx.context.returned?.["user"]?.username);

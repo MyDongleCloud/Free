@@ -13,7 +13,6 @@
 #include "language.h"
 #ifndef WEB
 #include "comBle.h"
-#include "comSocket.h"
 #include "comWebSocket.h"
 #endif
 #include "cJSON.h"
@@ -109,7 +108,6 @@ int main(int argc, char *argv[]) {
 	buzzer(1);
 #endif
 #ifndef WEB
-	communicationSocket();
 	communicationWebSocket();
 #endif
 	backendInit_plat(argc, argv);
