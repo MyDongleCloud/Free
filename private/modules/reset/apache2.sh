@@ -25,8 +25,8 @@ mkdir -p /disk/admin/modules/apache2/www
 cat > /disk/admin/modules/apache2/www/index.html <<EOF
 <html>
 <body>
-You can edit this file in the folder: /disk/admin/modules/apache2/www<br><br>
-Go to <a href="/m/app">App</a>
+You can edit this home page in the folder: /disk/admin/modules/apache2/www<br><br>
+Go to the main <a href="/m/app">App</a> of the system
 </body>
 </html>
 EOF
