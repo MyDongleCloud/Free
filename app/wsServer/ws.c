@@ -82,6 +82,7 @@ struct ws_connection
 	/* IP address and port. */
 	char ip[1025]; /* NI_MAXHOST. */
 	char port[32]; /* NI_MAXSERV. */
+	char path[256];
 
 	/* Ping/Pong IDs and locks. */
 	int32_t last_pong_id;
@@ -889,6 +890,13 @@ int ws_close_client(ws_cli_conn_t *client)
 	return (0);
 }
 
+char *ws_getpath(ws_cli_conn_t *client) {
+	if (!CLIENT_VALID(client))
+		return (NULL);
+
+	return (client->path);
+}
+
 /**
  * @brief Checks is a given opcode @p frame
  * belongs to a control frame or not.
@@ -944,6 +952,21 @@ static int do_handshake(struct ws_frame_data *wfd)
 	/* Read the very first client message. */
 	if ((n = RECV(wfd->client, wfd->frm, sizeof(wfd->frm) - 1)) < 0)
 		return (-1);
+
+	wfd->client->path[0] = '\0';
+	char *request_line = (char *)wfd->frm;
+	char *path_start = strchr(request_line, ' ');
+	if (path_start) {
+		path_start++; // Skip the space after GET
+		char *path_end = strchr(path_start, ' ');
+		if (path_end) {
+			size_t path_len = path_end - path_start;
+			if (path_len < sizeof(wfd->client->path)) {
+				memcpy(wfd->client->path, path_start, path_len);
+				wfd->client->path[path_len] = '\0';
+			}
+		}
+	}
 
 	/* Advance our pointers before the first next_byte(). */
 	p = strstr((const char *)wfd->frm, "\r\n\r\n");
