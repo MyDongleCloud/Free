@@ -74,7 +74,7 @@ static int serverReadDataBle(unsigned char *data_, int size) {
 
 static int le_callback(int clientnode, int operation, int cticn) {
 	if(operation == LE_CONNECT) {
-		communicationConnection(1);
+		communicationConnection(1, 1);
 		PRINTF("le_callback connect from %s(%d)\n", device_name(clientnode), clientnode);
 		buzzer(1);
 		communicationDoState();
@@ -88,7 +88,7 @@ static int le_callback(int clientnode, int operation, int cticn) {
 		PRINTF("le_callback: len=%d 0x%x=%d\n", nread, buf[0], buf[0]);
 		serverReadDataBle(buf, nread);
 	} else if(operation == LE_DISCONNECT) {
-		communicationConnection(0);
+		communicationConnection(1, 0);
 		PRINTF("le_callback: disconnect from %s\n", device_name(clientnode));
 		buzzer(3);
 	} else if(operation == LE_TIMER) {

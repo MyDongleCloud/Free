@@ -39,5 +39,5 @@ void serverReceiveHtml(char *st, int isB64) {
 
 //HTML -> C
 void communicationStatus(int s) {
-	communicationConnection(s);
+	communicationConnection(2, s);
 }

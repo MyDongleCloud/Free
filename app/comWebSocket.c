@@ -28,6 +28,8 @@ static void onopen(ws_cli_conn_t *client) {
 	ll->client = client;
 	const char *resource = ws_getpath(client);
 	ll->isWeb = strcmp(resource, "/ws/") == 0;
+	if (ll->isWeb)
+		communicationConnection(0, 1);
 	ll->next = NULL;
 	if (first == NULL) {
 		ll->previous = NULL;
@@ -38,13 +40,11 @@ static void onopen(ws_cli_conn_t *client) {
 		ll->previous = last;
 	}
 	pthread_mutex_unlock(&listMutex);
-	communicationConnection(2);
 	communicationDoState();
 }
 
 static void onclose(ws_cli_conn_t *client) {
 	PRINTF("comWebSocket: onclose %s\n", ws_getaddress(client));
-	communicationConnection(0);
 	pthread_mutex_lock(&listMutex);
 	list *c = first;
 	while (c) {
@@ -63,12 +63,21 @@ static void onclose(ws_cli_conn_t *client) {
 				((list *)c->next)->previous = c->previous;
 			}
 			free(c);
+			list *curr = first;
+			while (curr) {
+				if (curr->isWeb) {
+					pthread_mutex_unlock(&listMutex);
+					return;
+				}
+				curr = curr->next;
+			}
+			communicationConnection(0, 0);
 			pthread_mutex_unlock(&listMutex);
 			return;
 		}
 		c = c->next;
 	}
-	PRINTF("WebSocket: This case is not possible\n");
+	PRINTF("WebSocket: Lost client in list\n");
 	pthread_mutex_unlock(&listMutex);
 }
 
@@ -80,7 +89,10 @@ int serverWriteDataWebSocket(unsigned char *data, int size) {
 	pthread_mutex_lock(&listMutex);
 	int count = 0;
 	list *curr = first;
-	while (curr) { count++; curr = curr->next; }
+	while (curr) {
+		count++;
+		curr = curr->next;
+	}
 	if (count == 0) {
 		pthread_mutex_unlock(&listMutex);
 		return 0;

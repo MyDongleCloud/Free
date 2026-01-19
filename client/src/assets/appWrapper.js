@@ -77,11 +77,9 @@ function appServerReceiveHtml(data, doB64) {
 }
 
 function appConnectToggle(onoff) {
-console.log("appConnectToggle", onoff);
 	if (typeof onoff == "undefined")
 		onoff = socket == null;
 	if (!onoff && socket != null) {
-		socket.send(JSON.stringify({ a:"connection", c:0 }));
 		socket.close();
 		socket = null;
 		if (thisble) thisble.connectedWS = 0;

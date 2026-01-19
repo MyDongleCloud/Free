@@ -191,7 +191,7 @@ async connectToBluetoothDevice(devId: string) {
 		this.communicationEvent.next({ msg:"connection" });
 		return;
 	}
-	appCommunicationStatus(3);
+	appCommunicationStatus(1);
 	this.global.consolelog(1, "connectToBluetoothDevice device success!");
 	this.connectedBLE = 2;
 	this.global.refreshUI.next(true);

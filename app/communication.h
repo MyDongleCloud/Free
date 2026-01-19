@@ -5,7 +5,7 @@
 extern int communicationConnected;
 
 //Functions
-void communicationConnection(int s);
+void communicationConnection(int typ, int val);
 int communicationString(char *sz);
 int communicationJSON(void *el);
 int communicationState();

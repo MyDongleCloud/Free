@@ -50,23 +50,27 @@
 int communicationConnected = 0;
 
 //Functions
-void communicationConnection(int s) {
-	communicationConnected = s;
-	if (slaveMode && s == 0)
+void communicationConnection(int typ, int val) {
+	//type is 0:Websocket, 1:BLE, 2:HTML
+	if (val)
+		communicationConnected |= 1 << typ;
+	else
+		communicationConnected &= 7 & ~(1 << typ);
+	if (slaveMode && val == 0)
 		logicSlaveNotConnected();
 }
 
 int communicationString(char *sz) {
-	int ret;
 #ifdef WEB
-	ret = serverWriteDataHtml(sz, strlen(sz));
+	return serverWriteDataHtml(sz, strlen(sz));
 #else
-	if (communicationConnected == 1)
-		ret = serverWriteDataBle(sz, strlen(sz));
-	else if (communicationConnected == 2)
-		ret = serverWriteDataWebSocket(sz, strlen(sz));
+	int retB = 0, retWS = 0;
+	if (communicationConnected & 1)
+		retWS = serverWriteDataWebSocket(sz, strlen(sz));
+	if (communicationConnected & 2)
+		retB = serverWriteDataBle(sz, strlen(sz));
+	return retB != 0 ? retB : retWS;
 #endif
-	return ret;
 }
 
 int communicationJSON(void *el) {
@@ -187,9 +191,6 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			touchClick();
 			cloudInit();
 #endif
-		} else if (strcmp(action, "connection") == 0) {
-			int c = (int)cJSON_GetNumberValue2(el, "c");
-			communicationConnection(c);
 		} else if (strcmp(action, "date") == 0) {
 			;
 		} else {
