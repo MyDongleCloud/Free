@@ -303,11 +303,11 @@
 				<tr *ngIf="cards[cardIdCur].services"><td colspan="3" class="h-2"></td></tr>
 				<tr *ngIf="cards[cardIdCur].services"><td colspan="3" class="h-px bg--gray-300"></td></tr>
 				<tr *ngIf="cards[cardIdCur].services"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[cardIdCur].services"><td>Refresh</td><td width="20"></td><td><ion-button (click)="moduleRefresh()"><ion-icon name="refresh-outline" size="medium"></ion-icon>Refresh</ion-button></td></tr>
+				<tr *ngIf="cards[cardIdCur].services"><td>Refresh</td><td width="20"></td><td><ion-button (click)="moduleRefresh()" [disabled]="cards[cardIdCur].notReady != 0"><ion-icon name="refresh-outline" size="medium"></ion-icon>Refresh</ion-button></td></tr>
 				<tr *ngIf="cards[cardIdCur].reset"><td colspan="3" class="h-2"></td></tr>
 				<tr *ngIf="cards[cardIdCur].reset"><td colspan="3" class="h-px bg--gray-300"></td></tr>
 				<tr *ngIf="cards[cardIdCur].reset"><td colspan="3" class="h-2"></td></tr>
-				<tr *ngIf="cards[cardIdCur].reset"><td>Reset</td><td width="20"></td><td><ion-button (click)="moduleReset()"><ion-icon name="alert-circle-outline" size="medium"></ion-icon>Reset</ion-button></td></tr>
+				<tr *ngIf="cards[cardIdCur].reset"><td>Reset</td><td width="20"></td><td><ion-button (click)="moduleReset()" [disabled]="cards[cardIdCur].notReady != 0"><ion-icon name="alert-circle-outline" size="medium"></ion-icon>Reset</ion-button></td></tr>
 			</table></div>
 	</ng-template>
 </ion-modal>
