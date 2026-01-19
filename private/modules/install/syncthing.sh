@@ -1,5 +1,6 @@
 #!/bin/sh
 
-cd /usr/local/modules/syncthing
-go run build.go
-cp bin/syncthing /usr/local/bin
+cd /home/ai/build
+wget -nv https://github.com/syncthing/syncthing/releases/download/v2.0.13/syncthing-linux-arm64-v2.0.13.tar.gz
+tar -xpf syncthing-linux*
+mv syncthing-linux*/syncthing /usr/local/bin

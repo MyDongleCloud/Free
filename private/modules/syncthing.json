@@ -3,8 +3,8 @@
 	"name": "Syncthing",
 	"title": "File Sync",
 	"category": "Utils",
-	"version": "1.30.0",
-	"installMethod": "clone",
+	"version": "2.0.13",
+	"installMethod": "wget",
 	"web": true,
 	"essential": false,
 	"finished": true,
@@ -36,6 +36,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"permissionsPublicForbidden": true,
 		"reset": true,
 		"reverseProxy": [
 			{

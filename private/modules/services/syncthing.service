@@ -4,8 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/syncthing
-WorkingDirectory=/disk/admin/modules/syncthing
+ExecStart=/usr/local/bin/syncthing --no-browser --home=/disk/admin/modules/syncthing/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
