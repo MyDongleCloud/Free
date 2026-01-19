@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "WireGuard/wireguard-tools",
-	"description": "",
+	"description": "The tools for the VPN integrated directly into the Linux kernel.",
 	"keywords": [
 		"Privacy",
 		"Private",
