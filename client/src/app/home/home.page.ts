@@ -252,7 +252,7 @@ closeModuleSettings() {
 }
 
 ngOnInit() {
-	if (!this.global.settings.welcomeTourShown) {
+	if (!this.global.developer && !this.global.settings.welcomeTourShown) {
 		setTimeout(() => {
 		    this.joyrideService.startTour({
 				steps: ["anchor1", "anchor2", "anchor3", "anchor4", "anchor5", "anchor6", "anchor7", "anchor8", "anchor9", "anchor10"]
