@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 mkdir -p /etc/pihole
 cat > /etc/pihole/setupVars.conf << EOF
 PIHOLE_INTERFACE=eth0

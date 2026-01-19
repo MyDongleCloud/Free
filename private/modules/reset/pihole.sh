@@ -7,7 +7,7 @@ echo "h:	Print this usage and exit"
 exit 0
 }
 
-if [ "m`id -u`" = "m0" ]; then
+if [ "m`id -u`" != "m0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
