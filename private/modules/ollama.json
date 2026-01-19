@@ -7,7 +7,7 @@
 	"installMethod": "clone",
 	"web": false,
 	"essential": false,
-	"finished": false,
+	"finished": true,
 	"ai": true,
 	"database": "",
 	"github": "ollama/ollama",
