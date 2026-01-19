@@ -32,7 +32,16 @@ while [ $TIMEOUT -gt 0 ]; do
 		break
 	fi
 done
-sleep 5
+TIMEOUT=20
+while [ $TIMEOUT -gt 0 ]; do
+	sleep 3
+	TIMEOUT=$((TIMEOUT - 1))
+	[ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for jellyfin" && exit
+	response=`curl -sS -X POST http://localhost:8100/graphql -H "Content-Type: application/json" --data-binary "{}"`
+	if [ $? = 0 ]; then
+		break
+	fi
+done
 echo "Doing tabby user"
 
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
