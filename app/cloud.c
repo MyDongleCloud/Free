@@ -15,6 +15,9 @@
 #include "language.h"
 #include "apache2.h"
 
+//Define
+#define PERFORMANCE
+
 //Private variables
 static pthread_mutex_t cloudMutex = PTHREAD_MUTEX_INITIALIZER;
 static int inSetup = 0;
@@ -44,6 +47,10 @@ void cloudInit() {
 }
 
 static void setup(int i, int total, char *name, int root, cJSON *modules) {
+#ifdef PERFORMANCE
+	struct timespec ts_proc1;
+	clock_gettime(CLOCK_REALTIME, &ts_proc1);
+#endif
 	int p = RANGE(1, 99, i * 100 / total);
 	logicSetup(name, p);
 	char sz[256];
@@ -55,6 +62,11 @@ static void setup(int i, int total, char *name, int root, cJSON *modules) {
 	cJSON_AddBoolToObject(el, "setupDone", 1);
 	cJSON_AddItemToObject(modules, name, el);
 	jsonWrite(modules, ADMIN_PATH "_config_/_modules_.json");
+#ifdef PERFORMANCE
+	struct timespec ts_proc2;
+	clock_gettime(CLOCK_REALTIME, &ts_proc2);
+	PRINTF("Setup %s: %.1fs\n", name, (float)deltaTime(ts_proc2, ts_proc1) / 1000.0f);
+#endif
 }
 
 void setupLoop(int *i, int total, cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn, int priority) {

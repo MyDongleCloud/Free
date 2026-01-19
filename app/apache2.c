@@ -9,6 +9,9 @@
 #include "json.h"
 #include "base64.h"
 
+//Define
+//#define PERFORMANCE
+
 //Functions
 static void writePermissions(cJSON *elPermissions, cJSON *elLocalRanges, FILE *pfM) {
 //Permissions: [ "_public_", "_dongle_", "_localnetwork_", "_groupadmin_", "_groupuser_", "admin", "user", ... ]
@@ -120,7 +123,10 @@ void rewrite(cJSON *el_Module, cJSON *el_Module2, int port, FILE *pfM) {
 }
 
 void buildApache2Conf(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn) {
-	PRINTF("Modules:Apache2: Enter\n");
+#ifdef PERFORMANCE
+	struct timespec ts_proc1;
+	clock_gettime(CLOCK_REALTIME, &ts_proc1);
+#endif
 #ifdef DESKTOP
 	FILE *pfP = fopen("/tmp/ports.conf", "w");
 #else
@@ -358,4 +364,9 @@ begin:
 	}
 	fclose(pfP);
 	fclose(pfM);
+#ifdef PERFORMANCE
+	struct timespec ts_proc2;
+	clock_gettime(CLOCK_REALTIME, &ts_proc2);
+	PRINTF("Apache2_conf: %4.1fms\n", (float)deltaTime(ts_proc2, ts_proc1));
+#endif
 }
