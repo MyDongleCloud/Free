@@ -27,7 +27,7 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	this.dSave = true;
 	this.getExternalIP().then((ip) => {
 		this.externalIP = ip;
-		if (this.externalIP == this.global.session?.hardware?.externalIP && this.global.session?.hardware?.internalIP != "")
+		if (!this.global.developer && !this.global.demo && this.externalIP == this.global.session?.hardware?.externalIP && this.global.session?.hardware?.internalIP != "")
 			this.global.presentToast("You seem to be on the same network as the " + global.session?.hardware?.model + ". You can have direct access through <a href='http://" + this.global.session?.hardware?.internalIP + ":9400' class='underline' target='_blank'>http://" + this.global.session?.hardware?.internalIP + ":9400</a>", "help-outline", 10000);
 	});
 }
