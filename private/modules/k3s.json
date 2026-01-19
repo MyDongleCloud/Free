@@ -1,7 +1,7 @@
 {
 	"module": "k3s",
 	"name": "Lightweight Kubernetes",
-	"title": "XXX",
+	"title": "Lightweight Container",
 	"category": "Server",
 	"version": "v1.35.0+k3s1",
 	"installMethod": "clone",
