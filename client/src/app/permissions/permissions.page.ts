@@ -143,6 +143,8 @@ async save() {
 					this.modules[module]["permissions"].push("_groupadmin_");
 				if (this.cards[i]["buser"])
 					this.modules[module]["permissions"].push("_groupuser_");
+				if (this.cards[i]["bDongle"])
+					this.modules[module]["permissions"].push("_dongle_");
 			}
 		}
 	const ret = await this.httpClient.post("/_app_/auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
@@ -177,11 +179,13 @@ async getData(force = false) {
 			value["bLocal"] = false;
 			value["bAdmin"] = false;
 			value["bUser"] = false;
+			value["bDongle"] = false;
 			for (let i = 0; i < value["permissions"].length; i++) {
 				value["bPublic"] ||= value["permissions"][i] == "_public_";;
 				value["bLocal"] ||= value["permissions"][i] == "_localnetwork_";
 				value["bAdmin"] ||= value["permissions"][i] == "_groupadmin_";
 				value["bUser"] ||= value["permissions"][i] == "_groupuser_";
+				value["bDongle"] ||= value["permissions"][i] == "_dongle_";
 			}
 			value["hits"] = this.stats?.[key]?.hits ?? 0;
 			this.cards.push(value);
