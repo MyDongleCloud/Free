@@ -37,9 +37,12 @@ while [ $TIMEOUT -gt 0 ]; do
 	sleep 3
 	TIMEOUT=$((TIMEOUT - 1))
 	[ $TIMEOUT -eq 0 ] && echo "Timeout api waiting for jellyfin" && exit
-	STATUS=`curl -sS -X POST "$URL/Startup/Configuration" -H "Content-Type: application/json" -d '{"UICulture":"en-US", "MetadataCountryCode":"US", "PreferredMetadataLanguage":"en"}' | grep -q -v "Jellyfin Server still starting. Please wait."`
-	if [ $? != 0 ]; then
-		break
+	response=`curl -sS -X POST "$URL/Startup/Configuration" -H "Content-Type: application/json" -d '{"UICulture":"en-US", "MetadataCountryCode":"US", "PreferredMetadataLanguage":"en"}'`
+	if [ $? = 0 ]; then
+		echo $response | grep -q -e "Please wait." -e "Please try again shortly."
+		if [ $? = 1 ]; then
+			break
+		fi
 	fi
 done
 echo "Doing jellyfin user"
@@ -47,7 +50,6 @@ echo "Doing jellyfin user"
 CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
-sleep 5
 response=`curl -sS -X POST "$URL/Startup/Configuration" -H "Content-Type: application/json" -d '{"UICulture":"en-US", "MetadataCountryCode":"US", "PreferredMetadataLanguage":"en"}'`
 response=`curl -sS -X GET "$URL/Startup/FirstUser"`
 data="{ \"Name\":\"$CLOUDNAME\", \"Password\": \"$PASSWD\" }"
@@ -56,7 +58,6 @@ response=`curl -sS -X POST "$URL/Startup/Complete"`
 
 data="{ \"Username\":\"$CLOUDNAME\", \"Pw\": \"$PASSWD\" }"
 response=`curl -sS -X POST "$URL/Users/AuthenticateByName" -H "Content-Type: application/json" -H 'X-Emby-Authorization: MediaBrowser Client="AutomatedScript", Device="Linux", DeviceId="12345", Version="1.0.0"' -d "$data"`
-#echo $response
 token=`echo $response | jq -r ".AccessToken"`
 #echo "token: $token"
 
