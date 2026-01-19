@@ -14,8 +14,8 @@ EOF
 sleep 5
 echo "" | pihole setpassword
 sed -i -e 's@^  port = ".*@  port = "8110"@' /etc/pihole/pihole.toml
-sed -i -e 's@^	webroot =.*@	webroot = "/usr/local/modules/pihole/admin"@' /etc/pihole/pihole.toml
-sed -i -e 's@^	webhome =.*@	webhome = "/"@' /etc/pihole/pihole.toml
+sed -i -e 's@^    webroot =.*@    webroot = "/usr/local/modules/pihole/admin"@' /etc/pihole/pihole.toml
+sed -i -e 's@^    webhome =.*@    webhome = "/"@' /etc/pihole/pihole.toml
 sleep 1
 systemctl stop pihole-FTL.service
 systemctl disable pihole-FTL.service

@@ -32,7 +32,7 @@ frontend:
 http:
   use_x_forwarded_for: true
   trusted_proxies:
-	- ::1
+    - ::1
 EOF
 systemctl start homeassistant.service
 systemctl enable homeassistant.service
