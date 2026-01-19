@@ -38,10 +38,10 @@ cJSON *fqdnInit(cJSON *elCloud) {
 }
 
 void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
-	PRINTF("Modules:Setup: Enter\n");
+	//PRINTF("Modules:Setup: Enter\n");
 	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "info"))
 		return;
-	PRINTF("Modules:Setup: Do\n");
+	//PRINTF("Modules:Setup: Do\n");
 	cJSON *fqdn = fqdnInit(elCloud);
 	cJSON *elModule;
 	cJSON_ArrayForEach(elModule, modulesDefault) {
