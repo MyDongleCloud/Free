@@ -7,7 +7,7 @@
 	"installMethod": "clone",
 	"web": true,
 	"essential": false,
-	"finished": true,
+	"finished": false,
 	"ai": false,
 	"database": "postgresql",
 	"github": "automatisch/automatisch",
