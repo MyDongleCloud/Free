@@ -90,7 +90,7 @@
 							<ion-icon [name]="card?.tag ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="tag(card.module)" [class]="card?.tag ? '' : 'text--gray-300'" *ngIf="card.web"></ion-icon>
 							<ion-icon name="cloud-offline-outline" class="w-5 h-5 text--red-500 mr-2" *ngIf="card.web && (!card.enabled || card.notReady != 0)"></ion-icon>
 							<ion-icon [name]="card.permissions[0] == '_public_' ? 'lock-open-outline' : 'lock-closed-outline'" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.web && (card.enabled && card.notReady == 0)"></ion-icon>
-							<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.config"></ion-icon>
+							<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.config || card.reset"></ion-icon>
 							<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 						</div>
 						<div class="min-w-full flex items-center mt-2 mb-2 overflow-hidden">
