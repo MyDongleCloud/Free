@@ -70,6 +70,7 @@
 	},
 	"login": {
 		"Already have an account?": "",
+		"and": "",
 		"A magic link has been sent to": "",
 		"Back to sign in": "",
 		"Check your email": "",
@@ -84,6 +85,7 @@
 		"Enter OTP or TOTP": "",
 		"Forgot password?": "",
 		"Forgot your\nPassword?": "",
+		"I agree to the": "",
 		"Join this MyDongle Cloud!": "",
 		"Must be agreed": "",
 		"Must be at least 2 characters": "",
@@ -105,6 +107,7 @@
 		"Sign in here": "",
 		"Sign in to your account to continue": "",
 		"Sign up!": "",
+		"Terms of Service": "",
 		"Welcome\nback!": ""
 	},
 	"permissions": {
@@ -178,6 +181,7 @@
 	"setup": {
 		"Admin": "",
 		"Admin\nAccount": "",
+		"and": "",
 		"Already have a dongle?": "",
 		"and all subdomains": "",
 		"Bring Your Own Domain (optional)": "",

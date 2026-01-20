@@ -70,6 +70,7 @@
 	},
 	"login": {
 		"Already have an account?": "Avez-vous déjà un compte ?",
+		"and": "et",
 		"A magic link has been sent to": "Un lien magique a été envoyé à",
 		"Back to sign in": "Retour à la connexion",
 		"Check your email": "Vérifiez votre e-mail",
@@ -84,6 +85,7 @@
 		"Enter OTP or TOTP": "Entrez le code OTP ou TOTP",
 		"Forgot password?": "Mot de passe oublié ?",
 		"Forgot your\nPassword?": "Oublié votre",
+		"I agree to the": "J'accepte les",
 		"Join this MyDongle Cloud!": "Rejoignez ce MyDongle Cloud !",
 		"Must be agreed": "Doit être accepté",
 		"Must be at least 2 characters": "Doit être d'au moins 2 caractères",
@@ -105,6 +107,7 @@
 		"Sign in here": "Se connecter ici",
 		"Sign in to your account to continue": "Connectez-vous à votre compte pour continuer",
 		"Sign up!": "Inscrivez-vous !",
+		"Terms of Service": "Conditions d'Utilisation",
 		"Welcome\nback!": "Ravi de\nvous revoir"
 	},
 	"permissions": {
@@ -178,6 +181,7 @@
 	"setup": {
 		"Admin": "Admin",
 		"Admin\nAccount": "Compte de\nl'Administrateur",
+		"and": "et",
 		"Already have a dongle?": "Vous avez déjà un dongle ?",
 		"and all subdomains": "et tous les sous-domaines",
 		"Bring Your Own Domain (optional)": "Apportez votre propre domaine (facultatif)",

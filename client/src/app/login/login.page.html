@@ -176,7 +176,7 @@
 							<input name="terms2" type="checkbox" formControlName="terms2" required class="w-4 h-4 text--blue-600 focus:ring--blue-700 border--gray-300 rounded">
 						</div>
 						<div class="ml-3 text-sm">
-							<label for="terms2" class="text--gray-700">{{L("I agree to the")}} <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Terms of Service")}}</a> and <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Privacy Policy")}}</a></label>
+							<label for="terms2" class="text--gray-700">{{L("I agree to the")}} <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Terms of Service")}}</a> {{L("and")}} <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Privacy Policy")}}</a></label>
 						</div>
 					</div>
 					@if (terms2?.errors?.["required"] && terms2?.touched) {
