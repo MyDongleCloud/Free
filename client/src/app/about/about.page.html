@@ -5,6 +5,7 @@
 		<div class="p-6	flex flex-col gap-3 items-start">
 			<div long-press (press)="longCopyright()" class="font-bold cursor-pointer">&copy; {{L("Copyright")}} {{L("My")}}Dongle.Cloud 2025.</div>
 			<div>{{L("App Version:")}} {{global.VERSION}} ({{LG(global.getMonth(global.VERSION))}})</div>
+			<div *ngIf="global.developer">{{L("The developer mode is enabled.")}}</div>
 			<div>{{L("Dongle Version:")}} {{ble.firmwareDeviceVersion}} {{LG(global.getMonth(ble.firmwareDeviceVersion))}}</div>
 		</div>
 	</div>
