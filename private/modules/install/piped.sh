@@ -16,6 +16,7 @@ sync
 echo 3 > /proc/sys/vm/drop_caches
 
 cd ../pipedproxy
+apt-get -y install -t trixie-backports rustc
 cargo build --release
 sync
 echo 3 > /proc/sys/vm/drop_caches
