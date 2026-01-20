@@ -22,7 +22,7 @@ done
 echo "#Create user openwebui##################"
 PORT=8101
 URL="http://localhost:$PORT"
-TIMEOUT=20
+TIMEOUT=40
 while [ $TIMEOUT -gt 0 ]; do
 	sleep 3
 	TIMEOUT=$((TIMEOUT - 1))
