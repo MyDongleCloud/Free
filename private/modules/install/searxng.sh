@@ -3,7 +3,7 @@
 apt-get -y install python3-dev python3-babel python3-venv python-is-python3 uwsgi uwsgi-plugin-python3 git build-essential libxslt-dev zlib1g-dev libffi-dev libssl-dev python-is-python3
 
 cd /usr/local/modules/searxng
-/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/searxng/penv -s -v 3.11
+/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/searxng/penv -s -v 3.11
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/searxng/penv/bin:$PATHOLD
