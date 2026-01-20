@@ -9,34 +9,34 @@
 			<table class="min-w-full divide-y divide--gray-300">
 				<thead class="bg--gray-50 sticky top-0 z-10">
 					<tr>
-						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500 tracking-wider">{{L("EMAIL")}}</th>
+						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500">{{L("EMAIL")}}</th>
 						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500">{{L("USERNAME")}}</th>
 						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500">{{L("ROLE")}}</th>
-						<th scope="col" class="py-3 text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("USER\nAPPROVED")}}</th>
-						<th scope="col" class="py-3 text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("EMAIL\nVERIFIED")}}</th>
-						<th scope="col" class="py-3 text-xs font-medium text--gray-500 tracking-wider">{{L("2FA")}}</th>
+						<th scope="col" align="center" class="px-2 py-3 text-xs font-medium text--gray-500 whitespace-pre-wrap">{{L("RESET\nPASSWORD")}}</th>
+						<th scope="col" align="center" class="py-3 text-xs font-medium text--gray-500 whitespace-pre-wrap">{{L("USER\nAPPROVED")}}</th>
+						<th scope="col" align="center" class="py-3 text-xs font-medium text--gray-500 whitespace-pre-wrap">{{L("EMAIL\nVERIFIED")}}</th>
+						<th scope="col" align="center" class="py-3 text-xs font-medium text--gray-500">{{L("2FA")}}</th>
 					</tr>
 				</thead>
 				<tbody class="divide-y divide--gray-200">
 					<tr class="hover:bg--gray-50" *ngFor="let user of users?.users;">
 						<td class="px-2 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900">{{user["email"]}}</div>
+							<div class="text-sm font-medium text--gray-900"><input type="text" (change)="setEmail(user['id'], $event)" [value]="user['email']"></div>
 						</td>
 						<td class="px-2 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900">{{user["username"]}}</div>
+							<div class="text-sm font-medium text--gray-900"><input type="text" (change)="setUsername(user['id'], $event)" [value]="user['username']"></div>
 						</td>
 						<td class="px-2 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900">{{user["username"] == global.session.cloud.info.name ? "super admin" : user["role"]}}</div>
+							@if (user["username"] == global.session.cloud.info.name) {
+							<div class="text-sm font-medium text--gray-900">super admin</div>
+							} @else {
+							<div class="text-sm font-medium text--gray-900"><select (change)="setRole(user['id'], $event)"><option value="user" [selected]="user['role']==='user'">user</option><option value="admin" [selected]="user['role']==='admin'">admin</option></select></div>
+							}
 						</td>
-						<td class="py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['approved']" disabled="true" class="form-checkbox h-4 w-4"></div>
-						</td>
-						<td class="py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['emailVerified']" disabled="true" class="form-checkbox h-4 w-4"></div>
-						</td>
-						<td class="py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['twoFactorEnabled']" disabled="true" class="form-checkbox h-4 w-4"></div>
-						</td>
+						<td align="center" class="py-4 whitespace-nowrap"><ion-icon name="refresh-circle-outline" class="w-6 h-6" (click)="resetPassword(user['id'])"></ion-icon></td>
+						<td align="center" class="py-4 whitespace-nowrap text-sm font-medium text--gray-900"><input type="checkbox" (change)="setApproved(user['id'], $event)" [checked]="user['approved']" [disabled]="user['username'] == global.session.cloud.info.name" class="form-checkbox h-4 w-4"></td>
+						<td align="center" class="py-4 whitespace-nowrap text-sm font-medium text--gray-900"><input type="checkbox" [checked]="user['emailVerified']" disabled="true" class="form-checkbox h-4 w-4"></td>
+						<td align="center" class="py-4 whitespace-nowrap text-sm font-medium text--gray-900"><input type="checkbox" [checked]="user['twoFactorEnabled']" disabled="true" class="form-checkbox h-4 w-4"></td>
 					</tr>
 				</tbody>
 			</table>
