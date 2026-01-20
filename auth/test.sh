@@ -57,7 +57,7 @@ if [ $CREATE = 1 ]; then
 	echo "############### Create"
 	RET_CREATE=`curl -sS --fail -X POST http://localhost:8091/auth/sign-up/email -H "Content-Type: application/json" -d '{"email":"john.doe@example.com", "name":"John Doe", "password":"demodemo"}' -c /tmp/cookie.txt`
 	echo $RET_CREATE | jq
-	RET_CREATE2=`curl -sS --fail -X POST http://localhost:8091/auth/sign-up/email -H "Content-Type: application/json" -d '{"email":"jean.dupont@exemple.fr", "name":"Jean Dupont", "password":"demodemo"}'`
+	RET_CREATE2=`curl -sS --fail -X POST http://localhost:8091/auth/sign-up/email -H "Content-Type: application/json" -d '{"email":"jean.dupont@exemple.fr", "name":"Jean Dupont", "username":"jeandupont", "password":"demodemo"}'`
 	echo $RET_CREATE2 | jq
 fi
 if [ $UPDATE = 1 ]; then
