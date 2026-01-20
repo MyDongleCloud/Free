@@ -58,9 +58,9 @@ async function getExternalIp() {
 			const data = await response.json();
 			return data["ip"];
 		}
-    } catch (error) {
-        console.error("Cannot get external IP address", error);
-    }
+	} catch (error) {
+		console.error("Cannot get external IP address", error);
+	}
 	return "";
 }
 getExternalIp().then((ip) => { hardware["externalIP"] = ip; });
@@ -357,7 +357,7 @@ export const auth = betterAuth({
 	secret: readFileSync(secretPath, "utf-8").trim(),
 	baseURL: "http://localhost:" + port + "/auth",
 	database: new Database(databasePath),
-	emailAndPassword: { enabled: true },
+	emailAndPassword: { enabled:true, autoSignIn:false },
 	advanced: { disableOriginCheck: process.env.PRODUCTION !== "true" },
 	user: {
 		deleteUser: {
@@ -493,6 +493,9 @@ export const auth = betterAuth({
 						}
 						user.username = cloudF.info.name;
 						user.role = "admin";
+					} else {
+						if (user.username === undefined)
+							user.username = "user-" + Math.floor(Math.random() * 99999);
 					}
 					return { data: { ...user } };
 				}
