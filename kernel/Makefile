@@ -1,7 +1,4 @@
-VERSION=$(shell uname -r)
-ifeq ($(wildcard /lib/modules/$(VERSION)/.),)
-	VERSION=$(shell ls /lib/modules/ | grep 6.12)
-endif
+VERSION := $(shell ls -1 /lib/modules | sort -V | tail -n 1)
 
 obj-m := st7735s.o dongle.o
 
