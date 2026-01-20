@@ -1,7 +1,7 @@
 #!/bin/sh
 
 apt-get -y install redis-server optipng pngquant jhead jpegoptim gifsicle nodejs imagemagick ffmpeg libpq-dev libxml2-dev libxslt1-dev file g++ libprotobuf-dev protobuf-compiler pkg-config gcc autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev libidn11-dev libicu-dev libjemalloc-dev
-apt-get -y install libvips libvips-dev
+apt-get -y install libvips libvips-dev libicu-dev libidn11-dev
 
 cd /usr/local/modules/mastodon
 gem install bundler
