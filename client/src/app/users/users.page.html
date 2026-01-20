@@ -9,11 +9,12 @@
 			<table class="min-w-full divide-y divide--gray-300">
 				<thead class="bg--gray-50 sticky top-0 z-10">
 					<tr>
-						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500">{{L("EMAIL")}}</th>
+						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500 tracking-wider">{{L("EMAIL")}}</th>
 						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500">{{L("USERNAME")}}</th>
 						<th scope="col" align="left" class="px-2 py-3 text-xs font-medium text--gray-500">{{L("ROLE")}}</th>
-						<th scope="col" class="py-3 text-xs font-medium text--gray-500">{{L("2FA")}}</th>
-						<th scope="col" class="py-3 text-xs font-medium text--gray-500">{{L("EMAIL VERIFIED")}}</th>
+						<th scope="col" class="py-3 text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("USER\nAPPROVED")}}</th>
+						<th scope="col" class="py-3 text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("EMAIL\nVERIFIED")}}</th>
+						<th scope="col" class="py-3 text-xs font-medium text--gray-500 tracking-wider">{{L("2FA")}}</th>
 					</tr>
 				</thead>
 				<tbody class="divide-y divide--gray-200">
@@ -28,10 +29,13 @@
 							<div class="text-sm font-medium text--gray-900">{{user["username"] == global.session.cloud.info.name ? "super admin" : user["role"]}}</div>
 						</td>
 						<td class="py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['twoFactorEnabled']" disabled="true" class="form-checkbox h-4 w-4"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['approved']" disabled="true" class="form-checkbox h-4 w-4"></div>
 						</td>
 						<td class="py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['emailVerified']" disabled="true" class="form-checkbox h-4 w-4"></div>
+						</td>
+						<td class="py-4 whitespace-nowrap">
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="user['twoFactorEnabled']" disabled="true" class="form-checkbox h-4 w-4"></div>
 						</td>
 					</tr>
 				</tbody>

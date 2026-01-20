@@ -54,7 +54,7 @@ else
 		npm install
 	fi
 	if [ ! -d ../rootfs/disk/admin/modules/betterauth/ ]; then
-		echo '{ "info":{ "domains":[], "language":"en", "name":"johndoe", "shortname":"jd" }, "security":{ "adminSudo":true, "autoLogin":true, "signInNotification":false, "includeTorrent":true, "updateRemoteIP":true } }' > ../rootfs/disk/admin/modules/_config_/_cloud_.json
+		echo '{ "info":{ "domains":[], "language":"en", "name":"johndoe", "shortname":"jd" }, "security":{ "adminSudo":true, "autoLogin":true, "newUserNeedsApproval": true, "signInNotification":false, "includeTorrent":true, "updateRemoteIP":true } }' > ../rootfs/disk/admin/modules/_config_/_cloud_.json
 		mkdir -p ../rootfs/disk/admin/modules/betterauth
 		npx @better-auth/cli migrate -y
 		(sleep 3 && ./test.sh -c) &

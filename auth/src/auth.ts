@@ -374,6 +374,12 @@ export const auth = betterAuth({
 				defaultValue: "user",
 				input: false
 			},
+			approved: {
+				type: "boolean",
+				required: true,
+				defaultValue: false,
+				input: false
+			},
 			settings: {
 				type: "string",
 				required: true,
@@ -431,6 +437,21 @@ export const auth = betterAuth({
 		mdcEndpoints()
 	],
 	hooks: {
+		before: createAuthMiddleware(async (ctx) => {
+			if (cloud?.security?.newUserNeedsApproval === true && (ctx.path == "/sign-in/email" || ctx.path == "/sign-in/username")) {
+				const body = ctx.body;
+				const identifier = body?.email || body?.username;
+				console.log("Attempting login for: " + identifier);
+				const user = await ctx.context.adapter.findOne({
+					model: "user",
+					where: [ { field: ctx.path === "/sign-in/email" ? "email" : "username", value: identifier } ]
+				});
+				if (user && !user["approved"]) {
+					console.log(identifier + " is pending admin approval.");
+					throw new APIError("UNAUTHORIZED", { message: "Your account is pending admin approval." });
+				}
+			}
+		}),
 		after: createAuthMiddleware(async (ctx) => {
 /*
 			console.log("###########################");
@@ -492,6 +513,7 @@ export const auth = betterAuth({
 							console.log("PROBLEM: Creating first user but _cloud_.json is empty");
 						}
 						user.username = cloudF.info.name;
+						user.approved = true;
 						user.role = "admin";
 					} else {
 						if (user.username === undefined)

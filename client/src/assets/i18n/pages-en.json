@@ -229,9 +229,11 @@
 		"2FA": "",
 		"Full users management is available in the module": "",
 		"EMAIL": "",
-		"EMAIL VERIFIED": "",
+		"EMAIL\nVERIFIED": "",
 		"ROLE": "",
-		"USERNAME": ""
+		"Users": "",
+		"USERNAME": "",
+		"USER\nAPPROVED": ""
 	},
 	"wrapper": {
 		"The integration of this module is not yet finished. Check the next monthly release of MyDongle.Cloud.": "",
