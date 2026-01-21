@@ -2,9 +2,10 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for setup [-h -u u] name"
+echo "Usage for setup [-h -u u -s 0-1] name"
 echo "h:	Print this usage and exit"
 echo "u u:	Launch as user 0:admin, 1:root, -1:read from json (default)"
+echo "s 0-1:	Enable or disable admin in sudoers"
 exit 0
 }
 
@@ -14,16 +15,27 @@ if [ "m`id -u`" != "m0" ]; then
 fi
 
 USER=-1
-while getopts hu: opt
+SUDOERS=-1
+while getopts hu:s: opt
 do
 	case "$opt" in
 		h) helper;;
 		u) USER=$OPTARG;;
+		s) SUDOERS=$OPTARG;;
 	esac
 done
 
 cd `dirname $0`
 PP=`pwd`
+
+if [ $SUDOERS != -1 ]; then
+	if [ $SUDOERS = 1 ]; then
+		adduser admin sudo
+	else
+		deluser admin sudo
+	fi
+	exit
+fi
 
 shift $((OPTIND -1))
 NAME=$1
