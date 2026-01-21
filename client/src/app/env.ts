@@ -483,6 +483,8 @@ async modulesDataPrepare() {
 		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
 		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true && !this.demo ? 2 : 0;
 		value["permissions"] = modules[key]?.permissions ?? value["permissions"];
+		if (this.session.user.role == "user" && !(value["permissions"].includes("_public_") || value["permissions"].includes("_groupuser_")))
+			return;
 		if (value["web"] !== true) {
 			value["permissions"] = ["_groupadmin_"];
 			value["web"] = false;
