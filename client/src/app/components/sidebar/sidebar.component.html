@@ -65,7 +65,7 @@
 				</div>
 			</div>
 
-			<div joyrideStep="anchor7" title="Settings" text="Tune the system." stepPosition="right" >
+			<div joyrideStep="anchor7" title="Settings" text="Tune the system." stepPosition="right" *ngIf="global.session?.user?.role == 'admin'">
 				<div class="px-3 text-s text--black font-semibold text--gray-600 tracking-wider mt-6 md:mt-12">{{LG("SYSTEM")}}</div>
 				<a (click)="global.openPage('settings');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
@@ -91,7 +91,7 @@
 					</div>
 					<span>{{LG("Hardware")}}</span>
 				</a>
-				<a (click)="global.openModule('webssh2');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a (click)="global.openModule('webssh2');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer" *ngIf="global.session?.user?.username && global.session?.user?.username == global.session?.cloud?.info?.name">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="terminal-outline" class="w-5 h-5"></ion-icon>
 					</div>
@@ -111,7 +111,7 @@
 				</a>
 			</div>
 
-			<div joyrideStep="anchor8" title="Settings" text="Watch the status of your dongle." stepPosition="right" >
+			<div joyrideStep="anchor8" title="Status" text="Watch the status of your dongle." stepPosition="right">
 				<div class="px-3 text-s font-semibold text--gray-600 tracking-wider mt-6 md:mt-12 flex items-center">
 					{{LG("STATUS")}}<ion-icon name="remove-circle-outline" class="w-5 h-5 ml-3" [class]="global.statsPeriod <= 1 ? 'text--gray-200' : ' cursor-pointer'" (click)="global.statsPeriodChange(-1);"></ion-icon><ion-icon name="add-circle-outline" class="w-5 h-5 ml-2" [class]="global.statsPeriod >= 30 ? 'text--gray-200' : ' cursor-pointer'" (click)="global.statsPeriodChange(1);"></ion-icon><span class="ml-2 text-xs">{{global.statsPeriod}}s</span>
 				</div>

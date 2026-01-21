@@ -170,10 +170,8 @@ async getSession() {
 		this.settings = JSON.parse(this.session.user.settings);
 		await this.translate.use(this.settings.lang);
 		await this.modulesDataPrepare();
-		if (this.session.user.role == "admin") {
-			this.statsPeriod = this.developer ? 1 : 10;
-			this.statsStartPolling();
-		}
+		this.statsPeriod = this.developer ? 1 : this.session.user.role == "admin" ? 10 : 30;
+		this.statsStartPolling();
 	}
 }
 
