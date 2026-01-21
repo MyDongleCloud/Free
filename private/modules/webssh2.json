@@ -35,6 +35,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"permissionsPublicForbidden": true,
 		"reservedToFirstUser": true,
 		"reverseProxy": [
 			{
