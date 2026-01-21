@@ -219,6 +219,10 @@ static int authorization(request_rec *r) {
 		if (sec_dest && sec_site && sec_mode && (strcmp(sec_dest, "serviceworker") == 0 || strcmp(sec_dest, "worker") == 0) && (strcmp(sec_mode, "same-origin") == 0 || strcmp(sec_mode, "cors") == 0) && strcmp(sec_site, "same-origin") == 0)
 			return DECLINED;
 	}
+	if (confVH && confVH->name && strcmp(confVH->name, "livecodes") == 0) {
+		if (strncmp(current_uri, "/livecodes/", 11) == 0)
+			return DECLINED;
+	}
 	return authorization2(r, 0);
 }
 
