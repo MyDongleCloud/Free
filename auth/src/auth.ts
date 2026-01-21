@@ -433,17 +433,24 @@ export const auth = betterAuth({
 	hooks: {
 		before: createAuthMiddleware(async (ctx) => {
 			if (cloud?.security?.newUserNeedsApproval === true && (ctx.path == "/sign-in/email" || ctx.path == "/sign-in/username")) {
-				const body = ctx.body;
-				const identifier = body?.email || body?.username;
+				const identifier = ctx.body?.email || ctx.body?.username;
 				console.log("Attempting login for: " + identifier);
-				const user = await ctx.context.adapter.findOne({
+				const userDb = await ctx.context.adapter.findOne({
 					model: "user",
-					where: [ { field: ctx.path === "/sign-in/email" ? "email" : "username", value: identifier } ]
+					where: [ { field:ctx.path === "/sign-in/email" ? "email" : "username", value:identifier } ]
 				});
-				if (user && !user["approved"]) {
+				if (userDb && !userDb["approved"]) {
 					console.log(identifier + " is pending admin approval.");
 					throw new APIError("UNAUTHORIZED", { message: "Your account is pending admin approval." });
 				}
+			}
+			if (ctx.path == "/admin/update-user") {
+				const userDb = await ctx.context.adapter.findOne({
+					model: "user",
+					where: [ { field:"id", value:ctx.body?.userId } ]
+				});
+				if (userDb && userDb?.["username"] == cloud.info.name)
+					throw new APIError("UNAUTHORIZED", { message: "Can't change super admin." });
 			}
 		}),
 		after: createAuthMiddleware(async (ctx) => {

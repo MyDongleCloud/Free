@@ -34,7 +34,10 @@ async setEmail(userId, event) {
 	try {
 		ret = await this.httpClient.post("/_app_/auth/admin/update-user", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth admin/update-user: ", ret);
-	} catch(e) { alert(e.error.message); }
+	} catch(e) {
+		this.global.consolelog(1, e.error.message);
+		this.global.presentToast("An internal error has occured.", "alert-outline", 3000);
+	}
 }
 
 async setUsername(userId, event) {
@@ -44,7 +47,10 @@ async setUsername(userId, event) {
 	try {
 		ret = await this.httpClient.post("/_app_/auth/admin/update-user", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth admin/update-user: ", ret);
-	} catch(e) { alert(e.error.message); }
+	} catch(e) {
+		this.global.consolelog(1, e.error.message);
+		this.global.presentToast("An internal error has occured.", "alert-outline", 3000);
+	}
 }
 
 async setRole(userId, event) {
@@ -54,7 +60,10 @@ async setRole(userId, event) {
 	try {
 		ret = await this.httpClient.post("/_app_/auth/admin/set-role", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth admin/set-role: ", ret);
-	} catch(e) { alert(e.error.message); }
+	} catch(e) {
+		this.global.consolelog(1, e.error.message);
+		this.global.presentToast("An internal error has occured.", "alert-outline", 3000);
+	}
 }
 
 async resetPassword(userId) {
@@ -64,19 +73,22 @@ async resetPassword(userId) {
 	try {
 		ret = await this.httpClient.post("/_app_/auth/admin/set-user-password", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth admin/set-user-password: ", ret);
-	} catch(e) { alert(e.error.message); return; }
+	} catch(e) { this.global.consolelog(1, e.error.message);
+		this.global.presentToast("An internal error has occured.", "alert-outline", 3000); return; }
 	this.global.presentToast("The new password is:<br>" + newPassword, "alert-outline", 0);
 }
 
 async setApproved(userId, event) {
 	const approved = (event.target as HTMLInputElement).checked;
-alert(approved);
 	const data = { userId, data:{ approved } };
 	let ret = null;
 	try {
 		ret = await this.httpClient.post("/_app_/auth/admin/update-user", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth admin/update-user: ", ret);
-	} catch(e) { alert(e.error.message); }
+	} catch(e) {
+		this.global.consolelog(1, e.error.message);
+		this.global.presentToast("An internal error has occured.", "alert-outline", 3000);
+	}
 }
 
 }
