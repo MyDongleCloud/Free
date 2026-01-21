@@ -368,12 +368,6 @@ export const auth = betterAuth({
 			}
 		},
 		additionalFields: {
-			role: {
-				type: "string",
-				required: true,
-				defaultValue: "user",
-				input: false
-			},
 			approved: {
 				type: "boolean",
 				required: true,
