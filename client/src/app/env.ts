@@ -559,8 +559,11 @@ async statusRefresh(data) {
 	} else if (data.module && data.state === "start") {
 		this.setupUIDesc = "module: " + data.module;
 		this.modulesData[this.modulesDataFindId(data.module)]["notReady"] = 1;
-	} else if (data.module && data.state === "finish")
+	} else if (data.module && data.state === "finish") {
 		this.modulesData[this.modulesDataFindId(data.module)]["notReady"] = 0;
+		if (this.setupUIProgress == 0)
+			this.presentToast("The module " + data.module + " is now ready.", "close-outline", 5000);
+	}
 	this.refreshUI.next("refresh");
 }
 
