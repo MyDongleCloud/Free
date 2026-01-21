@@ -478,6 +478,8 @@ async modulesDataPrepare() {
 		}
 		if (value["reservedToFirstUser"] === true && this.session.user.username != this.session.cloud.info.name)
 			return;
+		if (this.session.user.role == "user" && !value["web"])
+			return;
 		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
 		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true && !this.demo ? 2 : 0;
 		value["permissions"] = modules[key]?.permissions ?? value["permissions"];
