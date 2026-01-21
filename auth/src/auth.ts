@@ -125,19 +125,19 @@ const mdcEndpoints = () => {
 				method: "POST",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
-				let ret;
-				if (ctx.context.session?.user?.role !== "admin")
-					ret = { status:"error" };
-				else
-					try {
-						const cloud = JSON.parse(fs.readFileSync(cloudPath, "utf-8"));
-						Object.entries(ctx.body).forEach(([key, value]) => { cloud[key] = value; });
-						writeFileSync(cloudPath, JSON.stringify(cloud, null, "\t"), "utf-8");
-						ret = { status:"success" };
-					} catch (error) {
-						ret = { status:"error" };
-					}
-				return Response.json(ret, { status:200 });
+				if (ctx.context.session?.user?.role != "admin")
+					return Response.json({ status:"error" }, { status:200 })
+				let ret = false;
+				try {
+					const groups = execSync("id -Gn").toString();
+					if (groups.split(" ").includes("sudo") != ctx.body?.security?.adminSudo)
+						execSync("sudo /usr/local/modules/mydonglecloud/reset.sh -s " + (ctx.body?.security?.adminSudo ? 1 : 0));
+					const cloud = JSON.parse(fs.readFileSync(cloudPath, "utf-8"));
+					Object.entries(ctx.body).forEach(([key, value]) => { cloud[key] = value; });
+					writeFileSync(cloudPath, JSON.stringify(cloud, null, "\t"), "utf-8");
+					ret = true;
+				} catch (error) {}
+				return Response.json({ status:(ret ? "success" : "error") }, { status:200 });
 			}),
 
 			hardware: createAuthEndpoint("/hardware", {
