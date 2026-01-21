@@ -69,6 +69,7 @@ Each module is described by an exhaustive json config file:
 		"permissions": [
 			"The permission of the module, usually _groupadmin_."
 		],
+		"permissionsPublicForbidden": "A boolean to indicate if the module cannot have public access",
 		"reset": "A boolean to indicate if the module has a reset option.",
 		"reservedToFirstUser": "A boolean to indicate if the module is reserved only to the first registered user.",
 		"reverseProxy": [
