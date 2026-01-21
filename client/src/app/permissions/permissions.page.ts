@@ -113,8 +113,10 @@ updatePerm_(card) {
 			card["dUser"] = true;
 			return;
 		}
+		if (card["bUser"])
+			card["bAdmin"] = true;
 		card["dLocal"] = false;
-		card["dAdmin"] = false;
+		card["dAdmin"] = card["bUser"];
 		card["dUser"] = false;
 	}
 }
