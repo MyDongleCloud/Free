@@ -384,6 +384,8 @@ DELTA=$((DATEFINISH - DATESTART))
 echo "Duration: $((DELTA / 3600))h $(((DELTA % 3600) / 60))m $((DELTA % 60))s"
 
 if [ $PROD = 1 ]; then
+	journalctl --rotate
+	journalctl --vacuum-time=1s
 	sed -i -e 's|ai:[^:]*:|ai:*:|' /etc/shadow
 	sed -i -e 's|ai:[^:]*:|ai:*:|' /etc/shadow-
 	rm -rf /home/ai
