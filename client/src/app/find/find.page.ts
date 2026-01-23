@@ -24,6 +24,7 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 	this.formFind = fb.group({
 		"email1": ["", [Validators.required, Validators.email]]
 	});
+	this.init();
 }
 
 handleBlur(event, element) {
@@ -35,7 +36,7 @@ handleBlur(event, element) {
 	}
 }
 
-async ionViewDidEnter() {
+async init() {
 	let count = 20;
 	while (this.global.session === undefined && count-- > 0)
 		await this.global.sleepms(100);

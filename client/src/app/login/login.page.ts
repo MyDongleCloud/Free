@@ -59,6 +59,7 @@ constructor(public global: Global, private httpClient: HttpClient, private cdr: 
 		"otp54": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ],
 		"otp64": ["", [ Validators.required, Validators.pattern(/^\d$/) ] ]
 	});
+	this.init();
 }
 
 handleBlur(event, element) {
@@ -100,7 +101,7 @@ checkPassword2(group: FormGroup) {
 	return group.controls.password2.value == group.controls.password2Confirm.value ? null : {"mismatch": true};
 }
 
-async ionViewDidEnter() {
+async init() {
 	const params = new URLSearchParams(window.location.search);
 	const verify = params.get("verify");
 	if (params.has("verify")) {
