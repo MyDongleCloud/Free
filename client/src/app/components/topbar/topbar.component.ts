@@ -1,4 +1,5 @@
-import { Component, Input, ElementRef, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ElementRef, Renderer2, ChangeDetectorRef, inject, DestroyRef, afterNextRender } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Global } from '../../env';
 
 @Component({
@@ -7,7 +8,7 @@ import { Global } from '../../env';
 	standalone: false
 })
 
-export class TopbarComponent implements AfterViewInit, OnDestroy {
+export class TopbarComponent {
 LG(st) { return this.global.mytranslateG(st); }
 @Input() title: string = "";
 @Input() nameP: string = "";
@@ -16,8 +17,23 @@ LG(st) { return this.global.mytranslateG(st); }
 private documentClickListener: (() => void) | null = null;
 showUserMenu:boolean = false;
 initials: string = "";
+private destroyRef = inject(DestroyRef);
 
-constructor(public global: Global, private cdr: ChangeDetectorRef, private elRef: ElementRef, private renderer: Renderer2) {}
+constructor(public global: Global, private cdr: ChangeDetectorRef, private elRef: ElementRef, private renderer: Renderer2, private route: ActivatedRoute) {
+	this.parentClassName = this.route.snapshot.component?.name;
+	this.initials = this.getInitials();
+	afterNextRender(() => {
+		const unlisten = this.renderer.listen("document", "click", (event: Event) => {
+			const userMenuDropdown = this.elRef.nativeElement.querySelector(".user-menu-dropdown");
+			const userMenuButton = this.elRef.nativeElement.querySelector(".user-menu-button");
+			if (this.showUserMenu && userMenuDropdown && userMenuButton && !userMenuDropdown.contains(event.target) && !userMenuButton.contains(event.target)) {
+				this.showUserMenu = false;
+				this.cdr.markForCheck();
+			}
+		});
+		this.destroyRef.onDestroy(() => { unlisten(); });
+	});
+}
 
 toggleUserMenu() {
 	this.showUserMenu = !this.showUserMenu;
@@ -28,25 +44,6 @@ getInitials() {
 	const nameParts = st.trim().split(" ");
 	const initials = nameParts.map(name => name.charAt(0)).join("").toUpperCase();
 	return initials;
-}
-
-ngAfterViewInit() {
-	this.initials = this.getInitials();
-	this.documentClickListener = this.renderer.listen("document", "click", (event: Event) => {
-		const userMenuDropdown = this.elRef.nativeElement.querySelector(".user-menu-dropdown");
-		const userMenuButton = this.elRef.nativeElement.querySelector(".user-menu-button");
-		if (this.showUserMenu && userMenuDropdown && userMenuButton && !userMenuDropdown.contains(event.target) && !userMenuButton.contains(event.target)) {
-			this.showUserMenu = false;
-			this.cdr.markForCheck();
-		}
-	});
-}
-
-ngOnDestroy() {
-	if (this.documentClickListener) {
-		this.documentClickListener();
-		this.documentClickListener = null;
-	}
 }
 
 extract() {
