@@ -276,6 +276,11 @@ async sleepms(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+openHome() {
+	if (this.router.url == "/")
+		this.refreshUI.next("reset");
+}
+
 openModule(identifier:number|string, extract:boolean = false, page:string = null) {
 	let id = identifier;
 	if (typeof identifier == "string")

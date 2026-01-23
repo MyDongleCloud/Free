@@ -59,6 +59,14 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 			this.sidebar.refresh();
 		else if (event === "refresh")
 			this.cdr.detectChanges();
+		else if (event === "reset") {
+			if (this.searchTerm != "" || this.category != "All") {
+				this.searchTerm = "";
+				this.category = "All";
+				this.filterCards();
+				this.cdr.detectChanges();
+			}
+		}
 		else if (event === "modules") {
 			this.filterCards();
 			this.cdr.detectChanges();
