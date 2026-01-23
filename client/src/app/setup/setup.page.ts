@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
@@ -27,7 +28,7 @@ formWiFi: FormGroup;
 hasBlurredOnce: boolean = false;
 errorSt = null;
 
-constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder, public ble: BleService) {
+constructor(public global: Global, private router: Router, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
 		this.cdr.detectChanges();
 	});
@@ -59,12 +60,12 @@ async handleBleMessage(data) {
 	if (data.a === "cloud" && data.all.name !== undefined) {
 		this.ble.disconnect();
 		await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
-		this.global.openPage("find");
+		this.router.navigate(["/find"]);
 	}
 	if (data.a === "setup") {
 		if (data.success === 1) {
 			await this.global.presentAlert("Success!", "Your dongle is setup and ready to use!", "You will be redirected to the dasboard now.");
-			this.global.openPage("");
+			this.router.navigate(["/"]);
 		} else {
 			this.errorSt = "An error occured, please try again.";
 			this.progress = false;

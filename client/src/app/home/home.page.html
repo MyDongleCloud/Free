@@ -1,7 +1,7 @@
 <div class="flex h-screen">
 	<app-sidebar #sidebar [modulesTotal]="filteredCards?.length"></app-sidebar>
 	<div class="flex-1 flex flex-col overflow-x-auto">
-		<app-topbar title="{{L('Dashboard')}}" [modulesTotal]="filteredCards?.length" [modulesStarsTotal]="global.formatCount(filteredGithubStars)"></app-topbar>
+		<app-topbar title="{{LG('Dashboard:')}} {{filteredCards?.length}} {{LG(filteredCards?.length > 1 ? 'modules' : 'module')}} ({{global.formatCount(filteredGithubStars)}} ⭐)"></app-topbar>
 		<div>
 			<div class="flex gap-3 mx-4 mt-4">
 				<div joyrideStep="anchor4" title="Filter" text="Filter to find a specific module." stepPosition="right" class="relative">
@@ -89,7 +89,7 @@
 							<span class="text-sm mr-2" *ngIf="showDetails">{{L("Nº")}}{{cc + 1}}</span>
 							<ion-icon [name]="card?.tag ? 'bookmarks-outline' : 'bookmark-outline'" class="w-5 h-5 mr-2 cursor-pointer" (click)="tag(card.module)" [class]="card?.tag ? '' : 'text--gray-300'" *ngIf="card.web"></ion-icon>
 							<ion-icon name="cloud-offline-outline" class="w-5 h-5 text--red-500 mr-2" *ngIf="card.web && (!card.enabled || card.notReady != 0)"></ion-icon>
-							<ion-icon [name]="card.permissions[0] == '_public_' ? 'lock-open-outline' : 'lock-closed-outline'" (click)="global.openPage('permissions');" class="w-5 h-5 mr-2 cursor-pointer" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.web && (card.enabled && card.notReady == 0)"></ion-icon>
+							<a routerLink="/permissions" class="cursor-pointer"><ion-icon [name]="card.permissions[0] == '_public_' ? 'lock-open-outline' : 'lock-closed-outline'" class="w-5 h-5 mr-2" [class]="global.colorWord(card.permissions[0], false)" *ngIf="card.web && (card.enabled && card.notReady == 0)"></ion-icon></a>
 							<ion-icon name="settings-outline" (click)="settings(card.module)" class="w-6 h-6 mr-2 cursor-pointer" *ngIf="card.config || card.reset"></ion-icon>
 							<ion-icon name="information-circle-outline" (click)="info(card.module)" class="w-6 h-6 cursor-pointer"></ion-icon>
 						</div>
@@ -111,7 +111,7 @@
 								<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">{{L("Disabled")}}</span>
 							</div>
 							<div class="-ml-2" *ngIf="showDetails && card.enabled">
-								<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(global.permissions(pm))}}</span></a>
+								<a routerLink="/permissions" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(global.permissions(pm))}}</span></a>
 							</div>
 						</div>
 						<div class="flex-1 min-w-1"></div>
@@ -156,7 +156,7 @@
 									<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 								</div>
 								<div class="-ml-2" *ngIf="card.enabled">
-									<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(global.permissions(pm))}}</span></a>
+									<a routerLink="/permissions" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of card.permissions">{{LG(global.permissions(pm))}}</span></a>
 								</div>
 							</td>
 							<td class="px-6 py-4 whitespace-nowrap text-left">
@@ -235,7 +235,7 @@
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
 					<div class="-ml-2" *ngIf="cards[cardIdCur].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[cardIdCur].permissions">{{LG(global.permissions(pm))}}</span></a>
+						<a routerLink="/permissions" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[cardIdCur].permissions">{{LG(global.permissions(pm))}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>
@@ -293,7 +293,7 @@
 						<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord('_disabled_')">Disabled</span>
 					</div>
 					<div class="-ml-2" *ngIf="cards[cardIdCur].enabled">
-						<a (click)="global.openPage('permissions');" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[cardIdCur].permissions">{{LG(global.permissions(pm))}}</span></a>
+						<a routerLink="/permissions" class="cursor-pointer"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ml-1 mr-1" [class]="global.colorWord(pm)" *ngFor="let pm of cards[cardIdCur].permissions">{{LG(global.permissions(pm))}}</span></a>
 					</div>
 				</td></tr>
 				<tr><td colspan="3" class="h-2"></td></tr>

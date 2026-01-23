@@ -1,16 +1,14 @@
 <div class="flex items-center justify-between h-16 px-6 border-b border-sidebar-border">
 	<div class="flex items-center space-x-2 text-sm ml-4 md:ml-0">
-		@if (title != LG("Dashboard")) {
-		<a (click)="global.openPage('');" class="text--gray-700 text-lg hover:text--gray-900 transition-colors font-medium cursor-pointer">{{LG("Dashboard")}}</a>
+		@if (parentClassName == "_Wrapper") {
+		<a routerLink="/" class="text--gray-700 text-lg hover:text--gray-900 transition-colors font-medium cursor-pointer">{{LG("Dashboard")}}</a>
 		<ion-icon name="chevron-forward-outline" class="w-4 h-4 text--gray-700"></ion-icon>
 		<span class="text--gray-700 font-medium text-lg">
-			{{title}}{{nameP}}
-			@if (nameP != "") {
+			{{title}}
 			<ion-icon (click)="extract();" name="open-outline" class="ml-2 h-5 w-5 cursor-pointer"></ion-icon>
-			}
 		</span>
 		} @else {
-		<span class="text--gray-700 text-lg hover:text--gray-900 transition-colors font-medium">{{LG("Dashboard:")}} {{modulesTotal}} {{LG(modulesTotal > 1 ? "modules": "module")}} ({{modulesStarsTotal}} ⭐)</span>
+		<span class="text--gray-700 text-lg hover:text--gray-900 transition-colors font-medium">{{title ?? LG(parentClassName.replace("_", ""))}}</span>
 		}
 	</div>
 	<div joyrideStep="anchor10" title="Profile" text="Access your profile settings including enabling 2FA." stepPosition="bottom" class="flex items-center gap-4 -mr-4 md:-mr-2">
@@ -32,19 +30,19 @@
 					<p class="text-sm text--gray-500">{{global.session?.user?.email}}</p>
 				</div>
 				<div class="px-4 py-2">
-					<a (click)="global.openPage('');" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
+					<a routerLink="/" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
 						<ion-icon name="apps-outline" class="h-4 w-4"></ion-icon>
 						{{LG("Dashboard")}}
 					</a>
-					<a (click)="global.openPage('profile');" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
+					<a routerLink="/profile" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
 						<ion-icon name="person-outline" class="h-4 w-4"></ion-icon>
 						{{LG("Profile")}}
 					</a>
-					<a (click)="global.openPage('help');" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
+					<a routerLink="/help" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
 						<ion-icon name="help-outline" class="h-4 w-4"></ion-icon>
 						{{LG("Help")}}
 					</a>
-					<a (click)="global.openPage('about');" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
+					<a routerLink="/about" class="flex items-center gap-3 py-2 text-sm text--gray-700 hover:bg--gray-100 transition-colors cursor-pointer">
 						<ion-icon name="information-outline" class="h-4 w-4"></ion-icon>
 						{{LG("About")}}
 					</a>

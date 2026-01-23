@@ -36,7 +36,6 @@ demo: boolean = false;
 splashDone = false;
 VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
-currentUrl: string;
 activateUrl: string;
 settings: Settings = { lang:"en", welcomeTourShown:false } as Settings;
 refreshUI:Subject<any> = new Subject();
@@ -254,7 +253,7 @@ mytranslateP(page, st) {
 }
 
 mytranslate(st) {
-	return this.mytranslateP(this.currentUrl, st);
+	return this.mytranslateP(this.router.url.replace(/^\/|(\?).*$/g, ""), st);
 }
 
 mytranslateG(st) {
@@ -277,19 +276,6 @@ async sleepms(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-openBrowser(url: string) {
-	window.open(url, "_blank");
-}
-
-openPage(url: string) {
-	this.navCtrl.setDirection('root');
-	const [path, queryString] = url.split("?");
-	const params = new URLSearchParams(queryString);
-	const obj = {};
-	params.forEach((value, key) => { obj[key] = value; });
-	this.router.navigate([path], { queryParams:obj });
-}
-
 openModule(identifier:number|string, extract:boolean = false, page:string = null) {
 	let id = identifier;
 	if (typeof identifier == "string")
@@ -302,10 +288,8 @@ openModule(identifier:number|string, extract:boolean = false, page:string = null
 	const page_ = page ?? this.modulesData[id].homepage ?? "";
 	if (extract && !this.demo && (this.modulesData[id].finished || this.developer))
 		window.open(location.protocol + "//" + location.host + "/m/" + subdomain + page_, "_blank");
-	else {
-		this.navCtrl.setDirection('root');
+	else
 		this.router.navigate(["/wrapper"], { queryParams:{ module:this.modulesData[id].module, subdomain, page:page_ } });
-	}
 }
 
 async presentAlert(hd, st, msg, key:string = "") {

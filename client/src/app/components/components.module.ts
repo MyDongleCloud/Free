@@ -7,10 +7,11 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { ToastComponent } from './toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	declarations: [LongPressDirective, SidebarComponent, TopbarComponent, ToastComponent],
 	exports: [LongPressDirective, SidebarComponent, TopbarComponent, ToastComponent],
-	imports: [IonicModule, CommonModule, JoyrideModule.forRoot(), FormsModule]
+	imports: [IonicModule, CommonModule, JoyrideModule.forRoot(), FormsModule, RouterModule]
 })
 export class ComponentsModule {}

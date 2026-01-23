@@ -10,10 +10,8 @@ import { Global } from '../../env';
 
 export class TopbarComponent {
 LG(st) { return this.global.mytranslateG(st); }
-@Input() title: string = "";
-@Input() nameP: string = "";
-@Input() public modulesTotal;
-@Input() public modulesStarsTotal;
+parentClassName = "";
+@Input() title;
 private documentClickListener: (() => void) | null = null;
 showUserMenu:boolean = false;
 initials: string = "";

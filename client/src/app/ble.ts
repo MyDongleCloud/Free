@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BleClient, textToDataView, numberToUUID, ScanResult, ConnectionPriority } from '@capacitor-community/bluetooth-le';
 import { Filesystem, Encoding } from '@capacitor/filesystem';
 import { Global } from './env';
@@ -31,7 +32,7 @@ lastTouch = null;
 bleClientInitialized: boolean = false;
 communicationEvent:Subject<any> = new Subject();
 
-constructor(private global: Global) {
+constructor(private global: Global, private router: Router) {
 	this.bleClientInitialize();
 	thisble = this;
 }
@@ -241,10 +242,10 @@ async shutdown() {
 }
 
 async checkVersion() {
-		if (this.firmwareDeviceVersion < this.global.firmwareServerVersion && this.global.currentUrl != "upgrade") {
+		if (this.firmwareDeviceVersion < this.global.firmwareServerVersion && this.router.url != "/upgrade") {
 			let ret = await this.global.presentQuestion("Upgrade needed", "Do you want to upgrade the device now?", "The firmware of the device is too old and not compatible with this app.");
 			if (ret)
-				this.global.openPage("upgrade");
+				this.router.navigate(["/ugrade"]);
 		}
 }
 

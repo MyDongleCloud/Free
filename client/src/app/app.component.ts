@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { Router, NavigationStart, NavigationEnd, Event } from "@angular/router";
 import { Global } from './env';
 
 
@@ -14,18 +14,12 @@ export class AppComponent {
 LG(st) { return this.global.mytranslateG(st); }
 navigationByBack: boolean = false;
 
-constructor(public global: Global, private location: Location, public router: Router, private cdr: ChangeDetectorRef) {
+constructor(public global: Global, public router: Router, private location: Location, private cdr: ChangeDetectorRef) {
 	global.plt.backButton.subscribeWithPriority(10, () => {
 		if (window.location.href.endsWith("/"))
 			this.global.backButtonAlert();
 		else
 			this.location.back();
-	});
-
-	router.events.subscribe((event: Event) => {
-		if (event instanceof NavigationEnd) {
-			this.global.currentUrl = this.router.url.replace(/^\/|(\?).*$/g, "");
-		}
 	});
 }
 

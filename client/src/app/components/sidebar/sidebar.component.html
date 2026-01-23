@@ -8,8 +8,7 @@
 	<div class="flex flex-col h-full border-r border--gray-200 w-64">
 		<div class="h-16 flex items-center justify-between px-6 border-b border--gray-200 sticky top-0 z-10">
 			<div class="flex items-center gap-2">
-				<img src="assets/logo.png" class="-ml-2 w-10 h-10 cursor-pointer" (click)="global.openPage('');"/>
-				<span class="text-lg font-bold tracking-tight text--gray-800 cursor-pointer" (click)="global.openPage('');"><span class="text--blue-600">{{LG("My")}}</span><span style class="text--blue-200">Dongle.</span><span class="text--blue-600">Cloud</span></span>
+			<a routerLink="/" title="Dashboard" class="-ml-2 flex items-center text-lg font-bold cursor-pointer"><img src="assets/logo.png" class="w-10 h-10 mr-2"><span class="text--blue-600">{{LG("My")}}</span><span style class="text--blue-200">Dongle.</span><span class="text--blue-600">Cloud</span></a>
 			<button (click)="showMobileMenu = false" class="md:hidden ml-2 rounded-md hover:bg--gray-100 transition-colors" aria-label="Close menu">
 				<ion-icon name="close-circle-outline" class="w-5 h-5 text--gray-600"></ion-icon>
 			</button>
@@ -17,7 +16,7 @@
 		</div>
 		<nav class="flex-1 py-6 px-3 space-y-1 overflow-y-hide">
 			<div class="px-3 text-s font-semibold text--gray-600 tracking-wider">{{LG("MODULES")}}</div>
-			<a (click)="global.openPage('');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+			<a routerLink="/" title="Dashboard" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<ion-icon name="apps-outline" class="h-5 w-5"></ion-icon>
 				<span>{{LG("Dashboard")}}</span>
 				<span class="ml-auto text--gray-600 text-xs px-2 py-0.5 rounded-full font-medium">{{modulesTotal ?? global.modulesData.length}}</span>
@@ -65,45 +64,45 @@
 				</div>
 			</div>
 
-			<div joyrideStep="anchor7" title="Settings" text="Tune the system." stepPosition="right" *ngIf="global.session?.user?.role == 'admin'">
+			<div joyrideStep="anchor7" title="System" text="Tune the system." stepPosition="right" *ngIf="global.session?.user?.role == 'admin'">
 				<div class="px-3 text-s text--black font-semibold text--gray-600 tracking-wider mt-6 md:mt-12">{{LG("SYSTEM")}}</div>
-				<a (click)="global.openPage('settings');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a routerLink="/settings" title="Settings" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="settings-outline" class="w-5 h-5"></ion-icon>
 					</div>
 					<span>{{LG("Settings")}}<br><span class="text-xs text-gray-500">{{LG("Wi-Fi, VPN, SSH, AI keys")}}</span></span>
 				</a>
-				<a (click)="global.openPage('users');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a routerLink="/users" title="Users" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="people-outline" class="w-5 h-5"></ion-icon>
 					</div>
 					<span>{{LG("Users")}}</span>
 				</a>
-				<a (click)="global.openPage('permissions');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a routerLink="/permissions" title="Permissions" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="lock-closed-outline" class="w-5 h-5"></ion-icon>
 					</div>
 					<span>{{LG("Permissions")}}</span>
 				</a>
-				<a (click)="global.openPage('hardware');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a routerLink="/hardware" title="Hardware" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center overflow-hidden">
 						<ion-icon name="tv-outline" class="w-5 h-5"></ion-icon>
 					</div>
 					<span>{{LG("Hardware")}}</span>
 				</a>
-				<a (click)="global.openModule('webssh2');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer" *ngIf="global.session?.user?.username && global.session?.user?.username == global.session?.cloud?.info?.name">
+				<a (click)="global.openModule('webssh2');" title="Terminal" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer" *ngIf="global.session?.user?.username && global.session?.user?.username == global.session?.cloud?.info?.name">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="terminal-outline" class="w-5 h-5"></ion-icon>
 					</div>
 					<span>{{LG("Terminal")}}</span>
 				</a>
-				<a (click)="global.openPage('serverlog');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a routerLink="/serverlog" title="System Logs" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="document-text-outline" class="w-5 h-5"></ion-icon>
 					</div>
 					<span>{{LG("System Logs")}}</span>
 				</a>
-				<a (click)="global.openPage('backup');" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a routerLink="/backup" title="Backup & Restore" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
 					<div class="w-5 h-5 flex items-center justify-center">
 						<ion-icon name="download-outline" class="w-5 h-5"></ion-icon>
 					</div>

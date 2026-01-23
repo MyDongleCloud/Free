@@ -1,9 +1,9 @@
 <div class="flex h-screen text--gray-900 h-full">
 	<app-sidebar></app-sidebar>
 	<div class="flex-1 flex flex-col overflow-x-auto">
-		<app-topbar title="{{L('Users')}}"></app-topbar>
+		<app-topbar></app-topbar>
 		<div class="mt-4 mx-4" *ngIf="this.global.session.user.username == this.global.session.cloud.info.name">
-			{{L("Full users management is available in the module")}} <span class="underline cursor-pointer" (click)="global.openPage('/?search=betterauthstudio')">{{LMT("Identity Management")}}</span>.
+			{{L("Full users management is available in the module")}} <a class="underline cursor-pointer" routerLink="/" [queryParams]="{ search:'betterauthstudio' }">{{LMT("Identity Management")}}</a>.
 		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
 			<table class="min-w-full divide-y divide--gray-300">

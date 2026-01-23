@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Global } from '../env';
 import { BleService } from '../ble';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +14,7 @@ export class Splash {
 L(st) { return this.global.mytranslate(st); }
 showUpgrade: boolean = false;
 
-constructor(public global: Global, private bleService: BleService, private httpClient: HttpClient) {
+constructor(public global: Global, private router: Router, private bleService: BleService, private httpClient: HttpClient) {
 	this.forwardWhenReady();
 }
 
@@ -38,9 +39,9 @@ async forwardWhenReady() {
 	let count = 20;
 	while (this.global.session === undefined && count-- > 0)
 		await this.global.sleepms(100);
-	if (this.global.activateUrl === undefined || this.global.activateUrl == "splash")
-		this.global.activateUrl = "";
-	this.global.openPage(this.global.session != null || this.global.activateUrl == "/setup" || this.global.activateUrl == "/find" ? this.global.activateUrl : "login");
+	if (this.global.activateUrl === undefined || this.global.activateUrl == "/splash")
+		this.global.activateUrl = "/";
+	this.router.navigateByUrl(this.global.session != null ? this.global.activateUrl : "/login");
 }
 
 openUpgrade() {
@@ -49,7 +50,7 @@ openUpgrade() {
 		url = "https://play.google.com/store/apps/details?id=cloud.mydongle.app";
 	else if (this.global.plt.is("ios"))
 		url = "https://apps.apple.com/us/app/in-out-sport/id";
-	this.global.openBrowser(url);
+	window.open(url, "_blank");
 }
 
 }

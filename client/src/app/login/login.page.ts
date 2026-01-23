@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChildren, ViewChild, QueryList, ElementRef, ChangeDetectorRef, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
@@ -35,7 +36,7 @@ formOtp: FormGroup;
 hasBlurredOnce: boolean = false;
 errorSt = null;
 
-constructor(public global: Global, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
+constructor(public global: Global, private router: Router, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 	this.formLogin = fb.group({
 		"email1": [ "", [ Validators.required ] ],
 		"password1": [ "", [ Validators.required, Validators.minLength(6) ] ],
@@ -178,7 +179,7 @@ async doLogin() {
 			this.show_Otp();
 		else {
 			await this.global.getSession();
-			this.global.openPage("");
+			this.router.navigate(["/"]);
 		}
 	} else
 		this.cdr.detectChanges();
@@ -210,7 +211,7 @@ async doRegister() {
 	this.progress = false;
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("");
+		this.router.navigate(["/"]);
 	} else
 		this.cdr.detectChanges();
 }
@@ -243,7 +244,7 @@ async doForgotPassword() {
 	if (ret != null)
 		this.showForgotPasswordSent = true;
 		//await this.global.presentAlert("Success!", "An email has been sent with intructions. Please use them to login.", "You can safely close this page now.");
-		//this.global.openPage("login");
+		//this.router.navigate(["/login"]);
 	else
 		this.cdr.detectChanges();
 }
@@ -256,7 +257,7 @@ async doForgotPasswordVerify(token) {
 	} catch(e) { this.errorSt = e.error.message; }
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("");
+		this.router.navigate(["/"]);
 	}
 }
 
@@ -328,7 +329,7 @@ async doOtp() {
 	this.progress = false;
 	if (ret != null) {
 		await this.global.getSession();
-		this.global.openPage("");
+		this.router.navigate(["/"]);
 	} else
 		this.cdr.detectChanges();
 }
