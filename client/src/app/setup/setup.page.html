@@ -1,4 +1,4 @@
-<div [style]="showDongle ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--white to--blue-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--white to--blue-50 py-12 px-4 sm:px-6 lg:px-8" [class]="showDongle ? '' : 'hidden'">
 	<div class="max-w-md w-full">
 		<div class="text-center mb-8 flex items-center justify-center gap-2">
 			<ion-icon src="assets/1-circle.svg" class="text--blue-600 w-6 h-6"></ion-icon> <span class="text-sm font-medium text--blue-600">{{L("Dongle")}}</span>
@@ -126,7 +126,7 @@
 		</div>
 	</div>
 </div>
-<div [style]="showRegister ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--main to--blue-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--main to--blue-50 py-12 px-4 sm:px-6 lg:px-8" [class]="showRegister ? '' : 'hidden'">
 	<div class="max-w-md w-full">
 		<div class="text-center mb-8 flex items-center justify-center gap-2">
 			<ion-icon src="assets/1-circle.svg" class="text--gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text--gray-400">{{L("Dongle")}}</span>
@@ -248,7 +248,7 @@
 		</div>
 	</div>
 </div>
-<div [style]="showWiFi ? 'display:flex;' : 'display:none;'" class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--white to--blue-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from--gray-50 via--white to--blue-50 py-12 px-4 sm:px-6 lg:px-8" [class]="showWiFi ? '' : 'hidden'">
 	<div class="max-w-md w-full">
 		<div class="text-center mb-8 flex items-center justify-center gap-2">
 			<ion-icon src="assets/1-circle.svg" class="text--gray-400 w-6 h-6"></ion-icon> <span class="text-sm font-medium text--gray-400">{{L("Dongle")}}</span>
