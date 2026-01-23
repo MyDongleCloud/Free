@@ -3,7 +3,7 @@
 	<div class="flex-1 flex flex-col overflow-x-auto">
 		<app-topbar [title]="L('System Logs')"></app-topbar>
 		<div class="mt-4 mx-4" *ngIf="this.global.session.user.username == this.global.session.cloud.info.name">
-			More information about the system can be seen using the <span class="underline cursor-pointer" (click)="global.openPage('/?search=cockpit')">Cockpit</span> module.
+			{{L("More information about the system can be seen using the module:")}} <a class="underline cursor-pointer" routerLink="/" [queryParams]="{ search:'cockpit' }">Cockpit</a>.
 		</div>
 		<ul class="m-4 overflow-y-auto divide-y divide-gray-200">
 			<ng-template #recursiveTree let-nodes="nodes" let-depth="depth">

@@ -147,6 +147,7 @@
 		"Web App" : "Application Web"
 	},
 	"serverlog": {
+		"More information about the system can be seen using the module:": "Plus d'information sur le système peut être consulté dans le module :",
 		"System Logs": "Journaux du système"
 	},
 	"settings": {
