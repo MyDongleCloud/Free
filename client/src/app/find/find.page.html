@@ -5,7 +5,7 @@
 	<div class="max-w-md w-full">
 		<div class="bg--main rounded-2xl shadow-xl border border--gray-300 p-8">
 			<div class="text-center mb-8 flex items-center flex-col">
-				<h1 class="flex flex-row items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/logo.png" class="w-10 h-10 mr-2 cursor-pointer" (click)="global.openPage('');"/> <span class="text--blue-600">{{L("My")}}</span><span style class="text--blue-200">Dongle.</span><span class="text--blue-600">Cloud</span></h1>
+				<div class="flex items-center text-lg -mt-2 mb-4 font-bold"><img src="assets/logo.png" class="w-10 h-10 mr-2"><span class="text--blue-600">{{LG("My")}}</span><span style class="text--blue-200">Dongle.</span><span class="text--blue-600">Cloud</span></div>
 				<div class="flex items-center gap-2 mb-2">
 					<div class="bg--blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
 						<ion-icon name="person-outline" class="text--white w-10 h-10"></ion-icon>
@@ -49,7 +49,7 @@
 				</button>
 			</form>
 			<div class="mt-8 text-center">
-				<p class="text-sm text--gray-600">{{L("Have a new dongle?")}} <a class="font-semibold text--blue-600 hover:text--blue-700 transition-colors" (click)="global.openPage('setup')" style="cursor:pointer;">{{L("Setup here!")}}</a>
+				<p class="text-sm text--gray-600">{{L("Have a new dongle?")}} <a routerLink="/setup" class="font-semibold text--blue-600 hover:text--blue-700 transition-colors cursor-pointer">{{L("Setup here!")}}</a>
 				</p>
 			</div>
 		</div>
