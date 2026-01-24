@@ -33,6 +33,12 @@ foreach ($files as $file)
 		if (!in_array($moduleName, $modules) && $moduleName !== "")
 			$modules[] = $moduleName;
 	}
+
+$logs = array();
+$files = scandir(__DIR__ . "/modules/");
+foreach ($files as $file)
+	if (str_ends_with($file, ".html"))
+		$logs[str_replace(".html", "", $file)] = filemtime(__DIR__ . "/modules/" . $file);
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,6 +48,7 @@ foreach ($files as $file)
 <script src="tailwindcss.js"></script>
 <script>
 var modules = <?php echo json_encode($modules); ?>;
+var logs = <?php echo json_encode($logs); ?>;
 
 function onStart() {
 	const showSelect = document.getElementById("showID");
@@ -52,20 +59,20 @@ function onStart() {
 }
 
 function show() {
-	const url = window.origin + "/modules/" + document.getElementById("showID").value + ".html";
+	const name = document.getElementById("showID").value;
+	const url = "/modules/" + name + ".html";
 	const frame = document.getElementById("iframeID");
-	fetch(url, { method: "HEAD" }).then(response => {
-		if (response.ok) {
-			frame.src = url;
-			frame.onload = null;
-		} else {
-			frame.src = "about:blank";
-			frame.onload = () => {
-				const doc = frame.contentDocument || frame.contentWindow.document;
-				doc.body.innerHTML = `<div style="padding:20px; color:#721c24; background:#f8d7da; border:1px solid #f5c6cb; border-radius:4px;"><strong>Error:</strong> Log not prepared. Click the button \"Update\" above or chose another module.</div>`;
-			};
-		}
-	});
+	if (logs[name] && logs[name] > Math.floor(Date.now() / 1000) - 3600) {
+		frame.src = url;
+		frame.onload = null;
+	} else {
+		frame.src = "about:blank";
+		frame.onload = () => {
+			const doc = frame.contentDocument || frame.contentWindow.document;
+			doc.body.innerHTML = "<div style='padding:20px; color:#721c24; background:#f8d7da; border:1px solid #f5c6cb; border-radius:4px;'> The log analysis is being prepared for module " + name + ". Please wait...</div>";
+		};
+		update(false);
+	}
 }
 
 function update(e) {
@@ -75,9 +82,9 @@ function update(e) {
 	btn1.disabled = true;
 	btn2.disabled = true;
 	if (e)
-		btn2.innerText = "Processing. Please wait and don't refresh the page";
+		btn2.innerText = "Updating. Please wait...";
 	else
-		btn1.innerText = "Processing...";
+		btn1.innerText = "Updating...";
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (this.readyState == 4) {
@@ -87,7 +94,12 @@ function update(e) {
 			btn2.innerText = "Update Everything";
 			if (this.responseText.indexOf("Success") != -1) {
 				document.getElementById("showID").value = name == "_everything_" ? "_all_" : name;
-				show();
+				if (name == "_everything_")
+					document.location.href = "/";
+				else {
+					logs[name] = Math.floor(Date.now() / 1000);
+					show();
+				}
 			}
 		}
 	};
