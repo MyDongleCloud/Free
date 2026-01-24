@@ -77,7 +77,7 @@ static void writeDirectoryIndex(char *s, FILE *pfM) {
 
 static void writeLog(char *name, FILE *pfM) {
 	char sz[256];
-	snprintf(sz, sizeof(sz), "\tCustomLog /var/log/apache2/web-%s.log combined\n", name);
+	snprintf(sz, sizeof(sz), "\tCustomLog /var/log/apache2/module-%s.log combined\n", name);
 	fwrite(sz, strlen(sz), 1, pfM);
 }
 
@@ -156,7 +156,8 @@ void buildApache2Conf(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON
 #\n\
 LoadModule app_module /usr/local/modules/apache2/mod_app.so\n\
 AppJwkPem /disk/admin/modules/betterauth/jwk-pub.pem\n\
-LoadModule app_ip_module /usr/local/modules/apache2/mod_app_ip.so\n\
+LoadModule app_ip_module /usr/local/modules/apache2/mod_app_ip.so\n\n\
+GlobalLog /var/log/apache2/_all_.log vhost_combined\n\
 AppIPEnabled %s\n\
 AppALEnabled %s\n\
 \n\

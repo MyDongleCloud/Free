@@ -7,7 +7,7 @@
 	"installMethod": "apt",
 	"web": true,
 	"essential": false,
-	"finished": false,
+	"finished": true,
 	"ai": false,
 	"database": "",
 	"github": "allinurl/goaccess",
