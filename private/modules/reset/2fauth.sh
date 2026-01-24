@@ -39,6 +39,7 @@ chown -R admin:www-data /disk/admin/modules/2fauth
 chmod 775 /disk/admin/modules/2fauth
 chmod 664 /disk/admin/modules/2fauth/database.sqlite
 chmod -R 775 /usr/local/modules/2fauth/storage
+rm -rf /usr/local/modules/2fauth/storage/framework/cache/data/*
 echo "{\"email\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/2fauth.json
 
 echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
