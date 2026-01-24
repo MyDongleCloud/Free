@@ -36,7 +36,7 @@
 			],
 			"post": [
 				{
-					"url": "/",
+					"url": "/api/authenticate",
 					"arg1": "username",
 					"arg2": "password",
 					"val1": 0,

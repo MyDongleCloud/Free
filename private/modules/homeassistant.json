@@ -54,7 +54,7 @@
 			],
 			"post": [
 				{
-					"url": "/auth/login_flow",
+					"url": "/auth/login_flow*",
 					"arg1": "username",
 					"arg2": "password",
 					"val1": 0,

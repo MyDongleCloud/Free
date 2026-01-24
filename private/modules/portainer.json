@@ -37,7 +37,7 @@
 			],
 			"post": [
 				{
-					"url": "/",
+					"url": "/api/auth",
 					"arg1": "username",
 					"arg2": "password",
 					"val1": 0,

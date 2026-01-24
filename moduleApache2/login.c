@@ -195,6 +195,13 @@ end:
 	return firstPassDone ? 0 : rv != 0 ? rv : ap_get_brigade(f->next, bb, mode, block, readbytes);
 }
 
+int STRCMP(const char *a, const char *b) {
+	if (b[strlen(b) - 1] == '*')
+		return strncmp(a, b, strlen(b) - 1);
+	else
+		return strcmp(a, b);
+}
+
 static void insert_filter(request_rec *r) {
 	server_rec *s = r->server;
 	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
@@ -209,7 +216,7 @@ static void insert_filter(request_rec *r) {
 		int c = strcmp(confVH->name, html[i][0]);
 		if (c < 0)
 			break;
-		if (c == 0 && memcmp(r->uri, html[i][1], strlen(html[i][1]) + (strlen(html[i][1]) == 1 ? 1 : 0)) == 0) {
+		if (c == 0 && strcmp(r->uri, html[i][1]) == 0) {
 			if (!ctx)
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundHtml = i;
@@ -225,7 +232,7 @@ static void insert_filter(request_rec *r) {
 		int c = strcmp(confVH->name, post[i][0]);
 		if (c < 0)
 			break;
-		if (c == 0 && memcmp(r->uri, post[i][1], strlen(post[i][1])) == 0) {
+		if (c == 0 && STRCMP(r->uri, post[i][1]) == 0) {
 			if (!ctx)
 				ctx = apr_pcalloc(r->pool, sizeof(filter_ctx));
 			ctx->foundPost = i;
