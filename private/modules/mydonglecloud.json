@@ -36,7 +36,7 @@
 		"localPort": 9400,
 		"path": "/usr/local/modules/mydonglecloud/web",
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reverseProxy": [
 			{

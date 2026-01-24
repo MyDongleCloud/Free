@@ -31,7 +31,7 @@
 		"localPort": 9481,
 		"path": "/usr/local/modules/piped/dist",
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"reverseProxy": [

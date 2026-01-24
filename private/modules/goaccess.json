@@ -32,6 +32,7 @@
 		"localPort": 9429,
 		"permissions": [
 			"_groupadmin_"
-		]
+		],
+		"permissionsPublicForbidden": true
 	}
 }

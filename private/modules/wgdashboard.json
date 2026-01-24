@@ -49,6 +49,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"permissionsPublicForbidden": true,
 		"reset": true,
 		"reverseProxy": [
 			{

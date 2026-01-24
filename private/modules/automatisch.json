@@ -29,7 +29,7 @@
 		"localPort": 9405,
 		"multiViews": true,
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"setup": true,

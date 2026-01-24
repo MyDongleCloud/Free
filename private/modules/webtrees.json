@@ -56,7 +56,7 @@
 		"enabled": true,
 		"localPort": 9521,
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"setup": true,

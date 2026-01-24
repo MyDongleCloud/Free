@@ -32,7 +32,7 @@
 		"enabled": true,
 		"localPort": 9470,
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		]
 	}
 }

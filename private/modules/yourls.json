@@ -52,7 +52,7 @@
 		"localPort": 9527,
 		"permissions": [
 			"_dongle_",
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"setup": true,

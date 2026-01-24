@@ -38,6 +38,7 @@
 		"permissions": [
 			"_groupadmin_"
 		],
+		"permissionsPublicForbidden": true,
 		"reverseProxy": [
 			{
 				"type": "http",

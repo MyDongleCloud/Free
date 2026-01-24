@@ -28,7 +28,7 @@
 		"localPort": 9433,
 		"path": "/usr/local/modules/html5qrcode/examples/html5",
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		]
 	}
 }

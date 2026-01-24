@@ -61,7 +61,7 @@
 		"enabled": true,
 		"localPort": 9466,
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"reverseProxy": [

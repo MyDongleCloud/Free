@@ -58,7 +58,7 @@
 		"multiViews": true,
 		"path": "/usr/local/modules/2fauth/public",
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"setup": true,

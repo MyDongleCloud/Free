@@ -31,7 +31,7 @@
 		"localPort": 9517,
 		"path": "/usr/local/modules/typesensedashboard/dist/spa",
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reverseProxy": [
 			{

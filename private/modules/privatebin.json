@@ -32,7 +32,7 @@
 		"followSymLinks": true,
 		"localPort": 9486,
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"setup": true,

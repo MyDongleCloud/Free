@@ -32,7 +32,7 @@
 		"enabled": true,
 		"localPort": 9479,
 		"permissions": [
-			"_groupadmin_"
+			"_groupuser_"
 		],
 		"reset": true,
 		"reverseProxy": [
