@@ -1,0 +1,66 @@
+{
+	"module": "openobserve",
+	"name": "OpenObserve",
+	"title": "Observability Tool",
+	"category": "Server",
+	"version": "v0.50.3",
+	"installMethod": "wget",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "sqlite",
+	"github": "openobserve/openobserve",
+	"description": "A modern observability platform: 10x easier, 140x lower storage cost, petabyte scale.",
+	"keywords": [
+		"Platform",
+		"Observability"
+	],
+	"proprietary": [],
+	"default": {
+		"autoLogin": {
+			"inject": [
+				{
+					"url": "/web/login",
+					"form": "form",
+					"arg1": "input[type=email]",
+					"arg2": "input[type=password]",
+					"arg3": "button[type=submit]",
+					"val1": 1,
+					"val2": 2
+				}
+			],
+			"post": [
+				{
+					"url": "/auth/login",
+					"arg1": "email",
+					"arg2": "password",
+					"val1": 1,
+					"val2": 2
+				}
+			]
+		},
+		"autoLoginNoGzip": [
+			"^/web/login"
+		],
+		"enabled": true,
+		"localPort": 9529,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"permissionsPublicForbidden": true,
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 5080,
+				"path": "/"
+			}
+		],
+		"services": [
+			"openobserve"
+		],
+		"setup": true,
+		"setupDependencies": []
+	}
+}

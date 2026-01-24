@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenObserve
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/disk/admin/modules/openobserve/env
+ExecStart=/usr/local/bin/openobserve
+WorkingDirectory=/disk/admin/modules/openobserve
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target
