@@ -21,31 +21,6 @@
 	],
 	"proprietary": [],
 	"default": {
-		"autoLogin": {
-			"inject": [
-				{
-					"url": "/login",
-					"form": "form[role=form]",
-					"arg1": "input[name=username]",
-					"arg2": "input[name=password]",
-					"arg3": "button[type=submit]",
-					"val1": 0,
-					"val2": 2
-				}
-			],
-			"post": [
-				{
-					"url": "/login",
-					"arg1": "username",
-					"arg2": "password",
-					"val1": 0,
-					"val2": 2
-				}
-			]
-		},
-		"autoLoginNoGzip": [
-			"^/login"
-		],
 		"enabled": true,
 		"localPort": 9488,
 		"permissions": [
