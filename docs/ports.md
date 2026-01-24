@@ -12,6 +12,7 @@ This is the list of all used ports in the image, separated between listening por
 - librechat: 3080 (reverseproxy)
 - lobechat: 3210 (reverseproxy)
 - mysql: 3306, 33060
+- openobserve: 5080 (reverseproxy)
 - postgres: 5432
 - redis: 6379
 - frp: 7400
