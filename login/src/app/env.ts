@@ -121,11 +121,6 @@ async logout() {
 async settingsSave() {
 }
 
-openPage(url: string) {
-	this.consolelog(1, "openPage");
-	document.location.href = "/";
-}
-
 async backButtonAlert() {
 	const alert = await this.alertCtrl.create({
 		message: this.mytranslateP("splash", "Do you want to leave this application?"),

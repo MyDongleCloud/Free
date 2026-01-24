@@ -179,7 +179,7 @@ async doLogin() {
 			this.show_Otp();
 		else {
 			await this.global.getSession();
-			this.router.navigate(["/"]);
+			document.location.href = "/";
 		}
 	} else
 		this.cdr.detectChanges();
@@ -211,7 +211,7 @@ async doRegister() {
 	this.progress = false;
 	if (ret != null) {
 		await this.global.getSession();
-		this.router.navigate(["/"]);
+		document.location.href = "/";
 	} else
 		this.cdr.detectChanges();
 }
@@ -257,7 +257,7 @@ async doForgotPasswordVerify(token) {
 	} catch(e) { this.errorSt = e.error.message; }
 	if (ret != null) {
 		await this.global.getSession();
-		this.router.navigate(["/"]);
+		document.location.href = "/";
 	}
 }
 
@@ -329,7 +329,7 @@ async doOtp() {
 	this.progress = false;
 	if (ret != null) {
 		await this.global.getSession();
-		this.router.navigate(["/"]);
+		document.location.href = "/";
 	} else
 		this.cdr.detectChanges();
 }
