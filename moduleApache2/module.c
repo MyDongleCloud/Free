@@ -154,7 +154,7 @@ int checkAccess(cJSON *elPermissions, const char *role, const char *username) {
 	return 0;
 }
 
-int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *elPermissions) {
+int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *elPermissions, int strict) {
 	int ret = 0;
 	jwt_t* jwt_decoded;
 	int result = jwt_decode(&jwt_decoded, token, (const unsigned char*)keyPem, strlen(keyPem));
@@ -163,9 +163,13 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 		time_t exp_time = (time_t)jwt_get_grant_int(jwt_decoded, "exp");
 		if (current_time < exp_time) {
 			const char *jwtRole = jwt_get_grant(jwt_decoded, "role");
-			const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
-			//PRINTF("APP: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
-			ret = checkAccess(elPermissions, jwtRole, jwtUsername);
+			if (strict)
+				ret = strcmp(jwtRole, "admin") == 0;
+			else {
+				const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
+				//PRINTF("APP: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
+				ret = checkAccess(elPermissions, jwtRole, jwtUsername);
+			}
 		}
 		jwt_free(jwt_decoded);
 	} else {
@@ -196,7 +200,7 @@ int authorization2(request_rec *r, int strict) {
 	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
 	//PRINTF("APP: authorization2 cookieJwt: %s", cookieJwt);
 	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
-		return decodeAndCheck(s, cookieJwt, confVH->jwkPem, confVH->permissions) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
+		return decodeAndCheck(s, cookieJwt, confVH->jwkPem, confVH->permissions, strict) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
 	return HTTP_UNAUTHORIZED;
 }
 
