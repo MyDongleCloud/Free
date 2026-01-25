@@ -62,13 +62,13 @@
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bDisabled']" [disabled]="card['enabledUnalterable']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic'] || card['permissionsPublicForbidden']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? '' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic'] || card['permissionsPublicForbidden']" [title]="card['permissionsPublicForbidden'] ? 'For security reasons, this module cannot be made public' : ''" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? '' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dLocal'] ? '' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dAdmin'] ? '' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" [title]="card['dAdmin'] && card['bUser'] ? 'Admin has user permissions' : ''" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dAdmin'] ? '' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dUser'] ? '' : ''"></div>

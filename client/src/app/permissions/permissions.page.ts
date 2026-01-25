@@ -140,10 +140,10 @@ async save() {
 					this.modules[module]["permissions"].push("_public_");
 				if (this.cards[i]["bLocal"])
 					this.modules[module]["permissions"].push("_localnetwork_");
-				if (this.cards[i]["bAdmin"])
-					this.modules[module]["permissions"].push("_groupadmin_");
-				if (this.cards[i]["buser"])
+				if (this.cards[i]["bUser"])
 					this.modules[module]["permissions"].push("_groupuser_");
+				else if (this.cards[i]["bAdmin"])
+					this.modules[module]["permissions"].push("_groupadmin_");
 				if (this.cards[i]["bDongle"])
 					this.modules[module]["permissions"].push("_dongle_");
 			}
