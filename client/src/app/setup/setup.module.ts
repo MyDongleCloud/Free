@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SetupRoutingModule } from './setup-routing.module';
 import { Setup } from './setup.page';
-import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
 	imports: [
@@ -14,7 +13,6 @@ import { ComponentsModule } from '../components/components.module';
 		TranslateModule,
 		FormsModule,
 		ReactiveFormsModule,
-		ComponentsModule,
 		SetupRoutingModule
 	],
 	declarations: [Setup]
