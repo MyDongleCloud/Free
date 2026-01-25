@@ -12,6 +12,7 @@ This is the list of all used ports in the image, separated between listening por
 - librechat: 3080 (reverseproxy)
 - lobechat: 3210 (reverseproxy)
 - mysql: 3306, 33060
+- signoz: 4317, 4318, 8113 (reverseproxy)
 - openobserve: 5080 (reverseproxy)
 - postgres: 5432
 - redis: 6379
@@ -53,7 +54,7 @@ This is the list of all used ports in the image, separated between listening por
 ### Listening ports (0.0.0.0)
 - ssh: 22
 - postfix: 25 (mail), 465 (smtp)
-- apache: 80 (http), 443 (https), 9400-9526 (modules)
+- apache: 80 (http), 443 (https), 9400-9529 (modules)
 - dovecot imaps: 110 (imaps), 143 (pop3s), 993 (imaps), 995 (pop3s)
 - networkmanager: 546 (dhcpv6)
 - avahi: 5353 (mdns)

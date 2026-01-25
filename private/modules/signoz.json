@@ -1,0 +1,43 @@
+{
+	"module": "signoz",
+	"name": "SigNoz",
+	"title": "OpenTelemetry Tool",
+	"category": "Server",
+	"version": "v0.108.0",
+	"installMethod": "wget",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "sqlite",
+	"github": "SigNoz/signoz",
+	"description": "An observability platform native to OpenTelemetry with logs, traces and metrics in a single application.",
+	"keywords": [
+		"Platform",
+		"Observability"
+	],
+	"proprietary": [],
+	"default": {
+		"enabled": true,
+		"localPort": 9530,
+		"permissions": [
+			"_groupadmin_"
+		],
+		"permissionsPublicForbidden": true,
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8113,
+				"path": "/"
+			}
+		],
+		"services": [
+			"openobserve"
+		],
+		"setup": true,
+		"setupDependencies": [
+			"postgresql"
+		]
+	}
+}

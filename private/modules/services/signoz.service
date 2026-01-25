@@ -1,0 +1,16 @@
+[Unit]
+Description=Signoz
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/modules/signoz/bin/signoz server --config /disk/admin/modules/signoz/config.yaml
+WorkingDirectory=/disk/admin/modules/signoz
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+
+[Install]
+WantedBy=multi-user.target
