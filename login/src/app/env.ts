@@ -20,7 +20,6 @@ demo: boolean = false;
 VERSION: string = VERSION;
 SERVERURL: string = "https://mydongle.cloud";
 language;
-currentUrl: string = "login";
 settings: Settings = {} as Settings;
 DONGLEURL: string;
 refreshUI:Subject<any> = new Subject();
@@ -174,7 +173,7 @@ mytranslateP(page, st) {
 }
 
 mytranslate(st) {
-	return this.mytranslateP(this.currentUrl == "" ? "login" : this.currentUrl, st);
+	return this.mytranslateP(this.router.url.replace(/^\/|(\?).*$/g, ""), st);
 }
 
 mytranslateG(st) {
