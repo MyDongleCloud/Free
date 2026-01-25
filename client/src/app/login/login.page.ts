@@ -108,9 +108,6 @@ async init() {
 		await this.doForgotPasswordVerify(verify);
 		return;
 	}
-	let count = 20;
-	while (this.global.session === undefined && count-- > 0)
-		await this.global.sleepms(100);
 	if (this.global.session != null)
 		this.global.logout();
 	this.ready = true;
