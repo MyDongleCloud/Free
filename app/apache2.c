@@ -180,8 +180,8 @@ AppALEnabled %s\n\
 	<Directory /usr/local/modules/apache2/pages/web>\n\
 		RewriteBase /\n\
 		RewriteRule ^index\\.html$ - [L]\n\
-		RewriteCond %{REQUEST_FILENAME} !-f\n\
-		RewriteCond %{REQUEST_FILENAME} !-d\n\
+		RewriteCond %%{REQUEST_FILENAME} !-f\n\
+		RewriteCond %%{REQUEST_FILENAME} !-d\n\
 		RewriteRule . /_app_/index.html [L]\n\
 		Require all granted\n\
 	</Directory>\n\
