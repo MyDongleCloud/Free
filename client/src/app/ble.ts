@@ -240,14 +240,6 @@ async shutdown() {
 	await this.writeData({ a:"shutdown" });
 }
 
-async checkVersion() {
-		if (this.firmwareDeviceVersion < this.global.firmwareServerVersion && this.router.url != "/upgrade") {
-			let ret = await this.global.presentQuestion("Upgrade needed", "Do you want to upgrade the device now?", "The firmware of the device is too old and not compatible with this app.");
-			if (ret)
-				this.router.navigate(["/ugrade"]);
-		}
-}
-
 async syncDate() {
 	const d = new Date();
 	const localTime = Math.floor(d.getTime() / 1000 - (d.getTimezoneOffset() * 60));
@@ -260,7 +252,6 @@ async version() {
 		this.firmwareDeviceVersion = new TextDecoder().decode(ar);
 		this.global.consolelog(1, "Device version " + this.firmwareDeviceVersion);
 		this.global.refreshUI.next(true);
-		this.checkVersion();
 	});
 }
 
