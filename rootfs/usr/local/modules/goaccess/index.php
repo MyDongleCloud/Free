@@ -1,6 +1,6 @@
 <?php
 function process($name) {
-	system("zcat -f /var/log/apache2/" . ($name != "_all_" ? "module-" : "") . $name . ".log* | goaccess --log-format=VCOMBINED --html-report-title=\"Log Analysis of " . $name . "\" -o /usr/local/modules/goaccess/modules/" . $name . ".html - 2>&1 > /dev/null", $retval);
+	system("zcat -f /var/log/apache2/" . ($name != "_all_" ? "module-" : "") . $name . ".log* | goaccess --log-format=" . ($name == "_all_" ? "V" : "") . "COMBINED --html-report-title=\"Log Analysis of " . $name . "\" -o /usr/local/modules/goaccess/modules/" . $name . ".html - 2>&1 > /dev/null", $retval);
 	return $retval;
 }
 
