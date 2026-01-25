@@ -169,8 +169,20 @@ AppALEnabled %s\n\
 	RequestHeader set \"X-Forwarded-Proto\" expr=%%{REQUEST_SCHEME}\n\
 	ProxyVia On\n\
 	ProxyPass /_app_/auth/ http://localhost:8091/auth/\n\
-	Alias /_app_ /usr/local/modules/apache2/pages\n\
+	AliasMatch /_app_/disabled.php /usr/local/modules/apache2/pages/disabled.php\n\
+	AliasMatch /_app_/error.php /usr/local/modules/apache2/pages/error.php\n\
+	AliasMatch /_app_/notpresent.php /usr/local/modules/apache2/pages/notpresent.php\n\
+	AliasMatch /_app_/unauthorized.php /usr/local/modules/apache2/pages/unauthorized.php\n\
 	<Directory /usr/local/modules/apache2/pages>\n\
+		Require all granted\n\
+	</Directory>\n\
+	Alias /_app_ /usr/local/modules/apache2/pages/web\n\
+	<Directory /usr/local/modules/apache2/pages/web>\n\
+		RewriteBase /\n\
+		RewriteRule ^index\\.html$ - [L]\n\
+		RewriteCond %{REQUEST_FILENAME} !-f\n\
+		RewriteCond %{REQUEST_FILENAME} !-d\n\
+		RewriteRule . /_app_/index.html [L]\n\
 		Require all granted\n\
 	</Directory>\n\
 	ErrorDocument 401 /_app_/unauthorized.php?m=$1\n\

@@ -13,8 +13,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@root/acme",
+              "@root/keypairs",
+              "@root/csr",
+              "@root/pem",
+              "@root/encoding/base64"
+            ],
             "preserveSymlinks": true,
-            "outputPath": "login",
+            "outputPath": "web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -37,7 +44,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/_app_/login/",
+              "baseHref": "/_app_/",
               "budgets": [
                 {
                   "type": "initial",

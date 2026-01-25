@@ -5,6 +5,7 @@ import { Platform } from '@ionic/angular';
 import { NavController, AlertController } from '@ionic/angular';
 import { App } from '@capacitor/app';
 import { TranslateService } from '@ngx-translate/core';
+import { Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Settings } from './myinterface';
 import { VERSION } from './version';
@@ -17,10 +18,12 @@ export class Global {
 developer: boolean = false;
 demo: boolean = false;
 VERSION: string = VERSION;
+SERVERURL: string = "https://mydongle.cloud";
 language;
 currentUrl: string = "login";
 settings: Settings = {} as Settings;
 DONGLEURL: string;
+refreshUI:Subject<any> = new Subject();
 session;
 themeSel = "system";
 darkVal = false;
@@ -118,7 +121,7 @@ async logout() {
 	document.location.href = "/";
 }
 
-async settingsSave() {
+async statusRefresh(data) {
 }
 
 async backButtonAlert() {

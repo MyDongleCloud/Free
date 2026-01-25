@@ -127,13 +127,13 @@ else
 	cp -a ../client/web ${ROOTFS}/usr/local/modules/mydonglecloud
 	rm -rf ../client/web
 
-	rm -rf ../login/login
+	rm -rf ../login/web
 	cd ../login
 	ionic --prod build
 	cd -
 	rm -rf ${ROOTFS}/usr/local/modules/apache2/pages/login
-	cp -a ../login/login ${ROOTFS}/usr/local/modules/apache2/pages
-	rm -rf ../login/login
+	cp -a ../login/web ${ROOTFS}/usr/local/modules/apache2/pages
+	rm -rf ../login/web
 
 	rm -rf ${ROOTFS}/home/admin.default
 	cp -a ${ROOTFS}/disk/admin ${ROOTFS}/home/admin.default
