@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
+import { Certificate } from '../certificate';
 import { BleService } from '../ble';
 
 @Component({
@@ -27,7 +28,7 @@ formWiFi: FormGroup;
 hasBlurredOnce: boolean = false;
 errorSt = null;
 
-constructor(public global: Global, private router: Router, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder, public ble: BleService) {
+constructor(public global: Global, public certificate: Certificate, private router: Router, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
 		this.cdr.detectChanges();
 	});
@@ -206,7 +207,7 @@ async doWiFi() {
 	let ret1 = null;
 	let ret2 = null;
 	try {
-		ret1 = await this.global.getCertificate(this.name1.value, this.shortname1.value, this.domain1.value != "" ? [this.domain1.value] : []); //Not used: ret1.accountKey, ret1.accountKeyId
+		ret1 = await this.certificate.process(this.name1.value, this.shortname1.value, this.domain1.value != "" ? [this.domain1.value] : []); //Not used: ret1.accountKey, ret1.accountKeyId
 		this.global.consolelog(2, "SETUP: Certificates", ret1);
 	} catch(e) { ret1 = { fullChain:"", privateKey: "" }; }
 	try {
