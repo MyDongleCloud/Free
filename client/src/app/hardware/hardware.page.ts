@@ -17,7 +17,6 @@ declare var appLanguage: any;
 
 export class Hardware {
 L(st) { return this.global.mytranslate(st); }
-LG(st) { return this.global.mytranslateG(st); }
 typeBluetooth: boolean = false;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {

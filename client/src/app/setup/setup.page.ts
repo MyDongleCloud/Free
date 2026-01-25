@@ -13,7 +13,6 @@ import { BleService } from '../ble';
 
 export class Setup {
 L(st) { return this.global.mytranslate(st); }
-LG(st) { return this.global.mytranslateG(st); }
 @ViewChild("name1E") name1E: ElementRef;
 @ViewChild("name2E") name2E: ElementRef;
 password2Show:boolean = false;

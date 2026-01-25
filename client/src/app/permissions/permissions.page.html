@@ -1,13 +1,13 @@
 <div class="flex h-screen text--gray-900 h-full">
 	<app-sidebar></app-sidebar>
 	<div class="flex-1 flex flex-col overflow-x-auto">
-		<app-topbar></app-topbar>
+		<app-topbar [title]="L('Permissions')"></app-topbar>
 		<div class="flex gap-3 mt-4 mr-4">
 			<div class="ml-4 relative">
 				<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 					<ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
 				</div>
-				<input type="text" [(ngModel)]="searchTerm" #searchTermE (input)="filterCards()" placeholder="{{LG('Find modules...')}}" class="w-full pl-10 pr-4 py-2 border border--gray-300 text--gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring--blue-600 focus:border-transparent transition-colors">
+				<input type="text" [(ngModel)]="searchTerm" #searchTermE (input)="filterCards()" placeholder="{{L('Find modules...')}}" class="w-full pl-10 pr-4 py-2 border border--gray-300 text--gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring--blue-600 focus:border-transparent transition-colors">
 			</div>
 			<button (click)="searchTerm = ''; filterCards()" class="hidden items-center gap-2 px-4 py-2 border border--gray-300 rounded-lg text-sm font-medium text--gray-700 hover:bg--gray-200 transition-colors cursor-pointer" [class]="searchTerm != '' ? 'inline-flex' : ''">
 				<ion-icon name="refresh-outline" class="w-6 h-6"></ion-icon>

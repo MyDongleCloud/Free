@@ -10,7 +10,6 @@ import { Global } from '../env';
 
 export class Help {
 L(st) { return this.global.mytranslate(st); }
-LG(st) { return this.global.mytranslateG(st); }
 
 constructor(public global: Global, private router: Router, private cdr: ChangeDetectorRef) {}
 

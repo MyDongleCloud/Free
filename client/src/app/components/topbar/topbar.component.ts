@@ -10,7 +10,6 @@ import { Global } from '../../env';
 
 export class TopbarComponent {
 LG(st) { return this.global.mytranslateG(st); }
-parentClassName = "";
 @Input() title;
 private documentClickListener: (() => void) | null = null;
 showUserMenu:boolean = false;
@@ -18,7 +17,6 @@ initials: string = "";
 private destroyRef = inject(DestroyRef);
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private elRef: ElementRef, private renderer: Renderer2, private route: ActivatedRoute) {
-	this.parentClassName = this.route.snapshot.component?.name;
 	this.initials = this.getInitials();
 	afterNextRender(() => {
 		const unlisten = this.renderer.listen("document", "click", (event: Event) => {

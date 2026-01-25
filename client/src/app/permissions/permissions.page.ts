@@ -13,7 +13,6 @@ import modulesMeta from '../modulesmeta.json';
 
 export class Permissions {
 L(st) { return this.global.mytranslate(st); }
-LG(st) { return this.global.mytranslateG(st); }
 LMT(st) { return this.global.mytranslateMT(st); }
 LMD(st) { return this.global.mytranslateMD(st); }
 @ViewChild("searchTermE") searchTermE: ElementRef;

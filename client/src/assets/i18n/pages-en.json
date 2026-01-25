@@ -9,7 +9,7 @@
 	},
 	"backup": {
 		"Backup": "",
-		"Backup & restore": ""
+		"Backup & Restore": ""
 	},
 	"find": {
 		"Dongle": "",
@@ -26,6 +26,7 @@
 		"Connected": "",
 		"Device version:": "",
 		"Dongle": "",
+		"Hardware:": "",
 		"Login OTP": "",
 		"Searching": "",
 		"Shutdown": "",
@@ -114,6 +115,7 @@
 	"permissions": {
 		"DESCRIPTION": "",
 		"DISABLED": "",
+		"Find modules...": "",
 		"GROUP\nADMIN": "",
 		"GROUP\nUSER": "",
 		"HITS": "",
