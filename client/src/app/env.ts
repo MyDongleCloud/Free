@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { NavController, AlertController, MenuController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
-import { Filesystem, Directory } from '@capacitor/filesystem';
 import { App } from '@capacitor/app';
 import { Device } from '@capacitor/device';
 import { Preferences } from '@capacitor/preferences';
