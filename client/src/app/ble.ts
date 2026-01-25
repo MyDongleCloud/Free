@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BleClient, textToDataView, numberToUUID, ScanResult, ConnectionPriority } from '@capacitor-community/bluetooth-le';
-import { Filesystem, Encoding } from '@capacitor/filesystem';
 import { Global } from './env';
 import { Subject } from 'rxjs';
 
