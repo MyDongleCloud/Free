@@ -40,41 +40,7 @@ cJSON *fqdnInit(cJSON *elCloud) {
 void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
 	//PRINTF("Modules:Setup: Enter\n");
 	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "info")) {
-#ifdef DESKTOP
-		FILE *pfP = fopen("/tmp/ports.conf", "w");
-#else
-		FILE *pfP = fopen(ADMIN_PATH "apache2/ports.conf", "w");
-#endif
-		char sz[512];
-		strcpy(sz, "\
-<IfModule ssl_module>\n\
-	Listen 80\n\
-</IfModule>\n");
-		fwrite(sz, strlen(sz), 1, pfP);
-		fclose(pfP);
-#ifdef DESKTOP
-		FILE *pfM = fopen("/tmp/main.conf", "w");
-#else
-		FILE *pfM = fopen(ADMIN_PATH "apache2/main.conf", "w");
-#endif
-		strcpy(sz, "\
-<VirtualHost *:80>\n\
-	Alias /_app_ /usr/local/modules/apache2/pages/web\n\
-	RewriteEngine On\n\
-	RewriteCond %{REQUEST_URI} !^/_app_ [NC]\n\
-	RewriteRule ^(.*)$ /_app_/setup [R=301,L]\n\
-	RewriteRule ^/_app_/login$ /_app_/setup [R=301,L]\n\
-	<Directory /usr/local/modules/apache2/pages/web>\n\
-		RewriteEngine On\n\
-		RewriteBase /_app_\n\
-		RewriteCond %{REQUEST_FILENAME} !-f\n\
-		RewriteCond %{REQUEST_FILENAME} !-d\n\
-		RewriteRule . /_app_/index.html [L]\n\
-		Require all granted\n\
-	</Directory>\n\
-</VirtualHost>");
-		fwrite(sz, strlen(sz), 1, pfM);
-		fclose(pfM);
+		buildApache2ConfBeforeSetup();
 #ifndef DESKTOP
 		serviceAction("apache2.service", "ReloadOrRestartUnit");
 #endif

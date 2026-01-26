@@ -3,5 +3,6 @@
 
 //Global functions
 void buildApache2Conf(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn);
+void buildApache2ConfBeforeSetup();
 
 #endif
