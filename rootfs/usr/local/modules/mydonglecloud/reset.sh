@@ -31,7 +31,7 @@ done
 cd `dirname $0`
 PP=`pwd`
 
-if [ -n $TIMEZONE ]; then
+if [ ! -z $TIMEZONE ]; then
 	if timedatectl list-timezones | grep -qx "$TIMEZONE"; then
 		timedatectl set-timezone -- "$TIMEZONE"
 	fi
