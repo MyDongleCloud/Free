@@ -214,6 +214,7 @@ async doWiFi() {
 		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "name=" + encodeURIComponent(this.name1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
 		this.global.consolelog(2, "SETUP: Server", ret2);
 	} catch(e) { ret2 = { frp:{}, ollama:{}, postfix:{} }; }
+	const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 	const data = {
 		a:"setup",
 		cloud: {
@@ -243,7 +244,8 @@ async doWiFi() {
 		letsencrypt: {
 			fullchain: ret1.fullChain,
 			privatekey :ret1.privateKey
-		}
+		},
+		timezone
 	};
 	this.global.consolelog(2, "SETUP: Sending to dongle:", data);
 	await this.ble.writeData(data);

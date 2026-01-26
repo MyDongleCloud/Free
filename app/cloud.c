@@ -113,6 +113,9 @@ void cloudSetup(cJSON *el) {
 	inSetup = 1;
 	logicSetup(L("Initialization"), 0);
 	cJSON *elCloud = cJSON_GetObjectItem(el, "cloud");
+	char sz[256];
+	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/reset.sh -t %s", cJSON_GetStringValue2(el, "timezone"));
+	system(sz);
 	cJSON *elSecurity = cJSON_GetObjectItem(elCloud, "security");
 	cJSON *elConnectivity = cJSON_GetObjectItem(elCloud, "connectivity");
 	cJSON *elWifi = cJSON_GetObjectItem(elConnectivity, "wifi");
