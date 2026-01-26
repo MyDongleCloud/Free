@@ -35,7 +35,7 @@ if [ "m`id -u`" != "m0" ]; then
 fi
 cd `dirname $0`
 echo "Current directory is now `pwd`"
-PP=`pwd`
+PP=`pwd`/..
 
 umount ${DISK}*
 umount ${DISK}*
@@ -54,11 +54,11 @@ DATESTART=`date +%s`
 
 umount ${DISK}*
 umount ${DISK}*
-rm -f ../build/img/flasher-m${POSTNAME}-s.img ../build/img/upgrade.bin ../build/img/partition1.zip
+rm -f ${PP}/build/img/flasher-m${POSTNAME}-s.img ${PP}/build/img/upgrade.bin ${PP}/build/img/partition1.zip
 mount ${DISK}1 /tmp/1
 mount ${DISK}2 /tmp/2
 cd /tmp/1
-zip -q -r ${PP}/../build/img/partition1.zip ./bcm2712-rpi-5-b.dtb ./bcm2712-rpi-cm5-cm5io.dtb ./cmdline.txt ./config.txt ./kernel_2712.img ./overlays/overlay_map.dtb ./overlays/bcm2712d0.dtbo ./overlays/dwc2.dtbo ./overlays/dongle.dtbo ./overlays/st7735s.dtbo ./overlays/buttons.dtbo ./overlays/leds.dtbo ./overlays/uart0-pi5.dtbo ./overlays/uart2-pi5.dtbo ./Image ./mydonglecd.dtb
+zip -q -r ${PP}/build/img/partition1.zip ./bcm2712-rpi-5-b.dtb ./bcm2712-rpi-cm5-cm5io.dtb ./cmdline.txt ./config.txt ./kernel_2712.img ./overlays/overlay_map.dtb ./overlays/bcm2712d0.dtbo ./overlays/dwc2.dtbo ./overlays/dongle.dtbo ./overlays/st7735s.dtbo ./overlays/buttons.dtbo ./overlays/leds.dtbo ./overlays/uart0-pi5.dtbo ./overlays/uart2-pi5.dtbo ./Image ./mydonglecd.dtb
 cd ${PP}
 ROOTFS=/tmp/2
 if [ $CLEAN = 1 ]; then
@@ -68,73 +68,67 @@ if [ -f /tmp/os${POSTNAME}.img ]; then
 	echo "No creation as /tmp/os${POSTNAME}.img already exists"
 else
 	NEWEST=
-	if [ ! -f ../build/modulesmeta.json -o $(find modules -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ../build/modulesmeta.json ]; then
-		php modules-update.php
+	if [ ! -f ${PP}/build/modulesmeta.json -o $(find ${PP}/private/modules -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${PP}/build/modulesmeta.json ]; then
+		php ${PP}/private/modules-update.php
 	else
 		echo "Nothing to update for modules"
 	fi
 	tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C ${ROOTFS}/lib/modules/
-	../auth/prepare.sh -c
-	cp -a ../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json ${ROOTFS}/usr/local/modules/mydonglecloud/
-	rm -rf ../rootfs/usr/local/modules/mydonglecloud/reset
-	cp -a modules/reset/ ../rootfs/usr/local/modules/mydonglecloud/
+	${PP}/auth/prepare.sh -c
+	cp ${PP}/rootfs/usr/local/modules/mydonglecloud/modulesdefault.json ${ROOTFS}/usr/local/modules/mydonglecloud/
+	rm -rf ${PP}/rootfs/usr/local/modules/mydonglecloud/reset
+	cp -a ${PP}/private/modules/reset/ ${PP}/rootfs/usr/local/modules/mydonglecloud/
 	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/reset
-	cp -a ../rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
-	cp modules/services/* ${ROOTFS}/etc/systemd/system/
-
-	if [ ! -f ${ROOTFS}/usr/local/modules/mydonglecloud/app -o $(find ../app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/mydonglecloud/app ]; then
+	cp -a ${PP}/rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
+	cp ${PP}/private/modules/services/* ${ROOTFS}/etc/systemd/system/
+	if [ ! -f ${ROOTFS}/usr/local/modules/mydonglecloud/app -o $(find ${PP}/app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/mydonglecloud/app ]; then
 		rm -rf ${ROOTFS}/home/ai/app
-		cp -a ../app ${ROOTFS}/home/ai/
+		cp -a ${PP}/app ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/app && make clean && make'
 	else
 		echo "Nothing to update for app"
 	fi
-	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ../moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find modules -name "*.json" -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/private/modules -name "*.json" -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleApache2
-		cp -a ../moduleApache2 ${ROOTFS}/home/ai/
+		cp -a ${PP}/moduleApache2 ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleApache2 && make clean && make'
 	else
 		echo "Nothing to update for moduleApache2"
 	fi
-	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so -o $(find ../moduleIpApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so -o $(find ${PP}/moduleIpApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleIpApache2
-		cp -a ../moduleIpApache2 ${ROOTFS}/home/ai/
+		cp -a ${PP}/moduleIpApache2 ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleIpApache2 && make clean && make'
 	else
 		echo "Nothing to update for moduleIpApache2"
 	fi
-	if [ ! -f ${ROOTFS}/usr/local/modules/pam/pam_app.so -o $(find ../pam -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/pam/pam_app.so ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/pam/pam_app.so -o $(find ${PP}/pam -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/pam/pam_app.so ]; then
 		rm -rf ${ROOTFS}/home/ai/pam
-		cp -a ../pam ${ROOTFS}/home/ai/
+		cp -a ${PP}/pam ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/pam && make clean && make'
 	else
 		echo "Nothing to update for pam"
 	fi
 	cp /etc/resolv.conf /tmp/2/etc/resolv.conf
-	if [ ! -d ${ROOTFS}/usr/local/modules/betterauth -o $(find ../auth/src/ -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/betterauth ]; then
+	if [ ! -d ${ROOTFS}/usr/local/modules/betterauth -o $(find ${PP}/auth/src/ -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/betterauth ]; then
 		rm -rf ${ROOTFS}/home/ai/auth
-		cp -a ../auth ${ROOTFS}/home/ai/
+		cp -a ${PP}/auth ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/auth && ./prepare.sh -i'
 	else
 		echo "Nothing to update for auth"
 	fi
-
-	rm -rf ../client/web
-	cd ../client
+	rm -rf ${PP}/client/web
+	cd ${PP}/client
 	ionic --prod build
-	cd -
 	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/web
-	cp -a ../client/web ${ROOTFS}/usr/local/modules/mydonglecloud
-	rm -rf ../client/web
-
-	rm -rf ../login/web
-	cd ../login
+	cp -a ${PP}/client/web ${ROOTFS}/usr/local/modules/mydonglecloud
+	rm -rf ${PP}/client/web
+	rm -rf ${PP}/login/web
+	cd ${PP}/login
 	ionic --prod build
-	cd -
 	rm -rf ${ROOTFS}/usr/local/modules/apache2/pages/login
-	cp -a ../login/web ${ROOTFS}/usr/local/modules/apache2/pages
-	rm -rf ../login/web
-
+	cp -a ${PP}/login/web ${ROOTFS}/usr/local/modules/apache2/pages
+	rm -rf ${PP}/login/web
 	rm -rf ${ROOTFS}/home/admin.default
 	cp -a ${ROOTFS}/disk/admin ${ROOTFS}/home/admin.default
 	rm -f /tmp/squashfs-exclude.txt
@@ -164,12 +158,12 @@ sync
 umount ${DISK}*
 umount ${DISK}*
 
-dd if=../build/img/sdcard-bootdelay1-m-s of=../build/img/flasher-m${POSTNAME}-s.img bs=1024
+dd if=${PP}/build/img/sdcard-bootdelay1-m-s of=${PP}/build/img/flasher-m${POSTNAME}-s.img bs=1024
 SIZE=$((`stat -c %s /tmp/os${POSTNAME}.img` * 125 / 100 / 1024))
 echo "Img Size: $((SIZE + 4 * 1024)) kiBytes"
-dd if=/dev/zero of=../build/img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
-echo -n '\061' | dd of=../build/img/flasher-m${POSTNAME}-s.img bs=1 seek=4194303 conv=notrunc
-losetup --show ${LOSETUP} ../build/img/flasher-m${POSTNAME}-s.img
+dd if=/dev/zero of=${PP}/build/img/flasher-m${POSTNAME}-s.img bs=1024 count=$SIZE seek=$((4 * 1024)) conv=notrunc
+echo -n '\061' | dd of=${PP}/build/img/flasher-m${POSTNAME}-s.img bs=1 seek=4194303 conv=notrunc
+losetup --show ${LOSETUP} ${PP}/build/img/flasher-m${POSTNAME}-s.img
 sfdisk -f ${LOSETUP} << EOF
 8192,262144,c
 270336,
@@ -180,7 +174,7 @@ sync
 losetup -d ${LOSETUP}
 sync
 sync
-losetup --partscan --show ${LOSETUP} ../build/img/flasher-m${POSTNAME}-s.img
+losetup --partscan --show ${LOSETUP} ${PP}/build/img/flasher-m${POSTNAME}-s.img
 if [ $? != 0 ]; then
 	echo "ERROR losetup"
 	exit 1
@@ -194,8 +188,8 @@ sync
 umount ${LOSETUP}*
 umount ${LOSETUP}*
 mount ${LOSETUP}p1 /tmp/1
-unzip -q -d /tmp/1/ ../build/img/partition1.zip
-cp ../build/img/initramfs_2712 /tmp/1
+unzip -q -d /tmp/1/ ${PP}/build/img/partition1.zip
+cp ${PP}/build/img/initramfs_2712 /tmp/1
 mount ${LOSETUP}p2 /tmp/2
 rm -rf /tmp/2/lost+found/
 mkdir -p /tmp/2/fs/upper/ /tmp/2/fs/lower/ /tmp/2/fs/overlay/ /tmp/2/fs/work/
@@ -214,18 +208,18 @@ sync
 losetup -d ${LOSETUP}
 
 if [ $FINAL = 1 ]; then
-	zip -j ../build/img/upgrade.bin ../build/img/partition1.zip /tmp/os${POSTNAME}.img
+	zip -j ${PP}/build/img/upgrade.bin ${PP}/build/img/partition1.zip /tmp/os${POSTNAME}.img
 
-	cd ../client
+	cd ${PP}/client
 	ionic build --prod
 	ionic cap sync android --prod
 	cd ${PP}
 
 	echo "*******************************************************"
 	echo -n "\e[34m"
-	echo "cd ${PP}/../client"
+	echo "cd ${PP}/client"
 	echo "tar -cjpf a.tbz2 app && scp a.tbz2 gregoire@server:/home/gregoire/ && rm -f a.tbz2"
-	echo "cd ${PP}/img"
+	echo "cd ${PP}/private/img"
 	echo "scp upgrade.bin flasher-m-final-s.img gregoire@server:/home/gregoire"
 	echo -n "\e[m"
 	echo "*******************************************************"
