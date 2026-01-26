@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,13 +10,18 @@ import { HttpClient } from '@angular/common/http';
 
 export class Settings {
 L(st) { return this.global.mytranslate(st); }
-LG(st) { return this.global.mytranslateG(st); }
-activeTab = "domains";
+tabs = ["general", "domains", "connectivity", "vpn", "security", "aikeys"];
+activeTab = this.tabs[0];
 adminSudo;
-ssh;
+sshKeys = "";
+dSshKeys = true;
 signInNotification;
 dSave: boolean = true;
+dWiFi: boolean = true;
 externalIP = "";
+currentTime: string = "";
+selectedTimezone: string = "America/Los_Angeles";
+private timer: any;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
@@ -25,30 +30,24 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	this.adminSudo = true;
 	this.signInNotification = true;
 	this.dSave = true;
-	this.getExternalIP().then((ip) => {
+	this.global.getExternalIP().then((ip) => {
 		this.externalIP = ip;
 		if (!this.global.developer && !this.global.demo && this.externalIP == this.global.session?.hardware?.externalIP && this.global.session?.hardware?.internalIP != "")
 			this.global.presentToast("You seem to be on the same network as the " + global.session?.hardware?.model + ". You can have direct access through <a href='http://" + this.global.session?.hardware?.internalIP + ":9400' class='underline' target='_blank'>http://" + this.global.session?.hardware?.internalIP + ":9400</a>", "help-outline", 10000);
 	});
+    this.updateTime();
+    this.timer = setInterval(() => { this.updateTime(); }, 1000);
 }
 
-async getExternalIP() {
-	try {
-		let response = await fetch("https://mydongle.cloud/master/ip.json");
-		if (!response.ok)
-			response = await fetch("https://api.ipify.org?format=json");
-		if (response.ok) {
-			const data = await response.json();
-			return data["ip"];
-		}
-    } catch (error) {
-        console.error("Cannot get external IP address", error);
-    }
-	return "";
+@HostListener("document:keydown", ["$event"]) handleKeyboardEvent(event: KeyboardEvent) {
+	if (event.ctrlKey && (event.key == '~' || (event.shiftKey && event.keyCode == 192) || event.keyCode == 37 || event.keyCode == 40))
+		this.activeTab = this.tabs[(this.tabs.indexOf(this.activeTab) - 1 + this.tabs.length) % this.tabs.length];
+	else if (event.ctrlKey && (event.key == '`' || event.keyCode == 192 || event.keyCode == 38 || event.keyCode == 39))
+		this.activeTab = this.tabs[(this.tabs.indexOf(this.activeTab) + 1) % this.tabs.length];
 }
 
 async save() {
-	const data = { security:{ adminSudo:this.adminSudo, signInNotification:this.signInNotification } };
+	const data = { security:{ adminSudo:this.adminSudo, signInNotification:this.signInNotification, sshKeys:this.sshKeys } };
 	const ret = await this.httpClient.post("/_app_/auth/settings/save", JSON.stringify(data), { headers:{ "content-type": "application/json" } }).toPromise();
 	this.global.consolelog(2, "Auth settings/save: ", ret);
 }
@@ -60,9 +59,36 @@ async refresh() {
 	this.global.modulesDataPrepare();
 }
 
+async wifiG() {
+	const ret = await this.httpClient.get("/_app_/auth/settings/wifi", {headers:{"content-type": "application/json"}}).toPromise();
+	this.global.consolelog(2, "Auth settings/wifi: ", ret);
+}
+
 async wifiApply() {
-	const ret = await this.httpClient.get("/_app_/auth/wifi/apply", {headers:{"content-type": "application/json"}}).toPromise();
-	this.global.consolelog(2, "Auth wifi/apply: ", ret);
+	const ret = await this.httpClient.get("/_app_/auth/settings/wifi-apply", {headers:{"content-type": "application/json"}}).toPromise();
+	this.global.consolelog(2, "Auth settings/wifi-apply: ", ret);
+}
+
+async getSshKeys() {
+	this.sshKeys = await this.httpClient.get( "/_app_/auth/settings/sshkeys", { responseType: "text" }).toPromise();
+	this.dSshKeys = false;
+}
+
+updateTime() {
+	const now = new Date();
+	this.currentTime = now.toLocaleString("en-US", {
+		timeZone: this.selectedTimezone,
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		hour12: false
+	});
+}
+
+onTimezoneChange(event: Event) {
+	const selectElement = event.target as HTMLSelectElement;
+	this.selectedTimezone = selectElement.value;
+	this.updateTime();
 }
 
 }
