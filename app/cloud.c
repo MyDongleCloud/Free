@@ -29,7 +29,7 @@ static void cloudInit_() {
 	cJSON *cloud = jsonRead(ADMIN_PATH "_config_/_cloud_.json");
 	if (cloud == NULL)
 		cloud = cJSON_CreateObject();
-	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
+	cJSON *modulesDefault = jsonRead(WEB_PATH "assets/modulesdefault.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();
@@ -142,7 +142,7 @@ void cloudSetup(cJSON *el) {
 	downloadURLBuffer("http://localhost:8091/auth/sign-up/email", buf, "Content-Type: application/json", post, NULL, NULL);
 	free(post);
 	serviceAction("betterauth.service", "RestartUnit");
-	cJSON *modulesDefault = jsonRead(LOCAL_PATH "mydonglecloud/modulesdefault.json");
+	cJSON *modulesDefault = jsonRead(WEB_PATH "assets/modulesdefault.json");
 	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();

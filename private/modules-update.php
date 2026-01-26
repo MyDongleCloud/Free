@@ -81,8 +81,8 @@ foreach ($files as $file) {
 	$count++;
 }
 echo "\n\nSetup (" . count($modulesSetup) . "): " . implode(", ", $modulesSetup) . "\n\nReset (" . count($modulesReset) . "): " . implode(", ", $modulesReset) . "\n\n" . $count . " modules for " . $starsTotal . " ⭐\n";
-store("/../client/src/app/modulesmeta.json", $modulesMeta);
-store("/../rootfs/usr/local/modules/mydonglecloud/modulesdefault.json", $modulesDefault);
+store("/../client/src/assets/modulesmeta.json", $modulesMeta);
+store("/../client/src/assets/modulesdefault.json", $modulesDefault);
 store("/../client/src/assets/i18n/modules-en.json", array( "modules" => array( "title" => $modulesTranslationTitle, "description" => $modulesTranslationDescription)));
 ksort($modulesKeywords);
 store("/../client/src/assets/i18n/keywords-en.json", array("keywords" => $modulesKeywords));

@@ -14,8 +14,6 @@ import { environment } from '../environments/environment';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { Settings, CategoriesEx } from './myinterface';
 import { VERSION } from './version';
-import modules_Default from './modulesdefault.json';
-import modules_Meta from './modulesmeta.json';
 
 declare var appConnectToggle: any;
 
@@ -48,8 +46,8 @@ setupUIProgress = 0;
 setupUIDesc = "";
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
-	this.modulesDefault = modules_Default;
-	this.modulesMeta = modules_Meta;
+	this.httpClient.get("assets/modulesmeta.json").toPromise().then(data => { this.modulesMeta = data; });
+	this.httpClient.get("assets/modulesdefault.json").toPromise().then(data => { this.modulesDefault = data; });
 	this.developer = this.developerGet();
 	this.consolelog(0, "%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
 	this.consolelog(0, "%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");

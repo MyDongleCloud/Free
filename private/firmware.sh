@@ -68,14 +68,13 @@ if [ -f /tmp/os${POSTNAME}.img ]; then
 	echo "No creation as /tmp/os${POSTNAME}.img already exists"
 else
 	NEWEST=
-	if [ ! -f ${PP}/build/modulesmeta.json -o $(find ${PP}/private/modules -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${PP}/build/modulesmeta.json ]; then
+	if [ ! -f ${PP}/client/src/assets/modulesmeta.json -o $(find ${PP}/private/modules -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${PP}/client/src/assets/modulesmeta.json ]; then
 		php ${PP}/private/modules-update.php
 	else
 		echo "Nothing to update for modules"
 	fi
 	tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C ${ROOTFS}/lib/modules/
 	${PP}/auth/prepare.sh -c
-	cp ${PP}/rootfs/usr/local/modules/mydonglecloud/modulesdefault.json ${ROOTFS}/usr/local/modules/mydonglecloud/
 	rm -rf ${PP}/rootfs/usr/local/modules/mydonglecloud/reset
 	cp -a ${PP}/private/modules/reset/ ${PP}/rootfs/usr/local/modules/mydonglecloud/
 	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/reset
@@ -87,13 +86,6 @@ else
 		chroot ${ROOTFS} sh -c 'cd /home/ai/app && make clean && make'
 	else
 		echo "Nothing to update for app"
-	fi
-	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/private/modules -name "*.json" -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
-		rm -rf ${ROOTFS}/home/ai/moduleApache2
-		cp -a ${PP}/moduleApache2 ${ROOTFS}/home/ai/
-		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleApache2 && make clean && make'
-	else
-		echo "Nothing to update for moduleApache2"
 	fi
 	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so -o $(find ${PP}/moduleIpApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app_ip.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleIpApache2
@@ -123,6 +115,13 @@ else
 	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/web
 	cp -a ${PP}/client/web ${ROOTFS}/usr/local/modules/mydonglecloud
 	rm -rf ${PP}/client/web
+	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/private/modules -name "*.json" -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
+		rm -rf ${ROOTFS}/home/ai/moduleApache2
+		cp -a ${PP}/moduleApache2 ${ROOTFS}/home/ai/
+		chroot ${ROOTFS} sh -c 'cd /home/ai/moduleApache2 && make clean && make'
+	else
+		echo "Nothing to update for moduleApache2"
+	fi
 	rm -rf ${PP}/login/web
 	cd ${PP}/login
 	ionic --prod build

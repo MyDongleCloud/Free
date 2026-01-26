@@ -7,7 +7,6 @@ kernel/password.h
 private/img
 private/password-upgrade.bin.txt
 private/password-githubkey.txt
-rootfs/usr/local/modules/mydonglecloud/modulesdefault.json
 rootfs/usr/local/modules/frp/token.txt
 rootfs/usr/local/modules/mydonglecloud/reset/
 client/.angular/
@@ -16,6 +15,8 @@ client/web/
 client/src/assets/app.js
 client/src/assets/i18n/keywords-en.json
 client/src/assets/i18n/modules-en.json
+client/src/assets/modulesdefault.json
+client/src/assets/modulesmeta.json
 login/.angular/
 login/node_modules/
 login/web/

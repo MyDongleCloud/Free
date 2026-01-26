@@ -20,11 +20,11 @@
 #ifdef DESKTOP
 #define ADMIN_PATH "../rootfs/disk/admin/modules/"
 #define FRP_PATH "../rootfs/usr/local/modules/frp/"
-#define LOCAL_PATH "../rootfs/usr/local/modules/"
+#define WEB_PATH "../client/src/"
 #else
 #define ADMIN_PATH "/disk/admin/modules/"
 #define FRP_PATH "/usr/local/modules/frp/"
-#define LOCAL_PATH "/usr/local/modules/"
+#define WEB_PATH "/usr/local/modules/mydonglecloud/web/"
 #endif
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
