@@ -1,5 +1,5 @@
 #!/bin/sh
 
 cd /usr/local/modules/prettier
-yarn install
+yarn --non-interactive install
 npm link
