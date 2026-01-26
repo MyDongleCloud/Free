@@ -2,10 +2,11 @@
 
 helper() {
 echo "*******************************************************"
-echo "Usage for setup [-h -u u -s 0-1] name"
+echo "Usage for setup [-h -u u -s 0-1 -t t] name"
 echo "h:	Print this usage and exit"
 echo "u u:	Launch as user 0:admin, 1:root, -1:read from json (default)"
 echo "s 0-1:	Enable or disable admin in sudoers"
+echo "t t:	Set time zone"
 exit 0
 }
 
@@ -16,17 +17,26 @@ fi
 
 USER=-1
 SUDOERS=-1
-while getopts hu:s: opt
+TIMEZONE=
+while getopts hu:s:t: opt
 do
 	case "$opt" in
 		h) helper;;
 		u) USER=$OPTARG;;
 		s) SUDOERS=$OPTARG;;
+		t) TIMEZONE=$OPTARG;;
 	esac
 done
 
 cd `dirname $0`
 PP=`pwd`
+
+if [ -n $TIMEZONE ]; then
+	if timedatectl list-timezones | grep -qx "$TIMEZONE"; then
+		timedatectl set-timezone -- "$TIMEZONE"
+	fi
+	exit
+fi
 
 if [ $SUDOERS != -1 ]; then
 	if [ $SUDOERS = 1 ]; then
