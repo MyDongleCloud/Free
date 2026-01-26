@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
 import { Global } from '../env';
@@ -13,9 +13,9 @@ import { HttpClient } from '@angular/common/http';
 
 export class Profile {
 L(st) { return this.global.mytranslate(st); }
-LG(st) { return this.global.mytranslateG(st); }
 @ViewChild("modalTwoFA") modalTwoFA: IonModal;
-activeTab = "security";
+tabs = ["general", "identity", "security"];
+activeTab = this.tabs[0];
 TwoFA;
 formTwoFA: FormGroup;
 showQRCode = false;
@@ -23,6 +23,7 @@ dataQRCode = " ";
 password1Show:boolean = false;
 progress:boolean = false;
 errorSt = null;
+externalIP = "";
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private fb: FormBuilder) {
 	global.refreshUI.subscribe(event => {
@@ -31,6 +32,14 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 	this.formTwoFA = fb.group({
 		"password1": [ "", [ Validators.required ] ]
 	});
+	this.global.getExternalIP().then((ip) => { this.externalIP = ip; });
+}
+
+@HostListener("document:keydown", ["$event"]) handleKeyboardEvent(event: KeyboardEvent) {
+	if (event.ctrlKey && (event.key == '~' || (event.shiftKey && event.keyCode == 192) || event.keyCode == 37 || event.keyCode == 40))
+		this.activeTab = this.tabs[(this.tabs.indexOf(this.activeTab) - 1 + this.tabs.length) % this.tabs.length];
+	else if (event.ctrlKey && (event.key == '`' || event.keyCode == 192 || event.keyCode == 38 || event.keyCode == 39))
+		this.activeTab = this.tabs[(this.tabs.indexOf(this.activeTab) + 1) % this.tabs.length];
 }
 
 get password1() { return this.formTwoFA.get("password1"); }

@@ -129,6 +129,21 @@ setCookie(name, value, domain = null) {
 		document.cookie = `${name}=${value}; Domain=${domain}; Path=/;`;
 }
 
+async getExternalIP() {
+	try {
+		let response = await fetch("https://mydongle.cloud/master/ip.json");
+		if (!response.ok)
+			response = await fetch("https://api.ipify.org?format=json");
+		if (response.ok) {
+			const data = await response.json();
+			return data["ip"];
+		}
+    } catch (error) {
+        console.error("Cannot get external IP address", error);
+    }
+	return "";
+}
+
 async AuthStatus() {
 	const ret = await this.httpClient.get("/_app_/auth/status", {headers:{"content-type": "application/json"}}).toPromise();
 	if (ret["demo"] === true)

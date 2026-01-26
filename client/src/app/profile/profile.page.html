@@ -1,7 +1,11 @@
 <div class="flex min-h-screen text--gray-900">
 	<app-sidebar></app-sidebar>
 	<div class="flex-1 flex flex-col min-h-screen">
-		<app-topbar title="{{L('Profile')}}"></app-topbar>
+		<app-topbar [title]="L('Profile')"></app-topbar>
+		<div class="ml-4 my-4">{{L("Your external IP address:")}} {{externalIP}}</div>
+		<div class="flex gap-3 mt-4 mr-4">
+			<div class="ml-4">{{L("This is your personal profile. The system settings can be tuned on the page:")}} <a routerLink="/settings" class="underline cursor-pointer">Settings</a></div>
+		</div>
 		<div>
 			<main class="flex-1 p-6 bg-background space-y-6">
 				<div class="border-b border--gray-200">
@@ -17,86 +21,98 @@
 						</button>
 					</nav>
 				</div>
-				<div class="space-y-6">
 				@if (activeTab == 'general') {
-					<div class="rounded-xl border border--gray-200 p-6 shadow-sm">
-						<h3 class="text-lg font-semibold text--gray-900 mb-6">{{L("General Settings")}}</h3>
-						<div class="space-y-6">
-							<h4 class="text-md font-medium text--gray-900 mb-4">{{L("Web App")}}</h4>
-							<div class="space-y-4">
-								<div class="flex items-center justify-between">
-									<div>
-										<p class="text-sm font-medium text--gray-700 mb-3">{{L("Language")}}</p>
-										<div class="flex rounded-lg border border--gray-200 p-1">
-											<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-												<input type="radio" name="language" value="en" class="peer sr-only" checked (click)="global.changeLanguage('en');"/>
-												<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-												<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text--gray-900">🇺🇸<br>EN</span>
-											</label>
-											<label class="relative flex flex-col grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
-												<input type="radio" name="language" value="fr" class="peer sr-only" (click)="global.changeLanguage('fr');"/>
-												<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
-												<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text--gray-900">🇫🇷<br>FR</span>
-											</label>
-										</div>
-									</div>
-								</div>
-								<div>
-									<div class="flex items-center justify-between">
-										<div>
-											<p class="text-sm font-medium text--gray-700">{{L("Power User Mode")}}</p>
-											<p class="text-sm text--gray-500">{{L("Enable")}}</p>
-										</div>
-										<input type="checkbox" [(ngModel)]="global.settings.powerUser" class="w-4 h-4 text--blue-600 focus:ring--blue-500 border--gray-300 rounded">
-									</div>
-								</div>
-								<button (click)="resetSettings()" class="inline-flex items-center gap-2 px-4 py-2 bg--yellow-600 text--white rounded-lg text-sm font-medium hover:bg--yellow-700 transition-colors cursor-pointer">
-									<ion-icon name="refresh-outline" class="text--white w-4 h-4"></ion-icon>
-									<span class="text-lg">{{L("Reset Profile Settings")}}</span>
-								</button>
-							</div>
+				<div class="rounded-xl border border--gray-200 p-6 shadow-sm">
+					<h4 class="text-md font-medium text--gray-900 mb-2">{{L("Language")}}</h4>
+					<p class="text-sm font-medium text--gray-700">{{L("Web App")}}</p>
+					<div class="flex mt-2">
+						<div class="flex rounded-lg border border--gray-200 p-1">
+							<label class="relative flex flex-col cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+								<input type="radio" name="language" value="en" class="peer sr-only" checked (click)="global.changeLanguage('en');"/>
+								<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+								<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text--gray-900">🇺🇸<br>EN</span>
+							</label>
+							<label class="relative flex flex-col grow cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+								<input type="radio" name="language" value="fr" class="peer sr-only" (click)="global.changeLanguage('fr');"/>
+								<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
+								<span class="relative z-10 font-medium transition-all duration-300 peer-checked:text--gray-900">🇫🇷<br>FR</span>
+							</label>
 						</div>
 					</div>
+					<div class="border-t border--gray-200 my-6"></div>
+					<h4 class="text-md font-medium text--gray-900 mb-2">{{L("Power User")}}</h4>
+					<div class="space-y-4 flex items-center justify-between">
+						<div>
+							<p class="text-sm font-medium text--gray-700">{{L("Enable")}}</p>
+							<p class="text-sm text--gray-500">{{L("Give more advanced options.")}}</p>
+						</div>
+						<input type="checkbox" [(ngModel)]="global.settings.powerUser" class="w-4 h-4 text--blue-600 focus:ring--blue-500 border--gray-300 rounded">
+					</div>
+					<div class="border-t border--gray-200 my-6"></div>
+					<h4 class="text-md font-medium text--gray-900 mb-2">{{L("Profile Settings")}}</h4>
+					<div class="space-y-4 flex items-center justify-between">
+						<div>
+							<p class="text-sm font-medium text--gray-700">{{L("Reset")}}</p>
+							<p class="text-sm text--gray-500">{{L("Restore default profile settings.")}}</p>
+						</div>
+						<button (click)="resetSettings()" class="inline-flex items-center gap-2 px-4 py-2 bg--yellow-600 text--white rounded-lg text-sm font-medium hover:bg--yellow-700 transition-colors cursor-pointer">
+							<ion-icon name="refresh-outline" class="text--white w-4 h-4"></ion-icon>
+							<span class="text-lg">{{L("Reset")}}</span>
+						</button>
+					</div>
+				</div>
 				}
 				@if (activeTab == 'identity') {
-					<div class="rounded-xl border border--gray-200 p-6 shadow-sm">
-						<h3 class="text-lg font-semibold text--gray-900 mb-6">{{L("Identity")}}</h3>
-						<div class="space-y-6">
-							<div>
-								<label class="block text-sm font-medium text--gray-700 mb-2">{{L("Name")}}</label>
-								<input type="text" disabled="true" value="{{global.session.user.name}}" class="px-3 py-2 border border--gray-300 rounded-lg text--gray-500">
-							</div>
-							<div>
-								<label class="block text-sm font-medium text--gray-700 mb-2">{{L("Username")}}</label>
-								<input type="text" disabled="true" value="{{global.session.user.username}}" class="px-3 py-2 border border--gray-300 rounded-lg text--gray-500">
-							</div>
-							<div>
-								<label class="block text-sm font-medium text--gray-700 mb-2">{{L("Email")}}</label>
-								<input type="text" disabled="true" value="{{global.session.user.email}}" class="px-3 py-2 border border--gray-300 rounded-lg text--gray-500">
-							</div>
-						</div>
+				<div class="rounded-xl border border--gray-200 p-6 shadow-sm">
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("Name")}}</p>
+						<input type="text" disabled="true" value="{{global.session.user.name}}" class="text--blue-600 focus:ring--blue-500 border--gray-300 rounded border grow ml-5 max-w-[50%]">
 					</div>
+					<div class="border-t border--gray-200 my-6"></div>
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("Username")}}</p>
+						<input type="text" disabled="true" value="{{global.session.user.username}}" class="text--blue-600 focus:ring--blue-500 border--gray-300 rounded border grow ml-5 max-w-[50%]">
+					</div>
+					<div class="border-t border--gray-200 my-6"></div>
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("Email)")}}</p>
+						<input type="text" disabled="true" value="{{global.session.user.email}}" class="text--blue-600 focus:ring--blue-500 border--gray-300 rounded border grow ml-5 max-w-[50%]">
+					</div>
+				</div>
 				}
 				@if (activeTab == 'security') {
-					<div class="rounded-xl border border--gray-200 p-6 shadow-sm">
-						<h3 class="text-lg font-semibold text--gray-900 mb-6">{{L("Security Settings")}}</h3>
-						<div class="space-y-6">
-							<div>
-								<h4 class="text-md font-medium text--gray-900 mb-4">{{L("Web App")}}</h4>
-								<div class="space-y-4">
-									<div class="flex items-center justify-between">
-										<div>
-											<p class="text-sm font-medium text--gray-700">{{L("Two-Factor Authentication")}}</p>
-											<p class="text-sm text--gray-500">{{L("Enable")}}</p>
-										</div>
-										<input type="checkbox" [(ngModel)]="TwoFA" (click)="showTwoFA()" class="w-4 h-4 text--blue-600 focus:ring--blue-500 border--gray-300 rounded">
-									</div>
-								</div>
-							</div>
-						</div>
+				<div class="rounded-xl border border--gray-200 p-6 shadow-sm">
+					<h4 class="text-md font-medium text--gray-900 mb-2">{{L("Two-Factor Authentication")}}</h4>
+					<div class="space-y-4 flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("Enable")}}</p>
+						<input type="checkbox" [(ngModel)]="TwoFA" (click)="showTwoFA()" class="w-4 h-4 text--blue-600 focus:ring--blue-500 border--gray-300 rounded">
 					</div>
-				}
+					<div class="border-t border--gray-200 my-6"></div>
+					<h4 class="text-md font-medium text--gray-900 mb-2">{{L("Password")}}</h4>
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("Old")}}</p>
+						<input type="password" class="text--blue-600 focus:ring--blue-500 border--gray-300 rounded border grow ml-5 max-w-[50%]">
+					</div>
+					<div class="my-6"></div>
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("New")}}</p>
+						<input type="password" class="text--blue-600 focus:ring--blue-500 border--gray-300 rounded border grow ml-5 max-w-[50%]">
+					</div>
+					<div class="my-6"></div>
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("New (confirm)")}}</p>
+						<input type="password" class="text--blue-600 focus:ring--blue-500 border--gray-300 rounded border grow ml-5 max-w-[50%]">
+					</div>
+					<div class="my-6"></div>
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700"></p>
+						<button class="inline-flex items-center gap-2 px-4 py-2 bg--yellow-600 text--white rounded-lg text-sm font-medium hover:bg--yellow-700 transition-colors cursor-pointer">
+							<ion-icon name="cog-outline" class="text--white w-4 h-4"></ion-icon>
+							<span class="text-lg">{{L("Submit")}}</span>
+						</button>
+					</div>
 				</div>
+				}
 			</main>
 		</div>
 	</div>
