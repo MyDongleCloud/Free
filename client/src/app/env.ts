@@ -14,8 +14,8 @@ import { environment } from '../environments/environment';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { Settings, CategoriesEx } from './myinterface';
 import { VERSION } from './version';
-import modulesDefault from './modulesdefault.json';
-import modulesMeta from './modulesmeta.json';
+import modules_Default from './modulesdefault.json';
+import modules_Meta from './modulesmeta.json';
 
 declare var appConnectToggle: any;
 
@@ -24,6 +24,8 @@ declare var appConnectToggle: any;
 })
 
 export class Global implements CanActivate {
+modulesDefault;
+modulesMeta;
 developer: boolean = false;
 demo: boolean = false;
 splashDone = false;
@@ -46,6 +48,8 @@ setupUIProgress = 0;
 setupUIDesc = "";
 
 constructor(public plt: Platform, private router: Router, private navCtrl: NavController, private alertCtrl: AlertController, private menu: MenuController, private translate: TranslateService, public popoverController: PopoverController, private httpClient: HttpClient) {
+	this.modulesDefault = modules_Default;
+	this.modulesMeta = modules_Meta;
 	this.developer = this.developerGet();
 	this.consolelog(0, "%c⛅ MyDongle.Cloud: my data, my cloud, my sovereignty 🚀", "font-weight:bold; font-size:x-large;");
 	this.consolelog(0, "%cDocs: https://docs.mydongle.cloud", "font-weight:bold; font-size:large;");
@@ -461,14 +465,14 @@ formatCount(count) {
 async modulesDataPrepare() {
 	const modules = await this.httpClient.get("/_app_/auth/modules/data").toPromise();
 	this.modulesData.length = 0;
-	Object.entries(modulesMeta).forEach(([key, value]) => {
-		if (modulesDefault[key] === undefined)
+	Object.entries(this.modulesMeta).forEach(([key, value]) => {
+		if (this.modulesDefault[key] === undefined)
 			this.consolelog(1, "Error: " + key + " not in modulesdefault");
-		else if ((modulesDefault[key]["web"] === true && modulesMeta[key]["web"] !== true) || (modulesDefault[key]["web"] !== true && modulesMeta[key]["web"] === true))
+		else if ((this.modulesDefault[key]["web"] === true && this.modulesMeta[key]["web"] !== true) || (this.modulesDefault[key]["web"] !== true && this.modulesMeta[key]["web"] === true))
 			this.consolelog(1, "Error: " + key + " discrepancy web flag");
 	});
-	Object.entries(modulesDefault).forEach(([key, value]) => {
-		if (modulesMeta[key] === undefined) {
+	Object.entries(this.modulesDefault).forEach(([key, value]) => {
+		if (this.modulesMeta[key] === undefined) {
 			this.consolelog(1, "Error: " + key + " not in modulesmeta");
 			return;
 		}
@@ -496,7 +500,7 @@ async modulesDataPrepare() {
 				value["link"] += value["homepage"];
 			value["link2"] = value["link2"].toLowerCase();
 		}
-		Object.entries(modulesMeta[key]).forEach(([key2, value2]) => {
+		Object.entries(this.modulesMeta[key]).forEach(([key2, value2]) => {
 			value[key2] = value2;
 		});
 		value["tag"] = this.settings.tags?.includes(key)?? false;

@@ -2,8 +2,6 @@ import { Component, ViewChild, ElementRef, HostListener, ChangeDetectorRef } fro
 import { ActivatedRoute } from '@angular/router';
 import { Global } from '../env';
 import { HttpClient } from '@angular/common/http';
-import modulesDefault from '../modulesdefault.json';
-import modulesMeta from '../modulesmeta.json';
 
 @Component({
 	selector: 'app-permissions',
@@ -164,12 +162,12 @@ async getData(force = false) {
 		return;
 	this.modules = this.global.session?.["modules"] ?? {};
 	this.cards = [];
-	Object.entries(modulesDefault).forEach(([key, value]) => {
+	Object.entries(this.global.modulesDefault).forEach(([key, value]) => {
 		if (value["web"] === true) {
-			value["module"] = modulesMeta[key]["module"];
-			value["title"] = modulesMeta[key]["title"];
-			value["name"] = modulesMeta[key]["name"];
-			value["description"] = modulesMeta[key]["description"];
+			value["module"] = this.global.modulesMeta[key]["module"];
+			value["title"] = this.global.modulesMeta[key]["title"];
+			value["name"] = this.global.modulesMeta[key]["name"];
+			value["description"] = this.global.modulesMeta[key]["description"];
 			value["alias"] = [...(value["alias"] ?? []), ...(this.modules[key]?.alias ?? [])];
 			const ll = value["alias"].length > 0 ? value["alias"][0] : key;
 			value["link"] = (location.protocol + "//" + location.host + "/m/" + ll).toLowerCase();

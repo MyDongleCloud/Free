@@ -2,7 +2,6 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Global } from '../env';
-import modulesMeta from '../modulesmeta.json';
 
 @Component({
 	selector: 'app-wrapper',
@@ -26,8 +25,8 @@ constructor(public global: Global, private route: ActivatedRoute, private saniti
 		this.module = params?.module;
 		this.subdomain = params?.subdomain;
 		this.page = params?.page;
-		this.title = "Wrapper: " + this.LMT(modulesMeta[this.module].title) + " (" + modulesMeta[this.module].name + ")";
-		this.finished = modulesMeta[this.module].finished;
+		this.title = "Wrapper: " + this.LMT(this.global.modulesMeta[this.module].title) + " (" + this.global.modulesMeta[this.module].name + ")";
+		this.finished = this.global.modulesMeta[this.module].finished;
 		if (!this.global.demo && (this.global.developer || this.finished))
 			this.update();
 	});

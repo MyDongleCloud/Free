@@ -35,7 +35,7 @@ else
 fi
 
 PP=/usr/local/modules/mydonglecloud/modulesdefault.json
-if [ ! -f "/usr/local/modules/mydonglecloud/version.txt" ]; then
+if [ ! -f "/usr/local/modules/mydonglecloud/modulesdefault.json" ]; then
 	PP="../rootfs$PP"
 fi
 jq -r 'to_entries[] | .key as $name | .value.autoLogin.inject[]? | "\t{ \"\($name)\", \"\(.url)\", \"\(.form)\", \"\(.arg1)\", \"\(.arg2)\", \"\(.arg3)\", VAL\(.val1), VAL\(.val2) },"' $PP > login.tmp

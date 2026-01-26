@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Global } from './env';
 
-
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
