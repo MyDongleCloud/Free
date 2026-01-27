@@ -28,7 +28,7 @@ const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
 const modulesPath = adminPath + "_config_/_modules_.json";
-let hardware = { model:"Unknown", internalIP:"", externalIP:"" };
+let hardware = { model:"Unknown", internalIP:"", externalIP:"", timezone:Intl.DateTimeFormat().resolvedOptions().timeZone };
 if (process.env.PRODUCTION === "true")
 	try {
 		hardware["model"] = readFileSync( "/dev/dongle_platform/model", "utf-8").trimEnd();
