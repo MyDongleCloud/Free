@@ -27,6 +27,7 @@ const jwkPath = adminPath + "betterauth/jwk-pub.pem";
 const databasePath = adminPath + "betterauth/database.sqlite";
 const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
+const sshKeysPath = "/disk/admin/.ssh/authorized_keys";
 const modulesPath = adminPath + "_config_/_modules_.json";
 let hardware = { model:"Unknown", internalIP:"", externalIP:"", timezone:Intl.DateTimeFormat().resolvedOptions().timeZone };
 if (process.env.PRODUCTION === "true")
@@ -104,7 +105,6 @@ function sendToApp(data) {
 		client.send(JSON.stringify(data));
 		client.close();
 	};
-
 }
 
 si.networkStats();
@@ -137,7 +137,43 @@ const mdcEndpoints = () => {
 					writeFileSync(cloudPath, JSON.stringify(cloud, null, "\t"), "utf-8");
 					ret = true;
 				} catch (error) {}
+				if (ctx.body?.security?.sshKeys !== "")
+					writeFileSync(sshKeysPath, ctx.body?.security?.sshKeys, "utf-8");
+				if (ctx.body?.timezone !== hardware.timezone)
+					execSync("sudo /usr/local/modules/mydonglecloud/reset.sh -t \"" + (ctx.body.timezone) + "\"");
 				return Response.json({ status:(ret ? "success" : "error") }, { status:200 });
+			}),
+
+			settingsWiFiGet: createAuthEndpoint("/settings/wifi", {
+				method: "GET",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				if (ctx.context.session?.user?.role != "admin")
+					return Response.json({ status:"error" }, { status:200 });
+				let device, ssid, pwd;
+				const ret1 = execSync("nmcli -t -f NAME,DEVICE connection show | grep wlan0");
+				[ssid, device] = ret1.toString().trim().split(":");
+				pwd = execSync("nmcli -s -g 802-11-wireless-security.psk connection show \"" + ssid + "\"").toString();
+				return Response.json({ device, ssid, pwd }, { status:200 });
+			}),
+
+			settingsWiFiApply: createAuthEndpoint("/settings/wifi-apply", {
+				method: "POST",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				if (ctx.context.session?.user?.role != "admin")
+					return Response.json({ status:"error" }, { status:200 })
+				sendToApp({ a:"wifi", wifi:ctx.body?.wifi });
+				return Response.json({ status:"success" }, { status:200 });
+			}),
+
+			settingsSshKeys: createAuthEndpoint("/settings/sshkeys", {
+				method: "GET",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				if (ctx.context.session?.user?.role != "admin")
+					return new Response("", { status:500 });
+				return new Response(fs.readFileSync(sshKeysPath, "utf8"), { status:200 });
 			}),
 
 			hardware: createAuthEndpoint("/hardware", {
