@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "postgresql",
 	"github": "TeamPiped/Piped",
-	"description": "A Youtube front-end without ads.",
+	"description": "A YouTube front-end without ads.",
 	"keywords": [
 		"Ad-free video",
 		"Ads",
@@ -20,9 +20,8 @@
 		"Privacy",
 		"Privacy-friendly",
 		"User-friendly interface",
-		"Video platform",
-		"YouTube alternative",
-		"Youtube"
+		"Videos platform",
+		"YouTube alternative"
 	],
 	"proprietary": [],
 	"default": {
