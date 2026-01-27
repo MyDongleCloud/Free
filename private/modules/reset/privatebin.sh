@@ -31,7 +31,7 @@ sed -i -e 's@^; urlshortener = "https://shortener.example.com/api?link="@urlshor
 sed -i -e 's@^;\[yourls\]@\[yourls\]@' /disk/admin/modules/privatebin/conf.php
 YOURLS_SIGNATURE=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 10)
 sed -i -e "s@^; signature = \"\"@signature = \"${YOURLS_SIGNATURE}\"@" /disk/admin/modules/privatebin/conf.php
-YOURLS_PORT=`jq -r .yourls.localPort /usr/local/modules/mydonglecloud/modulesdefault.json`
+YOURLS_PORT=`jq -r .yourls.localPort /usr/local/modules/mydonglecloud/web/assets/modulesdefault.json`
 sed -i -e "s@^; apiurl = \"https://yourls.example.com/yourls-api.php\"@apiurl = \"http://localhost:${YOURLS_PORT}/yourls-api.php\"@" /disk/admin/modules/privatebin/conf.php
 chown -R admin:admin /disk/admin/modules/privatebin
 chown -R www-data:admin /disk/admin/modules/privatebin/data
