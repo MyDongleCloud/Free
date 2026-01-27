@@ -326,6 +326,7 @@ begin:
 				}
 				if (strcmp(elModule->string, "apache2") == 0) {
 					strcpy(sz, "\
+	ErrorDocument 403 /_app_/forbidden.php\n\
 	ErrorDocument 404 /_app_/notpresent.php\n\
 	ErrorDocument 500 /_app_/error.php\n");
 					fwrite(sz, strlen(sz), 1, pfM);

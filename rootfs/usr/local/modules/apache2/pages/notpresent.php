@@ -1,5 +1,5 @@
 <html>
 <body>
-Page doesn't exist
+This page doesn't exist (error 404).
 </body>
 </html>

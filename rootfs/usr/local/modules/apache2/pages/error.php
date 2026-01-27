@@ -1,5 +1,5 @@
 <html>
 <body>
-Error (500) has occured in the rendering of this page.
+An error has occured in this page (error 500).
 </body>
 </html>
