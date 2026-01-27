@@ -180,6 +180,8 @@ async getSession() {
 		await this.modulesDataPrepare();
 		this.statsPeriod = this.developer ? 5 : this.session.user.role == "admin" ? 15 : 30;
 		this.statsStartPolling();
+		if (!this.demo && this.session.user.role == "admin")
+			appConnectToggle(true);
 	}
 }
 
@@ -515,7 +517,7 @@ async modulesDataPrepare() {
 		this.modulesData.push(value);
 	});
 	this.refreshUI.next("modules");
-	if (!this.demo) {
+	if (!this.demo && this.session.user.role == "admin") {
 		let setupDoneCount = 0;
 		Object.entries(modules).forEach(([key, value]) => {
 			if (value["setupDone"] === true)

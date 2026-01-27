@@ -84,7 +84,7 @@
 					</div>
 					<span>{{LG("Permissions")}}</span>
 				</a>
-				<a routerLink="/hardware" title="Hardware" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer">
+				<a routerLink="/hardware" title="Hardware" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text--gray-800 group cursor-pointer" *ngIf="!global.demo && !global.developer">
 					<div class="w-5 h-5 flex items-center justify-center overflow-hidden">
 						<ion-icon name="tv-outline" class="w-5 h-5"></ion-icon>
 					</div>
