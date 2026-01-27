@@ -31,10 +31,8 @@ modalContentName: string;
 modalContentMeta: string;
 modalContentText: string;
 
-constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private modalController: ModalController ) {}
-
-async ionViewDidEnter() {
-	await this.loadDirectory(this.currentPath);
+constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private modalController: ModalController ) {
+	this.loadDirectory(this.currentPath);
 }
 
 async loadDirectory(path: string) {
