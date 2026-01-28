@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="tailwindcss.js"></script>
 <script src="/cockpit/static/login.js"></script>
-
-
-
 <script>
 var environment = {"is_cockpit_client":false,"page":{"connect":true,"require_host":false,"allow_multihost":false},"logged_into":[],"hostname":"mydonglecloud"};
 
