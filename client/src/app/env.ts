@@ -180,7 +180,7 @@ async getSession() {
 		await this.modulesDataPrepare();
 		this.statsPeriod = this.developer ? 5 : this.session.user.role == "admin" ? 15 : 30;
 		this.statsStartPolling();
-		if (!this.demo && this.session.user.role == "admin")
+		if ((!this.demo || this.developer) && this.session.user.role == "admin")
 			appConnectToggle(true);
 	}
 }
