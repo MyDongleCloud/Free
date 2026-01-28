@@ -23,7 +23,7 @@ This is the list of all used ports in the image, separated between listening por
 - metube: 8089 (reverseproxy)
 - triliumnotes: 8090 (reverseproxy)
 - betterauth: 8091 (reverseproxy)
-- mydongecloud app: 8093 (socket), 8094 (reverseproxy)
+- mydongecloud app: 8094 (reverseproxy)
 - zigbee2mqtt: 8095 (reverseproxy)
 - jellyfin: 8096 (reverseproxy)
 - tubesync: 8098 (reverseproxy)
