@@ -46,9 +46,9 @@
 			}
 		],
 		"services": [
-			"dongle-app",
-			"dongle-init",
-			"dongle-otg"
+			"hardware-app",
+			"hardware-init",
+			"hardware-otg"
 		]
 	}
 }

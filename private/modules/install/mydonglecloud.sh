@@ -5,7 +5,7 @@ cd /home/ai/app
 cp ../rootfs/usr/local/modules/mydonglecloud/version.txt /usr/local/modules/mydonglecloud/version.txt
 ./lvgl.sh -b -c
 make
-ln -sf /etc/systemd/system/dongle-app.service /etc/systemd/system/multi-user.target.wants/dongle-app.service
+ln -sf /etc/systemd/system/hardware-app.service /etc/systemd/system/multi-user.target.wants/hardware-app.service
 
 mkdir -p /usr/local/modules/apache2
 cd /home/ai/moduleApache2
@@ -25,5 +25,5 @@ EOF
 cd /home/ai/pam
 make
 
-ln -sf /etc/systemd/system/dongle-init.service /etc/systemd/system/sysinit.target.wants/dongle-init.service
-ln -sf /etc/systemd/system/dongle-otg.service /etc/systemd/system/sysinit.target.wants/dongle-otg.service
+ln -sf /etc/systemd/system/hardware-init.service /etc/systemd/system/sysinit.target.wants/hardware-init.service
+ln -sf /etc/systemd/system/hardware-otg.service /etc/systemd/system/sysinit.target.wants/hardware-otg.service
