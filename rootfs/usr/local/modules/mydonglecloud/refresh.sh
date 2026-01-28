@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo "{\"a\":\"refresh\"}" | websocat -1 ws://localhost:8094
+echo "{\"a\":\"refresh-webserver\"}" | websocat -1 ws://localhost:8094
