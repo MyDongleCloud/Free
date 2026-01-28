@@ -98,12 +98,12 @@ int communicationState() {
 }
 
 static void *communicationState_t(void *arg) {
-	usleep(1000 * 1000);
+	usleep(250 * 1000);
 	communicationState();
 	return 0;
 }
 
-void communicationDoState() {
+static void communicationStateDelayed() {
 	pthread_t pth;
 	pthread_create(&pth, NULL, communicationState_t, NULL);
 }
@@ -190,6 +190,9 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			//PRINTF("communicationReceive: refresh-webserver\n");
 			touchClick();
 			cloudInit();
+		} else if (strcmp(action, "refresh-screen") == 0) {
+			//PRINTF("communicationReceive: refresh-screen\n");
+			communicationStateDelayed();
 #endif
 		} else if (strcmp(action, "date") == 0) {
 			;

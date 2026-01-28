@@ -14,7 +14,7 @@ function loadScript(src) {
 	});
 }
 
-async function appInit(tb, path, log, slave) {
+async function appInit(tb, path, log, slave, elCanvas) {
 	if (!initDone) {
 		thisble = tb;
 		await loadScript(path);
@@ -27,7 +27,7 @@ async function appInit(tb, path, log, slave) {
 		argCmdLine = [ "-l", "fr" ];
 	Module = {
 		print: function(text) { if (log) console.log(text); },
-		canvas: document.getElementById("canvas"),
+		canvas: elCanvas,
 		arguments: slave ? [ "-s" ] : argCmdLine
 	};
 	await appCreate(Module);
@@ -118,6 +118,11 @@ function appConnectToggle(onoff) {
 				appServerReceiveHtml(msg.data, 1);
 		}
 	}
+}
+
+function appRefreshScreen() {
+	if (socket != null)
+		socket.send(JSON.stringify({ a:"refresh-screen" }));
 }
 
 function appShutdown() {

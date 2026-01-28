@@ -77,7 +77,6 @@ static int le_callback(int clientnode, int operation, int cticn) {
 		communicationConnection(1, 1);
 		PRINTF("le_callback connect from %s(%d)\n", device_name(clientnode), clientnode);
 		buzzer(1);
-		communicationDoState();
 	} else if(operation == LE_READ) {
 		PRINTF("le_callback: %s read by %s\n", ctic_name(localnode(), cticn), device_name(clientnode));
 	} else if(operation == LE_WRITE) {

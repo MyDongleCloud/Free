@@ -40,7 +40,6 @@ static void onopen(ws_cli_conn_t *client) {
 		ll->previous = last;
 	}
 	pthread_mutex_unlock(&listMutex);
-	communicationDoState();
 }
 
 static void onclose(ws_cli_conn_t *client) {

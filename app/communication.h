@@ -9,7 +9,6 @@ void communicationConnection(int typ, int val);
 int communicationString(char *sz);
 int communicationJSON(void *el);
 int communicationState();
-void communicationDoState();
 void communicationReceive(unsigned char *data, int size, char *orig);
 void communicationSocket();
 

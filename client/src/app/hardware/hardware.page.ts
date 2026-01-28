@@ -1,10 +1,11 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { BleService } from '../ble';
 import { Global } from '../env';
 
 declare var appInit: any;
 declare var appButton: any;
 declare var appConnectToggle: any;
+declare var appRefreshScreen: any;
 declare var appShutdown: any;
 declare var appOtp: any;
 declare var appLanguage: any;
@@ -18,6 +19,7 @@ declare var appLanguage: any;
 export class Hardware {
 L(st) { return this.global.mytranslate(st); }
 typeBluetooth: boolean = false;
+@ViewChild("canvasE") canvasE: ElementRef;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
@@ -27,8 +29,9 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, public ble: B
 	});
 }
 
-ngOnInit() {
-	appInit(this.ble, "assets/js/app.js", true, true);
+ngAfterViewInit() {
+	appInit(this.ble, "assets/js/app.js", true, true, this.canvasE.nativeElement);
+	appRefreshScreen();
 }
 
 button(k, l) {
