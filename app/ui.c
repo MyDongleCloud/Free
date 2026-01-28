@@ -792,7 +792,6 @@ void uiScreenOtp(int expiration) {
 	lv_obj_add_style(label2, &labelStyle3, LV_STATE_DEFAULT);
 
 	button(LV_KEY_LEFT, L("Cancel"), NULL);
-	button(LV_KEY_RIGHT, L("Hide"), NULL);
 }
 
 void uiScreenSlaveNotConnected() {

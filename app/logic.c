@@ -100,11 +100,9 @@ void logicKey(int key, int longPress) {
 			logicTips(-1, -1);
 		else if (key == LV_KEY_RIGHT)
 			logicTips(-1, 1);
-	} else if (lmdc.current == LOGIC_OTP) {//Cancel, Hide
+	} else if (lmdc.current == LOGIC_OTP) {//Cancel
 		if (key == LV_KEY_LEFT)
-			logicHome(0, 0);
-		else if (key == LV_KEY_RIGHT)
-			logicHome(0, 0);
+			logicOtpFinished();
 	} else if (lmdc.current == LOGIC_SHUTDOWN) {//Yes, No
 		if (key == LV_KEY_LEFT)
 			logicHome(0, 0);
