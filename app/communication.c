@@ -118,14 +118,6 @@ static void *cloudSetup_t(void *arg) {
 
 void communicationReceive(unsigned char *data, int size, char *orig) {
 //	PRINTF("communicationReceive: (%d)#%s# via %s\n", size, data, orig);
-//Examples:
-//{"a":"otp"}
-//{"a":"sutdown"}
-//{"a":"key", "k":0, "l":0}
-//{"a":"state", "p":"blah_encoded64"}
-//{"a":"setup", "betterauth": {"email":"", "name":"", "password":""}, "cloud":{"all":{}, "ollama":{}, "frp":{}, "postfix":{}}, "ssid":"", "security":"", "fullchain":"", "privatekey":"" }
-//{"a":"cloud"} -> {"a":"cloud", _cloud_.json }
-//{"a":"language", "l":""}
 	cJSON *el = cJSON_Parse(data);
 	char *action = NULL;
 	if (el)
