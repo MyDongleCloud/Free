@@ -292,7 +292,7 @@ openHome() {
 		this.refreshUI.next("reset");
 }
 
-openModule(identifier:number|string, extract:boolean = false, page:string = null) {
+openModule(identifier:number|string, extract:boolean = true, page:string = null) {
 	let id = identifier;
 	if (typeof identifier == "string")
 		id = this.modulesDataFindId(identifier);

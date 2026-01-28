@@ -227,12 +227,7 @@ begin:
 			snprintf(sz, sizeof(sz), "\
 <Macro Macro_%s>\n\
 	AppModule %s\n\
-	Use Macro_Redirect %s\n\
-	Header set Content-Security-Policy \"frame-ancestors 'self' *:9400", elModule->string, elModule->string, elModule->string);
-			fwrite(sz, strlen(sz), 1, pfM);
-			jsonPrintArray(0, " ", " ", "app", fqdn, "", pfM);
-			//jsonPrintArray(0, " ", " ", "mydonglecloud", fqdn, "", pfM);
-			strcpy(sz, ";\"\n");
+	Use Macro_Redirect %s\n", elModule->string, elModule->string, elModule->string);
 			fwrite(sz, strlen(sz), 1, pfM);
 			cJSON *elEnabled = cJSON_GetObjectItem(elModule, "enabled");
 			if (cJSON_HasObjectItem(elModule2, "enabled"))
