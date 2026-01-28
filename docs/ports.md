@@ -86,16 +86,16 @@ This is the list of all used listening ports on server side.
 
 This is the interesting traffic paths from and to the Internet:
 
-### Internet -> dongle
+### Internet -> hardware
 
-- 22: haproxy -> frps (19022) -/-> frpc (22) -> openssh
-- 25: postfix -> frps (19025) -/-> frpc (25) -> postfix
-- 80: frps -/-> frpc (80) -> apache2
-- 443: frps -/-> frpc (443) -> apache2
-- 465: haproxy -> frps (19465) -/-> frpc (465) -> postfix
-- 993: haproxy -> frps (19993) -/-> frpc (993) -> dovecot
-- 995: haproxy -> frps (19995) -/-> frpc (995) -> dovecot
+- 22: haproxy -> frps (19022)  -(server)/(hardware)->  frpc (22) -> openssh
+- 25: postfix -> frps (19025)  -(server)/(hardware)->  frpc (25) -> postfix
+- 80: frps  -(server)/(hardware)->  frpc (80) -> apache2
+- 443: frps  -(server)/(hardware)->  frpc (443) -> apache2
+- 465: haproxy -> frps (19465)  -(server)/(hardware)->  frpc (465) -> postfix
+- 993: haproxy -> frps (19993)  -(server)/(hardware)->  frpc (993) -> dovecot
+- 995: haproxy -> frps (19995)  -(server)/(hardware)->  frpc (995) -> dovecot
 
-### dongle->outside
+### hardware -> outside
 
-- 465: postfix -/-> postfix (466)
+- 465: postfix  -(hardware)/(server)->  postfix (466)
