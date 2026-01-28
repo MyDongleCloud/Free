@@ -1,8 +1,13 @@
 [Unit]
 Description=OpenObserve
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 EnvironmentFile=/disk/admin/modules/openobserve/env
 ExecStart=/usr/local/bin/openobserve

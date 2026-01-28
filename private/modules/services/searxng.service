@@ -1,8 +1,13 @@
 [Unit]
 Description=SearXNG
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Environment=SEARXNG_SETTINGS_PATH=/disk/admin/modules/searxng/settings.yml
 Type=simple
 ExecStart=/usr/local/modules/searxng/penv/bin/python3 searx/webapp.py

@@ -1,8 +1,13 @@
 [Unit]
 Description=Open WebUI
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 EnvironmentFile=/disk/admin/modules/openwebui/.env
 Type=simple
 ExecStart=/usr/local/modules/openwebui/bin/open-webui serve --host 127.0.0.1 --port 8101

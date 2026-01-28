@@ -1,8 +1,13 @@
 [Unit]
 Description=Tabby
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 ExecStart=/usr/local/bin/tabby serve --host 127.0.0.1 --port 8100
 WorkingDirectory=/disk/admin

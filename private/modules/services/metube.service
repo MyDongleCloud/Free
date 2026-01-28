@@ -1,8 +1,13 @@
 [Unit]
 Description=MeTube
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Environment=HOST=127.0.0.1
 Environment=PORT=8089
 Environment=DOWNLOAD_DIR=/disk/admin/modules/metube

@@ -2,8 +2,13 @@
 Description=Invidious
 After=network.target
 After=syslog.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 ExecStart=/usr/local/modules/invidious/invidious -o /var/log/invidious/invidious.log
 WorkingDirectory=/usr/local/modules/invidious

@@ -2,8 +2,13 @@
 Description=Dongle OTG
 After=systemd-modules-load.service systemd-udevd.service
 Requires=systemd-modules-load.service systemd-udevd.service
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/usr/local/modules/mydonglecloud/otg.sh

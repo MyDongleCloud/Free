@@ -2,8 +2,13 @@
 Description=Better Auth Studio
 After=BetterAuth.serivce
 Requires=betterauth.serivce
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 ExecStart=/usr/local/bin/node node_modules/better-auth-studio/dist/cli.js start
 WorkingDirectory=/usr/local/modules/betterauth

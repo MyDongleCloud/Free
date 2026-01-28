@@ -1,8 +1,13 @@
 [Unit]
 Description=WebSSH2
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 ExecStart=/usr/local/bin/node dist/index.js
 WorkingDirectory=/usr/local/modules/webssh2

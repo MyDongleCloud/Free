@@ -1,8 +1,13 @@
 [Unit]
 Description=Pinchflat
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Environment=MEDIA_PATH=/disk/admin/modules/pinchflat/downloads
 Environment=CONFIG_PATH=/disk/admin/modules/pinchflat/config
 Environment=PHX_SERVER=true

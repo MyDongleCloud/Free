@@ -186,6 +186,8 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_AddStringToObject(cloud, "a", "cloud");
 			communicationJSON(cloud);
 			cJSON_Delete(cloud);
+		} else if (strcmp(action, "alert") == 0) {
+			PRINTF("communicationReceive: alert %s\n", cJSON_GetStringValue2(el, "data"));
 		} else if (strcmp(action, "refresh-webserver") == 0) {
 			//PRINTF("communicationReceive: refresh-webserver\n");
 			touchClick();

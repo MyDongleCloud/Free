@@ -1,8 +1,13 @@
 [Unit]
 Description=Meilisearch
 After=systemd-user-sessions.service
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 WorkingDirectory=/disk/admin/modules/meilisearch
 EnvironmentFile=/disk/admin/modules/meilisearch/meilisearch.env

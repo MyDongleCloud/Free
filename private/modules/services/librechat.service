@@ -1,8 +1,13 @@
 [Unit]
 Description=Libre Chat
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 ExecStart=npm run backend
 WorkingDirectory=/usr/local/modules/librechat

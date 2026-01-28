@@ -1,8 +1,13 @@
 [Unit]
 Description=Radarr
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Type=simple
 ExecStart=/usr/local/modules/radarr/Radarr -nobrowser -data=/disk/admin/modules/radarr/
 StandardOutput=inherit

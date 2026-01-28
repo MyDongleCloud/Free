@@ -1,8 +1,13 @@
 [Unit]
 Description=Trilium Notes
 After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
 
 [Service]
+Restart=on-failure
+RestartMode=direct
 Environment=TRILIUM_DATA_DIR=/disk/admin/modules/triliumnotes
 Environment=TRILIUM_LOG_DIR=/var/log/triliumnotes
 Type=simple
