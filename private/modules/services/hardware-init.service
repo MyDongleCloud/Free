@@ -1,5 +1,5 @@
 [Unit]
-Description=Dongle Init
+Description=Hardware Init
 After=systemd-modules-load.service systemd-udevd.service
 Requires=systemd-modules-load.service systemd-udevd.service
 StartLimitBurst=5

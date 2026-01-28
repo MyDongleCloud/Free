@@ -1,5 +1,5 @@
 [Unit]
-Description=Dongle OTG
+Description=Hardware OTG
 After=systemd-modules-load.service systemd-udevd.service
 Requires=systemd-modules-load.service systemd-udevd.service
 StartLimitBurst=5
