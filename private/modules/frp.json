@@ -29,9 +29,7 @@
 		"bindingPort": 7000,
 		"enabled": true,
 		"localPort": 9427,
-		"permissions": [
-			"_groupadmin_"
-		],
+		"permissions": [],
 		"permissionsPublicForbidden": true,
 		"protocols": {
 			"http": {

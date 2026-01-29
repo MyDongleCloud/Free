@@ -55,7 +55,7 @@
 		"followSymLinks": true,
 		"localPort": 9409,
 		"permissions": [
-			"_groupuser_"
+			"user"
 		],
 		"reset": true,
 		"setup": true,

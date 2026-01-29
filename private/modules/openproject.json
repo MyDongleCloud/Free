@@ -26,7 +26,7 @@
 		"enabled": true,
 		"localPort": 9465,
 		"permissions": [
-			"_groupuser_"
+			"user"
 		]
 	}
 }

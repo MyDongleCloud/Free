@@ -35,9 +35,7 @@
 		],
 		"enabled": true,
 		"localPort": 9408,
-		"permissions": [
-			"_groupadmin_"
-		],
+		"permissions": [],
 		"permissionsPublicForbidden": true,
 		"reverseProxy": [
 			{

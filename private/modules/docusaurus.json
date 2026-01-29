@@ -27,7 +27,7 @@
 		"enabled": true,
 		"localPort": 9418,
 		"permissions": [
-			"_public_"
+			"public"
 		]
 	}
 }

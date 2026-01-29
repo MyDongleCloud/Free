@@ -30,7 +30,7 @@
 		"localPort": 9481,
 		"path": "/usr/local/modules/piped/dist",
 		"permissions": [
-			"_groupuser_"
+			"user"
 		],
 		"reset": true,
 		"reverseProxy": [

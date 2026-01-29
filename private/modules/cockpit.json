@@ -26,9 +26,7 @@
 		"enabled": true,
 		"homepage": "/access",
 		"localPort": 9411,
-		"permissions": [
-			"_groupadmin_"
-		],
+		"permissions": [],
 		"permissionsPublicForbidden": true,
 		"reservedToFirstUser": true,
 		"reverseProxy": [

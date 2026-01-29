@@ -34,7 +34,7 @@
 		"localPort": 9426,
 		"path": "/usr/local/modules/freshrss/p",
 		"permissions": [
-			"_groupuser_"
+			"user"
 		]
 	}
 }

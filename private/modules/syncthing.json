@@ -33,9 +33,7 @@
 		"addConfigBegin": "RequestHeader set Host localhost",
 		"enabled": true,
 		"localPort": 9510,
-		"permissions": [
-			"_groupadmin_"
-		],
+		"permissions": [],
 		"permissionsPublicForbidden": true,
 		"reset": true,
 		"reverseProxy": [

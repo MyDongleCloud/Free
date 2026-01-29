@@ -51,8 +51,8 @@
 		"homepage": "/admin",
 		"localPort": 9527,
 		"permissions": [
-			"_dongle_",
-			"_groupuser_"
+			"hardware",
+			"user"
 		],
 		"reset": true,
 		"setup": true,

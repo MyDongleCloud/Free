@@ -20,9 +20,7 @@
 	"default": {
 		"enabled": true,
 		"localPort": 9530,
-		"permissions": [
-			"_groupadmin_"
-		],
+		"permissions": [],
 		"permissionsPublicForbidden": true,
 		"reset": true,
 		"reverseProxy": [

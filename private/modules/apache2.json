@@ -35,7 +35,7 @@
 		],
 		"path": "/disk/admin/modules/apache2/www",
 		"permissions": [
-			"_public_"
+			"public"
 		],
 		"reset": true,
 		"setup": true,

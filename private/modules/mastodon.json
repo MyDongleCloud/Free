@@ -52,7 +52,7 @@
 		"enabled": true,
 		"localPort": 9454,
 		"permissions": [
-			"_groupuser_"
+			"user"
 		],
 		"reset": true,
 		"reverseProxy": [

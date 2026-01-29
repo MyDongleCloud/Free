@@ -65,8 +65,8 @@
 		"enabled": true,
 		"localPort": 9511,
 		"permissions": [
-			"_localnetwork_",
-			"_groupuser_"
+			"local",
+			"user"
 		],
 		"reset": true,
 		"reverseProxy": [

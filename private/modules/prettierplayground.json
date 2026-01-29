@@ -30,7 +30,7 @@
 		"localPort": 9485,
 		"path": "/usr/local/modules/prettier/website/build",
 		"permissions": [
-			"_groupuser_"
+			"user"
 		]
 	}
 }

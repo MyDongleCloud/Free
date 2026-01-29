@@ -82,9 +82,7 @@
 		"config": true,
 		"enabled": true,
 		"localPort": 9402,
-		"permissions": [
-			"_groupadmin_"
-		],
+		"permissions": [],
 		"permissionsPublicForbidden": true
 	}
 }

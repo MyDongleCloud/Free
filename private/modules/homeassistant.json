@@ -70,7 +70,7 @@
 		"enabled": true,
 		"localPort": 9431,
 		"permissions": [
-			"_groupuser_"
+			"user"
 		],
 		"reset": true,
 		"reverseProxy": [

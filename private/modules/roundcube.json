@@ -56,7 +56,7 @@
 		"localPort": 9496,
 		"path": "/usr/share/roundcube",
 		"permissions": [
-			"_groupuser_"
+			"user"
 		],
 		"reset": true,
 		"setup": true,

@@ -29,7 +29,7 @@
 		"localPort": 9417,
 		"path": "/disk/admin/modules/docsify",
 		"permissions": [
-			"_public_"
+			"public"
 		],
 		"reset": true,
 		"setup": true,
