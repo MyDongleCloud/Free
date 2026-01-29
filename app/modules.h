@@ -3,7 +3,7 @@
 
 //Global functions
 cJSON *fqdnInit(cJSON *elCloud);
-void modulesInit(cJSON *cloud, cJSON *modulesDefault, cJSON *modules);
+void modulesInit(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, char *szIPExternal);
 void moduleSetupDone(char *moduleSt);
 
 #endif

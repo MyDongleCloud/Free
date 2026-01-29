@@ -21,8 +21,14 @@
 //Private variables
 static pthread_mutex_t cloudMutex = PTHREAD_MUTEX_INITIALIZER;
 static int inSetup = 0;
+char ipExternal[48] = "";
 
 //Functions
+static void updateIPExternal() {
+	getExternalIP(ipExternal);
+	PRINTF("IPExternal: %s\n", ipExternal);
+}
+
 static void cloudInit_() {
 	pthread_mutex_lock(&cloudMutex);
 	PRINTF("CloudInit_\n");
@@ -33,7 +39,7 @@ static void cloudInit_() {
 	cJSON *modules = jsonRead(ADMIN_PATH "_config_/_modules_.json");
 	if (modules == NULL)
 		modules = cJSON_CreateObject();
-	modulesInit(cloud, modulesDefault, modules);
+	modulesInit(cloud, modulesDefault, modules, ipExternal);
 	cJSON_Delete(cloud);
 	cJSON_Delete(modules);
 	cJSON_Delete(modulesDefault);
@@ -43,6 +49,8 @@ static void cloudInit_() {
 void cloudInit() {
 	if (inSetup)
 		return;
+	if (strlen(ipExternal) == 0)
+		updateIPExternal();
 	cloudInit_();
 }
 
@@ -80,7 +88,7 @@ void setupLoop(int *i, int total, cJSON *cloud, cJSON *modulesDefault, cJSON *mo
 					int setupAlreadyDone = cJSON_HasObjectItem(modules, elModuleDep->string) && cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(modules, elModuleDep->string), "setupDone"));
 					if (setupAlreadyDone == 0) {
 						setup((*i)++, total, elModuleDep->string, cJSON_HasObjectItem(elModuleDep, "setupRoot"), modules);
-						buildApache2Conf(cloud, modulesDefault, modules, fqdn);
+						buildApache2Conf(cloud, modulesDefault, modules, fqdn, ipExternal);
 #ifndef DESKTOP
 						serviceAction("apache2.service", "ReloadOrRestartUnit");
 #endif
@@ -90,7 +98,7 @@ void setupLoop(int *i, int total, cJSON *cloud, cJSON *modulesDefault, cJSON *mo
 			int setupAlreadyDone = cJSON_HasObjectItem(modules, elModule->string) && cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(modules, elModule->string), "setupDone"));
 			if (setupAlreadyDone == 0) {
 				setup((*i)++, total, elModule->string, cJSON_HasObjectItem(elModule, "setupRoot"), modules);
-				buildApache2Conf(cloud, modulesDefault, modules, fqdn);
+				buildApache2Conf(cloud, modulesDefault, modules, fqdn, ipExternal);
 #ifndef DESKTOP
 				serviceAction("apache2.service", "ReloadOrRestartUnit");
 #endif
@@ -119,8 +127,10 @@ void cloudSetup(cJSON *el) {
 	cJSON *elSecurity = cJSON_GetObjectItem(elCloud, "security");
 	cJSON *elConnectivity = cJSON_GetObjectItem(elCloud, "connectivity");
 	cJSON *elWifi = cJSON_GetObjectItem(elConnectivity, "wifi");
-	if (elWifi && cJSON_GetStringValue2(elWifi, "ssid") && cJSON_GetStringValue2(elWifi, "password"))
+	if (elWifi && cJSON_GetStringValue2(elWifi, "ssid") && cJSON_GetStringValue2(elWifi, "password")) {
 		PRINTF("Setup Wi-Fi with %s %s\n", cJSON_GetStringValue2(elWifi, "ssid"), cJSON_GetStringValue2(elWifi, "password"));//wiFiAddActivate
+	}
+	updateIPExternal();
 	jsonWrite(elCloud, ADMIN_PATH "_config_/_cloud_.json");
 	cJSON *elLetsencrypt = cJSON_GetObjectItem(el, "letsencrypt");
 	if (elLetsencrypt) {

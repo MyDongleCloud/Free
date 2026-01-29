@@ -13,7 +13,7 @@
 //#define PERFORMANCE
 
 //Functions
-static void writePermissions(cJSON *elPermissions, cJSON *elLocalRanges, FILE *pfM) {
+static void writePermissions(cJSON *elPermissions, cJSON *elLocalRanges, char *szIPExternal, FILE *pfM) {
 //Permissions: [ "_public_", "_dongle_", "_localnetwork_", "_groupadmin_", "_groupuser_", "admin", "user", ... ]
 	int requireNb = 0;
 	int firstTime = 1;
@@ -27,10 +27,14 @@ static void writePermissions(cJSON *elPermissions, cJSON *elLocalRanges, FILE *p
 			char sz[] = "\t\tRequire local\n";
 			fwrite(sz, strlen(sz), 1, pfM);
 		} else if (strcmp(permission->valuestring, "_localnetwork_") == 0) {
+			char sz[256];
 			cJSON *range = NULL;
 			cJSON_ArrayForEach(range, elLocalRanges) {
-				char sz[256];
 				snprintf(sz, sizeof(sz), "\t\tRequire ip %s\n", range->valuestring);
+				fwrite(sz, strlen(sz), 1, pfM);
+			}
+			if (strlen(szIPExternal) > 0) {
+				snprintf(sz, sizeof(sz), "\t\tRequire ip %s\n", szIPExternal);
 				fwrite(sz, strlen(sz), 1, pfM);
 			}
 		} else {
@@ -122,7 +126,7 @@ void rewrite(cJSON *el_Module, cJSON *el_Module2, int port, FILE *pfM) {
 			rewrite_(i->valuestring, port, pfM);
 }
 
-void buildApache2Conf(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn) {
+void buildApache2Conf(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON *fqdn, char *szIPExternal) {
 #ifdef PERFORMANCE
 	struct timespec ts_proc1;
 	clock_gettime(CLOCK_REALTIME, &ts_proc1);
@@ -268,7 +272,7 @@ begin:
 					}
 					strcpy(sz, "\t<Proxy *>\n");
 					fwrite(sz, strlen(sz), 1, pfM);
-					writePermissions(elPermissions, elLocalRanges, pfM);
+					writePermissions(elPermissions, elLocalRanges, szIPExternal, pfM);
 					strcpy(sz, "\t</Proxy>\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
@@ -284,7 +288,7 @@ begin:
 						snprintf(sz, sizeof(sz), "\t\t%s\n", cJSON_GetStringValue2(elModule2, "addLineInDirectory"));
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
-					writePermissions(elPermissions, elLocalRanges, pfM);
+					writePermissions(elPermissions, elLocalRanges, szIPExternal, pfM);
 					if (cJSON_HasObjectItem(elModule2, "directoryIndex"))
 						writeDirectoryIndex(cJSON_GetStringValue2(elModule2, "directoryIndex"), pfM);
 					else if (cJSON_HasObjectItem(elModule, "directoryIndex"))

@@ -37,7 +37,7 @@ cJSON *fqdnInit(cJSON *elCloud) {
 	return fqdn;
 }
 
-void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
+void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules, char *szIPExternal) {
 	//PRINTF("Modules:Setup: Enter\n");
 	if (elCloud == NULL || !cJSON_HasObjectItem(elCloud, "info")) {
 		buildApache2ConfBeforeSetup();
@@ -56,7 +56,7 @@ void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules) {
 			if (cJSON_IsTrue(cJSON_GetObjectItem(elModule2, "overwrite"))) {
 				PRINTF("Apache2: No creation of main.conf\n");
 			} else
-				buildApache2Conf(elCloud, modulesDefault, modules, fqdn);
+				buildApache2Conf(elCloud, modulesDefault, modules, fqdn, szIPExternal);
 #ifndef DESKTOP
 			serviceAction("apache2.service", "ReloadOrRestartUnit");
 #endif

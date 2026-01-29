@@ -23,7 +23,7 @@
 #include "macro.h"
 #include "common.h"
 
-//Global variables
+//Global variable
 char szSerial[17];
 
 //Private variables
@@ -423,7 +423,30 @@ int downloadURLBuffer(char *url, char *buf, char *header, char *post, char *cook
 	return ret;
 }
 
-int getLocalIP(char *szIPCurrent) {
+int getExternalIP(char *szIPExternal) {
+	char buf[1024];
+	buf[0] = '\0';
+	downloadURLBuffer("https://mydongle.cloud/master/ip.json", buf, NULL, NULL, NULL, NULL);
+	char *quote3 = NULL;
+	char *quote4 = NULL;
+	char *quote1 = strchr(buf, '"');
+	if (quote1) {
+		char *quote2 = strchr(quote1 + 1, '"');
+		if (quote2) {
+			quote3 = strchr(quote2 + 1, '"');
+			if (quote3)
+				quote4 = strchr(quote3 + 1, '"');
+		}
+	}
+	if (quote3 && quote4) {
+		strcpy(szIPExternal, quote3 + 1);
+		szIPExternal[quote4 - quote3 - 1] = '\0';
+		int ret = 0;
+	}
+	int ret = -1;
+}
+
+int getLocalIP(char *szIPLocal) {
 	int ret = 0;
 	int sockInet;
 	if ((sockInet = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
@@ -439,7 +462,7 @@ int getLocalIP(char *szIPCurrent) {
 		for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)  {
 			if (ifa->ifa_addr == NULL)
 				continue;
-			int s = getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in), szIPCurrent, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
+			int s = getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in), szIPLocal, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
 			if ((strcmp(ifa->ifa_name, "lo") != 0) && (ifa->ifa_addr->sa_family == AF_INET) && s == 0)
 				break;
 		}
@@ -465,9 +488,9 @@ int getLocalIP(char *szIPCurrent) {
 		PRINTF("ERROR: Can't get IP address\n");
 	}
 	if (ret != -1)
-		sprintf(szIPCurrent, "%s", inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+		sprintf(szIPLocal, "%s", inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
 #endif
-	PRINTF("Current IP address is %s\n", szIPCurrent);
+	PRINTF("Current IP address is %s\n", szIPLocal);
 	close(sockInet);
 	return ret;
 }
