@@ -74,7 +74,7 @@ if (process.env.PRODUCTION === "true") {
 	if (hardware["internalIP"] != "")
 		trustedOrigins.push(hardware["internalIP"], hardware["internalIP"] + ":9400");
 } else
-	trustedOrigins = [ "localhost:8100" ];
+	trustedOrigins = [ "http://localhost:8100" ];
 
 if (!existsSync(secretPath)) {
 	writeFileSync(secretPath, randomBytes(32).toString("base64"), "utf-8");
