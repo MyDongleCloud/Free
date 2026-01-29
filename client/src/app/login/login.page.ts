@@ -250,11 +250,10 @@ async doForgotPasswordVerify(token) {
 	try {
 		ret = await this.httpClient.get("/_app_/auth/magic-link/verify?token=" + token, {headers:{"content-type": "application/json"}}).toPromise();
 		this.global.consolelog(2, "Auth magic-link/verify: ", ret);
-	} catch(e) { this.errorSt = e.error.message; }
-	if (ret != null) {
+	} catch(e) { alert("Wrong or expired magic link"); }
+	if (ret != null)
 		await this.global.getSession();
-		document.location.href = "/";
-	}
+	document.location.href = "/";
 }
 
 handlePaste(event: ClipboardEvent, startIndex: number) {
