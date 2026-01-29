@@ -24,6 +24,7 @@
 		"Google Authenticator"
 	],
 	"default": {
+		"addConfigBegin": "Header set Content-Security-Policy \"script-src 'self' 'unsafe-inline';\"",
 		"addLineInDirectory": "AllowOverride FileInfo Options=MultiViews,Indexes,FollowSymLinks",
 		"alias": [
 			"2fa"
