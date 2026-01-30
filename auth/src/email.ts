@@ -22,14 +22,14 @@ async function transporterInit() {
 async function lazyInit() {
     const { cloud } = await import("./auth");
 	APP_NAME = "MyDongle.Cloud " + cloud?.info?.name;
-	APP_URL = "https://" + cloud?.info?.name + ".mydongle.cloud";
+	APP_URL = "https://app." + cloud?.info?.name + ".mydongle.cloud";
 	APP_ADMIN = "admin@" + cloud?.info?.name + ".mydongle.cloud";
 }
 lazyInit();
 
 const sendMagicLinkEmail = async (to, token, url) => {
 	await transporterInit();
-	const link = decodeURIComponent(url.replace(/.*errorCallbackURL=/, "")) + "/login?verify=" + token;
+	const link = "${APP_URL}/_app_/login?verify=" + token;
 	await transporter.sendMail({
 	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
