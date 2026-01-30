@@ -67,7 +67,7 @@ Each module is described by an exhaustive json config file:
 		"localPort": "The local port of the Apache2 module virtual host.",
 		"multiViews": "A boolean if Apache2 MultiViews directive should be added or removed.",
 		"permissions": [
-			"The permission of the module, usually _groupadmin_."
+			"The permission of the module, can be user for instance."
 		],
 		"permissionsPublicForbidden": "A boolean to indicate if the module cannot have public access",
 		"reset": "A boolean to indicate if the module has a reset option.",
