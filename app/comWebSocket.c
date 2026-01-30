@@ -22,7 +22,7 @@ static list *last;
 
 //Functions
 static void onopen(ws_cli_conn_t *client) {
-	PRINTF("comWebSocket: onopen\n");
+	//PRINTF("comWebSocket: onopen\n");
 	pthread_mutex_lock(&listMutex);
 	list *ll = malloc(sizeof(list));
 	ll->client = client;
@@ -43,7 +43,7 @@ static void onopen(ws_cli_conn_t *client) {
 }
 
 static void onclose(ws_cli_conn_t *client) {
-	PRINTF("comWebSocket: onclose %s\n", ws_getaddress(client));
+	//PRINTF("comWebSocket: onclose %s\n", ws_getaddress(client));
 	pthread_mutex_lock(&listMutex);
 	list *c = first;
 	while (c) {

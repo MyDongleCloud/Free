@@ -61,7 +61,7 @@ void modulesInit(cJSON *elCloud, cJSON *modulesDefault, cJSON *modules, char *sz
 			serviceAction("apache2.service", "ReloadOrRestartUnit");
 #endif
 		} else if (strcmp(elModule->string, "frp") == 0) {
-			PRINTF("Modules:frp: Enter\n");
+			//PRINTF("Modules:frp: Enter\n");
 			cJSON *elModule2 = cJSON_GetObjectItem(modules, "frp");
 			cJSON *elModule3 = cJSON_GetObjectItem(elCloud, "frp");
 			cJSON *elModuleS = NULL, *elModule2S = NULL, *elModule3S = NULL;
