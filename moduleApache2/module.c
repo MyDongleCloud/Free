@@ -143,11 +143,11 @@ char *extractCookieValue(const char *cookie, const char *name, struct request_re
 }
 
 int checkAccess(cJSON *elPermissions, const char *role, const char *username) {
-//Permissions: [ "_public_", "_dongle_", "_localnetwork_", "_groupadmin_", "_groupuser_", "admin", "user", ... ]
+//Permissions: [ "public", "hardware", "local", "admin", "user" ]
 //Roles: admin or user
-	if (cJSON_HasObjectItem(elPermissions, "_groupadmin_") && strcmp(role, "admin") == 0)
+	if (cJSON_HasObjectItem(elPermissions, "admin") && strcmp(role, "admin") == 0)
 		return 1;
-	if (cJSON_HasObjectItem(elPermissions, "_groupuser_") && (strcmp(role, "admin") == 0 || strcmp(role, "user") == 0))
+	if (cJSON_HasObjectItem(elPermissions, "user") && (strcmp(role, "admin") == 0 || strcmp(role, "user") == 0))
 		return 1;
 	if (cJSON_HasObjectItem(elPermissions, username))
 		return 1;
@@ -194,7 +194,7 @@ int authorization2(request_rec *r, int strict) {
 	//char *ssz = cJSON_Print(confVH->permissions);
 	//PRINTF("APP: authorization1c permissions: %s\n", ssz);
 	//free(ssz);
-	if (!strict && (confVH->permissions == NULL || cJSON_HasObjectItem(confVH->permissions, "_public_")))
+	if (!strict && (confVH->permissions == NULL || cJSON_HasObjectItem(confVH->permissions, "public")))
 		return DECLINED;
 	const char *cookies = apr_table_get(r->headers_in, "Cookie");
 	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
