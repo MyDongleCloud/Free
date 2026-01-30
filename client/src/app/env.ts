@@ -551,7 +551,6 @@ async statusRefresh(data) {
 	if (data.progress)
 		this.setupUIProgress = data.progress;
 	if (data.module === "_setup_" && data.state === "finish") {
-		appConnectToggle(false);
 		this.setupUIProgress = 0;
 		this.setupUIDesc = "";
 		this.modulesData.forEach((data) => { data["notReady"] = 0; });
