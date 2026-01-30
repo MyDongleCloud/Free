@@ -256,7 +256,7 @@
 						</div>
 					</div>
 					}
-					<button type="submit" [disabled]="progress || formForgotPassword.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
+					<button type="submit" [disabled]="progress || formForgotPassword.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02] cursor-pointer">
 						@if (progress) {
 						<ion-icon name="cog-outline" class="animate-spin text--white w-6 h-6"></ion-icon>
 						{{L("Sending reset link...")}}

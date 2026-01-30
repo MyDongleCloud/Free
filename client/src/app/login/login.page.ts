@@ -319,14 +319,12 @@ async doOtp() {
 		try {
 			ret = await this.httpClient.post("/_app_/auth/two-factor/verify-totp", JSON.stringify(data), {headers:{"content-type": "application/json"}}).toPromise();
 			this.global.consolelog(2, "Auth twofactor/verify-totp: ", ret);
-		} catch (e) { this.errorSt = e.error.message; }
+		} catch (f) { alert("Wrong code"); }
 	}
 	this.progress = false;
-	if (ret != null) {
+	if (ret != null)
 		await this.global.getSession();
-		document.location.href = "/";
-	} else
-		this.cdr.detectChanges();
+	document.location.href = "/";
 }
 
 }

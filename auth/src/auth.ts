@@ -507,7 +507,7 @@ export const auth = betterAuth({
 */
 			if (ctx.path == "/two-factor/verify-otp" && ctx.context.returned?.["statusCode"] === undefined)
 				sendToApp({ a:"otp", v:0 });
-			if (ctx.path == "/sign-in/email" || ctx.path == "/sign-in/username") {
+			if (ctx.path == "/sign-in/email" || ctx.path == "/sign-in/username" || ctx.path == "/two-factor/verify-otp" || ctx.path == "/two-factor/verify-totp") {
 				if (statusDemo)
 					console.log("Sign-in for " + ctx.context.returned?.["user"]?.email + ", " + ctx.context.returned?.["user"]?.username);
 				else {
