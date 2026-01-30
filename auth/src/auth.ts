@@ -189,7 +189,7 @@ const mdcEndpoints = () => {
 				method: "GET",
 				use: [sensitiveSessionMiddleware]
 			}, async(ctx) => {
-				sendToApp({ a:"refresh" });
+				sendToApp({ a:"refresh-webserver" });
 				return Response.json({ "status":"success" }, { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
 			}),
 
