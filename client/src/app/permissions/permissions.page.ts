@@ -20,9 +20,10 @@ cardsOrig;
 filteredCards;
 searchTerm: string = "";
 sortProperty: string = "title";
-sortDirection = { title:"asc", name:"asc", category:"asc", hits:"asc" };
+sortDirection = { title:"asc", name:"asc", category:"asc", hits:"asc", bDisabed:"asc", bPublic:"asc", buser:"asc" };
 dResetSave: boolean = true;
 stats;
+localAllModules;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient, private route: ActivatedRoute) {
 	this.route.queryParams.subscribe((params) => {
@@ -68,11 +69,9 @@ private lastCtrlFPressTimestamp: number = 0;
 }
 
 compare(i) {
+	if (this.cards[i]["bDisabled"] != this.cardsOrig[i]["bDisabled"])
+		return false;
 	if (this.cards[i]["bPublic"] != this.cardsOrig[i]["bPublic"])
-		return false;
-	if (this.cards[i]["bLocal"] != this.cardsOrig[i]["bLocal"])
-		return false;
-	if (this.cards[i]["bAdmin"] != this.cardsOrig[i]["bAdmin"])
 		return false;
 	if (this.cards[i]["bUser"] != this.cardsOrig[i]["bUser"])
 		return false;
@@ -90,30 +89,16 @@ compareAll() {
 updatePerm_(card) {
 	if (card["bDisabled"]) {
 		card["bPublic"] = false;
-		card["bLocal"] = false;
-		card["bAdmin"] = false;
 		card["bUser"] = false;
 		card["dPublic"] = true;
-		card["dLocal"] = true;
-		card["dAdmin"] = true;
 		card["dUser"] = true;
 	} else {
 		card["dPublic"] = false;
-		if (!card["bPublic"] && !card["bLocal"] && !card["bAdmin"] && !card["bUser"])
-			card["bAdmin"] = true;
 		if (card["bPublic"]) {
-			card["bLocal"] = false;
-			card["bAdmin"] = false;
 			card["bUser"] = false;
-			card["dLocal"] = true;
-			card["dAdmin"] = true;
 			card["dUser"] = true;
 			return;
 		}
-		if (card["bUser"])
-			card["bAdmin"] = true;
-		card["dLocal"] = false;
-		card["dAdmin"] = card["bUser"];
 		card["dUser"] = false;
 	}
 }
@@ -135,15 +120,13 @@ async save() {
 				delete this.modules[module]["enabled"];
 				this.modules[module]["permissions"] = [];
 				if (this.cards[i]["bPublic"])
-					this.modules[module]["permissions"].push("_public_");
-				if (this.cards[i]["bLocal"])
-					this.modules[module]["permissions"].push("_localnetwork_");
+					this.modules[module]["permissions"].push("public");
 				if (this.cards[i]["bUser"])
-					this.modules[module]["permissions"].push("_groupuser_");
-				else if (this.cards[i]["bAdmin"])
-					this.modules[module]["permissions"].push("_groupadmin_");
-				if (this.cards[i]["bDongle"])
-					this.modules[module]["permissions"].push("_dongle_");
+					this.modules[module]["permissions"].push("user");
+				if (this.cards[i]["bLocal"])
+					this.modules[module]["permissions"].push("local");
+				if (this.cards[i]["bHardware"])
+					this.modules[module]["permissions"].push("hardware");
 			}
 		}
 	const ret = await this.httpClient.post("/_app_/auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
@@ -175,16 +158,14 @@ async getData(force = false) {
 			value["permissions"] = this.modules[key]?.permissions ?? value["permissions"];
 			value["bDisabled"] = value["enabled"] == false;
 			value["bPublic"] = false;
-			value["bLocal"] = false;
-			value["bAdmin"] = false;
 			value["bUser"] = false;
-			value["bDongle"] = false;
+			value["bLocal"] = false;
+			value["bHardware"] = false;
 			for (let i = 0; i < value["permissions"].length; i++) {
-				value["bPublic"] ||= value["permissions"][i] == "_public_";;
-				value["bLocal"] ||= value["permissions"][i] == "_localnetwork_";
-				value["bAdmin"] ||= value["permissions"][i] == "_groupadmin_";
-				value["bUser"] ||= value["permissions"][i] == "_groupuser_";
-				value["bDongle"] ||= value["permissions"][i] == "_dongle_";
+				value["bPublic"] ||= value["permissions"][i] == "public";
+				value["bUser"] ||= value["permissions"][i] == "user";
+				value["bLocal"] ||= value["permissions"][i] == "local";
+				value["bHardware"] ||= value["permissions"][i] == "hardware";
 			}
 			value["hits"] = this.stats?.[key]?.hits ?? 0;
 			this.cards.push(value);
@@ -238,12 +219,23 @@ async updateHits() {
 
 sortCards() {
 	this.filteredCards.sort((a, b) => {
-		const aValue = a[this.sortProperty];
-		const bValue = b[this.sortProperty];
 		if (this.sortProperty == "hits")
-			return (aValue - bValue) * (this.sortDirection[this.sortProperty] === "asc" ? 1 : -1);
-		else
+			return (a["hits"] - b["hits"]) * (this.sortDirection[this.sortProperty] === "asc" ? 1 : -1);
+		else if (this.sortProperty == "bDisabled" || this.sortProperty == "bPublic" || this.sortProperty == "bUser") {
+			let cD, cP, cU;
+			if (this.sortProperty == "bDisabled") {
+				cD = 10; cP = 5; cU = 1;
+			} else if (this.sortProperty == "bPublic") {
+				cD = 5; cP = 10; cU = 1;
+			} else if (this.sortProperty == "bUser") {
+				cD = 5; cP = 1; cU = 10;
+			}
+			return ( ((b["bDisabled"] ? 1 : 0) - (a["bDisabled"] ? 1 : 0)) * cD + ((b["bPublic"] ? 1 : 0) - (a["bPublic"] ? 1 : 0)) * cP + ((b["bUser"] ? 1 : 0) - (a["bUser"] ? 1 : 0)) * cU ) * (this.sortDirection[this.sortProperty] === "asc" ? 1 : -1);
+		} else {
+			const aValue = a[this.sortProperty];
+			const bValue = b[this.sortProperty];
 			return this.sortDirection[this.sortProperty] === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+		}
 	});
 }
 

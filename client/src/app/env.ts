@@ -389,31 +389,31 @@ getMonth(a) {
 }
 
 permissions(st) {
-	if (st == "_public_")
+	if (st == "public")
 		return "Public";
-	else if (st == "_localnetwork_")
+	else if (st == "local")
 		return "Local Network";
-	else if (st == "_dongle_")
-		return "Dongle";
-	else if (st == "_groupadmin_" || st == "admin")
-		return "Group Admin";
-	else if (st == "_groupuser_" || st == "users")
-		return "Group User";
+	else if (st == "hardware")
+		return "Hardware";
+	else if (st == "admin")
+		return "Role Admin";
+	else if (st == "user")
+		return "Role User";
 	else
 		return null;
 }
 
 colorWord(st, bckgd = true) {
-	if (st == "_disabled_")
+	if (st == "disabled")
 		return (bckgd ? "bg--red-100 " : "") + "text--red-800";
 
-	if (st == "_public_")
+	if (st == "public")
 		return (bckgd ? "bg--green-100 " : "") + "text--green-800";
-	if (st == "_localnetwork_")
+	if (st == "local")
 		return (bckgd ? "bg--yellow-100 " : "") + "text--yellow-800";
-	if (st == "_groupadmin_" || st == "admin")
+	if (st == "admin")
 		return (bckgd ? "bg--yellow-100 " : "") + "text--yellow-800";
-	if (st == "_groupuser_" || st == "users")
+	if (st == "user")
 		return (bckgd ? "bg--purple-100 " : "") + "text--purple-800";
 
 	if (CategoriesEx[st])
@@ -483,10 +483,10 @@ async modulesDataPrepare() {
 		value["enabled"] = modules[key]?.enabled ?? value["enabled"] ?? true;
 		value["notReady"] = modules[key]?.["setupDone"] !== true && value["setup"] === true && !this.demo ? 2 : 0;
 		value["permissions"] = modules[key]?.permissions ?? value["permissions"];
-		if (this.session.user.role == "user" && !(value["permissions"].includes("_public_") || value["permissions"].includes("_groupuser_")))
+		if (this.session.user.role == "user" && !(value["permissions"].includes("public") || value["permissions"].includes("user")))
 			return;
 		if (value["web"] !== true) {
-			value["permissions"] = ["_groupadmin_"];
+			value["permissions"] = ["admin"];
 			value["web"] = false;
 			value["enabled"] = true;
 		}

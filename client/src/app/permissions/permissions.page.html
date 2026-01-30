@@ -26,6 +26,12 @@
 				{{L("Save")}}
 			</button>
 		</div>
+		<div class="flex items-center gap-3 mt-4 ml-4">
+			<input type="checkbox" checked="true" disabled="true" class="form-checkbox h-4 w-4"><span>{{L("Role Admin has permission for all modules (immutable)")}}</span>
+		</div>
+		<div class="flex items-center gap-3 mt-4 ml-4">
+			<input type="checkbox" [(ngModel)]="global.session.cloud.security.grantLocalPermission" class="form-checkbox h-4 w-4"><span>{{L("Grant access from local network for all modules (safe and recommended)")}}</span>
+		</div>
 		<div class="m-4 overflow-y-auto shadow md:rounded-lg flex-1">
 			<table class="min-w-full divide-y divide--gray-300">
 				<thead class="bg--gray-50 sticky top-0 z-10">
@@ -34,11 +40,9 @@
 						<th scope="col" class="px-6 py-3 text-start text-xs font-medium text--gray-500 tracking-wider"><div class="flex items-center cursor-pointer" (click)="toggleSortDirection('name')">{{L("OPEN SOURCE")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['name'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'"></ion-icon></div></th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider"><div class="flex items-center cursor-pointer"><ion-icon class="w-5 h-5 mr-2" name="refresh-outline" (click)="updateHits()"></ion-icon><span (click)="toggleSortDirection('hits')">{{L("HITS")}}</span><ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['hits'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" (click)="toggleSortDirection('hits')"></ion-icon></div></th>
 						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider" *ngIf="global.setupUIProgress != 0">{{L("SETUP\nIN PROGRESS")}}</th>
-						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider">{{L("DISABLED")}}</th>
-						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider">{{L("PUBLIC")}}</th>
-						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("LOCAL\nNETWORK")}}</th>
-						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("GROUP\nADMIN")}}</th>
-						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider whitespace-pre-wrap">{{L("GROUP\nUSER")}}</th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider cursor-pointer" (click)="toggleSortDirection('bDisabled')"><div class="flex items-center">{{L("DISABLED")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['bDisabled'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" (click)="toggleSortDirection('bDisabled')"></ion-icon></div></th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider cursor-pointer" (click)="toggleSortDirection('bPublic')"><div class="flex items-center">{{L("PUBLIC")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['bPublic'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" (click)="toggleSortDirection('bPublic')"></ion-icon></div></th>
+						<th scope="col" class="px-6 py-3 text-center text-xs font-medium text--gray-500 tracking-wider cursor-pointer" (click)="toggleSortDirection('bUser')"><div class="flex items-center whitespace-pre-wrap">{{L("ROLE\nUSER")}}<ion-icon class="w-5 h-5 ml-2" [name]="sortDirection['bUser'] == 'asc' ? 'caret-up-outline' : 'caret-down-outline'" (click)="toggleSortDirection('bUser')"></ion-icon></div></th>
 						<th scope="col" class="px-6 py-3 text-start text-xs hidden xl:table-cell font-medium text--gray-500 tracking-wider">{{L("DESCRIPTION")}}</th>
 					</tr>
 				</thead>
@@ -62,16 +66,10 @@
 							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bDisabled']" [disabled]="card['enabledUnalterable']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic'] || card['permissionsPublicForbidden']" [title]="card['permissionsPublicForbidden'] ? 'For security reasons, this module cannot be made public' : ''" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? '' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bPublic']" [disabled]="card['dPublic'] || card['permissionsPublicForbidden']" [title]="card['permissionsPublicForbidden'] ? 'For security reasons, this module cannot be made public' : ''" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dPublic'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bLocal']" [disabled]="card['dLocal']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dLocal'] ? '' : ''"></div>
-						</td>
-						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bAdmin']" [disabled]="card['dAdmin']" [title]="card['dAdmin'] && card['bUser'] ? 'Admin has user permissions' : ''" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dAdmin'] ? '' : ''"></div>
-						</td>
-						<td class="px-6 py-4 whitespace-nowrap">
-							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dUser'] ? '' : ''"></div>
+							<div class="text-sm font-medium text--gray-900 flex justify-center"><input type="checkbox" [(ngModel)]="card['bUser']" [disabled]="card['dUser']" (change)="updatePerm(card)" class="form-checkbox h-4 w-4" [class]="card['dUser'] ? 'hidden' : ''"></div>
 						</td>
 						<td class="px-6 py-4 whitespace-nowrap hidden xl:table-cell">
 							<div class="text-sm font-medium text--gray-900 max-w-xs truncate"><span>{{LMD(card.description)}}</span></div>
