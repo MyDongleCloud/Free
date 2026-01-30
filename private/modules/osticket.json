@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "mysql",
+	"database": "MySQL",
 	"github": "osTicket/osTicket",
 	"description": "A support ticketing ticket system.",
 	"keywords": [

@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "mysql",
+	"database": "MySQL",
 	"github": "mantisbt/mantisbt",
 	"description": "A web-based bug tracking system for software development.",
 	"keywords": [

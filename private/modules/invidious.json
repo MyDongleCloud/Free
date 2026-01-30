@@ -9,7 +9,7 @@
 	"essential": true,
 	"finished": true,
 	"ai": false,
-	"database": "postgresql",
+	"database": "PostgreSQL",
 	"github": "iv-org/invidious",
 	"description": "An alternative YouTube front-end with focus on privacy.",
 	"keywords": [

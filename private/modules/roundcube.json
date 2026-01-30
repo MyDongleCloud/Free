@@ -9,7 +9,7 @@
 	"essential": true,
 	"finished": true,
 	"ai": false,
-	"database": "sqlite",
+	"database": "SQLite",
 	"github": "roundcube/roundcubemail",
 	"description": "A browser-based multilingual mail client with an application-like user interface.",
 	"keywords": [

@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "postgresql",
+	"database": "PostgreSQL",
 	"github": "TeamPiped/Piped",
 	"description": "A YouTube front-end without ads.",
 	"keywords": [

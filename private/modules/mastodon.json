@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "postgresql",
+	"database": "PostgreSQL",
 	"github": "mastodon/mastodon",
 	"description": "A federated, globally interconnected microblogging community.",
 	"keywords": [

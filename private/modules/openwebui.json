@@ -9,7 +9,7 @@
 	"essential": true,
 	"finished": true,
 	"ai": true,
-	"database": "sqlite",
+	"database": "SQLite",
 	"github": "open-webui/open-webui",
 	"description": "A user-friendly AI Interface, supports Ollama, OpenAI API.",
 	"keywords": [

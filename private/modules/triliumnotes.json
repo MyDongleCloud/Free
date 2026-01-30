@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "sqlite",
+	"database": "SQLite",
 	"github": "TriliumNext/Trilium",
 	"description": "A cross-platform hierarchical note taking application with focus on building large personal knowledge bases.",
 	"keywords": [

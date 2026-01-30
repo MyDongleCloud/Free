@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": false,
 	"ai": false,
-	"database": "sqlite",
+	"database": "SQLite",
 	"github": "coleifer/sqlite-web",
 	"description": "A web-based SQLite database browser.",
 	"keywords": [

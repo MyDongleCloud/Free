@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "sqlite",
+	"database": "SQLite",
 	"github": "kieraneglin/pinchflat",
 	"description": "A syncer of YouTube channels and playlists to a locally hosted media server.",
 	"keywords": [

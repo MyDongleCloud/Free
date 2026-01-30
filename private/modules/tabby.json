@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": true,
-	"database": "sqlite",
+	"database": "SQLite",
 	"github": "TabbyML/tabby",
 	"description": "An AI tool to better code.",
 	"keywords": [

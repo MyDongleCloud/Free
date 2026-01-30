@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "mysql",
+	"database": "MySQL",
 	"github": "LimeSurvey/LimeSurvey",
 	"description": "A powerful, feature-rich web-based survey platform, supporting extensive survey logic.",
 	"keywords": [

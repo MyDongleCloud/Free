@@ -9,7 +9,7 @@
 	"essential": false,
 	"finished": true,
 	"ai": false,
-	"database": "sqlite",
+	"database": "SQLite",
 	"github": "WGDashboard/WGDashboard",
 	"description": "A web interface to manage WireGuard.",
 	"keywords": [
