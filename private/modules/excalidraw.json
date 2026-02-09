@@ -1,0 +1,43 @@
+{
+	"module": "excalidraw",
+	"name": "Excalidraw",
+	"title": "Whiteboard",
+	"category": "Collaboration",
+	"version": "v0.18.0",
+	"installMethod": "clone",
+	"web": true,
+	"essential": false,
+	"finished": true,
+	"ai": false,
+	"database": "",
+	"github": "excalidraw/excalidraw",
+	"description": "A virtual whiteboard for sketching hand-drawn like diagrams.",
+	"keywords": [
+		"Canvas",
+		"Diagram",
+		"Hand-drawn",
+		"Sketching"
+	],
+	"proprietary": [
+		""
+	],
+	"default": {
+		"config": true,
+		"enabled": true,
+		"followSymLinks": true,
+		"localPort": 9532,
+		"permissions": [
+			"user"
+		],
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 8114,
+				"path": "/"
+			}
+		],
+		"setup": true,
+		"setupDependencies": []
+	}
+}
