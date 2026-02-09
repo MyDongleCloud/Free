@@ -22,10 +22,10 @@ L(st) { return this.global.mytranslate(st); }
 password2Show:boolean = false;
 password3Show:boolean = true;
 progress:boolean = false;
-showDongle:boolean = true;
+showHardware:boolean = true;
 showRegister:boolean = false;
 showWiFi:boolean = false;
-formDongle: FormGroup;
+formSetup: FormGroup;
 formRegister: FormGroup;
 formWiFi: FormGroup;
 hasBlurredOnce: boolean = false;
@@ -43,7 +43,7 @@ constructor(public global: Global, public certificate: Certificate, private rout
 		if (event.msg == "connection" && ble.connectedWS == 2)
 			setTimeout(() => { appSend({ a:"cloud" }); }, 100);
 	});
-	this.formDongle = fb.group({
+	this.formSetup = fb.group({
 		"name1": [ "", [ this.checkname1 ] ],
 		"shortname1": [ "", [ this.checkShortname1 ] ],
 		"domain1": [ "", [ this.checkDomain1 ] ],
@@ -68,12 +68,12 @@ async handleBleMessage(data) {
 			try {
 				this.ble.disconnect();
 			} catch(e) {}
-			await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
+			await this.global.presentAlert("Denial", "This hardware is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
 			this.router.navigate(["/find"]);
 		}
 	} else if (data.a === "setup") {
 		if (data.success === 1) {
-			await this.global.presentAlert("Success!", "Your dongle is setting up!", "You will need to login now.");
+			await this.global.presentAlert("Success!", "Your hardware is setting up!", "You will need to login now.");
 			document.location.href = "https://" + this.name1.value + "mydongle.cloud";
 		} else {
 			this.errorSt = "An error occured, please try again.";
@@ -119,8 +119,8 @@ passwordStrengthPercentage(password) {
 }
 
 checkConnection = () => {
-	if (this.ble.connectedBLE != 2 && this.ble.connectedWS != 2 && this.formDongle?.controls?.terms1?.value)
-		this.errorSt = "You need to connect to a dongle";
+	if (this.ble.connectedBLE != 2 && this.ble.connectedWS != 2 && this.formSetup?.controls?.terms1?.value)
+		this.errorSt = "You need to connect to a hardware";
 	return (this.ble.connectedBLE == 2 || this.ble.connectedWS == 2) ? null : { "notconnected": true };
 }
 
@@ -159,10 +159,10 @@ connectToggle() {
 	this.ble.connectToggle();
 }
 
-get name1() { return this.formDongle.get("name1"); }
-get shortname1() { return this.formDongle.get("shortname1"); }
-get domain1() { return this.formDongle.get("domain1"); }
-get terms1() { return this.formDongle.get("terms1"); }
+get name1() { return this.formSetup.get("name1"); }
+get shortname1() { return this.formSetup.get("shortname1"); }
+get domain1() { return this.formSetup.get("domain1"); }
+get terms1() { return this.formSetup.get("terms1"); }
 get email2() { return this.formRegister.get("email2"); }
 get name2() { return this.formRegister.get("name2"); }
 get password2() { return this.formRegister.get("password2"); }
@@ -170,8 +170,8 @@ get password2Confirm() { return this.formRegister.get("password2Confirm"); }
 get ssid3() { return this.formWiFi.get("ssid3"); }
 get password3() { return this.formWiFi.get("password3"); }
 
-show_Dongle() {
-	this.showDongle = true;
+show_Hardware() {
+	this.showHardware = true;
 	this.showRegister = false;
 	this.showWiFi = false;
 	this.hasBlurredOnce = false;
@@ -179,7 +179,7 @@ show_Dongle() {
 	this.cdr.detectChanges();
 }
 
-async doDongle() {
+async doHardware() {
 	this.progress = true;
 	this.errorSt = null;
 	this.show_Register();
@@ -187,7 +187,7 @@ async doDongle() {
 }
 
 show_Register() {
-	this.showDongle = false;
+	this.showHardware = false;
 	this.showRegister = true;
 	this.showWiFi = false;
 	setTimeout(() => { this.name2E.nativeElement.focus(); }, 100);
@@ -203,7 +203,7 @@ async doRegister() {
 }
 
 show_WiFi() {
-	this.showDongle = false;
+	this.showHardware = false;
 	this.showRegister = false;
 	this.showWiFi = true;
 	this.hasBlurredOnce = false;
@@ -262,7 +262,7 @@ async doWiFi() {
 		},
 		timezone
 	};
-	this.global.consolelog(2, "SETUP: Sending to dongle:", data);
+	this.global.consolelog(2, "SETUP: Sending to hardware:", data);
 	if (this.ble.connectedWS == 2)
 		appSend(data);
 	else if (this.ble.connectedBLE == 2)
