@@ -1,0 +1,22 @@
+[Unit]
+Description=OpenClaw
+After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=300s
+OnFailure=notify-failure@%n.service
+
+[Service]
+Restart=on-failure
+RestartMode=direct
+Type=simple
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+ExecStart=/usr/local/modules/openclaw/node_modules/.bin/openclaw gateway --port 18789
+WorkingDirectory=/disk/admin/modules/openclaw
+Environment=OPENCLAW_CONFIG_PATH=/disk/admin/modules/openclaw/openclaw.json
+
+[Install]
+WantedBy=multi-user.target

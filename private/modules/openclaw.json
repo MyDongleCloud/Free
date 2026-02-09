@@ -1,0 +1,48 @@
+{
+	"module": "openclaw",
+	"name": "Open Claw",
+	"title": "AI Assistant",
+	"category": "Personal",
+	"version": "2026.2.6-3",
+	"installMethod": "npm",
+	"web": true,
+	"essential": true,
+	"finished": true,
+	"ai": true,
+	"database": "SQLite",
+	"github": "openclaw/openclaw",
+	"description": "A user-friendly personal AI assistant.",
+	"keywords": [
+		"AI assistant",
+		"AI models",
+		"LLMs",
+		"Language",
+		"Language model"
+	],
+	"proprietary": [],
+	"default": {
+		"addConfigBegin": "RequestHeader set Authorization \"authorizationisdoneautomaticallybybackend\"",
+		"enabled": true,
+		"localPort": 9531,
+		"permissions": [],
+		"permissionsPublicForbidden": true,
+		"reset": true,
+		"reverseProxy": [
+			{
+				"type": "http",
+				"port": 18789,
+				"path": "/"
+			},
+			{
+				"type": "ws",
+				"port": 18789,
+				"path": "/"
+			}
+		],
+		"services": [
+			"openclaw"
+		],
+		"setup": true,
+		"setupDependencies": []
+	}
+}
