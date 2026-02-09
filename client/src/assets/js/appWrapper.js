@@ -20,9 +20,8 @@ function loadScript(src) {
 	});
 }
 
-async function appInit(tb, path, log, slave, elCanvas) {
+async function appInit(path, log, slave, elCanvas) {
 	if (!initDone) {
-		thisble = tb;
 		await loadScript(path);
 		initDone = true;
 	}
@@ -104,6 +103,7 @@ function appConnectToggle(onoff) {
 		socket.onopen = () => {
 			console_log(1, "Socket onopen");
 			if (thisble) thisble.connectedWS = 2;
+			if (thisble) thisble.communicationEvent.next({ msg:"connection" });
 		}
 		socket.onerror = (e) => {
 			console_log(1, "Socket onerror " + JSON.stringify(e));
@@ -124,6 +124,12 @@ function appConnectToggle(onoff) {
 				appServerReceiveHtml(msg.data, 1);
 		}
 	}
+}
+
+function appSend(o) {
+	const st = typeof(o) === "string" ? o : JSON.stringify(o);
+	if (socket != null)
+		socket.send(st);
 }
 
 function appRefreshScreen() {
