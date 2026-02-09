@@ -40,21 +40,24 @@ This is the list of all used ports in the image, separated between listening por
 - pihole: 8110 (reverseproxy)
 - searxng: 8111 (reverseproxy)
 - mastodon: 8112 (reverseproxy)
+- signoz: 8113 (reverseproxy)
+- excalidraw: 8114 (reverseproxy)
+- portainer: 8115 (reverseproxy), 8116
 - syncthing: 8384 (reverseproxy)
 - lidarr: 8686 (reverseproxy)
 - sonarr: 8989 (reverseproxy)
-- portainer: 9000 (reverseproxy), 19443
 - transmission: 9091 (reverseproxy)
 - prowlarr: 9696 (reverseproxy)
 - wgdashboard: 10086
 - rspamd: 11332, 11333, 11334
 - stremio: 11470 (reverseproxy)
+- openclaw: 18789 (reverseproxy)
 - mongodb: 27017
 
 ### Listening ports (0.0.0.0)
 - ssh: 22
 - postfix: 25 (mail), 465 (smtp)
-- apache: 80 (http), 443 (https), 9400-9529 (modules)
+- apache: 80 (http), 443 (https), 9400-9532 (modules)
 - dovecot imaps: 110 (imaps), 143 (pop3s), 993 (imaps), 995 (pop3s)
 - networkmanager: 546 (dhcpv6)
 - avahi: 5353 (mdns)
