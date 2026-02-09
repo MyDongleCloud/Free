@@ -91,7 +91,7 @@ async process(name, shortname, additionalDomains) {
 	};
 	try {
 		const pems = await acme.certificates.create({ account, accountKey, csr, domains, challenges });
-		ret.fullChain = pems.cert + "\n" + pems.chain + "\n";
+		ret.fullChain = pems.cert.trimEnd() + "\n" + pems.chain.trimEnd();
 		this.global.consolelog(2, "##################################");
 		this.global.consolelog(2, "ACME: Expiration " + pems.expires);
 		this.global.consolelog(2, ret);
