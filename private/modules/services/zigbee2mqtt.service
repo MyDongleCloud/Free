@@ -8,16 +8,16 @@ OnFailure=notify-failure@%n.service
 [Service]
 Restart=on-failure
 RestartMode=direct
-Environment=NODE_ENV=production
-Environment=ZIGBEE2MQTT_DATA=/disk/admin/modules/zigbee2mqtt
 Type=simple
-ExecStart=/usr/local/bin/node index.js
-WorkingDirectory=/usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=5s
 User=admin
+ExecStart=/usr/local/bin/node index.js
+WorkingDirectory=/usr/local/modules/zigbee2mqtt/node_modules/zigbee2mqtt
+Environment=NODE_ENV=production
+Environment=ZIGBEE2MQTT_DATA=/disk/admin/modules/zigbee2mqtt
 
 [Install]
 WantedBy=multi-user.target

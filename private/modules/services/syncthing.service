@@ -9,12 +9,12 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=simple
-ExecStart=/usr/local/bin/syncthing --no-browser --home=/disk/admin/modules/syncthing/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=5s
 User=admin
+ExecStart=/usr/local/bin/syncthing --no-browser --home=/disk/admin/modules/syncthing/
 
 [Install]
 WantedBy=multi-user.target

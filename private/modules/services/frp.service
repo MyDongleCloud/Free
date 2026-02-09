@@ -9,12 +9,12 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=simple
-ExecStart=/usr/local/modules/frp/frpc -c /disk/admin/modules/frp/frpc.toml
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=2s
 User=admin
+ExecStart=/usr/local/modules/frp/frpc -c /disk/admin/modules/frp/frpc.toml
 
 [Install]
 WantedBy=multi-user.target

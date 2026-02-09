@@ -10,10 +10,10 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=oneshot
-RemainAfterExit=yes
-ExecStart=/usr/local/modules/mydonglecloud/otg.sh
 StandardOutput=inherit
 StandardError=inherit
+ExecStart=/usr/local/modules/mydonglecloud/otg.sh
+RemainAfterExit=yes
 
 [Install]
 WantedBy=sysinit.target

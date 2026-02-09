@@ -9,13 +9,13 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=simple
-ExecStart=/usr/local/bin/node app.js
-WorkingDirectory=/usr/local/modules/betterauth
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=2s
 User=admin
+ExecStart=/usr/local/bin/node app.js
+WorkingDirectory=/usr/local/modules/betterauth
 
 [Install]
 WantedBy=multi-user.target

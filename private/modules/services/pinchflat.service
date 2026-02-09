@@ -8,18 +8,18 @@ OnFailure=notify-failure@%n.service
 [Service]
 Restart=on-failure
 RestartMode=direct
-Environment=MEDIA_PATH=/disk/admin/modules/pinchflat/downloads
-Environment=CONFIG_PATH=/disk/admin/modules/pinchflat/config
-Environment=PHX_SERVER=true
-EnvironmentFile=/disk/admin/modules/pinchflat/config/env
 Type=simple
-ExecStart=/usr/local/modules/pinchflat/_build/prod/rel/pinchflat/bin/pinchflat start
-WorkingDirectory=/usr/local/modules/pinchflat/_build/prod/rel/pinchflat
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=5s
 User=admin
+ExecStart=/usr/local/modules/pinchflat/_build/prod/rel/pinchflat/bin/pinchflat start
+WorkingDirectory=/usr/local/modules/pinchflat/_build/prod/rel/pinchflat
+EnvironmentFile=/disk/admin/modules/pinchflat/config/env
+Environment=MEDIA_PATH=/disk/admin/modules/pinchflat/downloads
+Environment=CONFIG_PATH=/disk/admin/modules/pinchflat/config
+Environment=PHX_SERVER=true
 
 [Install]
 WantedBy=multi-user.target

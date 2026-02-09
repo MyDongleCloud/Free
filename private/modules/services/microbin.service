@@ -9,13 +9,13 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=simple
-WorkingDirectory=/disk/admin/modules/microbin
-ExecStart=/bin/sh -c '. /disk/admin/modules/microbin/.env && exec /usr/local/bin/microbin'
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=5s
 User=admin
+WorkingDirectory=/disk/admin/modules/microbin
+ExecStart=/bin/sh -c '. /disk/admin/modules/microbin/.env && exec /usr/local/bin/microbin'
 
 [Install]
 WantedBy=multi-user.target

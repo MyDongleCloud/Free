@@ -8,16 +8,16 @@ OnFailure=notify-failure@%n.service
 [Service]
 Restart=on-failure
 RestartMode=direct
-Environment=RAILS_ENV=production
-Environment=PORT=8112
 Type=simple
-ExecStart=bundle exec puma -C config/puma.rb
-WorkingDirectory=/usr/local/modules/mastodon
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=5s
 User=admin
+ExecStart=bundle exec puma -C config/puma.rb
+WorkingDirectory=/usr/local/modules/mastodon
+Environment=RAILS_ENV=production
+Environment=PORT=8112
 
 [Install]
 WantedBy=multi-user.target

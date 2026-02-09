@@ -8,15 +8,15 @@ OnFailure=notify-failure@%n.service
 [Service]
 Restart=on-failure
 RestartMode=direct
-EnvironmentFile=/disk/admin/modules/openwebui/.env
 Type=simple
-ExecStart=/usr/local/modules/openwebui/bin/open-webui serve --host 127.0.0.1 --port 8101
-WorkingDirectory=/disk/admin/modules/openwebui
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=5s
 User=admin
+ExecStart=/usr/local/modules/openwebui/bin/open-webui serve --host 127.0.0.1 --port 8101
+WorkingDirectory=/disk/admin/modules/openwebui
+EnvironmentFile=/disk/admin/modules/openwebui/.env
 
 [Install]
 WantedBy=multi-user.target

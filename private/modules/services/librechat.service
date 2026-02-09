@@ -9,13 +9,13 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=simple
-ExecStart=npm run backend
-WorkingDirectory=/usr/local/modules/librechat
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
 RestartSec=5s
 User=admin
+ExecStart=npm run backend
+WorkingDirectory=/usr/local/modules/librechat
 
 [Install]
 WantedBy=multi-user.target

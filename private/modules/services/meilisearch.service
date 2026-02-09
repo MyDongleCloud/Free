@@ -9,10 +9,14 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=simple
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=5s
+User=admin
+ExecStart=/usr/local/bin/meilisearch --db-path /disk/admin/modules/meilisearch/data.ms
 WorkingDirectory=/disk/admin/modules/meilisearch
 EnvironmentFile=/disk/admin/modules/meilisearch/meilisearch.env
-ExecStart=/usr/local/bin/meilisearch --db-path /disk/admin/modules/meilisearch/data.ms
-User=admin
 
 [Install]
 WantedBy=multi-user.target

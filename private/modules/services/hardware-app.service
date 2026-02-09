@@ -9,11 +9,12 @@ OnFailure=notify-failure@%n.service
 Restart=on-failure
 RestartMode=direct
 Type=oneshot
-User=admin
-ExecStart=/usr/local/modules/mydonglecloud/app -d
 StandardOutput=inherit
 StandardError=inherit
+Restart=always
 RestartSec=1s
+User=admin
+ExecStart=/usr/local/modules/mydonglecloud/app -d
 
 [Install]
 WantedBy=multi-user.target
