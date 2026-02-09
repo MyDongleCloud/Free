@@ -164,10 +164,15 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			if (arg1 && strcmp(arg1, "oath_success") == 0)
 				logicOtpFinished();
 		} else if (strcmp(action, "setup") == 0) {
+#ifdef DESKTOP
+			PRINTF("communicationReceive: Setup\n%s\n", data);
+#else
 			//PRINTF("communicationReceive: Setup\n");
 			touchClick();
 			pthread_t pth;
 			pthread_create(&pth, NULL, cloudSetup_t, (void *)el);
+			communicationString("{ \"a\":\"setup\", \"success\":1 }");
+#endif
 			return;
 		} else if (strcmp(action, "status") == 0) {
 			//PRINTF("communicationReceive: status #%s#\n", data);

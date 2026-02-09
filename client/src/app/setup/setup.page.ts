@@ -6,6 +6,9 @@ import { Global } from '../env';
 import { Certificate } from '../certificate';
 import { BleService } from '../ble';
 
+declare var appConnectToggle: any;
+declare var appSend: any;
+
 @Component({
 	selector: 'app-setup',
 	templateUrl: 'setup.page.html',
@@ -37,6 +40,8 @@ constructor(public global: Global, public certificate: Certificate, private rout
 			this.handleBleMessage(event.data);
 		if (event.msg == "connection" && ble.connectedBLE == 2)
 			setTimeout(() => { this.ble.writeData({ a:"cloud" }); }, 2000);
+		if (event.msg == "connection" && ble.connectedWS == 2)
+			setTimeout(() => { appSend({ a:"cloud" }); }, 100);
 	});
 	this.formDongle = fb.group({
 		"name1": [ "", [ this.checkname1 ] ],
@@ -54,18 +59,22 @@ constructor(public global: Global, public certificate: Certificate, private rout
 		"ssid3": [ "", [ Validators.required ] ],
 		"password3": [ "", [ Validators.required, Validators.minLength(8) ] ]
 	});
+	appConnectToggle(true);
 }
 
 async handleBleMessage(data) {
-	if (data.a === "cloud" && data.all.name !== undefined) {
-		this.ble.disconnect();
-		await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
-		this.router.navigate(["/find"]);
-	}
-	if (data.a === "setup") {
+	if (data.a === "cloud") {
+		if (data.info?.name !== undefined) {
+			try {
+				this.ble.disconnect();
+			} catch(e) {}
+			await this.global.presentAlert("Denial", "This dongle is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
+			this.router.navigate(["/find"]);
+		}
+	} else if (data.a === "setup") {
 		if (data.success === 1) {
-			await this.global.presentAlert("Success!", "Your dongle is setup and ready to use!", "You will be redirected to the dasboard now.");
-			this.router.navigate(["/"]);
+			await this.global.presentAlert("Success!", "Your dongle is setting up!", "You will need to login now.");
+			document.location.href = "https://" + this.name1.value + "mydongle.cloud";
 		} else {
 			this.errorSt = "An error occured, please try again.";
 			this.progress = false;
@@ -110,9 +119,9 @@ passwordStrengthPercentage(password) {
 }
 
 checkConnection = () => {
-	if (this?.ble?.connectedBLE !== 2 && this?.formDongle?.["controls"]?.["terms1"]?.value)
+	if (this.ble.connectedBLE != 2 && this.ble.connectedWS != 2 && this.formDongle?.controls?.terms1?.value)
 		this.errorSt = "You need to connect to a dongle";
-	return this?.ble?.connectedBLE === 2 ? null : { "notconnected": true };
+	return (this.ble.connectedBLE == 2 || this.ble.connectedWS == 2) ? null : { "notconnected": true };
 }
 
 checkname1(group: FormGroup) {
@@ -248,7 +257,12 @@ async doWiFi() {
 		timezone
 	};
 	this.global.consolelog(2, "SETUP: Sending to dongle:", data);
-	await this.ble.writeData(data);
+	if (this.ble.connectedWS == 2)
+		appSend(data);
+	else if (this.ble.connectedBLE == 2)
+		await this.ble.writeData(data);
+	else
+		alert("Not connected");
 	this.cdr.detectChanges();
 }
 

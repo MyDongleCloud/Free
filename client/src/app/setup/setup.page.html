@@ -19,7 +19,7 @@
 				<p class="text--gray-600">{{L("Connect to your dongle and set it up")}}</p>
 			</div>
 			<form [formGroup]="formDongle" (ngSubmit)="doDongle();" class="space-y-6">
-				<button type="button" (click)="connectToggle()" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]" [class]="ble.connectedBLE == 2 ? 'bg--green-600' : ble.connectedBLE == 1 ? 'bg--red-600' : 'bg--blue-600'" >
+				<button type="button" (click)="connectToggle()" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]" [class]="ble.connectedBLE == 2 ? 'bg--green-600' : ble.connectedBLE == 1 ? 'bg--red-600' : 'bg--blue-600'" *ngIf="ble.connectedWS != 2">
 					<ion-icon name="bluetooth-outline" class="text--white w-6 h-6"></ion-icon>
 					{{L("Connect via Bluetooth")}}
 				</button>
@@ -67,8 +67,8 @@
 							<ion-icon name="globe-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
 						<div class="flex items-center gap-2">
-							<input type="text" formControlName="domain1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="example.com" [class.border--red-300]="domain1?.invalid && domain1?.touched" [class.focus:ring--red-500]="domain1?.invalid && domain1?.touched">
-							<button type="button" (click)="verifyDns(domain1?.value)" [disabled]="!checkDomain1(domain1?.value)" class="flex justify-center items-center py-3 px-2 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
+							<input type="text" formControlName="domain1" autocomplete="name" class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="example.com" [class.border--red-300]="domain1?.invalid && domain1?.touched" [class.focus:ring--red-500]="domain1?.invalid && domain1?.touched">
+							<button type="button" (click)="verifyDns(domain1?.value)" class="flex justify-center items-center py-3 px-2 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
 								@if (progress) {
 								<ion-icon name="cog-outline" class="animate-spin text--white w-6 h-6"></ion-icon>
 								}
