@@ -24,6 +24,7 @@
 	],
 	"proprietary": [],
 	"default": {
+		"addConfigBegin": "Header set Content-Security-Policy \"script-src 'self' 'unsafe-inline';\"",
 		"alias": [
 			"social"
 		],
