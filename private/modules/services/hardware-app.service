@@ -11,7 +11,6 @@ RestartMode=direct
 Type=oneshot
 StandardOutput=inherit
 StandardError=inherit
-Restart=always
 RestartSec=1s
 User=admin
 ExecStart=/usr/local/modules/mydonglecloud/app -d
