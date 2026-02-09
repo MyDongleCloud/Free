@@ -57,12 +57,12 @@
 		"reverseProxy": [
 			{
 				"type": "http",
-				"port": 9000,
+				"port": 8115,
 				"path": "/"
 			},
 			{
 				"type": "ws",
-				"port": 9000,
+				"port": 8115,
 				"path": "/"
 			}
 		],
