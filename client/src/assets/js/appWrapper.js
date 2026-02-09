@@ -2,6 +2,12 @@ var Module;
 var thisble;
 var initDone = false;
 var socket = null;
+var appDeveloper = false;
+
+function console_log(level, ...st) {
+	if (level == 0 || appDeveloper)
+		console.log(...st);
+}
 
 function loadScript(src) {
 	return new Promise((resolve, reject) => {
@@ -26,7 +32,7 @@ async function appInit(tb, path, log, slave, elCanvas) {
 	else if (navigator.language.startsWith("fr"))
 		argCmdLine = [ "-l", "fr" ];
 	Module = {
-		print: function(text) { if (log) console.log(text); },
+		print: function(text) { if (log) console_log(1, text); },
 		canvas: elCanvas,
 		arguments: slave ? [ "-s" ] : argCmdLine
 	};
@@ -92,21 +98,21 @@ function appConnectToggle(onoff) {
 		if (ipv4Regex.test(host))
 			host += ":9400";
 		const ws = protocol + host + "/ws/";
-		console.log("socketInit " + ws);
+		console_log(1, "socketInit " + ws);
 		socket = new WebSocket(ws);
 		socket.binaryType = "arraybuffer";
 		socket.onopen = () => {
-			console.log("Socket onopen");
+			console_log(1, "Socket onopen");
 			if (thisble) thisble.connectedWS = 2;
 		}
 		socket.onerror = (e) => {
-			console.log("Socket onerror " + JSON.stringify(e));
+			console_log(1, "Socket onerror " + JSON.stringify(e));
 			socket = null;
 			if (thisble) thisble.connectedWS = 0;
 			appCommunicationStatus(0);
 		}
 		socket.onclose = (e) => {
-			console.log("Socket onclose");
+			console_log(1, "Socket onclose");
 			socket = null;
 			if (thisble) thisble.connectedWS = 0;
 			appCommunicationStatus(0);
