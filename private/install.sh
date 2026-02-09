@@ -246,6 +246,7 @@ else
 	clone docusaurus facebook/docusaurus v3.9.2
 	clone droppy droppyjs/droppy v1.3.1
 	clone erugo ErugoOSS/Erugo v0.2.0
+	clone excalidraw excalidraw/excalidraw v0.18.0
 	clone fider getfider/fider v0.32.0
 	clone filegator filegator/filegator v7.13.0
 	clone flarum flarum/flarum v1.8.1
