@@ -228,6 +228,7 @@ async doWiFi() {
 		a:"setup",
 		cloud: {
 			info: {
+				language: navigator.language.startsWith("fr") ? "fr" : "en",
 				name: this.name1.value,
 				shortname: this.shortname1.value,
 				domains: this.domain1.value != "" ? [this.domain1.value] : []
@@ -235,8 +236,13 @@ async doWiFi() {
 			frp: ret2.frp,
 			postfix: ret2.postfix,
 			security: {
+				adminSudo: false,
+				autoLogin: true,
+				includeTorrent: true,
+				grantLocalPermission: true,
+				newUserNeedsApproval: true,
 				signInNotification: true,
-				adminSudo: false
+				updateRemoteIP: true
 			},
 			connectivity: {
 				wifi: {
