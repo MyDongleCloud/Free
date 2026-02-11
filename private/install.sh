@@ -324,8 +324,12 @@ echo "################################"
 echo "Install via modules scripts"
 echo "################################"
 LIST=`find $PP/modules/ -name "*.json" -printf "%f\n" | sort`
+COUNT=0
+TOTAL=`echo "$LIST" | wc -l` 
 for NAME in $LIST; do
 	NAME="${NAME%?????}"
+	COUNT=$((COUNT + 1))
+	echo "$COUNT/$TOTAL"
 	installModule $NAME
 done
 
