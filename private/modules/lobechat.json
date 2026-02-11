@@ -10,7 +10,7 @@
 	"finished": true,
 	"ai": true,
 	"database": "PostgreSQL",
-	"github": "lobehub/lobe-chat",
+	"github": "lobehub/lobehub",
 	"description": "A modern design AI Agent Workspace.",
 	"keywords": [
 		"AI chatbot",
