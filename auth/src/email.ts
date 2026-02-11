@@ -29,7 +29,7 @@ lazyInit();
 
 const sendMagicLinkEmail = async (to, token, url) => {
 	await transporterInit();
-	const link = "${APP_URL}/_app_/login?verify=" + token;
+	const link = APP_URL + "/_app_/login?verify=" + token;
 	await transporter.sendMail({
 	from: `"Admin ${APP_NAME}" <${APP_ADMIN}>`,
 	to,
