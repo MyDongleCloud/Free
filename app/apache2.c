@@ -393,7 +393,7 @@ void buildApache2ConfBeforeSetup() {
 #else
 		FILE *pfP = fopen(ADMIN_PATH "apache2/ports.conf", "w");
 #endif
-		char sz[512];
+		char sz[1024];
 		strcpy(sz, "\
 <IfModule ssl_module>\n\
 	Listen 80\n\
@@ -409,6 +409,9 @@ void buildApache2ConfBeforeSetup() {
 <VirtualHost *:80>\n\
 	Alias /_app_ /usr/local/modules/apache2/pages/web\n\
 	RewriteEngine On\n\
+	RewriteCond %{HTTP:Upgrade} websocket [NC]\n\
+	RewriteCond %{HTTP:Connection} upgrade [NC]\n\
+	RewriteRule ^/ws(.*) ws://localhost:8094/ws$1 [P,L]\n\
 	RewriteCond %{REQUEST_URI} !^/_app_ [NC]\n\
 	RewriteRule ^(.*)$ /_app_/setup [R=301,L]\n\
 	RewriteRule ^/_app_/login$ /_app_/setup [R=301,L]\n\

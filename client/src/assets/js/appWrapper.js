@@ -92,10 +92,7 @@ function appConnectToggle(onoff) {
 	if (onoff && socket == null) {
 		if (thisble) thisble.connectedWS = 1;
 		const protocol = "ws" + (window.location.protocol === "https:" ? "s" : "") + "://";
-		let host = window.location.hostname == "" || window.location.hostname == "localhost" ? "localhost:8094" : window.location.hostname;
-		const ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$/;
-		if (ipv4Regex.test(host))
-			host += ":9400";
+		let host = window.location.hostname == "" || window.location.hostname == "localhost" ? "localhost:8094" : window.location.host;
 		const ws = protocol + host + "/ws/";
 		console_log(1, "socketInit " + ws);
 		socket = new WebSocket(ws);
