@@ -4,7 +4,7 @@ apt-get -y install elixir erlang-dev erlang-nox
 cd /usr/local/modules/pinchflat
 export MIX_ENV=prod
 mix deps.get
-yarn --cwd assets --non-interactive install
+yes | yarn --cwd assets install
 mix assets.deploy
 mix compile
 mix release
