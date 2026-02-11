@@ -282,7 +282,7 @@ begin:
 					}
 					strcpy(sz, "\t<Proxy *>\n");
 					fwrite(sz, strlen(sz), 1, pfM);
-					writePermissions(elPermissions, cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(cloud, "security"), "updateRemoteIP")), elLocalRanges, szIPExternal, pfM);
+					writePermissions(elPermissions, grantLocal, elLocalRanges, szIPExternal, pfM);
 					strcpy(sz, "\t</Proxy>\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
@@ -298,7 +298,7 @@ begin:
 						snprintf(sz, sizeof(sz), "\t\t%s\n", cJSON_GetStringValue2(elModule2, "addLineInDirectory"));
 						fwrite(sz, strlen(sz), 1, pfM);
 					}
-					writePermissions(elPermissions, cJSON_IsTrue(cJSON_GetObjectItem(cJSON_GetObjectItem(cloud, "security"), "updateRemoteIP")), elLocalRanges, szIPExternal, pfM);
+					writePermissions(elPermissions, grantLocal, elLocalRanges, szIPExternal, pfM);
 					if (cJSON_HasObjectItem(elModule2, "directoryIndex"))
 						writeDirectoryIndex(cJSON_GetStringValue2(elModule2, "directoryIndex"), pfM);
 					else if (cJSON_HasObjectItem(elModule, "directoryIndex"))
