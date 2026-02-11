@@ -20,7 +20,7 @@ do
 done
 
 echo "#Create user portainer##################"
-PORT=9000
+PORT=8116
 URL="http://localhost:$PORT"
 TIMEOUT=20
 while [ $TIMEOUT -gt 0 ]; do
