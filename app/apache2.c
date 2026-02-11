@@ -138,7 +138,7 @@ void buildApache2Conf(cJSON *cloud, cJSON *modulesDefault, cJSON *modules, cJSON
 #else
 	FILE *pfP = fopen(ADMIN_PATH "apache2/ports.conf", "w");
 #endif
-	char sz[2048];
+	char sz[4096];
 	strcpy(sz, "\
 <IfModule ssl_module>\n\
 	Listen 443\n\
@@ -178,6 +178,7 @@ AppALEnabled %s\n\
 	ProxyPass /_app_/auth/ http://localhost:8091/auth/\n\
 	AliasMatch /_app_/disabled.php /usr/local/modules/apache2/pages/disabled.php\n\
 	AliasMatch /_app_/error.php /usr/local/modules/apache2/pages/error.php\n\
+	AliasMatch /_app_/forbidden.php /usr/local/modules/apache2/pages/forbidden.php\n\
 	AliasMatch /_app_/notpresent.php /usr/local/modules/apache2/pages/notpresent.php\n\
 	AliasMatch /_app_/unauthorized.php /usr/local/modules/apache2/pages/unauthorized.php\n\
 	<Directory /usr/local/modules/apache2/pages>\n\
@@ -193,6 +194,12 @@ AppALEnabled %s\n\
 		Require all granted\n\
 	</Directory>\n\
 	ErrorDocument 401 /_app_/unauthorized.php?m=$1\n\
+	ErrorDocument 403 /_app_/forbidden.php\n\
+	ErrorDocument 404 /_app_/notpresent.php\n\
+	ErrorDocument 500 /_app_/error.php?e=500\n\
+	ErrorDocument 501 /_app_/error.php?e=501\n\
+	ErrorDocument 502 /_app_/error.php?e=502\n\
+	ErrorDocument 503 /_app_/error.php?e=503\n\
 	ProxyPass /_app_/ !\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
@@ -324,13 +331,6 @@ begin:
 
 				if (strcmp(elModule->string, "apache2") == 0 || strcmp(elModule->string, "mydonglecloud") == 0) {
 					strcpy(sz, "\tUse Macro_Rewrite\n");
-					fwrite(sz, strlen(sz), 1, pfM);
-				}
-				if (strcmp(elModule->string, "apache2") == 0) {
-					strcpy(sz, "\
-	ErrorDocument 403 /_app_/forbidden.php\n\
-	ErrorDocument 404 /_app_/notpresent.php\n\
-	ErrorDocument 500 /_app_/error.php\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 				if (cJSON_HasObjectItem(elModule, "autoLoginNoGzip")) {
