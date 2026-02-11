@@ -15,46 +15,43 @@
 //Functions
 static void writePermissions(cJSON *elPermissions, int grantLocal, cJSON *elLocalRanges, char *szIPExternal, FILE *pfM) {
 //Permissions: [ "public", "hardware", "local", "admin", "user" ]
-	int total = 0;
+	char szB[] = "\t\t<RequireAny>\n";
+	fwrite(szB, strlen(szB), 1, pfM);
 	if (grantLocal) {
 		char sz[256];
 		cJSON *range = NULL;
 		cJSON_ArrayForEach(range, elLocalRanges) {
-			snprintf(sz, sizeof(sz), "\t\tRequire ip %s\n", range->valuestring);
+			snprintf(sz, sizeof(sz), "\t\t\tRequire ip %s\n", range->valuestring);
 			fwrite(sz, strlen(sz), 1, pfM);
 		}
 		if (strlen(szIPExternal) > 0) {
-			snprintf(sz, sizeof(sz), "\t\tRequire ip %s\n", szIPExternal);
+			snprintf(sz, sizeof(sz), "\t\t\tRequire ip %s\n", szIPExternal);
 			fwrite(sz, strlen(sz), 1, pfM);
 		}
-		total++;
 	}
 	int hasUser = 0;
 	cJSON *permission = NULL;
 	cJSON_ArrayForEach(permission, elPermissions) {
 		char sz[256];
 		if (strcmp(permission->valuestring, "public") == 0) {
-			char sz[] = "\t\tRequire all granted\n";
+			char sz[] = "\t\t\tRequire all granted\n";
 			fwrite(sz, strlen(sz), 1, pfM);
+			break;	
 		} else if (strcmp(permission->valuestring, "hardware") == 0) {
-			char sz[] = "\t\tRequire local\n";
+			char sz[] = "\t\t\tRequire local\n";
 			fwrite(sz, strlen(sz), 1, pfM);
 		} else if (strcmp(permission->valuestring, "user") == 0) {
 			hasUser = 1;
-			char sz[] = "\t\tRequire all granted\n\t\tAppModulePermission user\n";
+			char sz[] = "\t\t\tRequire AppModulePermission user\n";
 			fwrite(sz, strlen(sz), 1, pfM);
 		}
-		total++;
 	}
 	if (hasUser == 0) {
-		char sz[] = "\t\tRequire all granted\n\t\tAppModulePermission admin\n";
-		fwrite(sz, strlen(sz), 1, pfM);
-		total++;
-	}
-	if (total > 1) {
-		char sz[] = "\t\tSatisfy any\n";
+		char sz[] = "\t\t\tRequire AppModulePermission admin\n";
 		fwrite(sz, strlen(sz), 1, pfM);
 	}
+	char szE[] = "\t\t</RequireAny>\n";
+	fwrite(szE, strlen(szE), 1, pfM);
 }
 
 static void writeSymlinks(int b, FILE *pfM) {

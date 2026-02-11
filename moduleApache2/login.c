@@ -3,6 +3,7 @@
 #include "http_request.h"
 #include "http_protocol.h"
 #include "http_log.h"
+#include "mod_auth.h"
 #include "apr_strings.h"
 #include "apr_shm.h"
 #include "apr_proc_mutex.h"
@@ -46,7 +47,7 @@ static apr_status_t html_filter(ap_filter_t *f, apr_bucket_brigade *bb) {
 	if (!ctx)
 		return ap_pass_brigade(f->next, bb);
 	//PRINTFc("APP: Html %lu %d", (long unsigned int)ctx, ctx->processedHtml);
-	if (ctx->processedHtml || authorization2(f->r, 1) != DECLINED)
+	if (ctx->processedHtml || authorization2(f->r, "admin", 1) != AUTHZ_GRANTED)
 		return ap_pass_brigade(f->next, bb);
 	if (ctx->saved_bb == NULL)
 		ctx->saved_bb = apr_brigade_create(f->r->pool, f->c->bucket_alloc);
@@ -138,7 +139,7 @@ static apr_status_t post_filter(ap_filter_t *f, apr_bucket_brigade *bb, ap_input
 	cJSON *el = NULL;
 	if (ctx->processedPost)
 		goto end;
-	if (authorization2(f->r, 1) != DECLINED)
+	if (authorization2(f->r, "admin", 1) != AUTHZ_GRANTED)
 		goto end;
 	if (mode != AP_MODE_READBYTES || f->r->method_number != M_POST)
 		goto end;

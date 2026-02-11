@@ -8,6 +8,7 @@
 #include "apr_strings.h"
 #include "apr_shm.h"
 #include "apr_proc_mutex.h"
+#include "mod_auth.h"
 #include "macro.h"
 #include "cJSON.h"
 #include "json.h"
@@ -107,16 +108,6 @@ static const char *moduleNameSet(cmd_parms *cmd, void *mconfig, const char *arg)
 	return NULL;
 }
 
-static const char *modulePermissionSet(cmd_parms *cmd, void *mconfig, const char *arg) {
-	server_rec *s = cmd->server;
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
-	PRINTF("APP: Permission %s (for %s)", arg, confVH->name);
-	if (confVH->permissions == NULL)
-		confVH->permissions = cJSON_CreateObject();
-	cJSON_AddBoolToObject(confVH->permissions, arg, cJSON_True);
-	return NULL;
-}
-
 static const char *moduleAutoLoginSet(cmd_parms *cmd, void *mconfig, const char *arg) {
 	server_rec *s = cmd->server;
 	configS *confS = (configS *)ap_get_module_config(s->module_config, &app_module);
@@ -125,7 +116,7 @@ static const char *moduleAutoLoginSet(cmd_parms *cmd, void *mconfig, const char 
 	return NULL;
 }
 
-char *extractCookieValue(const char *cookie, const char *name, struct request_rec *r) {
+static char *extractCookieValue(const char *cookie, const char *name, struct request_rec *r) {
 	if (cookie == NULL || name == NULL)
 		return NULL;
 	const char *name_start = strstr(cookie, name);
@@ -142,19 +133,7 @@ char *extractCookieValue(const char *cookie, const char *name, struct request_re
 	return extracted_value;
 }
 
-int checkAccess(cJSON *elPermissions, const char *role, const char *username) {
-//Permissions: [ "public", "hardware", "local", "admin", "user" ]
-//Roles: admin or user
-	if (cJSON_HasObjectItem(elPermissions, "admin") && strcmp(role, "admin") == 0)
-		return 1;
-	if (cJSON_HasObjectItem(elPermissions, "user") && (strcmp(role, "admin") == 0 || strcmp(role, "user") == 0))
-		return 1;
-	if (cJSON_HasObjectItem(elPermissions, username))
-		return 1;
-	return 0;
-}
-
-int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *elPermissions, int strict) {
+static int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, const char *permission, int strict) {
 	int ret = 0;
 	jwt_t* jwt_decoded;
 	int result = jwt_decode(&jwt_decoded, token, (const unsigned char*)keyPem, strlen(keyPem));
@@ -166,9 +145,10 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 			if (strict)
 				ret = strcmp(jwtRole, "admin") == 0;
 			else {
-				const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
+				//const char *jwtUsername = jwt_get_grant(jwt_decoded, "username");
 				//PRINTF("APP: JWT ret:%d role:%s username:%s\n", ret, jwtRole, jwtUsername);
-				ret = checkAccess(elPermissions, jwtRole, jwtUsername);
+				if (strcmp(jwtRole, "admin") == 0 || strcmp(permission, "user") == 0)
+					ret = 1;
 			}
 		}
 		jwt_free(jwt_decoded);
@@ -178,8 +158,25 @@ int decodeAndCheck(server_rec *s, const char *token, const char *keyPem, cJSON *
 	return ret;
 }
 
-int authorization2(request_rec *r, int strict) {
+int authorization2(request_rec *r, const char *permission, int strict) {
 	server_rec *s = r->server;
+	if (!strict && strcmp(permission, "public") == 0)
+		return AUTHZ_GRANTED;
+	const char *cookies = apr_table_get(r->headers_in, "Cookie");
+	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
+	//PRINTF("APP: authorization2 cookieJwt: %s", cookieJwt);
+	if (cookieJwt != NULL && strlen(cookieJwt) > 0) {
+		configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
+		//PRINTF("APP: authorization1b %s jwkPem: %.*s", permission, 32, confVH->jwkPem);
+		return decodeAndCheck(s, cookieJwt, confVH->jwkPem, permission, strict) == 1 ? AUTHZ_GRANTED : AUTHZ_DENIED;
+	}
+	return AUTHZ_DENIED;
+}
+
+static authz_status app_permission_check(request_rec *r, const char *require_line, const void *parsed_require_line) {
+	const char *permission = ap_getword_conf(r->pool, &require_line);
+	server_rec *s = r->server;
+	const char *current_uri = r->uri;
 	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
 #ifdef STATS
 	int *global_hits = apr_shm_baseaddr_get(confVH->shm_hits);
@@ -190,56 +187,39 @@ int authorization2(request_rec *r, int strict) {
 	apr_proc_mutex_unlock(confVH->mutex);
 	//PRINTF("APP: authorization1a name:%s uri:%s hits:%d", confVH->name, r->uri, *global_hits);
 #endif
-	//PRINTF("APP: authorization1b jwkPem: %.*s", 32, confVH->jwkPem);
-	//char *ssz = cJSON_Print(confVH->permissions);
-	//PRINTF("APP: authorization1c permissions: %s\n", ssz);
-	//free(ssz);
-	if (!strict && (confVH->permissions == NULL || cJSON_HasObjectItem(confVH->permissions, "public")))
-		return DECLINED;
-	const char *cookies = apr_table_get(r->headers_in, "Cookie");
-	char *cookieJwt = extractCookieValue(cookies, "jwt", r);
-	//PRINTF("APP: authorization2 cookieJwt: %s", cookieJwt);
-	if (cookieJwt != NULL && strlen(cookieJwt) > 0)
-		return decodeAndCheck(s, cookieJwt, confVH->jwkPem, confVH->permissions, strict) == 1 ? DECLINED : HTTP_UNAUTHORIZED;
-	return HTTP_UNAUTHORIZED;
-}
-
-static int authorization(request_rec *r) {
-	server_rec *s = r->server;
-	const char *current_uri = r->uri;
 	if (current_uri != NULL && strncmp(current_uri, "/_app_/", 7) == 0)
-		return DECLINED;
+		return AUTHZ_GRANTED;
 	//PRINTF("APP: name:%s uri:%s", confVH->name, r->uri);
 	//const apr_array_header_t *fields = apr_table_elts(r->headers_in);
 	//const apr_table_entry_t *e = (const apr_table_entry_t *)fields->elts;
 	//for (int i = 0; i < fields->nelts; i++) {
 	//	PRINTF("APP: Header(%d) %s = %s", i, e[i].key, e[i].val);
 	//}
-	configVH *confVH = (configVH *)ap_get_module_config(s->module_config, &app_module);
-	if (confVH && confVH->name && strcmp(confVH->name, "prettierplayground") == 0) {
+	if (confVH->name && strcmp(confVH->name, "prettierplayground") == 0) {
 		const char *sec_dest = apr_table_get(r->headers_in, "Sec-Fetch-Dest");
 		const char *sec_mode = apr_table_get(r->headers_in, "Sec-Fetch-Mode");
 		const char *sec_site = apr_table_get(r->headers_in, "Sec-Fetch-Site");
 		if (sec_dest && sec_site && sec_mode && (strcmp(sec_dest, "serviceworker") == 0 || strcmp(sec_dest, "worker") == 0) && (strcmp(sec_mode, "same-origin") == 0 || strcmp(sec_mode, "cors") == 0) && strcmp(sec_site, "same-origin") == 0)
-			return DECLINED;
+			return AUTHZ_GRANTED;
 	}
-	if (confVH && confVH->name && strcmp(confVH->name, "livecodes") == 0) {
+	if (confVH->name && strcmp(confVH->name, "livecodes") == 0) {
 		if (strncmp(current_uri, "/livecodes/", 11) == 0)
-			return DECLINED;
+			return AUTHZ_GRANTED;
 	}
-	return authorization2(r, 0);
+	return authorization2(r, permission, 0);
 }
 
 static const command_rec directives[] = {
 	AP_INIT_TAKE1("AppJwkPem", moduleJwkPemFileSet, NULL, RSRC_CONF | ACCESS_CONF, "App Jwt Key"),
 	AP_INIT_TAKE1("AppModule", moduleNameSet, NULL, RSRC_CONF | ACCESS_CONF, "App module name"),
-	AP_INIT_ITERATE("AppModulePermission", modulePermissionSet, NULL, RSRC_CONF | ACCESS_CONF, "Permission for App module"),
 	AP_INIT_TAKE1("AppALEnabled", moduleAutoLoginSet, NULL, RSRC_CONF | ACCESS_CONF, "AutoLogin Enabled"),
 	{NULL}
 };
 
+static const authz_provider authz_app_module_provider = { &app_permission_check, NULL };
+
 static void registerHooks(apr_pool_t *p) {
-	ap_hook_access_checker(authorization, NULL, NULL, APR_HOOK_FIRST);
+	ap_register_auth_provider(p, AUTHZ_PROVIDER_GROUP, "AppModulePermission", AUTHZ_PROVIDER_VERSION, &authz_app_module_provider, AP_AUTH_INTERNAL_PER_CONF);
 	registerFilter();
 }
 
