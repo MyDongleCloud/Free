@@ -18,6 +18,8 @@ foreach ($files as $file) {
 	$module = json_decode($data, true);
 	$module["keywords"] = implode(",", $module["keywords"]);
 	$module["proprietary"] = implode(",", $module["proprietary"]);
+	$module["reverseProxy"] = isset($module["default"]["reverseProxy"]) ? "1" : "";
+	$module["services"] = implode(",", $module["default"]["services"] ?? array());
 	$modulesDefault[$module["module"]] = $module["default"];
 	unset($module["default"]);
 	if (count($csv) == 0) {
@@ -53,6 +55,8 @@ for ($i = 1; $i < count($modules); $i++) {
 	$out["web"] = $out["web"] === "1";
 	$out["finished"] = $out["finished"] === "1";
 	$out["default"] = $modulesDefault[$m[0]];
+	unset($out["reverseProxy"]);
+	unset($out["services"]);
 	$out["keywords"] = explode(",", $out["keywords"]);
 	$out["keywords"] = array_map("ucfirst", $out["keywords"]);
 	sort($out["keywords"]);
