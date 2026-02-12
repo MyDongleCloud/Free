@@ -68,21 +68,23 @@ private lastCtrlFPressTimestamp: number = 0;
 	}
 }
 
-compare(i) {
-	if (this.cards[i]["bDisabled"] != this.cardsOrig[i]["bDisabled"])
-		return false;
-	if (this.cards[i]["bPublic"] != this.cardsOrig[i]["bPublic"])
-		return false;
-	if (this.cards[i]["bUser"] != this.cardsOrig[i]["bUser"])
-		return false;
+compare(i, j) {
+	if (this.cards[i]["bDisabled"] != this.cardsOrig[j]["bDisabled"]) {
+		return false;}
+	if (this.cards[i]["bPublic"] != this.cardsOrig[j]["bPublic"]) {
+		return false;}
+	if (this.cards[i]["bUser"] != this.cardsOrig[j]["bUser"]) {
+		return false;}
 	return true;
 }
 
 compareAll() {
 	let ret = true;
-	for (let i = 0; i < this.cards.length; i++)
-		if (this.compare(i) == false)
+	for (let i = 0; i < this.cards.length; i++) {
+		const j = this.cardsOrig.findIndex(c => c.module == this.cards[i].module);
+		if (this.compare(i, j) == false)
 			ret = false;
+	}
 	return ret;
 }
 
@@ -108,8 +110,9 @@ updatePerm(c) {
 }
 
 async save() {
-	for (let i = 0; i < this.cards.length; i++)
-		if (this.compare(i) == false) {
+	for (let i = 0; i < this.cards.length; i++){
+		const j = this.cardsOrig.findIndex(c => c.module == this.cards[i].module);
+		if (this.compare(i, j) == false) {
 			const module = this.cards[i]["module"];
 			if (this.modules[module] === undefined)
 				this.modules[module] = {};
@@ -129,6 +132,7 @@ async save() {
 					this.modules[module]["permissions"].push("hardware");
 			}
 		}
+	}
 	const ret = await this.httpClient.post("/_app_/auth/module/permissions", JSON.stringify(this.modules), {headers:{"content-type": "application/json"}}).toPromise();
 	this.global.consolelog(2, "Auth modules-permissions: ", ret);
 	this.dResetSave = true;
