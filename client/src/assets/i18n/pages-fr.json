@@ -126,8 +126,7 @@
 		"Role Admin has permission for all modules (immutable)": "Le rôle administrateur a la permission pour tous les modules (pas modifiable)",
 		"Save": "Enregistrer",
 		"SETUP\nIN PROGRESS": "INSTALLATION\nEN COURS",
-		"TITLE": "TITRE",
-		"Understand": "Comprendre"
+		"TITLE": "TITRE"
 	},
 	"profile": {
 		"Cannot be empty": "Ne peut pas être vide",
