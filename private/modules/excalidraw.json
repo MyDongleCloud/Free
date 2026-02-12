@@ -18,9 +18,7 @@
 		"Hand-drawn",
 		"Sketching"
 	],
-	"proprietary": [
-		""
-	],
+	"proprietary": [],
 	"default": {
 		"config": true,
 		"enabled": true,

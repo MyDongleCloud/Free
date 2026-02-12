@@ -34,7 +34,7 @@
 			}
 		],
 		"services": [
-			"radarr"
+			"lidarr"
 		],
 		"setup": true,
 		"setupDependencies": [
