@@ -15,14 +15,14 @@
 				</button>
 				<div class="flex-1"></div>
 				<div class="rounded-lg border border--gray-200 p-1 hidden lg:flex gap-1" *ngIf="global.developer">
-					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300" title="Module finished">
 						<input type="checkbox" [(ngModel)]="showDone" (change)="filterCards()" class="peer sr-only"/>
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative z-10 flex items-center justify-center leading-none transition-all duration-300">
 						<ion-icon name="checkmark-circle-outline" class="block w-5 h-5"></ion-icon>
 						</span>
 					</label>
-					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300">
+					<label class="relative flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 transition-all duration-300" title="Module not yet finished">
 						<input type="checkbox" [(ngModel)]="showNotDone" (change)="filterCards()" class="peer sr-only"/>
 						<span class="absolute inset-0 z-0 rounded-md bg--gray-100 opacity-0 transition-all duration-300 peer-checked:opacity-100"></span>
 						<span class="relative z-10 flex items-center justify-center leading-none transition-all duration-300">
