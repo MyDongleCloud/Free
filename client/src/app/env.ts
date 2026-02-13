@@ -398,9 +398,9 @@ permissions(st) {
 	else if (st == "hardware")
 		return "Hardware";
 	else if (st == "admin")
-		return "Role Admin";
+		return "Admin";
 	else if (st == "user")
-		return "Role User";
+		return "User";
 	else
 		return null;
 }

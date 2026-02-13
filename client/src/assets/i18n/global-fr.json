@@ -54,8 +54,8 @@
 		"Public": "Public",
 		"Local Network": "Réseau local",
 		"Dongle": "Dongle",
-		"Group Admin": "Groupe Administrateur",
-		"Group User": "Groupe Utilisateur",
+		"Admin": "Administrateur",
+		"User": "Utilisateur",
 
 		"January": "Janvier",
 		"February": "Février",
