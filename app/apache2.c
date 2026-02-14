@@ -175,8 +175,6 @@ AppALEnabled %s\n\
 	ProxyPass /_app_/auth/ http://localhost:8091/auth/\n\
 	AliasMatch /_app_/disabled.php /usr/local/modules/apache2/pages/disabled.php\n\
 	AliasMatch /_app_/error.php /usr/local/modules/apache2/pages/error.php\n\
-	AliasMatch /_app_/forbidden.php /usr/local/modules/apache2/pages/forbidden.php\n\
-	AliasMatch /_app_/notpresent.php /usr/local/modules/apache2/pages/notpresent.php\n\
 	AliasMatch /_app_/unauthorized.php /usr/local/modules/apache2/pages/unauthorized.php\n\
 	<Directory /usr/local/modules/apache2/pages>\n\
 		Require all granted\n\
@@ -190,13 +188,16 @@ AppALEnabled %s\n\
 		RewriteRule . /_app_/index.html [L]\n\
 		Require all granted\n\
 	</Directory>\n\
+	ErrorDocument 400 /_app_/error.php?e=400\n\
 	ErrorDocument 401 /_app_/unauthorized.php?m=$1\n\
-	ErrorDocument 403 /_app_/forbidden.php\n\
-	ErrorDocument 404 /_app_/notpresent.php\n\
+	ErrorDocument 403 /_app_/unauthorized.php?m=$1\n\
+	ErrorDocument 404 /_app_/error.php?e=404\n\
+	ErrorDocument 429 /_app_/error.php?e=429\n\
 	ErrorDocument 500 /_app_/error.php?e=500\n\
 	ErrorDocument 501 /_app_/error.php?e=501\n\
 	ErrorDocument 502 /_app_/error.php?e=502\n\
 	ErrorDocument 503 /_app_/error.php?e=503\n\
+	ErrorDocument 504 /_app_/error.php?e=504\n\
 	ProxyPass /_app_/ !\n\
 </Macro>\n\
 <Macro Macro_SSL>\n\
