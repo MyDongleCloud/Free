@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonModal } from '@ionic/angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../env';
@@ -18,15 +19,16 @@ declare var appSend: any;
 export class Setup {
 L(st) { return this.global.mytranslate(st); }
 @ViewChild("name1E") name1E: ElementRef;
-@ViewChild("name2E") name2E: ElementRef;
+@ViewChild("email2E") email2E: ElementRef;
+@ViewChild("modalWait") modalWait: IonModal;
 password2Show:boolean = false;
 password3Show:boolean = true;
 progress:boolean = false;
-showHardware:boolean = true;
-showRegister:boolean = false;
+showDomain:boolean = true;
+showPassword:boolean = false;
 showWiFi:boolean = false;
-formSetup: FormGroup;
-formRegister: FormGroup;
+formDomain: FormGroup;
+formPassword: FormGroup;
 formWiFi: FormGroup;
 hasBlurredOnce: boolean = false;
 errorSt = null;
@@ -43,18 +45,18 @@ constructor(public global: Global, public certificate: Certificate, private rout
 		if (event.msg == "connection" && ble.connectedWS == 2)
 			setTimeout(() => { appSend({ a:"cloud" }); }, 100);
 	});
-	this.formSetup = fb.group({
+	this.formDomain = fb.group({
 		"name1": [ "", [ this.checkname1 ] ],
 		"shortname1": [ "", [ this.checkShortname1 ] ],
 		"domain1": [ "", [ this.checkDomain1 ] ],
 		"terms1": [ false, Validators.requiredTrue ]
-	}, { validator: this.checkConnection });
-	this.formRegister = fb.group({
-		"name2": [ "", [ Validators.required, Validators.minLength(2) ] ],
+	}, { validator: this.checkFormDomain } );
+	this.formPassword = fb.group({
+		"displayname2": [ "#1", [ Validators.required, Validators.minLength(2) ] ],
 		"email2": [ "", [ Validators.required, Validators.email ] ],
 		"password2": [ "", [ Validators.required, Validators.minLength(6) ] ],
 		"password2Confirm": [ "", [Validators.required ] ]
-	}, { validator: this.checkPassword2 });
+	}, { validator: this.checkFormPassword });
 	this.formWiFi = fb.group({
 		"ssid3": [ "", [ Validators.required ] ],
 		"password3": [ "", [ Validators.required, Validators.minLength(8) ] ]
@@ -68,7 +70,7 @@ async handleBleMessage(data) {
 			try {
 				this.ble.disconnect();
 			} catch(e) {}
-			await this.global.presentAlert("Denial", "This hardware is already setup. You need to reset it.", "Press the four buttons at the same time and follow the instructions on screen.");
+			await this.global.presentAlert("Denial", "This hardware is already setup. You need to reset it.", "Press the two bottom buttons at the same time and follow the instructions on screen.");
 			this.router.navigate(["/find"]);
 		}
 	} else if (data.a === "setup") {
@@ -118,9 +120,9 @@ passwordStrengthPercentage(password) {
     return Math.min((score / 6) * 100, 100);
 }
 
-checkConnection = () => {
-	if (this.ble.connectedBLE != 2 && this.ble.connectedWS != 2 && this.formSetup?.controls?.terms1?.value)
-		this.errorSt = "You need to connect to a hardware";
+checkFormDomain = () => {
+	if (this.ble.connectedBLE != 2 && this.ble.connectedWS != 2 && this.formDomain?.controls?.terms1?.value)
+		this.errorSt = "You need to connect to your hardware";
 	return (this.ble.connectedBLE == 2 || this.ble.connectedWS == 2) ? null : { "notconnected": true };
 }
 
@@ -136,14 +138,14 @@ checkDomain1(group: FormGroup) {
 	return group.value == "" || /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i.test(group.value) ? null : {"invalid": true};
 }
 
-checkPassword2(group: FormGroup) {
+checkFormPassword(group: FormGroup) {
 	return group.controls.password2.value == group.controls.password2Confirm.value ? null : {"mismatch": true};
 }
 
 async verifyDns(st) {
 	this.progress = true;
-	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/dns.json", "domain=" + encodeURIComponent(st), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
-	this.global.consolelog(1, "Master dns", ret);
+	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/setup-dns.json", "domain=" + encodeURIComponent(st), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+	this.global.consolelog(2, "Master dns", ret);
 	let res = false;
 	if (Array.isArray(ret)) 
 		ret.forEach((dns) => {
@@ -159,52 +161,68 @@ connectToggle() {
 	this.ble.connectToggle();
 }
 
-get name1() { return this.formSetup.get("name1"); }
-get shortname1() { return this.formSetup.get("shortname1"); }
-get domain1() { return this.formSetup.get("domain1"); }
-get terms1() { return this.formSetup.get("terms1"); }
-get email2() { return this.formRegister.get("email2"); }
-get name2() { return this.formRegister.get("name2"); }
-get password2() { return this.formRegister.get("password2"); }
-get password2Confirm() { return this.formRegister.get("password2Confirm"); }
+get name1() { return this.formDomain.get("name1"); }
+get shortname1() { return this.formDomain.get("shortname1"); }
+get domain1() { return this.formDomain.get("domain1"); }
+get terms1() { return this.formDomain.get("terms1"); }
+get email2() { return this.formPassword.get("email2"); }
+get displayname2() { return this.formPassword.get("displayname2"); }
+get password2() { return this.formPassword.get("password2"); }
+get password2Confirm() { return this.formPassword.get("password2Confirm"); }
 get ssid3() { return this.formWiFi.get("ssid3"); }
 get password3() { return this.formWiFi.get("password3"); }
 
-show_Hardware() {
-	this.showHardware = true;
-	this.showRegister = false;
+show_Domain() {
+	this.showDomain = true;
+	this.showPassword = false;
 	this.showWiFi = false;
 	this.hasBlurredOnce = false;
 	setTimeout(() => { this.name1E.nativeElement.focus(); }, 100);
 	this.cdr.detectChanges();
 }
 
-async doHardware() {
+async doDomain() {
 	this.progress = true;
 	this.errorSt = null;
-	this.show_Register();
+	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/setup-domain.json", "name=" + encodeURIComponent(this.name1.value) + "&shortname=" + encodeURIComponent(this.shortname1.value), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+	this.global.consolelog(2, "Master domain", ret);
+	if (ret["status"] === "success")
+		this.show_Password();
+	else {
+		if (ret["name"] && ret["shortname"])
+			this.errorSt = this.name1.value + " is not available ; " + this.shortname1.value + " is not available";
+		else if (ret["name"])
+			this.errorSt = this.name1.value + " is not available";
+		else if (ret["shortname"])
+			this.errorSt = this.shortname1.value + " is not available";
+	}
 	this.progress = false;
 }
 
-show_Register() {
-	this.showHardware = false;
-	this.showRegister = true;
+show_Password() {
+	this.showDomain = false;
+	this.showPassword = true;
 	this.showWiFi = false;
-	setTimeout(() => { this.name2E.nativeElement.focus(); }, 100);
+	setTimeout(() => { this.email2E.nativeElement.focus(); }, 100);
 	this.hasBlurredOnce = false;
 	this.cdr.detectChanges();
 }
 
-async doRegister() {
+async doPassword() {
 	this.progress = true;
 	this.errorSt = null;
-	this.show_WiFi();
+	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/setup-password.json", "email=" + encodeURIComponent(this.email2.value), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+	this.global.consolelog(2, "Master password", ret);
+	if (ret["status"] !== "success")
+		this.errorSt = this.email2.value + " is already in use (for the moment, one email = one cloud)";
+	else
+		this.show_WiFi();
 	this.progress = false;
 }
 
 show_WiFi() {
-	this.showHardware = false;
-	this.showRegister = false;
+	this.showDomain = false;
+	this.showPassword = false;
 	this.showWiFi = true;
 	this.hasBlurredOnce = false;
 	this.cdr.detectChanges();
@@ -213,16 +231,18 @@ show_WiFi() {
 async doWiFi() {
 	this.progress = true;
 	this.errorSt = null;
-	let ret1 = null;
-	let ret2 = null;
+	let ret1 = { fullChain:"", privateKey:"" };
+	let ret2 = { frp:{}, postfix:{} };
+	await this.modalWait.present();
 	try {
 		ret1 = await this.certificate.process(this.name1.value, this.shortname1.value, this.domain1.value != "" ? [this.domain1.value] : []); //Not used: ret1.accountKey, ret1.accountKeyId
-		this.global.consolelog(2, "SETUP: Certificates", ret1);
-	} catch(e) { ret1 = { fullChain:"", privateKey: "" }; }
+		this.global.consolelog(2, "SETUP: Certificate", ret1);
+	} catch(e) {}
+	this.modalWait.dismiss();
 	try {
-		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup.json", "name=" + encodeURIComponent(this.name1.value) + "shortname=" + encodeURIComponent(this.shortname1.value) + "domains=" + encodeURIComponent(this.domain1.value) + "email=" + encodeURIComponent(this.email2.value) + "name=" + encodeURIComponent(this.name2.value) + "fullchain=" + encodeURIComponent(ret1.fullChain) + "privatekey=" + encodeURIComponent(ret1.privateKey), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
-		this.global.consolelog(2, "SETUP: Server", ret2);
-	} catch(e) { ret2 = { frp:{}, ollama:{}, postfix:{} }; }
+		ret2 = await this.httpClient.post(this.global.SERVERURL + "/master/setup-final.json", "name=" + encodeURIComponent(this.name1.value) + "&shortname=" + encodeURIComponent(this.shortname1.value) + "&domain=" + encodeURIComponent(this.domain1.value) + "&email=" + encodeURIComponent(this.email2.value), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise() as any;
+		this.global.consolelog(2, "Master final", ret2);
+	} catch(e) {}
 	const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 	const data = {
 		a:"setup",
@@ -231,7 +251,7 @@ async doWiFi() {
 				language: navigator.language.startsWith("fr") ? "fr" : "en",
 				name: this.name1.value,
 				shortname: this.shortname1.value,
-				domains: this.domain1.value != "" ? [this.domain1.value] : []
+				domain: this.domain1.value
 			},
 			frp: ret2.frp,
 			postfix: ret2.postfix,
@@ -253,7 +273,7 @@ async doWiFi() {
 		},
 		betterauth: {
 			email: this.email2.value,
-			name: this.name2.value,
+			name: this.displayname2.value,
 			password: this.password2.value
 		},
 		letsencrypt: {
@@ -268,7 +288,7 @@ async doWiFi() {
 	else if (this.ble.connectedBLE == 2)
 		await this.ble.writeData(data);
 	else
-		alert("Not connected");
+		alert("Hardware not connected");
 	this.cdr.detectChanges();
 }
 

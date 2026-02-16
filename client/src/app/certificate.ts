@@ -17,11 +17,11 @@ SERVERURL: string = "https://mydongle.cloud";
 
 constructor(private global: Global, private httpClient: HttpClient) {}
 
-async process(name, shortname, additionalDomains) {
+async process(name, shortname, additionalDomain) {
 	const ret = { accountKey:"", accountKeyId:"", fullChain:"", privateKey:"" };
-	const DOMAINNAME = ["mydongle.cloud", "mondongle.cloud", "myd.cd"];//.concat(additionalDomains);
+	const DOMAINNAME = ["mydongle.cloud", "myd.cd"];//.add(additionalDomain);
 	const STAGING = true;
-	let acme = ACME.create({ maintainerEmail:"acme@@mydongle.cloud", packageAgent:"MDC/2025-01-01", notify:function (ev, msg) { /*this.global.consolelog(1, msg);*/ }, skipDryRun:true/*, skipChallengeTest:true*/ });
+	let acme = ACME.create({ maintainerEmail:"acme@@mydongle.cloud", packageAgent:"MDC/2026-01-01", notify:function (ev, msg) { /*this.global.consolelog(1, msg);*/ }, skipDryRun:true/*, skipChallengeTest:true*/ });
 	await acme.init("https://acme" + (STAGING ? "-staging" : "") + "-v02.api.letsencrypt.org/directory");
 
 	const accountKeypair = await Keypairs.generate({ kty: "EC", format: "jwk" });
@@ -47,8 +47,8 @@ async process(name, shortname, additionalDomains) {
 	this.global.consolelog(2, "ACME: Domains:" + domains.join(" "));
 	const csrDer = await CSR.csr({ jwk:serverKey, domains, encoding:"der" });
 	const csr = PEM.packBlock({ type:"CERTIFICATE REQUEST", bytes:csrDer });
-	const lines = [];
-	let domainIter = 0;
+	const data = {};
+	let dataIter = 0;
 	const challenges = {
 		"dns-01": {
 			init: async (args) => {
@@ -67,11 +67,12 @@ async process(name, shortname, additionalDomains) {
 					//}
 				const line = "_acme-challenge." + challenge.identifier.value + ". 1 IN TXT " + challenge.keyAuthorizationDigest + "\n";
 				this.global.consolelog(2, line);
-				lines.push(line);
-				if (domains.length == lines.length) {
-					const dataA = { lines, action:"add" };
-					const retA = await this.httpClient.post(this.SERVERURL + "/master/certificates.json", dataA).toPromise();
-					this.global.consolelog(2, retA);
+				(data[challenge.identifier.value] ??= []).push(challenge.keyAuthorizationDigest);
+				dataIter++;
+				if (domains.length == dataIter) {
+					const retA = await this.httpClient.post(this.SERVERURL + "/master/setup-certificate.json", "add=1&v=" + encodeURIComponent(JSON.stringify(data)), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+					this.global.consolelog(2, "setup-certificate: add", retA);
+					await this.global.sleepms(5000);
 					//alert("AuthorizationDigests sent to DNS server");
 				}
 			},
@@ -86,7 +87,7 @@ async process(name, shortname, additionalDomains) {
 						//this.global.consolelog(2, "ACME: Remove" + (challenge?.wildcard ? " (.*)" : ""), challenge);
 					//}
 			},
-			propagationDelay: 2000
+			propagationDelay: 1000
 		}
 	};
 	try {
@@ -97,9 +98,8 @@ async process(name, shortname, additionalDomains) {
 		this.global.consolelog(2, ret);
 		this.global.consolelog(2, "##################################");
 	} catch(e) {}
-	const dataD = { lines, action:"delete" };
-	const retD = await this.httpClient.post(this.SERVERURL + "/master/certificates.json", dataD).toPromise();
-	this.global.consolelog(2, retD);
+	const retD = await this.httpClient.post(this.SERVERURL + "/master/setup-certificate.json", "del=1&v=" + encodeURIComponent(JSON.stringify(data)), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
+	this.global.consolelog(2, "setup-certificate: del", retD);
 	return ret;
 }
 
