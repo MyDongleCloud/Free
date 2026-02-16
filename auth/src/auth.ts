@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { execSync } from "child_process";
-import { randomBytes } from "crypto";
+import { randomBytes, X509Certificate } from "crypto";
 import { WebSocket } from "ws"	;
 import { betterAuth, BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthEndpoint, createAuthMiddleware, sensitiveSessionMiddleware } from "better-auth/api";
@@ -29,6 +29,7 @@ const cloudPath = adminPath + "_config_/_cloud_.json";
 export const cloud = JSON.parse(readFileSync(cloudPath, "utf-8"));
 const sshKeysPath = "/disk/admin/.ssh/authorized_keys";
 const modulesPath = adminPath + "_config_/_modules_.json";
+const certificatePath = adminPath + "letsencrypt/fullchain.pem";
 let hardware = { model:"Unknown", internalIP:"", externalIP:"", timezone:Intl.DateTimeFormat().resolvedOptions().timeZone };
 if (process.env.PRODUCTION === "true")
 	try {
@@ -174,6 +175,31 @@ const mdcEndpoints = () => {
 				if (ctx.context.session?.user?.role != "admin")
 					return new Response("", { status:500 });
 				return new Response(fs.readFileSync(sshKeysPath, "utf8"), { status:200 });
+			}),
+
+			settingsCertificateInfo: createAuthEndpoint("/settings/certificate-info", {
+				method: "GET",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				if (ctx.context.session?.user?.role != "admin")
+					return Response.json({ status:"error" }, { status:200 });
+				const certData = fs.readFileSync(certificatePath);
+				const cert = new X509Certificate(certData);
+				return Response.json({
+					"status":"success",
+					"date": cert.validToDate,
+					"dateString": cert.validTo,
+					"domains": cert.subjectAltName ? cert.subjectAltName.split(", ").map(d => d.replace(/^DNS:/, "")) : []
+				}, { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
+			}),
+
+			settingsCertificateRenew: createAuthEndpoint("/settings/certificate-save", {
+				method: "GET",
+				use: [sensitiveSessionMiddleware]
+			}, async(ctx) => {
+				if (ctx.context.session?.user?.role != "admin")
+					return Response.json({ status:"error" }, { status:200 });
+				return Response.json({ "status":"success" }, { status:200, headers:{ "Cache-Control":"no-store, no-cache, must-revalidate" } });
 			}),
 
 			hardware: createAuthEndpoint("/hardware", {

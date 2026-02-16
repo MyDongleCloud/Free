@@ -22,6 +22,8 @@ externalIP = "";
 currentTime: string = "";
 selectedTimezone: string = "America/Los_Angeles";
 private timer: any;
+certificateExpirationDate;
+certificateDomains;
 
 constructor(public global: Global, private cdr: ChangeDetectorRef, private httpClient: HttpClient) {
 	global.refreshUI.subscribe(event => {
@@ -36,8 +38,9 @@ constructor(public global: Global, private cdr: ChangeDetectorRef, private httpC
 		if (!this.global.developer && !ipv4Regex.test(window.location.hostname) && !this.global.demo && this.externalIP == this.global.session?.hardware?.externalIP && this.global.session?.hardware?.internalIP != "")
 			this.global.presentToast("You seem to be on the same network as the " + global.session?.hardware?.model + ". You can have direct access through <a href='http://" + this.global.session?.hardware?.internalIP + ":9400' class='underline' target='_blank'>http://" + this.global.session?.hardware?.internalIP + ":9400</a>", "help-outline", 10000);
 	});
-    this.updateTime();
-    this.timer = setInterval(() => { this.updateTime(); }, 1000);
+	this.updateTime();
+	this.timer = setInterval(() => { this.updateTime(); }, 1000);
+	this.certificateGetInfo();
 }
 
 @HostListener("document:keydown", ["$event"]) handleKeyboardEvent(event: KeyboardEvent) {
@@ -73,6 +76,18 @@ async wifiApply() {
 async getSshKeys() {
 	this.sshKeys = await this.httpClient.get( "/_app_/auth/settings/sshkeys", { responseType: "text" }).toPromise();
 	this.dSshKeys = false;
+}
+
+async certificateGetInfo() {
+	try {
+		const ret = await this.httpClient.get( "/_app_/auth/settings/certificate-info", {headers:{"content-type": "application/json"}}).toPromise();
+		this.global.consolelog(2, "Auth settings/certificate-info: ", ret);
+		this.certificateExpirationDate = ret["dateString"];
+		this.certificateDomains = ret["domains"].filter(domain => !domain.startsWith("*")).join(", ");
+	} catch(e) {}
+}
+
+async certificateRenew() {
 }
 
 updateTime() {

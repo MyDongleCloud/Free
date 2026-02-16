@@ -124,6 +124,18 @@
 						<p class="text-sm font-medium text--gray-700">{{L("BYO Domains (Bring Your Own Domains)")}}</p>
 						<input type="text" disabled="true" value="{{global.session.cloud.all?.domains?.join(', ')}}" class="text--blue-600 focus:ring--blue-500 border--gray-300 rounded border grow ml-5 max-w-[50%]">
 					</div>
+					<div class="border-t border--gray-200 my-6"></div>
+					<div class="flex items-center justify-between">
+						<p class="text-sm font-medium text--gray-700">{{L("Certificate")}}</p>
+						<span class="text-right flex flex-col items-end">
+							{{certificateExpirationDate}}<br>
+							{{certificateDomains}}<br>&nbsp;
+							<button (click)="certificateRenew()" disabled="true" class="inline-flex items-center gap-2 px-4 py-2 bg--yellow-600 text--white rounded-lg text-sm font-medium hover:bg--yellow-700 transition-colors cursor-pointer">
+								<ion-icon name="refresh-outline" class="text--white w-4 h-4"></ion-icon>
+								<span class="text-lg">{{L("Renew")}}</span>
+							</button>
+						</span>
+					</div>
 				</div>
 				}
 				@if (activeTab == 'connectivity') {
