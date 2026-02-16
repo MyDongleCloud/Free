@@ -10,12 +10,12 @@
 		"Backup & Restore": ""
 	},
 	"find": {
-		"Dongle": "",
+		"Cloud": "",
 		"Email address": "",
 		"Find": "",
-		"Find and go to your dongle": "",
+		"Find and go to your cloud": "",
 		"Finding...": "",
-		"My": "",
+		"Have some new hardware?": "",
 		"Please enter a valid email address": "",
 		"Setup here!": ""
 	},
@@ -169,6 +169,7 @@
 		"Bearer key": "",
 		"BYO Domains (Bring Your Own Domains)": "",
 		"BYOK (Bring Your Own Keys)": "",
+		"Certificate": "",
 		"Cloud Name": "",
 		"Configuration": "",
 		"Configuration File": "",

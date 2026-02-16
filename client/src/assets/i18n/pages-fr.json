@@ -10,11 +10,12 @@
 		"Backup & Restore": "Sauvegarde et Restauration"
 	},
 	"find": {
-		"Dongle": "Dongle",
+		"Cloud": "Cloud",
 		"Email address": "Adresse e-mail",
 		"Find": "Rechercher",
-		"Find and go to your dongle": "Rechercher et aller à votre dongle",
+		"Find and go to your cloud": "Rechercher et aller à votre cloud",
 		"Finding...": "Recherche en cours...",
+		"Have some new hardware?": "Vous avez du nouveau matériel ?",
 		"My": "Mon",
 		"Please enter a valid email address": "Veuillez entrer une adresse e-mail valide",
 		"Setup here!": "Configurer ici !"
