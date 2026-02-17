@@ -24,7 +24,7 @@
 #else
 #define ADMIN_PATH "/disk/admin/modules/"
 #define FRP_PATH "/usr/local/modules/frp/"
-#define WEB_PATH "/usr/local/modules/mydonglecloud/web/"
+#define WEB_PATH "/usr/local/modules/_core_/web/"
 #endif
 
 #define FIRMWARE_PATH "/tmp/firmware.zip"
@@ -44,7 +44,7 @@
 #define NM_CONFIG_PATH "/etc/NetworkManager/system-connections/%s"
 
 #define ZIGBEE_DEV "/dev/tty_zigbee"
-#define ZIGBEE_FIRMWARE "/usr/local/modules/mydonglecloud/CC2652R1_coordinator.bin"
+#define ZIGBEE_FIRMWARE "/usr/local/modules/_core_/CC2652R1_coordinator.bin"
 
 #define WIDTH 128	
 #define HEIGHT 128

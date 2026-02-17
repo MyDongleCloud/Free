@@ -12,7 +12,7 @@ RestartMode=direct
 Type=oneshot
 StandardOutput=inherit
 StandardError=inherit
-ExecStart=/usr/local/modules/mydonglecloud/init.sh
+ExecStart=/usr/local/modules/_core_/init.sh
 RemainAfterExit=yes
 
 [Install]

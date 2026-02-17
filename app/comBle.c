@@ -106,8 +106,8 @@ static int le_callback(int clientnode, int operation, int cticn) {
 static void *bleStart_t(void *arg) {
 #ifndef DESKTOP
 	bluetoothAddr(bluetoothClassicAddr, 0);
-	mkdir(ADMIN_PATH "mydonglecloud", 0775);
-	FILE *pf = fopen(ADMIN_PATH "mydonglecloud/blecfg.txt", "w");
+	mkdir(ADMIN_PATH "_core_", 0775);
+	FILE *pf = fopen(ADMIN_PATH "_core_/blecfg.txt", "w");
 	if (pf) {
 		char sz[1024];
 		char nn[128];
@@ -127,7 +127,7 @@ static void *bleStart_t(void *arg) {
 		fwrite(szTplt, strlen(szTplt), 1, pf);
 		fclose(pf);
 	}
-	int ret = init_blue(ADMIN_PATH "mydonglecloud/blecfg.txt");
+	int ret = init_blue(ADMIN_PATH "_core_/blecfg.txt");
 	if (ret != 1) {
 		PRINTF("ERROR: 2. No btferret started\n");
 		return 0;

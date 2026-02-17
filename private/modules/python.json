@@ -27,7 +27,7 @@
 	"default": {
 		"cmds": [
 			"/usr/bin/python",
-			"/usr/local/modules/mydonglecloud/pip.sh"
+			"/usr/local/modules/_core_/pip.sh"
 		]
 	}
 }

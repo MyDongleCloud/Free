@@ -1,8 +1,8 @@
 #!/bin/sh
 
-mkdir -p /usr/local/modules/mydonglecloud
+mkdir -p /usr/local/modules/_core_
 cd /home/ai/app
-cp ../rootfs/usr/local/modules/mydonglecloud/version.txt /usr/local/modules/mydonglecloud/version.txt
+cp ../rootfs/usr/local/modules/_core_/version.txt /usr/local/modules/_core_/version.txt
 ./lvgl.sh -b -c
 make
 ln -sf /etc/systemd/system/hardware-app.service /etc/systemd/system/multi-user.target.wants/hardware-app.service

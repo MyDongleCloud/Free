@@ -3,4 +3,4 @@ Description=Failure Notification for %i
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/modules/mydonglecloud/alert.sh "service" "%i"
+ExecStart=/usr/local/modules/_core_/alert.sh "service" "%i"

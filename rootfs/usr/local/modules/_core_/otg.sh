@@ -18,7 +18,7 @@ fi
 MANUFACTURER="MyDongle.Cloud"
 PRODUCT="MyDongle.Cloud `cat /dev/dongle_platform/model | sed 's/./\U&/'`"
 SERIALNUMBER=`cat /dev/dongle_platform/serialNumber`
-VERSION=`cat /usr/local/modules/mydonglecloud/version.txt`
+VERSION=`cat /usr/local/modules/_core_/version.txt`
 MODEL=`cat /dev/dongle_platform/model`
 PATHg1=/sys/kernel/config/usb_gadget/mygadget
 FFS="ffs.mtp"
@@ -50,11 +50,11 @@ if [ $OPTIND = 1 ]; then
 		fi
 	fi
 	if [ $MTP = 0 -a $SERIAL = 0 ]; then
-		jq -r ".umtpresponder.features" /usr/local/modules/mydonglecloud/web/assets/modulesdefault.json | grep -qi serial
+		jq -r ".umtpresponder.features" /usr/local/modules/_core_/web/assets/modulesdefault.json | grep -qi serial
 		if [ $? = 0 ]; then
 			SERIAL=1
 		fi
-		jq -r ".umtpresponder.features" /usr/local/modules/mydonglecloud/web/assets/modulesdefault.json | grep -qi mtp
+		jq -r ".umtpresponder.features" /usr/local/modules/_core_/web/assets/modulesdefault.json | grep -qi mtp
 		if [ $? = 0 ]; then
 			MTP=1
 		fi

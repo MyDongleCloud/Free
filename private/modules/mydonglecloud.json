@@ -34,7 +34,7 @@
 		"enabled": true,
 		"enabledUnalterable": true,
 		"localPort": 9400,
-		"path": "/usr/local/modules/mydonglecloud/web",
+		"path": "/usr/local/modules/_core_/web",
 		"permissions": [
 			"user"
 		],

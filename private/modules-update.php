@@ -91,5 +91,5 @@ $modulesMarkdownFooter="\n||||" . number_format($starsTotal / 1000 / 1000, 2) . 
 if (!is_dir(__DIR__ . "/../build"))
 	mkdir(__DIR__ . "/../build");
 file_put_contents(__DIR__ . "/../build/README-modules.md", $modulesMarkdownHeader . implode("\n", $modulesMarkdown) . $modulesMarkdownFooter);
-system("cp " . __DIR__ . "/modules/reset/* " . __DIR__ . "/../rootfs/usr/local/modules/mydonglecloud/reset/");
+system("cp " . __DIR__ . "/modules/reset/* " . __DIR__ . "/../rootfs/usr/local/modules/_core_/reset/");
 ?>

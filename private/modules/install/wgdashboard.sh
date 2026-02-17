@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd /home/ai
-/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/wgdashboard/penv -s
+/home/ai/rootfs/usr/local/modules/_core_/pip.sh -f /usr/local/modules/wgdashboard/penv -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/wgdashboard/penv/bin:$PATHOLD

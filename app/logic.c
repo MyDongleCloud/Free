@@ -59,7 +59,7 @@ void logicKey(int key, int longPress) {
 			logicHome(0, 0);
 	} else if (lmdc.current == LOGIC_SLEEP) {
 #ifndef DESKTOP
-		system("/usr/local/modules/mydonglecloud/leds.sh -b 1 -l normal");
+		system("/usr/local/modules/_core_/leds.sh -b 1 -l normal");
 #endif
 		logicHome(-1, 0);
 	} else if (lmdc.current == LOGIC_HOME) {//Rotations, Tips, Next
@@ -166,9 +166,9 @@ void logicSleep(int autoSleep) {
 	PRINTF("Logic: Sleep from %s\n", autoSleep ? "auto" : "user");
 #ifndef DESKTOP
 	if (smdc.sleepKeepLed)
-		system("/usr/local/modules/mydonglecloud/leds.sh -b 0 -l normal");
+		system("/usr/local/modules/_core_/leds.sh -b 0 -l normal");
 	else
-		system("/usr/local/modules/mydonglecloud/leds.sh -b 0 -l off");
+		system("/usr/local/modules/_core_/leds.sh -b 0 -l off");
 #endif
 	lmdc.current = LOGIC_SLEEP;
 	logicUpdate();

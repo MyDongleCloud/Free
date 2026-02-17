@@ -76,7 +76,7 @@ void settingsLoad() {
 	nameIdLoad();
 	settingsDefault();
 #if !defined(DESKTOP) && !defined(WEB)
-	FILE *f = fopen(ADMIN_PATH "mydonglecloud/app.json", "r");
+	FILE *f = fopen(ADMIN_PATH "_core_/app.json", "r");
 	if (f) {
 		char sz[1024];
 		fread(sz, sizeof(sz), 1, f);
@@ -88,7 +88,7 @@ void settingsLoad() {
 
 void settingsSave() {
 #if !defined(DESKTOP) && !defined(WEB)
-	FILE *f = fopen(ADMIN_PATH "mydonglecloud/app.json", "w");
+	FILE *f = fopen(ADMIN_PATH "_core_/app.json", "w");
 	if (f) {
 		char *sz = settingsToJson(&smdc);
 		if (sz) {

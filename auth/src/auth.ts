@@ -20,7 +20,7 @@ const statusDemo = process.env.PRODUCTION === "true" ? false : true;
 const adminPath = (process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/disk/admin/modules/";
 let version = "";
 try {
-	readFileSync((process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/usr/local/modules/mydonglecloud/version.txt", "utf-8");
+	readFileSync((process.env.PRODUCTION === "true" ? "" : "../rootfs") + "/usr/local/modules/_core_/version.txt", "utf-8");
 } catch(e) {}
 const secretPath = adminPath + "betterauth/secret.txt";
 const jwkPath = adminPath + "betterauth/jwk-pub.pem";
@@ -132,7 +132,7 @@ const mdcEndpoints = () => {
 				try {
 					const groups = execSync("id -Gn").toString();
 					if (groups.split(" ").includes("sudo") != ctx.body?.security?.adminSudo)
-						execSync("sudo /usr/local/modules/mydonglecloud/reset.sh -s " + (ctx.body?.security?.adminSudo ? 1 : 0));
+						execSync("sudo /usr/local/modules/_core_/reset.sh -s " + (ctx.body?.security?.adminSudo ? 1 : 0));
 					const cloud = JSON.parse(fs.readFileSync(cloudPath, "utf-8"));
 					Object.entries(ctx.body).forEach(([key, value]) => { cloud[key] = value; });
 					writeFileSync(cloudPath, JSON.stringify(cloud, null, "\t"), "utf-8");
@@ -141,7 +141,7 @@ const mdcEndpoints = () => {
 				if (ctx.body?.security?.sshKeys !== "")
 					writeFileSync(sshKeysPath, ctx.body?.security?.sshKeys, "utf-8");
 				if (ctx.body?.timezone !== hardware.timezone)
-					execSync("sudo /usr/local/modules/mydonglecloud/reset.sh -t \"" + (ctx.body.timezone) + "\"");
+					execSync("sudo /usr/local/modules/_core_/reset.sh -t \"" + (ctx.body.timezone) + "\"");
 				return Response.json({ status:(ret ? "success" : "error") }, { status:200 });
 			}),
 
@@ -360,7 +360,7 @@ const mdcEndpoints = () => {
 			}, async(ctx) => {
 				if (ctx.context.session?.user?.role != "admin")
 					return Response.json({ status:"error" }, { status:200 });
-				const tbe = "sudo /usr/local/modules/mydonglecloud/reset.sh " + ctx.body?.module;
+				const tbe = "sudo /usr/local/modules/_core_/reset.sh " + ctx.body?.module;
 				let ret = false;
 				let output;
 				try {

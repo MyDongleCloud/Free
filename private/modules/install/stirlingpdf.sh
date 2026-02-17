@@ -4,7 +4,7 @@ apt-get install -y libleptonica-dev zlib1g-dev libreoffice-writer libreoffice-ca
 mv /usr/local/modules/stirlingpdf /home/ai/build
 mkdir /usr/local/modules/stirlingpdf
 cd /home/ai/build/stirlingpdf
-/home/ai/rootfs/usr/local/modules/mydonglecloud/pip.sh -f /usr/local/modules/stirlingpdf -s
+/home/ai/rootfs/usr/local/modules/_core_/pip.sh -f /usr/local/modules/stirlingpdf -s
 echo "PATH before any modif: $PATH"
 PATHOLD=$PATH
 PATH=/usr/local/modules/stirlingpdf/bin:$PATHOLD

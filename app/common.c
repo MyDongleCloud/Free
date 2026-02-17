@@ -291,7 +291,7 @@ void logInit(int daemon) {
 #ifdef DESKTOP
 	strcpy(sz, "/tmp/app.log");
 #else
-	strcpy(sz, "/var/log/mydonglecloud/app.log");
+	strcpy(sz, "/var/log/_core_/app.log");
 #endif
 	int pipe_fd[2];
 	pipe(pipe_fd);

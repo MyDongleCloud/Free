@@ -34,8 +34,8 @@ else
 	rm -f login.js.tmp
 fi
 
-PP=/usr/local/modules/mydonglecloud/web/assets/modulesdefault.json
-if [ ! -f "/usr/local/modules/mydonglecloud/web/assets/modulesdefault.json" ]; then
+PP=/usr/local/modules/_core_/web/assets/modulesdefault.json
+if [ ! -f "/usr/local/modules/_core_/web/assets/modulesdefault.json" ]; then
 	PP="../client/src/assets/modulesdefault.json"
 fi
 jq -r 'to_entries[] | .key as $name | .value.autoLogin.inject[]? | "\t{ \"\($name)\", \"\(.url)\", \"\(.form)\", \"\(.arg1)\", \"\(.arg2)\", \"\(.arg3)\", VAL\(.val1), VAL\(.val2) },"' $PP > login.tmp

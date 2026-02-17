@@ -64,7 +64,7 @@ static void setup(int i, int total, char *name, int root, cJSON *modules) {
 	char sz[256];
 	snprintf(sz, sizeof(sz), "{ \"a\":\"status\", \"progress\":%d, \"module\":\"%s\", \"state\":\"start\" }", p, name);
 	communicationString(sz);
-	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/reset.sh -u %d %s", root, name);
+	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/_core_/reset.sh -u %d %s", root, name);
 	system(sz);
 	cJSON *el = cJSON_CreateObject();
 	cJSON_AddBoolToObject(el, "setupDone", 1);
@@ -122,7 +122,7 @@ void cloudSetup(cJSON *el) {
 	logicSetup(L("Initialization"), 0);
 	cJSON *elCloud = cJSON_GetObjectItem(el, "cloud");
 	char sz[256];
-	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/mydonglecloud/reset.sh -t %s", cJSON_GetStringValue2(el, "timezone"));
+	snprintf(sz, sizeof(sz), "sudo /usr/local/modules/_core_/reset.sh -t %s", cJSON_GetStringValue2(el, "timezone"));
 	system(sz);
 	cJSON *elSecurity = cJSON_GetObjectItem(elCloud, "security");
 	cJSON *elConnectivity = cJSON_GetObjectItem(elCloud, "connectivity");

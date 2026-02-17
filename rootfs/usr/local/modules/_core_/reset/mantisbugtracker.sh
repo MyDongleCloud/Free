@@ -1,0 +1,104 @@
+#!/bin/sh
+
+helper() {
+echo "*******************************************************"
+echo "Usage for mantisbugtracker [-h]"
+echo "h:	Print this usage and exit"
+exit 0
+}
+
+if [ "m`id -u`" = "m0" ]; then
+	echo "You should not be root"
+#	exit 0
+fi
+
+while getopts h opt
+do
+	case "$opt" in
+		h) helper;;
+	esac
+done
+
+echo "#Reset mantisbugtracker##################"
+DATE=`date +%s`
+CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+SALT=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
+DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
+PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
+
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
+DROP DATABASE IF EXISTS mantisbugtrackerDB;
+CREATE DATABASE mantisbugtrackerDB;
+DROP USER IF EXISTS 'mantisbugtrackerUser'@'localhost';
+CREATE USER 'mantisbugtrackerUser'@'localhost' IDENTIFIED BY '${DBPASS}';
+GRANT ALL PRIVILEGES ON mantisbugtrackerDB.* TO 'mantisbugtrackerUser'@'localhost';
+FLUSH PRIVILEGES;
+EOF
+
+rm -rf /disk/admin/modules/mantisbugtracker
+mkdir /disk/admin/modules/mantisbugtracker
+cp -a /usr/local/modules/mantisbugtracker/config.bak /disk/admin/modules/mantisbugtracker/config
+touch /disk/admin/modules/mantisbugtracker/config/config_inc.php
+cp /disk/admin/modules/mantisbugtracker/config/config_inc.php.sample /disk/admin/modules/mantisbugtracker/config/config_inc.php
+
+install="2"
+db_type="mysqli"
+timezone="UTC"
+hostname="localhost"
+db_username="mantisbugtrackerUser"
+db_password="${DBPASS}"
+database_name="mantisbugtrackerDB"
+admin_username=""
+admin_password=""
+db_table_prefix="mantis"
+db_table_plugin_prefix="plugin"
+db_table_suffix="_table"
+path="https://mantisbugtracker.$CLOUDNAME.mydongle.cloud/"
+log_queries="0"
+username="$CLOUDNAME"
+email="admin@${CLOUDNAME}.mydongle.cloud"
+passwd="${PASSWD}"
+
+sed -i -e "s/^\\\$g_hostname.*/\\\$g_hostname = '$hostname';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
+sed -i -e "s/^\\\$g_db_username.*/\\\$g_db_username = '$db_username';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
+sed -i -e "s/^\\\$g_db_password.*/\\\$g_db_password = '$db_password';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
+sed -i -e "s/^\\\$g_database_name.*/\\\$g_database_name = '$database_name';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
+sed -i -e "s/^\\\$g_db_type.*/\\\$g_db_type = '$db_type';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
+sed -i -e "s/^\\\$g_crypto_master_salt.*/\\\$g_crypto_master_salt = '$SALT';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
+echo "\$g_path = '$path';" >> /disk/admin/modules/mantisbugtracker/config/config_inc.php
+echo "define( 'COMPRESSION_DISABLED', true );" >> /disk/admin/modules/mantisbugtracker/config/config_inc.php
+
+cd /usr/local/modules/mantisbugtracker
+cat > /tmp/mantisbugtracker.php << EOF
+<?php
+\$_POST['install'] = '$install';
+\$_POST['db_type'] = '$db_type';
+\$_POST['timezone'] = '$timezone';
+\$_POST['hostname'] = '$hostname';
+\$_POST['db_username'] = '$db_username';
+\$_POST['db_password'] = '$db_password';
+\$_POST['database_name'] = '$database_name';
+\$_POST['admin_username'] = '$admin_username';
+\$_POST['admin_password'] = '$admin_password';
+\$_POST['db_table_prefix'] = '$db_table_prefix';
+\$_POST['db_table_plugin_prefix'] = '$db_table_plugin_prefix';
+\$_POST['db_table_suffix'] = '$db_table_suffix';
+\$_POST['path'] = '$path';
+\$_POST['log_queries'] = '$log_queries';
+
+\$_SERVER['REQUEST_METHOD'] = 'POST';
+
+include '/usr/local/modules/mantisbugtracker/admin/install.php';
+?>
+EOF
+php /tmp/mantisbugtracker.php > /tmp/reset-mantisbugtracker-$DATE.log 2>&1
+rm /tmp/mantisbugtracker.php
+
+mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
+USE mantisbugtrackerDB;
+UPDATE ${db_table_prefix}_user${db_table_suffix} SET username='${username}', password=MD5('${passwd}'), email='${email}' WHERE username='administrator';
+EOF
+
+echo "{\"username\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${database_name}\", \"dbuser\":\"${db_username}\", \"dbpass\":\"${db_password}\"}" > /disk/admin/modules/_config_/mantisbugtracker.json
+
+echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

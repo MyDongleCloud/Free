@@ -13,7 +13,7 @@ StandardOutput=inherit
 StandardError=inherit
 RestartSec=1s
 User=admin
-ExecStart=/usr/local/modules/mydonglecloud/app -d
+ExecStart=/usr/local/modules/_core_/app -d
 
 [Install]
 WantedBy=multi-user.target

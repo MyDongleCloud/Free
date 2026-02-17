@@ -92,10 +92,10 @@ e2label /dev/nvme0n1p2 rootfs
 mkdir /disk
 adduser --comment Administrator --home /disk/admin --disabled-password admin
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth admin
-sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/local/modules/mydonglecloud/reset.sh|' /etc/sudoers
+sed -i -e 's|# User privilege specification|# User privilege specification\nadmin ALL=(ALL:ALL) NOPASSWD: /sbin/shutdown -h now, /sbin/reboot, /usr/local/modules/_core_/reset.sh|' /etc/sudoers
 usermod -a -G adm,dialout,cdrom,audio,video,plugdev,games,users,input,render,netdev,spi,i2c,gpio,bluetooth ai
 usermod -a -G sudo ai
-mkdir -p /usr/local/modules/mydonglecloud
+mkdir -p /usr/local/modules/_core_
 mkdir -p /home/ai/build/_modulesInstalled
 mkdir -p /disk/admin/modules/_config_
 
@@ -375,8 +375,8 @@ rm -f /etc/systemd/system/multi-user.target.wants/sshswitch.service
 rm -rf /var/cache/apt/archives/*.deb /home/ai/build/*.deb /home/ai/build/*.xz /home/ai/build/*.gz /home/ai/.cache/*
 rm -rf /root /lost+found /usr/local/games /opt/containerd /opt/pigpio
 rm -rf /var/lib/bluetooth /var/lib/docker /var/lib/raspberrypi /var/lib/NetworkManager /var/cache-admin
-mkdir /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes
-chown admin:admin /var/cache-admin /var/log/mydonglecloud /var/log/zigbee2mqtt /var/log/triliumnotes /var/log/invidious
+mkdir /var/cache-admin /var/log/_core_ /var/log/zigbee2mqtt /var/log/triliumnotes
+chown admin:admin /var/cache-admin /var/log/_core_ /var/log/zigbee2mqtt /var/log/triliumnotes /var/log/invidious
 chmod 755 /var/log/apache2
 
 echo "################################"

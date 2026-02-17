@@ -75,12 +75,12 @@ else
 	fi
 	tar -xjpf /work/ai.inout/private/img/modules-artik.tbz2 -C ${ROOTFS}/lib/modules/
 	${PP}/auth/prepare.sh -c
-	rm -rf ${PP}/rootfs/usr/local/modules/mydonglecloud/reset
-	cp -a ${PP}/private/modules/reset/ ${PP}/rootfs/usr/local/modules/mydonglecloud/
-	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/reset
-	cp -a ${PP}/rootfs/usr/local/modules/mydonglecloud/reset ${ROOTFS}/usr/local/modules/mydonglecloud/
+	rm -rf ${PP}/rootfs/usr/local/modules/_core_/reset
+	cp -a ${PP}/private/modules/reset/ ${PP}/rootfs/usr/local/modules/_core_/
+	rm -rf ${ROOTFS}/usr/local/modules/_core_/reset
+	cp -a ${PP}/rootfs/usr/local/modules/_core_/reset ${ROOTFS}/usr/local/modules/_core_/
 	cp ${PP}/private/modules/services/* ${ROOTFS}/etc/systemd/system/
-	if [ ! -f ${ROOTFS}/usr/local/modules/mydonglecloud/app -o $(find ${PP}/app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/mydonglecloud/app ]; then
+	if [ ! -f ${ROOTFS}/usr/local/modules/_core_/app -o $(find ${PP}/app -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/_core_/app ]; then
 		rm -rf ${ROOTFS}/home/ai/app
 		cp -a ${PP}/app ${ROOTFS}/home/ai/
 		chroot ${ROOTFS} sh -c 'cd /home/ai/app && make clean && make'
@@ -112,8 +112,8 @@ else
 	rm -rf ${PP}/client/web
 	cd ${PP}/client
 	ionic --prod build
-	rm -rf ${ROOTFS}/usr/local/modules/mydonglecloud/web
-	cp -a ${PP}/client/web ${ROOTFS}/usr/local/modules/mydonglecloud
+	rm -rf ${ROOTFS}/usr/local/modules/_core_/web
+	cp -a ${PP}/client/web ${ROOTFS}/usr/local/modules/_core_
 	rm -rf ${PP}/client/web
 	if [ ! -f ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/moduleApache2 -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so -o $(find ${PP}/private/modules -name "*.json" -printf '%T@ %p\n' | sort -n | tail -1 | cut -d " " -f2-) -nt ${ROOTFS}/usr/local/modules/apache2/mod_app.so ]; then
 		rm -rf ${ROOTFS}/home/ai/moduleApache2
