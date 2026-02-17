@@ -76,8 +76,10 @@ async handleBleMessage(data) {
 		}
 	} else if (data.a === "setup") {
 		if (data.success === 1) {
+			this.progress = false;
+			this.cdr.detectChanges();
 			await this.global.presentAlert("Success!", "Your hardware is setting up!", "You will need to login now.");
-			document.location.href = "https://" + this.name1.value + "mydongle.cloud";
+			document.location.href = "https://app." + this.name1.value + ".mydongle.cloud";
 		} else {
 			this.errorSt = "An error occured, please try again.";
 			this.progress = false;
