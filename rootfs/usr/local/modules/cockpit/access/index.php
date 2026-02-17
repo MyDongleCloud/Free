@@ -6,7 +6,7 @@
 <script src="tailwindcss.js"></script>
 <script src="/cockpit/static/login.js"></script>
 <script>
-var environment = {"is_cockpit_client":false,"page":{"connect":true,"require_host":false,"allow_multihost":false},"logged_into":[],"hostname":"mydonglecloud"};
+var environment = {"is_cockpit_client":false,"page":{"connect":true,"require_host":false,"allow_multihost":false},"logged_into":[],"hostname":"cloud"};
 
 let cloudName = '<?php
 $data = json_decode(file_get_contents("/disk/admin/modules/_config_/_cloud_.json"), true);
