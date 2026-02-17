@@ -55,7 +55,7 @@ foreach ($files as $file) {
 	if (isset($module["default"]["reset"]))
 		array_push($modulesReset, $name);
 	if (!$bypassGithub && $module["github"] != "") {
-		$headers = array("Accept: application/json", "Authorization: Bearer " . $githubAPIKey, "X-GitHub-Api-Version: 2022-11-28", "User-Agent: MyDongleCloud");
+		$headers = array("Accept: application/json", "Authorization: Bearer " . $githubAPIKey, "X-GitHub-Api-Version: 2022-11-28", "User-Agent: X");
 		$ch = curl_init("https://api.github.com/repos/" . $module["github"]);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

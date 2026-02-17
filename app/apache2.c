@@ -327,7 +327,7 @@ begin:
 					fwrite(sz, strlen(sz), 1, pfM);
 				}
 
-				if (strcmp(elModule->string, "apache2") == 0 || strcmp(elModule->string, "mydonglecloud") == 0) {
+				if (strcmp(elModule->string, "apache2") == 0 || strcmp(elModule->string, "_core_") == 0) {
 					strcpy(sz, "\tUse Macro_Rewrite\n");
 					fwrite(sz, strlen(sz), 1, pfM);
 				}

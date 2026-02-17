@@ -1,7 +1,7 @@
 {
-	"module": "mydonglecloud",
-	"name": "MyDongle.Cloud",
-	"title": "MyDongle.Cloud App",
+	"module": "_core_",
+	"name": "_Core_",
+	"title": "Cloud App",
 	"category": "Server",
 	"version": "2025-11-11",
 	"installMethod": "clone",
@@ -11,7 +11,7 @@
 	"ai": false,
 	"database": "",
 	"github": "MyDongleCloud/free",
-	"description": "The application to manage MyDongle.Cloud.",
+	"description": "The core application to manage the cloud.",
 	"keywords": [
 		"Cloud",
 		"Collaborative tools",
