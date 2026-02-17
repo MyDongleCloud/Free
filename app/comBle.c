@@ -15,8 +15,12 @@
 //Global variable
 char bluetoothClassicAddr[18] = { 0 };
 
+//Private variable
+static pthread_mutex_t bleMutex = PTHREAD_MUTEX_INITIALIZER;
+
 //Functions
 int serverWriteDataBle(unsigned char *data, int size) {
+	pthread_mutex_lock(&bleMutex);
 	if (size <= BLE_CHUNK)
 		write_ctic(localnode(), UUID_DATA - 0xfff1, data, size);
 	else if (size <= 256 * (BLE_CHUNK - 2)) {
@@ -41,10 +45,12 @@ int serverWriteDataBle(unsigned char *data, int size) {
 			count++;
 		}
 	}
+	pthread_mutex_unlock(&bleMutex);
 	return size;
 }
 
 static int serverReadDataBle(unsigned char *data_, int size) {
+	pthread_mutex_lock(&bleMutex);
 	static unsigned char *data = NULL;
 	static int pos = 0;
 	static int chunks = 0;
@@ -70,6 +76,7 @@ static int serverReadDataBle(unsigned char *data_, int size) {
 	else {
 		PRINTF("serverReadData: ERROR\n");
 	}
+	pthread_mutex_unlock(&bleMutex);
 }
 
 static int le_callback(int clientnode, int operation, int cticn) {
