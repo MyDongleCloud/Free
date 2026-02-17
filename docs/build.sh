@@ -46,7 +46,7 @@ mkdir web
 cp /tmp/docsify/lib/docsify.min.js /tmp/docsify/lib/plugins/zoom-image.min.js /tmp/docsify/lib/plugins/search.min.js /tmp/docsify/lib/themes/vue.css web
 cp index.html tailwindcss-4.js *.md favicon.ico web
 cp ../README.md web
-cp  ../build/modulesmeta.json web/modules_latest.json
+cp  ../client/src/assets/modulesmeta.json web/modules_latest.json
 cp ../release/modules*.json web 2> /dev/null
 ls -r ../release/modulesmeta_*.json 2> /dev/null | jq -R -s 'split("\n") | map(select(length > 0) | split("_")[1] | split(".")[0]) | {list: (["latest"] + .)}' > web/releases.json
 sed -i '/<TABLE_MODULES>/ {
