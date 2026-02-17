@@ -23,9 +23,6 @@ cJSON *fqdnInit(cJSON *elCloud) {
 	cJSON *s = NULL;
 	s = cJSON_CreateString(sz);
 	cJSON_AddItemToArray(fqdn, s);
-	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(elCloudAll, "name"), MAIN_DOMAIN_FR);
-	s = cJSON_CreateString(sz);
-	cJSON_AddItemToArray(fqdn, s);
 	snprintf(sz, sizeof(sz), "%s.%s", cJSON_GetStringValue2(elCloudAll, "shortname"), SHORT_DOMAIN);
 	s = cJSON_CreateString(sz);
 	cJSON_AddItemToArray(fqdn, s);
