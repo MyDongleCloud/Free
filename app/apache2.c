@@ -179,8 +179,8 @@ AppALEnabled %s\n\
 	<Directory /usr/local/modules/apache2/pages>\n\
 		Require all granted\n\
 	</Directory>\n\
-	Alias /_app_ /usr/local/modules/apache2/pages/web\n\
-	<Directory /usr/local/modules/apache2/pages/web>\n\
+	Alias /_app_ /usr/local/modules/apache2/web\n\
+	<Directory /usr/local/modules/apache2/web>\n\
 		RewriteBase /\n\
 		RewriteRule ^index\\.html$ - [L]\n\
 		RewriteCond %%{REQUEST_FILENAME} !-f\n\
@@ -410,7 +410,7 @@ Listen 80\n\
 	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]\n\
 </VirtualHost>\n\
 <VirtualHost *:443>\n\
-	Alias /_app_ /usr/local/modules/apache2/pages/web\n\
+	Alias /_app_ /usr/local/modules/apache2/web\n\
 	RewriteEngine On\n\
 	RewriteCond %{HTTP:Upgrade} websocket [NC]\n\
 	RewriteCond %{HTTP:Connection} upgrade [NC]\n\
@@ -418,7 +418,7 @@ Listen 80\n\
 	RewriteCond %{REQUEST_URI} !^/_app_ [NC]\n\
 	RewriteRule ^(.*)$ /_app_/setup [R=301,L]\n\
 	RewriteRule ^/_app_/login$ /_app_/setup [R=301,L]\n\
-	<Directory /usr/local/modules/apache2/pages/web>\n\
+	<Directory /usr/local/modules/apache2/web>\n\
 		RewriteEngine On\n\
 		RewriteBase /_app_\n\
 		RewriteCond %{REQUEST_FILENAME} !-f\n\

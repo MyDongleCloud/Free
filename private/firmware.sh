@@ -125,8 +125,8 @@ else
 	rm -rf ${PP}/login/web
 	cd ${PP}/login
 	ionic --prod build
-	rm -rf ${ROOTFS}/usr/local/modules/apache2/pages/login
-	cp -a ${PP}/login/web ${ROOTFS}/usr/local/modules/apache2/pages
+	rm -rf ${ROOTFS}/usr/local/modules/apache2/web
+	cp -a ${PP}/login/web ${ROOTFS}/usr/local/modules/apache2
 	rm -rf ${PP}/login/web
 	rm -rf ${ROOTFS}/home/admin.default
 	cp -a ${ROOTFS}/disk/admin ${ROOTFS}/home/admin.default
