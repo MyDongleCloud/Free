@@ -393,8 +393,9 @@ void buildApache2ConfBeforeSetup() {
 #endif
 		char sz[1024];
 		strcpy(sz, "\
+Listen 80\n\
 <IfModule ssl_module>\n\
-	Listen 80\n\
+	Listen 443\n\
 </IfModule>\n");
 		fwrite(sz, strlen(sz), 1, pfP);
 		fclose(pfP);
@@ -405,6 +406,10 @@ void buildApache2ConfBeforeSetup() {
 #endif
 		strcpy(sz, "\
 <VirtualHost *:80>\n\
+	RewriteEngine on\n\
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]\n\
+</VirtualHost>\n\
+<VirtualHost *:443>\n\
 	Alias /_app_ /usr/local/modules/apache2/pages/web\n\
 	RewriteEngine On\n\
 	RewriteCond %{HTTP:Upgrade} websocket [NC]\n\
@@ -421,6 +426,9 @@ void buildApache2ConfBeforeSetup() {
 		RewriteRule . /_app_/index.html [L]\n\
 		Require all granted\n\
 	</Directory>\n\
+	Include /usr/local/modules/apache2/options-ssl-apache.conf\n\
+	SSLCertificateFile /usr/local/modules/apache2/self-fullchain.pem\n\
+	SSLCertificateKeyFile /usr/local/modules/apache2/self-privkey.pem\n\
 </VirtualHost>");
 		fwrite(sz, strlen(sz), 1, pfM);
 		fclose(pfM);
