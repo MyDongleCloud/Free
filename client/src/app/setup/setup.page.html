@@ -278,7 +278,7 @@
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="wifi-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input (blur)="handleBlur($event, ssid3)" type="text" formControlName="ssid3" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the SSID" [class.border--red-300]="ssid3?.invalid && ssid3?.touched" [class.focus:ring--red-500]="ssid3?.invalid && ssid3?.touched">
+						<input #ssid3E (blur)="handleBlur($event, ssid3)" type="text" formControlName="ssid3" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the SSID" [class.border--red-300]="ssid3?.invalid && ssid3?.touched" [class.focus:ring--red-500]="ssid3?.invalid && ssid3?.touched">
 					</div>
 					@if (ssid3?.invalid && ssid3?.touched) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">

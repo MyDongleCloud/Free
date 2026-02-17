@@ -20,6 +20,7 @@ export class Setup {
 L(st) { return this.global.mytranslate(st); }
 @ViewChild("name1E") name1E: ElementRef;
 @ViewChild("email2E") email2E: ElementRef;
+@ViewChild("ssid3E") ssid3E: ElementRef;
 @ViewChild("modalWait") modalWait: IonModal;
 password2Show:boolean = false;
 password3Show:boolean = true;
@@ -224,6 +225,7 @@ show_WiFi() {
 	this.showDomain = false;
 	this.showPassword = false;
 	this.showWiFi = true;
+	setTimeout(() => { this.ssid3E.nativeElement.focus(); }, 100);
 	this.hasBlurredOnce = false;
 	this.cdr.detectChanges();
 }
