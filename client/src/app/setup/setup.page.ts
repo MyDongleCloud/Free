@@ -239,7 +239,7 @@ async doWiFi() {
 	let ret2 = { frp:{}, postfix:{} };
 	await this.modalWait.present();
 	try {
-		ret1 = await this.certificate.process(this.name1.value, this.shortname1.value, this.domain1.value != "" ? [this.domain1.value] : []); //Not used: ret1.accountKey, ret1.accountKeyId
+		ret1 = await this.certificate.process(this.name1.value, this.shortname1.value, this.domain1.value); //Not used: ret1.accountKey, ret1.accountKeyId
 		this.global.consolelog(2, "SETUP: Certificate", ret1);
 	} catch(e) {}
 	this.modalWait.dismiss();
