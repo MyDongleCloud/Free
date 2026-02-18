@@ -9,6 +9,16 @@
 		"Backup": "Sauvegarde",
 		"Backup & Restore": "Sauvegarde et Restauration"
 	},
+	"delete": {
+		"Delete your\nAccount": "",
+		"WARNING! DANGER! Account deletion cannot be undone.": "ATTENTION ! DANGER ! La suppression d'un compte ne peut être annulée.",
+		"Email address": "Adresse e-mail",
+		"Please enter a valid email address": "Veuillez entrer une adresse e-mail valide",
+		"Sending delete link...": "Envoi du lien de suppression",
+		"Send delete link": "Envoyer un lien de suppression",
+		"Check your email": "Vérifiez votre e-mail",
+		"A delete link has been sent to": "Un lien de suppression a été envoyé à"
+	},
 	"find": {
 		"Cloud": "Cloud",
 		"Email address": "Adresse e-mail",

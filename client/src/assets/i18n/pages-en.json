@@ -9,6 +9,16 @@
 		"Backup": "",
 		"Backup & Restore": ""
 	},
+	"delete": {
+		"Delete your\nAccount": "",
+		"WARNING! DANGER! Account deletion cannot be undone.": "",
+		"Email address": "",
+		"Please enter a valid email address": "",
+		"Sending delete link...": "",
+		"Send delete link": "",
+		"Check your email": "",
+		"A delete link has been sent to": ""
+	},
 	"find": {
 		"Cloud": "",
 		"Email address": "",

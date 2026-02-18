@@ -13,6 +13,10 @@ const routes: Routes = [
 		loadChildren: () => import('./backup/backup.module').then( m => m.BackupModule)
 	},
 	{
+		path: 'delete',
+		loadChildren: () => import('./delete/delete.module').then( m => m.DeleteModule)
+	},
+	{
 		path: 'find',
 		loadChildren: () => import('./find/find.module').then( m => m.FindModule)
 	},
