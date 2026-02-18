@@ -19,7 +19,7 @@ declare var appSend: any;
 export class Setup {
 L(st) { return this.global.mytranslate(st); }
 @ViewChild("name1E") name1E: ElementRef;
-@ViewChild("email2E") email2E: ElementRef;
+@ViewChild("displayname2E") displayname2E: ElementRef;
 @ViewChild("ssid3E") ssid3E: ElementRef;
 @ViewChild("modalWait") modalWait: IonModal;
 password2Show:boolean = false;
@@ -53,7 +53,7 @@ constructor(public global: Global, public certificate: Certificate, private rout
 		"terms1": [ false, Validators.requiredTrue ]
 	}, { validator: this.checkFormDomain } );
 	this.formPassword = fb.group({
-		"displayname2": [ "#1", [ Validators.required, Validators.minLength(2) ] ],
+		"displayname2": [ "", [ Validators.required, Validators.minLength(2) ] ],
 		"email2": [ "", [ Validators.required, Validators.email ] ],
 		"password2": [ "", [ Validators.required, Validators.minLength(6) ] ],
 		"password2Confirm": [ "", [Validators.required ] ]
@@ -63,6 +63,10 @@ constructor(public global: Global, public certificate: Certificate, private rout
 		"password3": [ "", [ Validators.required, Validators.minLength(8) ] ]
 	});
 	appConnectToggle(true);
+}
+
+async ngOnInit() {
+	this.show_Domain();
 }
 
 async handleBleMessage(data) {
@@ -181,7 +185,7 @@ show_Domain() {
 	this.showWiFi = false;
 	this.hasBlurredOnce = false;
 	setTimeout(() => { this.name1E.nativeElement.focus(); }, 100);
-	this.cdr.detectChanges();
+	//this.cdr.detectChanges();
 }
 
 async doDomain() {
@@ -206,7 +210,7 @@ show_Password() {
 	this.showDomain = false;
 	this.showPassword = true;
 	this.showWiFi = false;
-	setTimeout(() => { this.email2E.nativeElement.focus(); }, 100);
+	setTimeout(() => { this.displayname2E.nativeElement.focus(); }, 100);
 	this.hasBlurredOnce = false;
 	this.cdr.detectChanges();
 }

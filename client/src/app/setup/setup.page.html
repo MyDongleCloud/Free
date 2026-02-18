@@ -30,7 +30,7 @@
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="globe-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input #name1# type="text" formControlName="name1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the desired cloud name" [class.border--red-300]="name1?.invalid && name1?.touched" [class.focus:ring--red-500]="name1?.invalid && name1?.touched">
+						<input #name1E type="text" formControlName="name1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the desired cloud name" [class.border--red-300]="name1?.invalid && name1?.touched" [class.focus:ring--red-500]="name1?.invalid && name1?.touched">
 					</div>
 					@if (name1?.invalid && (name1?.touched || name1?.value?.length >= 1)) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
@@ -147,14 +147,13 @@
 				<p class="text--gray-600">{{L("Set the admin account of this hardware")}}</p>
 			</div>
 			<form [formGroup]="formPassword" (ngSubmit)="doPassword();" class="space-y-6">
-<!--
 				<div>
 					<label for="displayname2" class="block text-sm font-medium text--gray-700 mb-2">{{L("Display name")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="person-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input (blur)="handleBlur($event, displayname2)" type="text" formControlName="displayname2" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your full name" [class.border--red-300]="displayname2?.invalid && displayname2?.touched" [class.focus:ring--red-500]="displayname2?.invalid && displayname2?.touched">
+						<input #displayname2E (blur)="handleBlur($event, displayname2)" type="text" formControlName="displayname2" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your full name" [class.border--red-300]="displayname2?.invalid && displayname2?.touched" [class.focus:ring--red-500]="displayname2?.invalid && displayname2?.touched">
 					</div>
 					@if (displayname2?.invalid && displayname2?.touched) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
@@ -163,14 +162,13 @@
 					</div>
 					}
 				</div>
--->
 				<div>
 					<label for="email2" class="block text-sm font-medium text--gray-700 mb-2">{{L("Email address")}}</label>
 					<div class="relative">
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="mail-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input #email2E (blur)="handleBlur($event, email2)" type="email" formControlName="email2" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your email" [class.border--red-300]="email2?.invalid && email2?.touched" [class.focus:ring--red-500]="email2?.invalid && email2?.touched">
+						<input type="email" formControlName="email2" autocomplete="email" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter your email" [class.border--red-300]="email2?.invalid && email2?.touched" [class.focus:ring--red-500]="email2?.invalid && email2?.touched">
 					</div>
 					@if (email2?.invalid && email2?.touched) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
