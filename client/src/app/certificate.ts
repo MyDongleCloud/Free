@@ -17,9 +17,8 @@ SERVERURL: string = "https://mydongle.cloud";
 
 constructor(private global: Global, private httpClient: HttpClient) {}
 
-async process(name, shortname, additionalDomain) {
+async process(name, shortname, customDomain) {
 	const ret = { accountKey:"", accountKeyId:"", fullChain:"", privateKey:"" };
-	const DOMAINNAME = ["mydongle.cloud", "myd.cd"];//.add(additionalDomain);
 	const STAGING = true;
 	let acme = ACME.create({ maintainerEmail:"acme@@mydongle.cloud", packageAgent:"MDC/2026-01-01", notify:function (ev, msg) { /*this.global.consolelog(1, msg);*/ }, skipDryRun:true/*, skipChallengeTest:true*/ });
 	await acme.init("https://acme" + (STAGING ? "-staging" : "") + "-v02.api.letsencrypt.org/directory");
@@ -35,16 +34,13 @@ async process(name, shortname, additionalDomain) {
 	const serverKeypair = await Keypairs.generate({ kty: "RSA", format: "jwk" });
 	const serverKey = serverKeypair.private;
 	ret.privateKey = await Keypairs.export({ jwk: serverKey });
-
-	const SUB = ["", "*."];
-	let i = 1;
-	const domains = DOMAINNAME.reduce((acc, dn) => {
-		const subDomains = SUB.map(s => s + (i <= 2 ? (name + ".") : i <= 3 ? (shortname + ".") : "") + dn);
-		i++;
-		return acc.concat(subDomains);
-	}, [] as string[]);
+	const zones = [ name + ".mydongle.cloud", shortname + ".myd.cd" ];
+	if (customDomain && customDomain != "")
+		zones.push(customDomain);
+	const domains = zones.flatMap(zone => [zone, `*.${zone}`]);
+console.log(domains);
 	const domainsNb = domains.length;
-	this.global.consolelog(2, "ACME: Domains:" + domains.join(" "));
+	this.global.consolelog(2, "ACME: Domains", domains);
 	const csrDer = await CSR.csr({ jwk:serverKey, domains, encoding:"der" });
 	const csr = PEM.packBlock({ type:"CERTIFICATE REQUEST", bytes:csrDer });
 	const data = {};
@@ -55,8 +51,8 @@ async process(name, shortname, additionalDomain) {
 				return null;
 			},
 			zones: async ({ challenge }) => {
-				this.global.consolelog(2, "ACME: Zones", DOMAINNAME);
-				return DOMAINNAME;
+				this.global.consolelog(2, "ACME: Zones", zones);
+				return zones;
 			},
 			set: async ({ challenge }) => {
 				const domain = (challenge?.wildcard ? "*." : "") + challenge.identifier.value;
