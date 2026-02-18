@@ -152,7 +152,7 @@ async verifyDns(st) {
 	let res = false;
 	if (Array.isArray(ret)) 
 		ret.forEach((dns) => {
-			if (/^ns[1-2]\.mydongle\.cloud$/i.test(dns?.target))
+			if (/^ns[1-2]\.mydongle\.cloud$/i.test(dns))
 				res = true;
 		});
 	this.errorSt = res ? null : "DNS doesn't point correctly. You can setup later (or it can take time to propagate)";
