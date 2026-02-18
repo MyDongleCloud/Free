@@ -6,6 +6,7 @@
   "description": "The MyDongle Cloud project",
   "scripts": {
     "ng": "ng",
+    "postinstall": "patch-package",
     "ionic:serve:before": "../auth/prepare.sh > /dev/tty 2>&1 &",
     "start": "ng serve",
     "build": "ng build",
