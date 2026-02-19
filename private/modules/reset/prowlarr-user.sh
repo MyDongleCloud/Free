@@ -1,23 +1,9 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for prowlarr-user [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 	exit 0
 fi
-
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
 
 echo "#Create prowlarr settings##################"
 PORT=9696
@@ -46,7 +32,7 @@ echo "Doing prowlarr settings"
 
 PASSWD=`jq -r .password /disk/admin/modules/_config_/qbittorrent.json`
 APIKEY=`jq -r .apikey /disk/admin/modules/_config_/prowlarr.json`
-DATA="{ \"name\": \"qBittorrent\", \"enable\": true, \"implementation\": \"QBittorrent\", \"implementationName\": \"qBittorrent\", \"configContract\": \"QBittorrentSettings\", \"protocol\": \"torrent\", \"priority\": 25, \"tags\": [], \"presets\": [], \"categories\": [], \"fields\": [ { \"name\": \"host\", \"value\": \"localhost\" }, { \"name\": \"port\", \"value\": 8109 }, { \"name\": \"useSsl\", \"value\": false }, { \"name\": \"username\", \"value\": \"admin\" }, { \"name\": \"password\", \"value\": \"$PASSWD\" }, { \"name\": \"category\", \"value\": \"prowlarr\" }, { \"name\": \"initialState\", \"value\": 2 }, { \"name\": \"sequentialOrder\", \"value\": false }, { \"name\": \"firstAndLast\", \"value\": false }, { \"name\": \"contentLayout\", \"value\": 0 } ]}"
+DATA="{ \"name\": \"qBittorrent\", \"enable\": true, \"implementation\": \"QBittorrent\", \"implementationName\": \"qBittorrent\", \"configContract\": \"QBittorrentSettings\", \"protocol\": \"torrent\", \"priority\": 25, \"tags\": [], \"presets\": [], \"categories\": [], \"fields\": [ { \"name\": \"host\", \"value\": \"localhost\" }, { \"name\": \"port\", \"value\": 8109 }, { \"name\": \"useSsl\", \"value\": false }, { \"name\": \"username\", \"value\": \"admin\" }, { \"name\": \"password\", \"value\": \"${PASSWD}\" }, { \"name\": \"category\", \"value\": \"prowlarr\" }, { \"name\": \"initialState\", \"value\": 2 }, { \"name\": \"sequentialOrder\", \"value\": false }, { \"name\": \"firstAndLast\", \"value\": false }, { \"name\": \"contentLayout\", \"value\": 0 } ]}"
 response=`curl -sS -X POST "$URL/api/v1/downloadclient" -H "X-Api-Key: $APIKEY" -H "Content-Type: application/json" -d "$DATA"`
 #echo $response
 
@@ -69,4 +55,4 @@ DATA="{ \"name\": \"EZTV\", \"enable\": true, \"protocol\": \"torrent\", \"prior
 response=`curl -sS -X POST "$URL/api/v1/indexer" -H "X-Api-Key: $APIKEY" -H "Content-Type: application/json" -d "$DATA"`
 #echo $response
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

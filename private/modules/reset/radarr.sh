@@ -1,27 +1,11 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for radarr [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset radarr##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
-PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 APIKEY=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 systemctl stop radarr.service
 rm -rf /disk/admin/modules/radarr

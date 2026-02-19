@@ -1,27 +1,14 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for mastodon [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset mastodon##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
-EMAIL=admin@${CLOUDNAME}.mydongle.cloud
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+EMAIL="admin@${CLOUDNAME}.mydongle.cloud"
+PRIMARY=$(jq -r ".info.primary" /disk/admin/modules/_config_/_cloud_.json)
 SECRET_KEY_BASE=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 64)
 dbpass=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
@@ -56,7 +43,7 @@ rm -f tmpkey
 OTP_SECRET=$(openssl rand -hex 64)
 
 cat > /disk/admin/modules/mastodon/env << EOF
-LOCAL_DOMAIN=social.${CLOUDNAME}.mydongle.cloud
+LOCAL_DOMAIN=social.${PRIMARY}
 SINGLE_USER_MODE=false
 SECRET_KEY_BASE=${SECRET_KEY_BASE}
 ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=${ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY}
@@ -85,7 +72,7 @@ RAILS_SERVE_STATIC_FILES=true
 EOF
 cd /usr/local/modules/mastodon
 RAILS_ENV=production bundle exec rake db:schema:load db:seed
-response=$(RAILS_ENV=production bin/tootctl accounts create ${CLOUDNAME} --email admin@${CLOUDNAME}.mydongle.cloud --confirmed --role Owner)
+response=$(RAILS_ENV=production bin/tootctl accounts create ${CLOUDNAME} --email ${EMAIL} --confirmed --role Owner)
 PASSWD=$(echo "$response" | grep "New password:" | awk '{print $NF}')
 RAILS_ENV=production bin/tootctl accounts modify ${CLOUDNAME} --approve
 
@@ -95,4 +82,4 @@ systemctl enable mastodon.service
 echo "{\"email\":\"${EMAIL}\", \"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"dbname\":\"mastodondb\", \"dbuser\":\"mastodonuser\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/mastodon.json
 chown admin:admin /disk/admin/modules/_config_/mastodon.json
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

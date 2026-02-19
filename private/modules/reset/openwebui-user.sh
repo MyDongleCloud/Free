@@ -1,23 +1,9 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for openwebui-user [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 	exit 0
 fi
-
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
 
 echo "#Create user openwebui##################"
 PORT=8101
@@ -44,14 +30,10 @@ while [ $TIMEOUT -gt 0 ]; do
 done
 echo "Doing openwebui user"
 
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
-email="admin@${CLOUDNAME}.mydongle.cloud"
-name="${CLOUDNAME}"
-passwd="${PASSWD}"
-
-data="{ \"email\": \"$email\", \"name\": \"$name\", \"password\": \"$passwd\" }"
+data="{ \"email\": \"${EMAIL}\", \"name\": \"${CLOUDNAME}\", \"password\": \"${PASSWD}\" }"
 response=`curl -sS -X POST $URL/api/v1/auths/signup -H "Content-Type: application/json" -d "$data"`
 token=`echo $response | jq -r ".token"`
 #echo "token: $token"
@@ -60,6 +42,6 @@ data="{ \"ENABLE_OPENAI_API\":true, \"OPENAI_API_BASE_URLS\":[\"https://aiproxy.
 response=`curl -sS -X POST $URL/openai/config/update -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data"`
 #echo $response
 
-echo "{\"name\":\"${name}\", \"email\":\"${email}\", \"password\":\"${passwd}\"}" > /disk/admin/modules/_config_/openwebui.json
+echo "{\"name\":\"${CLOUDNAME}\", \"email\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/openwebui.json
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 -user.sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

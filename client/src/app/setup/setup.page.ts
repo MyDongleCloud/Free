@@ -252,11 +252,13 @@ async doWiFi() {
 		this.global.consolelog(2, "Master final", ret2);
 	} catch(e) {}
 	const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const primary = this.domain1.value != "" ? this.domain1.value : (this.name1.value + ".mydongle.cloud");
 	const data = {
 		a:"setup",
 		cloud: {
 			info: {
 				language: navigator.language.startsWith("fr") ? "fr" : "en",
+				primary,
 				name: this.name1.value,
 				shortname: this.shortname1.value,
 				domain: this.domain1.value

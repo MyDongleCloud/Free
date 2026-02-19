@@ -1,29 +1,15 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for signoz [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset signoz##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
-EMAIL="admin@$CLOUDNAME.mydongle.cloud"
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+EMAIL="admin@${CLOUDNAME}.mydongle.cloud"
+PRIMARY=$(jq -r ".info.primary" /disk/admin/modules/_config_/_cloud_.json)
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
-dbpass=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
 systemctl stop signoz.service
 rm -rf /disk/admin/modules/signoz
@@ -63,9 +49,9 @@ sqlstore:
 
 alertmanager:
   signoz:
-    external_url: https://$CLOUDNAME.mydongle.cloud
+    external_url: https://${PRIMARY}
     global:
-      smtp_from: $EMAIL
+      smtp_from: ${EMAIL}
       smtp_smarthost: localhost:465
       smtp_require_tls: false
       smtp_tls_config:
@@ -76,4 +62,4 @@ systemctl start signoz.service
 systemctl enable signoz.service
 echo "{\"email\":\"${EMAIL}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/signoz.json
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

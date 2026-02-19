@@ -1,23 +1,9 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for tabby [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 #	exit 0
 fi
-
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
 
 echo "#Reset tabby##################"
 TIMEOUT=10

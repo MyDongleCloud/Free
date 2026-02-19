@@ -1,23 +1,9 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for mysql [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
-
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
 
 echo "#Reset mysql##################"
 PASSWORD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
@@ -31,7 +17,7 @@ while [ $TIMEOUT -gt 0 ]; do
 	sleep 1
 	TIMEOUT=$((TIMEOUT - 1))
 	[ $TIMEOUT -eq 0 ] && echo "Timeout waiting for MySQL" && exit 1
-	mysql -u root -e "SELECT 1" 2>&1 > /dev/null
+	mysql -u root -e "SELECT 1" > /dev/null 2>&1
 	if [ $? = 0 ]; then
 		break
 	fi
@@ -56,4 +42,4 @@ echo "{\"mysql_username\":\"root\", \"mysql_password\":\"${PASSWORD}\"}"
 } | jq -s 'add' > /disk/admin/modules/_config_/adminer.json.tmp && mv /disk/admin/modules/_config_/adminer.json.tmp /disk/admin/modules/_config_/adminer.json
 chown admin:admin /disk/admin/modules/_config_/adminer.json
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

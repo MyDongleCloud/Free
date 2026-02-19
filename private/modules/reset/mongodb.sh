@@ -1,31 +1,17 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for mongodb [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset mongodb##################"
-DATE=`date +%s`
+DATE=$(date +%s)
 PASSWORD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 systemctl stop mongodb.service
 rm -rf /disk/admin/modules/mongodb
 mkdir /disk/admin/modules/mongodb
-mongod --fork --logpath /var/log/mongodb/mongod.log --config /etc/mongod.conf --bind_ip 127.0.0.1 --noauth > /tmp/reset-mongodb-$DATE.log 2>&1
+mongod --fork --logpath /var/log/mongodb/mongod.log --config /etc/mongod.conf --bind_ip 127.0.0.1 --noauth > /tmp/reset-mongodb-${DATE}.log 2>&1
 TIMEOUT=10
 echo "10 seconds to watch MongoDB starting..."
 while [ $TIMEOUT -gt 0 ]; do
@@ -76,4 +62,4 @@ echo "{\"mongodb_username\":\"admin\", \"mongodb_password\":\"${PASSWORD}\"}"
 } | jq -s 'add' > /disk/admin/modules/_config_/adminer.json.tmp && mv /disk/admin/modules/_config_/adminer.json.tmp /disk/admin/modules/_config_/adminer.json
 chown admin:admin /disk/admin/modules/_config_/adminer.json
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

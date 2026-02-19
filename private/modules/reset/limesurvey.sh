@@ -1,26 +1,13 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for limesurvey [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset limesurvey##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+EMAIL="admin@${CLOUDNAME}.mydongle.cloud"
 DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
@@ -39,18 +26,15 @@ cp /usr/local/modules/limesurvey/application/config/config.php.bak /disk/admin/m
 cp /usr/local/modules/limesurvey/application/config/security.php.bak /disk/admin/modules/limesurvey/
 cp -a /usr/local/modules/limesurvey/upload.bak /disk/admin/modules/limesurvey/upload
 
-user="${CLOUDNAME}"
-pass="${PASSWD}"
-email="admin@${CLOUDNAME}.mydongle.cloud"
 dbname="limesurveyDB"
 dbuser="limesurveyUser"
 dbpass="${DBPASS}"
 
 cd /usr/local/modules/limesurvey
 
-echo "{\"email\":\"${email}\", \"username\":\"${user}\", \"password\":\"${pass}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/limesurvey.json
+echo "{\"email\":\"${EMAIL}\", \"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/limesurvey.json
 chown admin:admin /disk/admin/modules/_config_/limesurvey.json
 
 chown -R www-data:admin /disk/admin/modules/limesurvey
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

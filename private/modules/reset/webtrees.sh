@@ -1,27 +1,14 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for webtrees [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset webtrees##################"
-DATE=`date +%s`
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+DATE=$(date +%s)
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+EMAIL="admin@${CLOUDNAME}.mydongle.cloud"
 DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
@@ -38,15 +25,10 @@ rm -rf /disk/admin/modules/webtrees
 mkdir /disk/admin/modules/webtrees
 cp -a /usr/local/modules/webtrees/data.bak /disk/admin/modules/webtrees/data
 
-wtname="${CLOUDNAME}"
-wtuser="${CLOUDNAME}"
-wtpass="${PASSWD}"
-wtemail="admin@${CLOUDNAME}.mydongle.cloud"
 prefix="ost_"
 dbhost="localhost"
 dbname="webtreesDB"
 dbuser="webtreesUser"
-dbpass="${DBPASS}"
 
 cd /usr/local/modules/webtrees
 cat > /tmp/webtrees.php << EOF
@@ -56,14 +38,14 @@ cat > /tmp/webtrees.php << EOF
 \$_POST['dbhost'] = '$dbhost';
 \$_POST['dbport'] = '3306';
 \$_POST['dbuser'] = '$dbuser';
-\$_POST['dbpass'] = '$dbpass';
+\$_POST['dbpass'] = '$DBPASS';
 \$_POST['dbname'] = '$dbname';
 \$_POST['tblpfx'] = '$prefix';
 \$_POST['baseurl'] = '';
-\$_POST['wtname'] = '$wtname';
-\$_POST['wtuser'] = '$wtuser';
-\$_POST['wtpass'] = '$wtpass';
-\$_POST['wtemail'] = '$wtemail';
+\$_POST['wtname'] = '${CLOUDNAME}';
+\$_POST['wtuser'] = '${CLOUDNAME}';
+\$_POST['wtpass'] = '${PASSWD}';
+\$_POST['wtemail'] = '${EMAIL}';
 \$_POST['step'] = '6';
 
 \$_SERVER['REQUEST_METHOD'] = 'POST';
@@ -78,15 +60,15 @@ include '/usr/local/modules/webtrees/index.php';
 EOF
 
 sed -i -e "s/'cli'/'cli2'/" /usr/local/modules/webtrees/app/Webtrees.php
-php /tmp/webtrees.php > /tmp/reset-webtrees-$DATE.log 2>&1
+php /tmp/webtrees.php > /tmp/reset-webtrees-${DATE}.log 2>&1
 sed -i -e "s/'cli2'/'cli'/" /usr/local/modules/webtrees/app/Webtrees.php
 rm /tmp/webtrees.php
 
 rm -f /disk/admin/modules/webtrees/conf.txt
-echo "{\"email\":\"${wtemail}\", \"username\":\"${wtuser}\", \"password\":\"${wtpass}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/webtrees.json
+echo "{\"email\":\"${EMAIL}\", \"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${DBPASS}\"}" > /disk/admin/modules/_config_/webtrees.json
 chown admin:admin /disk/admin/modules/_config_/webtrees.json
 
 chown -R admin:admin /disk/admin/modules/webtrees
 chown -R www-data:admin /disk/admin/modules/webtrees/data
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

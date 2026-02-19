@@ -1,28 +1,13 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for invidious [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset invidious##################"
 systemctl stop invidiouscompanion.service
 systemctl stop invidious.service
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
 SALT=$(pwgen 16 1)
 export dbpass=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 
@@ -65,4 +50,4 @@ systemctl start invidious.service
 systemctl enable invidiouscompanion.service
 systemctl enable invidious.service
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

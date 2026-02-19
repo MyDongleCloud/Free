@@ -1,27 +1,15 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for lobechat [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset lobechat##################"
 systemctl stop lobechat.service
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+EMAIL="admin@${CLOUDNAME}.mydongle.cloud"
+PRIMARY=$(jq -r ".info.primary" /disk/admin/modules/_config_/_cloud_.json)
 KEY_VAULTS_SECRET=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 BETTER_AUTH_SECRET=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 QSTASH_TOKEN=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
@@ -48,10 +36,10 @@ cat > /disk/admin/modules/lobechat/env << EOF
 REDIS_URL=redis://localhost:6379
 REDIS_PREFIX=lobechat
 
-SMTP_HOST=${CLOUDNAME}.mydongle.cloud
+SMTP_HOST=${PRIMARY}
 SMTP_PORT=465
 SMTP_SECURE=false
-SMTP_USER=admin@${CLOUDNAME}.mydongle.cloud
+SMTP_USER=${EMAIL}
 SMTP_PASS=demodemo
 
 DATABASE_URL=postgres://lobechatuser:${dbpass}@127.0.0.1:5432/lobechatdb?sslmode=disable
@@ -71,4 +59,4 @@ chown -R admin:admin /disk/admin/modules/lobechat
 systemctl start lobechat.service
 systemctl enable lobechat.service
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

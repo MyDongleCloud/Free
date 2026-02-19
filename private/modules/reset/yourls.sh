@@ -1,27 +1,14 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for yourls [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset yourls##################"
-DATE=`date +%s`
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+DATE=$(date +%s)
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+PRIMARY=$(jq -r ".info.primary" /disk/admin/modules/_config_/_cloud_.json)
 SALT=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
@@ -40,21 +27,18 @@ mkdir /disk/admin/modules/yourls
 cp /usr/local/modules/yourls/user/config-sample.php /disk/admin/modules/yourls/config.php
 
 dbuser="yourlsUser"
-dbpass="${DBPASS}"
 dbname="yourlsDB"
-site="https://yourls.${CLOUDNAME}.mydongle.cloud"
-username="${CLOUDNAME}"
-passwd="${PASSWD}"
+site="https://yourls.${PRIMARY}"
 saltpass=$(tr -dc '1-9' < /dev/urandom | head -c 5)
-md5=`echo -n "$saltpass$passwd" | md5sum | cut -d ' ' -f 1`
+md5=`echo "$saltpass${PASSWD}" | md5sum | cut -d ' ' -f 1`
 passwdMd5="md5:$saltpass:$md5"
 
 sed -i -e "s|define( 'YOURLS_DB_USER',.*|define( 'YOURLS_DB_USER', '$dbuser' );|" /disk/admin/modules/yourls/config.php
-sed -i -e "s|define( 'YOURLS_DB_PASS',.*|define( 'YOURLS_DB_PASS', '$dbpass' );|" /disk/admin/modules/yourls/config.php
+sed -i -e "s|define( 'YOURLS_DB_PASS',.*|define( 'YOURLS_DB_PASS', '$DBPASS' );|" /disk/admin/modules/yourls/config.php
 sed -i -e "s|define( 'YOURLS_DB_NAME',.*|define( 'YOURLS_DB_NAME', '$dbname' );|" /disk/admin/modules/yourls/config.php
 sed -i -e "s|define( 'YOURLS_SITE',.*|define( 'YOURLS_SITE', '$site' );|" /disk/admin/modules/yourls/config.php
 sed -i -e "s|define( 'YOURLS_COOKIEKEY',.*|define( 'YOURLS_COOKIEKEY', '$SALT' );|" /disk/admin/modules/yourls/config.php
-sed -i -e "s|	'username' => 'password',.*|	'$username' => '$passwdMd5',|" /disk/admin/modules/yourls/config.php
+sed -i -e "s|	'username' => 'password',.*|	'${CLOUDNAME}' => '$passwdMd5',|" /disk/admin/modules/yourls/config.php
 
 cd /usr/local/modules/yourls
 cat > /tmp/yourls.php << EOF
@@ -66,7 +50,7 @@ cat > /tmp/yourls.php << EOF
 include '/usr/local/modules/yourls/admin/install.php';
 ?>
 EOF
-php /tmp/yourls.php > /tmp/reset-yourls-$DATE.log 2>&1
+php /tmp/yourls.php > /tmp/reset-yourls-${DATE}.log 2>&1
 rm /tmp/yourls.php
 
 mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
@@ -77,6 +61,6 @@ UPDATE yourls_options SET option_value='a:2:{i:0;s:27:"random-shorturls/plugin.p
 EOF
 
 rm -f /disk/admin/modules/yourls/conf.txt
-echo "{\"username\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${dbpass}\"}" > /disk/admin/modules/_config_/yourls.json
+echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"dbname\":\"${dbname}\", \"dbuser\":\"${dbuser}\", \"dbpass\":\"${DBPASS}\"}" > /disk/admin/modules/_config_/yourls.json
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

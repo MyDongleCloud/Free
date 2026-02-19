@@ -1,26 +1,12 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for privatebin [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" != "m0" ]; then
+if [ "$(id -u)" != "0" ]; then
 	echo "You need to be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset privatebin##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
 rm -rf /disk/admin/modules/privatebin
 mkdir -p /disk/admin/modules/privatebin/data
 cp /usr/local/modules/privatebin/cfg/conf.sample.php /disk/admin/modules/privatebin/conf.php
@@ -36,4 +22,4 @@ sed -i -e "s@^; apiurl = \"https://yourls.example.com/yourls-api.php\"@apiurl = 
 chown -R admin:admin /disk/admin/modules/privatebin
 chown -R www-data:admin /disk/admin/modules/privatebin/data
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

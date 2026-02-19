@@ -1,27 +1,15 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for mantisbugtracker [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 #	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset mantisbugtracker##################"
-DATE=`date +%s`
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
+DATE=$(date +%s)
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+EMAIL="admin@${CLOUDNAME}.mydongle.cloud"
+PRIMARY=$(jq -r ".info.primary" /disk/admin/modules/_config_/_cloud_.json)
 SALT=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 32)
 DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
@@ -53,11 +41,8 @@ admin_password=""
 db_table_prefix="mantis"
 db_table_plugin_prefix="plugin"
 db_table_suffix="_table"
-path="https://mantisbugtracker.$CLOUDNAME.mydongle.cloud/"
+path="https://mantisbugtracker.${PRIMARY}/"
 log_queries="0"
-username="$CLOUDNAME"
-email="admin@${CLOUDNAME}.mydongle.cloud"
-passwd="${PASSWD}"
 
 sed -i -e "s/^\\\$g_hostname.*/\\\$g_hostname = '$hostname';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
 sed -i -e "s/^\\\$g_db_username.*/\\\$g_db_username = '$db_username';/" /disk/admin/modules/mantisbugtracker/config/config_inc.php
@@ -91,14 +76,14 @@ cat > /tmp/mantisbugtracker.php << EOF
 include '/usr/local/modules/mantisbugtracker/admin/install.php';
 ?>
 EOF
-php /tmp/mantisbugtracker.php > /tmp/reset-mantisbugtracker-$DATE.log 2>&1
+php /tmp/mantisbugtracker.php > /tmp/reset-mantisbugtracker-${DATE}.log 2>&1
 rm /tmp/mantisbugtracker.php
 
 mysql --defaults-file=/disk/admin/modules/mysql/conf.txt << EOF
 USE mantisbugtrackerDB;
-UPDATE ${db_table_prefix}_user${db_table_suffix} SET username='${username}', password=MD5('${passwd}'), email='${email}' WHERE username='administrator';
+UPDATE ${db_table_prefix}_user${db_table_suffix} SET username='${CLOUDNAME}', password=MD5('${PASSWD}'), email='${EMAIL}' WHERE username='administrator';
 EOF
 
-echo "{\"username\":\"${username}\", \"password\":\"${passwd}\", \"dbname\":\"${database_name}\", \"dbuser\":\"${db_username}\", \"dbpass\":\"${db_password}\"}" > /disk/admin/modules/_config_/mantisbugtracker.json
+echo "{\"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\", \"dbname\":\"${database_name}\", \"dbuser\":\"${db_username}\", \"dbpass\":\"${db_password}\"}" > /disk/admin/modules/_config_/mantisbugtracker.json
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

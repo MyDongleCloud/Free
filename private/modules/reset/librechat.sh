@@ -1,31 +1,18 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for metube [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 	exit 0
 fi
 
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
-
 echo "#Reset librechat##################"
-CLOUDNAME=`cat /disk/admin/modules/_config_/_cloud_.json | jq -r ".info.name"`
-MEILISEARCH_KEY=`cat /disk/admin/modules/_config_/meilisearch.json | jq -r ".key"`
+CLOUDNAME=$(jq -r ".info.name" /disk/admin/modules/_config_/_cloud_.json)
+EMAIL="admin@${CLOUDNAME}.mydongle.cloud"
+MEILISEARCH_KEY=$(jq -r ".key" /disk/admin/modules/_config_/meilisearch.json)
 cd /disk/admin/modules
 systemctl stop librechat.service
 
-MONGODB_PASSWORD=`cat /disk/admin/modules/_config_/mongodb.json | jq -r ".password"`
+MONGODB_PASSWORD=$(jq -r ".password" /disk/admin/modules/_config_/mongodb.json)
 DBPASS=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
 mongosh --host 127.0.0.1 -u admin --authenticationDatabase admin -p $MONGODB_PASSWORD <<EOF
 use librechatDB
@@ -41,10 +28,7 @@ db.createUser({
 });
 EOF
 
-EMAIL="admin@$CLOUDNAME.mydongle.cloud"
 PASSWD=$(pwgen -B -c -y -n -r "\"\!\'\`\$@~#%^&*()+={[}]|:;<>?/" 12 1)
-NAME=$CLOUDNAME
-USERNAME=$CLOUDNAME
 
 rm -rf /disk/admin/modules/librechat
 mkdir -p /disk/admin/modules/librechat/logs
@@ -56,10 +40,10 @@ sed -i -e "s|^MONGO_URI=.*|MONGO_URI=mongodb://librechatUser:$DBPASS@127.0.0.1:2
 chown admin:admin /disk/admin/modules/librechat
 
 cd /usr/local/modules/librechat
-NODE_DEBUG=mongoose npm run create-user -- $EMAIL $NAME $USERNAME $PASSWD --email-verified=false > /dev/null
-echo "{\"email\":\"${EMAIL}\", \"username\":\"${USERNAME}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/librechat.json
+NODE_DEBUG=mongoose npm run create-user -- ${EMAIL} ${CLOUDNAME} ${CLOUDNAME} ${PASSWD} --email-verified=false > /dev/null
+echo "{\"email\":\"${EMAIL}\", \"username\":\"${CLOUDNAME}\", \"password\":\"${PASSWD}\"}" > /disk/admin/modules/_config_/librechat.json
 
 systemctl start librechat.service
 systemctl enable librechat.service
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094

@@ -1,23 +1,9 @@
 #!/bin/sh
 
-helper() {
-echo "*******************************************************"
-echo "Usage for pinchflat [-h]"
-echo "h:	Print this usage and exit"
-exit 0
-}
-
-if [ "m`id -u`" = "m0" ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "You should not be root"
 #	exit 0
 fi
-
-while getopts h opt
-do
-	case "$opt" in
-		h) helper;;
-	esac
-done
 
 echo "#Reset pinchflat##################"
 SECRET_KEY_BASE=$(tr -dc 'a-f0-9' < /dev/urandom | head -c 64)
@@ -34,4 +20,4 @@ cd /usr/local/modules/pinchflat/_build/prod/rel/pinchflat
 systemctl start pinchflat.service
 systemctl enable pinchflat.service
 
-echo {" \"a\":\"status\", \"module\":\"$(basename $0 .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
+echo "{ \"a\":\"status\", \"module\":\"$(basename \""$0"\" .sh)\", \"state\":\"finish\" }" | websocat -1 ws://localhost:8094
