@@ -35,7 +35,7 @@
 					@if (name1?.invalid && (name1?.touched || name1?.value?.length >= 1)) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text--red-500 w-5 h-5"></ion-icon>
-						{{L("Must have 5-20 characters: a-z, 0-9, -, _")}}
+						{{L("Must have 5-20 characters: a-z, 0-9")}}
 					</div>
 					} @else if (name1?.value.length >= 6) {
 					<label for="name1" class="block text-sm font-medium text--gray-500 mt-1">https://{{name1?.value}}.mydongle.cloud</label>
@@ -53,7 +53,7 @@
 					@if (shortname1?.invalid && (shortname1?.touched || shortname1?.value.length >= 1)) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
 						<ion-icon name="alert-circle-outline" class="text--red-500 w-5 h-5"></ion-icon>
-						{{L("Must have 2-20 characters: a-z, 0-9, -, _")}}
+						{{L("Must have 2-20 characters: a-z, 0-9")}}
 					</div>
 					} @else if (shortname1?.value.length >= 2) {
 					<label for="shortname1" class="block text-sm font-medium text--gray-500 mt-1">https://{{shortname1?.value}}.myd.cd</label>

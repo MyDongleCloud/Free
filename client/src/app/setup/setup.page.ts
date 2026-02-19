@@ -134,11 +134,11 @@ checkFormDomain = () => {
 }
 
 checkname1(group: FormGroup) {
-	return /[a-z0-9-_]{5,20}$/i.test(group.value) ? null : {"invalid": true};
+	return /[a-z0-9]{5,20}$/i.test(group.value) ? null : {"invalid": true};
 }
 
 checkShortname1(group: FormGroup) {
-	return /[a-z0-9-_]{2,20}$/i.test(group.value) ? null : {"invalid": true};
+	return /[a-z0-9]{2,20}$/i.test(group.value) ? null : {"invalid": true};
 }
 
 checkDomain1(group: FormGroup) {
