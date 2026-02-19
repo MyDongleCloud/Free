@@ -39,7 +39,7 @@
     "@capacitor/preferences": "7.0.2",
     "@capacitor/status-bar": "7.0.2",
     "@fingerprintjs/fingerprintjs": "^5.0.1",
-    "@fishballpkg/acme": "^0.13.0",
+    "@fishballpkg/acme": "^0.14.0",
     "@ionic/angular": "8.7.11",
     "@ngx-translate/core": "17.0.0",
     "@ngx-translate/http-loader": "17.0.0",

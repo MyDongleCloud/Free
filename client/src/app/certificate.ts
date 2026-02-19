@@ -15,9 +15,11 @@ constructor(private global: Global, private httpClient: HttpClient) {}
 async process(name, shortname, customDomain) {
 	const ret = { privateKey:"", fullChain:"" };
 	const data = {};
-	const domains = [ name + ".mydongle.cloud", shortname + ".myd.cd", customDomain ];
-	if (customDomain && customDomain != "")
+	const domains = [ name + ".mydongle.cloud", "*." + name + ".mydongle.cloud", shortname + ".myd.cd", "*." + shortname + ".myd.cd" ];
+	if (customDomain && customDomain != "") {
 		domains.push(customDomain);
+		domains.push("*." + customDomain);
+	}
 	const client = await AcmeClient.init(ACME_DIRECTORY_URLS.LETS_ENCRYPT_STAGING);
 	const account = await client.createAccount({ emails: ["acme@mydongle.cloud"] });
 	const order = await account.createOrder({ domains });
@@ -27,9 +29,7 @@ async process(name, shortname, customDomain) {
 	const expectedRecords = await Promise.all(
 		dns01Challenges.map(async (challenge) => {
 			const txtRecordContent = await challenge.digestToken();
-			const domainArray = (data[challenge.authorization.domain] ??= []);
-			if (!domainArray.includes(txtRecordContent))
-				domainArray.push(txtRecordContent);
+			(data[challenge.authorization.domain.replace("*.", "")] ??= []).push(txtRecordContent);
 			return true;
 		})
 	);
