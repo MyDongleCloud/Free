@@ -20,7 +20,7 @@ constructor(private global: Global, private httpClient: HttpClient) {}
 async process(name, shortname, customDomain) {
 	const ret = { accountKey:"", accountKeyId:"", fullChain:"", privateKey:"" };
 	const STAGING = true;
-	let acme = ACME.create({ maintainerEmail:"acme@@mydongle.cloud", packageAgent:"MDC/2026-01-01", notify:function (ev, msg) { /*this.global.consolelog(1, msg);*/ }, skipDryRun:true/*, skipChallengeTest:true*/ });
+	let acme = ACME.create({ maintainerEmail:"acme@@mydongle.cloud", packageAgent:"MDC/2026-01-01", notify:function (ev, msg) { console.log("AACMEE", msg); }, skipDryRun:true, skipChallengeTest:true });
 	await acme.init("https://acme" + (STAGING ? "-staging" : "") + "-v02.api.letsencrypt.org/directory");
 
 	const accountKeypair = await Keypairs.generate({ kty: "EC", format: "jwk" });
@@ -38,7 +38,6 @@ async process(name, shortname, customDomain) {
 	if (customDomain && customDomain != "")
 		zones.push(customDomain);
 	const domains = zones.flatMap(zone => [zone, `*.${zone}`]);
-console.log(domains);
 	const domainsNb = domains.length;
 	this.global.consolelog(2, "ACME: Domains", domains);
 	const csrDer = await CSR.csr({ jwk:serverKey, domains, encoding:"der" });
@@ -68,7 +67,6 @@ console.log(domains);
 				if (domains.length == dataIter) {
 					const retA = await this.httpClient.post(this.SERVERURL + "/master/setup-certificate.json", "add=1&v=" + encodeURIComponent(JSON.stringify(data)), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
 					this.global.consolelog(2, "setup-certificate: add", retA);
-					await this.global.sleepms(5000);
 					//alert("AuthorizationDigests sent to DNS server");
 				}
 			},
@@ -83,7 +81,7 @@ console.log(domains);
 						//this.global.consolelog(2, "ACME: Remove" + (challenge?.wildcard ? " (.*)" : ""), challenge);
 					//}
 			},
-			propagationDelay: 1000
+			propagationDelay: 5000
 		}
 	};
 	try {
