@@ -132,19 +132,32 @@ void cloudSetup(cJSON *el) {
 	}
 	updateIPExternal();
 	jsonWrite(elCloud, ADMIN_PATH "_config_/_cloud_.json");
+	mkdir(ADMIN_PATH "letsencrypt", 0775);
 	cJSON *elLetsencrypt = cJSON_GetObjectItem(el, "letsencrypt");
+	char *fullchain, *privkey;
+	int fullchainL = 0, privkeyL = 0;
 	if (elLetsencrypt) {
-		mkdir(ADMIN_PATH "letsencrypt", 0775);
+		fullchain = cJSON_GetStringValue2(elLetsencrypt, "fullchain");
+		if (fullchainL)
+			fullchainL = strlen(fullchain);
+		privkey = cJSON_GetStringValue2(elLetsencrypt, "privatekey");
+		if (privkeyL)
+			privkeyL = strlen(privkey);
+	}
+	if (fullchainL != 0 && privkeyL != 0) {
 		FILE *fpC = fopen(ADMIN_PATH "letsencrypt/fullchain.pem", "w");
 		if (fpC) {
-			fwrite(cJSON_GetStringValue2(elLetsencrypt, "fullchain"), strlen(cJSON_GetStringValue2(elLetsencrypt, "fullchain")), 1, fpC);
+			fwrite(fullchain, fullchainL, 1, fpC);
 			fclose(fpC);
 		}
 		FILE *fpK = fopen(ADMIN_PATH "letsencrypt/privkey.pem", "w");
 		if (fpK) {
-			fwrite(cJSON_GetStringValue2(elLetsencrypt, "privatekey"), strlen(cJSON_GetStringValue2(elLetsencrypt, "privatekey")), 1, fpK);
+			fwrite(privkey, privkeyL, 1, fpC);
 			fclose(fpK);
 		}
+	} else {
+		copyFile("/usr/local/modules/apache2/self-fullchain.pem", ADMIN_PATH "letsencrypt/fullchain.pem", NULL);
+		copyFile("/usr/local/modules/apache2/self-privkey.pem", ADMIN_PATH "letsencrypt/privkey.pem", NULL);
 	}
 	cJSON * elBetterauth = cJSON_GetObjectItem(el, "betterauth");
 	char buf[1024];
