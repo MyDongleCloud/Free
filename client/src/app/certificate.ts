@@ -20,7 +20,10 @@ async process(name, shortname, customDomain) {
 		domains.push(customDomain);
 		domains.push("*." + customDomain);
 	}
-	const client = await AcmeClient.init(ACME_DIRECTORY_URLS.LETS_ENCRYPT_STAGING);
+	const url = ACME_DIRECTORY_URLS.LETS_ENCRYPT_STAGING;
+	this.global.consolelog(1, "CERTIFICATE: Url", url);
+try {
+	const client = await AcmeClient.init(url);
 	const account = await client.createAccount({ emails: ["acme@mydongle.cloud"] });
 	const order = await account.createOrder({ domains });
 	const dns01Challenges = order.authorizations.map((authorization) => {
@@ -40,17 +43,20 @@ async process(name, shortname, customDomain) {
 	dns01Challenges.map(async (challenge) => {
 		await challenge.submit()
 	});
+	this.global.consolelog(1, "CERTIFICATE: PollStatus");
 	await order.pollStatus({
 		pollUntil: "ready",
 		onBeforeAttempt: () => {},
 		onAfterFailAttempt: () => { this.global.consolelog(1, "CERTIFICATE: After fail attempt"); }
 	});
+	this.global.consolelog(1, "CERTIFICATE: Finalize");
 	const certKeyPair = await order.finalize();
 	await order.pollStatus({ pollUntil: "valid" });
 	const key = await CryptoKeyUtils.exportKeyPairToPem(certKeyPair);
 	ret.privateKey = key.privateKey;
 	ret.fullChain = await order.getCertificate();
-	console.log(ret);
+} catch(e) { this.global.consolelog(0, "CERTIFICATE: ERROR", e); }
+	this.global.consolelog(1, "CERTIFICATE: Ret", ret);
 	const retD = await this.httpClient.post(this.SERVERURL + "/master/setup-certificate.json", "del=1&v=" + encodeURIComponent(JSON.stringify(data)), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
 	this.global.consolelog(1, "CERTIFICATE: Del", retD);
 	return ret;
