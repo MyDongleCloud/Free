@@ -21,7 +21,7 @@
 			<form [formGroup]="formDomain" (ngSubmit)="doDomain();" class="space-y-6">
 				<button type="button" (click)="connectToggle()" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]" [class]="ble.connectedBLE == 2 ? 'bg--green-600' : ble.connectedBLE == 1 ? 'bg--red-600' : 'bg--blue-600'" *ngIf="ble.connectedWS != 2">
 					<ion-icon name="bluetooth-outline" class="text--white w-6 h-6"></ion-icon>
-					{{L("Connect via Bluetooth")}}
+					{{L(ble.connectedBLE == 2 ? "Connected" : ble.connectedBLE == 1 ? "Connecting" : "Connect via Bluetooth")}}
 				</button>
 				<div>
 					<label for="name1" class="block text-sm font-medium text--gray-700">{{L("Primary Cloud URL")}}</label>
@@ -30,7 +30,7 @@
 						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 							<ion-icon name="globe-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
-						<input #name1E type="text" formControlName="name1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the desired cloud name" [class.border--red-300]="name1?.invalid && name1?.touched" [class.focus:ring--red-500]="name1?.invalid && name1?.touched">
+						<input #name1E (blur)="handleBlur($event, name1)" type="text" formControlName="name1" autocomplete="name" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the desired cloud name" [class.border--red-300]="name1?.invalid && name1?.touched" [class.focus:ring--red-500]="name1?.invalid && name1?.touched">
 					</div>
 					@if (name1?.invalid && (name1?.touched || name1?.value?.length >= 1)) {
 					<div class="flex items-center gap-1 text--red-500 text-sm mt-2">
@@ -68,7 +68,7 @@
 						</div>
 						<div class="flex items-center gap-2">
 							<input type="text" formControlName="domain1" autocomplete="name" class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="example.com" [class.border--red-300]="domain1?.invalid && domain1?.touched" [class.focus:ring--red-500]="domain1?.invalid && domain1?.touched">
-							<button type="button" (click)="verifyDns(domain1?.value)" class="flex justify-center items-center py-3 px-2 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
+							<button type="button" (click)="verifyDns(domain1?.value)" [disabled]="progress || domain1?.invalid || domain1?.value == ''" class="flex justify-center items-center py-3 px-2 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
 								@if (progress) {
 								<ion-icon name="cog-outline" class="animate-spin text--white w-6 h-6"></ion-icon>
 								}
@@ -91,7 +91,7 @@
 							<input name="terms1" type="checkbox" formControlName="terms1" required class="w-4 h-4 text--blue-600 focus:ring--blue-700 border--gray-300 rounded">
 						</div>
 						<div class="ml-3 text-sm">
-							<label for="terms1" class="text--gray-700">{{L("I agree to the")}} <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Terms of Service")}}</a> {{L("and")}} <a href="#" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Privacy Policy")}}</a></label>
+							<label for="terms1" class="text--gray-700">{{L("I agree to the")}} <a href="https://mydongle.cloud/terms" target="_blank" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Terms of Service")}}</a> {{L("and")}} <a href="https://mydongle.cloud/privacy" target="_blank" class="text--blue-600 hover:text--blue-700 font-medium">{{L("Privacy Policy")}}</a></label>
 						</div>
 					</div>
 					@if (terms1?.errors?.["required"] && terms1?.touched) {
@@ -223,6 +223,10 @@
 						{{L("Password must match")}}
 					</div>
 					}
+					<div class="flex items-center gap-1 text--green-500 text-sm mt-2">
+						<ion-icon name="info-circle-outline" class="text--green-500 w-5 h-5"></ion-icon>
+						{{L("This password goes directly to the hardware without transiting via the Internet")}}
+					</div>
 				</div>
 				@if (errorSt) {
 				<div class="bg--red-50 border border--red-200 rounded-xl p-4">
@@ -305,7 +309,7 @@
 							<ion-icon name="lock-closed-outline" class="text--gray-500 w-4 h-4"></ion-icon>
 						</div>
 						<div class="flex items-center gap-0">
-							<input formControlName="password3" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the password" [class.border--red-300]="password3?.invalid && password3?.touched" [class.focus:ring--red-500]="password3?.invalid && password3?.touched" [type]="password3Show ? 'text' : 'password'">
+							<input formControlName="password3" autocomplete="new-password" required class="block w-full pl-10 pr-3 py-3 border border--gray-300 rounded-xl placeholder--gray-400 focus:outline-none focus:ring-2 focus:ring--blue-700 focus:border-transparent transition-colors duration-200 text--gray-900" placeholder="Enter the Wi-Fi password" [class.border--red-300]="password3?.invalid && password3?.touched" [class.focus:ring--red-500]="password3?.invalid && password3?.touched" [type]="password3Show ? 'text' : 'password'">
 							<button (click)="password3Show = !password3Show;" type="button" class="flex justify-center items-center bg--blue-500 p-2 rounded ml-2" style="cursor:pointer;"><ion-icon [name]="password3Show ? 'eye-off-outline' : 'eye-outline'" class="text--white"></ion-icon></button>
 						</div>
 					</div>
@@ -315,7 +319,19 @@
 						{{L("Must be at least 8 characters")}}
 					</div>
 					}
+					<div class="flex items-center gap-1 text--green-500 text-sm mt-2">
+						<ion-icon name="information-circle-outline" class="text--green-500 w-5 h-5"></ion-icon>
+						{{L("This password goes directly to the hardware without transiting via the Internet")}}
+					</div>
 				</div>
+				@if (errorSt) {
+				<div class="bg--red-50 border border--red-200 rounded-xl p-4">
+					<div class="flex items-center gap-2">
+						<ion-icon name="alert-circle-outline" class="text--red-500 w-5 h-5"></ion-icon>
+						<span class="text--red-800 text-sm font-medium">{{ errorSt }}</span>
+					</div>
+				</div>
+				}
 				<button type="submit" [disabled]="progress || formPassword.invalid" class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text--white bg--blue-600 hover:bg--blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text--gray-900 transform hover:scale-[1.02]">
 					@if (progress) {
 					<ion-icon name="cog-outline" class="animate-spin text--white w-6 h-6"></ion-icon>

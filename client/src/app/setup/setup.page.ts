@@ -50,7 +50,7 @@ constructor(public global: Global, public certificate: Certificate, private rout
 	this.formDomain = fb.group({
 		"name1": [ "", [ this.checkname1 ] ],
 		"shortname1": [ "", [ this.checkShortname1 ] ],
-		"domain1": [ "", [ this.checkDomain1 ] ],
+		"domain1": [ "", [ this.checkDomain1.bind(this) ] ],
 		"terms1": [ false, Validators.requiredTrue ]
 	}, { validator: this.checkFormDomain } );
 	this.formPassword = fb.group({
@@ -144,6 +144,8 @@ checkShortname1(group: FormGroup) {
 }
 
 checkDomain1(group: FormGroup) {
+	if (group.value == "")
+		this.errorSt = null;
 	return group.value == "" || /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}$/i.test(group.value) ? null : {"invalid": true};
 }
 
@@ -161,9 +163,10 @@ async verifyDns(st) {
 			if (/^ns[1-2]\.mydongle\.cloud$/i.test(dns))
 				res = true;
 		});
-	this.errorSt = res ? null : "DNS doesn't point correctly. You can setup later (or it can take time to propagate)";
+	this.errorSt = res ? null : "DNS doesn't point correctly.";
 	this.progress = false;
 	this.cdr.detectChanges();
+	return res;
 }
 
 async wifiScan() {
@@ -205,9 +208,14 @@ async doDomain() {
 	this.errorSt = null;
 	const ret = await this.httpClient.post(this.global.SERVERURL + "/master/setup-domain.json", "name=" + encodeURIComponent(this.name1.value) + "&shortname=" + encodeURIComponent(this.shortname1.value), { headers:{ "content-type":"application/x-www-form-urlencoded" } }).toPromise();
 	this.global.consolelog(2, "Master domain", ret);
-	if (ret["status"] === "success")
-		this.show_Password();
-	else {
+	if (ret["status"] === "success") {
+		if (this.formDomain.controls.domain1.value != "") {
+			const ret = await this.verifyDns(this.formDomain.controls.domain1.value);
+			if (ret)
+				this.show_Password();
+		} else
+			this.show_Password();
+	} else {
 		if (ret["name"] && ret["shortname"])
 			this.errorSt = this.name1.value + " is not available ; " + this.shortname1.value + " is not available";
 		else if (ret["name"])
