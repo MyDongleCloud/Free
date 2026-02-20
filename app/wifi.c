@@ -7,6 +7,7 @@
 #include <NetworkManager.h>
 #include <nm-utils.h>
 #include <nm-remote-connection.h>
+#include "cJSON.h"
 #include "macro.h"
 
 #define DEBUG
@@ -185,6 +186,52 @@ int wiFiAddActivate(const char *ssid, const char *pwd) {
 	return 0;
 }
 
+cJSON *wiFiScan() {
+	NMClient *client = nm_client_new(NULL, NULL);
+	if (!client) {
+		return NULL;
+	}
+	const GPtrArray *devices = nm_client_get_devices(client);
+	NMDevice *wifi_device = NULL;
+	for (guint i = 0; i < devices->len; i++) {
+		NMDevice *device = g_ptr_array_index(devices, i);
+		if (nm_device_get_device_type(device) == NM_DEVICE_TYPE_WIFI) {
+			wifi_device = device;
+			break;
+		}
+	}
+	if (!wifi_device) {
+		g_object_unref(client);
+		return NULL;
+	}
+	cJSON *ret = cJSON_CreateObject();
+	cJSON *ssid_list = cJSON_CreateArray();
+	cJSON_AddItemToObject(ret, "ssids", ssid_list);
+	NMDeviceWifi *wifi_dev = NM_DEVICE_WIFI(wifi_device);
+	nm_device_wifi_request_scan(wifi_dev, NULL, NULL);
+	const GPtrArray *aps = nm_device_wifi_get_access_points(wifi_dev);
+	if (aps) {
+		for (guint i = 0; i < aps->len; i++) {
+			NMAccessPoint *ap = g_ptr_array_index(aps, i);
+			GBytes *ssid_bytes = nm_access_point_get_ssid(ap);
+			if (ssid_bytes) {
+				gsize size;
+				const guint8 *data = g_bytes_get_data(ssid_bytes, &size);
+				char *ssid_utf8 = nm_utils_ssid_to_utf8(data, size);
+				guint8 strength = nm_access_point_get_strength(ap);
+				PRINTF("Wifi: %s (strength: %d%%)\n", ssid_utf8, strength);
+				cJSON *item = cJSON_CreateObject();
+				cJSON_AddStringToObject(item, "ssid", ssid_utf8);
+				cJSON_AddNumberToObject(item, "strength", strength);
+				cJSON_AddItemToArray(ssid_list, item);
+				g_free(ssid_utf8);
+			}
+		}
+	}
+	g_object_unref(client);
+	return ret;
+}
+
 void wiFiPrint() {
 	NMClient *client = nm_client_new(NULL, NULL);
 	if (!client) {
@@ -252,6 +299,24 @@ void wiFiPrint() {
 					PRINTF("WiFi: %s (SSID: %s, State: %s)\n", conn_id, ssid_utf8, nm_active_connection_get_state(ac) == NM_ACTIVE_CONNECTION_STATE_ACTIVATED ? "ACTIVATED" : "DEACTIVATED");
 					g_free(ssid_utf8);
 				}
+			}
+		}
+	}
+	NMDeviceWifi *wifi_dev = NM_DEVICE_WIFI(wifi_device);
+	nm_device_wifi_request_scan(wifi_dev, NULL, NULL);
+	const GPtrArray *aps = nm_device_wifi_get_access_points(wifi_dev);
+	PRINTF("WiFi: Available SSIDs:\n");
+	if (aps) {
+		for (guint i = 0; i < aps->len; i++) {
+			NMAccessPoint *ap = g_ptr_array_index(aps, i);
+			GBytes *ssid_bytes = nm_access_point_get_ssid(ap);
+			if (ssid_bytes) {
+				gsize size;
+				const guint8 *data = g_bytes_get_data(ssid_bytes, &size);
+				char *ssid_utf8 = nm_utils_ssid_to_utf8(data, size);
+				guint8 strength = nm_access_point_get_strength(ap);
+				PRINTF("Wifi: %s (strength: %d%%)\n", ssid_utf8, strength);
+				g_free(ssid_utf8);
 			}
 		}
 	}

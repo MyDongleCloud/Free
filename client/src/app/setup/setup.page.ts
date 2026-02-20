@@ -33,6 +33,7 @@ formPassword: FormGroup;
 formWiFi: FormGroup;
 hasBlurredOnce: boolean = false;
 errorSt = null;
+ssids = null;
 
 constructor(public global: Global, public certificate: Certificate, private router: Router, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private fb: FormBuilder, public ble: BleService) {
 	global.refreshUI.subscribe(event => {
@@ -59,7 +60,7 @@ constructor(public global: Global, public certificate: Certificate, private rout
 		"password2Confirm": [ "", [Validators.required ] ]
 	}, { validator: this.checkFormPassword });
 	this.formWiFi = fb.group({
-		"ssid3": [ "", [ Validators.required ] ],
+		"ssid3": [ "", [ Validators.required, Validators.minLength(1) ] ],
 		"password3": [ "", [ Validators.required, Validators.minLength(8) ] ]
 	});
 	appConnectToggle(true);
@@ -89,7 +90,8 @@ async handleBleMessage(data) {
 			this.progress = false;
 			this.cdr.detectChanges();
 		}
-	}
+	} else if (data.ssids)
+		this.ssids = data.ssids.map(net => `${net.ssid} (${net.strength}%)`).join(", ");
 }
 
 handleBlur(event, element) {
@@ -162,6 +164,16 @@ async verifyDns(st) {
 	this.errorSt = res ? null : "DNS doesn't point correctly. You can setup later (or it can take time to propagate)";
 	this.progress = false;
 	this.cdr.detectChanges();
+}
+
+async wifiScan() {
+	const data = { a:"wifi-scan" }
+	if (this.ble.connectedWS == 2)
+		appSend(data);
+	else if (this.ble.connectedBLE == 2)
+		this.ble.writeData(data);
+	else
+		alert("Hardware not connected");
 }
 
 connectToggle() {

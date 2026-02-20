@@ -183,6 +183,10 @@ void communicationReceive(unsigned char *data, int size, char *orig) {
 			cJSON_AddStringToObject(cloud, "a", "cloud");
 			communicationJSON(cloud);
 			cJSON_Delete(cloud);
+		} else if (strcmp(action, "wifi-scan") == 0) {
+			cJSON *ssids = wiFiScan();
+			communicationJSON(ssids);
+			cJSON_Delete(ssids);
 		} else if (strcmp(action, "alert") == 0) {
 			PRINTF("communicationReceive: alert type:%s name:%s\n", cJSON_GetStringValue2(el, "type"), cJSON_GetStringValue2(el, "name"));
 		} else if (strcmp(action, "refresh-webserver") == 0) {
