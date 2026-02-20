@@ -44,7 +44,7 @@
 			},
 			"ssh": {
 				"type": "tcp",
-				"enabled": false,
+				"enabled": true,
 				"localPort": 22
 			},
 			"mail": {
@@ -54,17 +54,17 @@
 			},
 			"smtp": {
 				"type": "tcp",
-				"enabled": false,
+				"enabled": true,
 				"localPort": 465
 			},
 			"pop3": {
 				"type": "tcp",
-				"enabled": false,
+				"enabled": true,
 				"localPort": 995
 			},
 			"imap": {
 				"type": "tcp",
-				"enabled": false,
+				"enabled": true,
 				"localPort": 993
 			}
 		},
