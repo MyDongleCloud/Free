@@ -50,7 +50,6 @@ int serverWriteDataBle(unsigned char *data, int size) {
 }
 
 static int serverReadDataBle(unsigned char *data_, int size) {
-	pthread_mutex_lock(&bleMutex);
 	static unsigned char *data = NULL;
 	static int pos = 0;
 	static int chunks = 0;
@@ -76,7 +75,6 @@ static int serverReadDataBle(unsigned char *data_, int size) {
 	else {
 		PRINTF("serverReadData: ERROR\n");
 	}
-	pthread_mutex_unlock(&bleMutex);
 }
 
 static int le_callback(int clientnode, int operation, int cticn) {
